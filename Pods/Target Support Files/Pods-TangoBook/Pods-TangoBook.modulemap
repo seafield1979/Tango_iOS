@@ -1,0 +1,6 @@
+framework module Pods_TangoBook {
+  umbrella header "Pods-TangoBook-umbrella.h"
+
+  export *
+  module * { export * }
+}
