@@ -177,7 +177,7 @@ public class TangoCardDao {
      * @return
      */
     public static func selectByIds( itemPoses : [TangoItemPos],
-                                    noStar : Bool, changeable : Bool ) -> [TangoItem]?
+                                    noStar : Bool, changeable : Bool ) -> [TangoCard]?
     {
         if itemPoses.count <= 0 {
             return nil
@@ -215,43 +215,7 @@ public class TangoCardDao {
                 i += 1
             }
         }
-        
-//        RealmQuery<TangoCard> query = mRealm.where(TangoCard.class);
-//        
-//        boolean isFirst = true;
-//        for (TangoItemPos item : itemPoses) {
-//            if (isFirst) {
-//                isFirst = false;
-//            } else {
-//                query.or();
-//            }
-//            query.equalTo("id", item.getItemId());
-//            if (noStar) {
-//                query.equalTo("star", false);
-//            }
-//        }
-//        RealmResults<TangoCard> results = query.findAll();
-//        
-//        List<TangoCard> cards;
-//        if (results != null && changeable) {
-//            cards = toChangeable(results);
-//        } else {
-//            cards = results;
-//        }
-//        LinkedList<TangoCard> _cards = new LinkedList<>(cards);
-//        
-//        // itemPoses の順番に並び替え
-//        LinkedList<TangoCard> sortedList = new LinkedList<>();
-//        for (TangoItemPos item : itemPoses) {
-//            for (TangoCard card : _cards) {
-//                if (item.getItemId() == card.getId()) {
-//                    sortedList.add(card);
-//                    _cards.remove(card);
-//                    break;
-//                }
-//            }
-//        }
-        
+  
         return sortedList
     }
 

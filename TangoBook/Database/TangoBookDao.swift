@@ -23,6 +23,7 @@ public class TangoBookDao {
     
     public static var mRealm : Realm?
     
+    // アプリ起動時にRealmオブジェクトを生成したタイミングで呼び出す
     public static func setRealm(_ realm : Realm) {
         mRealm = realm
     }
@@ -31,7 +32,10 @@ public class TangoBookDao {
      */
     public static func getNum() -> Int {
         let list = selectAll()
-        return list.count
+        if list == nil {
+            return 0
+        }
+        return list!.count
     }
 
     /**

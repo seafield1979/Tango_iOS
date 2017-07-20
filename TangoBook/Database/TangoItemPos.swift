@@ -18,6 +18,17 @@ public enum TangoParentType : Int {
     case Home           // ホーム画面
     case Book           // 単語帳
     case Trash          // ゴミ箱
+    
+    static func toString(value : Int) -> String {
+        switch(self) {
+        case .Home:
+            return "Home"
+        case .Book:
+            return "Book"
+        case .Trash:
+            return "Trash"
+        }
+    }
 }
 
 /**
