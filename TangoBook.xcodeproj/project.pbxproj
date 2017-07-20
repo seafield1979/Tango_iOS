@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8AE6E9DF1F208319001D0694 /* UDebug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE6E9DE1F208319001D0694 /* UDebug.swift */; };
 		8AF7817B1F1F3E4400FC4EF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF7817A1F1F3E4400FC4EF2 /* AppDelegate.swift */; };
 		8AF7817D1F1F3E4400FC4EF2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF7817C1F1F3E4400FC4EF2 /* ViewController.swift */; };
 		8AF781801F1F3E4400FC4EF2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AF7817E1F1F3E4400FC4EF2 /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		488C90E2B6610DFD29991F5E /* Pods_TangoBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TangoBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AE6E9DE1F208319001D0694 /* UDebug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UDebug.swift; path = TangoBook/UUtil/UDebug.swift; sourceTree = "<group>"; };
 		8AF781771F1F3E4400FC4EF2 /* TangoBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TangoBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF7817A1F1F3E4400FC4EF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AF7817C1F1F3E4400FC4EF2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				8AF781BC1F1F4AFD00FC4EF2 /* NanoTimer.swift */,
 				8AF781C11F2058AF00FC4EF2 /* List.swift */,
 				8AF781C31F2058E400FC4EF2 /* RefDictionary.swift */,
+				8AE6E9DE1F208319001D0694 /* UDebug.swift */,
 			);
 			name = UUtil;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				8AF781AB1F1F445500FC4EF2 /* TangoBookHistoryDao.swift in Sources */,
 				8AF781B11F1F445500FC4EF2 /* TangoItemPos.swift in Sources */,
 				8AF781AA1F1F445500FC4EF2 /* TangoBookHistory.swift in Sources */,
+				8AE6E9DF1F208319001D0694 /* UDebug.swift in Sources */,
 				8AF781A61F1F445500FC4EF2 /* BackupFile.swift in Sources */,
 				8AF781B41F1F445500FC4EF2 /* TangoStudiedCardDao.swift in Sources */,
 				8AF781AE1F1F445500FC4EF2 /* TangoCardHistory.swift in Sources */,

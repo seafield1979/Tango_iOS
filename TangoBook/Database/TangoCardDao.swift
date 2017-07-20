@@ -393,7 +393,7 @@ public class TangoCardDao {
         card.comment = "comment:" + randVal
         card.color = (UIColor.black).intColor()
         card.star = false
-        var history : [Int] = [3]
+        var history : [Int] = Array(repeating: 0, count:3)
         for i in 0...history.count - 1 {
             history[i] = 1
         }
@@ -580,7 +580,6 @@ public class TangoCardDao {
             nextId = lastId! + 1
         }
         return nextId
-
     }
 
 

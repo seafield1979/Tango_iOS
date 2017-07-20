@@ -131,13 +131,10 @@ public class TangoCard : Object, TangoItem {
         return itemPos
     }
     
-    public func getCreateTime() -> Date {
-        
+    public func getCreateTime() -> Date? {
+        return createTime
     }
-    public func getUpdateTime() -> Date {
-        
-    }
-    public func getLastStudiedTime() -> Date {
-        
+    public func getUpdateTime() -> Date? {
+        return updateTime
     }
 }

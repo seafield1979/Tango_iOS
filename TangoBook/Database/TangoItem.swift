@@ -30,13 +30,13 @@ public protocol TangoItem {
     func getPos() -> Int
     func setPos(pos : Int)
     
-    func getTitle() -> String
+    func getTitle() -> String?
     func getItemType() -> TangoItemType
     
-    func setItemPos(itemPos : TangoItemPos)
-    func getItemPos() -> TangoItemPos
+    func setItemPos(itemPos : TangoItemPos?)
+    func getItemPos() -> TangoItemPos?
     
-    func getCreateTime() -> Date
-    func getUpdateTime() -> Date
-    func getLastStudiedTime() -> Date
+    func getCreateTime() -> Date?
+    func getUpdateTime() -> Date?
+//    func getLastStudiedTime() -> Date
 }
