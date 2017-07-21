@@ -98,11 +98,7 @@ public class TangoBookDao {
      */
     public static func selectById(id : Int) -> TangoBook? {
         let result = mRealm!.objects(TangoBook.self).filter("id = %d", id).first
-        if result == nil {
-            return nil
-        }
-        
-        return TangoBook(value: result!);
+        return result
     }
 
     /**
@@ -168,22 +164,24 @@ public class TangoBookDao {
      * 一件更新  ユーザーが設定するデータ全て
      * @param book
      */
-//    public static func updateOne(book : TangoBook) {
-//        
-//        TangoBook newBook = mRealm.where(TangoBook.class).equalTo("id", book.getId()).findFirst();
-//        if (newBook == null) return;
-//        
-//        mRealm.beginTransaction();
-//        
-//        newBook.setName(book.getName());
-//        newBook.setColor(book.getColor());
-//        newBook.setComment(book.getComment());
-//        newBook.setUpdateTime(new Date());
-//        newBook.setLastStudiedTime(book.getLastStudiedTime());
-//        
-//        mRealm.commitTransaction();
-//    }
-//
+    public static func updateOne(book : TangoBook) {
+        
+        let updateBook = mRealm!.objects(TangoBook.self)
+            .filter("id=%d", book.getId())
+            .first
+        if updateBook == nil {
+            return
+        }
+        
+        try! mRealm!.write() {
+            updateBook!.setName(name: book.name)
+            updateBook!.setColor(color: book.getColor())
+            updateBook!.setComment(comment: book.getComment())
+            updateBook!.setUpdateTime(updateTime: Date())
+            updateBook!.setLastStudiedTime(time: book.getLastStudiedTime())
+        }
+    }
+
     
     /**
      * IDのリストに一致する項目を全て削除する

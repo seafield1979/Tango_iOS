@@ -93,7 +93,7 @@ public class TangoCardHistory : Object {
      * 少し遅いが一旦LinkedListに変換してから使用する
      * @param correctFlag
      */
-    public func addCorrectFlags(correctFlag : Bool) {
+    public func addCorrectFlags(_ correctFlag : Bool) {
         // ArrayからListに変換
         toCorrectList()
         

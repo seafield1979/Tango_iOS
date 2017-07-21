@@ -228,11 +228,7 @@ public class TangoCardDao {
         let result = mRealm!.objects(TangoCard.self)
             .filter("id = %d", id).first
         
-        if result == nil {
-            return nil
-        }
-        
-        return TangoCard(value: result!)
+        return result
     }
 
     /**

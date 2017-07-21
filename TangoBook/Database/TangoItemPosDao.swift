@@ -114,11 +114,7 @@ public class TangoItemPosDao {
                 cardId)
             .first
         
-        if result == nil {
-            return nil
-        }
-        
-        return TangoItemPos(value: result!)
+        return result
      }
 
 
@@ -824,7 +820,7 @@ public class TangoItemPosDao {
                 _ = TangoBookDao.deleteById(id: item.getId())
                  
                 // 削除するのがBookなら配下のアイテムを全て削除
-                deleteItemsByParentType(parentType: TangoParentType.Book.rawValue,
+                _ = deleteItemsByParentType(parentType: TangoParentType.Book.rawValue,
                                         parentId: itemPos!.getItemId(),
                                         transaction: false)
         default:
@@ -894,7 +890,7 @@ public class TangoItemPosDao {
     public static func addOne(item : TangoItem, parentType : TangoParentType,
                               parentId : Int, addPos : Int) -> TangoItemPos
     {
-         var itemPos = TangoItemPos()
+         let itemPos = TangoItemPos()
          itemPos.parentType = parentType.rawValue
          itemPos.parentId = parentId
          itemPos.itemType = item.getItemType().rawValue
@@ -1034,7 +1030,6 @@ public class TangoItemPosDao {
             case .Trash:
                 return getNextPos(parentType: TangoParentType.Trash.rawValue)
         }
-        return 0
     }
 
     /**

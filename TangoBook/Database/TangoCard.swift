@@ -80,7 +80,7 @@ public class TangoCard : Object, TangoItem {
     
     // コピーを作成する
     public static func copyCard(card : TangoCard) -> TangoCard {
-        var newCard = TangoCard()
+        let newCard = TangoCard()
         newCard.id = TangoCardDao.getNextId()
         if card.wordA != nil {
             newCard.wordA = card.wordA

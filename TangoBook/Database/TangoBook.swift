@@ -39,7 +39,7 @@ public class TangoBook : Object, TangoItem {
     
     
     public static func createBook() -> TangoBook {
-        var book = TangoBook()
+        let book = TangoBook()
         book.newFlag = true
         book.name = ""
         book.color = (UIColor.black).intColor()
@@ -91,7 +91,7 @@ public class TangoBook : Object, TangoItem {
         return comment
     }
     
-    public func setComment(comment : String) {
+    public func setComment(comment : String?) {
         self.comment = comment
     }
     
@@ -123,7 +123,7 @@ public class TangoBook : Object, TangoItem {
         return self.lastStudiedTime
     }
     
-    public func setLastStudiedTime(time : Date) {
+    public func setLastStudiedTime(time : Date?) {
         lastStudiedTime = time
     }
     
@@ -164,7 +164,7 @@ public class TangoBook : Object, TangoItem {
      * @return
      */
     public static func copyBook(book : TangoBook) -> TangoBook {
-        var newBook = TangoBook()
+        let newBook = TangoBook()
         newBook.id = TangoBookDao.getNextId()
         if book.name != nil {
             newBook.name = book.name
