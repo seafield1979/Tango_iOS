@@ -51,11 +51,13 @@ public class TangoCardDao {
      * 指定の単語帳に追加されていない単語を取得
      * @return
      */
-    public static func selectExceptIds(ids : [Int], changeable : Bool) -> [TangoCard] {
+    public static func selectExceptIds(ids : [Int], changeable : Bool)
+        -> [TangoCard]?
+    {
         let results : Results = mRealm!.objects(TangoCard.self).filter("NOT (id In %@)", ids)
         
-        if results != nil && changeable {
-//            return toChangeable(results)
+        if results.count == 0 {
+            return nil
         }
         return Array(results)
     }
@@ -111,24 +113,24 @@ public class TangoCardDao {
             }
         } else {
             // 単語帳の中からランダム抽出
-            // todo
-//            var cardsInBook : [Tangocard] = RealmManager.getItemPosDao().selectCardsByBookId(bookId);
-//            if (!(cardsInBook == null || cardsInBook.size() <= 2)) {
-//                Random rand = new Random();
-//                for (int i = 0; i < num; i++) {
-//                    TangoCard card;
-//                    while (true) {
-//                        // ランダムのIDが除外IDとおなじなら再度ランダム値を取得する
-//                        int randIndex = rand.nextInt(cardsInBook.size());
-//                        card = cardsInBook.get(randIndex);
-//                        if (card.getId() != exceptId) {
-//                            cardsInBook.remove(randIndex);      // 同じカードが抽出されないように削除
-//                            break;
-//                        }
-//                    }
-//                    cards.add(card);
-//                }
-//            }
+            var cardsInBook = TangoItemPosDao.selectCardsByBookId(bookId)
+            if !(cardsInBook == nil || cardsInBook!.count <= 2) {
+                for _ in 0...num-1 {
+                    var card : TangoCard! = nil
+                    while (true) {
+                        // ランダムのIDが除外IDとおなじなら再度ランダム値を取得する
+                        let randIndex = Int(arc4random()) % cardsInBook!.count
+                        card = cardsInBook![randIndex]
+                        if card!.getId() != exceptId {
+                            cardsInBook!.remove(at: randIndex)      // 同じカードが抽出されないように削除
+                            break
+                        }
+                    }
+                    if card != nil {
+                        cards.append(card!)
+                    }
+                }
+            }
         }
         // 足りない場合はダミーのカードを追加
         if cards.count < num {
@@ -311,22 +313,21 @@ public class TangoCardDao {
         card.updateTime = now
         
         if (transaction) {
-            // Todo Swiftではトランザクションを分離できない？
-        }
-        
-        // データを追加
-        try! mRealm!.write() {
+            // データを追加
+            try! mRealm!.write() {
+                mRealm!.add(card)
+            }
+        } else {
             mRealm!.add(card)
         }
-        
-        if (transaction) {
-            
-        }
 
-        // Todo ItemPosDao実装後に対応
-//        let itemPos = ItemPosDao().addOneTransaction(card, parentType,
-//                                                                              parentId, addPos, transaction);
-//        card.setItemPos(itemPos)
+        let itemPos = TangoItemPosDao.addOneTransaction(
+            item: card,
+            parentType: parentType,
+            parentId: parentId,
+            addPos: addPos,
+            transaction: transaction)
+        card.setItemPos(itemPos: itemPos)
     }
 
     /**

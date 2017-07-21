@@ -18,11 +18,18 @@ import Foundation
  * 単語帳のアイテムの種類
  */
 
-public enum TangoItemType {
-    case Card       // カード
-    case Book       // 単語帳
-    case Trash      // ゴミ箱
-    ;
+public enum TangoItemType : Int, EnumEnumerable{
+    case Card = 0       // カード
+    case Book = 1       // 単語帳
+    case Trash = 2      // ゴミ箱
+    
+    public static func toEnum(_ value : Int) -> TangoItemType {
+        if value >= TangoItemType.count {
+            // 範囲外は適当な値を返す
+            return TangoItemType.Card
+        }
+        return TangoItemType.cases[value]
+    }
 }
 
 public protocol TangoItem {

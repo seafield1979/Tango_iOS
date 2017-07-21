@@ -52,7 +52,7 @@ public class TangoBookDao {
         if (UDebug.debugDAO) {
             print(TAG + "TangoBook selectAll")
             for book in results {
-                print(TAG + "id:" + book.getId().description + " name:" + book.name)
+                print(TAG + "id:" + book.getId().description + " name:" + book.name!)
             }
         }
         
@@ -133,8 +133,8 @@ public class TangoBookDao {
         }
         
         // 位置情報を追加（単語帳はホームにしか作れないので作成場所にホームを指定）
-        let itemPos = ItemPosDao.addOne(book, TangoParentType
-            .Home, 0, addPos);
+        let itemPos = TangoItemPosDao.addOne(item: book, parentType: TangoParentType
+            .Home, parentId: 0, addPos: addPos)
         book.itemPos = itemPos
     }
 
@@ -262,13 +262,13 @@ public class TangoBookDao {
      * NEWフラグを変更する
      */
     public static func updateNewFlag(book : TangoBook, newFlag : Bool) {
-        let result = mRealm!.objects(TangoBook.self).filter("id = %d", id).first
+        let result = mRealm!.objects(TangoBook.self).filter("id = %d", book.getId()).first
         if result == nil {
-            return false
+            return
         }
         
         try! mRealm!.write() {
-            result.newFlag = newFlag
+            result!.newFlag = newFlag
         }
     }
 //  todo

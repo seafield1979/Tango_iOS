@@ -14,13 +14,13 @@ import UIKit
 /**
  * 単語帳を保持する親の種類
  */
-public enum TangoParentType : Int {
+public enum TangoParentType : Int, EnumEnumerable {
     case Home           // ホーム画面
     case Book           // 単語帳
     case Trash          // ゴミ箱
     
-    static func toString(value : Int) -> String {
-        switch(self) {
+    static func toString(value : TangoParentType) -> String {
+        switch(value) {
         case .Home:
             return "Home"
         case .Book:
@@ -28,6 +28,14 @@ public enum TangoParentType : Int {
         case .Trash:
             return "Trash"
         }
+    }
+    
+    public static func toEnum(_ value : Int) -> TangoParentType {
+        if value >= TangoParentType.count {
+            // 範囲外は適当な値を返す
+            return TangoParentType.Home
+        }
+        return TangoParentType.cases[value]
     }
 }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8AE6E9DF1F208319001D0694 /* UDebug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE6E9DE1F208319001D0694 /* UDebug.swift */; };
+		8AE6E9E11F20F186001D0694 /* EnumEnumerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE6E9E01F20F186001D0694 /* EnumEnumerable.swift */; };
 		8AF7817B1F1F3E4400FC4EF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF7817A1F1F3E4400FC4EF2 /* AppDelegate.swift */; };
 		8AF7817D1F1F3E4400FC4EF2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF7817C1F1F3E4400FC4EF2 /* ViewController.swift */; };
 		8AF781801F1F3E4400FC4EF2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AF7817E1F1F3E4400FC4EF2 /* Main.storyboard */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		488C90E2B6610DFD29991F5E /* Pods_TangoBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TangoBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AE6E9DE1F208319001D0694 /* UDebug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UDebug.swift; path = TangoBook/UUtil/UDebug.swift; sourceTree = "<group>"; };
+		8AE6E9E01F20F186001D0694 /* EnumEnumerable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnumEnumerable.swift; path = TangoBook/Extension/EnumEnumerable.swift; sourceTree = "<group>"; };
 		8AF781771F1F3E4400FC4EF2 /* TangoBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TangoBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF7817A1F1F3E4400FC4EF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AF7817C1F1F3E4400FC4EF2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				8AF781BF1F1F4D4900FC4EF2 /* UIColor+ex.swift */,
+				8AE6E9E01F20F186001D0694 /* EnumEnumerable.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				8AF7817B1F1F3E4400FC4EF2 /* AppDelegate.swift in Sources */,
 				8AF781AF1F1F445500FC4EF2 /* TangoCardHistoryDao.swift in Sources */,
 				8AF781C21F2058AF00FC4EF2 /* List.swift in Sources */,
+				8AE6E9E11F20F186001D0694 /* EnumEnumerable.swift in Sources */,
 				8AF781A81F1F445500FC4EF2 /* TangoBook.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
