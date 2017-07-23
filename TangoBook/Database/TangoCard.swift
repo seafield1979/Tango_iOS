@@ -27,9 +27,9 @@ public class TangoCard : Object, TangoItem {
     public dynamic var createTime : Date? = nil    // 作成日時
     public dynamic var updateTime : Date? = nil    // 更新日時
     
-    public dynamic var color : UInt32 = 0          // カードの色
+    public dynamic var color : Int = 0          // カードの色
     public dynamic var star : Bool = false         // 覚えたフラグ
-    public dynamic var newFlag : Bool = true      // 新規作成フラグ
+    public dynamic var isNew : Bool = true      // 新規作成フラグ
     
     public dynamic var itemPos : TangoItemPos? = nil   // どこにあるか？
     
@@ -54,7 +54,7 @@ public class TangoCard : Object, TangoItem {
     public static func createCard() -> TangoCard {
         let card = TangoCard()
         card.originalId = 0
-        card.newFlag = true
+        card.isNew = true
         card.color = (UIColor.black).intColor()
         card.wordA = ""
         card.wordB = ""
@@ -74,7 +74,7 @@ public class TangoCard : Object, TangoItem {
         card.comment = "C " + String(randVal)
         card.color = (UIColor.black).intColor()
         card.star = false
-        card.newFlag = true
+        card.isNew = true
         return card
     }
     

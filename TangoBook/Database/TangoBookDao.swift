@@ -259,14 +259,14 @@ public class TangoBookDao {
     /**
      * NEWフラグを変更する
      */
-    public static func updateNewFlag(book : TangoBook, newFlag : Bool) {
+    public static func updateNewFlag(book : TangoBook, isNew : Bool) {
         let result = mRealm!.objects(TangoBook.self).filter("id = %d", book.getId()).first
         if result == nil {
             return
         }
         
         try! mRealm!.write() {
-            result!.newFlag = newFlag
+            result!.isNew = isNew
         }
     }
 //  todo

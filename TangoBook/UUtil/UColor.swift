@@ -144,11 +144,11 @@ public class UColor {
      * ランダムな色を取得
      * @return
      */
-    public static func getRandomColor() -> UInt32 {
+    public static func getRandomColor() -> Int {
         let r = arc4random() % 256
         let g = arc4random() % 256
         let b = arc4random() % 256
-        return (0xff << 24) | (r << 16) | (g << 8) | (b);
+        return Int((0xff << 24) | (r << 16) | (g << 8) | (b))
     }
     
     /**

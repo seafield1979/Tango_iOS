@@ -34,13 +34,14 @@ public class TangoCardHistory : Object {
     public dynamic var correctFlagNum : Int = 0
     
     // 正解フラグ
-    public dynamic var correctFlags : [UInt8] = Array(repeating: 0, count: TangoCardHistory.CORRECT_HISTORY_MAX)
+    // Realm(Swift)では 配列をサポートしていないのでiOS版では履歴なし
+//    public dynamic var correctFlags : [UInt8] = Array(repeating: 0, count: TangoCardHistory.CORRECT_HISTORY_MAX)
     
     // 最後に学習した日付
     public dynamic var studiedDate : Date? = nil
     
     // 正解フラグリスト
-    public dynamic var correctFlagsList : [UInt8] = []
+//    public dynamic var correctFlagsList : [UInt8] = []
     
     
     //インデックスの指定にはindexedProperties()をoverrideします。
@@ -62,65 +63,65 @@ public class TangoCardHistory : Object {
     /**
      * correctFlags -> correctFlagsList に変換
      */
-    private func toCorrectList() {
-        correctFlagsList.removeAll()
-        
-        for i in 0...correctFlagNum - 1 {
-            correctFlagsList.append(UInt8(correctFlags[i]))
-        }
-    }
+//    private func toCorrectList() {
+//        correctFlagsList.removeAll()
+//        
+//        for i in 0...correctFlagNum - 1 {
+//            correctFlagsList.append(UInt8(correctFlags[i]))
+//        }
+//    }
     
     /**
      * correctFlagsList -> correctFlags 変換
      */
-    private func toCorrectArray() {
-        if (correctFlagsList.count > TangoCardHistory.CORRECT_HISTORY_MAX) {
-            return
-        }
-        
-        self.correctFlagNum = correctFlagsList.count
-        
-        var flags : [UInt8] = Array(repeating: 0,
-                                    count: TangoCardHistory.CORRECT_HISTORY_MAX)
-        for i in 0...correctFlagNum - 1 {
-            flags[i] = correctFlagsList[i]
-        }
-        self.correctFlags = flags
-    }
+//    private func toCorrectArray() {
+//        if (correctFlagsList.count > TangoCardHistory.CORRECT_HISTORY_MAX) {
+//            return
+//        }
+//        
+//        self.correctFlagNum = correctFlagsList.count
+//        
+//        var flags : [UInt8] = Array(repeating: 0,
+//                                    count: TangoCardHistory.CORRECT_HISTORY_MAX)
+//        for i in 0...correctFlagNum - 1 {
+//            flags[i] = correctFlagsList[i]
+//        }
+//        self.correctFlags = flags
+//    }
     
     /**
      * correctFlagsListに正解フラグを１つ追加
      * 少し遅いが一旦LinkedListに変換してから使用する
      * @param correctFlag
      */
-    public func addCorrectFlags(_ correctFlag : Bool) {
-        // ArrayからListに変換
-        toCorrectList()
-        
-        // リストがいっぱいなら古いもの（先頭）から削除
-        if correctFlagsList.count >= TangoCardHistory.CORRECT_HISTORY_MAX {
-            correctFlagsList.removeFirst()
-        }
-        correctFlagsList.append( UInt8(correctFlag ? 1 : 0))
-        
-        // Arrayに戻す
-        toCorrectArray()
-    }
+//    public func addCorrectFlags(_ correctFlag : Bool) {
+//        // ArrayからListに変換
+//        toCorrectList()
+//        
+//        // リストがいっぱいなら古いもの（先頭）から削除
+//        if correctFlagsList.count >= TangoCardHistory.CORRECT_HISTORY_MAX {
+//            correctFlagsList.removeFirst()
+//        }
+//        correctFlagsList.append( UInt8(correctFlag ? 1 : 0))
+//        
+//        // Arrayに戻す
+//        toCorrectArray()
+//    }
     
     /**
      * correctFlagsを文字列で取得
      * 正解は○、不正解は×
      */
-    public func getCorrectFlagsAsString() -> String {
-        if (correctFlagNum == 0) {
-            return "---"
-        }
-        
-        var strBuf = "old: "
-        for i in 0...correctFlagNum - 1 {
-            strBuf.append((correctFlags[i] == 0) ? "×" : "○")
-        }
-        strBuf.append(" :new")
-        return strBuf
-    }
+//    public func getCorrectFlagsAsString() -> String {
+//        if (correctFlagNum == 0) {
+//            return "---"
+//        }
+//        
+//        var strBuf = "old: "
+//        for i in 0...correctFlagNum - 1 {
+//            strBuf.append((correctFlags[i] == 0) ? "×" : "○")
+//        }
+//        strBuf.append(" :new")
+//        return strBuf
+//    }
 }

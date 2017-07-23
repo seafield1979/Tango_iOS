@@ -16,14 +16,14 @@ public class TangoBook : Object, TangoItem {
     
     public dynamic var name : String? = nil        // 単語帳の名前
     public dynamic var comment : String? = nil     // 単語帳の説明
-    public dynamic var color : UInt32 = 0          // 表紙の色
+    public dynamic var color : Int = 0          // 表紙の色
     
     // メタデータ
     public dynamic var createTime : Date? = nil    // 作成日時
     public dynamic var updateTime : Date? = nil    // 更新日時
     public dynamic var lastStudiedTime : Date? = nil  // 最終学習日
     
-    public dynamic var newFlag : Bool = false    // NEW
+    public dynamic var isNew : Bool = false    // NEW
     
     public dynamic var itemPos : TangoItemPos? = nil   // どこにあるか？
     
@@ -40,7 +40,7 @@ public class TangoBook : Object, TangoItem {
     
     public static func createBook() -> TangoBook {
         let book = TangoBook()
-        book.newFlag = true
+        book.isNew = true
         book.name = ""
         book.color = (UIColor.black).intColor()
         book.createTime = Date()
@@ -57,7 +57,7 @@ public class TangoBook : Object, TangoItem {
         book.name = "Name " + randVal
         book.comment = "Comment " + randVal
         book.color = UColor.getRandomColor()
-        book.newFlag = true
+        book.isNew = true
         book.createTime = Date()
         book.updateTime = Date()
         
@@ -95,11 +95,11 @@ public class TangoBook : Object, TangoItem {
         self.comment = comment
     }
     
-    public func getColor() -> UInt32 {
+    public func getColor() -> Int {
         return color
     }
     
-    public func setColor(color : UInt32) {
+    public func setColor(color : Int) {
         self.color = color
     }
     
@@ -135,11 +135,11 @@ public class TangoBook : Object, TangoItem {
     }
     
     public func isNewFlag() -> Bool {
-        return newFlag
+        return isNew
     }
     
-    public func setNewFlag(newFlag : Bool) {
-        self.newFlag = newFlag
+    public func setNewFlag(isNew : Bool) {
+        self.isNew = isNew
     }
     
     public func getPos() -> Int {

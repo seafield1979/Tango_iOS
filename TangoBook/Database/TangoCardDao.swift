@@ -449,14 +449,14 @@ public class TangoCardDao {
     /**
      * NEWフラグを変更する
      */
-    public static func updateNewFlag(card : TangoCard, newFlag : Bool) {
+    public static func updateNewFlag(card : TangoCard, isNew : Bool) {
         let updateCard = mRealm!.objects(TangoCard.self).filter("id = %d", card.getId()).first
         if updateCard == nil {
             return
         }
         
         try! mRealm!.write() {
-            updateCard!.newFlag = newFlag
+            updateCard!.isNew = isNew
         }
     }
 

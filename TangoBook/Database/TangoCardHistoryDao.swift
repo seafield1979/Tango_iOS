@@ -46,8 +46,7 @@ public class TangoCardHistoryDao {
                 // todo
                 print( String(format: "cardId:%d correctNum:%d flags:%d",
                               history.cardId,
-                              history.correctFlagNum,
-                              history.getCorrectFlagsAsString()))
+                              history.correctFlagNum))
             }
         }
         
@@ -72,7 +71,7 @@ public class TangoCardHistoryDao {
     public static func addOne(cardId : Int, correctFlag : Bool) -> Bool {
         let history = TangoCardHistory()
         history.cardId = cardId
-        history.addCorrectFlags(correctFlag)
+//        history.addCorrectFlags(correctFlag)
         history.studiedDate = Date()
 
         try! mRealm!.write() {
@@ -134,7 +133,7 @@ public class TangoCardHistoryDao {
 
         try! mRealm!.write() {
             // 更新
-            result!.addCorrectFlags(correctFlag)
+//            result!.addCorrectFlags(correctFlag)
         }
         return true
     }

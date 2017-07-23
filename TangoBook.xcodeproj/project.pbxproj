@@ -7,13 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A8522401F22514300B5B8A3 /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A85223F1F22514300B5B8A3 /* TestDatabase.swift */; };
+		8A8522441F22533000B5B8A3 /* TestDBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8522421F22533000B5B8A3 /* TestDBViewController.swift */; };
+		8A8522451F22533000B5B8A3 /* TestDBViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A8522431F22533000B5B8A3 /* TestDBViewController.xib */; };
+		8A8522471F22539800B5B8A3 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A8522461F22539800B5B8A3 /* ViewController.xib */; };
+		8AE089F91F2466330024E9B7 /* UIViewUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE089F81F2466330024E9B7 /* UIViewUtil.swift */; };
+		8AE089FC1F24677D0024E9B7 /* UNViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE089FB1F24677D0024E9B7 /* UNViewController.swift */; };
 		8AE6E9DF1F208319001D0694 /* UDebug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE6E9DE1F208319001D0694 /* UDebug.swift */; };
 		8AE6E9E11F20F186001D0694 /* EnumEnumerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE6E9E01F20F186001D0694 /* EnumEnumerable.swift */; };
 		8AF7817B1F1F3E4400FC4EF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF7817A1F1F3E4400FC4EF2 /* AppDelegate.swift */; };
 		8AF7817D1F1F3E4400FC4EF2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF7817C1F1F3E4400FC4EF2 /* ViewController.swift */; };
-		8AF781801F1F3E4400FC4EF2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AF7817E1F1F3E4400FC4EF2 /* Main.storyboard */; };
 		8AF781821F1F3E4400FC4EF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AF781811F1F3E4400FC4EF2 /* Assets.xcassets */; };
-		8AF781851F1F3E4400FC4EF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AF781831F1F3E4400FC4EF2 /* LaunchScreen.storyboard */; };
 		8AF781A61F1F445500FC4EF2 /* BackupFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF781971F1F445500FC4EF2 /* BackupFile.swift */; };
 		8AF781A71F1F445500FC4EF2 /* BackupFileDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF781981F1F445500FC4EF2 /* BackupFileDao.swift */; };
 		8AF781A81F1F445500FC4EF2 /* TangoBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF781991F1F445500FC4EF2 /* TangoBook.swift */; };
@@ -41,14 +45,18 @@
 
 /* Begin PBXFileReference section */
 		488C90E2B6610DFD29991F5E /* Pods_TangoBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TangoBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A85223F1F22514300B5B8A3 /* TestDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDatabase.swift; path = TangoBook/Database/Test/TestDatabase.swift; sourceTree = "<group>"; };
+		8A8522421F22533000B5B8A3 /* TestDBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDBViewController.swift; path = TangoBook/Database/Test/TestDBViewController.swift; sourceTree = "<group>"; };
+		8A8522431F22533000B5B8A3 /* TestDBViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDBViewController.xib; path = TangoBook/Database/Test/TestDBViewController.xib; sourceTree = "<group>"; };
+		8A8522461F22539800B5B8A3 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ViewController.xib; path = TangoBook/ViewController.xib; sourceTree = "<group>"; };
+		8AE089F81F2466330024E9B7 /* UIViewUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewUtil.swift; path = TangoBook/UUtil/UIViewUtil.swift; sourceTree = "<group>"; };
+		8AE089FB1F24677D0024E9B7 /* UNViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UNViewController.swift; path = TangoBook/ViewController/UNViewController.swift; sourceTree = "<group>"; };
 		8AE6E9DE1F208319001D0694 /* UDebug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UDebug.swift; path = TangoBook/UUtil/UDebug.swift; sourceTree = "<group>"; };
 		8AE6E9E01F20F186001D0694 /* EnumEnumerable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnumEnumerable.swift; path = TangoBook/Extension/EnumEnumerable.swift; sourceTree = "<group>"; };
 		8AF781771F1F3E4400FC4EF2 /* TangoBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TangoBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF7817A1F1F3E4400FC4EF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8AF7817C1F1F3E4400FC4EF2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		8AF7817F1F1F3E4400FC4EF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8AF7817C1F1F3E4400FC4EF2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = TangoBook/ViewController.swift; sourceTree = "<group>"; };
 		8AF781811F1F3E4400FC4EF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8AF781841F1F3E4400FC4EF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8AF781861F1F3E4400FC4EF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AF781971F1F445500FC4EF2 /* BackupFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackupFile.swift; path = TangoBook/Database/BackupFile.swift; sourceTree = "<group>"; };
 		8AF781981F1F445500FC4EF2 /* BackupFileDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackupFileDao.swift; path = TangoBook/Database/BackupFileDao.swift; sourceTree = "<group>"; };
@@ -96,6 +104,27 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8A85223E1F22512100B5B8A3 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				8A85223F1F22514300B5B8A3 /* TestDatabase.swift */,
+			);
+			name = Test;
+			sourceTree = "<group>";
+		};
+		8A8522411F22516F00B5B8A3 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8AF7817C1F1F3E4400FC4EF2 /* ViewController.swift */,
+				8A8522461F22539800B5B8A3 /* ViewController.xib */,
+				8A8522421F22533000B5B8A3 /* TestDBViewController.swift */,
+				8A8522431F22533000B5B8A3 /* TestDBViewController.xib */,
+				8AE089FB1F24677D0024E9B7 /* UNViewController.swift */,
+			);
+			name = ViewController;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		8AF7816E1F1F3E4400FC4EF2 = {
 			isa = PBXGroup;
 			children = (
@@ -120,11 +149,9 @@
 		8AF781791F1F3E4400FC4EF2 /* TangoBook */ = {
 			isa = PBXGroup;
 			children = (
+				8A8522411F22516F00B5B8A3 /* ViewController */,
 				8AF7817A1F1F3E4400FC4EF2 /* AppDelegate.swift */,
-				8AF7817C1F1F3E4400FC4EF2 /* ViewController.swift */,
-				8AF7817E1F1F3E4400FC4EF2 /* Main.storyboard */,
 				8AF781811F1F3E4400FC4EF2 /* Assets.xcassets */,
-				8AF781831F1F3E4400FC4EF2 /* LaunchScreen.storyboard */,
 				8AF781861F1F3E4400FC4EF2 /* Info.plist */,
 			);
 			path = TangoBook;
@@ -133,6 +160,7 @@
 		8AF7818E1F1F41F600FC4EF2 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				8A85223E1F22512100B5B8A3 /* Test */,
 				8AF781971F1F445500FC4EF2 /* BackupFile.swift */,
 				8AF781981F1F445500FC4EF2 /* BackupFileDao.swift */,
 				8AF781991F1F445500FC4EF2 /* TangoBook.swift */,
@@ -162,6 +190,7 @@
 				8AF781C11F2058AF00FC4EF2 /* List.swift */,
 				8AF781C31F2058E400FC4EF2 /* RefDictionary.swift */,
 				8AE6E9DE1F208319001D0694 /* UDebug.swift */,
+				8AE089F81F2466330024E9B7 /* UIViewUtil.swift */,
 			);
 			name = UUtil;
 			sourceTree = "<group>";
@@ -247,9 +276,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8AF781851F1F3E4400FC4EF2 /* LaunchScreen.storyboard in Resources */,
+				8A8522471F22539800B5B8A3 /* ViewController.xib in Resources */,
 				8AF781821F1F3E4400FC4EF2 /* Assets.xcassets in Resources */,
-				8AF781801F1F3E4400FC4EF2 /* Main.storyboard in Resources */,
+				8A8522451F22533000B5B8A3 /* TestDBViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,18 +339,22 @@
 			files = (
 				8AF781A71F1F445500FC4EF2 /* BackupFileDao.swift in Sources */,
 				8AF781A91F1F445500FC4EF2 /* TangoBookDao.swift in Sources */,
+				8A8522441F22533000B5B8A3 /* TestDBViewController.swift in Sources */,
 				8AF781AB1F1F445500FC4EF2 /* TangoBookHistoryDao.swift in Sources */,
 				8AF781B11F1F445500FC4EF2 /* TangoItemPos.swift in Sources */,
 				8AF781AA1F1F445500FC4EF2 /* TangoBookHistory.swift in Sources */,
 				8AE6E9DF1F208319001D0694 /* UDebug.swift in Sources */,
 				8AF781A61F1F445500FC4EF2 /* BackupFile.swift in Sources */,
+				8A8522401F22514300B5B8A3 /* TestDatabase.swift in Sources */,
 				8AF781B41F1F445500FC4EF2 /* TangoStudiedCardDao.swift in Sources */,
 				8AF781AE1F1F445500FC4EF2 /* TangoCardHistory.swift in Sources */,
 				8AF781C01F1F4D4900FC4EF2 /* UIColor+ex.swift in Sources */,
 				8AF781C41F2058E400FC4EF2 /* RefDictionary.swift in Sources */,
 				8AF781B61F1F44B400FC4EF2 /* TangoItem.swift in Sources */,
 				8AF781B01F1F445500FC4EF2 /* TangoItemCheckDao.swift in Sources */,
+				8AE089F91F2466330024E9B7 /* UIViewUtil.swift in Sources */,
 				8AF781B31F1F445500FC4EF2 /* TangoStudiedCard.swift in Sources */,
+				8AE089FC1F24677D0024E9B7 /* UNViewController.swift in Sources */,
 				8AF7817D1F1F3E4400FC4EF2 /* ViewController.swift in Sources */,
 				8AF781BD1F1F4AFD00FC4EF2 /* NanoTimer.swift in Sources */,
 				8AF781B21F1F445500FC4EF2 /* TangoItemPosDao.swift in Sources */,
@@ -338,25 +371,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		8AF7817E1F1F3E4400FC4EF2 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8AF7817F1F1F3E4400FC4EF2 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		8AF781831F1F3E4400FC4EF2 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8AF781841F1F3E4400FC4EF2 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		8AF781871F1F3E4400FC4EF2 /* Debug */ = {
