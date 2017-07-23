@@ -1,25 +1,25 @@
 //
-//  TestDBViewController.swift
-//  TangoBook
-//     Realmのテーブル (TangoCard)のテスト
-//  Created by Shusuke Unno on 2017/07/22.
+//  TestDB3ViewController.swift
+//  TangoItemPos
+//     Realmのテーブル (TangoItemPos)のテスト
+//  Created by Shusuke Unno on 2017/07/23.
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
 import UIKit
 
-class TestDBViewController: UNViewController {
+class TestDB3ViewController: UNViewController {
     
     static let BUTTON_AREA_H : CGFloat = 100.0
     
-    static let buttonNames : [String] = ["Select All", "Select On", "Add Dummy", "Update One", "Delete One", "Delete All"]
+    static let buttonNames : [String] = ["Select All", "Select One", "Add Dummy", "Update One", "Delete One", "Delete All"]
     
     var textView : UITextView? = nil
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // テスト用の処理を呼び出すボタン
         let scrollView = UIViewUtil.createButtonsWithScrollBar2(
             parentView: self,
@@ -34,16 +34,21 @@ class TestDBViewController: UNViewController {
         // UITextViewを作成
         self.textView = UIViewUtil.createTextView(
             frame: CGRect(x:0, y:TestDBViewController.BUTTON_AREA_H,
-                            width: self.view.frame.size.width,
-                            height: self.view.frame.size.height - TestDBViewController.BUTTON_AREA_H))
+                          width: self.view.frame.size.width,
+                          height: self.view.frame.size.height - TestDBViewController.BUTTON_AREA_H))
         
         if self.textView != nil {
             self.view.addSubview(self.textView!)
             self.textView!.text = "hello world"
         }
-
-    }
         
+    }
+    
+    /**
+     UITextViewを生成する
+     */
+    
+    
     func tappedButton(_ sender: AnyObject) {
         switch sender.tag {
         case 1:
@@ -64,55 +69,67 @@ class TestDBViewController: UNViewController {
         }
     }
     
-    // TangoCardの全オブジェクト表示
+    // TangoItemPosの全オブジェクト表示
     func selectAll() {
         // テキストをクリア
         self.textView!.text.removeAll()
         
-        let cards = TangoCardDao.selectAll()
+        let poses = TangoItemPosDao.selectAll()
         
-        for card in cards {
-            self.textView!.text.append(card.debugDescription + "\n")
+        for pos in poses {
+            self.textView!.text.append(pos.debugDescription + "\n")
         }
     }
-
+    
     func selectOne() {
         
     }
     
-    // ダミーカードを１つ追加
+    // ダミーアイテムを１つ追加
     func addOne() {
-        TangoCardDao.addDummy()
+        TangoItemPosDao.addDummy()
         
         selectAll()
     }
     
     // １件更新
     func updateOne() {
-        // 最初のカードを更新
-        let cards = TangoCardDao.selectAll()
-        if cards.count < 1 {
+        // 最初のアイテムを更新
+        let poses = TangoItemPosDao.selectAll()
+        if poses.count < 1 {
             return
         }
-        let card = cards.first
+        let itemPos = poses.first
+        if itemPos == nil {
+            return
+        }
         
-        TangoCardDao.updateOne(id: card!.getId(), wordA: "update A", wordB: "update B")
-        
+        TangoItemPosDao.updateOne( oldParentType: itemPos!.parentType,
+                                   newParentType: 0,
+                                     oldParentId: itemPos!.parentId,
+                                     newParentId: 1,
+                                     oldPos: itemPos!.pos,
+                                     newPos : 1)
+
         // 表示
         selectAll()
     }
     
     // １件削除
     func deleteOne() {
-        // 最初のカードを削除
-        let cards = TangoCardDao.selectAll()
-        if cards.count < 1 {
+        // 最初のアイテムを削除
+        let poses = TangoItemPosDao.selectAll()
+        if poses.count < 1 {
             return
         }
-        let card = cards.first
+        let itemPos = poses.first
+        if itemPos == nil {
+            return
+        }
         
-        _ = TangoCardDao.deleteById(id: card!.getId())
-        
+        _ = TangoItemPosDao.deleteOne(parentType: itemPos!.parentType,
+                                       parentId: itemPos!.parentId,
+                                       pos: itemPos!.pos)
         // 表示更新
         selectAll()
     }
@@ -120,7 +137,7 @@ class TestDBViewController: UNViewController {
     // 全て削除
     func deleteAll() {
         // 全オブジェクト削除
-        _ = TangoCardDao.deleteAll()
+        _ = TangoItemPosDao.deleteAll()
         
         // 表示更新
         selectAll()

@@ -16,10 +16,12 @@ class ViewController: UNViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let scrollView = UIViewUtil.createButtonsWithScrollBar(
+        let titles : [String] = ["Card", "Book", "ItemPos", "CardHistory", "BookHistory", "StudiedCard"]
+        
+        let scrollView = UIViewUtil.createButtonsWithScrollBar2(
             parentView: self,
             y : 0, height: self.view.frame.size.height, count : 6,
-            lineCount: 1, text: "test", tagId: 1,
+            lineCount: 1, texts: titles, tagId: 1,
             selector: #selector(self.tappedButton(_:)))
         
         if scrollView != nil {
@@ -33,15 +35,34 @@ class ViewController: UNViewController {
         case 1:
             // Addテストページに遷移
             let viewController = TestDBViewController(nibName: "TestDBViewController", bundle: nil)
-            viewController.title = "testDB"
+            viewController.title = "TangoCard"
             self.navigationController?.pushViewController(viewController, animated: true)
             
         case 2:
-            print("mango")
+            // Addテストページに遷移
+            let viewController = TestDB2ViewController(nibName: "TestDB2ViewController", bundle: nil)
+            viewController.title = "TangoBook"
+            self.navigationController?.pushViewController(viewController, animated: true)
+            
         case 3:
-            print("orange")
+            // Addテストページに遷移
+            let viewController = TestDB3ViewController(nibName: "TestDB3ViewController", bundle: nil)
+            viewController.title = "TangoItemPos"
+            self.navigationController?.pushViewController(viewController, animated: true)
+            
         case 4:
-            print("banana")
+            let viewController = TestDB4ViewController(nibName: "TestDB4ViewController", bundle: nil)
+            viewController.title = "TangoCardHistory"
+            self.navigationController?.pushViewController(viewController, animated: true)
+        case 5:
+            let viewController = TestDB5ViewController(nibName: "TestDB5ViewController", bundle: nil)
+            viewController.title = "TangoBookHistory"
+            self.navigationController?.pushViewController(viewController, animated: true)
+        case 6:
+            let viewController = TestDB6ViewController(nibName: "TestDB6ViewController", bundle: nil)
+            viewController.title = "TangoStudiedCard"
+            self.navigationController?.pushViewController(viewController, animated: true)
+            
         default:
             print("other fruit")
         }

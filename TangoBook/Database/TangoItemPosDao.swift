@@ -56,10 +56,8 @@ public class TangoItemPosDao {
      */
      public static func getNum() -> Int {
         let list = selectAll()
-        if list == nil {
-            return 0
-        }
-         return list!.count
+        
+        return list.count
      }
 
      /**
@@ -67,13 +65,9 @@ public class TangoItemPosDao {
      *
      * @return
      */
-     public static func selectAll() -> [TangoItemPos]? {
+     public static func selectAll() -> [TangoItemPos] {
         let results = mRealm!.objects(TangoItemPos.self).sorted(byKeyPath: "pos", ascending: true)
         
-        if results.count == 0 {
-            return nil
-        }
-
 //        if (UDebug.debugDAO) {
 //            print( TAG + "TangoItem selectAll")
 //            for item in results {
@@ -734,7 +728,7 @@ public class TangoItemPosDao {
      * @param item
      */
     public static func deleteItem(item : TangoItem) {
-         let result = mRealm!.objects(TangoItemPos.self)
+        let result = mRealm!.objects(TangoItemPos.self)
             .filter("itemType = %d AND itemId = %d", item.getItemType().rawValue,
                 item.getId())
             .first
@@ -746,6 +740,23 @@ public class TangoItemPosDao {
             mRealm!.delete(result!)
         }
      }
+    
+    /**
+      指定IDのオブジェクトを削除する
+     parameter id : 削除オブジェクトのID
+     */
+    public static func deleteOne(parentType: Int, parentId: Int, pos: Int) {
+        let result = mRealm!.objects(TangoItemPos.self)
+            .filter("parentType = %d AND parentId = %d AND pos = %d",
+                    parentType, parentId, pos )
+            .first
+        if result == nil {
+            return
+        }        
+        try! mRealm!.write() {
+            mRealm!.delete(result!)
+        }
+    }
 
      /**
      * 指定のParentType,ParentIdの要素を削除する
@@ -941,6 +952,25 @@ public class TangoItemPosDao {
 
         return itemPos
     }
+    
+    /**
+     ダミーのオブジェクトを１件追加
+     - returns: 追加したオブジェクト
+     */
+    public static func addDummy() {
+        let itemPos = TangoItemPos()
+        itemPos.parentType = TangoParentType.Home.rawValue
+        itemPos.parentId = 0
+        itemPos.itemType = TangoItemType.Card.rawValue
+        itemPos.itemId = 1      // dummy
+        itemPos.pos = getNextPos(
+                parentType: TangoParentType.Home.rawValue,
+                parentId: 0)
+        
+        try! mRealm!.write() {
+            mRealm!.add(itemPos)
+        }
+    }
 
      /**
      * 指定位置以降のアイテムを１つづつスライドする
@@ -1047,6 +1077,29 @@ public class TangoItemPosDao {
         }
 
         try! mRealm!.write() {
+            result!.pos = newPos
+        }
+    }
+    
+    /**
+     １件更新（デバッグ用）
+     */
+    public static func updateOne(oldParentType: Int, newParentType: Int,
+                                 oldParentId: Int, newParentId: Int,
+                                 oldPos: Int, newPos : Int)
+    {
+        let result = mRealm!.objects(TangoItemPos.self)
+        .filter("parentType = %d AND parentId = %d AND pos = %d",
+                oldParentType, oldParentId, oldPos)
+        .first
+        
+        if result == nil {
+            return
+        }
+        
+        try! mRealm!.write() {
+            result!.parentType = newParentType
+            result!.parentId = newParentId
             result!.pos = newPos
         }
     }

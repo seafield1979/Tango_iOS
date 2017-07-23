@@ -71,7 +71,6 @@ public class TangoCardHistoryDao {
     public static func addOne(cardId : Int, correctFlag : Bool) -> Bool {
         let history = TangoCardHistory()
         history.cardId = cardId
-//        history.addCorrectFlags(correctFlag)
         history.studiedDate = Date()
 
         try! mRealm!.write() {
@@ -79,7 +78,7 @@ public class TangoCardHistoryDao {
         }
         return true
     }
-
+    
     /**
     * Delete
     */

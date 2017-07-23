@@ -1,14 +1,14 @@
 //
-//  TestDBViewController.swift
+//  TestDB5ViewController.swift
 //  TangoBook
-//     Realmのテーブル (TangoCard)のテスト
-//  Created by Shusuke Unno on 2017/07/22.
+//     Realmのテーブル (TangoBookHistory)のテスト
+//  Created by Shusuke Unno on 2017/07/23.
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
 import UIKit
 
-class TestDBViewController: UNViewController {
+class TestDB5ViewController: UNViewController {
     
     static let BUTTON_AREA_H : CGFloat = 100.0
     
@@ -19,7 +19,7 @@ class TestDBViewController: UNViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // テスト用の処理を呼び出すボタン
         let scrollView = UIViewUtil.createButtonsWithScrollBar2(
             parentView: self,
@@ -34,16 +34,21 @@ class TestDBViewController: UNViewController {
         // UITextViewを作成
         self.textView = UIViewUtil.createTextView(
             frame: CGRect(x:0, y:TestDBViewController.BUTTON_AREA_H,
-                            width: self.view.frame.size.width,
-                            height: self.view.frame.size.height - TestDBViewController.BUTTON_AREA_H))
+                          width: self.view.frame.size.width,
+                          height: self.view.frame.size.height - TestDBViewController.BUTTON_AREA_H))
         
         if self.textView != nil {
             self.view.addSubview(self.textView!)
             self.textView!.text = "hello world"
         }
-
-    }
         
+    }
+    
+    /**
+     UITextViewを生成する
+     */
+    
+    
     func tappedButton(_ sender: AnyObject) {
         switch sender.tag {
         case 1:
@@ -64,39 +69,39 @@ class TestDBViewController: UNViewController {
         }
     }
     
-    // TangoCardの全オブジェクト表示
+    // TangoBookの全オブジェクト表示
     func selectAll() {
         // テキストをクリア
         self.textView!.text.removeAll()
         
-        let cards = TangoCardDao.selectAll()
+        let books = TangoBookDao.selectAll()
         
-        for card in cards {
-            self.textView!.text.append(card.debugDescription + "\n")
+        for book in books {
+            self.textView!.text.append(book.debugDescription + "\n")
         }
     }
-
+    
     func selectOne() {
         
     }
     
-    // ダミーカードを１つ追加
+    // ダミーアイテムを１つ追加
     func addOne() {
-        TangoCardDao.addDummy()
+        TangoBookDao.addDummy()
         
         selectAll()
     }
     
     // １件更新
     func updateOne() {
-        // 最初のカードを更新
-        let cards = TangoCardDao.selectAll()
-        if cards.count < 1 {
+        // 最初のアイテムを更新
+        let books = TangoBookDao.selectAll()
+        if books.count < 1 {
             return
         }
-        let card = cards.first
+        let book = books.first
         
-        TangoCardDao.updateOne(id: card!.getId(), wordA: "update A", wordB: "update B")
+        TangoBookDao.updateOne(id: book!.getId(), name: "update A")
         
         // 表示
         selectAll()
@@ -104,14 +109,14 @@ class TestDBViewController: UNViewController {
     
     // １件削除
     func deleteOne() {
-        // 最初のカードを削除
-        let cards = TangoCardDao.selectAll()
-        if cards.count < 1 {
+        // 最初のアイテムを削除
+        let books = TangoBookDao.selectAll()
+        if books.count < 1 {
             return
         }
-        let card = cards.first
+        let book = books.first
         
-        _ = TangoCardDao.deleteById(id: card!.getId())
+        _ = TangoBookDao.deleteById(id: book!.getId())
         
         // 表示更新
         selectAll()
@@ -120,7 +125,7 @@ class TestDBViewController: UNViewController {
     // 全て削除
     func deleteAll() {
         // 全オブジェクト削除
-        _ = TangoCardDao.deleteAll()
+        _ = TangoBookDao.deleteAll()
         
         // 表示更新
         selectAll()

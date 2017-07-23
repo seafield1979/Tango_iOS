@@ -32,22 +32,16 @@ public class TangoBookDao {
      */
     public static func getNum() -> Int {
         let list = selectAll()
-        if list == nil {
-            return 0
-        }
-        return list!.count
+        return list.count
     }
 
     /**
      * 全要素取得
      * @return nameのString[]
      */
-    public static func selectAll() -> [TangoBook]? {
+    public static func selectAll() -> [TangoBook] {
         let results = mRealm!.objects(TangoBook.self)
-        if results.count == 0 {
-            return nil
-        }
-
+        
         // for Debug
         if (UDebug.debugDAO) {
             print(TAG + "TangoBook selectAll")
@@ -162,7 +156,7 @@ public class TangoBookDao {
 
     /**
      * 一件更新  ユーザーが設定するデータ全て
-     * @param book
+     * @param book このオブジェクトと同じIDのオブジェクトを置き換える
      */
     public static func updateOne(book : TangoBook) {
         
@@ -182,6 +176,24 @@ public class TangoBookDao {
         }
     }
 
+    /**
+     1件更新
+     - parameter id: 更新するオブジェクトのID
+     - parameter name: 新しい名前
+     */
+    public static func updateOne(id : Int, name : String) {
+        let updateBook = mRealm!.objects(TangoBook.self)
+            .filter("id=%d", id)
+            .first
+        if updateBook == nil {
+            return
+        }
+        
+        try! mRealm!.write() {
+            updateBook!.setName(name: name)
+            updateBook!.setUpdateTime(updateTime: Date())
+        }
+    }
     
     /**
      * IDのリストに一致する項目を全て削除する

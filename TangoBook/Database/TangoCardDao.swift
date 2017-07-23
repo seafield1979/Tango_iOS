@@ -395,7 +395,7 @@ public class TangoCardDao {
     public static func updateOne(card : TangoCard ) {
         let updateCard = mRealm!.objects(TangoCard.self).filter("id = %d", card.getId).first
         if updateCard == nil {
-            return
+        return
         }
         
         try! mRealm!.write() {

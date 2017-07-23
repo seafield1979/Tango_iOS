@@ -15,7 +15,7 @@ import UIKit
  * 単語帳を保持する親の種類
  */
 public enum TangoParentType : Int, EnumEnumerable {
-    case Home           // ホーム画面
+    case Home = 0       // ホーム画面
     case Book           // 単語帳
     case Trash          // ゴミ箱
     

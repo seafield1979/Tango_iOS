@@ -118,6 +118,20 @@ public class UIViewUtil {
                                      lineCount: Int, text: String, tagId: Int)
         -> [UIButton]
     {
+        // ボタンのテキストを生成
+        var texts : [String] = []
+        for i in 0...count - 1 {
+            texts.append(text + (i+1).description)
+        }
+        
+        let buttons = self.createButtons(y, count: count, lineCount: lineCount, texts: texts, tagId: tagId)
+        return buttons
+    }
+    
+    public static func createButtons(_ y : CGFloat, count : Int,
+                                     lineCount: Int, texts: [String], tagId: Int)
+        -> [UIButton]
+    {
         var buttons : [UIButton] = []
         
         var x : CGFloat = 0
@@ -131,7 +145,12 @@ public class UIViewUtil {
                 y += UIViewUtil.BUTTON_H
             }
             
-            _text = text + (i+1).description
+            if i < texts.count {
+                _text = texts[i]
+            } else {
+                _text = "test" + (i+1).description
+            }
+            
             let button = createSimpleButton(
                 x:x, y:y, width:width, height: UIViewUtil.BUTTON_H, title: _text!, tagId: tagId + i)
             x += width
@@ -142,14 +161,30 @@ public class UIViewUtil {
     
     /**
      ボタンとそれを囲むScrollViewを作成する
-     - parameter <#name#>: <##>
-     - throws: <#throw detail#>
-     - returns: <#return value#>
      */
     public static func createButtonsWithScrollBar(
         parentView: UIViewController,
         y : CGFloat, height: CGFloat, count : Int,
         lineCount: Int, text: String, tagId: Int,
+        selector: Selector ) -> UIScrollView?
+    {
+        // ボタンのテキストを生成
+        var texts : [String] = []
+        for i in 0...count - 1 {
+            texts.append(text + (i+1).description)
+        }
+        
+        let scrollView = self.createButtonsWithScrollBar2(
+            parentView: parentView, y: y, height: height,
+            count: count, lineCount: lineCount, texts: texts, tagId: tagId, selector: selector)
+        
+        return scrollView
+    }
+    
+    public static func createButtonsWithScrollBar2(
+        parentView: UIViewController,
+        y : CGFloat, height: CGFloat, count : Int,
+        lineCount: Int, texts: [String], tagId: Int,
         selector: Selector ) -> UIScrollView?
     {
         let screenW = UIScreen.main.bounds.size.width
@@ -162,7 +197,7 @@ public class UIViewUtil {
         // ボタンを作成
         let buttons = createButtons(y, count : count,
                                     lineCount: lineCount,
-                                    text: text, tagId: tagId)
+                                    texts: texts, tagId: tagId)
         if buttons.count == 0 {
             return nil
         }
@@ -182,5 +217,31 @@ public class UIViewUtil {
         }
         
         return scrollView
+    }
+    
+    /**
+     UITextViewを生成する
+     - parameter frame: 生成するUITextViewの座標、サイズ
+     - returns: 生成したUITextViewオブジェクト
+     */
+    public static func createTextView(frame: CGRect) -> UITextView {
+        let textView = UITextView(frame: frame)
+        // textView.delegate = self
+        
+        // いろいろ設定
+        // 背景色
+        textView.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 0.8, alpha: 1.0)
+        
+        // 編集可能(falseだとリードオンリーになる)
+        textView.isEditable = true
+        
+        // テキストの色
+        textView.textColor = UIColor.blue
+        
+        // テキストの水平揃え
+        // left,center,right
+        textView.textAlignment = NSTextAlignment.left
+        
+        return textView
     }
 }
