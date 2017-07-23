@@ -23,6 +23,7 @@
 		8AE08A101F24BA1C0024E9B7 /* TestDB5ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AE08A0E1F24BA1C0024E9B7 /* TestDB5ViewController.xib */; };
 		8AE08A131F24BA310024E9B7 /* TestDB6ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08A111F24BA310024E9B7 /* TestDB6ViewController.swift */; };
 		8AE08A141F24BA310024E9B7 /* TestDB6ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AE08A121F24BA310024E9B7 /* TestDB6ViewController.xib */; };
+		8AE08A171F24FF320024E9B7 /* Image in Resources */ = {isa = PBXBuildFile; fileRef = 8AE08A161F24FF320024E9B7 /* Image */; };
 		8AE6E9DF1F208319001D0694 /* UDebug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE6E9DE1F208319001D0694 /* UDebug.swift */; };
 		8AE6E9E11F20F186001D0694 /* EnumEnumerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE6E9E01F20F186001D0694 /* EnumEnumerable.swift */; };
 		8AF7817B1F1F3E4400FC4EF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF7817A1F1F3E4400FC4EF2 /* AppDelegate.swift */; };
@@ -71,6 +72,7 @@
 		8AE08A0E1F24BA1C0024E9B7 /* TestDB5ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDB5ViewController.xib; path = TangoBook/ViewController/TestDB5ViewController.xib; sourceTree = "<group>"; };
 		8AE08A111F24BA310024E9B7 /* TestDB6ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDB6ViewController.swift; path = TangoBook/ViewController/TestDB6ViewController.swift; sourceTree = "<group>"; };
 		8AE08A121F24BA310024E9B7 /* TestDB6ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDB6ViewController.xib; path = TangoBook/ViewController/TestDB6ViewController.xib; sourceTree = "<group>"; };
+		8AE08A161F24FF320024E9B7 /* Image */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Image; path = TangoBook/Resource/Image; sourceTree = "<group>"; };
 		8AE6E9DE1F208319001D0694 /* UDebug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UDebug.swift; path = TangoBook/UUtil/UDebug.swift; sourceTree = "<group>"; };
 		8AE6E9E01F20F186001D0694 /* EnumEnumerable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnumEnumerable.swift; path = TangoBook/Extension/EnumEnumerable.swift; sourceTree = "<group>"; };
 		8AF781771F1F3E4400FC4EF2 /* TangoBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TangoBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,9 +157,18 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		8AE08A151F24FEC10024E9B7 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				8AE08A161F24FF320024E9B7 /* Image */,
+			);
+			name = Resource;
+			sourceTree = "<group>";
+		};
 		8AF7816E1F1F3E4400FC4EF2 = {
 			isa = PBXGroup;
 			children = (
+				8AE08A151F24FEC10024E9B7 /* Resource */,
 				8AF781BE1F1F4D2E00FC4EF2 /* Extension */,
 				8AF781B71F1F4A6000FC4EF2 /* UUtil */,
 				8AF7818E1F1F41F600FC4EF2 /* Database */,
@@ -309,6 +320,7 @@
 				8A8522471F22539800B5B8A3 /* ViewController.xib in Resources */,
 				8AE08A041F24B98E0024E9B7 /* TestDB2ViewController.xib in Resources */,
 				8AE08A101F24BA1C0024E9B7 /* TestDB5ViewController.xib in Resources */,
+				8AE08A171F24FF320024E9B7 /* Image in Resources */,
 				8AF781821F1F3E4400FC4EF2 /* Assets.xcassets in Resources */,
 				8AE08A081F24B9A20024E9B7 /* TestDB3ViewController.xib in Resources */,
 				8AE08A141F24BA310024E9B7 /* TestDB6ViewController.xib in Resources */,
