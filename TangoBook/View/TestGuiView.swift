@@ -24,7 +24,6 @@ class TestGuiView : TopView{
         super.init(coder: aDecoder)
     }
     
-    
     /**
      描画処理
      - parameter rect: 再描画領域の矩形

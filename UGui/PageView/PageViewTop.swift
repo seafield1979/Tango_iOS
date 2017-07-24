@@ -1,5 +1,5 @@
 //
-//  PageViewTitle.swift
+//  PageViewTop.swift
 //  UGui
 //  アプリ起動時に表示されるページ
 //
@@ -25,7 +25,7 @@ public struct ButtonInfo {
 }
 
 
-public class PageViewTitle : UPageView, UButtonCallbacks {
+public class PageViewTop : UPageView, UButtonCallbacks {
 
     
     /**
@@ -34,7 +34,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
     /**
      * Constants
      */
-    public static let TAG = "PageViewTitle"
+    public static let TAG = "PageViewTop"
     private var buttonInfo : [ButtonInfo] = []
     public static let buttonId1 = 100
     public static let buttonId2 = 101
@@ -51,8 +51,8 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
     /**
      * Constructor
      */
-    public override init( topView : TopView, title : String) {
-        super.init( topView: topView, title: title)
+    public override init( parentView topView : TopView, title : String) {
+        super.init( parentView: topView, title: title)
         
         buttonInfo.append(ButtonInfo(id: 100, name: "ボタン"))
         buttonInfo.append(ButtonInfo(id: 101, name: "ダイアログ"))
@@ -133,23 +133,23 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
      */
     public func UButtonClicked(id : Int, pressedOn : Bool) -> Bool {
         switch(id) {
-        case PageViewTitle.buttonId1:
+        case PageViewTop.buttonId1:
             // ページ切り替え
             _ = PageViewManager.getInstance().stackPage(pageId: PageView.Test1)
             
-        case PageViewTitle.buttonId2:
+        case PageViewTop.buttonId1:
             // ページ切り替え
             _ = PageViewManager.getInstance().stackPage(pageId: PageView.Test2)
-        case PageViewTitle.buttonId3:
+        case PageViewTop.buttonId3:
             // ページ切り替え
             _ = PageViewManager.getInstance().stackPage(pageId: PageView.Test3)
-        case PageViewTitle.buttonId4:
+        case PageViewTop.buttonId4:
             // ページ切り替え
             _ = PageViewManager.getInstance().stackPage(pageId: PageView.Test4)
-        case PageViewTitle.buttonId5:
+        case PageViewTop.buttonId5:
             // ページ切り替え
             _ = PageViewManager.getInstance().stackPage(pageId: PageView.Test5)
-        case PageViewTitle.buttonId6:
+        case PageViewTop.buttonId6:
             // ページ切り替え
             _ = PageViewManager.getInstance().stackPage(pageId: PageView.Test6)
         default:

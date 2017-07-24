@@ -22,6 +22,17 @@ public class TopView : UIView, UButtonCallbacks{
     public var redraw : Bool = false
     var parentVC : UIViewController? = nil
     
+    
+    // Get/Set
+    public func getWidth() -> CGFloat {
+        return self.frame.size.width
+    }
+    
+    public func getHeight() -> CGFloat {
+        return self.frame.size.height
+    }
+    
+    
     // View毎の個別のページマネージャー。サブクラスで生成する
     var mPageManager : UPageViewManager? = nil
     
