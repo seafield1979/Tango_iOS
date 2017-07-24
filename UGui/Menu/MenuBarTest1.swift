@@ -63,7 +63,7 @@ public class MenuBarTest1 : UMenuBar {
         
         // Add
         let image = UResourceManager.getImageByName(ImageName.debug)
-        let image2 = UResourceManager.getImageByName(ImageName.hogeman)
+        let image2 = UResourceManager.getImageByName(ImageName.debug)
         // Debug
         item = addTopMenuItem( menuId: MenuItemId.DebugTop.rawValue, image: image! )
         item2 = addMenuItem(parent: item!, menuId: MenuItemId.Debug1.rawValue, image: image2!)

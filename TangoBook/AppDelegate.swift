@@ -18,13 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
     {
         window = UIWindow(frame:UIScreen.main.bounds)
-        let viewController = ViewController(nibName: "ViewController", bundle: nil)
+        let viewController = TestGuiTopViewController(nibName: "TestGuiTopViewController", bundle: nil)
         let navigationController = UINavigationController(rootViewController: viewController)
         
         window!.rootViewController = navigationController
         window!.makeKeyAndVisible()
         
         initSystem()
+        UUtil.initialize(navigationC: navigationController)
         
         return true
     }
@@ -33,8 +34,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      システムを初期化する。ユーザー独自の初期化処理を行う
      */
     func initSystem() {
-        let realm = try! Realm()
         
+        NanoTimer.initialize()
+        ULog.initialize()
+        
+        // データベース(Realm)初期化
+        let realm = try! Realm()
         TangoCardDao.setRealm(realm)
         TangoCardHistoryDao.setRealm(realm)
         TangoBookDao.setRealm(realm)

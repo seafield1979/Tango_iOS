@@ -119,8 +119,8 @@ public class PageViewTest1 : UPageView, UButtonCallbacks {
         y += buttonH + PageViewTest1.MARGIN
 
         // 画像ボタン(ONとOFFで別の画像を設定している)
-        let image1 = UResourceManager.getImageByName(ImageName.miro)
-        let image2 = UResourceManager.getImageByName(ImageName.ume)
+        let image1 = UResourceManager.getImageByName(ImageName.debug)
+        let image2 = UResourceManager.getImageByName(ImageName.debug)
         let imageButton = UButtonImage.createButton(callbacks: nil, id: PageViewTest1.buttonId5, priority: 100, x: x, y: y, width: buttonW, height: buttonH, image: image1, pressedImage: image2)
         imageButton.addToDrawManager()
         

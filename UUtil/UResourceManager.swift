@@ -81,7 +81,7 @@ public class UResourceManager {
      */
     public static func getImageByName(_ imageName: ImageName) -> UIImage?
     {
-        let name : String = imageName.rawValue
+        let name : String = imageName.path()
         
         // キャッシュがあるならそちらを取得
         var image : UIImage? = imageCache[name]
