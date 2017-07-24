@@ -27,8 +27,8 @@ public class PageViewTest4 : UPageView, UMenuItemCallbacks {
     /**
      * Constructor
      */
-    public override init( topView : TopView, title : String) {
-        super.init( topView: topView, title: title)
+    public override init( parentView topView : TopView, title : String) {
+        super.init( parentView: topView, title: title)
     }
     
     /**

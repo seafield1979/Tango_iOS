@@ -12,10 +12,10 @@
 		8A8522451F22533000B5B8A3 /* TestDBViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A8522431F22533000B5B8A3 /* TestDBViewController.xib */; };
 		8A8522471F22539800B5B8A3 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A8522461F22539800B5B8A3 /* ViewController.xib */; };
 		8AB7E8F51F2581EF005E36BB /* Resource in Resources */ = {isa = PBXBuildFile; fileRef = 8AB7E8F41F2581EF005E36BB /* Resource */; };
-		8AB7E8F71F25824C005E36BB /* ImageId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E8F61F25824C005E36BB /* ImageId.swift */; };
+		8AB7E8F71F25824C005E36BB /* ImageName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E8F61F25824C005E36BB /* ImageName.swift */; };
 		8AB7E8FA1F2582C0005E36BB /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E8F91F2582C0005E36BB /* TopView.swift */; };
 		8AB7E8FC1F258384005E36BB /* ViewTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E8FB1F258384005E36BB /* ViewTouch.swift */; };
-		8AB7E9111F2583F4005E36BB /* PageViewTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9061F2583F4005E36BB /* PageViewTitle.swift */; };
+		8AB7E9111F2583F4005E36BB /* PageViewTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9061F2583F4005E36BB /* PageViewTop.swift */; };
 		8AB7E9121F2583F4005E36BB /* UPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9071F2583F4005E36BB /* UPageView.swift */; };
 		8AB7E9131F2583F4005E36BB /* UPageViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9081F2583F4005E36BB /* UPageViewManager.swift */; };
 		8AB7E9151F258463005E36BB /* UScrollWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9141F258463005E36BB /* UScrollWindow.swift */; };
@@ -32,6 +32,29 @@
 		8AB7E9311F259991005E36BB /* PageViewTest4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9291F259991005E36BB /* PageViewTest4.swift */; };
 		8AB7E9321F259991005E36BB /* PageViewTest5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E92A1F259991005E36BB /* PageViewTest5.swift */; };
 		8AB7E9331F259991005E36BB /* PageViewTest6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E92B1F259991005E36BB /* PageViewTest6.swift */; };
+		8AB7E94B1F25A00F005E36BB /* PageViewBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9391F25A00F005E36BB /* PageViewBackup.swift */; };
+		8AB7E94C1F25A00F005E36BB /* PageViewCsvBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E93A1F25A00F005E36BB /* PageViewCsvBook.swift */; };
+		8AB7E94D1F25A00F005E36BB /* PageViewDebug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E93B1F25A00F005E36BB /* PageViewDebug.swift */; };
+		8AB7E94E1F25A00F005E36BB /* PageViewDebugDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E93C1F25A00F005E36BB /* PageViewDebugDB.swift */; };
+		8AB7E94F1F25A00F005E36BB /* PageViewHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E93D1F25A00F005E36BB /* PageViewHelp.swift */; };
+		8AB7E9501F25A00F005E36BB /* PageViewHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E93E1F25A00F005E36BB /* PageViewHistory.swift */; };
+		8AB7E9511F25A00F005E36BB /* PageViewOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E93F1F25A00F005E36BB /* PageViewOptions.swift */; };
+		8AB7E9521F25A00F005E36BB /* PageViewPresetBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9401F25A00F005E36BB /* PageViewPresetBook.swift */; };
+		8AB7E9531F25A00F005E36BB /* PageViewRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9411F25A00F005E36BB /* PageViewRestore.swift */; };
+		8AB7E9541F25A00F005E36BB /* PageViewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9421F25A00F005E36BB /* PageViewResult.swift */; };
+		8AB7E9551F25A00F005E36BB /* PageViewSettingsTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9431F25A00F005E36BB /* PageViewSettingsTop.swift */; };
+		8AB7E9561F25A00F005E36BB /* PageViewSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9441F25A00F005E36BB /* PageViewSlide.swift */; };
+		8AB7E9571F25A00F005E36BB /* PageViewStudy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9451F25A00F005E36BB /* PageViewStudy.swift */; };
+		8AB7E9581F25A00F005E36BB /* PageViewStudyBookSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9461F25A00F005E36BB /* PageViewStudyBookSelect.swift */; };
+		8AB7E9591F25A00F005E36BB /* PageViewStudyInputCorrect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9471F25A00F005E36BB /* PageViewStudyInputCorrect.swift */; };
+		8AB7E95A1F25A00F005E36BB /* PageViewStudySelect4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9481F25A00F005E36BB /* PageViewStudySelect4.swift */; };
+		8AB7E95B1F25A00F005E36BB /* PageViewTangoEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9491F25A00F005E36BB /* PageViewTangoEdit.swift */; };
+		8AB7E95E1F25A2AF005E36BB /* PageViewTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E95D1F25A2AF005E36BB /* PageViewTitle.swift */; };
+		8AB7E9611F25B43E005E36BB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AB7E9631F25B43E005E36BB /* Localizable.strings */; };
+		8AB7E9671F25D29E005E36BB /* PageViewManagerTest1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9661F25D29E005E36BB /* PageViewManagerTest1.swift */; };
+		8AB7E96B1F25E12E005E36BB /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9691F25E12E005E36BB /* TopViewController.swift */; };
+		8AB7E96C1F25E12E005E36BB /* TopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AB7E96A1F25E12E005E36BB /* TopViewController.xib */; };
+		8AB7E96E1F25E1D0005E36BB /* TangoTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E96D1F25E1D0005E36BB /* TangoTopView.swift */; };
 		8AE089FC1F24677D0024E9B7 /* UNViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE089FB1F24677D0024E9B7 /* UNViewController.swift */; };
 		8AE08A031F24B98E0024E9B7 /* TestDB2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08A011F24B98E0024E9B7 /* TestDB2ViewController.swift */; };
 		8AE08A041F24B98E0024E9B7 /* TestDB2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AE08A021F24B98E0024E9B7 /* TestDB2ViewController.xib */; };
@@ -115,10 +138,10 @@
 		8A8522431F22533000B5B8A3 /* TestDBViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDBViewController.xib; path = TangoBook/Database/Test/TestDBViewController.xib; sourceTree = "<group>"; };
 		8A8522461F22539800B5B8A3 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ViewController.xib; path = TangoBook/ViewController.xib; sourceTree = "<group>"; };
 		8AB7E8F41F2581EF005E36BB /* Resource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resource; sourceTree = "<group>"; };
-		8AB7E8F61F25824C005E36BB /* ImageId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageId.swift; sourceTree = "<group>"; };
+		8AB7E8F61F25824C005E36BB /* ImageName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageName.swift; sourceTree = "<group>"; };
 		8AB7E8F91F2582C0005E36BB /* TopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
 		8AB7E8FB1F258384005E36BB /* ViewTouch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewTouch.swift; sourceTree = "<group>"; };
-		8AB7E9061F2583F4005E36BB /* PageViewTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewTitle.swift; sourceTree = "<group>"; };
+		8AB7E9061F2583F4005E36BB /* PageViewTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewTop.swift; sourceTree = "<group>"; };
 		8AB7E9071F2583F4005E36BB /* UPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPageView.swift; sourceTree = "<group>"; };
 		8AB7E9081F2583F4005E36BB /* UPageViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPageViewManager.swift; sourceTree = "<group>"; };
 		8AB7E9141F258463005E36BB /* UScrollWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UScrollWindow.swift; sourceTree = "<group>"; };
@@ -135,6 +158,30 @@
 		8AB7E9291F259991005E36BB /* PageViewTest4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewTest4.swift; path = PageView/PageViewTest4.swift; sourceTree = "<group>"; };
 		8AB7E92A1F259991005E36BB /* PageViewTest5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewTest5.swift; path = PageView/PageViewTest5.swift; sourceTree = "<group>"; };
 		8AB7E92B1F259991005E36BB /* PageViewTest6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewTest6.swift; path = PageView/PageViewTest6.swift; sourceTree = "<group>"; };
+		8AB7E9391F25A00F005E36BB /* PageViewBackup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewBackup.swift; path = PageView/PageViewBackup.swift; sourceTree = "<group>"; };
+		8AB7E93A1F25A00F005E36BB /* PageViewCsvBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewCsvBook.swift; path = PageView/PageViewCsvBook.swift; sourceTree = "<group>"; };
+		8AB7E93B1F25A00F005E36BB /* PageViewDebug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewDebug.swift; path = PageView/PageViewDebug.swift; sourceTree = "<group>"; };
+		8AB7E93C1F25A00F005E36BB /* PageViewDebugDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewDebugDB.swift; path = PageView/PageViewDebugDB.swift; sourceTree = "<group>"; };
+		8AB7E93D1F25A00F005E36BB /* PageViewHelp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewHelp.swift; path = PageView/PageViewHelp.swift; sourceTree = "<group>"; };
+		8AB7E93E1F25A00F005E36BB /* PageViewHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewHistory.swift; path = PageView/PageViewHistory.swift; sourceTree = "<group>"; };
+		8AB7E93F1F25A00F005E36BB /* PageViewOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewOptions.swift; path = PageView/PageViewOptions.swift; sourceTree = "<group>"; };
+		8AB7E9401F25A00F005E36BB /* PageViewPresetBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewPresetBook.swift; path = PageView/PageViewPresetBook.swift; sourceTree = "<group>"; };
+		8AB7E9411F25A00F005E36BB /* PageViewRestore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewRestore.swift; path = PageView/PageViewRestore.swift; sourceTree = "<group>"; };
+		8AB7E9421F25A00F005E36BB /* PageViewResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewResult.swift; path = PageView/PageViewResult.swift; sourceTree = "<group>"; };
+		8AB7E9431F25A00F005E36BB /* PageViewSettingsTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewSettingsTop.swift; path = PageView/PageViewSettingsTop.swift; sourceTree = "<group>"; };
+		8AB7E9441F25A00F005E36BB /* PageViewSlide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewSlide.swift; path = PageView/PageViewSlide.swift; sourceTree = "<group>"; };
+		8AB7E9451F25A00F005E36BB /* PageViewStudy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewStudy.swift; path = PageView/PageViewStudy.swift; sourceTree = "<group>"; };
+		8AB7E9461F25A00F005E36BB /* PageViewStudyBookSelect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewStudyBookSelect.swift; path = PageView/PageViewStudyBookSelect.swift; sourceTree = "<group>"; };
+		8AB7E9471F25A00F005E36BB /* PageViewStudyInputCorrect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewStudyInputCorrect.swift; path = PageView/PageViewStudyInputCorrect.swift; sourceTree = "<group>"; };
+		8AB7E9481F25A00F005E36BB /* PageViewStudySelect4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewStudySelect4.swift; path = PageView/PageViewStudySelect4.swift; sourceTree = "<group>"; };
+		8AB7E9491F25A00F005E36BB /* PageViewTangoEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewTangoEdit.swift; path = PageView/PageViewTangoEdit.swift; sourceTree = "<group>"; };
+		8AB7E95D1F25A2AF005E36BB /* PageViewTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewTitle.swift; path = PageView/PageViewTitle.swift; sourceTree = "<group>"; };
+		8AB7E9641F25B441005E36BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8AB7E9651F25B52A005E36BB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8AB7E9661F25D29E005E36BB /* PageViewManagerTest1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewManagerTest1.swift; path = PageView/PageViewManagerTest1.swift; sourceTree = "<group>"; };
+		8AB7E9691F25E12E005E36BB /* TopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopViewController.swift; path = ViewController/TopViewController.swift; sourceTree = "<group>"; };
+		8AB7E96A1F25E12E005E36BB /* TopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TopViewController.xib; path = ViewController/TopViewController.xib; sourceTree = "<group>"; };
+		8AB7E96D1F25E1D0005E36BB /* TangoTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TangoTopView.swift; sourceTree = "<group>"; };
 		8AE089FB1F24677D0024E9B7 /* UNViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UNViewController.swift; path = TangoBook/ViewController/UNViewController.swift; sourceTree = "<group>"; };
 		8AE08A011F24B98E0024E9B7 /* TestDB2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDB2ViewController.swift; path = TangoBook/ViewController/TestDB2ViewController.swift; sourceTree = "<group>"; };
 		8AE08A021F24B98E0024E9B7 /* TestDB2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDB2ViewController.xib; path = TangoBook/ViewController/TestDB2ViewController.xib; sourceTree = "<group>"; };
@@ -272,6 +319,7 @@
 			children = (
 				8AB7E8F91F2582C0005E36BB /* TopView.swift */,
 				8AB7E9211F258A1B005E36BB /* TestGuiView.swift */,
+				8AB7E96D1F25E1D0005E36BB /* TangoTopView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -279,7 +327,7 @@
 		8AB7E8FD1F2583F4005E36BB /* PageView */ = {
 			isa = PBXGroup;
 			children = (
-				8AB7E9061F2583F4005E36BB /* PageViewTitle.swift */,
+				8AB7E9061F2583F4005E36BB /* PageViewTop.swift */,
 				8AB7E9071F2583F4005E36BB /* UPageView.swift */,
 				8AB7E9081F2583F4005E36BB /* UPageViewManager.swift */,
 			);
@@ -298,7 +346,9 @@
 		8AB7E9231F259947005E36BB /* PageView */ = {
 			isa = PBXGroup;
 			children = (
+				8AB7E9381F259FFF005E36BB /* Tango */,
 				8AB7E9241F259991005E36BB /* PageViewManager.swift */,
+				8AB7E9661F25D29E005E36BB /* PageViewManagerTest1.swift */,
 				8AB7E9251F259991005E36BB /* PageViewTemplate.swift */,
 				8AB7E9261F259991005E36BB /* PageViewTest1.swift */,
 				8AB7E9271F259991005E36BB /* PageViewTest2.swift */,
@@ -308,6 +358,31 @@
 				8AB7E92B1F259991005E36BB /* PageViewTest6.swift */,
 			);
 			name = PageView;
+			sourceTree = "<group>";
+		};
+		8AB7E9381F259FFF005E36BB /* Tango */ = {
+			isa = PBXGroup;
+			children = (
+				8AB7E9391F25A00F005E36BB /* PageViewBackup.swift */,
+				8AB7E93A1F25A00F005E36BB /* PageViewCsvBook.swift */,
+				8AB7E93B1F25A00F005E36BB /* PageViewDebug.swift */,
+				8AB7E93C1F25A00F005E36BB /* PageViewDebugDB.swift */,
+				8AB7E93D1F25A00F005E36BB /* PageViewHelp.swift */,
+				8AB7E93E1F25A00F005E36BB /* PageViewHistory.swift */,
+				8AB7E93F1F25A00F005E36BB /* PageViewOptions.swift */,
+				8AB7E9401F25A00F005E36BB /* PageViewPresetBook.swift */,
+				8AB7E9411F25A00F005E36BB /* PageViewRestore.swift */,
+				8AB7E9421F25A00F005E36BB /* PageViewResult.swift */,
+				8AB7E9431F25A00F005E36BB /* PageViewSettingsTop.swift */,
+				8AB7E9441F25A00F005E36BB /* PageViewSlide.swift */,
+				8AB7E9451F25A00F005E36BB /* PageViewStudy.swift */,
+				8AB7E9461F25A00F005E36BB /* PageViewStudyBookSelect.swift */,
+				8AB7E9471F25A00F005E36BB /* PageViewStudyInputCorrect.swift */,
+				8AB7E9481F25A00F005E36BB /* PageViewStudySelect4.swift */,
+				8AB7E95D1F25A2AF005E36BB /* PageViewTitle.swift */,
+				8AB7E9491F25A00F005E36BB /* PageViewTangoEdit.swift */,
+			);
+			name = Tango;
 			sourceTree = "<group>";
 		};
 		8AE08A601F2580D00024E9B7 /* UGui */ = {
@@ -444,6 +519,7 @@
 		8AF7816E1F1F3E4400FC4EF2 = {
 			isa = PBXGroup;
 			children = (
+				8AB7E9631F25B43E005E36BB /* Localizable.strings */,
 				8AB7E8F41F2581EF005E36BB /* Resource */,
 				8AE08ABC1F2580E00024E9B7 /* Extension */,
 				8AE08AA11F2580D70024E9B7 /* UUtil */,
@@ -468,13 +544,15 @@
 			isa = PBXGroup;
 			children = (
 				8AB7E9231F259947005E36BB /* PageView */,
-				8AB7E8F61F25824C005E36BB /* ImageId.swift */,
+				8AB7E8F61F25824C005E36BB /* ImageName.swift */,
 				8AB7E8F81F2582C0005E36BB /* View */,
 				8A8522411F22516F00B5B8A3 /* ViewControllerDB */,
 				8AB7E91A1F258808005E36BB /* ViewControllerGUI */,
 				8AF7817A1F1F3E4400FC4EF2 /* AppDelegate.swift */,
 				8AF781811F1F3E4400FC4EF2 /* Assets.xcassets */,
 				8AF781861F1F3E4400FC4EF2 /* Info.plist */,
+				8AB7E9691F25E12E005E36BB /* TopViewController.swift */,
+				8AB7E96A1F25E12E005E36BB /* TopViewController.xib */,
 			);
 			path = TangoBook;
 			sourceTree = "<group>";
@@ -559,6 +637,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 8AF7816E1F1F3E4400FC4EF2;
 			productRefGroup = 8AF781781F1F3E4400FC4EF2 /* Products */;
@@ -576,7 +655,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AB7E8F51F2581EF005E36BB /* Resource in Resources */,
+				8AB7E9611F25B43E005E36BB /* Localizable.strings in Resources */,
 				8A8522471F22539800B5B8A3 /* ViewController.xib in Resources */,
+				8AB7E96C1F25E12E005E36BB /* TopViewController.xib in Resources */,
 				8AE08A041F24B98E0024E9B7 /* TestDB2ViewController.xib in Resources */,
 				8AB7E9201F258873005E36BB /* TestGuiTopViewController.xib in Resources */,
 				8AE08A101F24BA1C0024E9B7 /* TestDB5ViewController.xib in Resources */,
@@ -649,23 +730,29 @@
 				8AE08AB81F2580D70024E9B7 /* UIViewUtil.swift in Sources */,
 				8AE08A8C1F2580D00024E9B7 /* UMenuItem.swift in Sources */,
 				8AF781A91F1F445500FC4EF2 /* TangoBookDao.swift in Sources */,
+				8AB7E94C1F25A00F005E36BB /* PageViewCsvBook.swift in Sources */,
 				8AE08A921F2580D00024E9B7 /* DrawList.swift in Sources */,
 				8AE08A871F2580D00024E9B7 /* UButtonImage.swift in Sources */,
+				8AB7E96E1F25E1D0005E36BB /* TangoTopView.swift in Sources */,
 				8A8522441F22533000B5B8A3 /* TestDBViewController.swift in Sources */,
 				8AE08AB21F2580D70024E9B7 /* NanoTimer.swift in Sources */,
 				8AB7E91F1F258873005E36BB /* TestGuiTopViewController.swift in Sources */,
 				8AE08AB51F2580D70024E9B7 /* UColor.swift in Sources */,
+				8AB7E94F1F25A00F005E36BB /* PageViewHelp.swift in Sources */,
 				8AE08A9A1F2580D00024E9B7 /* UListView.swift in Sources */,
+				8AB7E95E1F25A2AF005E36BB /* PageViewTitle.swift in Sources */,
 				8AE08ABA1F2580D70024E9B7 /* UResourceManager.swift in Sources */,
 				8AE08AB41F2580D70024E9B7 /* RefDictionary.swift in Sources */,
 				8AE08A981F2580D00024E9B7 /* UImageView.swift in Sources */,
-				8AB7E8F71F25824C005E36BB /* ImageId.swift in Sources */,
+				8AB7E8F71F25824C005E36BB /* ImageName.swift in Sources */,
 				8AE08AB01F2580D70024E9B7 /* List.swift in Sources */,
 				8AB7E8FA1F2582C0005E36BB /* TopView.swift in Sources */,
 				8AE08ABB1F2580D70024E9B7 /* UUtil.swift in Sources */,
+				8AB7E9591F25A00F005E36BB /* PageViewStudyInputCorrect.swift in Sources */,
 				8AF781AB1F1F445500FC4EF2 /* TangoBookHistoryDao.swift in Sources */,
 				8AE08A861F2580D00024E9B7 /* UButtonClose.swift in Sources */,
 				8AB7E92E1F259991005E36BB /* PageViewTest1.swift in Sources */,
+				8AB7E9531F25A00F005E36BB /* PageViewRestore.swift in Sources */,
 				8AF781B11F1F445500FC4EF2 /* TangoItemPos.swift in Sources */,
 				8AF781AA1F1F445500FC4EF2 /* TangoBookHistory.swift in Sources */,
 				8AE08A8A1F2580D00024E9B7 /* MenuBarTest1.swift in Sources */,
@@ -679,6 +766,8 @@
 				8A8522401F22514300B5B8A3 /* TestDatabase.swift in Sources */,
 				8AF781B41F1F445500FC4EF2 /* TangoStudiedCardDao.swift in Sources */,
 				8AE08AB71F2580D70024E9B7 /* UDpi.swift in Sources */,
+				8AB7E94B1F25A00F005E36BB /* PageViewBackup.swift in Sources */,
+				8AB7E9561F25A00F005E36BB /* PageViewSlide.swift in Sources */,
 				8AE08A961F2580D00024E9B7 /* UDrawManager.swift in Sources */,
 				8AE08A9C1F2580D00024E9B7 /* UView.swift in Sources */,
 				8AF781AE1F1F445500FC4EF2 /* TangoCardHistory.swift in Sources */,
@@ -686,9 +775,13 @@
 				8AE08A9B1F2580D00024E9B7 /* URect.swift in Sources */,
 				8AE08AC01F2580E00024E9B7 /* UIColor+ex.swift in Sources */,
 				8AB7E9131F2583F4005E36BB /* UPageViewManager.swift in Sources */,
+				8AB7E9671F25D29E005E36BB /* PageViewManagerTest1.swift in Sources */,
 				8AB7E92F1F259991005E36BB /* PageViewTest2.swift in Sources */,
+				8AB7E9521F25A00F005E36BB /* PageViewPresetBook.swift in Sources */,
 				8AB7E9321F259991005E36BB /* PageViewTest5.swift in Sources */,
+				8AB7E9581F25A00F005E36BB /* PageViewStudyBookSelect.swift in Sources */,
 				8AE08A881F2580D00024E9B7 /* UButtonText.swift in Sources */,
+				8AB7E95B1F25A00F005E36BB /* PageViewTangoEdit.swift in Sources */,
 				8AB7E9151F258463005E36BB /* UScrollWindow.swift in Sources */,
 				8AE08A031F24B98E0024E9B7 /* TestDB2ViewController.swift in Sources */,
 				8AE08AB61F2580D70024E9B7 /* UDebug.swift in Sources */,
@@ -700,9 +793,14 @@
 				8AF781B01F1F445500FC4EF2 /* TangoItemCheckDao.swift in Sources */,
 				8AB7E92C1F259991005E36BB /* PageViewManager.swift in Sources */,
 				8AF781B31F1F445500FC4EF2 /* TangoStudiedCard.swift in Sources */,
+				8AB7E9501F25A00F005E36BB /* PageViewHistory.swift in Sources */,
+				8AB7E9541F25A00F005E36BB /* PageViewResult.swift in Sources */,
+				8AB7E95A1F25A00F005E36BB /* PageViewStudySelect4.swift in Sources */,
 				8AE08A0B1F24BA010024E9B7 /* TestDB4ViewController.swift in Sources */,
 				8AE08AAF1F2580D70024E9B7 /* EnumEnumerable.swift in Sources */,
 				8AE089FC1F24677D0024E9B7 /* UNViewController.swift in Sources */,
+				8AB7E94E1F25A00F005E36BB /* PageViewDebugDB.swift in Sources */,
+				8AB7E9551F25A00F005E36BB /* PageViewSettingsTop.swift in Sources */,
 				8AB7E9121F2583F4005E36BB /* UPageView.swift in Sources */,
 				8AE08A991F2580D00024E9B7 /* UListItem.swift in Sources */,
 				8AB7E9311F259991005E36BB /* PageViewTest4.swift in Sources */,
@@ -710,8 +808,10 @@
 				8AE08ABF1F2580E00024E9B7 /* CGRect+U.swift in Sources */,
 				8AE08A901F2580D00024E9B7 /* UTextViewOpenClose.swift in Sources */,
 				8AE08A971F2580D00024E9B7 /* UDraw.swift in Sources */,
+				8AB7E9571F25A00F005E36BB /* PageViewStudy.swift in Sources */,
+				8AB7E96B1F25E12E005E36BB /* TopViewController.swift in Sources */,
 				8AE08A911F2580D00024E9B7 /* UAlignment.swift in Sources */,
-				8AB7E9111F2583F4005E36BB /* PageViewTitle.swift in Sources */,
+				8AB7E9111F2583F4005E36BB /* PageViewTop.swift in Sources */,
 				8AB7E8FC1F258384005E36BB /* ViewTouch.swift in Sources */,
 				8AF7817D1F1F3E4400FC4EF2 /* ViewController.swift in Sources */,
 				8AF781B21F1F445500FC4EF2 /* TangoItemPosDao.swift in Sources */,
@@ -721,6 +821,8 @@
 				8AB7E9331F259991005E36BB /* PageViewTest6.swift in Sources */,
 				8AE08AA01F2580D00024E9B7 /* UWindow.swift in Sources */,
 				8AE08AB31F2580D70024E9B7 /* Random.swift in Sources */,
+				8AB7E9511F25A00F005E36BB /* PageViewOptions.swift in Sources */,
+				8AB7E94D1F25A00F005E36BB /* PageViewDebug.swift in Sources */,
 				8AE08A951F2580D00024E9B7 /* UDrawableRect.swift in Sources */,
 				8AE08A941F2580D00024E9B7 /* UDrawable.swift in Sources */,
 				8AF781AD1F1F445500FC4EF2 /* TangoCardDao.swift in Sources */,
@@ -736,11 +838,25 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		8AB7E9631F25B43E005E36BB /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8AB7E9641F25B441005E36BB /* en */,
+				8AB7E9651F25B52A005E36BB /* ja */,
+			);
+			name = Localizable.strings;
+			path = Resource;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		8AF781871F1F3E4400FC4EF2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -791,6 +907,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

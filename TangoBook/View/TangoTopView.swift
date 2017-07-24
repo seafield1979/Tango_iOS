@@ -1,14 +1,14 @@
 //
-//  TestGuiView.swift
+//  TangoTopView.swift
 //  TangoBook
-//    GUIのテスト用のトップView
+//    単語アプリのトップView
 //  Created by Shusuke Unno on 2017/07/24.
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
 import UIKit
 
-class TestGuiView : TopView{
+class TangoTopView : TopView {
     // Consts
     
     // Propaties
@@ -30,16 +30,16 @@ class TestGuiView : TopView{
      - throws: none
      - returns: none
      */
-    override public func draw(_ rect: CGRect) {
-        // 現在のページの描画
-        if (mPageManager!.draw()) {
-            redraw = true
-        }
-        
-        // マネージャに登録した描画オブジェクトをまとめて描画
-        if UDrawManager.getInstance().draw() == true {
-            redraw = true
-        }
-    }
+//    override public func draw(_ rect: CGRect) {
+//        // 現在のページの描画
+//        if (mPageManager!.draw()) {
+//            redraw = true
+//        }
+//        
+//        // マネージャに登録した描画オブジェクトをまとめて描画
+//        if UDrawManager.getInstance().draw() == true {
+//            redraw = true
+//        }
+//    }
 }
 

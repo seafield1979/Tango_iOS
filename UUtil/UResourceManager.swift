@@ -72,7 +72,7 @@ public class UResourceManager {
     public static func getStringByName(_ name : String) -> String
     {
         return NSLocalizedString(name, comment: name)
-    }
+    }   
     
     /**
      * Bitmapを取得

@@ -105,7 +105,7 @@ public class UColor {
     // rgbをそれぞれ 0~255 で指定して UIColorを生成する
     public static func makeColor(_ ri: UInt32, _ gi: UInt32, _ bi: UInt32) -> UIColor
     {
-        return UColor.makeColor( ri, gi, bi, 255)
+        return UColor.makeColor( 255, ri, gi, bi )
     }
     
     public static func makeColor(r: CGFloat, g: CGFloat, b: CGFloat) -> UIColor

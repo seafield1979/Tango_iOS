@@ -66,7 +66,7 @@ public class UButtonText : UButton {
         mImageSize = imageSize
     }
     
-    public func setImageAlignment(alignment : UAlignment) {
+    public func setImageAlignment(_ alignment : UAlignment) {
         mImageAlignment = alignment
     }
     

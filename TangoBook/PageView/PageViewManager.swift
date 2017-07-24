@@ -11,14 +11,34 @@ import UIKit
 
 // ページIDのリスト
 public enum PageView : Int, EnumEnumerable {
-    case Title = 0   // タイトル画面
-    case Test1      // ボタン
+    case Title              // タイトル画面
+    case Edit               // 単語帳を編集
+    case StudyBookSelect    // 学習する単語帳を選択する
+    case StudySlide         // 単語帳学習(カードスライド式)
+    case StudySelect4       // 単語帳学習(４択)
+    case StudyInputCorrect  // 単語帳学習(正解文字入力)
+    case StudyResult        // 単語帳結果
+    case History            // 履歴
+    case Settings           // 設定
+    case Options            // オプション設定
+    case BackupDB           // バックアップ
+    case RestoreDB          // バックアップから復元
+    case PresetBook         // プリセット単語帳選択
+    case CsvBook            // Csv単語帳選択
+    case SearchCard         // カード検索
+    case Help               // ヘルプ
+    case License            // ライセンス表示
+    case Debug               // Debug
+    case DebugDB             // Debug DB(Realm)
+    // テスト用
+    case TestTitle              // タイトル画面
+    case Test1              // ボタン
     case Test2
-    case Test3      // ログウィンドウ
-    case Test4      // メニューバー
-    case Test5      // スクロールバー
+    case Test3              // ログウィンドウ
+    case Test4              // メニューバー
+    case Test5              // スクロールバー
     case Test6
-   ;
+   
 }
 
 public class PageViewManager : UPageViewManager {
@@ -52,25 +72,65 @@ public class PageViewManager : UPageViewManager {
         
         switch(pageView) {
         case .Title:              // タイトル画面
-            page = PageViewTitle( topView: mTopView,
+            page = PageViewTitle( parentView: mTopView,
+                                  title: UResourceManager.getStringByName("app_title"))
+            break
+        case .Edit:               // 単語帳を編集
+            break
+        case .StudyBookSelect:    // 学習する単語帳を選択する
+            break
+        case .StudySlide:         // 単語帳学習(カードスライド式)
+            break
+        case .StudySelect4:       // 単語帳学習(４択)
+            break
+        case .StudyInputCorrect:  // 単語帳学習(正解文字入力)
+            break
+        case .StudyResult:        // 単語帳結果
+            break
+        case .History:            // 履歴
+            break
+        case .Settings:           // 設定
+            break
+        case .Options:            // オプション設定
+            break
+        case .BackupDB:           // バックアップ
+            break
+        case .RestoreDB:          // バックアップから復元
+            break
+        case .PresetBook:         // プリセット単語帳選択
+            break
+        case .CsvBook:            // Csv単語帳選択
+            break
+        case .SearchCard:         // カード検索
+            break
+        case .Help:               // ヘルプ
+            break
+        case .License:            // ライセンス表示
+            break
+        case .Debug:               // Debug
+            break
+        case .DebugDB:             // Debug DB(Realm)
+            break
+        case .TestTitle:              // タイトル画面
+            page = PageViewTitle( parentView: mTopView,
                                   title: UResourceManager.getStringByName("app_title"))
         case .Test1:
-            page = PageViewTest1( topView: mTopView,
+            page = PageViewTest1( parentView: mTopView,
                         title: UResourceManager.getStringByName("test1"))
         case .Test2:
-            page = PageViewTest2( topView: mTopView,
+            page = PageViewTest2( parentView: mTopView,
                                   title: UResourceManager.getStringByName("test2"))
         case .Test3:
-            page = PageViewTest3( topView: mTopView,
+            page = PageViewTest3( parentView: mTopView,
                                   title: UResourceManager.getStringByName("test3"))
         case .Test4:
-            page = PageViewTest4( topView: mTopView,
+            page = PageViewTest4( parentView: mTopView,
                                   title: UResourceManager.getStringByName("test4"))
         case .Test5:
-            page = PageViewTest5( topView: mTopView,
+            page = PageViewTest5( parentView: mTopView,
                                   title: UResourceManager.getStringByName("test5"))
         case .Test6:
-            page = PageViewTest6( topView: mTopView,
+            page = PageViewTest6( parentView: mTopView,
                                   title: UResourceManager.getStringByName("test6"))
         }
         if page != nil {

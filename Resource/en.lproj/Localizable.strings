@@ -1,0 +1,280 @@
+/* 
+  Localizable.strings
+  TangoBook
+
+  Created by Shusuke Unno on 2017/07/24.
+  Copyright © 2017年 Sun Sun Soft. All rights reserved.
+*/
+
+"app_name" = "app_name";
+"hello_blank_fragment" = "hello_blank_fragment";
+"error" = "error";
+"return1" = "return1";
+"close" = "close";
+"clear" = "clear";
+"confirm" = "confirm";
+"date_format" = "date_format";
+"date_format2" = "date_format2";
+"datetime_format" = "datetime_format";
+"datetime_format2" = "datetime_format2";
+"time_area_1" = "time_area_1";
+"time_area_2" = "time_area_2";
+"time_area_3" = "time_area_3";
+"time_area_4" = "time_area_4";
+"time_area_5" = "time_area_5";
+"app_title" = "app_title";
+"word_a" = "word_a";
+"word_b" = "word_b";
+"hint_ab" = "hint_ab";
+"hint_ba" = "hint_ba";
+"comment" = "comment";
+"book_name" = "book_name";
+"book_color" = "book_color";
+"card_color" = "card_color";
+"book_name2" = "book_name2";
+"where_card" = "where_card";
+"in_box" = "in_box";
+"word_a_top" = "word_a_top";
+"word_b_top" = "word_b_top";
+"name" = "name";
+"card" = "card";
+"book" = "book";
+"card_count" = "card_count";
+"book_count" = "book_count";
+"study_history" = "study_history";
+"all_count" = "all_count";
+"box_count_unit" = "box_count_unit";
+"card_count_unit" = "card_count_unit";
+
+// options
+"option" = "option";
+"study_mode_1" = "study_mode_1";
+"study_mode_2" = "study_mode_2";
+"study_mode_3" = "study_mode_3";
+"study_mode_4" = "study_mode_4";
+"study_type_1" = "study_type_1";
+"study_type_2" = "study_type_2";
+"study_order_1" = "study_order_1";
+"study_order_2" = "study_order_2";
+"study_filter_1" = "study_filter_1";
+"study_filter_2" = "study_filter_2";
+
+"know" = "know";
+"dont_know" = "dont_know";
+"count_not_learned" = "count_not_learned";
+"item_count" = "item_count";
+"title_edit" = "title_edit";
+"title_study" = "title_study";
+"title_study2" = "title_study2";
+"title_studying" = "title_studying";
+"title_studying_slide" = "title_studying_slide";
+"title_studying_select" = "title_studying_select";
+"title_studying_input_correct" = "title_studying_input_correct";
+"title_study_select" = "title_study_select";
+"title_preset_book" = "title_preset_book";
+"title_csv_book" = "title_csv_book";
+"title_search_card" = "title_search_card";
+"title_history" = "title_history";
+"title_settings" = "title_settings";
+"title_options" = "title_options";
+"title_help" = "title_help";
+"search_card" = "search_card";
+"search_card_name" = "search_card_name";
+"title_debug" = "title_debug";
+
+// 単語帳編集
+"open" = "open";
+"edit" = "edit";
+"delete" = "delete";
+"study" = "study";
+"clean_up" = "clean_up";
+"copy" = "copy";
+"trash" = "trash";
+"home" = "home";
+"favorite" = "favorite";
+"learned" = "learned";
+"return_to_home" = "return_to_home";
+"studied_date" = "studied_date";
+"last_studied_date" = "last_studied_date";
+"last" = "last";
+"start" = "start";
+"ok" = "ok";
+"cancel" = "cancel";
+"history_book" = "history_book";
+"study_mode" = "study_mode";
+"study_type" = "study_type";
+"study_type_exp" = "study_type_exp";
+"skip" = "skip";
+
+"study_order" = "study_order";
+"study_order_exp" = "study_order_exp";
+"order_normal" = "order_normal";
+"order_random" = "order_random";
+
+"study_filter" = "study_filter";
+"study_filter_exp" = "study_filter_exp";
+"all" = "all";
+"not_learned" = "not_learned";
+"finish" = "finish";
+"cards_remain" = "cards_remain";
+"confirm_exit" = "confirm_exit";
+"confirm_copy_book" = "confirm_copy_book";
+"confirm_moveto_trash" = "confirm_moveto_trash";
+"confirm_cleanup_trash" = "confirm_cleanup_trash";
+"confirm_clear_history" = "confirm_clear_history";
+"study_list_is_empty1" = "study_list_is_empty1";
+"confirm_export_csv" = "confirm_export_csv";
+"no_study_history" = "no_study_history";
+
+"retry1" = "retry1";
+"retry2" = "retry2";
+"title_result" = "title_result";
+"title_result2" = "title_result2";
+
+"backup" = "backup";
+"backup_auto" = "backup_auto";
+"backup_and_restore" = "backup_and_restore";
+"location" = "location";
+"backup_complete" = "backup_complete";
+"backup_failed" = "backup_failed";
+"confirm_overwrite" = "confirm_overwrite";
+"filename" = "filename";
+"backup_path_title1" = "backup_path_title1";
+"backup_path_title2" = "backup_path_title2";
+"datetime" = "datetime";
+"restore" = "restore";
+"restore_from_file" = "restore_from_file";
+"confirm_backup" = "confirm_backup";
+"succeed_restore" = "succeed_restore";
+"failed_restore" = "failed_restore";
+"failed_backup" = "failed_backup";
+"finish_backup" = "finish_backup";
+"failed_export" = "failed_export";
+"failed_import" = "failed_import";
+"finish_export" = "finish_export";
+"backup_not_found" = "backup_not_found";
+"confirm_restore" = "confirm_restore";
+"confirm_restore2" = "confirm_restore2";
+"confirm_cleanup" = "confirm_cleanup";
+"no_backup" = "no_backup";
+"finish_restore" = "finish_restore";
+"confirm_add_book" = "confirm_add_book";
+"confirm_add_book2" = "confirm_add_book2";
+"auto_backup" = "auto_backup";
+
+"license" = "license";
+"contact_us" = "contact_us";
+"contact_message" = "contact_message";
+"send_mail" = "send_mail";
+
+"preset_title2" = "preset_title2";
+"csv_title2" = "csv_title2";
+
+// メニュー menu
+"add_item" = "add_item";
+"add_card" = "add_card";
+"add_book" = "add_book";
+"add_dummy_card" = "add_dummy_card";
+"add_dummy_book" = "add_dummy_book";
+"add_preset" = "add_preset";
+"add_csv" = "add_csv";
+"export" = "export";
+"sort" = "sort";
+"sort_word_asc" = "sort_word_asc";
+"sort_word_desc" = "sort_word_desc";
+"sort_time_asc" = "sort_time_asc";
+"sort_time_desc" = "sort_time_desc";
+"sort_none" = "sort_none";
+"sort_word_asc_2" = "sort_word_asc_2";
+"sort_word_desc_2" = "sort_word_desc_2";
+"sort_time_asc_2" = "sort_time_asc_2";
+"sort_time_desc_2" = "sort_time_desc_2";
+"sort_studied_time_asc" = "sort_studied_time_asc";
+"sort_studied_time_desc" = "sort_studied_time_desc";
+"disp_list" = "disp_list";
+"list_type1" = "list_type1";
+"list_type_grid" = "list_type_grid";
+"empty" = "empty";
+"debug" = "debug";
+"debug1" = "debug1";
+"debug2" = "debug2";
+"debug3" = "debug3";
+"debug4" = "debug4";
+"debug5" = "debug5";
+"debug6" = "debug6";
+"help" = "help";
+"disp_menu_name" = "disp_menu_name";
+"disp_menu_help" = "disp_menu_help";
+"edit_page_word_type" = "edit_page_word_type";
+"select_csv_file" = "select_csv_file";
+
+// error message
+"not_exit_study_card" = "not_exit_study_card";
+
+// menu item help
+"help_add_item" = "help_add_item";
+
+// mail to
+"contact_mail_title" = "contact_mail_title";
+"contact_mail_body" = "contact_mail_body";
+
+
+// help
+// title
+"help_title_basic" = "help_title_basic";
+"help_title_basic1" = "help_title_basic1";
+"help_title_basic2" = "help_title_basic2";
+
+"help_title_edit" = "help_title_edit";
+"help_title_edit0" = "help_title_edit0";
+"help_title_edit1" = "help_title_edit1";
+"help_title_edit2" = "help_title_edit2";
+"help_title_edit3" = "help_title_edit3";
+"help_title_edit4" = "help_title_edit4";
+"help_title_edit5" = "help_title_edit5";
+"help_title_edit6" = "help_title_edit6";
+"help_title_edit7" = "help_title_edit7";
+"help_title_edit8" = "help_title_edit8";
+
+"help_title_study" = "help_title_study";
+"help_title_study1" = "help_title_study1";
+"help_title_study2" = "help_title_study2";
+"help_title_study3" = "help_title_study3";
+"help_title_study4" = "help_title_study4";
+"help_title_study5" = "help_title_study5";
+
+"help_title_backup" = "help_title_backup";
+"help_title_backup1" = "help_title_backup1";
+"help_title_backup2" = "help_title_backup2";
+"help_title_backup3" = "help_title_backup3";
+"help_title_backup4" = "help_title_backup4";
+
+// オプションページ
+"title_options2" = "title_options2";
+"title_option_edit" = "title_option_edit";
+"option_color_book" = "option_color_book";
+"option_color_card" = "option_color_card";
+"default_book_color_message" = "default_book_color_message";
+"default_card_color_message" = "default_card_color_message";
+
+"option_card_title" = "option_card_title";
+"option_default_name_card" = "option_default_name_card";
+"option_default_name_book" = "option_default_name_book";
+"title_option_study" = "title_option_study";
+"option_add_ng_card" = "option_add_ng_card";
+"option_add_ng_card_msg" = "option_add_ng_card_msg";
+"option_mode3_1" = "option_mode3_1";
+"option_mode3_2" = "option_mode3_2";
+"option_mode3_3" = "option_mode3_3";
+"option_mode4_1" = "option_mode4_1";
+"option_mode4_2" = "option_mode4_2";
+"option_mode4_22" = "option_mode4_22";
+"option_mode4_3" = "option_mode4_3";
+"option_mode4_4" = "option_mode4_4";
+
+"default_name_book" = "default_name_book";
+"default_name_book2" = "default_name_book2";
+"default_name_card2" = "default_name_card2";
+
+"option_add_ng_card1" = "option_add_ng_card1";
+"option_add_ng_card2" = "option_add_ng_card2";

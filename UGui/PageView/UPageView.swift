@@ -43,8 +43,8 @@ public class UPageView {
     /**
      * Constructor
      */
-    public init(topView : TopView, title : String) {
-        mTopView = topView
+    public init(parentView : TopView, title : String) {
+        mTopView = parentView
         mTitle = title
     }
     
