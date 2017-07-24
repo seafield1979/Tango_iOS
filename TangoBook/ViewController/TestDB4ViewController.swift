@@ -87,39 +87,39 @@ class TestDB4ViewController: UNViewController {
     
     // ダミーアイテムを１つ追加
     func addOne() {
-        TangoCardHistoryDao.addDummy()
+//        TangoCardHistoryDao.addDummy()
         
-        selectAll()
+//        selectAll()
     }
     
     // １件更新
     func updateOne() {
         // 最初のアイテムを更新
-        let books = TangoCardHistoryDao.selectAll()
-        if books.count < 1 {
-            return
-        }
-        let book = books.first
-        
-        TangoCardHistoryDao.updateOne(id: book!.getId(), name: "update A")
-        
-        // 表示
-        selectAll()
+//        let books = TangoCardHistoryDao.selectAll()
+//        if books.count < 1 {
+//            return
+//        }
+//        let book = books.first
+//        
+//        TangoCardHistoryDao.updateOne(id: book!.getId(), name: "update A")
+//        
+//        // 表示
+//        selectAll()
     }
     
     // １件削除
     func deleteOne() {
         // 最初のアイテムを削除
-        let books = TangoCardHistoryDao.selectAll()
-        if books.count < 1 {
-            return
-        }
-        let book = books.first
-        
-        _ = TangoCardHistoryDao.deleteById(id: book!.getId())
-        
-        // 表示更新
-        selectAll()
+//        let books = TangoCardHistoryDao.selectAll()
+//        if books.count < 1 {
+//            return
+//        }
+//        let book = books.first
+//        
+//        _ = TangoCardHistoryDao.deleteById(id: book!.getId())
+//        
+//        // 表示更新
+//        selectAll()
     }
     
     // 全て削除

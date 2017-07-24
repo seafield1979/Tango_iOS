@@ -10,7 +10,6 @@ import Foundation
 import RealmSwift
 import UIKit
 
-
 /**
  * 単語帳を保持する親の種類
  */

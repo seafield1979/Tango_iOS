@@ -1,11 +1,14 @@
 //
-//  EnumEnumerable.swift
-//  swift_test
-//    enumの機能を拡張して、forループで全要素を回したり、要素数を取得したり、インデックスで要素を指定できるようにする
-//  Created by Shusuke Unno on 2017/07/12.
-//  Copyright © 2017年 sunsunsoft. All rights reserved.
+//  EnumEnumeration.swift
+//  UGui
 //
-
+//  Created by Shusuke Unno on 2017/07/12.
+//  Copyright © 2017年 Shusuke Unno. All rights reserved.
+//
+/**
+ enumの機能を拡張してforループで全要素を回したり、要素数を取得したり、インデックスで要素を指定できるようにする。
+ 
+*/
 import Foundation
 
 public protocol EnumEnumerable {
