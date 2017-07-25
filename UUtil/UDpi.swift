@@ -127,14 +127,12 @@ public class UDpi {
      * @param scale
      */
     public static func setScale(scale : Scale) {
-        if scale != mScale {
-            mScale = scale
-            
-            // DPI補正値を再計算
-            dpiToPixel = dpiToPixelBase * mScale.getScale()
-            // 保存
-            MySharedPref.writeInt(key: MySharedPref.ScaleKey, value: scale.rawValue)
-        }
+        mScale = scale
+        
+        // DPI補正値を再計算
+        dpiToPixel = dpiToPixelBase * mScale.getScale()
+        // 保存
+        MySharedPref.writeInt(key: MySharedPref.ScaleKey, value: scale.rawValue)
     }
     
     public static func scaleUp() {

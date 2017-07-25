@@ -158,16 +158,16 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
         if zoomButtonW < CGFloat(PageViewTitle.ZOOM_BUTTON_W) {
             zoomButtonW = CGFloat(PageViewTitle.ZOOM_BUTTON_W)
         }
-
+        // +ボタン
         var button = UButtonImage(callbacks: self,
                                   id: PageViewTitle.ButtonIdZoomIn,
                                   priority: PageViewTitle.DRAW_PRIORITY,
                                   x: width - zoomButtonW * 2 - UDpi.toPixel(20),
-                                  y: UDpi.toPixel(0),
+                                  y: UDpi.toPixel(10),
                                   width: zoomButtonW, height: zoomButtonW,
                                   imageName: ImageName.zoom_in, pressedImageName: nil)
         button.addToDrawManager()
-
+        // -ボタン
         button = UButtonImage(callbacks: self,
                               id: PageViewTitle.ButtonIdZoomOut,
                               priority: PageViewTitle.DRAW_PRIORITY,

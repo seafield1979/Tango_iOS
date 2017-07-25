@@ -22,6 +22,9 @@ public class TopView : UIView, UButtonCallbacks{
     public var redraw : Bool = false
     var parentVC : UIViewController? = nil
     
+    // long press
+    var longPressBeginTime: TimeInterval = 0.2
+    var lpGesture: UILongPressGestureRecognizer? = nil
     
     // Get/Set
     public func getWidth() -> CGFloat {
@@ -43,7 +46,7 @@ public class TopView : UIView, UButtonCallbacks{
         self.isUserInteractionEnabled = true
         
         // 背景色を設定
-        self.backgroundColor = UIColor(red:0.5, green:0.5, blue:0.5, alpha:1.0)
+        self.backgroundColor = UIColor.white
         
         // ページマネージャーを初期化
         UDrawManager.getInstance().initialize()
@@ -57,6 +60,13 @@ public class TopView : UIView, UButtonCallbacks{
             // 0.3s 毎にTemporalEventを呼び出す
             timer = Timer.scheduledTimer(timeInterval: TopView.drawInterval, target: self, selector:#selector(TopView.TemporalEvent), userInfo: nil,repeats: true)
         }
+        
+        // 長押し判定用
+        lpGesture = UILongPressGestureRecognizer(target: self,
+                                               action: #selector(TopView.longPressed))
+        
+        lpGesture?.minimumPressDuration = 0.6
+        self.addGestureRecognizer(lpGesture!)
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -100,8 +110,11 @@ public class TopView : UIView, UButtonCallbacks{
     {
         // タッチイベントを取得する
         let touch = touches.first
-        
-        vt.touchStart(touch: touch!, view: self)
+        if touch == nil {
+            return
+        }
+        _ = vt.checkTouchType(e: TouchEventType.Down,
+                          touch: touch!, view: self)
         
         // 描画オブジェクトのタッチ処理はすべてUDrawManagerにまかせる
         if UDrawManager.getInstance().touchEvent(vt) {
@@ -119,8 +132,12 @@ public class TopView : UIView, UButtonCallbacks{
     {
         // タッチイベントを取得する
         let touch = touches.first
+        if touch == nil {
+            return
+        }
+        _ = vt.checkTouchType(e: TouchEventType.Move,
+                              touch: touch!, view: self)
         
-        vt.touchMove(touch: touch!, view: self)
         
         // 描画オブジェクトのタッチ処理はすべてUDrawManagerにまかせる
         if UDrawManager.getInstance().touchEvent(vt) {
@@ -137,7 +154,13 @@ public class TopView : UIView, UButtonCallbacks{
      */
     override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
     {
-        _ = vt.touchEnd(touch: touches.first!, view: self)
+        // タッチイベントを取得する
+        let touch = touches.first
+        if touch == nil {
+            return
+        }
+        _ = vt.checkTouchType(e: TouchEventType.Up,
+                              touch: touch!, view: self)
         
         // 描画オブジェクトのタッチ処理はすべてUDrawManagerにまかせる
         if UDrawManager.getInstance().touchEvent(vt) {
@@ -153,7 +176,14 @@ public class TopView : UIView, UButtonCallbacks{
      */
     override public func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?)
     {
-        print("touchesCancelled")
+        // タッチイベントを取得する
+        let touch = touches.first
+        if touch == nil {
+            return
+        }
+        _ = vt.checkTouchType(e: TouchEventType.Cancel,
+                              touch: touch!, view: self)
+        
     }
 
     /**
@@ -197,4 +227,33 @@ public class TopView : UIView, UButtonCallbacks{
             timer = nil
         }
     }
+    
+    /**
+     長押しされたときの処理
+     */
+    func longPressed(longPress: UIGestureRecognizer)
+    {
+        if (longPress.state == UIGestureRecognizerState.ended)
+        {
+            // 長押しが完了（指を離した）
+            let gestureTime = NSDate.timeIntervalSinceReferenceDate -
+                longPressBeginTime + lpGesture!.minimumPressDuration
+            print("Gesture time = \(gestureTime)")
+//            _ = vt.checkTouchType(e: .Up, touch: nil, view: self)
+        }
+        else if (lpGesture!.state == UIGestureRecognizerState.began)
+        {
+            print("長押し開始")
+            // 長押し開始
+            _ = vt.checkTouchType(e: .LongPress, touch: nil, view: self)
+            
+            longPressBeginTime = NSDate.timeIntervalSinceReferenceDate
+            
+            // 描画オブジェクトのタッチ処理はすべてUDrawManagerにまかせる
+            if UDrawManager.getInstance().touchEvent(vt) {
+                invalidate()
+            }
+        }
+    }
+
 }

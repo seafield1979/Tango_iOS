@@ -549,10 +549,10 @@
 				8A8522411F22516F00B5B8A3 /* ViewControllerDB */,
 				8AB7E91A1F258808005E36BB /* ViewControllerGUI */,
 				8AF7817A1F1F3E4400FC4EF2 /* AppDelegate.swift */,
-				8AF781811F1F3E4400FC4EF2 /* Assets.xcassets */,
-				8AF781861F1F3E4400FC4EF2 /* Info.plist */,
 				8AB7E9691F25E12E005E36BB /* TopViewController.swift */,
 				8AB7E96A1F25E12E005E36BB /* TopViewController.xib */,
+				8AF781811F1F3E4400FC4EF2 /* Assets.xcassets */,
+				8AF781861F1F3E4400FC4EF2 /* Info.plist */,
 			);
 			path = TangoBook;
 			sourceTree = "<group>";
