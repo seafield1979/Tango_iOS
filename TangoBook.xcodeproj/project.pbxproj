@@ -43,7 +43,7 @@
 		8AB7E9531F25A00F005E36BB /* PageViewRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9411F25A00F005E36BB /* PageViewRestore.swift */; };
 		8AB7E9541F25A00F005E36BB /* PageViewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9421F25A00F005E36BB /* PageViewResult.swift */; };
 		8AB7E9551F25A00F005E36BB /* PageViewSettingsTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9431F25A00F005E36BB /* PageViewSettingsTop.swift */; };
-		8AB7E9561F25A00F005E36BB /* PageViewSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9441F25A00F005E36BB /* PageViewSlide.swift */; };
+		8AB7E9561F25A00F005E36BB /* PageViewStudySlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9441F25A00F005E36BB /* PageViewStudySlide.swift */; };
 		8AB7E9571F25A00F005E36BB /* PageViewStudy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9451F25A00F005E36BB /* PageViewStudy.swift */; };
 		8AB7E9581F25A00F005E36BB /* PageViewStudyBookSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9461F25A00F005E36BB /* PageViewStudyBookSelect.swift */; };
 		8AB7E9591F25A00F005E36BB /* PageViewStudyInputCorrect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9471F25A00F005E36BB /* PageViewStudyInputCorrect.swift */; };
@@ -169,7 +169,7 @@
 		8AB7E9411F25A00F005E36BB /* PageViewRestore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewRestore.swift; path = PageView/PageViewRestore.swift; sourceTree = "<group>"; };
 		8AB7E9421F25A00F005E36BB /* PageViewResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewResult.swift; path = PageView/PageViewResult.swift; sourceTree = "<group>"; };
 		8AB7E9431F25A00F005E36BB /* PageViewSettingsTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewSettingsTop.swift; path = PageView/PageViewSettingsTop.swift; sourceTree = "<group>"; };
-		8AB7E9441F25A00F005E36BB /* PageViewSlide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewSlide.swift; path = PageView/PageViewSlide.swift; sourceTree = "<group>"; };
+		8AB7E9441F25A00F005E36BB /* PageViewStudySlide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewStudySlide.swift; path = PageView/PageViewStudySlide.swift; sourceTree = "<group>"; };
 		8AB7E9451F25A00F005E36BB /* PageViewStudy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewStudy.swift; path = PageView/PageViewStudy.swift; sourceTree = "<group>"; };
 		8AB7E9461F25A00F005E36BB /* PageViewStudyBookSelect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewStudyBookSelect.swift; path = PageView/PageViewStudyBookSelect.swift; sourceTree = "<group>"; };
 		8AB7E9471F25A00F005E36BB /* PageViewStudyInputCorrect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewStudyInputCorrect.swift; path = PageView/PageViewStudyInputCorrect.swift; sourceTree = "<group>"; };
@@ -346,10 +346,10 @@
 		8AB7E9231F259947005E36BB /* PageView */ = {
 			isa = PBXGroup;
 			children = (
+				8AB7E9251F259991005E36BB /* PageViewTemplate.swift */,
 				8AB7E9381F259FFF005E36BB /* Tango */,
 				8AB7E9241F259991005E36BB /* PageViewManagerMain.swift */,
 				8AB7E9661F25D29E005E36BB /* PageViewManagerTest1.swift */,
-				8AB7E9251F259991005E36BB /* PageViewTemplate.swift */,
 				8AB7E9261F259991005E36BB /* PageViewTest1.swift */,
 				8AB7E9271F259991005E36BB /* PageViewTest2.swift */,
 				8AB7E9281F259991005E36BB /* PageViewTest3.swift */,
@@ -374,7 +374,7 @@
 				8AB7E9411F25A00F005E36BB /* PageViewRestore.swift */,
 				8AB7E9421F25A00F005E36BB /* PageViewResult.swift */,
 				8AB7E9431F25A00F005E36BB /* PageViewSettingsTop.swift */,
-				8AB7E9441F25A00F005E36BB /* PageViewSlide.swift */,
+				8AB7E9441F25A00F005E36BB /* PageViewStudySlide.swift */,
 				8AB7E9451F25A00F005E36BB /* PageViewStudy.swift */,
 				8AB7E9461F25A00F005E36BB /* PageViewStudyBookSelect.swift */,
 				8AB7E9471F25A00F005E36BB /* PageViewStudyInputCorrect.swift */,
@@ -767,7 +767,7 @@
 				8AF781B41F1F445500FC4EF2 /* TangoStudiedCardDao.swift in Sources */,
 				8AE08AB71F2580D70024E9B7 /* UDpi.swift in Sources */,
 				8AB7E94B1F25A00F005E36BB /* PageViewBackup.swift in Sources */,
-				8AB7E9561F25A00F005E36BB /* PageViewSlide.swift in Sources */,
+				8AB7E9561F25A00F005E36BB /* PageViewStudySlide.swift in Sources */,
 				8AE08A961F2580D00024E9B7 /* UDrawManager.swift in Sources */,
 				8AE08A9C1F2580D00024E9B7 /* UView.swift in Sources */,
 				8AF781AE1F1F445500FC4EF2 /* TangoCardHistory.swift in Sources */,

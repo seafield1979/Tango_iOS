@@ -75,62 +75,79 @@ public class PageViewManagerMain : UPageViewManager {
                                   title: UResourceManager.getStringByName("app_title"))
             break
         case .Edit:               // 単語帳を編集
+            page = PageViewTangoEdit( parentView: mTopView,
+                                  title: UResourceManager.getStringByName("title_edit"))
             break
         case .StudyBookSelect:    // 学習する単語帳を選択する
+            page = PageViewStudyBookSelect( parentView: mTopView,
+                                      title: UResourceManager.getStringByName("title_study_select"))
             break
         case .StudySlide:         // 単語帳学習(カードスライド式)
+            page = PageViewStudySlide( parentView: mTopView,
+                                      title: UResourceManager.getStringByName("title_studying_slide"))
             break
         case .StudySelect4:       // 単語帳学習(４択)
+            page = PageViewStudySelect4( parentView: mTopView,
+                                      title: UResourceManager.getStringByName("title_studying_select"))
             break
         case .StudyInputCorrect:  // 単語帳学習(正解文字入力)
+            page = PageViewStudyInputCorrect( parentView: mTopView,
+                                      title: UResourceManager.getStringByName("title_studying_input_correct"))
             break
         case .StudyResult:        // 単語帳結果
+            page = PageViewResult( parentView: mTopView,
+                                      title: UResourceManager.getStringByName("title_result"))
             break
         case .History:            // 履歴
+            page = PageViewHistory( parentView: mTopView,
+                                      title: UResourceManager.getStringByName("title_history"))
             break
         case .Settings:           // 設定
+            page = PageViewSettingsTop( parentView: mTopView,
+                                      title: UResourceManager.getStringByName("title_settings"))
             break
         case .Options:            // オプション設定
+            page = PageViewOptions( parentView: mTopView,
+                                      title: UResourceManager.getStringByName("title_options"))
             break
         case .BackupDB:           // バックアップ
+            page = PageViewBackup( parentView: mTopView,
+                                      title: UResourceManager.getStringByName("title_backup"))
             break
         case .RestoreDB:          // バックアップから復元
+            page = PageViewRestore( parentView: mTopView,
+                                      title: UResourceManager.getStringByName("restore"))
             break
         case .PresetBook:         // プリセット単語帳選択
+            page = PageViewPresetBook( parentView: mTopView,
+                                      title: UResourceManager.getStringByName("title_preset_book"))
             break
         case .CsvBook:            // Csv単語帳選択
+            page = PageViewCsvBook( parentView: mTopView,
+                                      title: UResourceManager.getStringByName("title_csv_book"))
             break
-        case .SearchCard:         // カード検索
-            break
+//        case .SearchCard:         // カード検索
+//            page = PageViewTangoEdit( parentView: mTopView,
+//                                      title: UResourceManager.getStringByName("title_edit"))
+//            break
         case .Help:               // ヘルプ
+//            page = PageViewTangoEdit( parentView: mTopView,
+//                                      title: UResourceManager.getStringByName("title_edit"))
             break
         case .License:            // ライセンス表示
+//            page = PageViewTangoEdit( parentView: mTopView,
+//                                      title: UResourceManager.getStringByName("title_edit"))
             break
         case .Debug:               // Debug
+            page = PageViewDebug( parentView: mTopView,
+                                      title: UResourceManager.getStringByName("title_debug"))
             break
         case .DebugDB:             // Debug DB(Realm)
+            page = PageViewDebugDB( parentView: mTopView,
+                                      title: UResourceManager.getStringByName("title_debug_db"))
             break
-//        case .TestTitle:              // タイトル画面
-//            page = PageViewTitle( parentView: mTopView,
-//                                  title: UResourceManager.getStringByName("app_title"))
-//        case .Test1:
-//            page = PageViewTest1( parentView: mTopView,
-//                        title: UResourceManager.getStringByName("test1"))
-//        case .Test2:
-//            page = PageViewTest2( parentView: mTopView,
-//                                  title: UResourceManager.getStringByName("test2"))
-//        case .Test3:
-//            page = PageViewTest3( parentView: mTopView,
-//                                  title: UResourceManager.getStringByName("test3"))
-//        case .Test4:
-//            page = PageViewTest4( parentView: mTopView,
-//                                  title: UResourceManager.getStringByName("test4"))
-//        case .Test5:
-//            page = PageViewTest5( parentView: mTopView,
-//                                  title: UResourceManager.getStringByName("test5"))
-//        case .Test6:
-//            page = PageViewTest6( parentView: mTopView,
-//                                  title: UResourceManager.getStringByName("test6"))
+        default:
+            break
         }
         return page
     }

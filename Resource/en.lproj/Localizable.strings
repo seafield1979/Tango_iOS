@@ -81,6 +81,7 @@
 "search_card" = "search_card";
 "search_card_name" = "search_card_name";
 "title_debug" = "title_debug";
+"title_debug_db" = "Debug Database";
 
 // 単語帳編集
 "open" = "open";

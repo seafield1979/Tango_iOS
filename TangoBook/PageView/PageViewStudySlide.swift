@@ -8,14 +8,14 @@
 
 import UIKit
 
-public class PageViewStudyBookSelect : UPageView, UButtonCallbacks {
+public class PageViewStudySlide : UPageView, UButtonCallbacks {
     /**
      * Enums
      */
     /**
      * Constants
      */
-    public static let TAG = "PageViewStudyBookSelect"
+    public static let TAG = "PageViewStudySlide"
     
     // button id
     private static let buttonId1 = 100
@@ -81,7 +81,7 @@ public class PageViewStudyBookSelect : UPageView, UButtonCallbacks {
         
         let button = UButtonText(
             callbacks: self, type: UButtonType.Press,
-            id: PageViewStudyBookSelect.buttonId1, priority: PageViewStudyBookSelect.DRAW_PRIORITY,
+            id: PageViewStudySlide.buttonId1, priority: PageViewStudySlide.DRAW_PRIORITY,
             text: "test", x: 50, y: 100,
             width: width - 100, height: 100,
             textSize: 20, textColor: UIColor.white, color: UIColor.blue)
@@ -114,3 +114,4 @@ public class PageViewStudyBookSelect : UPageView, UButtonCallbacks {
         return true
     }
 }
+

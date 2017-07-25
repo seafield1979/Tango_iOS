@@ -81,6 +81,7 @@
 "search_card" = "カードを探す";
 "search_card_name" = "検索カード名";
 "title_debug" = "Debug";
+"title_debug_db" = "Debug Database";
 
 // 単語帳編集
 "open" = "開く";
