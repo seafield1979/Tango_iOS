@@ -17,7 +17,7 @@ class TestGuiView : TopView{
         super.init(frame:frame)
         
         // ページマネージャーを初期化
-        self.mPageManager = PageViewManager.createInstance(topView: self)
+        self.mPageManager = PageViewManagerTest1.createInstance(topView: self)
     }
     
     public required init?(coder aDecoder: NSCoder) {

@@ -24,8 +24,9 @@ public class UPageViewManager {
      */
     var mTopView : TopView
     var mParentVC : UIViewController? = nil
-    var pages : List<UPageView?> = List()
-    var pageIdStack : List<PageView> = List()   // ページ遷移のスタックを管理。このスタックを元に元のページに戻ることができる
+//    var pages : List<UPageView?> = List()
+//    var pageIdStack : List<PageView> = List()   // ページ遷移のスタックを管理。このスタックを元に元のページに戻ることができる
+    var pageStack : List<UPageView> = List()
     var returnButton : UIBarButtonItem?      // ナビゲーションバーに表示する戻るボタン
     
     /**
@@ -37,9 +38,9 @@ public class UPageViewManager {
      */
     init(topView : TopView) {
         // 最初にページのリストに全ページ分の要素を追加しておく
-        for _ in PageView.cases {
-            pages.append(nil)
-        }
+//        for _ in PageView.cases {
+//            pages.append(nil)
+//        }
         mTopView = topView
         
         // 戻るボタン
@@ -53,19 +54,20 @@ public class UPageViewManager {
      * カレントのページIDを取得する
      * @return カレントページID
      */
-    func currentPage() -> PageView? {
-        if pageIdStack.count > 0 {
-            return pageIdStack.last()
+    func currentPage() -> UPageView? {
+        if pageStack.count == 0 {
+            return nil
         }
-        return nil
+        return pageStack.last()
     }
     
     /**
      * 配下のページを追加する
-     *
+     * parameter pageId : ページID
      */
-    public func initPage(_ pageView : PageView) {
+    public func initPage(_ pageId : Int) -> UPageView? {
         // 継承先のクラスで実装
+        return nil
     }
     
     /**
@@ -76,12 +78,9 @@ public class UPageViewManager {
      * @return
      */
     public func draw() -> Bool {
-        let pageId : PageView? = currentPage()
-        if pageId == nil {
-            return false
-        }
+        let pageView = pageStack.last()
         
-        return pages[pageId!.rawValue]!.draw()
+        return pageView!.draw()
     }
     
     /**
@@ -90,19 +89,19 @@ public class UPageViewManager {
      */
     public func onBackKeyDown() -> Bool {
         // スタックをポップして１つ前の画面に戻る
-        let pageId : PageView? = currentPage()
-        if pageId == nil {
+        let pageView : UPageView? = currentPage()
+        if pageView == nil {
             return false
         }
         
         // 各ページで処理
-        if (pages[pageId!.rawValue]!.onBackKeyDown()) {
+        if (pageView!.onBackKeyDown()) {
             // 何かしら処理がされたら何もしない
-            return true;
+            return true
         }
     
         // スタックを１つポップする
-        if (pageIdStack.count > 1) {
+        if (pageStack.count > 1) {
             if (popPage()) {
                 return true
             }
@@ -114,79 +113,75 @@ public class UPageViewManager {
     /**
      * ページ切り替え時に呼ばれる処理
      */
-    public func pageChanged(_ pageId : PageView) {
+    public func pageChanged(pageId: Int) {
         UDrawManager.clearDebugPoint()
     }
     
     /**
      * 表示ページを切り替える
+     * ページスタックの末尾を削除後、新しいページを追加する
      * @param pageId
      */
-    public func changePage(_ pageId : PageView) {
-        pageChanged(pageId);
+    public func changePage(_ pageId : Int) {
+        pageChanged(pageId: pageId)
     
         // ページが未初期化なら初期化
-        if (pages[pageId.rawValue] == nil) {
-            initPage(pageId)
+        let newPage = initPage(pageId)
+        if newPage == nil {
+            return
         }
         
-        if (pageIdStack.count > 0) {
+        if pageStack.count > 0 {
             // 古いページの後処理(onHide)
-            let page : PageView = pageIdStack.last()!
-            pages[page.rawValue]!.onHide()
+            let oldPage : UPageView = pageStack.last()!
+            oldPage.onHide()
             
-            _ = pageIdStack.removeLast()
-            
+            _ = pageStack.removeLast()
         }
-        pageIdStack.append(pageId)
+        pageStack.append(newPage!)
         
         // 新しいページの前処理(onShow)
-        var pageId = pageId     // var に置き換え
-        pageId = pageIdStack.last()!
-        pages[pageId.rawValue]!.onShow()
-        setActionBarTitle(pages[pageId.rawValue]!.getTitle())
+        newPage!.onShow()
+        setActionBarTitle(newPage!.getTitle())
     }
     
     /**
      * ページを取得する
      */
-    public func getPageView(pageId : PageView) -> UPageView{
-        if (pages[pageId.rawValue] == nil) {
-            initPage(pageId)
-        }
-        return pages[pageId.rawValue]!
-    }
+//    public func getPageView(pageId : Int) -> UPageView {
+//        if pages[pageId.rawValue] == nil {
+//            initPage(pageId)
+//        }
+//        return pages[pageId.rawValue]!
+//    }
     
     /**
      * ページをスタックする
      * ソフトウェアキーの戻るボタンを押すと元のページに戻れる
      * @param pageId
      */
-    public func stackPage(pageId : PageView) -> UPageView {
-        pageChanged(pageId)
+    public func stackPage(pageId : Int) -> UPageView {
+        pageChanged(pageId: pageId)
     
-        // ページが未初期化なら初期化
-        if (pages[pageId.rawValue] == nil) {
-            initPage(pageId)
-        }
+        // ページ初期化
+        let newPage = initPage(pageId)
         
         // 古いページの後処理
-        if (pageIdStack.count > 0) {
-            let page : PageView = pageIdStack.last()!
-            pages[page.rawValue]?.onHide()
+        if (pageStack.count > 0) {
+            let page : UPageView = pageStack.last()!
+            page.onHide()
         }
         
-        pageIdStack.append(pageId)
+        pageStack.append(newPage!)
         
-        let page : UPageView = pages[pageId.rawValue]!
-        page.onShow()
-        setActionBarTitle(pages[pageId.rawValue]!.getTitle())
+        newPage!.onShow()
+        setActionBarTitle(newPage!.getTitle())
         
         // アクションバーに戻るボタンを表示
-        if (pageIdStack.count >= 2) {
+        if (pageStack.count >= 2) {
             showActionBarBack(show: true)
         }
-        return page
+        return newPage!
     }
     
     /**
@@ -194,22 +189,23 @@ public class UPageViewManager {
      * 下にページがあったら移動
      */
     public func popPage() -> Bool {
-        if (pageIdStack.count > 0) {
+        if pageStack.count > 0 {
             // 古いページの後処理
-            var page : PageView = pageIdStack.last()!
-            pages[page.rawValue]?.onHide()
+            let pageView = pageStack.last()!
+            pageView.onHide()
             
-            _ = pageIdStack.removeLast()
+            _ = pageStack.removeLast()
             
             // 新しいページの前処理
-            page = pageIdStack.last()!
-            pages[page.rawValue]?.onShow()
-            setActionBarTitle(pages[page.rawValue]!.getTitle())
+            let newPage = pageStack.last()!
+            newPage.onShow()
+            setActionBarTitle(newPage.getTitle())
             
-            if pageIdStack.count <= 1 {
+            if pageStack.count <= 1 {
+                // 戻るアイコン表示
                 showActionBarBack(show: false)
             }
-            changePage(page)
+//            changePage(newPage)
             
             return true
         }
@@ -221,7 +217,7 @@ public class UPageViewManager {
      * アクションIDを現在表示中のページで処理される
      */
     public func setActionId(id : Int) {
-        getPageView(pageId: currentPage()!).setActionId(id)
+        currentPage()!.setActionId(id)
     }
     
     /**

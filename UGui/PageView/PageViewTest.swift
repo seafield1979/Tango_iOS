@@ -25,7 +25,7 @@ public struct ButtonInfo {
 }
 
 
-public class PageViewTop : UPageView, UButtonCallbacks {
+public class PageViewTest : UPageView, UButtonCallbacks {
 
     
     /**
@@ -133,25 +133,25 @@ public class PageViewTop : UPageView, UButtonCallbacks {
      */
     public func UButtonClicked(id : Int, pressedOn : Bool) -> Bool {
         switch(id) {
-        case PageViewTop.buttonId1:
+        case PageViewTest.buttonId1:
             // ページ切り替え
-            _ = PageViewManager.getInstance().stackPage(pageId: PageView.Test1)
+            _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdTest1.Test1.rawValue)
             
-        case PageViewTop.buttonId1:
+        case PageViewTest.buttonId1:
             // ページ切り替え
-            _ = PageViewManager.getInstance().stackPage(pageId: PageView.Test2)
-        case PageViewTop.buttonId3:
+            _ = PageViewManagerTest1.getInstance().stackPage(pageId: PageIdTest1.Test2.rawValue)
+        case PageViewTest.buttonId3:
             // ページ切り替え
-            _ = PageViewManager.getInstance().stackPage(pageId: PageView.Test3)
-        case PageViewTop.buttonId4:
+            _ = PageViewManagerTest1.getInstance().stackPage(pageId: PageIdTest1.Test3.rawValue)
+        case PageViewTest.buttonId4:
             // ページ切り替え
-            _ = PageViewManager.getInstance().stackPage(pageId: PageView.Test4)
-        case PageViewTop.buttonId5:
+            _ = PageViewManagerTest1.getInstance().stackPage(pageId: PageIdTest1.Test4.rawValue)
+        case PageViewTest.buttonId5:
             // ページ切り替え
-            _ = PageViewManager.getInstance().stackPage(pageId: PageView.Test5)
-        case PageViewTop.buttonId6:
+            _ = PageViewManagerTest1.getInstance().stackPage(pageId: PageIdTest1.Test5.rawValue)
+        case PageViewTest.buttonId6:
             // ページ切り替え
-            _ = PageViewManager.getInstance().stackPage(pageId: PageView.Test6)
+            _ = PageViewManagerTest1.getInstance().stackPage(pageId: PageIdTest1.Test6.rawValue)
         default:
             break
         }

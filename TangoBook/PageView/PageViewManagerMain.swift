@@ -1,7 +1,7 @@
 //
 //  PageViewManager.swift
 //  UGui
-//
+//     単語帳アプリメインのページマネージャー
 //  Created by Shusuke Unno on 2017/07/13.
 //  Copyright © 2017年 Shusuke Unno. All rights reserved.
 //
@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // ページIDのリスト
-public enum PageView : Int, EnumEnumerable {
+public enum PageIdMain : Int, EnumEnumerable {
     case Title              // タイトル画面
     case Edit               // 単語帳を編集
     case StudyBookSelect    // 学習する単語帳を選択する
@@ -30,30 +30,29 @@ public enum PageView : Int, EnumEnumerable {
     case License            // ライセンス表示
     case Debug               // Debug
     case DebugDB             // Debug DB(Realm)
-    // テスト用
-    case TestTitle              // タイトル画面
-    case Test1              // ボタン
-    case Test2
-    case Test3              // ログウィンドウ
-    case Test4              // メニューバー
-    case Test5              // スクロールバー
-    case Test6
-   
+    
+    public static func toEnum(_ value : Int) -> PageIdMain {
+        if value >= PageIdMain.count {
+            // 範囲外は適当な値を返す
+            return PageIdMain.Title
+        }
+        return PageIdMain.cases[value]
+    }
 }
 
-public class PageViewManager : UPageViewManager {
+public class PageViewManagerMain : UPageViewManager {
     /**
      * Constructor
      */
     // Singletonオブジェクト
-    private static var singleton : PageViewManager? = nil
+    private static var singleton : PageViewManagerMain? = nil
     
     // Singletonオブジェクトを作成する
-    public static func createInstance(topView : TopView) -> PageViewManager {
-        singleton = PageViewManager(topView: topView)
+    public static func createInstance(topView : TopView) -> PageViewManagerMain {
+        singleton = PageViewManagerMain(topView: topView)
         return singleton!
     }
-    public static func getInstance() -> PageViewManager {
+    public static func getInstance() -> PageViewManagerMain {
         return singleton!
     }
     
@@ -61,16 +60,16 @@ public class PageViewManager : UPageViewManager {
         super.init(topView: topView)
         
         // 最初に表示するページ
-        _ = stackPage(pageId: PageView.Title)
+        _ = stackPage(pageId: PageIdMain.Title.rawValue)
     }
     
     /**
      * 配下のページを追加する
      */
-    override public func initPage(_ pageView : PageView) {
+    override public func initPage(_ pageId : Int) -> UPageView? {
         var page : UPageView? = nil
         
-        switch(pageView) {
+        switch PageIdMain.toEnum(pageId) {
         case .Title:              // タイトル画面
             page = PageViewTitle( parentView: mTopView,
                                   title: UResourceManager.getStringByName("app_title"))
@@ -111,38 +110,36 @@ public class PageViewManager : UPageViewManager {
             break
         case .DebugDB:             // Debug DB(Realm)
             break
-        case .TestTitle:              // タイトル画面
-            page = PageViewTitle( parentView: mTopView,
-                                  title: UResourceManager.getStringByName("app_title"))
-        case .Test1:
-            page = PageViewTest1( parentView: mTopView,
-                        title: UResourceManager.getStringByName("test1"))
-        case .Test2:
-            page = PageViewTest2( parentView: mTopView,
-                                  title: UResourceManager.getStringByName("test2"))
-        case .Test3:
-            page = PageViewTest3( parentView: mTopView,
-                                  title: UResourceManager.getStringByName("test3"))
-        case .Test4:
-            page = PageViewTest4( parentView: mTopView,
-                                  title: UResourceManager.getStringByName("test4"))
-        case .Test5:
-            page = PageViewTest5( parentView: mTopView,
-                                  title: UResourceManager.getStringByName("test5"))
-        case .Test6:
-            page = PageViewTest6( parentView: mTopView,
-                                  title: UResourceManager.getStringByName("test6"))
+//        case .TestTitle:              // タイトル画面
+//            page = PageViewTitle( parentView: mTopView,
+//                                  title: UResourceManager.getStringByName("app_title"))
+//        case .Test1:
+//            page = PageViewTest1( parentView: mTopView,
+//                        title: UResourceManager.getStringByName("test1"))
+//        case .Test2:
+//            page = PageViewTest2( parentView: mTopView,
+//                                  title: UResourceManager.getStringByName("test2"))
+//        case .Test3:
+//            page = PageViewTest3( parentView: mTopView,
+//                                  title: UResourceManager.getStringByName("test3"))
+//        case .Test4:
+//            page = PageViewTest4( parentView: mTopView,
+//                                  title: UResourceManager.getStringByName("test4"))
+//        case .Test5:
+//            page = PageViewTest5( parentView: mTopView,
+//                                  title: UResourceManager.getStringByName("test5"))
+//        case .Test6:
+//            page = PageViewTest6( parentView: mTopView,
+//                                  title: UResourceManager.getStringByName("test6"))
         }
-        if page != nil {
-            pages[pageView.rawValue] = page
-        }
+        return page
     }
     
     /**
      * ページ切り替え時に呼ばれる処理
      */
-    public func pageChanged(pageId : PageView) {
-        super.pageChanged(pageId)
+    override public func pageChanged(pageId : Int) {
+        super.pageChanged(pageId: pageId)
 
         // Todo
 //        switch(pageId) {

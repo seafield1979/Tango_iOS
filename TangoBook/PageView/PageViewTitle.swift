@@ -281,25 +281,23 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
             let buttonId = TitleButtonId.toEnum(id)
             switch (buttonId) {
                 case .Edit:
-                    _ = PageViewManager.getInstance().stackPage(pageId: PageView.Edit)
+                    _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.Edit.rawValue)
                     break
                 case .Study:
-                    _ = PageViewManager.getInstance().stackPage(pageId: PageView.StudyBookSelect)
+                    _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.StudyBookSelect.rawValue)
                     break
                 case .History:
-                    _ = PageViewManager.getInstance().stackPage(pageId: PageView.History)
+                    _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.History.rawValue)
                     break
                 case .Settings:
-                    _ = PageViewManager.getInstance().stackPage(pageId: PageView.Settings)
+                    _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.Settings.rawValue)
                     break
                 case .Help:
 //                    MainActivity.getInstance().showHelpTopPage()
                     break
                 case .Debug:
-                    _ = PageViewManager.getInstance().stackPage(pageId: PageView.Debug)
+                    _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.Debug.rawValue)
                     break
-            default:
-                break
             }
         } else {
             // ズームボタン
@@ -314,7 +312,6 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                     UDpi.scaleUp()
                     initDrawables()
                     mTopView?.invalidate()
-
                     showScaleToast()
                     break
             default:

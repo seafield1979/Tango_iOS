@@ -8,6 +8,25 @@
 
 import UIKit
 
+// ページIDのリスト
+public enum PageIdTest1 : Int, EnumEnumerable {
+    case Title              // タイトル画面
+    case Test1              // ボタン
+    case Test2
+    case Test3              // ログウィンドウ
+    case Test4              // メニューバー
+    case Test5              // スクロールバー
+    case Test6
+    
+    public static func toEnum(_ value : Int) -> PageIdTest1 {
+        if value >= PageIdTest1.count {
+            // 範囲外は適当な値を返す
+            return PageIdTest1.Title
+        }
+        return PageIdTest1.cases[value]
+    }
+}
+
 public class PageViewManagerTest1 : UPageViewManager {
     /**
      * Constructor
@@ -29,16 +48,16 @@ public class PageViewManagerTest1 : UPageViewManager {
         super.init(topView: topView)
         
         // 最初に表示するページ
-        _ = stackPage(pageId: PageView.Title)
+        _ = stackPage(pageId: PageIdTest1.Title.rawValue)
     }
     
     /**
      * 配下のページを追加する
      */
-    override public func initPage(_ pageView : PageView) {
+    override public func initPage(_ pageId : Int) -> UPageView? {
         var page : UPageView? = nil
         
-        switch(pageView) {
+        switch PageIdTest1.toEnum(pageId) {
         case .Title:              // タイトル画面
             page = PageViewTitle( parentView: mTopView,
                                   title: UResourceManager.getStringByName("app_title"))
@@ -60,37 +79,16 @@ public class PageViewManagerTest1 : UPageViewManager {
         case .Test6:
             page = PageViewTest6( parentView: mTopView,
                                   title: UResourceManager.getStringByName("test6"))
-        default:
-            break
         }
-        if page != nil {
-            pages[pageView.rawValue] = page
-        }
+        
+        return page
     }
     
     /**
      * ページ切り替え時に呼ばれる処理
      */
-    public func pageChanged(pageId : PageView) {
-        super.pageChanged(pageId)
-        
-        // Todo
-        //        switch(pageId) {
-        //        case Edit:
-        //            MainActivity.getInstance().setMenuType(MainActivity.MenuType.TangoEdit);
-        //            break;
-        //        case StudyBookSelect:
-        //            MainActivity.getInstance().setMenuType(MainActivity.MenuType.SelectStudyBook);
-        //            break;
-        //        case CsvBook:
-        //            MainActivity.getInstance().setMenuType(MainActivity.MenuType.AddCsv);
-        //            break;
-        //        case History:
-        //            MainActivity.getInstance().setMenuType(MainActivity.MenuType.StudiedHistory);
-        //            break;
-        //        default:
-        //            MainActivity.getInstance().setMenuType(MainActivity.MenuType.None);
-        //        }
+    override public func pageChanged(pageId : Int) {
+        super.pageChanged(pageId: pageId)
     }
     
 }
