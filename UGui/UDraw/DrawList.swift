@@ -10,7 +10,7 @@
 import Foundation
 import UIKit
 
-class DrawList {
+public class DrawList {
     // 描画範囲 この範囲外には描画しない
     public private(set) var priority : Int;
     private var list : List<UDrawable> = List()
@@ -91,7 +91,7 @@ class DrawList {
             }
             ULog.count(UDrawManager.TAG)
             let offset = obj!.getDrawOffset()
-            obj!.draw(offset);
+            obj!.draw(offset!);
             drawId(rect: obj!.rect!, priority: priority);
         }
         return !allDone;

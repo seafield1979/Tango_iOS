@@ -19,14 +19,6 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
         case Settings
         case Help
         case Debug
-        
-        public static func toEnum(_ value : Int) -> TitleButtonId {
-            if value >= TitleButtonId.count {
-                // 範囲外は適当な値を返す
-                return TitleButtonId.Edit
-            }
-            return TitleButtonId.cases[value]
-        }
     }
 
     

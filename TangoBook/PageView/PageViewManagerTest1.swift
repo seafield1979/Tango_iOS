@@ -18,13 +18,6 @@ public enum PageIdTest1 : Int, EnumEnumerable {
     case Test5              // スクロールバー
     case Test6
     
-    public static func toEnum(_ value : Int) -> PageIdTest1 {
-        if value >= PageIdTest1.count {
-            // 範囲外は適当な値を返す
-            return PageIdTest1.Title
-        }
-        return PageIdTest1.cases[value]
-    }
 }
 
 public class PageViewManagerTest1 : UPageViewManager {

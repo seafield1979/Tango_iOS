@@ -29,7 +29,7 @@ public class UDrawable {
     /**
      * Member variables
      */
-    var drawList : DrawList? = nil    // DrawManagerに描画登録するとnull以外になる
+    public var drawList : DrawList? = nil    // DrawManagerに描画登録するとnull以外になる
     var pos = CGPoint()
     var size = CGSize()
     var rect : CGRect? = nil
@@ -452,7 +452,7 @@ public class UDrawable {
     /**
      * Drawableインターフェース
      */
-    func setDrawList(_ drawList : DrawList) {
+    func setDrawList(_ drawList : DrawList?) {
         self.drawList = drawList
     }
     
@@ -472,7 +472,7 @@ public class UDrawable {
      * 描画オフセットを取得する
      * @return
      */
-    public func getDrawOffset() -> CGPoint {
+    public func getDrawOffset() -> CGPoint? {
         return CGPoint()
     }
     

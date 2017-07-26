@@ -39,4 +39,12 @@ public extension EnumEnumerable where Case: Hashable {
     public static var count: Int {
         return self.cases.count
     }
+    
+    public static func toEnum(_ value : Int) -> Case {
+        if value >= count {
+            // 範囲外は適当な値を返す
+            return cases.first!
+        }
+        return cases[value]
+    }
 }

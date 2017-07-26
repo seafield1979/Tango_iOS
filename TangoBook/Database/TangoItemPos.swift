@@ -28,15 +28,7 @@ public enum TangoParentType : Int, EnumEnumerable {
             return "Trash"
         }
     }
-    
-    public static func toEnum(_ value : Int) -> TangoParentType {
-        if value >= TangoParentType.count {
-            // 範囲外は適当な値を返す
-            return TangoParentType.Home
-        }
-        return TangoParentType.cases[value]
     }
-}
 
 /**
  * 単語帳のアイテムの場所を特定する情報

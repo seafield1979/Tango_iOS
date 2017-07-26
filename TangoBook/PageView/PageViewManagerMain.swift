@@ -30,14 +30,6 @@ public enum PageIdMain : Int, EnumEnumerable {
     case License            // ライセンス表示
     case Debug               // Debug
     case DebugDB             // Debug DB(Realm)
-    
-    public static func toEnum(_ value : Int) -> PageIdMain {
-        if value >= PageIdMain.count {
-            // 範囲外は適当な値を返す
-            return PageIdMain.Title
-        }
-        return PageIdMain.cases[value]
-    }
 }
 
 public class PageViewManagerMain : UPageViewManager {

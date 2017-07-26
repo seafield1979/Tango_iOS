@@ -73,4 +73,18 @@ extension CGRect {
     func centerY() -> CGFloat {
         return self.y + self.height / 2
     }
+    
+    /**
+     指定の点(x,y)が矩形内にあるかどうかを判定
+     - parameter x: 点のx座標
+     - parameter y: 点のy座標
+     - returns: true:　矩形内 / false: 矩形外
+     */
+    func contains(x: CGFloat, y: CGFloat) -> Bool {
+        if self.x <= x && x <= self.right &&
+            self.y <= y && y <= self.bottom {
+            return true
+        }
+        return false
+    }
 }

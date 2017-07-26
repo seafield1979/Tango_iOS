@@ -55,6 +55,16 @@
 		8AB7E96B1F25E12E005E36BB /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9691F25E12E005E36BB /* TopViewController.swift */; };
 		8AB7E96C1F25E12E005E36BB /* TopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AB7E96A1F25E12E005E36BB /* TopViewController.xib */; };
 		8AB7E96E1F25E1D0005E36BB /* TangoTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E96D1F25E1D0005E36BB /* TangoTopView.swift */; };
+		8AB7E9711F278CE2005E36BB /* UIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9701F278CE2005E36BB /* UIcon.swift */; };
+		8AB7E97B1F278DC7005E36BB /* IconBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9721F278DC7005E36BB /* IconBook.swift */; };
+		8AB7E97C1F278DC7005E36BB /* IconCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9731F278DC7005E36BB /* IconCard.swift */; };
+		8AB7E97D1F278DC7005E36BB /* IconContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9741F278DC7005E36BB /* IconContainer.swift */; };
+		8AB7E97E1F278DC7005E36BB /* IconTrash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9751F278DC7005E36BB /* IconTrash.swift */; };
+		8AB7E97F1F278DC7005E36BB /* UIconBlockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9761F278DC7005E36BB /* UIconBlockManager.swift */; };
+		8AB7E9801F278DC7005E36BB /* UIconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9771F278DC7005E36BB /* UIconManager.swift */; };
+		8AB7E9811F278DC7005E36BB /* UIconWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9781F278DC7005E36BB /* UIconWindow.swift */; };
+		8AB7E9821F278DC7005E36BB /* UIconWindows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9791F278DC7005E36BB /* UIconWindows.swift */; };
+		8AB7E9831F278DC7005E36BB /* UIconWindowSub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E97A1F278DC7005E36BB /* UIconWindowSub.swift */; };
 		8AE089FC1F24677D0024E9B7 /* UNViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE089FB1F24677D0024E9B7 /* UNViewController.swift */; };
 		8AE08A031F24B98E0024E9B7 /* TestDB2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08A011F24B98E0024E9B7 /* TestDB2ViewController.swift */; };
 		8AE08A041F24B98E0024E9B7 /* TestDB2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AE08A021F24B98E0024E9B7 /* TestDB2ViewController.xib */; };
@@ -182,6 +192,16 @@
 		8AB7E9691F25E12E005E36BB /* TopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopViewController.swift; path = ViewController/TopViewController.swift; sourceTree = "<group>"; };
 		8AB7E96A1F25E12E005E36BB /* TopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TopViewController.xib; path = ViewController/TopViewController.xib; sourceTree = "<group>"; };
 		8AB7E96D1F25E1D0005E36BB /* TangoTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TangoTopView.swift; sourceTree = "<group>"; };
+		8AB7E9701F278CE2005E36BB /* UIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIcon.swift; path = Icon/UIcon.swift; sourceTree = "<group>"; };
+		8AB7E9721F278DC7005E36BB /* IconBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconBook.swift; path = Icon/IconBook.swift; sourceTree = "<group>"; };
+		8AB7E9731F278DC7005E36BB /* IconCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconCard.swift; path = Icon/IconCard.swift; sourceTree = "<group>"; };
+		8AB7E9741F278DC7005E36BB /* IconContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconContainer.swift; path = Icon/IconContainer.swift; sourceTree = "<group>"; };
+		8AB7E9751F278DC7005E36BB /* IconTrash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconTrash.swift; path = Icon/IconTrash.swift; sourceTree = "<group>"; };
+		8AB7E9761F278DC7005E36BB /* UIconBlockManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIconBlockManager.swift; path = Icon/UIconBlockManager.swift; sourceTree = "<group>"; };
+		8AB7E9771F278DC7005E36BB /* UIconManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIconManager.swift; path = Icon/UIconManager.swift; sourceTree = "<group>"; };
+		8AB7E9781F278DC7005E36BB /* UIconWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIconWindow.swift; path = Icon/UIconWindow.swift; sourceTree = "<group>"; };
+		8AB7E9791F278DC7005E36BB /* UIconWindows.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIconWindows.swift; path = Icon/UIconWindows.swift; sourceTree = "<group>"; };
+		8AB7E97A1F278DC7005E36BB /* UIconWindowSub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIconWindowSub.swift; path = Icon/UIconWindowSub.swift; sourceTree = "<group>"; };
 		8AE089FB1F24677D0024E9B7 /* UNViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UNViewController.swift; path = TangoBook/ViewController/UNViewController.swift; sourceTree = "<group>"; };
 		8AE08A011F24B98E0024E9B7 /* TestDB2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDB2ViewController.swift; path = TangoBook/ViewController/TestDB2ViewController.swift; sourceTree = "<group>"; };
 		8AE08A021F24B98E0024E9B7 /* TestDB2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDB2ViewController.xib; path = TangoBook/ViewController/TestDB2ViewController.xib; sourceTree = "<group>"; };
@@ -385,6 +405,23 @@
 			name = Tango;
 			sourceTree = "<group>";
 		};
+		8AB7E96F1F278CB7005E36BB /* Icon */ = {
+			isa = PBXGroup;
+			children = (
+				8AB7E9701F278CE2005E36BB /* UIcon.swift */,
+				8AB7E9721F278DC7005E36BB /* IconBook.swift */,
+				8AB7E9731F278DC7005E36BB /* IconCard.swift */,
+				8AB7E9741F278DC7005E36BB /* IconContainer.swift */,
+				8AB7E9751F278DC7005E36BB /* IconTrash.swift */,
+				8AB7E9761F278DC7005E36BB /* UIconBlockManager.swift */,
+				8AB7E9771F278DC7005E36BB /* UIconManager.swift */,
+				8AB7E9781F278DC7005E36BB /* UIconWindow.swift */,
+				8AB7E9791F278DC7005E36BB /* UIconWindows.swift */,
+				8AB7E97A1F278DC7005E36BB /* UIconWindowSub.swift */,
+			);
+			name = Icon;
+			sourceTree = "<group>";
+		};
 		8AE08A601F2580D00024E9B7 /* UGui */ = {
 			isa = PBXGroup;
 			children = (
@@ -543,6 +580,7 @@
 		8AF781791F1F3E4400FC4EF2 /* TangoBook */ = {
 			isa = PBXGroup;
 			children = (
+				8AB7E96F1F278CB7005E36BB /* Icon */,
 				8AB7E9231F259947005E36BB /* PageView */,
 				8AB7E8F61F25824C005E36BB /* ImageName.swift */,
 				8AB7E8F81F2582C0005E36BB /* View */,
@@ -759,7 +797,10 @@
 				8AE08A8D1F2580D00024E9B7 /* UCircle.swift in Sources */,
 				8AE08A9E1F2580D00024E9B7 /* ULogWindow.swift in Sources */,
 				8AB7E9221F258A1B005E36BB /* TestGuiView.swift in Sources */,
+				8AB7E97F1F278DC7005E36BB /* UIconBlockManager.swift in Sources */,
+				8AB7E97C1F278DC7005E36BB /* IconCard.swift in Sources */,
 				8AE08AB91F2580D70024E9B7 /* ULog.swift in Sources */,
+				8AB7E9821F278DC7005E36BB /* UIconWindows.swift in Sources */,
 				8AF781A61F1F445500FC4EF2 /* BackupFile.swift in Sources */,
 				8AE08AB11F2580D70024E9B7 /* MyUserDefault.swift in Sources */,
 				8AB7E9181F258764005E36BB /* TestDBTopViewController.swift in Sources */,
@@ -778,6 +819,7 @@
 				8AB7E9671F25D29E005E36BB /* PageViewManagerTest1.swift in Sources */,
 				8AB7E92F1F259991005E36BB /* PageViewTest2.swift in Sources */,
 				8AB7E9521F25A00F005E36BB /* PageViewPresetBook.swift in Sources */,
+				8AB7E9801F278DC7005E36BB /* UIconManager.swift in Sources */,
 				8AB7E9321F259991005E36BB /* PageViewTest5.swift in Sources */,
 				8AB7E9581F25A00F005E36BB /* PageViewStudyBookSelect.swift in Sources */,
 				8AE08A881F2580D00024E9B7 /* UButtonText.swift in Sources */,
@@ -790,12 +832,15 @@
 				8AE08A891F2580D00024E9B7 /* ListItemTest1.swift in Sources */,
 				8AE08A8E1F2580D00024E9B7 /* UScrollBar.swift in Sources */,
 				8AF781B61F1F44B400FC4EF2 /* TangoItem.swift in Sources */,
+				8AB7E97B1F278DC7005E36BB /* IconBook.swift in Sources */,
 				8AF781B01F1F445500FC4EF2 /* TangoItemCheckDao.swift in Sources */,
 				8AB7E92C1F259991005E36BB /* PageViewManagerMain.swift in Sources */,
 				8AF781B31F1F445500FC4EF2 /* TangoStudiedCard.swift in Sources */,
+				8AB7E9711F278CE2005E36BB /* UIcon.swift in Sources */,
 				8AB7E9501F25A00F005E36BB /* PageViewHistory.swift in Sources */,
 				8AB7E9541F25A00F005E36BB /* PageViewResult.swift in Sources */,
 				8AB7E95A1F25A00F005E36BB /* PageViewStudySelect4.swift in Sources */,
+				8AB7E97D1F278DC7005E36BB /* IconContainer.swift in Sources */,
 				8AE08A0B1F24BA010024E9B7 /* TestDB4ViewController.swift in Sources */,
 				8AE08AAF1F2580D70024E9B7 /* EnumEnumerable.swift in Sources */,
 				8AE089FC1F24677D0024E9B7 /* UNViewController.swift in Sources */,
@@ -805,6 +850,7 @@
 				8AE08A991F2580D00024E9B7 /* UListItem.swift in Sources */,
 				8AB7E9311F259991005E36BB /* PageViewTest4.swift in Sources */,
 				8AE08A931F2580D00024E9B7 /* DrawPriority.swift in Sources */,
+				8AB7E9811F278DC7005E36BB /* UIconWindow.swift in Sources */,
 				8AE08ABF1F2580E00024E9B7 /* CGRect+U.swift in Sources */,
 				8AE08A901F2580D00024E9B7 /* UTextViewOpenClose.swift in Sources */,
 				8AE08A971F2580D00024E9B7 /* UDraw.swift in Sources */,
@@ -814,11 +860,13 @@
 				8AB7E9111F2583F4005E36BB /* PageViewTest.swift in Sources */,
 				8AB7E8FC1F258384005E36BB /* ViewTouch.swift in Sources */,
 				8AF7817D1F1F3E4400FC4EF2 /* ViewController.swift in Sources */,
+				8AB7E97E1F278DC7005E36BB /* IconTrash.swift in Sources */,
 				8AF781B21F1F445500FC4EF2 /* TangoItemPosDao.swift in Sources */,
 				8AF781AC1F1F445500FC4EF2 /* TangoCard.swift in Sources */,
 				8AE08A131F24BA310024E9B7 /* TestDB6ViewController.swift in Sources */,
 				8AE08A8F1F2580D00024E9B7 /* UTextView.swift in Sources */,
 				8AB7E9331F259991005E36BB /* PageViewTest6.swift in Sources */,
+				8AB7E9831F278DC7005E36BB /* UIconWindowSub.swift in Sources */,
 				8AE08AA01F2580D00024E9B7 /* UWindow.swift in Sources */,
 				8AE08AB31F2580D70024E9B7 /* Random.swift in Sources */,
 				8AB7E9511F25A00F005E36BB /* PageViewOptions.swift in Sources */,

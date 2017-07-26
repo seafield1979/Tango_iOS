@@ -13,16 +13,7 @@ import RealmSwift
  * Created by shutaro on 2017/06/14.
  * 単語帳ソートの種類
  */
-// todo あとで適切なファイルに移動する
-public enum IconSortMode {
-    case None
-    case TitleAsc
-    case TitleDesc
-    case CreateTimeAsc
-    case CreateTimeDesc
-    case StudiedTimeAsc
-    case StudiedTimeDesc
-}
+
 
 // 単語帳内のカード数のカウント
 public enum BookCountType : Int {
