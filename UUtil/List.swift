@@ -9,7 +9,7 @@
 
 import Foundation
 
-class List<T> : Sequence, Hashable{
+public class List<T> : Sequence, Hashable{
     final var elements: Array<T>
     
     init(_ elements: Array<T>) {
@@ -118,7 +118,7 @@ class List<T> : Sequence, Hashable{
         return elements.reduce(initial, combine)
     }
     
-    func makeIterator() -> AnyIterator<T?> {
+    public func makeIterator() -> AnyIterator<T?> {
         var count = 0
         return AnyIterator {
             if self.elements.count <= count {
@@ -134,13 +134,23 @@ class List<T> : Sequence, Hashable{
     
     // Hashable
     // ハッシュ値を返す
-    var hashValue: Int {
+    public var hashValue: Int {
         return self.elements.description.hashValue
     }
     
     // ハッシュ値を比較する
-    static func == (lhs: List, rhs: List) -> Bool {
+    public static func == (lhs: List, rhs: List) -> Bool {
         return lhs.hashValue == rhs.hashValue
     }
 }
+
+
+// containsは T がクラスのオブジェクト型のときのだけ使用できる
+public extension List where T: AnyObject {
+    // リストに含まれているかをチェック
+    func contains(_ element : T) -> Bool {
+        return elements.contains(where: {$0 === element})
+    }
+}
+
 

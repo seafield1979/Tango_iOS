@@ -126,7 +126,7 @@ public class UScrollBar {
         return false
     }
     
-    public func setShow(show : Bool) {
+    public func setShow(_ show : Bool) {
         self._isShow = show
     }
     

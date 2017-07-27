@@ -127,10 +127,10 @@ public class UButtonImage : UButton {
      * @param titleSize
      * @param titleColor
      */
-    public func setTitle(title: String, titleSize : Int, titleColor : UIColor) {
+    public func setTitle(title: String, size : Int, color : UIColor) {
         self.title = title
-        self.titleSize = titleSize
-        self.titleColor = titleColor
+        self.titleSize = size
+        self.titleColor = color
     }
     
     /**

@@ -193,7 +193,7 @@ public class UDrawable {
     public func getColor() -> UIColor {
         return color!
     }
-    public func setColor(color : UIColor) {
+    public func setColor(_ color : UIColor) {
         self.color = color
     }
     

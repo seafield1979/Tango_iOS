@@ -85,7 +85,7 @@ public class UIcon : UDrawable {
      * Class variables
      */
      // "New" バッジ用
-    var newTextView : UTextView
+    var newTextView : UTextView? = nil
 
 
      /**
@@ -123,8 +123,9 @@ public class UIcon : UDrawable {
      }
 
      // 保持するTangoItemを返す
-    public func getTangoItem() -> TangoItem{
+    public func getTangoItem() -> TangoItem? {
         // 抽象メソッド
+        return nil
     }
 
      public func getTitle() -> String? {
@@ -146,22 +147,22 @@ public class UIcon : UDrawable {
      /**
      * Constructor
      */
-    public init(parentWindow : UIconWindow, iconCallbacks : UIconCallbacks,
+    public init(parentWindow : UIconWindow, iconCallbacks : UIconCallbacks?,
                 type : IconType, x : CGFloat,
-                y : CGFloat, width : Int, height : Int)
-     {
-         super.init(DRAW_PRIORITY, x, y, width, height)
-         self.parentWindow = parentWindow
-         self.callbacks = iconCallbacks
-         self.id = count
-         self.type = type
-         self.setPos(x, y)
-         self.setSize(width, height)
-         updateRect()
-         count += 1
-     }
+                y : CGFloat, width : CGFloat, height : CGFloat)
+    {
+        super.init(priority: UIcon.DRAW_PRIORITY, x: x, y: y, width: width, height: height)
+        self.parentWindow = parentWindow
+        self.callbacks = iconCallbacks
+        self.id = UIcon.count
+        self.type = type
+        self.setPos(x, y)
+        self.setSize(width, height)
+        updateRect()
+        UIcon.count += 1
+    }
 
-    override public func setColor(color : UIColor) {
+    override public func setColor(_ color : UIColor) {
         self.color = color
         self.touchedColor = UColor.addBrightness(argb: color, addY : 0.3)
         self.longPressedColor = UColor.addBrightness(argb: color, addY: 0.6)
@@ -172,7 +173,7 @@ public class UIcon : UDrawable {
     }
 
 
-    public func getParentWindow() -> UIconWindow {
+    public func getParentWindow() -> UIconWindow? {
         return parentWindow
     }
     public func setParentWindow(parentWindow : UIconWindow) {
@@ -223,7 +224,7 @@ public class UIcon : UDrawable {
            x: 0, y: 0, width: 100, color: UIColor.white, bgColor: UIcon.NEW_TEXT_COLOR)
        
         // 文字の周りのマージン
-        newTextView.setMargin(UDpi.toPixel(UIcon.NEW_TEXT_MARGIN), UDpi.toPixel(UIcon.NEW_TEXT_MARGIN));
+        newTextView!.setMargin(UDpi.toPixel(UIcon.NEW_TEXT_MARGIN), UDpi.toPixel(UIcon.NEW_TEXT_MARGIN));
     }
 
     /**
@@ -330,8 +331,8 @@ public class UIcon : UDrawable {
     override public func getDrawOffset() -> CGPoint? {
         // 親Windowの座標とスクロール量を取得
         if parentWindow != nil {
-            return CGPoint(x: parentWindow.getPos().x - parentWindow.getContentTop().x,
-                           y: parentWindow.getPos().y - parentWindow.getContentTop().y);
+            return CGPoint(x: parentWindow!.getPos().x - parentWindow!.getContentTop().x,
+                           y: parentWindow!.getPos().y - parentWindow!.getContentTop().y);
         }
         return nil
     }
@@ -344,7 +345,7 @@ public class UIcon : UDrawable {
          animeFrame = 0
          animeFrameMax = UIcon.ANIME_FRAME
          if parentWindow != nil {
-             parentWindow.setAnimating(true)
+             parentWindow!.setAnimating(true)
          }
      }
 
@@ -440,6 +441,8 @@ public class UIcon : UDrawable {
             case .MoveCancel:
                 isDraging = false
                 break
+        default:
+            break
         }
 
         return done
