@@ -23,4 +23,14 @@ extension UIColor {
             (UInt32(G * 255.0) << 8) |
             UInt32(B * 255.0))
     }
+    
+    func alpha() -> CGFloat {
+        var R : CGFloat = 0.0
+        var G : CGFloat = 0.0
+        var B : CGFloat = 0.0
+        var A : CGFloat = 0.0
+        self.getRed(&R, green: &G, blue: &B, alpha: &A)
+        
+        return A
+    }
 }

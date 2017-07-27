@@ -17,7 +17,7 @@ public class IconBook : IconContainer {
     private let ICON_W = 40
     private let ICON_H = 40
     
-    private let TEXT_SIZE = 14
+    private let TEXT_SIZE2 = 14
     private let ICON_COLOR = UColor.makeColor(100,200,100)
     
     /**
@@ -40,7 +40,7 @@ public class IconBook : IconContainer {
         return TangoParentType.Book
     }
     
-    public func getItems() -> List<TangoCard>? {
+    public func getItems() -> [TangoCard]? {
         let list = TangoItemPosDao.selectCardsByBookId(book!.id)
         return list
     }
@@ -52,7 +52,7 @@ public class IconBook : IconContainer {
     {
         iconW = UDpi.toPixel(ICON_W)
         iconH = UDpi.toPixel(ICON_H)
-        textSize = Int(UDpi.toPixel(TEXT_SIZE))
+        textSize = Int(UDpi.toPixel(TEXT_SIZE2))
         
         super.init(parentWindow: parentWindow, iconCallbacks: iconCallbacks,
                    type: IconType.Book, x: 0, y: 0,
@@ -69,74 +69,81 @@ public class IconBook : IconContainer {
         image = UResourceManager.getImageWithColor(imageName: ImageName.cards,
                                                    color: color)
     }
+
+    /**
+     * アイコンの描画
+     * @param canvas
+     * @param paint
+     * @param offset
+     */
+    public override func drawIcon( offset : CGPoint? ) {
+        var drawPos : CGPoint = pos
+        if offset != nil {
+            drawPos.x += offset!.x
+            drawPos.y += offset!.y
+        }
+        
+        var alpha : CGFloat = 1.0
+        if isLongTouched || isTouched || isDroped {
+            // 長押し、タッチ、ドロップ中はBGを表示
+            UDraw.drawRoundRectFill(rect: CGRect(x: drawPos.x, y: drawPos.y, width: drawPos.x + iconW, height: drawPos.y + iconH),
+                                     cornerR: UDpi.toPixel(10),
+                                     color: touchedColor!,
+                                     strokeWidth: 0, strokeColor: nil)
+        } else if (isAnimating) {
+            // 点滅
+            let v1 : CGFloat = (CGFloat(animeFrame) / CGFloat(animeFrameMax)) * 180
+            alpha = 1.0 -  sin(v1 * UUtil.RAD)
+        } else {
+            alpha = self.color!.alpha()
+        }
+        
+        // icon
+        // 領域の幅に合わせて伸縮
+        UDraw.drawImageWithCrop(image: image!,
+                                srcRect: CGRect(x: 0,y: 0, width: image!.getWidth(), height: image!.getHeight()),
+                                dstRect: CGRect(x: drawPos.x, y: drawPos.y,
+                                                width: iconW, height: iconH), alpha: alpha)
+        // Text
+        UDraw.drawText(text: title!, alignment: UAlignment.Center,
+                       textSize: Int(UDpi.toPixel(TEXT_SIZE)),
+                       x: drawPos.x + iconW / 2,
+                       y: drawPos.y + iconH + UDpi.toPixel(TEXT_MARGIN),
+                       color: UIColor.black)
+        
+        // New!
+        if book!.isNew {
+            if newTextView == nil {
+                createNewBadge()
+            }
+            newTextView!.draw( CGPoint(x: drawPos.x + iconW / 2,
+                                       y: drawPos.y + iconH - UDpi.toPixel(NEW_TEXT_SIZE)))
+
+        }
+    }
+
+    /**
+     * タイトルを更新する
+     */
+    public override func updateTitle() {
+        let len = (book!.getName()!.lengthOfBytes(
+            using: String.Encoding.utf8) < DISP_TITLE_LEN) ?
+                book!.getName()!.lengthOfBytes(using: String.Encoding.utf8) :
+                DISP_TITLE_LEN
+        let text = book!.getName()!
+        self.title = text.substring(to: text.index(text.startIndex, offsetBy: len))
+    }
+    
+    /**
+     * Newフラグ設定
+     */
+    public override func setNewFlag(newFlag : Bool) {
+        if book!.isNew != newFlag {
+            book!.setNewFlag(isNew: newFlag)
+            TangoBookDao.updateNewFlag(book: book!, isNew: newFlag)
+        }
+    }
 //
-//    /**
-//     * アイコンの描画
-//     * @param canvas
-//     * @param paint
-//     * @param offset
-//     */
-//    public void drawIcon(Canvas canvas,Paint paint, PointF offset) {
-//        PointF drawPos;
-//        if (offset != null) {
-//            drawPos = new PointF(pos.x + offset.x, pos.y + offset.y);
-//        } else {
-//            drawPos = pos;
-//        }
-//        
-//        if (isLongTouched || isTouched || isDroped) {
-//            // 長押し、タッチ、ドロップ中はBGを表示
-//            UDraw.drawRoundRectFill(canvas, paint,
-//                                    new RectF(drawPos.x, drawPos.y, drawPos.x + iconW, drawPos.y + iconH),
-//                                    10, touchedColor, 0, 0);
-//        } else if (isAnimating) {
-//            // 点滅
-//            double v1 = ((double)animeFrame / (double)animeFrameMax) * 180;
-//            int alpha = (int)((1.0 -  Math.sin(v1 * UDrawable.RAD)) * 255);
-//            paint.setColor((alpha << 24) | (color & 0xffffff));
-//        } else {
-//            paint.setColor(color);
-//        }
-//        // icon
-//        // 領域の幅に合わせて伸縮
-//        canvas.drawBitmap(image, new Rect(0,0,image.getWidth(), image.getHeight()),
-//                          new Rect((int)drawPos.x, (int)drawPos.y,
-//                                   (int)drawPos.x + iconW,(int)drawPos.y + iconH),
-//                          paint);
-//        
-//        // Text
-//        UDraw.drawTextOneLine(canvas, paint, title, UAlignment.CenterX, textSize,
-//                              drawPos.x + iconW / 2, drawPos.y + iconH + UIcon.TEXT_MARGIN, Color.BLACK);
-//        
-//        // New!
-//        if (book.isNewFlag()) {
-//            if (newTextView == null) {
-//                createNewBadge(canvas);
-//            }
-//            newTextView.draw(canvas, paint,
-//                             new PointF(drawPos.x + iconW / 2, drawPos.y + iconH - UDpi.toPixel(UIcon.NEW_TEXT_SIZE)));
-//        }
-//    }
-//    
-//    /**
-//     * タイトルを更新する
-//     */
-//    public void updateTitle() {
-//        int len = (book.getName().length() < UIcon.DISP_TITLE_LEN) ? book.getName().length() :
-//            UIcon.DISP_TITLE_LEN;
-//        self.title = book.getName().substring(0, len);
-//    }
-//    
-//    /**
-//     * Newフラグ設定
-//     */
-//    public void setNewFlag(boolean newFlag) {
-//        if (book.isNewFlag() != newFlag) {
-//            book.setNewFlag(newFlag);
-//            RealmManager.getBookDao().updateNewFlag(book, newFlag);
-//        }
-//    }
-//    
 //    
 //    /**
 //     * ドロップ可能かどうか

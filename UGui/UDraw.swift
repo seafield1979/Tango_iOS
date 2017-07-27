@@ -413,6 +413,18 @@ class UDraw {
         image2.draw(in: dstRect)
     }
     
+    public static func drawImageWithCrop(image: UIImage,
+                                         srcRect: CGRect,
+                                         dstRect: CGRect, alpha: CGFloat)
+    {
+        // 切り抜いた画像を作成
+        let image2 = UDraw.cropImage(image: image, cropRect: srcRect)
+
+        // 切り抜いた画像を描画
+        image2.draw(in: dstRect, blendMode: CGBlendMode.sourceAtop, alpha: alpha)
+    }
+
+    
     // 一部分を切り抜いた画像を取得
     public static func cropImage(image: UIImage, cropRect : CGRect) -> UIImage
     {

@@ -141,21 +141,21 @@ public class MySharedPref {
     /**
      * Methods
      */
-//    public static func getCardName() -> Bool? {
-//        return readBoolean(key: EditCardNameKey)
-//    }
-//    public static func getStudyMode() -> StudyMode? {
-//    return StudyMode.toEnum(readInt(StudyModeKey));
-//    }
-//    public static StudyType getStudyType() {
-//    return StudyType.toEnum(readInt(StudyTypeKey));
-//    }
-//    public static StudyOrder getStudyOrder() {
-//    return StudyOrder.toEnum(readInt(StudyOrderKey));
-//    }
-//    public static StudyFilter getStudyFilter() {
-//    return StudyFilter.toEnum(readInt(StudyFilterKey));
-//    }
+    public static func getCardName() -> Bool {
+        return readBoolean(EditCardNameKey)
+    }
+    public static func getStudyMode() -> StudyMode? {
+        return StudyMode.toEnum(MySharedPref.readInt(StudyModeKey))
+    }
+    public static func getStudyType() -> StudyType {
+        return StudyType.toEnum(MySharedPref.readInt(StudyTypeKey))
+    }
+    public static func getStudyOrder() -> StudyOrder {
+        return StudyOrder.toEnum(MySharedPref.readInt(StudyOrderKey))
+    }
+    public static func getStudyFilter() -> StudyFilter{
+        return StudyFilter.toEnum(MySharedPref.readInt(StudyFilterKey))
+    }
     
     /**
      * Delete
@@ -198,23 +198,23 @@ public class MySharedPref {
     
     
     // int
-    public static func readInt(key : String) -> Int? {
-        return MySharedPref.getInstance().userDefaults?.integer(forKey: key)
+    public static func readInt(_ key : String) -> Int {
+        return MySharedPref.getInstance().userDefaults?.integer(forKey: key) ?? 0
     }
-    public static func readInt(key : String, defaultValue : Int) -> Int? {
+    public static func readInt(_ key : String, defaultValue : Int) -> Int {
         let value = MySharedPref.getInstance().userDefaults?.integer(forKey: key)
         if value == nil {
             return defaultValue
         }
-        return value
+        return value!
     }
     
     // boolean
-    public static func readBoolean(key : String) -> Bool? {
-        return MySharedPref.getInstance().userDefaults?.bool(forKey: key)
+    public static func readBoolean(_ key : String) -> Bool {
+        return MySharedPref.getInstance().userDefaults?.bool(forKey: key) ?? false
     }
     
-    public static func readBoolean(key : String, defaultValue : Bool) -> Bool? {
+    public static func readBoolean(_ key : String, defaultValue : Bool) -> Bool? {
         let value = MySharedPref.getInstance().userDefaults?.bool(forKey: key)
         if value == nil {
             return defaultValue

@@ -11,6 +11,8 @@
 		8A8522441F22533000B5B8A3 /* TestDBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8522421F22533000B5B8A3 /* TestDBViewController.swift */; };
 		8A8522451F22533000B5B8A3 /* TestDBViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A8522431F22533000B5B8A3 /* TestDBViewController.xib */; };
 		8A8522471F22539800B5B8A3 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A8522461F22539800B5B8A3 /* ViewController.xib */; };
+		8AA3B5071F29B1F100AE445E /* UIImage+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3B5061F29B1F100AE445E /* UIImage+ex.swift */; };
+		8AA3B5091F29B4F500AE445E /* TangoEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3B5081F29B4F500AE445E /* TangoEnums.swift */; };
 		8AB7E8F51F2581EF005E36BB /* Resource in Resources */ = {isa = PBXBuildFile; fileRef = 8AB7E8F41F2581EF005E36BB /* Resource */; };
 		8AB7E8F71F25824C005E36BB /* ImageName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E8F61F25824C005E36BB /* ImageName.swift */; };
 		8AB7E8FA1F2582C0005E36BB /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E8F91F2582C0005E36BB /* TopView.swift */; };
@@ -147,6 +149,8 @@
 		8A8522421F22533000B5B8A3 /* TestDBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDBViewController.swift; path = TangoBook/Database/Test/TestDBViewController.swift; sourceTree = "<group>"; };
 		8A8522431F22533000B5B8A3 /* TestDBViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDBViewController.xib; path = TangoBook/Database/Test/TestDBViewController.xib; sourceTree = "<group>"; };
 		8A8522461F22539800B5B8A3 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ViewController.xib; path = TangoBook/ViewController.xib; sourceTree = "<group>"; };
+		8AA3B5061F29B1F100AE445E /* UIImage+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ex.swift"; sourceTree = "<group>"; };
+		8AA3B5081F29B4F500AE445E /* TangoEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TangoEnums.swift; sourceTree = "<group>"; };
 		8AB7E8F41F2581EF005E36BB /* Resource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resource; sourceTree = "<group>"; };
 		8AB7E8F61F25824C005E36BB /* ImageName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageName.swift; sourceTree = "<group>"; };
 		8AB7E8F91F2582C0005E36BB /* TopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
@@ -549,6 +553,7 @@
 			children = (
 				8AE08ABD1F2580E00024E9B7 /* CGRect+U.swift */,
 				8AE08ABE1F2580E00024E9B7 /* UIColor+ex.swift */,
+				8AA3B5061F29B1F100AE445E /* UIImage+ex.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -580,6 +585,7 @@
 		8AF781791F1F3E4400FC4EF2 /* TangoBook */ = {
 			isa = PBXGroup;
 			children = (
+				8AA3B5081F29B4F500AE445E /* TangoEnums.swift */,
 				8AB7E96F1F278CB7005E36BB /* Icon */,
 				8AB7E9231F259947005E36BB /* PageView */,
 				8AB7E8F61F25824C005E36BB /* ImageName.swift */,
@@ -767,6 +773,7 @@
 				8AE08A9F1F2580D00024E9B7 /* UPopupWindow.swift in Sources */,
 				8AE08AB81F2580D70024E9B7 /* UIViewUtil.swift in Sources */,
 				8AE08A8C1F2580D00024E9B7 /* UMenuItem.swift in Sources */,
+				8AA3B5091F29B4F500AE445E /* TangoEnums.swift in Sources */,
 				8AF781A91F1F445500FC4EF2 /* TangoBookDao.swift in Sources */,
 				8AB7E94C1F25A00F005E36BB /* PageViewCsvBook.swift in Sources */,
 				8AE08A921F2580D00024E9B7 /* DrawList.swift in Sources */,
@@ -863,6 +870,7 @@
 				8AB7E97E1F278DC7005E36BB /* IconTrash.swift in Sources */,
 				8AF781B21F1F445500FC4EF2 /* TangoItemPosDao.swift in Sources */,
 				8AF781AC1F1F445500FC4EF2 /* TangoCard.swift in Sources */,
+				8AA3B5071F29B1F100AE445E /* UIImage+ex.swift in Sources */,
 				8AE08A131F24BA310024E9B7 /* TestDB6ViewController.swift in Sources */,
 				8AE08A8F1F2580D00024E9B7 /* UTextView.swift in Sources */,
 				8AB7E9331F259991005E36BB /* PageViewTest6.swift in Sources */,

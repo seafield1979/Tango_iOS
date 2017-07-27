@@ -147,7 +147,7 @@ public class TangoItemPosDao {
      * @param bookId
      * @return
      */
-    public static func selectCardsByBookId(_ bookId : Int) -> List<TangoCard>? {
+    public static func selectCardsByBookId(_ bookId : Int) -> [TangoCard]? {
         let results = mRealm!.objects(TangoItemPos.self)
             .filter("parentType = %d AND parentId = %d", TangoParentType.Book.rawValue, bookId)
             .sorted(byKeyPath: "pos", ascending: true)
@@ -164,7 +164,7 @@ public class TangoItemPosDao {
         if cards == nil {
             return nil
         }
-        return List(cards!)
+        return cards!
      }
 
      // オプション付き

@@ -61,25 +61,25 @@ public class UIcon : UDrawable {
      * Constants
      */
      private static let TAG = "UIcon"
-     private static let DRAW_PRIORITY = 200
+     private let DRAW_PRIORITY = 200
 
-     static let TEXT_SIZE = 13
-     static let TEXT_MARGIN = 4
+     public let TEXT_SIZE = 13
+     let TEXT_MARGIN = 4
 
      // タッチ領域の拡張幅
-     static let TOUCH_MARGIN = 10
+     let TOUCH_MARGIN = 10
 
-     public static let DISP_TITLE_LEN = 8
-     public static let DISP_TITLE_LEN_J = 5       // 日本語表示時の最大文字列数
+     public let DISP_TITLE_LEN = 8
+     public let DISP_TITLE_LEN_J = 5       // 日本語表示時の最大文字列数
 
-     private static let CHECKED_WIDTH = 24    // 選択中のアイコンのチェックの幅
-     private static let CHECKED_FRAME = 3    // 選択中のアイコンのチェックの枠
+     private let CHECKED_WIDTH = 24    // 選択中のアイコンのチェックの幅
+     private let CHECKED_FRAME = 3    // 選択中のアイコンのチェックの枠
 
-     static let NEW_TEXT_SIZE = 10
-     static let NEW_TEXT_MARGIN = 5
-     static let NEW_TEXT_COLOR = UColor.makeColor(200, 255, 80, 80)
+     let NEW_TEXT_SIZE = 10
+     let NEW_TEXT_MARGIN = 5
+     let NEW_TEXT_COLOR = UColor.makeColor(200, 255, 80, 80)
     // アニメーション用
-    public static let ANIME_FRAME = 20
+    public let ANIME_FRAME = 20
 
      /**
      * Class variables
@@ -138,10 +138,10 @@ public class UIcon : UDrawable {
 
     // タッチしやすいように少し領域を広げたRectを返す
     override public func getRect() -> CGRect{
-       return CGRect(x:rect!.x - UDpi.toPixel(UIcon.TOUCH_MARGIN),
-                     y:rect!.y - UDpi.toPixel(UIcon.TOUCH_MARGIN),
-                     width: rect!.width + UDpi.toPixel(UIcon.TOUCH_MARGIN) * 2,
-                     height: rect!.height + UDpi.toPixel(UIcon.TOUCH_MARGIN) * 2)
+       return CGRect(x:rect!.x - UDpi.toPixel(TOUCH_MARGIN),
+                     y:rect!.y - UDpi.toPixel(TOUCH_MARGIN),
+                     width: rect!.width + UDpi.toPixel(TOUCH_MARGIN) * 2,
+                     height: rect!.height + UDpi.toPixel(TOUCH_MARGIN) * 2)
     }
 
      /**
@@ -151,7 +151,7 @@ public class UIcon : UDrawable {
                 type : IconType, x : CGFloat,
                 y : CGFloat, width : CGFloat, height : CGFloat)
     {
-        super.init(priority: UIcon.DRAW_PRIORITY, x: x, y: y, width: width, height: height)
+        super.init(priority: DRAW_PRIORITY, x: x, y: y, width: width, height: height)
         self.parentWindow = parentWindow
         self.callbacks = iconCallbacks
         self.id = UIcon.count
@@ -218,13 +218,13 @@ public class UIcon : UDrawable {
     */
     func createNewBadge() {
         newTextView = UTextView.createInstance(
-           text: "New", textSize: Int(UDpi.toPixel(UIcon.NEW_TEXT_SIZE)),
+           text: "New", textSize: Int(UDpi.toPixel(NEW_TEXT_SIZE)),
            priority: 0, alignment: UAlignment.Center,
            multiLine: false, isDrawBG: true,
-           x: 0, y: 0, width: 100, color: UIColor.white, bgColor: UIcon.NEW_TEXT_COLOR)
+           x: 0, y: 0, width: 100, color: UIColor.white, bgColor: NEW_TEXT_COLOR)
        
         // 文字の周りのマージン
-        newTextView!.setMargin(UDpi.toPixel(UIcon.NEW_TEXT_MARGIN), UDpi.toPixel(UIcon.NEW_TEXT_MARGIN));
+        newTextView!.setMargin(UDpi.toPixel(NEW_TEXT_MARGIN), UDpi.toPixel(NEW_TEXT_MARGIN));
     }
 
     /**
@@ -266,8 +266,8 @@ public class UIcon : UDrawable {
      /**
      * ドロップをチェックする
      */
-    public func checkDrop(dropX : CGFloat, dropY : CGFloat) -> Bool {
-        if (getRect().contains(x: dropX, y: dropY))
+    public func checkDrop(x : CGFloat, y : CGFloat) -> Bool {
+        if (getRect().contains(x: x, y: y))
         {
             return true
         }
@@ -277,15 +277,20 @@ public class UIcon : UDrawable {
      /**
      * アイコンを描画
      */
-    public func draw(offset : CGPoint) {
+    public func draw(offset : CGPoint? ) {
         drawIcon(offset: offset)
 
-       if isChecking {
-            let _x = pos.x + offset.x
-            let _y = pos.y + offset.y
-            let width = UDpi.toPixel(UIcon.CHECKED_WIDTH)
-        drawCheckboxImage(x: _x + UDpi.toPixel(UIcon.CHECKED_FRAME),
-                          y: _y + size.height - width - UDpi.toPixel(UIcon.CHECKED_FRAME),
+        if isChecking {
+    
+            var _x = pos.x
+            var _y = pos.y
+            if offset != nil {
+                _x += offset!.x
+                _y += offset!.y
+            }
+            let width = UDpi.toPixel(CHECKED_WIDTH)
+            drawCheckboxImage(x: _x + UDpi.toPixel(CHECKED_FRAME),
+                          y: _y + size.height - width - UDpi.toPixel(CHECKED_FRAME),
                           width: width,
                           color: UColor.makeColor(100,100,200))
         }
@@ -294,7 +299,7 @@ public class UIcon : UDrawable {
     /**
     * アイコンを描画する
     */
-    func drawIcon(offset : CGPoint) {
+    func drawIcon(offset : CGPoint?) {
         // 抽象メソッド
     }
 
@@ -343,7 +348,7 @@ public class UIcon : UDrawable {
      public func startAnim() {
          isAnimating = true
          animeFrame = 0
-         animeFrameMax = UIcon.ANIME_FRAME
+         animeFrameMax = ANIME_FRAME
          if parentWindow != nil {
              parentWindow!.setAnimating(true)
          }

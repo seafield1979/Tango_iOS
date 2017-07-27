@@ -18,7 +18,7 @@ class UCircle : UDrawable {
      * 描画処理
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
-    override func draw(_ offset : CGPoint) {
+    override func draw(_ offset : CGPoint?) {
         // 抽象クラス(Swiftではサポートされていないので仕方なく実装)
         UDraw.drawCircleFill(x: pos.x, y: pos.y, radius: radius, color: color!)
     }

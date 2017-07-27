@@ -146,19 +146,18 @@ public class UMenuItem : UDrawable {
      * @param paint
      * @param parentPos
      */
-    override public func draw(_ parentPos: CGPoint) {
+    override public func draw(_ parentPos: CGPoint?) {
         if !isShow {
             return
         }
         
-        // スタイル(内部を塗りつぶし)
-//        paint.setStyle(Paint.Style.FILL);
-//        // 色
-//        paint.setColor(0);
-//        
         var drawPos = CGPoint()
-        drawPos.x = pos.x + parentPos.x
-        drawPos.y = pos.y + parentPos.y
+        drawPos.x = pos.x
+        drawPos.y = pos.y
+        if parentPos != nil {
+            drawPos.x += parentPos!.x
+            drawPos.y += parentPos!.y
+        }
         
         if icons.count > 0 {
             // 次の状態のアイコンを表示する

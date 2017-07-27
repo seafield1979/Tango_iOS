@@ -113,9 +113,9 @@ public class UDpi {
         dpiToPixelBase = dpi / BASE_DPI    // 例: 480 / 160 = 3.0
         
         // スケールが設定されていたら読み込む
-        let scaleInt = MySharedPref.readInt(key: MySharedPref.ScaleKey);
-        if scaleInt != nil && scaleInt! != 0 {
-            mScale = Scale.cases[scaleInt!]
+        let scaleInt = MySharedPref.readInt(MySharedPref.ScaleKey)
+        if scaleInt != 0 {
+            mScale = Scale.cases[scaleInt]
         } else {
             mScale = Scale.S100;
         }
