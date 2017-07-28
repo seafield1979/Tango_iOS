@@ -114,69 +114,70 @@ public class UIconManager : UIconCallbacks {
          return instance
      }
 
-//     /**
-//     * 指定タイプのアイコンを作成してから追加
-//     * @param copySrc  コピー元のIcon
-//     * @param addPos
-//     * @return
-//     */
-//     public UIcon copyIcon(UIcon copySrc, AddPos addPos) {
-//         UIcon icon = nil;
+     /**
+     * 指定タイプのアイコンを作成してから追加
+     * @param copySrc  コピー元のIcon
+     * @param addPos
+     * @return
+     */
+    public func copyIcon( copySrc : UIcon, addPos : AddPos) -> UIcon? {
+        var icon : UIcon? = nil
 
-//         TangoItemPos itemPos = copySrc.getTangoItem().getItemPos();
+        let itemPos : TangoItemPos = copySrc.getTangoItem()!.getItemPos()!
 
-//         switch (copySrc.getType()) {
-//             case Card: {
-//                 TangoCard card = TangoCard.copyCard((TangoCard)copySrc.getTangoItem());
-//                 card.setNewFlag(true);
-//                 RealmManager.getCardDao().addOne(card,
-//                         TangoParentType.toEnum(itemPos.getParentType()),
-//                         itemPos.getParentId(),itemPos.getPos());
-//                 icon = new IconCard(card, mParentWindow, self);
-//             }
-//             break;
-//             case Book:
-//             {
-//                 TangoBook book = TangoBook.copyBook((TangoBook)copySrc.getTangoItem());
-//                 book.setNewFlag(true);
-//                 RealmManager.getBookDao().addOne(book, itemPos.getPos());
-//                 icon = new IconBook(book, mParentWindow, self);
+        switch copySrc.getType() {
+            case .Card:
+                let card = TangoCard.copyCard(card: copySrc.getTangoItem() as! TangoCard)
+                card.isNew = true
+                TangoCardDao.addOne( card: card,
+                                     parentType: TangoParentType.toEnum(itemPos.parentType),
+                                     parentId: itemPos.getParentId(),
+                                     addPos: itemPos.getPos())
+                icon = IconCard(card: card,
+                                parentWindow: mParentWindow!,
+                                iconCallbacks: self)
+            
+            case .Book:
+                let book : TangoBook = TangoBook.copyBook(book: copySrc.getTangoItem() as! TangoBook)
+                book.isNew = true
+                TangoBookDao.addOne(book: book, addPos: itemPos.getPos())
+                icon = IconBook(book: book,
+                                parentWindow: mParentWindow!,
+                                iconCallbacks: self)
+        default:
+            break
+        }
+        if icon == nil {
+            return nil
+        }
 
-//             }
-//             break;
-//         }
-//         if (icon == nil) return nil;
+        // リストに追加
+//        if addPos != nil {
+            switch addPos {
+                case .SrcNext:
+                    let pos = icons.indexOf(obj: copySrc)
+                    if pos != -1 {
+                        icons.insert(icon!, atIndex: pos + 1)
+                        icon!.setPos(copySrc.getPos())
+                    }
+                
+                case .Top:
+                    icons.push(icon!)
+                
+                case .Tail:
+                    let lastIcon : UIcon? = icons.last()
 
-//         // リストに追加
-//         if (addPos != nil) {
-//             switch (addPos) {
-//                 case SrcNext: {
-//                     int pos = icons.indexOf(copySrc);
-//                     if (pos != -1) {
-//                         icons.add(pos + 1, icon);
-//                         icon.setPos(copySrc.getPos());
-//                     }
-//                 }
-//                     break;
-//                 case Top:
-//                     icons.push(icon);
-//                     break;
-//                 case Tail: {
-//                     UIcon lastIcon = icons.getLast();
+                    icons.append(icon!)
 
-//                     icons.add(icon);
+                    // 出現位置は最後のアイコン
+                    if lastIcon != nil {
+                        icon!.setPos(lastIcon!.getPos())
+                    }
+                }
+//        }
 
-//                     // 出現位置は最後のアイコン
-//                     if (lastIcon != nil) {
-//                         icon.setPos(lastIcon.getPos());
-//                     }
-//                 }
-//                     break;
-//             }
-//         }
-
-//         return icon;
-//     }
+        return icon;
+    }
 
      /**
      * アイコンを追加する

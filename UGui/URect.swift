@@ -38,9 +38,9 @@ class URect {
      * @param rect2
      * @return true:一部分でも重なっている / false:全く重なっていない
      */
-    public static func intersect(rect1 : URect, rect2 : URect) -> Bool {
-        if (rect1.right < rect2.left || rect1.left > rect2.right ||
-            rect1.bottom < rect2.top || rect1.top > rect2.bottom )
+    public static func intersect(rect1 : CGRect, rect2 : CGRect) -> Bool {
+        if rect1.right < rect2.left || rect1.left > rect2.right ||
+            rect1.bottom < rect2.top || rect1.top > rect2.bottom 
         {
             return false
         }

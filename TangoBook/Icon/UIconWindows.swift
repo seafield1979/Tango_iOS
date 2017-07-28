@@ -241,11 +241,9 @@ public class UIconWindows : UWindowCallbacks {
                 continue
             }
             for icon in icons! {
-//                ULog.printMsg(UIconWindows.TAG, "pos:" + pos.description +
-//                    " iconType:" + icon!.getType() +
-//                    " iconId:" + icon!.getTangoItem().getId().description +
-//                    " itemPos:" + icon!.getTangoItem().getPos().description +
-//                    " mTitle:" + icon!.getTitle())
+                ULog.printMsg(UIconWindows.TAG,
+                              String(format:
+                              "pos:%d iconType:%d iconId:%d itemPos:%d mTitle:%@", pos, icon!.getType().rawValue,icon!.getTangoItem()!.getId(),icon!.getTangoItem()!.getPos(), icon!.getTitle()!))
                 pos += 1
             }
         }

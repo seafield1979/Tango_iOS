@@ -297,19 +297,20 @@ public class UIconWindow : UWindow{
          iconH = UDpi.toPixel(ICON_H)
      }
 
-//     /**
-//     * Create class instance
-//     * It doesn't allow to create multi Home windows.
-//     * @return
-//     */
-//     public static UIconWindow createInstance(UWindowCallbacks windowCallbacks,
+     /**
+     * Create class instance
+     * It doesn't allow to create multi Home windows.
+     * @return
+     */
+    // initを使用すればいいので、たぶんいらない
+//     public static func createInstance(UWindowCallbacks windowCallbacks,
 //                                             UIconCallbacks iconCallbacks,
 //                                             boolean isHome, WindowDir dir,
-//                                             int width, int height, int bgColor)
+//                                             int width, int height, int bgColor) -> UIconWindow
 //     {
 //         UIconWindow instance = new UIconWindow(windowCallbacks,
 //                 iconCallbacks, isHome, dir, width, height, bgColor);
-
+//
 //         return instance;
 //     }
 
@@ -323,114 +324,126 @@ public class UIconWindow : UWindow{
          }
      }
 
-//     /**
-//     * 毎フレーム行う処理
-//     * @return true:再描画を行う(まだ処理が終わっていない)
-//     */
-//     public DoActionRet doAction() {
-//         DoActionRet ret = DoActionRet.None;
-//         boolean allFinished;
-//         List<UIcon> icons = getIcons();
+    /*
+     * 毎フレーム行う処理
+     * @return true:再描画を行う(まだ処理が終わっていない)
+     */
+    public override func doAction() -> DoActionRet{
+        var ret = DoActionRet.None
+        var allFinished : Bool
+        let icons : List<UIcon>? = getIcons()
 
-//         // Windowの移動
-//         if (isMoving) {
-//             if (!autoMoving()) {
-//                 isMoving = false;
-//             }
-//         }
+        // Windowの移動
+        if isMoving {
+            if !autoMoving() {
+                isMoving = false
+            }
+        }
 
-//         // アイコンの移動
-//         if (icons != nil) {
-//             if (state == WindowState.icon_moving) {
-//                 allFinished = true;
-//                 for (UIcon icon : icons) {
-//                     if (icon.autoMoving()) {
-//                         allFinished = false;
-//                     }
-//                 }
-//                 if (allFinished) {
-//                     endIconMoving();
-//                 }
-//                 ret = DoActionRet.Redraw;
-//             }
-//         }
+        // アイコンの移動
+        if icons != nil {
+            if state == WindowState.icon_moving {
+                allFinished = true
+                for icon in icons! {
+                    if icon!.autoMoving() {
+                        allFinished = false
+                    }
+                }
+                if allFinished {
+                    endIconMoving()
+                }
+                ret = DoActionRet.Redraw
+            }
+        }
 
-//         return ret;
-//     }
-
-//     /**
-//     * 描画処理
-//     * UIconManagerに登録されたIconを描画する
-//     * @param canvas
-//     * @param paint
-//     * @return trueなら描画継続
-//     */
-//     public void drawContent(Canvas canvas, Paint paint, PointF offset)
-//     {
-//         if (!isShow) return;
-
-//         List<UIcon> icons = getIcons();
-//         if (icons == nil) return;
-
-//         // 背景を描画
-//         drawBG(canvas, paint);
-
-//         // ウィンドウの座標とスクロールの座標を求める
-//         PointF _offset = new PointF(pos.x - contentTop.x, pos.y - contentTop.y);
-//         Rect windowRect = new Rect((int)contentTop.x, (int)contentTop.y, (int)contentTop.x + size.width, (int)contentTop.y + size.height);
-
-//         // クリッピング領域を設定
-//         canvas.save();
-//         canvas.clipRect(rect);
-
-//         // 選択中のアイコンに枠を表示する
-//         if (mIconManager!.getSelectedIcon() != nil) {
-//             UDraw.drawRoundRectFill(canvas, paint,
-//                     new RectF(mIconManager!.getSelectedIcon().getRectWithOffset
-//                             (_offset, 5)), 10.0f, SELECTED_ICON_BG_COLOR, 0, 0);
-//         }
-//         for (UIcon icon : mIconManager!.getIcons()) {
-//             if (icon == dragedIcon) continue;
-//             // 矩形範囲外なら描画しない
-//             if (URect.intersect(windowRect, icon.getRect())) {
-//                 icon.draw(canvas, paint, _offset);
-
-//             } else {
-//             }
-//         }
-
-//         if (UDebug.DRAW_ICON_BLOCK_RECT) {
-//             mIconManager!.getBlockManager().draw(canvas, paint, getToScreenPos());
-//         }
-
-//         // クリッピング解除
-//         canvas.restore();
-//     }
-
-
-//     /**
-//     * 描画オフセットを取得する
-//     * @return
-//     */
-//     public PointF getDrawOffset() {
-//         return nil;
-//     }
-
-//     /**
-//     * Windowのサイズを更新する
-//     * Windowのサイズを更新する
-//     * Windowのサイズを更新する
-//     * サイズ変更に合わせて中のアイコンを再配置する
-//     * @param width
-//     * @param height
-//     */
-//     public void setSize(int width, int height) {
-//         super.setSize(width, height);
-//         // アイコンの整列
-//         sortIcons(false);
-//     }
+        return ret
+    }
 
      /**
+     * 描画処理
+     * UIconManagerに登録されたIconを描画する
+     * @param canvas
+     * @param paint
+     * @return trueなら描画継続
+     */
+    public override func drawContent( offset : CGPoint? )
+    {
+        if !isShow {
+            return
+        }
+
+        let icons : List<UIcon>? = getIcons()
+        if icons == nil {
+            return
+        }
+
+        // 背景を描画
+        drawBG()
+
+        // ウィンドウの座標とスクロールの座標を求める
+        var _offset = CGPoint(x: pos.x - contentTop.x,
+                              y: pos.y - contentTop.y)
+        var windowRect = CGRect(x: contentTop.x, y: contentTop.y,
+                                width: size.width, height: size.height)
+
+        // クリッピング領域を設定
+        // 現在のクリッピング領域を保存
+        UIGraphicsGetCurrentContext()!.saveGState()
+        // クリッピングの矩形を設定
+        UIGraphicsGetCurrentContext()!.clip(to: rect)
+        
+        // 選択中のアイコンに枠を表示する
+        if mIconManager!.getSelectedIcon() != nil {
+            UDraw.drawRoundRectFill(
+                rect: mIconManager!.getSelectedIcon()!.getRectWithOffset(offset: _offset, frameWidth: UDpi.toPixel(5)),
+                cornerR: UDpi.toPixel(10),
+                color: SELECTED_ICON_BG_COLOR,
+                strokeWidth: 0, strokeColor: nil)
+        }
+        for icon in mIconManager!.getIcons() {
+            if icon === dragedIcon {
+                continue
+            }
+            // 矩形範囲外なら描画しない
+            if URect.intersect(rect1: windowRect, rect2: icon!.getRect()) {
+                icon!.draw(_offset)
+            } else {
+            }
+        }
+
+        // todo
+//        if UDebug.DRAW_ICON_BLOCK_RECT {
+//            mIconManager!.getBlockManager()!.draw(getToScreenPos())
+//        }
+
+        // クリッピング解除
+        UIGraphicsGetCurrentContext()!.restoreGState()
+    }
+
+     /**
+     * 描画オフセットを取得する
+     * @return
+     */
+     public override func getDrawOffset() -> CGPoint? {
+         return nil
+     }
+
+     /**
+     * Windowのサイズを更新する
+     * Windowのサイズを更新する
+     * Windowのサイズを更新する
+     * サイズ変更に合わせて中のアイコンを再配置する
+     * @param width
+     * @param height
+     */
+    public func setSize(width : CGFloat, height : CGFloat) {
+        super.setSize(width, height)
+    
+        // アイコンの整列
+        sortIcons(animate: false)
+    }
+
+    /**
      * アイコンを整列する
      * Viewのサイズが確定した時点で呼び出す
      */
