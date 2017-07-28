@@ -153,7 +153,7 @@ public class TangoCardHistoryDao {
      * XMLファイルから読み込んだデータを追加する
      */
     // todo CHistoryを実行するまで未実装
-//     public void addXmlCard(List<CHistory> cardHistory, boolean transaction) {
+//     public void addBackupCard(List<CHistory> cardHistory, boolean transaction) {
 //         if (cardHistory == null || cardHistory.size() == 0) {
 //             return;
 //         }

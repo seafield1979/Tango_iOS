@@ -143,50 +143,49 @@ public class IconBook : IconContainer {
             TangoBookDao.updateNewFlag(book: book!, isNew: newFlag)
         }
     }
-//
-//    
-//    /**
-//     * ドロップ可能かどうか
-//     * ドラッグ中のアイコンを他のアイコンの上に重ねたときにドロップ可能かを判定してアイコンの色を変えたりする
-//     * @param dstIcon
-//     * @return
-//     */
-//    public boolean canDrop(UIcon dstIcon, float dropX, float dropY) {
-//        // ドロップ先のアイコンがサブWindowの中なら不可能
-//        if (dstIcon.getParentWindow().getType() == UIconWindow.WindowType.Sub) {
-//            return false;
-//        }
-//        // ドロップ座標がアイコンの中に含まれているかチェック
-//        if (!dstIcon.checkDrop(dropX, dropY)) return false;
-//        
-//        return true;
-//    }
-//    
-//    /**
-//     * アイコンの中に入れることができるか
-//     * @return
-//     */
-//    public boolean canDropIn(UIcon dstIcon, float dropX, float dropY) {
-//        if (dstIcon.getType() == IconType.Trash) {
-//            if (dstIcon.checkDrop(dropX, dropY)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//    
-//    @Override
-//    public void click() {
-//        super.click();
-//    }
-//    
-//    @Override
-//    public void longClick() {
-//        super.longClick();
-//    }
-//    
-//    @Override
-//    public void moving() {
-//        super.moving();
-//    }
+
+    
+    /**
+     * ドロップ可能かどうか
+     * ドラッグ中のアイコンを他のアイコンの上に重ねたときにドロップ可能かを判定してアイコンの色を変えたりする
+     * @param dstIcon
+     * @return
+     */
+    public func canDrop( dstIcon : UIcon, dropX : CGFloat, dropY : CGFloat) -> Bool {
+        // ドロップ先のアイコンがサブWindowの中なら不可能
+        if dstIcon.getParentWindow()!.getType() == WindowType.Sub {
+            return false;
+        }
+        // ドロップ座標がアイコンの中に含まれているかチェック
+        if !dstIcon.checkDrop(x: dropX, y: dropY) {
+            return false
+        }
+        
+        return true
+    }
+    
+    /**
+     * アイコンの中に入れることができるか
+     * @return
+     */
+    public func canDropIn(dstIcon : UIcon, dropX : CGFloat, dropY : CGFloat) -> Bool {
+        if dstIcon.getType() == IconType.Trash {
+            if dstIcon.checkDrop(x: dropX, y: dropY) {
+                return true
+            }
+        }
+        return false
+    }
+    
+    public override func click() {
+        super.click()
+    }
+    
+    public override func longClick() {
+        super.longClick()
+    }
+    
+    public override func moving() {
+        super.moving()
+    }
 }

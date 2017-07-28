@@ -593,7 +593,7 @@ public class UDialogWindow : UWindow {
             drawBG(rect: _rect)
         } else {
             // BG
-            drawBG(rect: rect!)
+            drawBG(rect: rect)
             let _offset : CGPoint = pos
             
             // Title

@@ -122,10 +122,10 @@ public class PageViewTest2 : UPageView, UButtonCallbacks, UDialogCallbacks {
             buttonDir: UDialogWindow.ButtonDir.Vertical,
             screenW: CGFloat(UUtil.screenWidth()), screenH: CGFloat(UUtil.screenHeight()))
         dialog.setTitle("ダイアログ")
-        dialog.addTextView(text: "テキスト1", alignment: UAlignment.Center,
+        _ = dialog.addTextView(text: "テキスト1", alignment: UAlignment.Center,
                            multiLine: true, isDrawBG: false, textSize: 20,
                            textColor: UIColor.green, bgColor: nil)
-        dialog.addTextView(text: "テキスト2", alignment: UAlignment.Center,
+        _ = dialog.addTextView(text: "テキスト2", alignment: UAlignment.Center,
                            multiLine: true, isDrawBG: false, textSize: 20,
                            textColor: UIColor.green, bgColor: nil)
         dialog.addCloseButton(text: "閉じる")

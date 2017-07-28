@@ -131,7 +131,7 @@ public class UIconWindows : UWindowCallbacks {
      * ウィンドウを追加、削除した場合に呼び出す
      */
     private func updateLayout(animation : Bool) {
-        var showWindows : List<UIconWindow> = List()
+        let showWindows : List<UIconWindow> = List()
         for _window in windows {
             if _window!.isAppearance {
                 showWindows.append(_window!)
@@ -259,7 +259,7 @@ public class UIconWindows : UWindowCallbacks {
         // Windowを閉じる
         for _window in windows {
             if window === _window! {
-                hideWindow(window: _window!, animation: true)
+                _ = hideWindow(window: _window!, animation: true)
                 break
             }
         }

@@ -151,10 +151,9 @@ public class UIconWindowSub : UIconWindow {
         super.initialize()
         
         // アイコンボタンの初期化
-        let image : UIImage
         let marginH = UDpi.toPixel(UIconWindowSub.MARGIN_H)
         var x = marginH
-        var y = UDpi.toPixel(-UIconWindowSub.ACTION_ICON_W - UIconWindowSub.MARGIN_V2)
+        let y = UDpi.toPixel(-UIconWindowSub.ACTION_ICON_W - UIconWindowSub.MARGIN_V2)
         
         // Bookを開いたときのアイコンを初期化
         var i : Int = 0

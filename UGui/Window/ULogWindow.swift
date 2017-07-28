@@ -168,7 +168,7 @@ public class ULogWindow : UWindow {
         
         // 範囲外なら除外
         let point = CGPoint(x: vt.x, y: vt.y)
-        if (!(rect!.contains(point))) {
+        if (!(rect.contains(point))) {
             return false
         }
         

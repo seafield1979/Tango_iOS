@@ -138,10 +138,10 @@ public class UIcon : UDrawable {
 
     // タッチしやすいように少し領域を広げたRectを返す
     override public func getRect() -> CGRect{
-       return CGRect(x:rect!.x - UDpi.toPixel(TOUCH_MARGIN),
-                     y:rect!.y - UDpi.toPixel(TOUCH_MARGIN),
-                     width: rect!.width + UDpi.toPixel(TOUCH_MARGIN) * 2,
-                     height: rect!.height + UDpi.toPixel(TOUCH_MARGIN) * 2)
+       return CGRect(x:rect.x - UDpi.toPixel(TOUCH_MARGIN),
+                     y:rect.y - UDpi.toPixel(TOUCH_MARGIN),
+                     width: rect.width + UDpi.toPixel(TOUCH_MARGIN) * 2,
+                     height: rect.height + UDpi.toPixel(TOUCH_MARGIN) * 2)
     }
 
      /**
@@ -176,7 +176,7 @@ public class UIcon : UDrawable {
     public func getParentWindow() -> UIconWindow? {
         return parentWindow
     }
-    public func setParentWindow(parentWindow : UIconWindow) {
+    public func setParentWindow(_ parentWindow : UIconWindow) {
         self.parentWindow = parentWindow
     }
 

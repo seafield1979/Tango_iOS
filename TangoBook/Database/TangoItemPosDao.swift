@@ -718,7 +718,7 @@ public class TangoItemPosDao {
      * １件削除
      * @param item
      */
-    public static func deleteItem(item : TangoItem) {
+    public static func deleteItem(_ item : TangoItem) {
         let result = mRealm!.objects(TangoItemPos.self)
             .filter("itemType = %d AND itemId = %d", item.getItemType().rawValue,
                 item.getId())
@@ -803,7 +803,7 @@ public class TangoItemPosDao {
      * ゴミ箱配下にあるアイテムを１件削除する
      * @return
      */
-    public static func deleteItemInTrash(item : TangoItem) -> Bool{
+    public static func deleteItemInTrash(_ item : TangoItem) -> Bool{
         let itemPos = mRealm!.objects(TangoItemPos.self)
             .filter("parentType = %d AND itemType = %d AND itemId = %d",
                     TangoParentType.Trash.rawValue,
@@ -817,9 +817,9 @@ public class TangoItemPosDao {
         // アイテムを削除
         switch TangoItemType.toEnum(itemPos!.getItemType()) {
             case .Card:
-                _ = TangoCardDao.deleteById(id: item.getId())
+                _ = TangoCardDao.deleteById(item.getId())
             case .Book:
-                _ = TangoBookDao.deleteById(id: item.getId())
+                _ = TangoBookDao.deleteById(item.getId())
                  
                 // 削除するのがBookなら配下のアイテムを全て削除
                 _ = deleteItemsByParentType(parentType: TangoParentType.Book.rawValue,
@@ -1101,42 +1101,39 @@ public class TangoItemPosDao {
      * @param startPos
      */
     // todo UIconを実装してから
-//    public static func updatePoses(icons : [UIcon], startPos : Int )
-//     {
-//         int pos = startPos;
-//
-//         mRealm.beginTransaction();
-//
-//         //for (UIcon icon : icons) {
-//         for (int i=startPos; i<icons.size(); i++) {
-//             UIcon icon = icons.get(i);
-//
-//             TangoItem tangoItem = icon.getTangoItem();
-//             int itemType;
-//             int itemId;
-//
-//             if (tangoItem == null && icon.getType() == IconType.Trash) {
-//                 // ゴミ箱はアイコンにTangoItemを持たないので直接値を設定
-//                 itemType = TangoItemType.Trash.ordinal();
-//                 itemId = 0;
-//             } else {
-//                 itemType = tangoItem.getItemType().ordinal();
-//                 itemId = tangoItem.getId();
-//             }
-//
-//             TangoItemPos result = mRealm.where(TangoItemPos.class)
-//                     .equalTo("itemType", itemType)
-//                     .equalTo("itemId", itemId)
-//                     .findFirst();
-//             if (result == null) continue;
-//
-//             result.setPos(pos);
-//             tangoItem.setPos(pos);
-//             pos++;
-//         }
-//
-//         mRealm.commitTransaction();
-//     }
+    public static func updatePoses(icons : [UIcon], startPos : Int ) {
+        var pos = startPos
+
+        try! mRealm!.write() {
+            for i in startPos...icons.count - 1 {
+                let icon = icons[i]
+
+                let tangoItem = icon.getTangoItem()
+                var itemType : Int = 0
+                var itemId : Int = 0
+
+                if tangoItem == nil && icon.getType() == IconType.Trash {
+                    // ゴミ箱はアイコンにTangoItemを持たないので直接値を設定
+                    itemType = TangoItemType.Trash.rawValue
+                    itemId = 0
+                } else {
+                    itemType = tangoItem!.getItemType().rawValue
+                    itemId = tangoItem!.getId()
+                }
+
+                var result = mRealm!.objects(TangoItemPos.self)
+                        .filter("itemType == %d AND itemId == %d", itemType, itemId)
+                        .first
+                if result == nil {
+                    continue
+                }
+
+                result!.pos = pos
+                tangoItem?.setPos(pos: pos)
+                pos += 1
+            }
+        }
+    }
 
      /**
      * ２つのアイテムの位置(pos)を入れ替える
@@ -1405,34 +1402,35 @@ public class TangoItemPosDao {
      * @param parentType
      * @param parentId
      */
-    // todo UIconを実装後に対応
-//    public static func saveIcons( icons: [UIcon], parentType : TangoParentType,
-//                                  parentId : Int)
-//     {
-//         LinkedList<TangoItem> items = new LinkedList<>();
-//
-//         int pos = 0;
-//         for (UIcon icon : icons) {
-//             TangoItem item = icon.getTangoItem();
-//             if (item == null && icon.getType() == IconType.Trash) {
-//
-//             } else {
-//                 items.add(item);
-//                 icon.getTangoItem().getItemPos().setPos(pos);
-//             }
-//             pos++;
-//         }
-//
-//         RealmManager.getItemPosDao().updateAll(items, parentType, parentId);
-//     }
+    public static func saveIcons( icons: [UIcon], parentType : TangoParentType,
+                                  parentId : Int)
+     {
+        var items : [TangoItem] = []
 
-//     /**
-//     * Homeのアイコン情報を元にTangoItemPosを更新
-//     * @param icons
-//     */
-//     public void saveHomeIcons(List<UIcon> icons) {
-//         saveIcons(icons, TangoParentType.Home, 0);
-//     }
+         var pos = 0
+         for icon in icons {
+             let item = icon.getTangoItem()
+             if item == nil && icon.getType() == IconType.Trash {
+
+             } else {
+                 items.append(item!)
+                 icon.getTangoItem()?.getItemPos()?.pos = pos
+             }
+             pos += 1
+         }
+
+        TangoItemPosDao.updateAll(items: items, parentType: parentType, parentId: parentId)
+     }
+
+     /**
+     * Homeのアイコン情報を元にTangoItemPosを更新
+     * @param icons
+     */
+    public static func saveHomeIcons( icons : [UIcon]) {
+        saveIcons(icons: icons,
+                  parentType: TangoParentType.Home,
+                  parentId : 0)
+     }
 
 
      /**
@@ -1518,7 +1516,7 @@ public class TangoItemPosDao {
 //     * XMLファイルから読み込んだItemPosを追加する
 //     * @param poses
 //     */
-//     public void addXmlPos(List<Pos> poses, boolean transaction) {
+//     public void addBackupPos(List<Pos> poses, boolean transaction) {
 //         if (poses == null || poses.size() == 0) {
 //             return;
 //         }

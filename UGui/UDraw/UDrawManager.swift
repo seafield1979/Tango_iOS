@@ -174,7 +174,7 @@ class UDrawManager {
      * 指定のプライオリティのオブジェクトを全て削除
      * @param priority
      */
-    public func removeWithPriority(priority : Int) {
+    public func removeWithPriority(_ priority : Int) {
         let lists = getCurrentDrawLists()
         if let _lists  = lists {
             _lists.removeValue(forKey: priority)

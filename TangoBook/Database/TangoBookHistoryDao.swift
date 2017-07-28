@@ -140,8 +140,7 @@ import RealmSwift
 
         // 学習カード履歴削除
         for history in results {
-//           todo TangoStudiedCardDaoを実装してから対応
-//            TangoStudiedCardDao.deleteByHistoryId(history.getId());
+            TangoStudiedCardDao.deleteByHistoryId(history.id)
         }
 
         try! mRealm!.write() {

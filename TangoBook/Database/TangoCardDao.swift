@@ -500,7 +500,7 @@ public class TangoCardDao {
      * @param id
      * @return
      */
-    public static func deleteById(id : Int) -> Bool {
+    public static func deleteById(_ id : Int) -> Bool {
         let result = mRealm!.objects(TangoCard.self).filter("id = %d", id).first
 
         if result == nil {
@@ -549,7 +549,7 @@ public class TangoCardDao {
      * @param cards          カード
      * @param transaction   トランザクションを行うかどうか
      */
-//    public static func addXmlCards(cards : [Card], transaction : Bool) {
+//    public static func addBackupCards(cards : [Card], transaction : Bool) {
 //        if cards.count == 0 {
 //            return
 //        }

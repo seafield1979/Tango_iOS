@@ -292,7 +292,7 @@ public class UTextView : UDrawable {
             }
             let point = CGPoint(x: vt.touchX(offset: offset!.x), y: vt.touchY(offset: offset!.y))
             
-            if self.rect!.contains(point) {
+            if self.rect.contains(point) {
                 isOpened = !isOpened
                 return true
             }

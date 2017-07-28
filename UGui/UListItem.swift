@@ -110,7 +110,7 @@ public class UListItem : UDrawable {
                     point.y -= offset!.y
                 }
                 
-                if rect!.contains( point ) {
+                if rect.contains( point ) {
                     isTouching = true
                     isDraw = true
                 }
@@ -123,7 +123,7 @@ public class UListItem : UDrawable {
                     point.y -= offset!.y
                 }
                 if mListItemCallbacks != nil {
-                    if rect!.contains(point) {
+                    if rect.contains(point) {
                         mListItemCallbacks!.ListItemClicked(item: self)
                     }
                     isDraw = true

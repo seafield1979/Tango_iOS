@@ -380,14 +380,14 @@ public class UWindow : UDrawable, UButtonCallbacks {
     }
     
     public func drawBG() {
-        self.drawBG(rect: rect!)
+        self.drawBG(rect: rect)
     }
     
     public func drawBG( offset : CGPoint) {
-        self.drawBG(rect: CGRect(x: offset.x + rect!.left,
-                                 y: offset.y + rect!.top,
-                                 width: rect!.width,
-                                 height: rect!.height))
+        self.drawBG(rect: CGRect(x: offset.x + rect.left,
+                                 y: offset.y + rect.top,
+                                 width: rect.width,
+                                 height: rect.height))
     }
     
     /**
@@ -568,7 +568,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
         
         let point = CGPoint(x: vt.touchX(offset: offset!.x),
                             y: vt.touchY(offset: offset!.y))
-        if (rect!.contains(point)) {
+        if (rect.contains(point)) {
             return true;
         }
         return false;

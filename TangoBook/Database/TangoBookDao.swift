@@ -239,7 +239,7 @@ public class TangoBookDao {
      * @param id
      * @return
      */
-    public static func deleteById(id : Int) -> Bool {
+    public static func deleteById(_ id : Int) -> Bool {
         let result = mRealm!.objects(TangoBook.self).filter("id = %d", id).first
         if result == nil {
             return false
@@ -286,7 +286,7 @@ public class TangoBookDao {
 // * XMLファイルから読み込んだBookを追加する
 // * @param books
 // */
-//public void addXmlBooks(List<Book> books, boolean transaction) {
+//public void addBackupBooks(List<Book> books, boolean transaction) {
 //    if (books == null || books.size() == 0) {
 //        return;
 //    }

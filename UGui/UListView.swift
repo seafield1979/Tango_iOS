@@ -202,7 +202,7 @@ public class UListView : UScrollWindow
         var isDraw = false
         if vt.isTouchUp {
             for item in mItems {
-                item!.touchUpEvent(vt: vt)
+                _ = item!.touchUpEvent(vt: vt)
                 isDraw = true
             }
         }
@@ -213,7 +213,7 @@ public class UListView : UScrollWindow
      * for Debug
      */
     public func addDummyItems(count : Int) {
-        for i in 0...19 {
+        for _ in 0...19 {
             let item = ListItemTest1(callbacks: nil,
                                      text: "hoge",
                                      x: 0, width: size.width, color:UIColor.yellow)

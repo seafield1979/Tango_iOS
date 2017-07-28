@@ -106,7 +106,7 @@ public class UIconManager : UIconCallbacks {
 
     public static func createInstance( parentWindow : UIconWindow, iconCallbacks : UIconCallbacks?) -> UIconManager
     {
-         var instance = UIconManager()
+         let instance = UIconManager()
          instance.mParentWindow = parentWindow
          instance.mIconCallbacks = iconCallbacks
          instance.icons = List()
@@ -178,217 +178,238 @@ public class UIconManager : UIconCallbacks {
 //         return icon;
 //     }
 
-//     /**
-//     * アイコンを追加する
-//     * @param type
-//     * @param addPos
-//     * @return
-//     */
-//     public UIcon addNewIcon(IconType type, TangoParentType parentType,
-//                             int parentId, AddPos addPos) {
-//         UIcon icon = nil;
-//         switch (type) {
-//             case Card: {
-//                 TangoCard card = TangoCard.createCard();
-//                 RealmManager.getCardDao().addOne(card, parentType, parentId, -1);
-//                 icon = new IconCard(card, mParentWindow, self);
-//             }
-//                 break;
-//             case Book:
-//             {
-//                 TangoBook book = TangoBook.createBook();
-//                 RealmManager.getBookDao().addOne(book, -1);
-//                 icon = new IconBook(book, mParentWindow, self);
-//             }
-//                 break;
-//             case Trash:
-//             {
-//                 mTrashIcon = icon = new IconTrash(mParentWindow, self);
-//             }
-//                 break;
-//         }
-//         if (icon == nil) return nil;
+     /**
+     * アイコンを追加する
+     * @param type
+     * @param addPos
+     * @return
+     */
+    public func addNewIcon( type : IconType, parentType : TangoParentType,
+                            parentId : Int, addPos : AddPos) -> UIcon?
+    {
+        var icon : UIcon? = nil
+        switch type {
+            case .Card:
+                let card = TangoCard.createCard()
+                TangoCardDao.addOne(card: card, parentType: parentType,
+                                    parentId: parentId, addPos: -1)
+                icon = IconCard(card: card,
+                                parentWindow: mParentWindow!,
+                                iconCallbacks: self)
+           
+            case .Book:
+                let book = TangoBook.createBook()
+                TangoBookDao.addOne(book: book, addPos: -1)
+                icon = IconBook(book: book,
+                                parentWindow: mParentWindow!,
+                                iconCallbacks: self)
+           
+            case .Trash:
+                icon = IconTrash(parentWindow: mParentWindow!,
+                                 iconCallbacks: self)
+               mTrashIcon = icon
+           
+        }
+        if icon == nil {
+            return nil
+        }
 
-//         // リストに追加
-//         if (addPos == AddPos.Top) {
-//             icons.push(icon);
-//         } else {
-//             UIcon lastIcon = nil;
-//             if (icons.size() > 0) {
-//                 lastIcon = icons.getLast();
-//             }
-//             icons.add(icon);
+        // リストに追加
+        if addPos == AddPos.Top {
+            icons.push(icon!)
+        } else {
+            var lastIcon : UIcon? = nil
+            if icons.count > 0 {
+                lastIcon = icons.last()
+            }
+            icons.append(icon!)
 
-//             // 出現位置は最後のアイコン
-//             if (lastIcon != nil) {
-//                 icon.setPos(lastIcon.getPos());
-//             }
-//         }
+            // 出現位置は最後のアイコン
+            if lastIcon != nil {
+                icon!.setPos(lastIcon!.getPos())
+            }
+        }
 
-//         return icon;
-//     }
+        return icon
+    }
 
-//     /**
-//     * TangoItemを元にアイコンを追加する
-//     * @param item
-//     * @return
-//     */
-//     public UIcon addIcon(TangoItem item, AddPos addPos) {
-//         UIcon icon = nil;
+    /**
+     * TangoItemを元にアイコンを追加する
+     * @param item
+     * @return
+     */
+    public func addIcon(_ item : TangoItem, addPos : AddPos) -> UIcon?{
+       var icon : UIcon? = nil
 
-//         switch(item.getItemType()) {
-//             case Card:
-//                 if (item instanceof  TangoCard) {
-//                     TangoCard card = (TangoCard) item;
-//                     icon = new IconCard(card, mParentWindow, self);
-//                 }
-//                 break;
-//             case Book:
-//                 if (item instanceof  TangoBook) {
-//                     TangoBook book = (TangoBook) item;
-//                     icon = new IconBook(book, mParentWindow, self);
-//                 }
-//                 break;
-//         }
-//         if (icon == nil) return nil;
+        switch item.getItemType() {
+            case .Card:
+                if item is TangoCard {
+                    let card : TangoCard = item as! TangoCard
+                    icon = IconCard(card: card,
+                                    parentWindow: mParentWindow!,
+                                    iconCallbacks: self)
+                }
+            
+            case .Book:
+                if item is TangoBook {
+                    let book = item as! TangoBook
+                    icon = IconBook(book: book,
+                                    parentWindow: mParentWindow!,
+                                    iconCallbacks: self)
+                }
+        default:
+            break
+        }
+        if icon == nil{
+            return nil
+        }
 
-//         if (addPos == AddPos.Top) {
-//             icons.push(icon);
+        if (addPos == AddPos.Top) {
+            icons.push(icon!)
+        } else {
+            icons.append(icon!)
+            // 出現位置は最後のアイコン
+            let lastIcon = icons.last()
+            if lastIcon != nil {
+                icon!.setPos(lastIcon!.getPos())
+            }
+        }
+        return icon
+    }
 
-//         } else {
-//             icons.add(icon);
-//             // 出現位置は最後のアイコン
-//             UIcon lastIcon = icons.getLast();
-//             if (lastIcon != nil) {
-//                 icon.setPos(lastIcon.getPos());
-//             }
-//         }
-//         return icon;
-//     }
+     /**
+     * すでに作成済みのアイコンを追加
+     * ※べつのWindowにアイコンを移動するのに使用する
+     * @param icon
+     * @return
+     */
+    public func addIcon(_ icon : UIcon) -> Bool {
+        // すでに追加されている場合は追加しない
+        if !icons.contains(icon) {
+            icons.append(icon)
+            return true
+        }
+        return false
+    }
 
-//     /**
-//     * すでに作成済みのアイコンを追加
-//     * ※べつのWindowにアイコンを移動するのに使用する
-//     * @param icon
-//     * @return
-//     */
-//     public boolean addIcon(UIcon icon) {
-//         // すでに追加されている場合は追加しない
-//         if (!icons.contains(icon)) {
-//             icons.add(icon);
-//             return true;
-//         }
-//         return false;
-//     }
+    /**
+     * アイコンを削除(データベースからも削除）
+     * @param icon
+     */
+    public func removeIcon(_ icon : UIcon) {
+        let item : TangoItem? = icon.getTangoItem()
+        if item == nil {
+            return
+        }
 
-//     /**
-//     * アイコンを削除(データベースからも削除）
-//     * @param icon
-//     */
-//     public void removeIcon(UIcon icon) {
-//         TangoItem item = icon.getTangoItem();
-//         if (item == nil) return;
+        switch icon.getType() {
+            case .Card:
+                _ = TangoCardDao.deleteById(item!.getId())
+            
+            case .Book:
+                _ = TangoBookDao.deleteById(item!.getId())
+            
+        default:
+            break
+        }
+        TangoItemPosDao.deleteItem(icon.getTangoItem()!)
+        icons.remove(obj: icon)
+    }
 
-//         switch(icon.getType()) {
-//             case Card:
-//                 RealmManager.getCardDao().deleteById(item.getId());
-//                 break;
-//             case Book:
-//                 RealmManager.getBookDao().deleteById(item.getId());
-//                 break;
-//         }
-//         RealmManager.getItemPosDao().deleteItem(icon.getTangoItem());
-//         icons.remove(icon);
-//     }
+    /**
+    * UIconのリストからTangoItemのリストを作成する
+    * @return
+    */
+    public func getTangoItems() -> List<TangoItem> {
+       let list : List<TangoItem> = List()
+        for icon in icons {
+            if icon!.getTangoItem() != nil {
+                list.append(icon!.getTangoItem()!)
+            }
+        }
+        return list
+    }
 
-//     /**
-//     * UIconのリストからTangoItemのリストを作成する
-//     * @return
-//     */
-//     public List<TangoItem> getTangoItems() {
-//         LinkedList<TangoItem> list = new LinkedList<>();
-//         for (UIcon icon : icons) {
-//             if (icon.getTangoItem() != nil) {
-//                 list.add(icon.getTangoItem());
-//             }
-//         }
-//         return list;
-//     }
+    /**
+    * アイコンを内包するRectを求める
+    * アイコンの座標確定時に呼ぶ
+    */
+    public func updateBlockRect() {
+        mBlockManager?.update()
+    }
 
-//     /**
-//     * アイコンを内包するRectを求める
-//     * アイコンの座標確定時に呼ぶ
-//     */
-//     public void updateBlockRect() {
-//         mBlockManager.update();
-//     }
+    /**
+     * 指定座標下にあるアイコンを取得する
+     * @param pos
+     * @param exceptIcons
+     * @return
+     */
+    public func getOverlappedIcon( pos : CGPoint, exceptIcons : List<UIcon>) -> UIcon?
+    {
+        return mBlockManager!.getOverlapedIcon(pos: pos, exceptIcons: exceptIcons)
+    }
 
-//     /**
-//     * 指定座標下にあるアイコンを取得する
-//     * @param pos
-//     * @param exceptIcons
-//     * @return
-//     */
-//     public UIcon getOverlappedIcon(Point pos, List<UIcon> exceptIcons) {
-//         return mBlockManager.getOverlapedIcon(pos, exceptIcons);
-//     }
+    /**
+     * ソートする
+     * @param mode
+     */
+    public func sortWithMode( mode : SortMode) {
+        let _icons : List<UIcon> = getIcons()
+        let  _mode : SortMode = mode
 
-//     /**
-//     * ソートする
-//     * @param mode
-//     */
-//     public void sortWithMode(SortMode mode) {
-//         UIcon[] _icons = getIcons().toArray(new UIcon[0]);
-//         final SortMode _mode = mode;
+        // _icons を SortMode の方法でソートする
+        // todo いろいろなソートモードには未対応
+        let _sortedIcons = _icons.sort(isOrderedBefore: {
+            return $0.getTitle()! < $1.getTitle()!
+        })
+//            public int compare(UIcon icon1, UIcon icon2) {
+//                TangoItem item1 = icon1.getTangoItem();
+//                TangoItem item2 = icon2.getTangoItem();
+//                if (item1 == nil || item2 == nil) {
+//                    return 0;
+//                }
+//                switch(_mode) {
+//                    case TitleAsc:       // タイトル文字昇順(カードはWordA,単語帳はName)
+//                        return item1.getTitle().compareTo (
+//                                item2.getTitle());
+//                    case TitleDesc:      // タイトル文字降順
+//                        return item2.getTitle().compareTo(
+//                                item1.getTitle());
+//                    case CreateDateAsc:  // 作成日時 昇順
+//                        if (item1.getCreateTime() == nil || item2.getCreateTime() == nil)
+//                            break;
+//                        return item1.getCreateTime().compareTo(
+//                                item2.getCreateTime());
+//                    case CreateDateDesc:  // 作成日時 降順
+//                        if (item1.getCreateTime() == nil || item2.getCreateTime() == nil)
+//                            break;
+//                        return item2.getCreateTime().compareTo(
+//                                item1.getCreateTime());
+//                }
+//                return 0;
+//            }
+//        });
 
-//         // _icons を SortMode の方法でソートする
-//         Arrays.sort(_icons, new Comparator<UIcon>() {
-//             public int compare(UIcon icon1, UIcon icon2) {
-//                 TangoItem item1 = icon1.getTangoItem();
-//                 TangoItem item2 = icon2.getTangoItem();
-//                 if (item1 == nil || item2 == nil) {
-//                     return 0;
-//                 }
-//                 switch(_mode) {
-//                     case TitleAsc:       // タイトル文字昇順(カードはWordA,単語帳はName)
-//                         return item1.getTitle().compareTo (
-//                                 item2.getTitle());
-//                     case TitleDesc:      // タイトル文字降順
-//                         return item2.getTitle().compareTo(
-//                                 item1.getTitle());
-//                     case CreateDateAsc:  // 作成日時 昇順
-//                         if (item1.getCreateTime() == nil || item2.getCreateTime() == nil)
-//                             break;
-//                         return item1.getCreateTime().compareTo(
-//                                 item2.getCreateTime());
-//                     case CreateDateDesc:  // 作成日時 降順
-//                         if (item1.getCreateTime() == nil || item2.getCreateTime() == nil)
-//                             break;
-//                         return item2.getCreateTime().compareTo(
-//                                 item1.getCreateTime());
-//                 }
-//                 return 0;
-//             }
-//         });
+        // ソート済みの新しいアイコンリストを作成する
+        icons.removeAll()
 
-//         // ソート済みの新しいアイコンリストを作成する
-//         icons.clear();
+        var pos = 1
+        for icon in _sortedIcons {
+            icons.append(icon)
 
-//         int pos = 1;
-//         for (UIcon icon : _icons) {
-//             icons.add(icon);
+           if icon.getTangoItem() == nil {
+               continue
+           }
 
-//             if (icon.getTangoItem() == nil) continue;
-
-//             // DB更新用にItemPosを設定しておく
-//             icon.getTangoItem().setPos(pos);
-//             pos++;
-//         }
-//         // DBの位置情報を更新
-//         RealmManager.getItemPosDao().updateAll(getTangoItems(),
-//                 mParentWindow.getParentType(),
-//                 mParentWindow.getParentId());
-//     }
+            // DB更新用にItemPosを設定しておく
+            icon.getTangoItem()!.setPos(pos: pos)
+            pos += 1
+        }
+        // DBの位置情報を更新
+        TangoItemPosDao.updateAll(items: getTangoItems().toArray(),
+                                  parentType: mParentWindow!.getParentType(),
+                                  parentId:mParentWindow!.getParentId())
+    }
 
 
     /**

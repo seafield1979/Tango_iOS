@@ -59,16 +59,15 @@ public class MenuBarTest1 : UMenuBar {
      */
     override func initMenuBar() {
         var item : UMenuItem? = nil
-        var item2 : UMenuItem? = nil
         
         // Add
         let image = UResourceManager.getImageByName(ImageName.debug)
         let image2 = UResourceManager.getImageByName(ImageName.debug)
         // Debug
         item = addTopMenuItem( menuId: MenuItemId.DebugTop.rawValue, image: image! )
-        item2 = addMenuItem(parent: item!, menuId: MenuItemId.Debug1.rawValue, image: image2!)
-        item2 = addMenuItem(parent: item!, menuId: MenuItemId.Debug2.rawValue, image: image2!)
-        item2 = addMenuItem(parent: item!, menuId: MenuItemId.Debug3.rawValue, image: image2!)
+        _ = addMenuItem(parent: item!, menuId: MenuItemId.Debug1.rawValue, image: image2!)
+        _ = addMenuItem(parent: item!, menuId: MenuItemId.Debug2.rawValue, image: image2!)
+        _ = addMenuItem(parent: item!, menuId: MenuItemId.Debug3.rawValue, image: image2!)
         
         self.addToDrawManager()
         

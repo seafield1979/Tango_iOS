@@ -111,7 +111,7 @@ class TestDBViewController: UNViewController {
         }
         let card = cards.first
         
-        _ = TangoCardDao.deleteById(id: card!.getId())
+        _ = TangoCardDao.deleteById(card!.getId())
         
         // 表示更新
         selectAll()

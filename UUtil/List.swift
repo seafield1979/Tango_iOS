@@ -38,21 +38,27 @@ public class List<T> : Sequence, Hashable{
         }
     }
     
+    // 配列形式で取得する
+    func toArray() -> [T] {
+        return elements
+    }
+    
     // リストに要素を追加する
     func append(_ newElement: T) {
         elements.append(newElement)
+    }
+    
+    // リストの先頭に要素を追加する
+    // JavaのLinkedListの仕様と合わせる
+    func push(_ newElement: T) {
+        insert(newElement, atIndex: 0)
     }
     
     // リストの指定位置に要素を追加する
     func insert(_ newElement: T, atIndex index: Int) {
         elements.insert(newElement, at: index)
     }
-    
-    // リストの戦闘に要素を追加する
-    func push(_ newElement: T) {
-        elements.insert(newElement, at: 0)
-    }
-    
+        
     // リストの指定位置の要素を削除する
     func remove(at index: Int) -> T {
         return elements.remove(at: index)
@@ -98,8 +104,14 @@ public class List<T> : Sequence, Hashable{
         }
     }
     
-    func sort(isOrderedBefore: (T, T) -> Bool) {
-        _ = elements.sorted(by: isOrderedBefore)
+    /**
+     ソート結果を返す
+     使用例： ageのプロパティを持つオブジェクトのリストをソート
+        let list2 = list1.sort({ $0.age < $1.age })
+     　　let list2 = list1.sort((left, right) in { left.age < right.age })
+     */
+    func sort(isOrderedBefore: (T, T) -> Bool) -> Array<T> {
+        return elements.sorted(by: isOrderedBefore)
     }
     
     func reverse() -> Array<T> {
@@ -150,6 +162,50 @@ public extension List where T: AnyObject {
     // リストに含まれているかをチェック
     func contains(_ element : T) -> Bool {
         return elements.contains(where: {$0 === element})
+    }
+    
+    /**
+     オブジェクトの位置を取得する
+     - parameter obj: インデックスを取得したいオブジェクト
+     - returns: オブジェクトの位置。リストにオブジェクトがなかったら -1 を返す
+     */
+    func indexOf(obj: T) -> Int {
+        var i = 0
+        for _obj in elements {
+            if obj === _obj {
+                return i
+            }
+            i += 1
+        }
+        return -1
+    }
+    
+    // リストを追加する
+    func append(objs: [T]) {
+        for obj in objs {
+            elements.append(obj)
+        }
+    }
+    
+    // リストにあるオブジェクトを削除する
+    func remove(obj: T) {
+        if elements.count <= 0 {
+            return
+        }
+        for i in 0...elements.count - 1 {
+            let element = elements[i]
+            if obj === element {
+                elements.remove(at: i)
+                break
+            }
+        }
+    }
+    
+    // 引数で渡されたリストを削除する
+    func remove(objs: [T]) {
+        for obj in objs {
+            remove(obj: obj)
+        }
     }
 }
 

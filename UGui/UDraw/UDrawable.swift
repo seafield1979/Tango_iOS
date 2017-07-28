@@ -32,7 +32,7 @@ public class UDrawable {
     public var drawList : DrawList? = nil    // DrawManagerに描画登録するとnull以外になる
     var pos = CGPoint()
     var size = CGSize()
-    var rect : CGRect? = nil
+    var rect : CGRect = CGRect()
     var color : UIColor? = UIColor()
     var drawPriority = 0     // DrawManagerに渡す描画優先度
     
@@ -117,15 +117,10 @@ public class UDrawable {
     }
     
     public func updateRect() {
-        if rect == nil {
-            rect = CGRect(x:pos.x, y:pos.y,
-                          width: size.width, height:size.height)
-        } else {
-            rect!.x = pos.x
-            rect!.y = pos.y
-            rect!.width = size.width
-            rect!.height = size.height
-        }
+        rect.x = pos.x
+        rect.y = pos.y
+        rect.width = size.width
+        rect.height = size.height
     }
     public func getIsShow() -> Bool {
         return isShow
@@ -140,10 +135,10 @@ public class UDrawable {
         let _scaleW = size.width * (scaleH - 1.0) / 2
         let _scaleH = size.height * (scaleV - 1.0) / 2
         
-        rect!.x = pos.x - _scaleW
-        rect!.y = pos.y - _scaleH
-        rect!.width = size.width + _scaleW * 2
-        rect!.height = size.height + _scaleH * 2
+        rect.x = pos.x - _scaleW
+        rect.y = pos.y - _scaleH
+        rect.width = size.width + _scaleW * 2
+        rect.height = size.height + _scaleH * 2
     }
     
     public func getRight() -> CGFloat {
@@ -173,21 +168,21 @@ public class UDrawable {
         updateRect()
     }
     
-    func getRect() -> CGRect {return rect!}
+    func getRect() -> CGRect {return rect}
     func getRectWithOffset(offset : CGPoint) -> CGRect {
-        return CGRect(x: rect!.x + offset.x,
-                      y: rect!.y + offset.y,
-                      width: rect!.width,
-                      height: rect!.height)
+        return CGRect(x: rect.x + offset.x,
+                      y: rect.y + offset.y,
+                      width: rect.width,
+                      height: rect.height)
     }
     
     // 枠の分太いRectを返す
     func getRectWithOffset(offset : CGPoint, frameWidth : CGFloat) -> CGRect
     {
-        return CGRect(x:rect!.x + offset.x - frameWidth,
-                      y:rect!.y + offset.y - frameWidth,
-                      width:rect!.width + frameWidth,
-                      height:rect!.height + frameWidth)
+        return CGRect(x:rect.x + offset.x - frameWidth,
+                      y:rect.y + offset.y - frameWidth,
+                      width:rect.width + frameWidth,
+                      height:rect.height + frameWidth)
     }
     
     public func getColor() -> UIColor {
@@ -225,10 +220,10 @@ public class UDrawable {
      * Rectをライン描画する for Debug
      */
     public func drawRectLine(offset : CGPoint?, color : UIColor) {
-        var _rect = CGRect(x: rect!.x,
-                          y: rect!.y,
-                          width: rect!.width,
-                          height: rect!.height)
+        var _rect = CGRect(x: rect.x,
+                          y: rect.y,
+                          width: rect.width,
+                          height: rect.height)
         if offset != nil {
             _rect.x += offset!.x
             _rect.y += offset!.y

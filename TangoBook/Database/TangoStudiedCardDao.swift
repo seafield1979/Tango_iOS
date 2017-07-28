@@ -119,7 +119,7 @@ public class TangoStudiedCardDao {
     * 指定の BookHistoryIdのレコードを削除
     * @param bookHistoryId
     */
-    public static func deleteByHistoryId(bookHistoryId : Int) {
+    public static func deleteByHistoryId(_ bookHistoryId : Int) {
         let results = mRealm!.objects(TangoStudiedCard.self)
             .filter("bookHistoryId", bookHistoryId)
         
@@ -136,7 +136,7 @@ public class TangoStudiedCardDao {
     * XMLファイルから読み込んだデータを追加する
     */
     // todo StudiedC を実装後に対応
-//    public static func addXmlCard( studiedCard: [StudiedC], transaction : Bool) {
+//    public static func addBackupCard( studiedCard: [StudiedC], transaction : Bool) {
 //        if studiedCard.count == 0 {
 //            return
 //        }

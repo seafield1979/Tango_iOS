@@ -116,7 +116,7 @@ class TestDB5ViewController: UNViewController {
         }
         let book = books.first
         
-        _ = TangoBookDao.deleteById(id: book!.getId())
+        _ = TangoBookDao.deleteById(book!.getId())
         
         // 表示更新
         selectAll()
