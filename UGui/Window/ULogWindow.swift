@@ -214,9 +214,7 @@ public class ULogWindow : UWindow {
     // タイマー処理
     @objc func timerFunc() {
         // 再描画
-        if parentView != nil {
-            parentView!.redraw = true
-        }
+        parentView.redraw = true
     }
     
     /*

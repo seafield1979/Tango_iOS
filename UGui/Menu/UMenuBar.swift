@@ -17,9 +17,9 @@ public class UMenuBar : UWindow {
     public static let TAG = "UMenuBar"
     public static let DRAW_PRIORITY = 90
     public static let MENU_BAR_H = 60
-    static let MARGIN_L = 10
-    static let MARGIN_H = 16
-    static let MARGIN_TOP = 5
+    public static let MARGIN_L = 10
+    public let MARGIN_H = 16
+    public static let MARGIN_TOP = 5
     
     
     var mMenuItemCallbacks : UMenuItemCallbacks? = nil
@@ -56,7 +56,7 @@ public class UMenuBar : UWindow {
     }
     
     func updateBGSize() {
-        size.width = UDpi.toPixel(UMenuBar.MARGIN_L) + CGFloat(topItems.count) * UDpi.toPixel(UMenuItem.ITEM_W + UMenuBar.MARGIN_H)
+        size.width = UDpi.toPixel(UMenuBar.MARGIN_L) + CGFloat(topItems.count) * UDpi.toPixel(UMenuItem.ITEM_W + MARGIN_H)
     }
     
     /**
@@ -74,7 +74,7 @@ public class UMenuBar : UWindow {
         
         // 座標設定
         item.setPos(
-            UDpi.toPixel(UMenuBar.MARGIN_H + UMenuItem.TOP_ITEM_W + UMenuBar.MARGIN_H * (topItems.count - 1)), UDpi.toPixel(UMenuBar.MARGIN_TOP))
+            UDpi.toPixel(MARGIN_H + UMenuItem.TOP_ITEM_W + MARGIN_H * (topItems.count - 1)), UDpi.toPixel(UMenuBar.MARGIN_TOP))
         return item
     }
     
@@ -199,6 +199,15 @@ public class UMenuBar : UWindow {
                        y: toScreenY(winY: itemPos.y))
     }
     
+    /**
+    * ソフトウェアキーボードの戻るボタンの処理
+    * @return
+    */
+    public func onBackKeyDown() -> Bool {
+        // 抽象メソッド
+        return false
+    }
+
     /*
      Drawableインターフェースメソッド
      */

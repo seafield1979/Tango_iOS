@@ -69,8 +69,8 @@ public class UIconWindow : UWindow{
 
     public let ICON_MARGIN = 10
 
-    public let ICON_W = 57
-    public let ICON_H = 50
+    public static let ICON_W = 57
+    public static let ICON_H = 50
     let MARGIN_D = UMenuBar.MENU_BAR_H
 
     let MOVING_TIME = 10
@@ -293,8 +293,8 @@ public class UIconWindow : UWindow{
          self.windowCallbacks = windowCallbacks
          self.dir = dir
          iconMargin = UDpi.toPixel(ICON_MARGIN)
-         iconW = UDpi.toPixel(ICON_W)
-         iconH = UDpi.toPixel(ICON_H)
+         iconW = UDpi.toPixel(UIconWindow.ICON_W)
+         iconH = UDpi.toPixel(UIconWindow.ICON_H)
      }
 
      /**
@@ -381,9 +381,9 @@ public class UIconWindow : UWindow{
         drawBG()
 
         // ウィンドウの座標とスクロールの座標を求める
-        var _offset = CGPoint(x: pos.x - contentTop.x,
+        let _offset = CGPoint(x: pos.x - contentTop.x,
                               y: pos.y - contentTop.y)
-        var windowRect = CGRect(x: contentTop.x, y: contentTop.y,
+        let windowRect = CGRect(x: contentTop.x, y: contentTop.y,
                                 width: size.width, height: size.height)
 
         // クリッピング領域を設定

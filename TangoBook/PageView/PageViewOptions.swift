@@ -12,6 +12,12 @@ public class PageViewOptions : UPageView, UButtonCallbacks {
     /**
      * Enums
      */
+    // モード(リストに表示する項目が変わる)
+    public enum Mode {
+        case All        // 全オプションを表示
+        case Edit       // 単語帳編集系の項目を表示
+        case Study       // 学習系の項目を表示
+    }
     /**
      * Constants
      */
@@ -77,7 +83,7 @@ public class PageViewOptions : UPageView, UButtonCallbacks {
         UDrawManager.getInstance().initialize()
         
         // ここにページで表示するオブジェクト生成処理を記述
-        let width = self.mTopView!.getWidth()
+        let width = self.mTopView.getWidth()
         
         let button = UButtonText(
             callbacks: self, type: UButtonType.Press,

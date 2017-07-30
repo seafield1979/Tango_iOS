@@ -77,7 +77,7 @@ public class PageViewStudySelect4 : UPageView, UButtonCallbacks {
         UDrawManager.getInstance().initialize()
         
         // ここにページで表示するオブジェクト生成処理を記述
-        let width = self.mTopView!.getWidth()
+        let width = self.mTopView.getWidth()
         
         let button = UButtonText(
             callbacks: self, type: UButtonType.Press,

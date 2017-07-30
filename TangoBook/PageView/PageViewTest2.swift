@@ -106,7 +106,7 @@ public class PageViewTest2 : UPageView, UButtonCallbacks, UDialogCallbacks {
     
     // OK/Cancelを選択 モーダル
     func showDialog1() {
-        let dialog = UPopupWindow(parentView : mTopView!,
+        let dialog = UPopupWindow(parentView : mTopView,
                                   popupType: UPopupType.OKCancel,
                                   title: "hoge", isAnimation: true,
                                   screenW: CGFloat(UUtil.screenWidth()),
@@ -117,7 +117,7 @@ public class PageViewTest2 : UPageView, UButtonCallbacks, UDialogCallbacks {
     // OK/Cancelを選択
     func showDialog2() {
         let dialog = UDialogWindow.createInstance(
-            parentView: mTopView!,
+            parentView: mTopView,
             buttonCallbacks: self, dialogCallbacks: nil,
             buttonDir: UDialogWindow.ButtonDir.Vertical,
             screenW: CGFloat(UUtil.screenWidth()), screenH: CGFloat(UUtil.screenHeight()))
@@ -132,7 +132,7 @@ public class PageViewTest2 : UPageView, UButtonCallbacks, UDialogCallbacks {
         dialog.addToDrawManager()
     }
     func showDialog3() {
-        let dialog = UPopupWindow(parentView : mTopView!,
+        let dialog = UPopupWindow(parentView : mTopView,
                                   popupType: UPopupType.OKCancel,
                                   title: "hoge", isAnimation: true,
                                   screenW: CGFloat(UUtil.screenWidth()),
@@ -140,7 +140,7 @@ public class PageViewTest2 : UPageView, UButtonCallbacks, UDialogCallbacks {
         dialog.addToDrawManager()
     }
     func showDialog4() {
-        let dialog = UPopupWindow(parentView : mTopView!,
+        let dialog = UPopupWindow(parentView : mTopView,
                                   popupType: UPopupType.OKCancel,
                                   title: "hoge", isAnimation: true,
                                   screenW: CGFloat(UUtil.screenWidth()),
@@ -148,7 +148,7 @@ public class PageViewTest2 : UPageView, UButtonCallbacks, UDialogCallbacks {
         dialog.addToDrawManager()
     }
     func showDialog5() {
-        let dialog = UPopupWindow(parentView : mTopView!,
+        let dialog = UPopupWindow(parentView : mTopView,
                                   popupType: UPopupType.OKCancel,
                                   title: "hoge", isAnimation: true,
                                   screenW: CGFloat(UUtil.screenWidth()),

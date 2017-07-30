@@ -169,4 +169,121 @@ public class PageViewManagerMain : UPageViewManager {
 //        }
     }
     
+     /**
+      * 学習ページを表示開始
+      * 他のページと異なり引数を受け取る必要があるため関数化
+      * @param book
+      * @param firstStudy trueならリトライでない学習
+      */
+    public func startStudyPage( book : TangoBook, firstStudy : Bool) {
+    
+    //         switch( MySharedPref.getStudyMode()) {
+    //             case SlideOne:
+    //             case SlideMulti:
+    //             {
+    //                 PageViewStudySlide page = (PageViewStudySlide)getPageView(PageView.StudySlide);
+    //                 page.setBook(book);
+    //                 page.setFirstStudy(firstStudy);
+    //                 stackPage(PageView.StudySlide);
+    //             }
+    //                 break;
+    //             case Choice4:
+    //             {
+    //                 PageViewStudySelect4 page = (PageViewStudySelect4)getPageView(PageView
+    //                         .StudySelect4);
+    //                 page.setBook(book);
+    //                 page.setFirstStudy(firstStudy);
+    //                 stackPage(PageView.StudySelect4);
+    //             }
+    //                 break;
+    //             case Input:
+    //             {
+    //                 PageViewStudyInputCorrect page = (PageViewStudyInputCorrect)getPageView(PageView
+    //                         .StudyInputCorrect);
+    //                 page.setBook(book);
+    //                 page.setFirstStudy(firstStudy);
+    //                 stackPage(PageView.StudyInputCorrect);
+    //             }
+    //                 break;
+    //         }
+    
+         }
+    
+    /**
+    * 学習ページを表示開始(リトライ時)
+    * @param book
+    * @param cards  リトライで学習するカード
+    */
+    public func startStudyPage( book : TangoBook, cards : List<TangoCard>, stack : Bool )
+    {
+    
+    //         PageView pageView = null;
+    //         switch( MySharedPref.getStudyMode()) {
+    //             case SlideOne:
+    //             case SlideMulti: {
+    //                 pageView = PageView.StudySlide;
+    //                 PageViewStudySlide page = (PageViewStudySlide) getPageView(pageView);
+    //                 page.setBook(book);
+    //                 page.setCards(cards);
+    
+    //                 if (stack) {
+    //                     stackPage(pageView);
+    //                 } else {
+    //                     changePage(pageView);
+    //                 }
+    //             }
+    //                 break;
+    //             case Choice4: {
+    //                 pageView = PageView.StudySelect4;
+    //                 PageViewStudySelect4 page = (PageViewStudySelect4) getPageView(pageView);
+    //                 page.setBook(book);
+    //                 page.setCards(cards);
+    
+    //                 if (stack) {
+    //                     stackPage(pageView);
+    //                 } else {
+    //                     changePage(pageView);
+    //                 }
+    //             }
+    //                 break;
+    //             case Input: {
+    //                 pageView = PageView.StudyInputCorrect;
+    //                 PageViewStudyInputCorrect page = (PageViewStudyInputCorrect) getPageView(pageView);
+    //                 page.setBook(book);
+    //                 page.setCards(cards);
+    
+    //                 if (stack) {
+    //                     stackPage(pageView);
+    //                 } else {
+    //                     changePage(pageView);
+    //                 }
+    //             }
+    //                 break;
+    //         }
+    
+    //         if (pageView != null) {
+    
+    //         }
+    }
+    
+    /**
+    * リザルトページを開始
+    * 他のページと異なり引数を受け取る必要があるため関数化
+    */
+    public func startStudyResultPage( book : TangoBook, okCards : List<TangoCard>, ngCards : List<TangoCard>)
+    {
+    //         PageViewResult page = (PageViewResult)getPageView(PageView.StudyResult);
+    //         page.setBook(book);
+    //         page.setCardsLists(okCards, ngCards);
+    //         changePage(PageView.StudyResult);
+    }
+    
+    /**
+     * オプション設定ページを表示
+     */
+    public func startOptionPage( mode : PageViewOptions.Mode) {
+        // todo
+//        var pageView = stackPage(pageId: PageIdMain.Options.rawValue) as! PageViewOptions
+//        pageView.setMode(mode)
+    }
 }

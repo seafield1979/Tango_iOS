@@ -149,9 +149,7 @@ public class UPageViewManager {
      * ページを取得する
      */
 //    public func getPageView(pageId : Int) -> UPageView {
-//        if pages[pageId.rawValue] == nil {
-//            initPage(pageId)
-//        }
+//        _ = initPage(pageId)
 //        return pages[pageId.rawValue]!
 //    }
     

@@ -20,20 +20,19 @@ class ULog {
      */
     static var enables : Dictionary<String, Bool> = Dictionary()
     static var counters : Dictionary<String, Int> = Dictionary()
-    // @todo private static var logWindow : ULogWindow
+    private static var logWindow : ULogWindow? = nil
     
     /**
      * Get/Set
      */
     // タグのON/OFFを設定する
     public static func setEnable(_ tag : String, _ enable : Bool) {
-        enables[tag] = enable;
+        enables[tag] = enable
     }
     
-    // @Todo ULogWindowが実装されたらコメント解除
-    //    public static func setLogWindow(_logWindow : ULogWindow) {
-    //        logWindow = _logWindow;
-    //    }
+    public static func setLogWindow(_ logWindow : ULogWindow) {
+        self.logWindow = logWindow
+    }
     
     // 初期化、アプリ起動時に１回だけ呼ぶ
     public static func initialize() {

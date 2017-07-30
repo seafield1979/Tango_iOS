@@ -53,7 +53,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
      * Member Variables
      */
     var windowCallbacks : UWindowCallbacks? = nil
-    var parentView : TopView? = nil
+    var parentView : TopView
     var bgColor : UIColor? = nil
     var frameColor : UIColor? = nil
     

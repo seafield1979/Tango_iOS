@@ -126,23 +126,23 @@ public class UIconWindowSub : UIconWindow {
      * It doesn't allow to create multi Home windows.
      * @return
      */
-    public static func createInstance(
-        parentView : TopView,
-        windowCallbacks : UWindowCallbacks?,
-        iconCallbacks : UIconCallbacks?,
-        iconWindowSubCallbacks : UIconWindowSubCallbacks?,
-        isHome : Bool, dir : WindowDir,
-        width : CGFloat, height : CGFloat, bgColor : UIColor) -> UIconWindowSub
-    {
-        let instance = UIconWindowSub(
-            parentView: parentView,
-            windowCallbacks : windowCallbacks, iconCallbacks: iconCallbacks,
-            iconWindowSubCallbacks: iconWindowSubCallbacks,
-            isHome: isHome, dir: dir, width: width, height: height,
-            bgColor: bgColor)
-        
-        return instance
-    }
+//    public static func createInstance(
+//        parentView : TopView,
+//        windowCallbacks : UWindowCallbacks?,
+//        iconCallbacks : UIconCallbacks?,
+//        iconWindowSubCallbacks : UIconWindowSubCallbacks?,
+//        isHome : Bool, dir : WindowDir,
+//        width : CGFloat, height : CGFloat, bgColor : UIColor) -> UIconWindowSub
+//    {
+//        let instance = UIconWindowSub(
+//            parentView: parentView,
+//            windowCallbacks : windowCallbacks, iconCallbacks: iconCallbacks,
+//            iconWindowSubCallbacks: iconWindowSubCallbacks,
+//            isHome: isHome, dir: dir, width: width, height: height,
+//            bgColor: bgColor)
+//        
+//        return instance
+//    }
 
     /**
      * Methods

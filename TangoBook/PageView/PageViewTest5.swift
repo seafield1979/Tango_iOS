@@ -76,7 +76,7 @@ public class PageViewTest5 : UPageView, UListItemCallbacks {
         UDrawManager.getInstance().initialize()
         
         listView = UListView(
-            parentView : mTopView!,
+            parentView : mTopView,
             windowCallbacks : nil,
             listItemCallbacks : self,
             priority : 100,
@@ -98,7 +98,7 @@ public class PageViewTest5 : UPageView, UListItemCallbacks {
         // ULogWindow
         // 自動で描画リストに追加される
         logWindow = ULogWindow.createInstance(
-            parentView: mTopView!, type: LogWindowType.Fix,
+            parentView: mTopView, type: LogWindowType.Fix,
             x: 0, y: CGFloat(UUtil.screenHeight()) - 450.0,
             width: CGFloat(UUtil.screenWidth()),
             height: CGFloat(UUtil.screenHeight()) / 2 - UUtil.navigationBarHeight())
@@ -106,7 +106,7 @@ public class PageViewTest5 : UPageView, UListItemCallbacks {
     
     // ダイアログを表示する
     func showDialog() {
-        let dialog = UPopupWindow(parentView: mTopView!,
+        let dialog = UPopupWindow(parentView: mTopView,
                                   popupType: UPopupType.OKCancel,
                                   title: "hoge", isAnimation: true,
                                   screenW: CGFloat(UUtil.screenWidth()),

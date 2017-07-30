@@ -67,6 +67,11 @@
 		8AB7E9811F278DC7005E36BB /* UIconWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9781F278DC7005E36BB /* UIconWindow.swift */; };
 		8AB7E9821F278DC7005E36BB /* UIconWindows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9791F278DC7005E36BB /* UIconWindows.swift */; };
 		8AB7E9831F278DC7005E36BB /* UIconWindowSub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E97A1F278DC7005E36BB /* UIconWindowSub.swift */; };
+		8AD631381F2B93780067B57E /* MenuBarTangoEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD631371F2B93780067B57E /* MenuBarTangoEdit.swift */; };
+		8AD6313A1F2B941B0067B57E /* IconInfoDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD631391F2B941B0067B57E /* IconInfoDialog.swift */; };
+		8AD6313C1F2B94CE0067B57E /* IconInfoDialogCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6313B1F2B94CE0067B57E /* IconInfoDialogCard.swift */; };
+		8AD6313E1F2B96540067B57E /* IconInfoDialogBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6313D1F2B96540067B57E /* IconInfoDialogBook.swift */; };
+		8AD631401F2B97450067B57E /* IconInfoDialogInTrash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6313F1F2B97450067B57E /* IconInfoDialogInTrash.swift */; };
 		8AE089FC1F24677D0024E9B7 /* UNViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE089FB1F24677D0024E9B7 /* UNViewController.swift */; };
 		8AE08A031F24B98E0024E9B7 /* TestDB2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08A011F24B98E0024E9B7 /* TestDB2ViewController.swift */; };
 		8AE08A041F24B98E0024E9B7 /* TestDB2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AE08A021F24B98E0024E9B7 /* TestDB2ViewController.xib */; };
@@ -206,6 +211,11 @@
 		8AB7E9781F278DC7005E36BB /* UIconWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIconWindow.swift; path = Icon/UIconWindow.swift; sourceTree = "<group>"; };
 		8AB7E9791F278DC7005E36BB /* UIconWindows.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIconWindows.swift; path = Icon/UIconWindows.swift; sourceTree = "<group>"; };
 		8AB7E97A1F278DC7005E36BB /* UIconWindowSub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIconWindowSub.swift; path = Icon/UIconWindowSub.swift; sourceTree = "<group>"; };
+		8AD631371F2B93780067B57E /* MenuBarTangoEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuBarTangoEdit.swift; path = TangoEdit/MenuBarTangoEdit.swift; sourceTree = "<group>"; };
+		8AD631391F2B941B0067B57E /* IconInfoDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconInfoDialog.swift; path = Icon/IconInfoDialog.swift; sourceTree = "<group>"; };
+		8AD6313B1F2B94CE0067B57E /* IconInfoDialogCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconInfoDialogCard.swift; path = Icon/IconInfoDialogCard.swift; sourceTree = "<group>"; };
+		8AD6313D1F2B96540067B57E /* IconInfoDialogBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconInfoDialogBook.swift; path = Icon/IconInfoDialogBook.swift; sourceTree = "<group>"; };
+		8AD6313F1F2B97450067B57E /* IconInfoDialogInTrash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconInfoDialogInTrash.swift; path = Icon/IconInfoDialogInTrash.swift; sourceTree = "<group>"; };
 		8AE089FB1F24677D0024E9B7 /* UNViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UNViewController.swift; path = TangoBook/ViewController/UNViewController.swift; sourceTree = "<group>"; };
 		8AE08A011F24B98E0024E9B7 /* TestDB2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDB2ViewController.swift; path = TangoBook/ViewController/TestDB2ViewController.swift; sourceTree = "<group>"; };
 		8AE08A021F24B98E0024E9B7 /* TestDB2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDB2ViewController.xib; path = TangoBook/ViewController/TestDB2ViewController.xib; sourceTree = "<group>"; };
@@ -395,13 +405,13 @@
 				8AB7E93E1F25A00F005E36BB /* PageViewHistory.swift */,
 				8AB7E93F1F25A00F005E36BB /* PageViewOptions.swift */,
 				8AB7E9401F25A00F005E36BB /* PageViewPresetBook.swift */,
+				8AB7E9471F25A00F005E36BB /* PageViewStudyInputCorrect.swift */,
 				8AB7E9411F25A00F005E36BB /* PageViewRestore.swift */,
 				8AB7E9421F25A00F005E36BB /* PageViewResult.swift */,
 				8AB7E9431F25A00F005E36BB /* PageViewSettingsTop.swift */,
 				8AB7E9441F25A00F005E36BB /* PageViewStudySlide.swift */,
 				8AB7E9451F25A00F005E36BB /* PageViewStudy.swift */,
 				8AB7E9461F25A00F005E36BB /* PageViewStudyBookSelect.swift */,
-				8AB7E9471F25A00F005E36BB /* PageViewStudyInputCorrect.swift */,
 				8AB7E9481F25A00F005E36BB /* PageViewStudySelect4.swift */,
 				8AB7E95D1F25A2AF005E36BB /* PageViewTitle.swift */,
 				8AB7E9491F25A00F005E36BB /* PageViewTangoEdit.swift */,
@@ -422,8 +432,20 @@
 				8AB7E9781F278DC7005E36BB /* UIconWindow.swift */,
 				8AB7E9791F278DC7005E36BB /* UIconWindows.swift */,
 				8AB7E97A1F278DC7005E36BB /* UIconWindowSub.swift */,
+				8AD631391F2B941B0067B57E /* IconInfoDialog.swift */,
+				8AD6313B1F2B94CE0067B57E /* IconInfoDialogCard.swift */,
+				8AD6313D1F2B96540067B57E /* IconInfoDialogBook.swift */,
+				8AD6313F1F2B97450067B57E /* IconInfoDialogInTrash.swift */,
 			);
 			name = Icon;
+			sourceTree = "<group>";
+		};
+		8AD631361F2B93500067B57E /* TangoEdit */ = {
+			isa = PBXGroup;
+			children = (
+				8AD631371F2B93780067B57E /* MenuBarTangoEdit.swift */,
+			);
+			name = TangoEdit;
 			sourceTree = "<group>";
 		};
 		8AE08A601F2580D00024E9B7 /* UGui */ = {
@@ -585,6 +607,7 @@
 		8AF781791F1F3E4400FC4EF2 /* TangoBook */ = {
 			isa = PBXGroup;
 			children = (
+				8AD631361F2B93500067B57E /* TangoEdit */,
 				8AA3B5081F29B4F500AE445E /* TangoEnums.swift */,
 				8AB7E96F1F278CB7005E36BB /* Icon */,
 				8AB7E9231F259947005E36BB /* PageView */,
@@ -788,6 +811,7 @@
 				8AB7E95E1F25A2AF005E36BB /* PageViewTitle.swift in Sources */,
 				8AE08ABA1F2580D70024E9B7 /* UResourceManager.swift in Sources */,
 				8AE08AB41F2580D70024E9B7 /* RefDictionary.swift in Sources */,
+				8AD631401F2B97450067B57E /* IconInfoDialogInTrash.swift in Sources */,
 				8AE08A981F2580D00024E9B7 /* UImageView.swift in Sources */,
 				8AB7E8F71F25824C005E36BB /* ImageName.swift in Sources */,
 				8AE08AB01F2580D70024E9B7 /* List.swift in Sources */,
@@ -827,6 +851,7 @@
 				8AB7E92F1F259991005E36BB /* PageViewTest2.swift in Sources */,
 				8AB7E9521F25A00F005E36BB /* PageViewPresetBook.swift in Sources */,
 				8AB7E9801F278DC7005E36BB /* UIconManager.swift in Sources */,
+				8AD6313C1F2B94CE0067B57E /* IconInfoDialogCard.swift in Sources */,
 				8AB7E9321F259991005E36BB /* PageViewTest5.swift in Sources */,
 				8AB7E9581F25A00F005E36BB /* PageViewStudyBookSelect.swift in Sources */,
 				8AE08A881F2580D00024E9B7 /* UButtonText.swift in Sources */,
@@ -843,6 +868,7 @@
 				8AF781B01F1F445500FC4EF2 /* TangoItemCheckDao.swift in Sources */,
 				8AB7E92C1F259991005E36BB /* PageViewManagerMain.swift in Sources */,
 				8AF781B31F1F445500FC4EF2 /* TangoStudiedCard.swift in Sources */,
+				8AD6313E1F2B96540067B57E /* IconInfoDialogBook.swift in Sources */,
 				8AB7E9711F278CE2005E36BB /* UIcon.swift in Sources */,
 				8AB7E9501F25A00F005E36BB /* PageViewHistory.swift in Sources */,
 				8AB7E9541F25A00F005E36BB /* PageViewResult.swift in Sources */,
@@ -850,12 +876,14 @@
 				8AB7E97D1F278DC7005E36BB /* IconContainer.swift in Sources */,
 				8AE08A0B1F24BA010024E9B7 /* TestDB4ViewController.swift in Sources */,
 				8AE08AAF1F2580D70024E9B7 /* EnumEnumerable.swift in Sources */,
+				8AD631381F2B93780067B57E /* MenuBarTangoEdit.swift in Sources */,
 				8AE089FC1F24677D0024E9B7 /* UNViewController.swift in Sources */,
 				8AB7E94E1F25A00F005E36BB /* PageViewDebugDB.swift in Sources */,
 				8AB7E9551F25A00F005E36BB /* PageViewSettingsTop.swift in Sources */,
 				8AB7E9121F2583F4005E36BB /* UPageView.swift in Sources */,
 				8AE08A991F2580D00024E9B7 /* UListItem.swift in Sources */,
 				8AB7E9311F259991005E36BB /* PageViewTest4.swift in Sources */,
+				8AD6313A1F2B941B0067B57E /* IconInfoDialog.swift in Sources */,
 				8AE08A931F2580D00024E9B7 /* DrawPriority.swift in Sources */,
 				8AB7E9811F278DC7005E36BB /* UIconWindow.swift in Sources */,
 				8AE08ABF1F2580E00024E9B7 /* CGRect+U.swift in Sources */,

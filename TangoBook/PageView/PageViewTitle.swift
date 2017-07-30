@@ -129,7 +129,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
      * そのページで表示される描画オブジェクトを初期化する
      */
      public override func initDrawables() {
-        let width = self.mTopView!.getWidth()
+        let width = self.mTopView.getWidth()
 
         var buttonType : UButtonType? = nil
 
@@ -297,13 +297,13 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                 case PageViewTitle.ButtonIdZoomOut:
                     UDpi.scaleDown()
                     initDrawables()
-                    mTopView?.invalidate()
+                    mTopView.invalidate()
                     showScaleToast()
                     break
                 case PageViewTitle.ButtonIdZoomIn:
                     UDpi.scaleUp()
                     initDrawables()
-                    mTopView?.invalidate()
+                    mTopView.invalidate()
                     showScaleToast()
                     break
             default:
