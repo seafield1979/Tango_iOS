@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A0D6F901F306587002A1949 /* CsvParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6F8F1F306587002A1949 /* CsvParser.swift */; };
+		8A0D6FA11F317618002A1949 /* UFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6FA01F317618002A1949 /* UFileManager.swift */; };
 		8A8522401F22514300B5B8A3 /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A85223F1F22514300B5B8A3 /* TestDatabase.swift */; };
 		8A8522441F22533000B5B8A3 /* TestDBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8522421F22533000B5B8A3 /* TestDBViewController.swift */; };
 		8A8522451F22533000B5B8A3 /* TestDBViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A8522431F22533000B5B8A3 /* TestDBViewController.xib */; };
@@ -126,6 +128,10 @@
 		8AE08ABB1F2580D70024E9B7 /* UUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08AAE1F2580D70024E9B7 /* UUtil.swift */; };
 		8AE08ABF1F2580E00024E9B7 /* CGRect+U.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08ABD1F2580E00024E9B7 /* CGRect+U.swift */; };
 		8AE08AC01F2580E00024E9B7 /* UIColor+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08ABE1F2580E00024E9B7 /* UIColor+ex.swift */; };
+		8AF5E9F81F2EC009008D8508 /* Int+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E9F71F2EC009008D8508 /* Int+ex.swift */; };
+		8AF5E9FB1F2ED31E008D8508 /* PresetBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E9FA1F2ED31E008D8508 /* PresetBook.swift */; };
+		8AF5E9FD1F2ED332008D8508 /* PresetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E9FC1F2ED331008D8508 /* PresetCard.swift */; };
+		8AF5E9FF1F2ED344008D8508 /* PresetBookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E9FE1F2ED344008D8508 /* PresetBookManager.swift */; };
 		8AF7817B1F1F3E4400FC4EF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF7817A1F1F3E4400FC4EF2 /* AppDelegate.swift */; };
 		8AF7817D1F1F3E4400FC4EF2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF7817C1F1F3E4400FC4EF2 /* ViewController.swift */; };
 		8AF781821F1F3E4400FC4EF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AF781811F1F3E4400FC4EF2 /* Assets.xcassets */; };
@@ -150,6 +156,8 @@
 
 /* Begin PBXFileReference section */
 		488C90E2B6610DFD29991F5E /* Pods_TangoBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TangoBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A0D6F8F1F306587002A1949 /* CsvParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CsvParser.swift; path = PresetBook/CsvParser.swift; sourceTree = "<group>"; };
+		8A0D6FA01F317618002A1949 /* UFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UFileManager.swift; sourceTree = "<group>"; };
 		8A85223F1F22514300B5B8A3 /* TestDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDatabase.swift; path = TangoBook/Database/Test/TestDatabase.swift; sourceTree = "<group>"; };
 		8A8522421F22533000B5B8A3 /* TestDBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDBViewController.swift; path = TangoBook/Database/Test/TestDBViewController.swift; sourceTree = "<group>"; };
 		8A8522431F22533000B5B8A3 /* TestDBViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDBViewController.xib; path = TangoBook/Database/Test/TestDBViewController.xib; sourceTree = "<group>"; };
@@ -270,6 +278,10 @@
 		8AE08AAE1F2580D70024E9B7 /* UUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUtil.swift; sourceTree = "<group>"; };
 		8AE08ABD1F2580E00024E9B7 /* CGRect+U.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+U.swift"; sourceTree = "<group>"; };
 		8AE08ABE1F2580E00024E9B7 /* UIColor+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ex.swift"; sourceTree = "<group>"; };
+		8AF5E9F71F2EC009008D8508 /* Int+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+ex.swift"; sourceTree = "<group>"; };
+		8AF5E9FA1F2ED31E008D8508 /* PresetBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresetBook.swift; path = PresetBook/PresetBook.swift; sourceTree = "<group>"; };
+		8AF5E9FC1F2ED331008D8508 /* PresetCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresetCard.swift; path = PresetBook/PresetCard.swift; sourceTree = "<group>"; };
+		8AF5E9FE1F2ED344008D8508 /* PresetBookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresetBookManager.swift; path = PresetBook/PresetBookManager.swift; sourceTree = "<group>"; };
 		8AF781771F1F3E4400FC4EF2 /* TangoBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TangoBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF7817A1F1F3E4400FC4EF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AF7817C1F1F3E4400FC4EF2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = TangoBook/ViewController.swift; sourceTree = "<group>"; };
@@ -566,6 +578,7 @@
 				8AE08AAC1F2580D70024E9B7 /* ULog.swift */,
 				8AE08AAD1F2580D70024E9B7 /* UResourceManager.swift */,
 				8AE08AAE1F2580D70024E9B7 /* UUtil.swift */,
+				8A0D6FA01F317618002A1949 /* UFileManager.swift */,
 			);
 			path = UUtil;
 			sourceTree = "<group>";
@@ -576,8 +589,20 @@
 				8AE08ABD1F2580E00024E9B7 /* CGRect+U.swift */,
 				8AE08ABE1F2580E00024E9B7 /* UIColor+ex.swift */,
 				8AA3B5061F29B1F100AE445E /* UIImage+ex.swift */,
+				8AF5E9F71F2EC009008D8508 /* Int+ex.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		8AF5E9F91F2ED2FA008D8508 /* PresetBook */ = {
+			isa = PBXGroup;
+			children = (
+				8AF5E9FA1F2ED31E008D8508 /* PresetBook.swift */,
+				8AF5E9FC1F2ED331008D8508 /* PresetCard.swift */,
+				8AF5E9FE1F2ED344008D8508 /* PresetBookManager.swift */,
+				8A0D6F8F1F306587002A1949 /* CsvParser.swift */,
+			);
+			name = PresetBook;
 			sourceTree = "<group>";
 		};
 		8AF7816E1F1F3E4400FC4EF2 = {
@@ -607,6 +632,7 @@
 		8AF781791F1F3E4400FC4EF2 /* TangoBook */ = {
 			isa = PBXGroup;
 			children = (
+				8AF5E9F91F2ED2FA008D8508 /* PresetBook */,
 				8AD631361F2B93500067B57E /* TangoEdit */,
 				8AA3B5081F29B4F500AE445E /* TangoEnums.swift */,
 				8AB7E96F1F278CB7005E36BB /* Icon */,
@@ -822,6 +848,8 @@
 				8AE08A861F2580D00024E9B7 /* UButtonClose.swift in Sources */,
 				8AB7E92E1F259991005E36BB /* PageViewTest1.swift in Sources */,
 				8AB7E9531F25A00F005E36BB /* PageViewRestore.swift in Sources */,
+				8AF5E9F81F2EC009008D8508 /* Int+ex.swift in Sources */,
+				8A0D6F901F306587002A1949 /* CsvParser.swift in Sources */,
 				8AF781B11F1F445500FC4EF2 /* TangoItemPos.swift in Sources */,
 				8AF781AA1F1F445500FC4EF2 /* TangoBookHistory.swift in Sources */,
 				8AE08A8A1F2580D00024E9B7 /* MenuBarTest1.swift in Sources */,
@@ -867,6 +895,7 @@
 				8AB7E97B1F278DC7005E36BB /* IconBook.swift in Sources */,
 				8AF781B01F1F445500FC4EF2 /* TangoItemCheckDao.swift in Sources */,
 				8AB7E92C1F259991005E36BB /* PageViewManagerMain.swift in Sources */,
+				8A0D6FA11F317618002A1949 /* UFileManager.swift in Sources */,
 				8AF781B31F1F445500FC4EF2 /* TangoStudiedCard.swift in Sources */,
 				8AD6313E1F2B96540067B57E /* IconInfoDialogBook.swift in Sources */,
 				8AB7E9711F278CE2005E36BB /* UIcon.swift in Sources */,
@@ -879,6 +908,8 @@
 				8AD631381F2B93780067B57E /* MenuBarTangoEdit.swift in Sources */,
 				8AE089FC1F24677D0024E9B7 /* UNViewController.swift in Sources */,
 				8AB7E94E1F25A00F005E36BB /* PageViewDebugDB.swift in Sources */,
+				8AF5E9FF1F2ED344008D8508 /* PresetBookManager.swift in Sources */,
+				8AF5E9FD1F2ED332008D8508 /* PresetCard.swift in Sources */,
 				8AB7E9551F25A00F005E36BB /* PageViewSettingsTop.swift in Sources */,
 				8AB7E9121F2583F4005E36BB /* UPageView.swift in Sources */,
 				8AE08A991F2580D00024E9B7 /* UListItem.swift in Sources */,
@@ -904,6 +935,7 @@
 				8AB7E9331F259991005E36BB /* PageViewTest6.swift in Sources */,
 				8AB7E9831F278DC7005E36BB /* UIconWindowSub.swift in Sources */,
 				8AE08AA01F2580D00024E9B7 /* UWindow.swift in Sources */,
+				8AF5E9FB1F2ED31E008D8508 /* PresetBook.swift in Sources */,
 				8AE08AB31F2580D70024E9B7 /* Random.swift in Sources */,
 				8AB7E9511F25A00F005E36BB /* PageViewOptions.swift in Sources */,
 				8AB7E94D1F25A00F005E36BB /* PageViewDebug.swift in Sources */,

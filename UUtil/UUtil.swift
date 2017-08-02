@@ -199,6 +199,15 @@ public class UUtil {
         return _text
     }
     
+    // 外部ストレージのDocumentsフォルダのパスを取得する
+    public static func getDocumentDirPath() -> String {
+        let dir = NSSearchPathForDirectoriesInDomains( FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true ).first
+        if dir != nil {
+            return dir!
+        }
+        return ""
+    }
+    
     /**
      *
      * @param pathType

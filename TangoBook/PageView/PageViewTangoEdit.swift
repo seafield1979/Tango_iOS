@@ -629,137 +629,142 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     * @param icon
     */
     public func openIcon( icon : UIcon) {
-    //         // 配下のアイコンをSubWindowに表示する
-    //         switch (icon.getType()) {
-    //             case Book:
-    //             {
-    //                 UIconWindowSub subWindow = mIconWinManager!.getSubWindow();
-    //                 subWindow.setIcons(TangoParentType.Book, icon.getTangoItem().getId());
-    //                 subWindow.setParentIcon(icon);
-    
-    //                 // SubWindowを画面外から移動させる
-    //                 mIconWinManager!.showWindow(subWindow, true);
-    //                 mTopView.invalidate();
-    //             }
-    //             break;
-    //             case Trash:
-    //             {
-    //                 UIconWindow window = mIconWinManager!.getSubWindow();
-    //                 window.setIcons(TangoParentType.Trash, 0);
-    //                 mIconWinManager!.getSubWindow().setParentIcon(icon);
-    
-    //                 // SubWindowを画面外から移動させる
-    //                 mIconWinManager!.showWindow(window, true);
-    //                 mTopView.invalidate();
-    //             }
-    //         }
+        // 配下のアイコンをSubWindowに表示する
+        switch icon.getType() {
+        case .Book:
+            let subWindow : UIconWindowSub = mIconWinManager!.getSubWindow()
+            subWindow.setIcons(
+                parentType: TangoParentType.Book,
+                parentId: icon.getTangoItem()!.getId())
+            subWindow.setParentIcon(icon: icon)
+
+            // SubWindowを画面外から移動させる
+            mIconWinManager!.showWindow(window: subWindow, animation: true)
+            mTopView.invalidate()
+        
+        case .Trash:
+            let window : UIconWindow = mIconWinManager!.getSubWindow()
+            window.setIcons(
+                parentType: TangoParentType.Trash,
+                parentId: 0)
+            mIconWinManager!.getSubWindow().setParentIcon(icon: icon)
+
+            // SubWindowを画面外から移動させる
+            mIconWinManager!.showWindow(window: window, animation: true)
+            mTopView.invalidate()
+        default:
+            break
+        }
     }
     
     /**
     * UWindowCallbacks
     */
     public func windowClose(window : UWindow) {
-    //         // Windowを閉じる
-    //         for (UIconWindow _window : mIconWinManager!.getWindows()) {
-    //             if (window == _window) {
-    //                 mIconWinManager!.hideWindow(_window, true);
-    //                 break;
-    //             }
-    //         }
-    //         if (mIconInfoDlg == window) {
-    //             mIconInfoDlg.closeWindow();
-    //             mIconInfoDlg = nil;
-    //         }
+        // Windowを閉じる
+        for _window in mIconWinManager!.getWindows()! {
+            if window === _window {
+                _ = mIconWinManager!.hideWindow(window: _window!, animation: true)
+                break
+            }
+        }
+        if mIconInfoDlg === window {
+            mIconInfoDlg!.closeWindow()
+            mIconInfoDlg = nil
+        }
     }
     
     /**
     * UButtonCallbacks
     */
     public func UButtonClicked(id : Int, pressedOn : Bool) -> Bool{
-    //         switch (id) {
-    //             case CleanupDialogButtonOK:
-    //                 // ゴミ箱を空にする
-    //                 RealmManager.getItemPosDao().deleteItemsInTrash();
-    //                 mIconWinManager!.getSubWindow().getIcons().clear();
-    
-    //                 mDialog.closeDialog();
-    //                 mIconWinManager!.getSubWindow().sortIcons(animate: false);
-    //                 return true;
-    //             case TrashDialogButtonOK:
-    //                 // 単語帳をゴミ箱に捨てる
-    //                 moveIconToTrash(mThrowIcon);
-    //                 UIconWindowSub subWindow = mIconWinManager!.getSubWindow();
-    //                 if (subWindow.isShow()) {
-    //                     if (subWindow.getWindowCallbacks() != nil) {
-    //                         subWindow.getWindowCallbacks().windowClose(subWindow);
-    //                     }
-    //                 }
-    //                 mDialog.closeDialog();
-    //                 return true;
-    
-    //             case ButtonIdMoveIconsToTrash:
-    //                 // チェックしたアイコンをゴミ箱に移動する
-    //                 UIcon trashIcon = mIconWinManager!.getMainWindow().getIconManager().getTrashIcon();
-    //                 for (UIconWindow window : mIconWinManager!.getWindows()) {
-    //                     List<UIcon> icons = window.getIconManager().getCheckedIcons();
-    //                     if (icons != nil && icons.count > 0) {
-    //                         window.moveIconsIntoBox(icons, trashIcon);
-    //                         window.sortIcons(animate: true);
-    //                     }
-    //                 }
-    
-    //                 if(mDialog != nil) {
-    //                     mDialog.startClosing();
-    //                 }
-    //                 return true;
-    //             case ButtonIdCopyOK:
-    //                 // 単語帳のコピーを作成する
-    //                 copyIcon(mCopyIcon);
-    //                 if (mDialog != nil) {
-    //                     mDialog.closeDialog();
-    //                     mDialog = nil;
-    //                 }
-    //                 break;
-    
-    //             case ExportDialogButtonOK:
-    //                 // CSVファイルに出力する
-    //             {
-    //                 List<TangoCard> cards = mExportIcon.getItems();
-    //                 String path = PresetBookManager.getInstance()
-    //                         .exportToCsvFile((TangoBook)mExportIcon.getTangoItem(), cards);
-    
-    //                 String message;
-    //                 if (path == nil) {
-    //                     // 失敗
-    //                     message = UResourceManager.getStringById(R.string.failed_backup);
-    //                 } else {
-    //                     // 成功
-    //                     message = path + "\n" + UResourceManager.getStringById(R.string.finish_export);
-    //                 }
-    
-    //                 if (mDialog != nil) {
-    //                     mDialog.closeDialog();
-    //                 }
-    //                 mDialog = UDialogWindow.createInstance(UDialogWindow.DialogType.Mordal,
-    //                         self, self,
-    //                         UDialogWindow.ButtonDir.Horizontal, UDialogWindow.DialogPosType.Center,
-    //                         true, mTopView.getWidth(), mTopView.getHeight(),
-    //                         Color.BLACK, Color.LTGRAY);
-    //                 mDialog.addToDrawManager();
-    //                 mDialog.setTitle(message);
-    //                 mDialog.addButton(ExportFinishedDialogButtonOk, "OK", Color.BLACK, Color.WHITE);
-    //             }
-    //                 break;
-    //             case ExportFinishedDialogButtonOk:
-    //                 if (mDialog != nil) {
-    //                     mDialog.closeDialog();
-    //                     mDialog = nil;
-    //                 }
-    //                 break;
-    //             case UDialogWindow.CloseDialogId:
-    //                 mDialog.closeDialog();
-    //                 break;
-    //         }
+        switch (id) {
+        case CleanupDialogButtonOK:
+            // ゴミ箱を空にする
+            _ = TangoItemPosDao.deleteItemsInTrash()
+            mIconWinManager!.getSubWindow().getIcons()!.removeAll()
+
+            mDialog!.closeDialog()
+            mIconWinManager!.getSubWindow().sortIcons(animate: false)
+            return true;
+        case TrashDialogButtonOK:
+            // 単語帳をゴミ箱に捨てる
+            moveIconToTrash(icon: mThrowIcon!)
+            let subWindow : UIconWindowSub = mIconWinManager!.getSubWindow()
+            if subWindow.isShow {
+                if subWindow.getWindowCallbacks() != nil {
+                    subWindow.getWindowCallbacks()!.windowClose(window: subWindow)
+                }
+            }
+            mDialog!.closeDialog()
+            return true
+
+        case ButtonIdMoveIconsToTrash:
+            // チェックしたアイコンをゴミ箱に移動する
+            let trashIcon : UIcon = mIconWinManager!.getMainWindow()!.getIconManager()!.getTrashIcon()!
+            for window in mIconWinManager!.getWindows()! {
+                let icons : List<UIcon> = window!.getIconManager()!.getCheckedIcons()
+                if icons.count > 0 {
+                    window!.moveIconsIntoBox(checkedIcons: icons, dropedIcon: trashIcon)
+                    window!.sortIcons(animate: true)
+                }
+            }
+
+            if(mDialog != nil) {
+                mDialog!.startClosing()
+            }
+            return true
+        case ButtonIdCopyOK:
+            // 単語帳のコピーを作成する
+            copyIcon(icon: mCopyIcon!)
+            if mDialog != nil {
+                mDialog!.closeDialog()
+                mDialog = nil
+            }
+
+        case ExportDialogButtonOK:
+            // CSVファイルに出力する
+            let cards : [TangoCard] = mExportIcon!.getItems()!
+            let path = PresetBookManager.getInstance()
+                    .exportToCsvFile(book: mExportIcon!.book!, cards: cards)
+
+            var message : String
+            if path == nil {
+                // 失敗
+                message = UResourceManager.getStringByName("failed_backup")
+            } else {
+                // 成功
+                message = path! + "\n" + UResourceManager.getStringByName("finish_export")
+            }
+
+            if mDialog != nil {
+                mDialog!.closeDialog()
+            }
+            mDialog = UDialogWindow.createInstance(
+                parentView : mTopView,
+                type : DialogType.Mordal,
+                buttonCallbacks : self, dialogCallbacks : self, dir : UDialogWindow.ButtonDir.Horizontal,
+                posType : DialogPosType.Center,
+                isAnimation : true,
+                screenW : mTopView.getWidth(), screenH : mTopView.getHeight(),
+                textColor : UIColor.black, dialogColor : UIColor.lightGray)
+            
+            mDialog!.addToDrawManager();
+            mDialog!.setTitle(message);
+            _ = mDialog!.addButton(id : ExportFinishedDialogButtonOk, text : "OK", textColor : UIColor.black, color : UIColor.white)
+        
+        case ExportFinishedDialogButtonOk:
+            if mDialog != nil {
+                mDialog!.closeDialog()
+                mDialog = nil
+            }
+            
+        case UDialogWindow.CloseDialogId:
+            mDialog!.closeDialog()
+            
+        default:
+            break
+        }
         return false
     }
     
@@ -790,7 +795,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     //             iconCard.setColor(card.getColor());
     //             iconCard.updateIconImage();
     //             // DB更新
-    //             RealmManager.getCardDao().updateOne(card);
+    //             TangoCardDao().updateOne(card);
     //         } else {
     //             // 更新
     //             TangoCard card = (TangoCard)editingIcon.getTangoItem();
@@ -809,7 +814,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     
     //             editingIcon.updateTitle();
     //             // DB更新
-    //             RealmManager.getCardDao().updateOne(card);
+    //             TangoCardDao().updateOne(card);
     //         }
     
     //         mTopView.invalidate();
@@ -848,7 +853,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     //             bookIcon.updateIconImage();
     
     //             // DB更新
-    //             RealmManager.getBookDao().updateOne(book);
+    //             TangoBookDao().updateOne(book);
     //         } else {
     //             // 既存のアイコンを更新する
     
@@ -868,7 +873,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     
     //             editingIcon.updateTitle();
     //             // DB更新
-    //             RealmManager.getBookDao().updateOne(book);
+    //             TangoBookDao().updateOne(book);
     //         }
     
     //         // アイコン整列

@@ -90,13 +90,13 @@ import RealmSwift
      * @param bookId
      * @return
      */
-    public static func selectMaxDateByBook(bookId : Int) -> Date{
+    public static func selectMaxDateByBook(bookId : Int) -> Date? {
         let date = mRealm!.objects(TangoBookHistory.self)
             .filter("bookId = %d", bookId)
             .max(ofProperty: "studiedDateTime") as Date!
         
         if date == nil {
-            return Date()
+            return nil
         }
         
         return date!

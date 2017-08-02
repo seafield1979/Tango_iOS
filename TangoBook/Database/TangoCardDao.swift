@@ -368,6 +368,20 @@ public class TangoCardDao {
             mRealm!.add(card)
         }
     }
+    
+    public static func addPresetCards( parentId: Int, cards : List<PresetCard>) {
+        // 大量のデータをまとめて追加するのでトランザクションは外で行う
+        try! mRealm!.write() {
+            for presetCard in cards {
+                let card = TangoCard.createCard()
+                card.wordA = presetCard!.mWordA
+                card.wordB = presetCard!.mWordB
+                card.comment = presetCard!.mComment
+                card.isNew = false
+                addOneTransaction(card : card, parentType : TangoParentType.Book, parentId : parentId, addPos : -1, transaction : false)
+            }
+        }
+    }
 
     /**
      * Update:

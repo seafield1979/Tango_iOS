@@ -33,4 +33,27 @@ extension UIColor {
         
         return A
     }
+    
+    /**
+     * 文字列の色情報をUIColorに変換する
+     * 例 #ff8000 -> UIColor(1.0, 0.5, 0.0)
+     */
+    static func hexColor(_ str: String) -> UIColor
+    {
+        if str.substring(to: str.index(str.startIndex, offsetBy: 1)) == "#"
+        {
+            let colStr = str.substring(from: str.index(str.startIndex, offsetBy: 1))
+            if colStr.utf16.count == 6
+            {
+                let rStr = (colStr as NSString).substring(with: NSRange(location: 0, length: 2))
+                let gStr = (colStr as NSString).substring(with: NSRange(location: 2, length: 2))
+                let bStr = (colStr as NSString).substring(with: NSRange(location: 4, length: 2))
+                let rHex = CGFloat(Int(rStr, radix: 16) ?? 0)
+                let gHex = CGFloat(Int(gStr, radix: 16) ?? 0)
+                let bHex = CGFloat(Int(bStr, radix: 16) ?? 0)
+                return UIColor(red: rHex/255.0, green: gHex/255.0, blue: bHex/255.0, alpha: 1.0)
+            }
+        }
+        return UIColor.white
+    }
 }

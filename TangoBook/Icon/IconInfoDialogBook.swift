@@ -1,7 +1,7 @@
 //
 //  IconInfoDialogBook.swift
 //  TangoBook
-//
+//    移植してみたはいいが、単語帳をタップした時に表示されるダイアログは実は使用しなくなった
 //  Created by Shusuke Unno on 2017/07/29.
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
@@ -15,301 +15,323 @@ import UIKit
  * Bookの情報(Name)とアクションアイコン(ActionIcons)を表示する
  */
 public class IconInfoDialogBook : IconInfoDialog {
-//     /**
-//      * Enums
-//      */
-//     enum Items {
-//         Name,
-//         Comment,
-//         Count,
-//         Date
-//     }
+    /**
+     * Enums
+     */
+    enum Items : Int, EnumEnumerable {
+        case Name
+        case Comment
+        case Count
+        case Date
+    }
 
-//     /**
-//      * Consts
-//      */
-//     private static final String TAG = "IconInfoDialogBook";
-//     private static final int ICON_W = 40;
-//     private static final int ICON_MARGIN_H = 10;
-//     private static final int TEXT_SIZE = 17;
-//     private static final int TEXT_SIZE_S = 13;
+    /**
+     * Consts
+     */
+    private let TAG = "IconInfoDialogBook";
+    private let ICON_W = 40;
+    private let ICON_MARGIN_H = 10;
+    private let TEXT_SIZE = 17;
+    private let TEXT_SIZE_S = 13;
 
-//     private static final int TEXT_COLOR = Color.BLACK;
-//     private static final int TEXT_BG_COLOR = Color.WHITE;
+    private let TEXT_COLOR = UIColor.black
+    private let TEXT_BG_COLOR = UIColor.white
 
-//     /**
-//      * Member Variables
-//      */
-//     protected boolean isUpdate = true;     // ボタンを追加するなどしてレイアウトが変更された
-//     private UTextView textTitle;
-//     private IconInfoItem[] mItems = new IconInfoItem[Items.values().length];
-//     private TangoBook mBook;
-//     private LinkedList<UButtonImage> imageButtons = new LinkedList<>();
+    /**
+     * Member Variables
+     */
+    var isUpdate = true     // ボタンを追加するなどしてレイアウトが変更された
+    private var textTitle : UTextView? = nil
+    private var mItems : [IconInfoItem?] = Array(repeating: nil, count: Items.count)
+    private var mBook : TangoBook? = nil
+    private var imageButtons : List<UButtonImage> = List()
 
+    /**
+     * Get/Set
+     */
 
+    /**
+     * Constructor
+     */
+    public init(parentView : TopView,
+                   iconInfoDialogCallbacks : IconInfoDialogCallbacks,
+                   windowCallbacks : UWindowCallbacks,
+                   icon : UIcon,
+                   x : CGFloat, y : CGFloat,
+                   color : UIColor?)
+    {
+        super.init( parentView : parentView,
+                    iconInfoCallbacks : iconInfoDialogCallbacks,
+                    windowCallbacks : windowCallbacks,
+                    icon : icon, x : x, y : y,
+                    color : color)
+        if icon is IconBook {
+            let bookIcon = icon as! IconBook
+            mBook = bookIcon.book!
+        }
 
-//     /**
-//      * Get/Set
-//      */
+        var color = color
+        if color == nil {
+            color = UIColor.lightGray
+        }
 
-//     /**
-//      * Constructor
-//      */
-//     public IconInfoDialogBook(View parentView,
-//                               IconInfoDialogCallbacks iconInfoDialogCallbacks,
-//                               UWindowCallbacks windowCallbacks,
-//                               UIcon icon,
-//                               float x, float y,
-//                               int color)
-//     {
-//         super( parentView, iconInfoDialogCallbacks, windowCallbacks, icon, x, y, color);
-//         if (icon instanceof IconBook) {
-//             IconBook bookIcon = (IconBook)icon;
-//             mBook = (TangoBook)bookIcon.getTangoItem();
-//         }
+        bgColor = UColor.setBrightness(argb: color!, brightness: 220.0 / 255.0)
+        frameColor = UColor.setBrightness(argb: color!, brightness: 140.0 / 220.0)
+    }
 
-//         if (color == 0) color = Color.LTGRAY;
+    /**
+     * createInstance
+     */
+    public static func createInstance(
+        parentView : TopView,
+        iconInfoDialogCallbacks : IconInfoDialogCallbacks,
+        windowCallbacks : UWindowCallbacks,
+        icon : UIcon,
+        x : CGFloat, y : CGFloat) -> IconInfoDialogBook
+    {
+        let instance = IconInfoDialogBook(
+            parentView : parentView,
+            iconInfoDialogCallbacks : iconInfoDialogCallbacks,
+            windowCallbacks : windowCallbacks,
+            icon : icon, x : x, y : y,
+            color : (icon.getTangoItem() as! TangoBook).color.toColor())
 
-//         bgColor = UColor.setBrightness(color, 220);
-//         frameColor = UColor.setBrightness(color, 140);
-//     }
+        // 初期化処理
+        instance.addCloseIcon(pos: CloseIconPos.RightTop)
+        instance.addToDrawManager()
 
-//     /**
-//      * createInstance
-//      */
-//     public static IconInfoDialogBook createInstance(
-//             View parentView,
-//             IconInfoDialogCallbacks iconInfoDialogCallbacks,
-//             UWindowCallbacks windowCallbacks,
-//             UIcon icon,
-//             float x, float y)
-//     {
-//         IconInfoDialogBook instance = new IconInfoDialogBook( parentView,
-//                 iconInfoDialogCallbacks, windowCallbacks, icon,
-//                 x, y, ((TangoBook)icon.getTangoItem()).getColor());
+        return instance;
+    }
 
-//         // 初期化処理
-//         instance.addCloseIcon(CloseIconPos.RightTop);
-//         UDrawManager.getInstance().addDrawable(instance);
+     /**
+      * Methods
+      */
 
-//         return instance;
-//     }
+     /**
+      * Windowのコンテンツ部分を描画する
+      * @param canvas
+      * @param paint
+      */
+    public override func drawContent(offset : CGPoint?) {
+        if isUpdate {
+            isUpdate = false
+            updateLayout()
 
-//     /**
-//      * Methods
-//      */
+            // 閉じるボタンの再配置
+            updateCloseIconPos()
+        }
 
-//     /**
-//      * Windowのコンテンツ部分を描画する
-//      * @param canvas
-//      * @param paint
-//      */
-//     public void drawContent(Canvas canvas, Paint paint, PointF offset) {
-//         if (isUpdate) {
-//             isUpdate = false;
-//             updateLayout(canvas);
+        // BG
+        UDraw.drawRoundRectFill(rect : getRect(),
+                                cornerR : UDpi.toPixel(7), color : bgColor!,
+                                strokeWidth : UDpi.toPixel(FRAME_WIDTH),
+                                strokeColor : frameColor)
 
-//             // 閉じるボタンの再配置
-//             updateCloseIconPos();
-//         }
+        // Buttons
+        for button in imageButtons {
+            button!.draw(pos)
+        }
 
-//         // BG
-//         UDraw.drawRoundRectFill(canvas, paint, new RectF(getRect()), UDpi.toPixel(7),
-//                 bgColor, FRAME_WIDTH, frameColor);
+        if textTitle != nil {
+            textTitle!.draw(pos)
+        }
+        for item in mItems {
+            item!.title.draw(pos)
+            item!.body.draw(pos)
+        }
+    }
 
-//         // Buttons
-//         for (UButtonImage button : imageButtons) {
-//             button.draw(canvas, paint, pos);
-//         }
+     /**
+      * レイアウト更新
+      * @param canvas
+      */
+    func updateLayout() {
+        var y = UDpi.toPixel(TOP_ITEM_Y)
 
-//         textTitle.draw(canvas, paint, pos);
-//         for (IconInfoItem item : mItems) {
-//             item.title.draw(canvas, paint, pos);
-//             item.body.draw(canvas, paint, pos);
-//         }
-//     }
+        let icons : List<ActionIconInfo> = IconInfoDialog.getCardIcons()
 
-//     /**
-//      * レイアウト更新
-//      * @param canvas
-//      */
-//     protected void updateLayout(Canvas canvas) {
-//         int y = UDpi.toPixel(TOP_ITEM_Y);
+        var width = UDpi.toPixel(ICON_W) * CGFloat(icons.count) +
+                UDpi.toPixel(ICON_MARGIN_H) * CGFloat(icons.count + 1);
+        // 単語帳
+        textTitle = UTextView.createInstance(
+            text: UResourceManager.getStringByName("book"),
+          textSize: Int(UDpi.toPixel(TEXT_SIZE)), priority: 0,
+          alignment: UAlignment.None, multiLine: false, isDrawBG: false,
+          x: UDpi.toPixel(MARGIN_H), y: y,
+          width: width - UDpi.toPixel(MARGIN_H) * 2,
+          color: TEXT_COLOR, bgColor: TEXT_BG_COLOR)
+        
+        y += UDpi.toPixel(TEXT_SIZE + 10)
 
-//         List<ActionIcons> icons = getBookIcons();
+        var titleStr : String? = nil
+        var bodyStr : String? = nil
+        let bgColor = UIColor.white
+        for item in Items.cases {
+            switch item {
+                case .Name:  // Book名
+                    titleStr = UResourceManager.getStringByName("name")
+                    bodyStr = mBook!.getName()
+                
+                case .Comment:
+                    titleStr = UResourceManager.getStringByName("comment")
+                    bodyStr = mBook!.getComment()
+                
+                case .Count:  // カード枚数
+                    let bookId = mIcon.getTangoItem()!.getId()
+                    let count = TangoItemPosDao.countInParentType(
+                        parentType: TangoParentType.Book,
+                        parentId: bookId )
+                    let ngCount = TangoItemPosDao.countCardInBook(
+                        bookId: bookId,
+                        countType: TangoItemPosDao.BookCountType.NG)
 
-//         int width = UDpi.toPixel(ICON_W) * icons.size() +
-//                 UDpi.toPixel(ICON_MARGIN_H) * (icons.size() + 1);
-//         // 単語帳
-//         textTitle = UTextView.createInstance( mContext.getString(R.string.book),
-//                 UDpi.toPixel(TEXT_SIZE), 0,
-//                 UAlignment.None, canvas.getWidth(), false, false,
-//                 UDpi.toPixel(MARGIN_H), y, width - UDpi.toPixel(MARGIN_H) * 2, TEXT_COLOR, TEXT_BG_COLOR);
-//         y += UDpi.toPixel(TEXT_SIZE + 10);
+                    titleStr = UResourceManager.getStringByName("card_count")
 
-//         String titleStr = null;
-//         String bodyStr = null;
-//         int bgColor = Color.WHITE;
-//         for (Items item : Items.values()) {
-//             switch(item) {
-//                 case Name:  // Book名
-//                     titleStr = mContext.getString(R.string.name);
-//                     bodyStr = mBook.getName();
-//                     break;
-//                 case Comment:
-//                     titleStr = mContext.getString(R.string.comment);
-//                     bodyStr = mBook.getComment();
-//                     break;
-//                 case Count:  // カード枚数
-//                     int bookId = mIcon.getTangoItem().getId();
-//                     long count = RealmManager.getItemPosDao().countInParentType(
-//                             TangoParentType.Book, bookId );
-//                     int ngCount = RealmManager.getItemPosDao().countCardInBook(bookId,
-//                             TangoItemPosDao.BookCountType.NG);
+                    let allCount = UResourceManager.getStringByName("all_count")
+                    let countUnit = UResourceManager.getStringByName("card_count_unit")
+                    bodyStr = allCount + " : " +
+                            count.description + countUnit + "   " +
+                            UResourceManager.getStringByName("count_not_learned") +
+                            " : " + ngCount.description + countUnit
+                
+                case .Date:   // 最終学習日時
+                    let date = TangoBookHistoryDao.selectMaxDateByBook(bookId: mBook!.getId())
+                    let dateStr = (date == nil) ? " --- " :
+                            UUtil.convDateFormat(date: date!, mode: ConvDateMode.DateTime)
 
-//                     titleStr = mContext.getString(R.string.card_count);
+                    titleStr = UResourceManager.getStringByName("studied_date")
+                    bodyStr = dateStr
+                
+            }
+            // title
+            let title = UTextView.createInstance(
+                text: titleStr! ,
+                textSize: Int(UDpi.toPixel(TEXT_SIZE_S)),
+                priority: 0,
+                alignment: UAlignment.None,
+                multiLine: false, isDrawBG: false,
+                x: UDpi.toPixel(MARGIN_H), y: y, width: size.width - UDpi.toPixel(MARGIN_H),
+                color: TEXT_COLOR, bgColor: nil)
+            y += title.getHeight() + UDpi.toPixel(3)
 
-//                     String allCount = UResourceManager.getStringById(R.string.all_count);
-//                     String countUnit = UResourceManager.getStringById(R.string.card_count_unit);
-//                     bodyStr = allCount + " : " +
-//                             count + countUnit + "   " +
-//                             UResourceManager.getStringById(R.string.count_not_learned) +
-//                             " : " + ngCount + countUnit;
-//                     break;
-//                 case Date:   // 最終学習日時
-//                     Date date = RealmManager.getBookHistoryDao().selectMaxDateByBook(mBook.getId());
-//                     String dateStr = (date == null) ? " --- " :
-//                             UUtil.convDateFormat(date, ConvDateMode.DateTime);
+            // body
+            let body = UTextView.createInstance(
+                text: bodyStr!,
+                textSize: Int(UDpi.toPixel(TEXT_SIZE_S)), priority: 0,
+                alignment: UAlignment.None, multiLine: true, isDrawBG: true,
+                x: UDpi.toPixel(MARGIN_H), y: y,
+                width: size.width - UDpi.toPixel(MARGIN_H), color: TEXT_COLOR, bgColor: bgColor)
+            y += body.getHeight() + UDpi.toPixel(MARGIN_V_S)
 
-//                     titleStr = mContext.getString(R.string.studied_date);
-//                     bodyStr = dateStr;
-//                     break;
-//             }
-//             mItems[item.ordinal()] = new IconInfoItem();
-//             // title
-//             mItems[item.ordinal()].title = UTextView.createInstance( titleStr ,
-//                     UDpi.toPixel(TEXT_SIZE_S), 0,
-//                     UAlignment.None, canvas.getWidth(), false, false,
-//                     UDpi.toPixel(MARGIN_H), y, size.width - UDpi.toPixel(MARGIN_H), TEXT_COLOR, 0);
-//             y += mItems[item.ordinal()].title.getHeight() + UDpi.toPixel(3);
+            // 幅は最大サイズに合わせる
+            let _width = body.getWidth() + UDpi.toPixel(MARGIN_H) * 2;
+            if _width > width {
+                width = _width;
+            }
+            
+            mItems[item.rawValue] = IconInfoItem(title: title, body: body)
+            
+        }
+        y += UDpi.toPixel(MARGIN_V)
 
-//             // body
-//             mItems[item.ordinal()].body = UTextView.createInstance( bodyStr,
-//                     UDpi.toPixel(TEXT_SIZE_S), 0,
-//                     UAlignment.None, canvas.getWidth(), true, true,
-//                     UDpi.toPixel(MARGIN_H), y, size.width - UDpi.toPixel(MARGIN_H), TEXT_COLOR, bgColor);
-//             y += mItems[item.ordinal()].body.getHeight() + UDpi.toPixel(MARGIN_V_S);
+        // タイトルのwidthを揃える
+        for item in mItems {
+            item!.title.setWidth(width - UDpi.toPixel(MARGIN_H) * 2)
+        }
 
-//             // 幅は最大サイズに合わせる
-//             int _width = mItems[item.ordinal()].body.getWidth() + UDpi.toPixel(MARGIN_H) * 2;
-//             if (_width > width) {
-//                 width = _width;
-//             }
-//         }
-//         y += MARGIN_V;
+        // Action buttons
+        var x = UDpi.toPixel(ICON_MARGIN_H)
+        for icon in icons {
+            let image = UResourceManager.getImageWithColor(
+                imageName: icon!.imageName, color: frameColor)
+            let imageButton = UButtonImage.createButton(
+                callbacks : self, id : icon!.id.rawValue,
+                priority : 0, x : x, y : y,
+                width : UDpi.toPixel(ICON_W), height : UDpi.toPixel(ICON_W),
+                image : image!, pressedImage : nil)
+            
+            // アイコンの下に表示するテキストを設定
+            imageButton.setTitle(title: UResourceManager.getStringByName(icon!.titleName),
+                                 size: Int(UDpi.toPixel(30)),
+                                 color: UIColor.black)
 
-//         // タイトルのwidthを揃える
-//         for (IconInfoItem item : mItems) {
-//             item.title.setWidth(width - UDpi.toPixel(MARGIN_H) * 2);
-//         }
+            imageButtons.append(imageButton)
+            ULog.showRect(rect: imageButton.getRect())
 
-//         // Action buttons
-//         int x = UDpi.toPixel(ICON_MARGIN_H);
-//         for (ActionIcons icon : icons) {
-//             Bitmap image = UResourceManager.getBitmapWithColor(icon.getImageId(), frameColor);
-//             UButtonImage imageButton = UButtonImage.createButton( this,
-//                     icon.ordinal(), 0,
-//                     x, y,
-//                     UDpi.toPixel(ICON_W), UDpi.toPixel(ICON_W), image, null);
-//             // アイコンの下に表示するテキストを設定
-//             imageButton.setTitle(icon.getTitle(mContext), 30, Color.BLACK);
+            x += UDpi.toPixel(ICON_W + ICON_MARGIN_H);
+        }
+        y += UDpi.toPixel(ICON_W + MARGIN_V + 10)
 
-//             imageButtons.add(imageButton);
-//             ULog.showRect(imageButton.getRect());
+        setSize(width, y)
 
-//             x += UDpi.toPixel(ICON_W + ICON_MARGIN_H);
-//         }
-//         y += UDpi.toPixel(ICON_W + MARGIN_V + 10);
+        // Correct position
+        if ( pos.x + size.width > parentView.getWidth() - UDpi.toPixel(DLG_MARGIN)) {
+            pos.x = parentView.getWidth() - size.width - UDpi.toPixel(DLG_MARGIN)
+        }
+        if (pos.y + size.height > parentView.getHeight() - UDpi.toPixel(DLG_MARGIN)) {
+            pos.y = parentView.getHeight() - size.height - UDpi.toPixel(DLG_MARGIN)
+        }
+        updateRect()
+    }
 
-//         setSize(width, y);
+    // Book
+    public func touchEvent( vt : ViewTouch, offset : CGFloat?) -> Bool {
+        let offset = pos
 
-//         // Correct position
-//         if ( pos.x + size.width > mParentView.getWidth() - UDpi.toPixel(DLG_MARGIN)) {
-//             pos.x = mParentView.getWidth() - size.width - UDpi.toPixel(DLG_MARGIN);
-//         }
-//         if (pos.y + size.height > mParentView.getHeight() - UDpi.toPixel(DLG_MARGIN)) {
-//             pos.y = mParentView.getHeight() - size.height - UDpi.toPixel(DLG_MARGIN);
-//         }
-//         updateRect();
-//     }
+        if super.touchEvent(vt: vt, offset: offset) {
+            return true
+        }
 
-//     // Book
-//     // アイコンのリストを取得
-//     public static List<ActionIcons> getBookIcons() {
-//         LinkedList<ActionIcons> list = new LinkedList<>();
-//         list.add(ActionIcons.Open);
-//         list.add(ActionIcons.Edit);
-//         list.add(ActionIcons.Copy);
-//         list.add(ActionIcons.MoveToTrash);
-//         return list;
-//     }
+        for button in imageButtons {
+            if button!.touchEvent(vt: vt, offset: offset) {
+                return true
+            }
+        }
 
-//     public boolean touchEvent(ViewTouch vt, PointF offset) {
-//         offset = pos;
+        if super.touchEvent2(vt: vt, offset: nil) {
+            return true
+        }
 
-//         if (super.touchEvent(vt, offset)) {
-//             return true;
-//         }
+        return false
+    }
 
-//         for (UButtonImage button : imageButtons) {
-//             if (button.touchEvent(vt, offset)) {
-//                 return true;
-//             }
-//         }
+    public override func doAction() -> DoActionRet{
+        return DoActionRet.None
+    }
 
-//         if (super.touchEvent2(vt, null)) {
-//             return true;
-//         }
+    /**
+     * Callbacks
+     */
 
-//         return false;
-//     }
+    /**
+     * UButtonCallbacks
+     */
+    public override func UButtonClicked(id : Int, pressedOn : Bool) -> Bool {
+        if super.UButtonClicked(id: id, pressedOn: pressedOn) {
+            return true
+        }
 
-//     public DoActionRet doAction() {
-//         return DoActionRet.None;
-//     }
+        ULog.printMsg(TAG, "UButtonCkick:" + id.description)
+        switch ActionIconId.toEnum(id) {
+        case .Open:
+            mIconInfoCallbacks!.IconInfoOpenIcon(icon: mIcon)
+        
+        case .Edit:
+            mIconInfoCallbacks!.IconInfoEditIcon(icon: mIcon)
+        
+        case .MoveToTrash:
+            mIconInfoCallbacks!.IconInfoThrowIcon(icon: mIcon)
+        
+        case .Copy:
+            mIconInfoCallbacks!.IconInfoCopyIcon(icon: mIcon)
+        default:
+            break
+        }
+        return false
+    }
 
-//     /**
-//      * Callbacks
-//      */
+    public func UButtonLongClick(id : Int) -> Bool {
+        return false
+    }
 
-//     /**
-//      * UButtonCallbacks
-//      */
-//     public boolean UButtonClicked(int id, boolean pressedOn) {
-//         if (super.UButtonClicked(id, pressedOn)) {
-//             return true;
-//         }
-
-//         ULog.print(TAG, "UButtonCkick:" + id);
-//         switch(ActionIcons.toEnum(id)) {
-//             case Open:
-//                 mIconInfoCallbacks.IconInfoOpenIcon(mIcon);
-//                 break;
-//             case Edit:
-//                 mIconInfoCallbacks.IconInfoEditIcon(mIcon);
-//                 break;
-//             case MoveToTrash:
-//                 mIconInfoCallbacks.IconInfoThrowIcon(mIcon);
-//                 break;
-//             case Copy:
-//                 mIconInfoCallbacks.IconInfoCopyIcon(mIcon);
-//                 break;
-//         }
-//         return false;
-//     }
-
-//     public boolean UButtonLongClick(int id) {
-//         return false;
-//     }
-
- }
+}
