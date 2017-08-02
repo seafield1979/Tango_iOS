@@ -151,9 +151,7 @@ public class UMenuItem : UDrawable {
             return
         }
         
-        var drawPos = CGPoint()
-        drawPos.x = pos.x
-        drawPos.y = pos.y
+        var drawPos = CGPoint(x:pos.x, y:pos.y)
         if parentPos != nil {
             drawPos.x += parentPos!.x
             drawPos.y += parentPos!.y
@@ -179,6 +177,8 @@ public class UMenuItem : UDrawable {
             icon.draw(in: CGRect(x:drawPos.x, y:drawPos.y,
                                  width: size.width, height: size.width),
                       blendMode: CGBlendMode.sourceAtop, alpha: alpha)
+            
+            
             // タイトル
             if !isMoving && !isClosing {
                 mTextTitle?.draw(drawPos)

@@ -18,9 +18,13 @@ class TopViewController: UNViewController {
         
         newView.setViewController(self)
         
+        let haviH : CGFloat = UUtil.navigationBarHeight()
+        var _height = self.view.frame.size.height - haviH - UUtil.statusBarHeight()
+            
+        
         newView.frame = CGRect(x:0, y:0,
-                               width:self.view.frame.size.width,
-                                height:self.view.frame.size.height)
+                               width: self.view.frame.size.width,
+                                height: _height)
         self.view.addSubview(newView)
 
     }

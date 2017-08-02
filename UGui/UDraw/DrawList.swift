@@ -93,6 +93,8 @@ public class DrawList {
             let offset = obj!.getDrawOffset()
             obj!.draw(offset)
             drawId(rect: obj!.rect, priority: priority)
+            
+            print(obj.debugDescription)
         }
         return !allDone;
     }
