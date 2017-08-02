@@ -9,7 +9,12 @@
 import UIKit
 
 
-//public class PageViewTangoEdit : UPageView, UButtonCallbacks {
+
+public enum EditCardDialogMode {
+    case Create     // 新しくアイコンを作成する
+    case Edit       // 既存のアイコンを編集する
+}
+
 /**
  単語カード編集ダイアログが終了した時に呼ばれるコールバック
  */
@@ -220,14 +225,14 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         mWindows[WindowType.MenuBar.rawValue] = mMenuBar!
 
         // ULogWindow
-        if (mLogWin == nil) {
-            mLogWin = ULogWindow.createInstance( parentView: mTopView,
-                                                 type: LogWindowType.Fix,
-                                                 x: 0, y: 0,
-                                                 width: width, height: height)
-            mWindows[WindowType.Log.rawValue] = mLogWin!
-            ULog.setLogWindow(mLogWin!)
-        }
+//        if (mLogWin == nil) {
+//            mLogWin = ULogWindow.createInstance( parentView: mTopView,
+//                                                 type: LogWindowType.Fix,
+//                                                 x: 0, y: 0,
+//                                                 width: width, height: height)
+//            mWindows[WindowType.Log.rawValue] = mLogWin!
+//            ULog.setLogWindow(mLogWin!)
+//        }
     }
     
     
@@ -301,13 +306,13 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             
             case .action_card_name_a:
                 // カードアイコンの名前を英語で表示
-                MySharedPref.writeBoolean(key: MySharedPref.EditCardNameKey, value: false)
+                MySharedPref.writeBool(key: MySharedPref.EditCardNameKey, value: false)
                 mIconWinManager!.resetCardTitle()
                 mTopView.invalidate()
             
             case .action_card_name_b:
                 // カードアイコンの名前を日本語で表示
-                MySharedPref.writeBoolean(key: MySharedPref.EditCardNameKey, value: true)
+                MySharedPref.writeBool(key: MySharedPref.EditCardNameKey, value: true)
                 mIconWinManager!.resetCardTitle()
                 mTopView.invalidate()
             
@@ -772,52 +777,50 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     * EditCardDialogCallbacks
     */
     public func submitEditCard() {
-    //         if (args == nil) return;
-    
-    //         int mode = args.getInt(EditCardDialogFragment.KEY_MODE, EditCardDialogMode.Create.ordinal
-    //                 ());
-    //         if (mode == EditCardDialogMode.Create.rawValue) {
-    //             // 新規作成
-    
-    //             IconCard iconCard = addCardIcon();
-    //             if (iconCard == nil) {
-    //                 return;
-    //             }
-    //             TangoCard card = (TangoCard)iconCard.getTangoItem();
-    
-    //             // 戻り値を取得
-    //             card.setWordA(args.getString(EditCardDialogFragment.KEY_WORD_A, ""));
-    //             card.setWordB(args.getString(EditCardDialogFragment.KEY_WORD_B, ""));
-    // //            card.setComment(args.getString(EditCardDialogFragment.KEY_COMMENT, ""));
-    //             card.setColor(args.getInt(EditBookDialogFragment.KEY_COLOR, 0));
-    
-    //             iconCard.updateTitle();
-    //             iconCard.setColor(card.getColor());
-    //             iconCard.updateIconImage();
-    //             // DB更新
-    //             TangoCardDao().updateOne(card);
-    //         } else {
-    //             // 更新
-    //             TangoCard card = (TangoCard)editingIcon.getTangoItem();
-    //             card.setWordA(args.getString(EditCardDialogFragment.KEY_WORD_A, ""));
-    //             card.setWordB(args.getString(EditCardDialogFragment.KEY_WORD_B, ""));
-    // //            card.setComment(args.getString(EditCardDialogFragment.KEY_COMMENT, ""));
-    //             int color = card.getColor();
-    //             card.setColor(args.getInt(EditCardDialogFragment.KEY_COLOR, 0));
-    
-    //             // アイコンの画像を更新する
-    //             IconCard cardIcon = (IconCard)editingIcon;
-    //             if (color != card.getColor()) {
-    //                 cardIcon.setColor(card.getColor());
-    //                 cardIcon.updateIconImage();
-    //             }
-    
-    //             editingIcon.updateTitle();
-    //             // DB更新
-    //             TangoCardDao().updateOne(card);
-    //         }
-    
-    //         mTopView.invalidate();
+//         let mode = MySharedPref.readInt(EditCardDialogFragment.KEY_MODE,
+//                                         defaultValue: EditCardDialogMode.Create.rawValue)
+//         if (mode == EditCardDialogMode.Create.rawValue) {
+//             // 新規作成
+//
+//             IconCard iconCard = addCardIcon();
+//             if (iconCard == nil) {
+//                 return;
+//             }
+//             TangoCard card = (TangoCard)iconCard.getTangoItem();
+//
+//             // 戻り値を取得
+//             card.setWordA(args.getString(EditCardDialogFragment.KEY_WORD_A, ""));
+//             card.setWordB(args.getString(EditCardDialogFragment.KEY_WORD_B, ""));
+// //            card.setComment(args.getString(EditCardDialogFragment.KEY_COMMENT, ""));
+//             card.setColor(args.getInt(EditBookDialogFragment.KEY_COLOR, 0));
+//
+//             iconCard.updateTitle();
+//             iconCard.setColor(card.getColor());
+//             iconCard.updateIconImage();
+//             // DB更新
+//             TangoCardDao().updateOne(card);
+//         } else {
+//             // 更新
+//             TangoCard card = (TangoCard)editingIcon.getTangoItem();
+//             card.setWordA(args.getString(EditCardDialogFragment.KEY_WORD_A, ""));
+//             card.setWordB(args.getString(EditCardDialogFragment.KEY_WORD_B, ""));
+// //            card.setComment(args.getString(EditCardDialogFragment.KEY_COMMENT, ""));
+//             int color = card.getColor();
+//             card.setColor(args.getInt(EditCardDialogFragment.KEY_COLOR, 0));
+//
+//             // アイコンの画像を更新する
+//             IconCard cardIcon = (IconCard)editingIcon;
+//             if (color != card.getColor()) {
+//                 cardIcon.setColor(card.getColor());
+//                 cardIcon.updateIconImage();
+//             }
+//
+//             editingIcon.updateTitle();
+//             // DB更新
+//             TangoCardDao().updateOne(card);
+//         }
+//
+//         mTopView.invalidate();
     }
     
     public func cancelEditCard() {
@@ -887,6 +890,10 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     
     /**
      * IconInfoDialogCallbacks
+     */
+    /**
+     * ダイアログで表示しているアイコンの内容を編集
+     * @param icon
      */
     public func IconInfoEditIcon( icon : UIcon) {
     //         switch (icon.getType()) {

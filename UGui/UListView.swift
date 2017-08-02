@@ -103,7 +103,7 @@ public class UListView : UScrollWindow
         var y = item.getY()
         _ = mItems.remove(at: index)
         // 削除したアイテム以降のアイテムのIndexと座標を詰める
-        for i in index...mItems.count - 1 {
+        for i in index..<mItems.count {
             let _item = mItems[i]
             _item.setIndex(i)
             _item.setY(y)

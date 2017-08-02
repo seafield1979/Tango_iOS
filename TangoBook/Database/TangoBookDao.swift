@@ -52,6 +52,19 @@ public class TangoBookDao {
         
         return Array(results)
     }
+    
+    /**
+     * 要素を全て表示する
+     */
+    public static func showAll() {
+        let objects = selectAll()
+        
+        print("TangoBook num: " + objects.count.description)
+        
+        for obj in objects {
+            print(obj.description)
+        }
+    }
 
     /**
      * 変更不可なRealmのオブジェクトを変更可能なリストに変換する
@@ -141,7 +154,7 @@ public class TangoBookDao {
         book.color = 0xffffff
         book.comment = "comment:" + randVal
         var history : [UInt8] = Array(repeating: 0, count: 3)
-        for i in 0...history.count - 1 {
+        for i in 0..<history.count {
             history[i] = 1
         }
         

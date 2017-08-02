@@ -116,7 +116,7 @@ public class UTextView : UDrawable {
     
     // シンプルなTextViewを作成
     public static func createInstance(text : String, priority : Int,
-                                      canvasW : Int, isDrawBG : Bool,
+                                      isDrawBG : Bool,
                                       x : CGFloat, y : CGFloat) -> UTextView
     {
         let instance = UTextView(text:text,
@@ -259,7 +259,7 @@ public class UTextView : UDrawable {
     
     /**
      * テキストのサイズを取得する（マルチライン対応）
-     * @param canvasW
+     * @param
      * @return
      */
     public func getTextSize() -> CGSize {

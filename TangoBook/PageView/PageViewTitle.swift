@@ -211,7 +211,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
         let buttonH = UDpi.toPixel(PageViewTitle.BUTTON_H)
         x = UDpi.toPixel(PageViewTitle.MARGIN_H2)
         
-        for i in 2...buttonInfo.count - 1 {
+        for i in 2..<buttonInfo.count {
             // デバッグモードがONの場合のみDebugを表示
             let info = buttonInfo[i]
 
@@ -274,22 +274,22 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
             switch (buttonId) {
                 case .Edit:
                     _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.Edit.rawValue)
-                    break
+                
                 case .Study:
                     _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.StudyBookSelect.rawValue)
-                    break
+                
                 case .History:
                     _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.History.rawValue)
-                    break
+                
                 case .Settings:
                     _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.Settings.rawValue)
-                    break
+                
                 case .Help:
 //                    MainActivity.getInstance().showHelpTopPage()
                     break
                 case .Debug:
                     _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.Debug.rawValue)
-                    break
+                
             }
         } else {
             // ズームボタン

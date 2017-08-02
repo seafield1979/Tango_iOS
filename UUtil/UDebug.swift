@@ -11,7 +11,7 @@ import UIKit
 
 public class UDebug {
     // Debug mode
-    public static var isDebug = false
+    public static var isDebug = true
     
     // IconをまとめたブロックのRECTを描画するかどうか
     public static var DRAW_ICON_BLOCK_RECT = false
@@ -51,6 +51,6 @@ public class UDebug {
 //        // デフォルト単語帳を追加
 //        PresetBookManager.getInstance().addDefaultBooks()
 //        
-//        MySharedPref.getInstance().writeBoolean(MySharedPref.InitializeKey, true)
+//        MySharedPref.getInstance().writeBool(MySharedPref.InitializeKey, true)
     }
 }

@@ -352,7 +352,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
         drawContent(offset: _pos)
         
         // Window枠
-        drawFrame(offset: offset!)
+        drawFrame(offset: offset)
     }
     
     /**

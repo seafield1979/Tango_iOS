@@ -192,7 +192,7 @@ public extension List where T: AnyObject {
         if elements.count <= 0 {
             return
         }
-        for i in 0...elements.count - 1 {
+        for i in 0..<elements.count {
             let element = elements[i]
             if obj === element {
                 elements.remove(at: i)

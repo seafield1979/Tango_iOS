@@ -24,6 +24,11 @@ extension UIColor {
             UInt32(B * 255.0))
     }
     
+    // １６進数の文字列にして返す
+    func hexColor() -> String {
+        return String(format: "%08x", self.intColor())
+    }
+    
     func alpha() -> CGFloat {
         var R : CGFloat = 0.0
         var G : CGFloat = 0.0

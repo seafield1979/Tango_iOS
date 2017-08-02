@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TangoBook/Database/TangoItemPosDao.swift"
-            timestampString = "522943500.441945"
+            timestampString = "523352150.583657"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1212"
-            endingLineNumber = "1212"
+            startingLineNumber = "1226"
+            endingLineNumber = "1226"
             landmarkName = "updateAll(items:parentType:parentId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -113,22 +113,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TangoBook/PageView/PageViewTangoEdit.swift"
-            timestampString = "523004666.120163"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
-            landmarkName = "onBackKeyDown()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "TangoBook/Icon/IconInfoDialogCard.swift"
             timestampString = "523114104.758353"
             startingColumnNumber = "9223372036854775807"
@@ -152,6 +136,22 @@
             startingLineNumber = "180"
             endingLineNumber = "180"
             landmarkName = "updateLayout()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TangoBook/Icon/UIconWindowSub.swift"
+            timestampString = "523345725.013746"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
+            landmarkName = "drawContent(offset:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

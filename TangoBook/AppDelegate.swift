@@ -48,6 +48,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         TangoBookHistoryDao.setRealm(realm)
         TangoItemPosDao.setRealm(realm)
         TangoStudiedCardDao.setRealm(realm)
+        
+        // 初回起動時の準備
+        
+        // アプリ初期化処理
+        if (MySharedPref.readBool(MySharedPref.InitializeKey) == false) {
+            // セーブデータを初期化
+//            TangoBackupFileDao.createInitialRecords()
+            
+            // デフォルト単語帳を追加
+            PresetBookManager.getInstance().addDefaultBooks()
+            
+            MySharedPref.writeBool(key: MySharedPref.InitializeKey, value: true)
+        }
     }
 }
 

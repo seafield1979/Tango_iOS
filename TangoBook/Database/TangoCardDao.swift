@@ -39,13 +39,26 @@ public class TangoCardDao {
         // Realmに保存されてるDog型のオブジェクトを全て取得
         let results : Results = mRealm!.objects(TangoCard.self)
         
+        //　返すのはコピー。コピーでないと書き換えができない
         var ret : [TangoCard] = []
         for result in results {
             ret.append(TangoCard(value:result))
         }
         return ret
     }
-
+    
+    /**
+     * 要素を全て表示する
+     */
+    public static func showAll() {
+        let objects = selectAll()
+        
+        print("TangoCard num: " + objects.count.description)
+        
+        for obj in objects {
+            print(obj.description)
+        }
+    }
 
     /**
      * 指定の単語帳に追加されていない単語を取得
@@ -355,7 +368,7 @@ public class TangoCardDao {
         card.color = (UIColor.black).intColor()
         card.star = false
         var history : [Int] = Array(repeating: 0, count:3)
-        for i in 0...history.count - 1 {
+        for i in 0..<history.count {
             history[i] = 1
         }
         

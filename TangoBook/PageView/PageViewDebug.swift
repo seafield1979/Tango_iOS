@@ -18,9 +18,9 @@ public class PageViewDebug : UPageView, UButtonCallbacks {
     public static let TAG = "PageViewDebug"
     
     // button id
-    private static let buttonId1 = 100
+    private let buttonId1 = 100
     
-    private static let DRAW_PRIORITY = 100
+    private let DRAW_PRIORITY = 100
     
     /**
      * Propaties
@@ -81,8 +81,8 @@ public class PageViewDebug : UPageView, UButtonCallbacks {
         
         let button = UButtonText(
             callbacks: self, type: UButtonType.Press,
-            id: PageViewDebug.buttonId1, priority: PageViewDebug.DRAW_PRIORITY,
-            text: "test", x: 50, y: 100,
+            id: buttonId1, priority: DRAW_PRIORITY,
+            text: "データベース", x: 50, y: 50,
             width: width - 100, height: 100,
             textSize: 20, textColor: UIColor.white, color: UIColor.blue)
         button.addToDrawManager()
@@ -111,6 +111,13 @@ public class PageViewDebug : UPageView, UButtonCallbacks {
      */
     public func UButtonClicked(id : Int, pressedOn : Bool) -> Bool
     {
+        switch id {
+        case buttonId1:
+            // データベースデバッグページに遷移
+            _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.DebugDB.rawValue)
+        default:
+            break
+        }
         return true
     }
 }

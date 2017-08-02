@@ -137,7 +137,7 @@ public class UButton : UDrawable {
      */
     public override func getDrawOffset() -> CGPoint? {
         // 親Windowの座標とスクロール量を取得
-        return nil;
+        return CGPoint()
     }
     
     /**

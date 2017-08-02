@@ -142,7 +142,7 @@ public class MySharedPref {
      * Methods
      */
     public static func getCardName() -> Bool {
-        return readBoolean(EditCardNameKey)
+        return readBool(EditCardNameKey)
     }
     public static func getStudyMode() -> StudyMode? {
         return StudyMode.toEnum(MySharedPref.readInt(StudyModeKey))
@@ -177,7 +177,7 @@ public class MySharedPref {
     }
     
     // boolean
-    public static func writeBoolean(key : String, value: Bool) {
+    public static func writeBool(key : String, value: Bool) {
         MySharedPref.getInstance().userDefaults?.set(value, forKey: key)
     }
     
@@ -210,11 +210,11 @@ public class MySharedPref {
     }
     
     // boolean
-    public static func readBoolean(_ key : String) -> Bool {
+    public static func readBool(_ key : String) -> Bool {
         return MySharedPref.getInstance().userDefaults?.bool(forKey: key) ?? false
     }
     
-    public static func readBoolean(_ key : String, defaultValue : Bool) -> Bool? {
+    public static func readBool(_ key : String, defaultValue : Bool) -> Bool? {
         let value = MySharedPref.getInstance().userDefaults?.bool(forKey: key)
         if value == nil {
             return defaultValue

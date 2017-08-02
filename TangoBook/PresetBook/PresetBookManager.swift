@@ -57,6 +57,9 @@ public class PresetBookManager {
         return singleton!
     }
      public static func getInstance() -> PresetBookManager {
+        if singleton == nil {
+            singleton = createInstance()
+        }
         return singleton!
     }
 

@@ -264,8 +264,10 @@ public class UIconWindow : UWindow{
                                     parentId: 0, addPos: AddPos.Top)
         }
 
-        for item in items! {
-            _ = mIconManager!.addIcon(item, addPos: AddPos.Tail)
+        if items != nil {
+            for item in items! {
+                _ = mIconManager!.addIcon(item, addPos: AddPos.Tail)
+            }
         }
 
         sortIcons(animate: false)
@@ -871,7 +873,7 @@ public class UIconWindow : UWindow{
            return ret
        }
 
-       for i in 0...dstIcons.count - 1 {
+       for i in 0..<dstIcons.count {
            var dropIcon = dstIcons[i]
            if dropIcon === dragedIcon {
                continue

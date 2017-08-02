@@ -72,6 +72,20 @@ public class TangoItemPosDao {
 //         }
          return Array(results)
      }
+    
+    /**
+     * 要素を全て表示する
+     */
+    public static func showAll() {
+        let objects = selectAll()
+        
+        print("TangoBook num: " + objects.count.description)
+        
+        for obj in objects {
+            print(obj.description)
+        }
+    }
+
 
      /**
      * 指定の親以下にあるアイテムを全て取得する
@@ -285,7 +299,7 @@ public class TangoItemPosDao {
              // cardsはposでソートされていないので自前でソートする(select sort)
             var sortedCards : [TangoCard] = []
             for itemPos in cardPoses {
-                for i in 0...cards!.count - 1 {
+                for i in 0..<cards!.count {
                     let card = cards![i]
                     card.itemPos = itemPos
                     if card.id == itemPos.getItemId() {
@@ -313,7 +327,7 @@ public class TangoItemPosDao {
              // posが小さい順にソート
             var sortedBooks : [TangoBook] = []
             for itemPos in bookPoses {      // TangoItemPos
-                for i in 0...books!.count - 1 {
+                for i in 0..<books!.count {
                     let book = books![i]
                     book.itemPos = itemPos
                     if book.id == itemPos.getItemId() {
@@ -1105,7 +1119,7 @@ public class TangoItemPosDao {
         var pos = startPos
 
         try! mRealm!.write() {
-            for i in startPos...icons.count - 1 {
+            for i in startPos..<icons.count {
                 let icon = icons[i]
 
                 let tangoItem = icon.getTangoItem()

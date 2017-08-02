@@ -120,7 +120,7 @@ public class UIViewUtil {
     {
         // ボタンのテキストを生成
         var texts : [String] = []
-        for i in 0...count - 1 {
+        for i in 0..<count {
             texts.append(text + (i+1).description)
         }
         
@@ -170,7 +170,7 @@ public class UIViewUtil {
     {
         // ボタンのテキストを生成
         var texts : [String] = []
-        for i in 0...count - 1 {
+        for i in 0..<count {
             texts.append(text + (i+1).description)
         }
         

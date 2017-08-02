@@ -68,7 +68,7 @@ class UDraw {
             return
         }
         
-        for i in 0...points.count - 1 {
+        for i in 0..<points.count {
             let point = points[i]
             if i == 0 {
                 // 起点
@@ -100,7 +100,7 @@ class UDraw {
             return
         }
         
-        for i in 0...points.count - 1 {
+        for i in 0..<points.count {
             let point = points[i]
             if i == 0 {
                 // 起点
