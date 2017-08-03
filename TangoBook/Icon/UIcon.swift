@@ -277,7 +277,7 @@ public class UIcon : UDrawable {
      /**
      * アイコンを描画
      */
-    public func draw(offset : CGPoint? ) {
+    public override func draw(_ offset : CGPoint? ) {
         drawIcon(offset: offset)
 
         if isChecking {

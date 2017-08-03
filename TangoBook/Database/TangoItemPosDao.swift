@@ -304,7 +304,7 @@ public class TangoItemPosDao {
                     card.itemPos = itemPos
                     if card.id == itemPos.getItemId() {
                         sortedCards.append(card)
-                        cards!.remove(at: i)
+//                        cards!.remove(at: i)
                     }
                 }
             }

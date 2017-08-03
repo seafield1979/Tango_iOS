@@ -16,7 +16,7 @@ import UIKit
  * 単語カード
  * RealmObjectのサブクラスなのでそのままテーブルとして使用される
  */
-public class TangoCard : Object, TangoItem {
+public class TangoCard : Object, TangoItem, NSCopying {
     public dynamic var id : Int = 0
     
     public dynamic var originalId : Int = 0     // コピー元のカードのID
@@ -51,6 +51,7 @@ public class TangoCard : Object, TangoItem {
     /**
      * Constructor
      */
+    
     public static func createCard() -> TangoCard {
         let card = TangoCard()
         card.originalId = 0
@@ -78,7 +79,9 @@ public class TangoCard : Object, TangoItem {
         return card
     }
     
+    
     // コピーを作成する
+    // idが異なる別のオブジェクト
     public static func copyCard(card : TangoCard) -> TangoCard {
         let newCard = TangoCard()
         newCard.id = TangoCardDao.getNextId()
@@ -136,5 +139,21 @@ public class TangoCard : Object, TangoItem {
     }
     public func getUpdateTime() -> Date? {
         return updateTime
+    }
+    
+    // オブジェクトのコピーを返す
+    public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = TangoCard()
+        copy.id = id
+        copy.originalId = originalId
+        copy.isNew = isNew
+        copy.color = color
+        copy.wordA = wordA
+        copy.wordB = wordB
+        copy.star = star
+        copy.createTime = createTime
+        copy.updateTime = updateTime
+        
+        return copy
     }
 }

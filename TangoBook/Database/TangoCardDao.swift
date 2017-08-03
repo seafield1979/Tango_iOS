@@ -42,7 +42,7 @@ public class TangoCardDao {
         //　返すのはコピー。コピーでないと書き換えができない
         var ret : [TangoCard] = []
         for result in results {
-            ret.append(TangoCard(value:result))
+            ret.append(result.copy())
         }
         return ret
     }
@@ -420,9 +420,9 @@ public class TangoCardDao {
      * @param card
      */
     public static func updateOne(card : TangoCard ) {
-        let updateCard = mRealm!.objects(TangoCard.self).filter("id = %d", card.getId).first
+        let updateCard = mRealm!.objects(TangoCard.self).filter("id = %d", card.id).first
         if updateCard == nil {
-        return
+            return
         }
         
         try! mRealm!.write() {

@@ -50,7 +50,7 @@ public class IconInfoDialogCard : IconInfoDialog {
      */
     var isUpdate = true     // ボタンを追加するなどしてレイアウトが変更された
     private var textTitle : UTextView? = nil
-    private var mItems : [IconInfoItem?] = Array(repeating: nil, count: Items.count) as! [IconInfoItem]
+    private var mItems : [IconInfoItem?] = Array(repeating: nil, count: Items.count) as! [IconInfoItem?]
     private var mCard : TangoCard? = nil
     private var imageButtons : List<UButtonImage> = List()
 

@@ -19,7 +19,8 @@ public enum EditCardDialogMode {
  単語カード編集ダイアログが終了した時に呼ばれるコールバック
  */
 public protocol EditCardDialogCallbacks {
-    func submitEditCard()
+    func submitEditCard(mode : EditCardDialogMode,
+                        wordA : String?, wordB : String?, color : UIColor?)
     func cancelEditCard()
 }
 
@@ -364,13 +365,19 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     * Add icon
     */
     
-    // Card追加用のダイアログを表示
+    // Card追加用のモーダルViewControllerを表示
     private func addCardDialog() {
-        // todo 
-        // フラグメントの代わりにViewControllerを使用する
-//        let dialogFragment = EditCardDialogFragment.createInstance(self)
-//        dialogFragment.show(((AppCompatActivity)mContext).getSupportFragmentManager(),
-//                 "fragment_dialog");
+        // カード情報入力用のViewControllerをモーダルで表示
+        let viewController = EditCardViewController(
+            nibName: "EditCardViewController",
+            bundle: nil)
+        
+        viewController.delegate = self
+        viewController.mMode = .Create
+        
+        mTopView.parentVC!.present(viewController,
+                                   animated: true,
+                                   completion: nil)
     }
     
     // Book追加用のダイアログを表示
@@ -776,51 +783,52 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     /**
     * EditCardDialogCallbacks
     */
-    public func submitEditCard() {
-//         let mode = MySharedPref.readInt(EditCardDialogFragment.KEY_MODE,
-//                                         defaultValue: EditCardDialogMode.Create.rawValue)
-//         if (mode == EditCardDialogMode.Create.rawValue) {
-//             // 新規作成
-//
-//             IconCard iconCard = addCardIcon();
-//             if (iconCard == nil) {
-//                 return;
-//             }
-//             TangoCard card = (TangoCard)iconCard.getTangoItem();
-//
-//             // 戻り値を取得
-//             card.setWordA(args.getString(EditCardDialogFragment.KEY_WORD_A, ""));
-//             card.setWordB(args.getString(EditCardDialogFragment.KEY_WORD_B, ""));
-// //            card.setComment(args.getString(EditCardDialogFragment.KEY_COMMENT, ""));
-//             card.setColor(args.getInt(EditBookDialogFragment.KEY_COLOR, 0));
-//
-//             iconCard.updateTitle();
-//             iconCard.setColor(card.getColor());
-//             iconCard.updateIconImage();
-//             // DB更新
-//             TangoCardDao().updateOne(card);
-//         } else {
-//             // 更新
-//             TangoCard card = (TangoCard)editingIcon.getTangoItem();
-//             card.setWordA(args.getString(EditCardDialogFragment.KEY_WORD_A, ""));
-//             card.setWordB(args.getString(EditCardDialogFragment.KEY_WORD_B, ""));
-// //            card.setComment(args.getString(EditCardDialogFragment.KEY_COMMENT, ""));
-//             int color = card.getColor();
-//             card.setColor(args.getInt(EditCardDialogFragment.KEY_COLOR, 0));
-//
-//             // アイコンの画像を更新する
-//             IconCard cardIcon = (IconCard)editingIcon;
-//             if (color != card.getColor()) {
-//                 cardIcon.setColor(card.getColor());
-//                 cardIcon.updateIconImage();
-//             }
-//
-//             editingIcon.updateTitle();
-//             // DB更新
-//             TangoCardDao().updateOne(card);
-//         }
-//
-//         mTopView.invalidate();
+    public func submitEditCard(mode : EditCardDialogMode,
+                               wordA : String?, wordB : String?, color : UIColor?) {
+         if mode == EditCardDialogMode.Create {
+             // 新規作成
+
+            let iconCard : IconCard = addCardIcon()
+            
+            let card : TangoCard = iconCard.card.copy() as! TangoCard
+
+            // 戻り値を取得
+            let updateCard = card
+            updateCard.wordA = wordA
+            updateCard.wordB = wordB
+            if color != nil {
+                updateCard.color = color!.intColor()
+            }
+
+            iconCard.updateTitle()
+            if color != nil {
+                iconCard.setColor(color!)
+            }
+            iconCard.updateIconImage()
+            // DB更新
+            TangoCardDao.updateOne(card: updateCard)
+        } else {
+            // 更新
+            let card = editingIcon!.getTangoItem() as! TangoCard
+            card.wordA = wordA
+            card.wordB = wordB
+            
+            if color != nil {
+                card.color = color!.intColor()
+            }
+            
+            // アイコンの画像を更新する
+            let cardIcon = editingIcon as! IconCard
+            if color!.intColor() != card.color {
+                cardIcon.setColor(color!)
+                cardIcon.updateIconImage()
+            }
+
+            editingIcon!.updateTitle()
+            // DB更新
+            TangoCardDao.updateOne(card: card)
+        }
+        mTopView.invalidate();
     }
     
     public func cancelEditCard() {

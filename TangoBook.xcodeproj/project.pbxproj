@@ -10,10 +10,10 @@
 		8A0D6F901F306587002A1949 /* CsvParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6F8F1F306587002A1949 /* CsvParser.swift */; };
 		8A0D6FA11F317618002A1949 /* UFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6FA01F317618002A1949 /* UFileManager.swift */; };
 		8A0D6FB01F319748002A1949 /* EditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6FAE1F319748002A1949 /* EditCardViewController.swift */; };
-		8A0D6FB11F319748002A1949 /* EditCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A0D6FAF1F319748002A1949 /* EditCardViewController.xib */; };
 		8A0D6FB41F319765002A1949 /* EditBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6FB21F319765002A1949 /* EditBookViewController.swift */; };
 		8A0D6FB51F319765002A1949 /* EditBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A0D6FB31F319765002A1949 /* EditBookViewController.xib */; };
 		8A0D6FB71F31A47A002A1949 /* TangoBackupFileDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6FB61F31A47A002A1949 /* TangoBackupFileDao.swift */; };
+		8A2584AC1F3209C3002EE9E2 /* EditCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A2584AE1F3209C3002EE9E2 /* EditCardViewController.xib */; };
 		8A8522401F22514300B5B8A3 /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A85223F1F22514300B5B8A3 /* TestDatabase.swift */; };
 		8A8522441F22533000B5B8A3 /* TestDBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8522421F22533000B5B8A3 /* TestDBViewController.swift */; };
 		8A8522451F22533000B5B8A3 /* TestDBViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A8522431F22533000B5B8A3 /* TestDBViewController.xib */; };
@@ -164,10 +164,12 @@
 		8A0D6F8F1F306587002A1949 /* CsvParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CsvParser.swift; path = PresetBook/CsvParser.swift; sourceTree = "<group>"; };
 		8A0D6FA01F317618002A1949 /* UFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UFileManager.swift; sourceTree = "<group>"; };
 		8A0D6FAE1F319748002A1949 /* EditCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditCardViewController.swift; path = ViewController/EditCardViewController.swift; sourceTree = "<group>"; };
-		8A0D6FAF1F319748002A1949 /* EditCardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EditCardViewController.xib; path = ViewController/EditCardViewController.xib; sourceTree = "<group>"; };
 		8A0D6FB21F319765002A1949 /* EditBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditBookViewController.swift; path = ViewController/EditBookViewController.swift; sourceTree = "<group>"; };
 		8A0D6FB31F319765002A1949 /* EditBookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EditBookViewController.xib; path = ViewController/EditBookViewController.xib; sourceTree = "<group>"; };
 		8A0D6FB61F31A47A002A1949 /* TangoBackupFileDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TangoBackupFileDao.swift; path = TangoBook/Database/TangoBackupFileDao.swift; sourceTree = "<group>"; };
+		8A2584AD1F3209C3002EE9E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EditCardViewController.xib; sourceTree = "<group>"; };
+		8A2584BB1F320E15002EE9E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditCardViewController.strings; sourceTree = "<group>"; };
+		8A2584BC1F320E19002EE9E2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/EditCardViewController.strings; sourceTree = "<group>"; };
 		8A85223F1F22514300B5B8A3 /* TestDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDatabase.swift; path = TangoBook/Database/Test/TestDatabase.swift; sourceTree = "<group>"; };
 		8A8522421F22533000B5B8A3 /* TestDBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDBViewController.swift; path = TangoBook/Database/Test/TestDBViewController.swift; sourceTree = "<group>"; };
 		8A8522431F22533000B5B8A3 /* TestDBViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDBViewController.xib; path = TangoBook/Database/Test/TestDBViewController.xib; sourceTree = "<group>"; };
@@ -341,7 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				8A0D6FAE1F319748002A1949 /* EditCardViewController.swift */,
-				8A0D6FAF1F319748002A1949 /* EditCardViewController.xib */,
+				8A2584AE1F3209C3002EE9E2 /* EditCardViewController.xib */,
 				8A0D6FB21F319765002A1949 /* EditBookViewController.swift */,
 				8A0D6FB31F319765002A1949 /* EditBookViewController.xib */,
 			);
@@ -783,7 +785,7 @@
 				8AE08A141F24BA310024E9B7 /* TestDB6ViewController.xib in Resources */,
 				8A8522451F22533000B5B8A3 /* TestDBViewController.xib in Resources */,
 				8AB7E9191F258764005E36BB /* TestDBTopViewController.xib in Resources */,
-				8A0D6FB11F319748002A1949 /* EditCardViewController.xib in Resources */,
+				8A2584AC1F3209C3002EE9E2 /* EditCardViewController.xib in Resources */,
 				8AE08A0C1F24BA010024E9B7 /* TestDB4ViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -983,6 +985,17 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		8A2584AE1F3209C3002EE9E2 /* EditCardViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8A2584AD1F3209C3002EE9E2 /* Base */,
+				8A2584BB1F320E15002EE9E2 /* en */,
+				8A2584BC1F320E19002EE9E2 /* ja */,
+			);
+			name = EditCardViewController.xib;
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		8AB7E9631F25B43E005E36BB /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
