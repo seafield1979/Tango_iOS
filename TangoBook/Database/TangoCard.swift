@@ -141,7 +141,11 @@ public class TangoCard : Object, TangoItem, NSCopying {
         return updateTime
     }
     
+    // MARK : NSCopying 
+    
     // オブジェクトのコピーを返す
+    // Realmが返すオブジェクトに変更を加えるにはトランザクションを張らないといけない
+    // ただの構造体として値を代入したい場合はコピーを使用する
     public func copy(with zone: NSZone? = nil) -> Any {
         let copy = TangoCard()
         copy.id = id

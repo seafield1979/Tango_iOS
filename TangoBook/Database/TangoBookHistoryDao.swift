@@ -30,6 +30,20 @@ import RealmSwift
         
         return count!
     }
+    
+    /**
+     * 変更不可なRealmのオブジェクトを変更可能なリストに変換する
+     * @param list
+     * @return
+     */
+    public static func toChangeable( _ list : Results<TangoBookHistory>) -> [TangoBookHistory]
+    {
+        var ret : [TangoBookHistory] = []
+        for obj in list {
+            ret.append(obj.copy() as! TangoBookHistory)
+        }
+        return ret
+    }
 
      /**
      * 全て選択
@@ -39,7 +53,8 @@ import RealmSwift
     public static func selectAll(reverse : Bool) -> [TangoBookHistory] {
         let results = mRealm!.objects(TangoBookHistory.self)
             .sorted(byKeyPath: "studiedDateTime", ascending: !reverse)
-        return Array(results)
+        
+        return toChangeable(results)
     }
 
     /**
@@ -53,7 +68,7 @@ import RealmSwift
         let results = mRealm!.objects(TangoBookHistory.self)
             .sorted(byKeyPath: "studiedDateTime", ascending: !reverse)
         
-        let histories = Array(results)
+        let histories = toChangeable(results)
         
         if (histories.count > limit) {
             // リミット以上ならリミット数まで削減して返す
@@ -82,7 +97,7 @@ import RealmSwift
         let results = mRealm!.objects(TangoBookHistory.self)
             .filter("bookId = %d", book.id)
         
-        return Array(results)
+        return toChangeable(results)
     }
 
     /**

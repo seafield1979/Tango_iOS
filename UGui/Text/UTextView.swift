@@ -27,7 +27,7 @@ public class UTextView : UDrawable {
     /**
      * Member variables
      */
-    var text : String
+    var text : String?
     var alignment : UAlignment
     var mMargin : CGSize = CGSize()
     var textSize : Int = 0
@@ -40,10 +40,10 @@ public class UTextView : UDrawable {
     /**
      * Get/Set
      */
-    public func getText() -> String {
+    public func getText() -> String? {
         return text
     }
-    public func setText(text : String) {
+    public func setText(text : String?) {
         self.text = text;
         
         // サイズを更新
@@ -65,7 +65,7 @@ public class UTextView : UDrawable {
     /**
      * Constructor
      */
-    public init(text : String, textSize : Int, priority : Int,
+    public init(text : String?, textSize : Int, priority : Int,
                           alignment : UAlignment,
                           multiLine : Bool, isDrawBG : Bool, marginH : Bool,
                           x : CGFloat, y : CGFloat,
@@ -93,7 +93,7 @@ public class UTextView : UDrawable {
         updateSize()
     }
     
-    public static func createInstance(text: String, textSize : Int, priority : Int,
+    public static func createInstance(text: String?, textSize : Int, priority : Int,
                                       alignment : UAlignment, 
                                       multiLine : Bool, isDrawBG : Bool,
                                       x: CGFloat, y: CGFloat,
@@ -230,18 +230,15 @@ public class UTextView : UDrawable {
                 }
             }
         }
-//        if (multiLine) {
-            UDraw.drawText( text: text, alignment: _alignment, textSize: textSize,
+
+        if text != nil {
+            UDraw.drawText( text: text!, alignment: _alignment, textSize: textSize,
                             x: _pos.x, y: _pos.y, color: color!)
-//        } else {
-//            UDraw.drawTextOneLine( text, _alignment, textSize,
-//                                  _pos.x, _pos.y,
-//                                  color);
-//        }
+        }
         
         // x,yにラインを表示 for Debug
-        if (UDebug.drawTextBaseLine) {
-            UDraw.drawCheck(x: _linePos.x,y: _linePos.y,color: UIColor.red)
+        if UDebug.drawTextBaseLine {
+            UDraw.drawCheck(x: _linePos.x, y: _linePos.y, color: UIColor.red)
         }
     }
     
@@ -263,7 +260,10 @@ public class UTextView : UDrawable {
      * @return
      */
     public func getTextSize() -> CGSize {
-        return UDraw.getTextSize(text: text, textSize: textSize)
+        if text == nil {
+            return CGSize()
+        }
+        return UDraw.getTextSize(text: text!, textSize: textSize)
     }
     
     /**

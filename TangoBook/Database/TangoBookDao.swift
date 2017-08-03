@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import UIKit
+//import UIKit
 import RealmSwift
 
 /**
@@ -42,15 +42,7 @@ public class TangoBookDao {
     public static func selectAll() -> [TangoBook] {
         let results = mRealm!.objects(TangoBook.self)
         
-        // for Debug
-        if (UDebug.debugDAO) {
-            print(TAG + "TangoBook selectAll")
-            for book in results {
-                print(TAG + "id:" + book.getId().description + " name:" + book.name!)
-            }
-        }
-        
-        return Array(results)
+        return toChangeable(results)
     }
     
     /**
@@ -71,8 +63,13 @@ public class TangoBookDao {
      * @param list
      * @return
      */
-    public func toChangeable(list : [TangoBook]) -> [TangoBook] {
-        return Array(list)
+    public static func toChangeable(_ list : Results<TangoBook>) -> [TangoBook] {
+        var ret : [TangoBook] = []
+
+        for obj in list {
+            ret.append(obj.copy() as! TangoBook)
+        }
+        return ret
     }
 
     /**
@@ -97,7 +94,7 @@ public class TangoBookDao {
             return nil
         }
         
-        return Array(results)
+        return toChangeable(results)
     }
 
     /**
@@ -105,7 +102,11 @@ public class TangoBookDao {
      */
     public static func selectById(id : Int) -> TangoBook? {
         let result = mRealm!.objects(TangoBook.self).filter("id = %d", id).first
-        return result
+        if result == nil {
+            return nil
+        }
+        
+        return result!.copy() as! TangoBook
     }
 
     /**
@@ -121,7 +122,7 @@ public class TangoBookDao {
             return nil
         }
         
-        return Array(results)
+        return toChangeable(results)
     }
 
     /**

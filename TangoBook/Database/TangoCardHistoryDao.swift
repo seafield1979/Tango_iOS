@@ -35,24 +35,38 @@ public class TangoCardHistoryDao {
     }
 
     /**
+     * 変更不可なRealmのオブジェクトを変更可能なリストに変換する
+     * @param list
+     * @return
+     */
+    public static func toChangeable( _ list : Results<TangoCardHistory>) -> [TangoCardHistory]
+    {
+        var ret : [TangoCardHistory] = []
+        for obj in list {
+            ret.append(obj.copy() as! TangoCardHistory)
+        }
+        return ret
+    }
+
+    /**
      * Choice4
      */
     public static func selectAll() -> [TangoCardHistory] {
         let results = mRealm!.objects(TangoCardHistory.self)
-
-        if UDebug.debugDAO {
-            print("TangoCardHistory selectAll")
-            for history in results {
-                // todo
-                print( String(format: "cardId:%d correctNum:%d flags:%d",
-                              history.cardId,
-                              history.correctFlagNum))
-            }
-        }
-        
-        return Array(results)
+        return toChangeable(results)
      }
 
+    public static func showAll() {
+        let result = selectAll()
+        
+        print("TangoCardHistory selectAll")
+        for history in result {
+            // todo
+            print( String(format: "cardId:%d correctNum:%d flags:%d",
+                          history.cardId))
+        }
+    }
+    
      /**
      * Book情報から選択
      * @param card
@@ -62,7 +76,11 @@ public class TangoCardHistoryDao {
         let result = mRealm!.objects(TangoCardHistory.self)
             .filter("cardId = %d", card.getId())
             .first
-        return result
+        if result == nil {
+            return nil
+        }
+        
+        return result!.copy() as! TangoCardHistory
     }
 
      /**

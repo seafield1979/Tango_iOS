@@ -18,7 +18,7 @@ import RealmSwift
  * 1枚のカードにつき１レコード
  */
 
-public class TangoCardHistory : Object {
+public class TangoCardHistory : Object, NSCopying {
     /**
      * Constants
      */
@@ -31,7 +31,7 @@ public class TangoCardHistory : Object {
     public dynamic var cardId : Int = 0
     
     // 正解フラグの数(最大 CORRECT_HISTORY_MAX)
-    public dynamic var correctFlagNum : Int = 0
+//    public dynamic var correctFlagNum : Int = 0
     
     // 正解フラグ
     // Realm(Swift)では 配列をサポートしていないのでiOS版では履歴なし
@@ -56,7 +56,18 @@ public class TangoCardHistory : Object {
         return ["correctFlagsList"]
     }
 
-   
+    // オブジェクトのコピーを返す
+    // Realmが返すオブジェクトに変更を加えるにはトランザクションを張らないといけない
+    // ただの構造体として値を代入したい場合はコピーを使用する
+    public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = TangoCardHistory()
+
+        copy.cardId = cardId
+        copy.studiedDate = studiedDate
+
+        return copy
+    }
+
     /**
      * Member methods
      */
@@ -124,4 +135,5 @@ public class TangoCardHistory : Object {
 //        strBuf.append(" :new")
 //        return strBuf
 //    }
+    
 }

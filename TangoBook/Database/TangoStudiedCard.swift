@@ -17,7 +17,7 @@ import RealmSwift
  * 学習したカード１枚につき１つ記録する
  */
 
-public class TangoStudiedCard : Object {
+public class TangoStudiedCard : Object, NSCopying {
     
     public dynamic var bookHistoryId : Int = 0      // TangoBookHistory の id
     
@@ -55,5 +55,18 @@ public class TangoStudiedCard : Object {
     
     public func setBookHistoryId(bookHistoryId : Int) {
         self.bookHistoryId = bookHistoryId
+    }
+    
+    // オブジェクトのコピーを返す
+    // Realmが返すオブジェクトに変更を加えるにはトランザクションを張らないといけない
+    // ただの構造体として値を代入したい場合はコピーを使用する
+    public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = TangoStudiedCard()
+        
+        copy.bookHistoryId = bookHistoryId
+        copy.cardId = cardId
+        copy.okFlag = okFlag
+        
+        return copy
     }
 }

@@ -56,22 +56,11 @@ public class TangoItemPosDao {
      *
      * @return
      */
-     public static func selectAll() -> [TangoItemPos] {
+    public static func selectAll() -> [TangoItemPos] {
         let results = mRealm!.objects(TangoItemPos.self).sorted(byKeyPath: "pos", ascending: true)
         
-//        if (UDebug.debugDAO) {
-//            print( TAG + "TangoItem selectAll")
-//            for item in results {
-//                print("TangoItemPosDao: parentType:" + String(item.parentType)
-//                         + " parentId:" + item.getParentId()
-//                         + " type:" + item.getItemType().description
-//                         + " id:" + item.getItemId()
-//                         + " pos:" + item.getPos()
-//                 );
-//             }
-//         }
-         return Array(results)
-     }
+        return toChangeableItemPos(results)
+    }
     
     /**
      * 要素を全て表示する
@@ -101,8 +90,8 @@ public class TangoItemPosDao {
             return nil
         }
         
-         return Array(results)
-     }
+        return toChangeableItemPos(results)
+    }
 
     /**
      * あるカードの親(ホーム or 単語帳)を検索する
@@ -112,8 +101,11 @@ public class TangoItemPosDao {
             .filter("itemType = %d AND itemId = %d", TangoItemType.Card.rawValue,
                 cardId)
             .first
+        if result == nil {
+            return nil
+        }
         
-        return result
+        return result!.copy() as! TangoItemPos
      }
 
 
@@ -357,7 +349,11 @@ public class TangoItemPosDao {
         .filter("itemType = %d AND itemId = %d", TangoItemType.Card.rawValue, cardId)
         .first
         
-        return itemPos
+        if itemPos == nil {
+            return nil
+        }
+        
+        return itemPos!.copy() as! TangoItemPos
     }
 
      /**
@@ -397,7 +393,7 @@ public class TangoItemPosDao {
         let results = mRealm!.objects(TangoItemPos.self)
         .filter("parentType = %d", parentType.rawValue)
         
-         return Array(results)
+         return toChangeableItemPos(results)
      }
 
      /**
@@ -450,7 +446,7 @@ public class TangoItemPosDao {
     public static func joinWithSort(cards : [TangoCard]?,
                                     books: [TangoBook]?
                                          ) -> [TangoItem]? {
-         let minInit = 10000000
+        let minInit = 10000000
         var items : [TangoItem] = []
         
         var cards = cards
@@ -633,9 +629,6 @@ public class TangoItemPosDao {
 
     /**
      TangoCardの配列のidを配列として取得する
-     - parameter <#name#>: <##>
-     - throws: <#throw detail#>
-     - returns: <#return value#>
      */
     public static func listToIds(list : [TangoCard]) -> [Int] {
         var ids : [Int] = []
@@ -653,8 +646,13 @@ public class TangoItemPosDao {
      * @param list
      * @return
      */
-    public static func toChangeableItemPos(list : [TangoItemPos]) -> [TangoItemPos] {
-        return Array(list)
+    public static func toChangeableItemPos(_ list : Results<TangoItemPos>) -> [TangoItemPos]
+    {
+        var ret : [TangoItemPos] = []
+        for obj in list {
+            ret.append(obj.copy() as! TangoItemPos)
+        }
+        return ret
     }
 
     /**
@@ -664,9 +662,13 @@ public class TangoItemPosDao {
      * @param list
      * @return
      */
-    public static func toChangeableItem(list : [TangoItem]) -> [TangoItem] {
-        return Array(list)
-    }
+//    public static func toChangeableItem(list : [TangoItem]) -> [TangoItem] {
+//        var ret : [TangoItem] = []
+//        for obj in list {
+//            ret.append(obj as! TangoItem)
+//        }
+//        return Array(list)
+//    }
 
      /**
      * 全要素削除
@@ -1135,7 +1137,7 @@ public class TangoItemPosDao {
                     itemId = tangoItem!.getId()
                 }
 
-                var result = mRealm!.objects(TangoItemPos.self)
+                let result = mRealm!.objects(TangoItemPos.self)
                         .filter("itemType == %d AND itemId == %d", itemType, itemId)
                         .first
                 if result == nil {

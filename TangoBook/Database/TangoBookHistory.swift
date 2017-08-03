@@ -17,7 +17,7 @@ import RealmSwift
  * １つのBookに複数の履歴を持つことも可能
  */
 
-public class TangoBookHistory : Object {
+public class TangoBookHistory : Object, NSCopying {
     /**
      * Constants
      */
@@ -47,4 +47,20 @@ public class TangoBookHistory : Object {
         // titleにインデックスを貼る
         return ["bookId"]
     }
+    
+    // オブジェクトのコピーを返す
+    // Realmが返すオブジェクトに変更を加えるにはトランザクションを張らないといけない
+    // ただの構造体として値を代入したい場合はコピーを使用する
+    public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = TangoBookHistory()
+
+        copy.id = id
+        copy.bookId = bookId
+        copy.okNum = okNum
+        copy.ngNum = ngNum
+        copy.studiedDateTime = studiedDateTime
+
+        return copy
+    }
+
 }

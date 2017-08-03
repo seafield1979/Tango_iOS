@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TangoBook/Database/TangoItemPosDao.swift"
-            timestampString = "523352150.583657"
+            timestampString = "523440574.650086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1226"
-            endingLineNumber = "1226"
+            startingLineNumber = "1228"
+            endingLineNumber = "1228"
             landmarkName = "updateAll(items:parentType:parentId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -152,38 +152,6 @@
             startingLineNumber = "97"
             endingLineNumber = "97"
             landmarkName = "cancelButtonClicked(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TangoBook/PageView/PageViewTangoEdit.swift"
-            timestampString = "523428323.215892"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "571"
-            endingLineNumber = "571"
-            landmarkName = "iconClicked(icon:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TangoBook/Icon/IconCard.swift"
-            timestampString = "523428560.163803"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
-            landmarkName = "setNewFlag(newFlag:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

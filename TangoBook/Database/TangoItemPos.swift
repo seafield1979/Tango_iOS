@@ -40,7 +40,7 @@ public enum TangoParentType : Int, EnumEnumerable {
  *      ゴミ箱以下
  * posは自分が所属するグループ内での配置位置
  */
-public class TangoItemPos : Object {
+public class TangoItemPos : Object, NSCopying {
     
     // 親の種類 TangoParentType(0:ホーム / 1:単語帳 / 2:ゴミ箱)
     public dynamic var parentType : Int = TangoParentType.Home.rawValue
@@ -108,4 +108,22 @@ public class TangoItemPos : Object {
         self.itemType = type
         self.itemId = id
     }
+    
+    
+    // オブジェクトのコピーを返す
+    // Realmが返すオブジェクトに変更を加えるにはトランザクションを張らないといけない
+    // ただの構造体として値を代入したい場合はコピーを使用する
+    public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = TangoItemPos()
+        
+        copy.parentType = parentType
+        copy.parentId = parentId
+        copy.pos = pos
+        copy.itemType = itemType
+        copy.itemId = itemId
+        copy.isChecked = isChecked
+
+        return copy
+    }
+
 }

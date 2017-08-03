@@ -33,6 +33,7 @@ public class TangoCardDao {
     
     /**
      * 全要素取得
+     * @param isCopy: コピーを行うかどうか（※コピーでないと取得先でプロパティを変更できない）
      * @return nameのString[]
      */
     public static func selectAll() -> [TangoCard]{
@@ -40,11 +41,7 @@ public class TangoCardDao {
         let results : Results = mRealm!.objects(TangoCard.self)
         
         //　返すのはコピー。コピーでないと書き換えができない
-        var ret : [TangoCard] = []
-        for result in results {
-            ret.append(result.copy())
-        }
-        return ret
+        return toChangeable(results)
     }
     
     /**
@@ -72,7 +69,8 @@ public class TangoCardDao {
         if results.count == 0 {
             return nil
         }
-        return Array(results)
+        
+        return toChangeable(results)
     }
 
     /**
@@ -84,12 +82,18 @@ public class TangoCardDao {
         if searchStr == nil || searchStr!.utf8.count == 0 {
             return nil
         }
-        var ret : [TangoCard] = []
         let results = mRealm!.objects(TangoCard.self).filter("wordA contains %@", searchStr!)
         let results2 = mRealm!.objects(TangoCard.self).filter("wordB contains %@", searchStr!)
         
-        ret += Array(results)
-        ret += Array(results2)
+        //　返すのはコピー。コピーでないと書き換えができない
+        var ret : [TangoCard] = []
+        for result in results {
+            ret.append(result.copy() as! TangoCard)
+        }
+        for result in results2 {
+            ret.append(result.copy() as! TangoCard)
+        }
+
         return ret
     }
     /**
@@ -99,9 +103,8 @@ public class TangoCardDao {
      * @param bookId 指定の単語帳から取得、0なら全てのカードから取得する
      * @return
      */
-    public static func selectAtRandom(num : Int, exceptId : Int, bookId : Int) -> [TangoCard] {
-        
-    //    public List<TangoCard> selectAtRandom(int num, int exceptId, int bookId) {
+    public static func selectAtRandom(num : Int, exceptId : Int, bookId : Int) -> [TangoCard]
+    {
         var cards : [TangoCard] = []
         var results : Results<TangoCard>
         
@@ -121,7 +124,7 @@ public class TangoCardDao {
                             break
                         }
                     }
-                    cards.append(card!)
+                    cards.append(card!.copy() as! TangoCard)
                 }
             }
         } else {
@@ -140,7 +143,7 @@ public class TangoCardDao {
                         }
                     }
                     if card != nil {
-                        cards.append(card!)
+                        cards.append(card!.copy() as! TangoCard)
                     }
                 }
             }
@@ -152,7 +155,7 @@ public class TangoCardDao {
             card.wordA = "dummy"
             card.wordB = "dummy"
             for _ in cards.count...num - 1 {
-                cards.append(card)
+                cards.append(card.copy() as! TangoCard)
             }
         }
         
@@ -164,9 +167,13 @@ public class TangoCardDao {
      * @param list
      * @return
      */
-    public static func toChangeable(list : [TangoCard]) -> [TangoCard]
+    public static func toChangeable( _ list : Results<TangoCard>) -> [TangoCard]
     {
-        return Array(list)
+        var ret : [TangoCard] = []
+        for obj in list {
+            ret.append(obj.copy() as! TangoCard)
+        }
+        return ret
     }
 
     /**
@@ -223,14 +230,13 @@ public class TangoCardDao {
             i = 0
             for card in _cards {
                 if card.getId() == item.getItemId() {
-                    sortedList!.append(card)
+                    sortedList!.append(card.copy() as! TangoCard)
                     _cards.remove(at: i)
                     break
                 }
                 i += 1
             }
         }
-  
         return sortedList
     }
 
@@ -241,7 +247,11 @@ public class TangoCardDao {
         let result = mRealm!.objects(TangoCard.self)
             .filter("id = %d", id).first
         
-        return result
+        if result == nil {
+            return nil
+        }
+        
+        return result!.copy() as! TangoCard
     }
 
     /**
@@ -270,7 +280,7 @@ public class TangoCardDao {
         let results = mRealm!.objects(TangoCard.self)
             .filter("id In %@", ids)
         
-        return Array(results)
+        return toChangeable(results)
     }
 
     /**

@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 import UIKit
 
-public class TangoBook : Object, TangoItem {
+public class TangoBook : Object, TangoItem, NSCopying {
     
     public dynamic var id : Int = 0
     
@@ -187,4 +187,26 @@ public class TangoBook : Object, TangoItem {
     public func getItemType() -> TangoItemType {
         return TangoItemType.Book
     }
+    
+    // オブジェクトのコピーを返す
+    // Realmが返すオブジェクトに変更を加えるにはトランザクションを張らないといけない
+    // ただの構造体として値を代入したい場合はコピーを使用する
+    public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = TangoBook()
+        
+        copy.id = id
+        copy.name = name
+        
+        copy.comment = comment
+        copy.color = color
+        
+        copy.createTime = createTime
+        copy.updateTime = updateTime
+        copy.lastStudiedTime = lastStudiedTime
+        copy.isNew = isNew
+        copy.itemPos = itemPos
+
+        return copy
+    }
+
 }

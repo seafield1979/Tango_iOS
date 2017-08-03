@@ -163,13 +163,16 @@ public class UUtil {
      * @param text
      * @return
      */
-    public static func convString(text : String, cutNewLine : Bool, maxLines : Int, maxLength : Int) -> String
+    public static func convString(text : String?, cutNewLine : Bool, maxLines : Int, maxLength : Int) -> String?
     {
+        if text == nil {
+            return nil
+        }
         // 改行を除去
-        var _text = text
+        var _text = text!
         
         if (cutNewLine) {
-            _text = text.replacingOccurrences(of: "\n", with: "")
+            _text = _text.replacingOccurrences(of: "\n", with: "")
         }
         
         // 最大行数

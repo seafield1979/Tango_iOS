@@ -364,12 +364,15 @@ class UDraw {
     
     
     // テキストの描画サイズを取得する
-    public static func getTextSize(text: String, textSize: Int) -> CGSize
+    public static func getTextSize(text: String?, textSize: Int) -> CGSize
     {
+        if text == nil {
+            return CGSize()
+        }
         // 文字描画に使用するフォントの指定
         let font = UIFont.boldSystemFont(ofSize:CGFloat(textSize))
         
-        return text.size(attributes: [NSFontAttributeName : font])
+        return text!.size(attributes: [NSFontAttributeName : font])
     }
     
     // UIImage描画

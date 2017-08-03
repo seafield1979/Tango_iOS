@@ -30,6 +30,20 @@ public class TangoStudiedCardDao {
     public static func getNum() -> Int {
         return mRealm!.objects(TangoStudiedCard.self).count
     }
+    
+    /**
+     * 変更不可なRealmのオブジェクトを変更可能なリストに変換する
+     * @param list
+     * @return
+     */
+    public static func toChangeable( _ list : Results<TangoStudiedCard>) -> [TangoStudiedCard]
+    {
+        var ret : [TangoStudiedCard] = []
+        for obj in list {
+            ret.append(obj.copy() as! TangoStudiedCard)
+        }
+        return ret
+    }
 
     /**
     * 取得系(Selection type)
@@ -40,17 +54,18 @@ public class TangoStudiedCardDao {
     */
     public static func selectAll() -> [TangoStudiedCard] {
         let results = mRealm!.objects(TangoStudiedCard.self)
-        
-        if (UDebug.debugDAO) {
-            for card in results {
-                print( String(format: " historyId:%d cardId:%d okFlag:%@",
-                              card.getBookHistoryId(),
-                              card.getCardId(),
-                              card.okFlag.description
-                        ))
-            }
+        return toChangeable(results)
+    }
+    
+    public static func showAll() {
+        let results = selectAll()
+        for card in results {
+            print( String(format: " historyId:%d cardId:%d okFlag:%@",
+                          card.getBookHistoryId(),
+                          card.getCardId(),
+                          card.okFlag.description
+            ))
         }
-        return Array(results)
     }
 
     /**
@@ -62,17 +77,17 @@ public class TangoStudiedCardDao {
 
         let results = mRealm!.objects(TangoStudiedCard.self)
             .filter("bookHistoryId = %d", bookHistoryId)
-
-        if (UDebug.debugDAO) {
-            for card in results {
-                print(" historyId:%d  cardId:%d  okFlag:%@",
-                      card.getBookHistoryId(),
-                      card.getCardId(),
-                      card.isOkFlag().description
-                )
-            }
-        }
-        return Array(results)
+//
+//        if (UDebug.debugDAO) {
+//            for card in results {
+//                print(" historyId:%d  cardId:%d  okFlag:%@",
+//                      card.getBookHistoryId(),
+//                      card.getCardId(),
+//                      card.isOkFlag().description
+//                )
+//            }
+//        }
+        return toChangeable(results)
     }
 
     /**

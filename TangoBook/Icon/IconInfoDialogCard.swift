@@ -50,7 +50,7 @@ public class IconInfoDialogCard : IconInfoDialog {
      */
     var isUpdate = true     // ボタンを追加するなどしてレイアウトが変更された
     private var textTitle : UTextView? = nil
-    private var mItems : [IconInfoItem?] = Array(repeating: nil, count: Items.count) as! [IconInfoItem?]
+    private var mItems : [IconInfoItem?] = Array(repeating: nil, count: Items.count) 
     private var mCard : TangoCard? = nil
     private var imageButtons : List<UButtonImage> = List()
 
@@ -192,7 +192,7 @@ public class IconInfoDialogCard : IconInfoDialog {
                
                 case .Comment:
                     titleStr = UResourceManager.getStringByName("comment")
-                    bodyStr = UUtil.convString(text: mCard!.comment!, cutNewLine: false, maxLines: 2, maxLength: 0)
+                    bodyStr = UUtil.convString(text: mCard!.comment, cutNewLine: false, maxLines: 2, maxLength: 0)
                     if bodyStr == nil || bodyStr!.characters.count == 0 {
                         continue;
                     }
@@ -225,7 +225,7 @@ public class IconInfoDialogCard : IconInfoDialog {
 
             // body
             let bodyView = UTextView.createInstance(
-               text : bodyStr!, textSize : fontSize, priority : 0,
+               text : bodyStr, textSize : fontSize, priority : 0,
                alignment : UAlignment.None,
                multiLine : true, isDrawBG : true,
                x : UDpi.toPixel(MARGIN_H),
