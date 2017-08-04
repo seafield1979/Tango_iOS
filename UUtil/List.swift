@@ -209,4 +209,18 @@ public extension List where T: AnyObject {
     }
 }
 
-
+// descriptionを使用できるオブジェクト限定
+public extension List where T: CustomStringConvertible {
+    public var description : String {
+        get {
+            if elements.count == 0 {
+                return ""
+            }
+            var str = ""
+            for element in elements {
+                str += element.description + "\n"
+            }
+            return str
+        }
+    }
+}

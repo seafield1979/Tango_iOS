@@ -55,7 +55,7 @@ public enum IconSortMode : Int, EnumEnumerable {
  * ViewのonDrawで描画するアイコンの情報
  *  ※抽象クラス
  */
-public class UIcon : UDrawable {
+public class UIcon : UDrawable, CustomStringConvertible {
 
      /**
      * Constants
@@ -487,7 +487,22 @@ public class UIcon : UDrawable {
         // 抽象メソッド
         return false
     }
- }
+    
+    public var description: String {
+        get {
+            let item = getTangoItem()
+            if item == nil {
+                return "none"
+            }
+            
+            let itemPos = item!.getItemPos()
+            if let _itemPos = itemPos {
+                return String(format:"iconType:%d title:%@ parentType:%d parentId:%d pos:%d",item!.getItemType().rawValue, item!.getTitle()!, _itemPos.parentType, _itemPos.parentId, _itemPos.pos)
+            }
+            return ""
+        }
+    }
+}
 
 
 

@@ -139,7 +139,11 @@ public class TangoBookDao {
         // 位置情報を追加（単語帳はホームにしか作れないので作成場所にホームを指定）
         let itemPos = TangoItemPosDao.addOne(item: book, parentType: TangoParentType
             .Home, parentId: 0, addPos: addPos)
-        book.itemPos = itemPos
+        
+        // 書き換えられるようにコピーを作成
+        let copy = itemPos.copy() as! TangoItemPos
+        
+        book.itemPos = copy
     }
 
     /**

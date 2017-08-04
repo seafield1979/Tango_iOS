@@ -260,7 +260,7 @@ public class TangoItemPosDao {
             return nil
         }
 
-        let itemPoses = Array(_itemPoses!)
+        let itemPoses = toChangeableItemPos(_itemPoses!)
 
         // 格納先
         var items : [TangoItem]? = nil
@@ -293,16 +293,11 @@ public class TangoItemPosDao {
             for itemPos in cardPoses {
                 for i in 0..<cards!.count {
                     let card = cards![i]
-                    card.itemPos = itemPos
                     if card.id == itemPos.getItemId() {
+                        card.itemPos = itemPos
                         sortedCards.append(card)
-//                        cards!.remove(at: i)
                     }
                 }
-            }
-            // posが重複していた等の理由でcardsが余っていたらまとめてsortedCardsに追加
-            for card in cards! {
-                sortedCards.append(card)
             }
             cards = sortedCards
          } else {
@@ -335,11 +330,12 @@ public class TangoItemPosDao {
          }
 
         // posの順にリストを作成
-        var sortMode = sortMode
         if sortMode == IconSortMode.None {
-            sortMode = IconSortMode.TitleAsc
+            items = joinWithSort(cards: cards!, books: books!)
+            
+        } else {
+            items = joinWithSortMode(cards: cards!, books: books!, sortMode: sortMode)
         }
-        items = joinWithSortMode(cards: cards!, books: books!, sortMode: sortMode)
 
         return items
     }
@@ -437,7 +433,7 @@ public class TangoItemPosDao {
      }
 
      /**
-     * ３種類のアイテムリストを結合＆posが小さい順にソートする
+     * 2種類のアイテムリストを結合＆posが小さい順にソートする
      *
      * @param cards
      * @param books
@@ -447,7 +443,7 @@ public class TangoItemPosDao {
                                     books: [TangoBook]?
                                          ) -> [TangoItem]? {
         let minInit = 10000000
-        var items : [TangoItem] = []
+        let items : List<TangoItem> = List()
         
         var cards = cards
         var books = books
@@ -465,73 +461,83 @@ public class TangoItemPosDao {
         var poses : [Int] = Array(repeating: 0, count: 2)
 
         
-         // 各アイテムの先頭のposを取得する
-         if indexs[0] < cards!.count {
-             poses[0] = cards![indexs[0]].getPos()
-         } else {
-             poses[0] = minInit
-         }
+        // 各アイテムの先頭のposを取得する
+        if indexs[0] < cards!.count {
+            poses[0] = cards![indexs[0]].getPos()
+        } else {
+            poses[0] = minInit
+        }
 
-         if indexs[1] < books!.count {
-             poses[1] = books![indexs[1]].getPos()
-         } else {
-             poses[1] = minInit
-         }
+        if indexs[1] < books!.count {
+            poses[1] = books![indexs[1]].getPos()
+        } else {
+            poses[1] = minInit
+        }
 
-         let totalCount = cards!.count + books!.count
-         var count = 0
+        let totalCount = cards!.count + books!.count
+        var count = 0
 
-         while (true) {
-             // 各アイテムリストの先頭のposを取得する
-             var posMin = minInit
-             var gotTypeIndex = 0
-             for i in 0...1 {
-                 if posMin > poses[i] {
-                     posMin = poses[i]
-                     gotTypeIndex = i
-                 }
-             }
-             switch gotTypeIndex {
-                 case 0:
-                     if indexs[0] < cards!.count {
-                         let card = cards![indexs[0]]
-                         card.setPos(pos: items.count)
-                         items.append(card)
-
-                         // 取得したアイテムを持つリストを１つすすめる
-                         indexs[gotTypeIndex] += 1
-                         count += 1
-                         if indexs[0] < cards!.count {
-                             poses[0] = cards![indexs[0]].getPos()
-                         } else {
-                             poses[0] = minInit
-                         }
-                     }
-                 case 1:
-                     if indexs[1] < books!.count {
-                         let book = books![indexs[1]]
-                        book.setPos(pos: items.count)
-                         items.append(book)
-                     }
-
-                     indexs[1] += 1
-                     count += 1
-                     if indexs[1] < books!.count {
-                         poses[1] = books![indexs[gotTypeIndex]].getPos()
-                     } else {
-                         poses[1] = 100000000
-                     }
-             default:
-                break
+        while (true) {
+            // 各アイテムリストの先頭のposを取得する
+            var posMin = minInit
+            var gotTypeIndex = 0
+            for i in 0...1 {
+                if posMin > poses[i] {
+                    posMin = poses[i]
+                    gotTypeIndex = i
+                }
             }
+            switch gotTypeIndex {
+                case 0:
+                    if indexs[0] < cards!.count {
+                        let card = cards![indexs[0]]
+                        card.setPos(pos: items.count + 1)
+                        items.append(card)
 
-             // 全ての要素をチェックし終わったら終了
-            if count >= totalCount {
-                break
-            }
-         }
-         return items
-     }
+                        // 取得したアイテムを持つリストを１つすすめる
+                        indexs[0] += 1
+                        count += 1
+                        if indexs[0] < cards!.count {
+                            poses[0] = cards![indexs[0]].getPos()
+                        } else {
+                            poses[0] = minInit
+                        }
+                    }
+                case 1:
+                    if indexs[1] < books!.count {
+                        let book = books![indexs[1]]
+                       book.setPos(pos: items.count + 1)
+                        items.append(book)
+                    }
+
+                    indexs[1] += 1
+                    count += 1
+                    if indexs[1] < books!.count {
+                        poses[1] = books![indexs[gotTypeIndex]].getPos()
+                    } else {
+                        poses[1] = 100000000
+                    }
+            default:
+               break
+           }
+
+            // 全ての要素をチェックし終わったら終了
+           if count >= totalCount {
+               break
+           }
+        }
+        
+//        for item in items {
+//            let pos = item!.getItemPos()
+//            if pos == nil {
+//                continue
+//            }
+//            print( String(format:"itemType:%d itemPos:%d title:%@ parentType:%d parentId:%d pos:%d", item!.getItemType().rawValue, item!.getPos(), item!.getTitle()!, pos!.parentType, pos!.parentId, pos!.pos))
+//
+//        }
+        
+        return items.toArray()
+    }
 
      /**
      * 指定の方法でCardとBookのリストをソート＆結合する
@@ -1075,15 +1081,19 @@ public class TangoItemPosDao {
      * @param oldPos
      * @param newPos
      */
-    public static func updatePos(oldPos : Int, newPos : Int) {
+    public static func updatePos(oldPos : Int, newPos : Int, isTransaction : Bool = false) {
         let result = mRealm!.objects(TangoItemPos.self)
             .filter("pos = %d", oldPos)
             .first
         if result == nil {
             return
         }
-
-        try! mRealm!.write() {
+        
+        if isTransaction {
+            try! mRealm!.write() {
+                result!.pos = newPos
+            }
+        } else {
             result!.pos = newPos
         }
     }
@@ -1220,7 +1230,6 @@ public class TangoItemPosDao {
         if results.count == 0 {
             return
         }
-
         
         try! mRealm!.write() {
             // いったんクリア
@@ -1420,22 +1429,29 @@ public class TangoItemPosDao {
      */
     public static func saveIcons( icons: [UIcon], parentType : TangoParentType,
                                   parentId : Int)
-     {
-        var items : [TangoItem] = []
+     {  
+        var pos = 0
+        
+        // トランザクション開始
+        try! URealmManager.getRealm()!.write() {
+        
+            for icon in icons {
+                let item = icon.getTangoItem()
+                if item == nil && icon.getType() == IconType.Trash {
 
-         var pos = 0
-         for icon in icons {
-             let item = icon.getTangoItem()
-             if item == nil && icon.getType() == IconType.Trash {
+                } else {
+                    let oldPos = icon.getTangoItem()!.getItemPos()!.pos
+                    print("oldPos:" + oldPos.description + " pos:" + pos.description)
+                    if oldPos != pos {
+                        icon.getTangoItem()!.getItemPos()!.pos = pos
+                        TangoItemPosDao.updatePos(oldPos: oldPos, newPos: pos, isTransaction: false)
+                    }
+                }
+                pos += 1
+            }
+        }
 
-             } else {
-                 items.append(item!)
-                 icon.getTangoItem()?.getItemPos()?.pos = pos
-             }
-             pos += 1
-         }
-
-        TangoItemPosDao.updateAll(items: items, parentType: parentType, parentId: parentId)
+       //TangoItemPosDao.updateAll(items: items, parentType: parentType, parentId: parentId)
      }
 
      /**
@@ -1553,4 +1569,26 @@ public class TangoItemPosDao {
 //         }
 //     }
 // }
+    
+    
+    // MARK : for Debug
+    // ホームにあるアイコンの位置を修正
+    // posが重複した場合などに呼び出す
+    public static func correctHomePos() {
+        let results = mRealm!.objects(TangoItemPos.self)
+            .filter("parentType = %d AND parentId = %d", TangoParentType.Home.rawValue, 0)
+            .sorted(byKeyPath: "pos", ascending: true)
+        
+        if results.count == 0 {
+            return
+        }
+        
+        var i = 1
+        try! mRealm!.write() {
+            for item in results {
+                item.pos = i
+                i += 1
+            }
+        }
+    }
 }

@@ -94,7 +94,7 @@ public class DrawList {
             obj!.draw(offset)
             drawId(rect: obj!.rect, priority: priority)
             
-            print(obj.debugDescription)
+//            print("DrawList:draw():" + obj.debugDescription)
         }
         return !allDone;
     }

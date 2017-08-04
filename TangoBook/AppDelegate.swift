@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // データベース(Realm)初期化
         let realm = try! Realm()
+        URealmManager.setRealm(realm)
         TangoCardDao.setRealm(realm)
         TangoCardHistoryDao.setRealm(realm)
         TangoBookDao.setRealm(realm)

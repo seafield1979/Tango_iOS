@@ -160,4 +160,16 @@ public class TangoCard : Object, TangoItem, NSCopying {
         
         return copy
     }
+    
+    // MARK: CustomStringConvertible
+//    public static var description: String {
+//        // MARK: CustomStringConvertible
+//        get {
+//            let pos = getItemPos()
+//            if pos == nil {
+//                return "none"
+//            }
+//            return String(format:"itemType:%d itemPos:%d title:%@ parentType:%d parentId:%d pos:%d", self.getItemType(), self.getPos, self.getTitle(), pos!.parentType, )
+//        }
+//    }
 }

@@ -13,6 +13,7 @@
 		8A0D6FB41F319765002A1949 /* EditBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6FB21F319765002A1949 /* EditBookViewController.swift */; };
 		8A0D6FB71F31A47A002A1949 /* TangoBackupFileDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6FB61F31A47A002A1949 /* TangoBackupFileDao.swift */; };
 		8A2584AC1F3209C3002EE9E2 /* EditCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A2584AE1F3209C3002EE9E2 /* EditCardViewController.xib */; };
+		8A6DA4E41F346D29000F4057 /* URealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DA4E31F346D29000F4057 /* URealmManager.swift */; };
 		8A8522401F22514300B5B8A3 /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A85223F1F22514300B5B8A3 /* TestDatabase.swift */; };
 		8A8522441F22533000B5B8A3 /* TestDBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8522421F22533000B5B8A3 /* TestDBViewController.swift */; };
 		8A8522451F22533000B5B8A3 /* TestDBViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A8522431F22533000B5B8A3 /* TestDBViewController.xib */; };
@@ -168,6 +169,7 @@
 		8A2584AD1F3209C3002EE9E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EditCardViewController.xib; sourceTree = "<group>"; };
 		8A2584BB1F320E15002EE9E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditCardViewController.strings; sourceTree = "<group>"; };
 		8A2584BC1F320E19002EE9E2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/EditCardViewController.strings; sourceTree = "<group>"; };
+		8A6DA4E31F346D29000F4057 /* URealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URealmManager.swift; path = TangoBook/Database/URealmManager.swift; sourceTree = "<group>"; };
 		8A85223F1F22514300B5B8A3 /* TestDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDatabase.swift; path = TangoBook/Database/Test/TestDatabase.swift; sourceTree = "<group>"; };
 		8A8522421F22533000B5B8A3 /* TestDBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDBViewController.swift; path = TangoBook/Database/Test/TestDBViewController.swift; sourceTree = "<group>"; };
 		8A8522431F22533000B5B8A3 /* TestDBViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDBViewController.xib; path = TangoBook/Database/Test/TestDBViewController.xib; sourceTree = "<group>"; };
@@ -694,6 +696,7 @@
 				8AF7819F1F1F445500FC4EF2 /* TangoCardHistory.swift */,
 				8AF781A41F1F445500FC4EF2 /* TangoStudiedCard.swift */,
 				8AF781B51F1F44B400FC4EF2 /* TangoItem.swift */,
+				8A6DA4E31F346D29000F4057 /* URealmManager.swift */,
 			);
 			name = Database;
 			sourceTree = "<group>";
@@ -899,6 +902,7 @@
 				8AE08A9C1F2580D00024E9B7 /* UView.swift in Sources */,
 				8AF781AE1F1F445500FC4EF2 /* TangoCardHistory.swift in Sources */,
 				8AE08A9D1F2580D00024E9B7 /* UDialogWindow.swift in Sources */,
+				8A6DA4E41F346D29000F4057 /* URealmManager.swift in Sources */,
 				8AE08A9B1F2580D00024E9B7 /* URect.swift in Sources */,
 				8AE08AC01F2580E00024E9B7 /* UIColor+ex.swift in Sources */,
 				8AB7E9131F2583F4005E36BB /* UPageViewManager.swift in Sources */,

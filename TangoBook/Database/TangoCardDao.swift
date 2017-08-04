@@ -346,7 +346,11 @@ public class TangoCardDao {
             parentId: parentId,
             addPos: addPos,
             transaction: transaction)
-        card.setItemPos(itemPos: itemPos)
+        
+        // 書き換えられるようにコピーを作成
+        let copy = itemPos.copy() as! TangoItemPos
+        
+        card.setItemPos(itemPos: copy)
     }
 
     /**

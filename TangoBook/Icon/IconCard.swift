@@ -79,7 +79,7 @@ public class IconCard : UIcon {
         } else {
             drawPos = pos
         }
-        var alpha : CGFloat = 0
+        var alpha : CGFloat = 1.0
         
         if (isLongTouched || isTouched || isDroped) {
             // 長押し、タッチ、ドロップ中はBGを表示

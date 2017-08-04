@@ -744,6 +744,7 @@ public class UIconWindow : UWindow{
         mIconManager!.setDropedIcon(dropedIcon: nil)
 
         let srcIcons : List<UIcon>? = getIcons()
+       
         for window in windows!.getWindows()! {
             // Windowの領域外ならスキップ
             if !(window!.rect.contains(x: vt.x, y: vt.y)){
@@ -819,6 +820,9 @@ public class UIconWindow : UWindow{
 
                     // データベース更新
                     if self === window {
+                        // debug
+                        print( srcIcons!.description)
+                        
                         TangoItemPosDao.saveIcons(icons: srcIcons!.toArray(),
                                                   parentType: parentType,
                                                   parentId: parentId)

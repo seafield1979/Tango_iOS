@@ -39,6 +39,9 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
         case RescureNoParentItems = "RescureNoParentItems"
         case BackupFile = "BackupFile"
         case ClearAll = "ClearAll"        // 全てのDBを空にする
+        case Test1 = "Test1"
+        case Test2 = "Tets2"
+        case Test3 = "Test3"
     }
     
 
@@ -107,6 +110,18 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
         mDialog!.addCloseButton(text: "close")
     }
     
+    private func test1() {
+        TangoItemPosDao.correctHomePos()
+    }
+    
+    private func test2() {
+        
+    }
+    
+    private func test3() {
+        
+    }
+    
     /**
      * Callbacks
      */
@@ -137,6 +152,16 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
             break
         case .ClearAll:
             showConfirmDialog()
+            
+        case .Test1:
+            test1()
+            
+        case .Test2:
+            test2()
+            
+        case .Test3:
+            test3()
+            
         default:
             break
         }
@@ -226,4 +251,5 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
         }
         return true
     }
+    
 }

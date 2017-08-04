@@ -229,15 +229,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             parentW: width, parentH: height, bgColor: nil)
         mWindows[WindowType.MenuBar.rawValue] = mMenuBar!
 
-        // ULogWindow
-//        if (mLogWin == nil) {
-//            mLogWin = ULogWindow.createInstance( parentView: mTopView,
-//                                                 type: LogWindowType.Fix,
-//                                                 x: 0, y: 0,
-//                                                 width: width, height: height)
-//            mWindows[WindowType.Log.rawValue] = mLogWin!
-//            ULog.setLogWindow(mLogWin!)
-//        }
     }
     
     
@@ -960,16 +951,17 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
      * アイコンを開く
      */
     public func IconInfoOpenIcon(icon : UIcon) {
-    //         if (mIconWinManager!.getSubWindow().isShow() == false ||
-    //                 icon != mIconWinManager!.getSubWindow().getParentIcon())
-    //         {
-    //             openIcon(icon);
-    //         }
-    
-    //         if (mIconInfoDlg != nil) {
-    //             mIconInfoDlg.closeWindow();
-    //             mIconInfoDlg = nil;
-    //         }
+        if mIconWinManager!.getSubWindow().isShow == false ||
+                icon !== mIconWinManager!.getSubWindow().getParentIcon()
+        {
+            openIcon(icon: icon)
+        }
+
+        // アイコン情報ダイアログが表示されていたら閉じる
+        if mIconInfoDlg != nil {
+            mIconInfoDlg!.closeWindow()
+            mIconInfoDlg = nil
+        }
     }
     
     /**
