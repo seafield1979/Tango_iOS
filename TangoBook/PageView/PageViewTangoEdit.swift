@@ -8,9 +8,12 @@
 
 import UIKit
 
-
-
 public enum EditCardDialogMode {
+    case Create     // 新しくアイコンを作成する
+    case Edit       // 既存のアイコンを編集する
+}
+
+public enum EditBookDialogMode {
     case Create     // 新しくアイコンを作成する
     case Edit       // 既存のアイコンを編集する
 }
@@ -28,7 +31,8 @@ public protocol EditCardDialogCallbacks {
  単語帳編集ダイアログが終了した時に呼ばれるコールバック
  */
 public protocol EditBookDialogCallbacks {
-    func submitEditBook()
+    func submitEditBook(mode : EditBookDialogMode,
+                        name : String?, comment : String?, color : UIColor?)
     func cancelEditBook()
 }
 
@@ -382,11 +386,17 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     
     // Book追加用のダイアログを表示
     private func addBookDialog() {
-        // todo
-//        let dialogFragment = EditBookDialogFragment.createInstance(self);
-//
-//        dialogFragment.show(((AppCompatActivity)mContext).getSupportFragmentManager(),
-//                "fragment_dialog");
+        // カード情報入力用のViewControllerをモーダルで表示
+        let viewController = EditBookViewController(
+            nibName: "EditBookViewController",
+            bundle: nil)
+        
+        viewController.delegate = self
+        viewController.mMode = .Create
+        
+        mTopView.parentVC!.present(viewController,
+                                   animated: true,
+                                   completion: nil)
     }
     
      // ダミーのCardを追加
@@ -485,6 +495,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
              // 親の単語帳アイコンのアイコンリストにも追加
 
         } else {
+            // メインウィンドウに追加
             window = mIconWinManager!.getMainWindow()!
             iconManager = window.getIconManager()!
             cardIcon = iconManager.addNewIcon(type: IconType.Card,
@@ -498,14 +509,16 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     }
     
     // book
-    private func addBookIcon() {
+    private func addBookIcon() -> IconBook? {
         let iconManager = mIconWinManager!.getMainWindow()!.getIconManager()
-        _ = iconManager!.addNewIcon(type: IconType.Book,
+        let iconBook = iconManager!.addNewIcon(type: IconType.Book,
                                 parentType: TangoParentType.Home,
-                                parentId: 0, addPos: AddPos.Tail)
+                                parentId: 0, addPos: AddPos.Tail) as! IconBook
         mIconWinManager!.getMainWindow()!.sortIcons(animate: true)
 
         mTopView.invalidate()
+        
+        return iconBook
     }
     
     /**
@@ -596,7 +609,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         } else {
             switch icon.getType() {
             case .Card:
-                _ = IconInfoDialogCard.createInstance(
+                mIconInfoDlg = IconInfoDialogCard.createInstance(
                     parentView : mTopView, iconInfoDialogCallbacks : self, windowCallbacks : self,
                     icon : icon, x : x, y : y)
                 // newフラグをクリア
@@ -790,10 +803,8 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
             let iconCard : IconCard = addCardIcon()
             
-            let card : TangoCard = iconCard.card.copy() as! TangoCard
-
             // 戻り値を取得
-            let updateCard = card
+            let updateCard = iconCard.card
             updateCard.wordA = wordA
             updateCard.wordB = wordB
             if color != nil {
@@ -839,57 +850,58 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     /**
      * EditBookDialogCallbacks
      */
-    public func submitEditBook() {
-    //         if (args == nil) return;
-    
-    //         int mode = args.getInt(EditCardDialogFragment.KEY_MODE, EditCardDialogMode.Create.ordinal
-    //                 ());
-    //         if (mode == EditCardDialogMode.Create.rawValue) {
-    //             // 新たにアイコンを追加する
-    //             UIconManager iconManager = mIconWinManager!.getMainWindow().getIconManager();
-    //             IconBook bookIcon = (IconBook) (iconManager.addNewIcon(
-    //                     IconType.Book, TangoParentType.Home, 0, AddPos.Tail));
-    //             if (bookIcon == nil) {
-    //                 return;
-    //             }
-    //             TangoBook book = (TangoBook) bookIcon.getTangoItem();
-    
-    //             // 戻り値を取得
-    //             book.setName(args.getString(EditBookDialogFragment.KEY_NAME, ""));
-    //             book.setComment(args.getString(EditBookDialogFragment.KEY_COMMENT, ""));
-    //             book.setColor(args.getInt(EditBookDialogFragment.KEY_COLOR, 0));
-    //             bookIcon.updateTitle();
-    
-    //             bookIcon.setColor(book.getColor());
-    //             bookIcon.updateIconImage();
-    
-    //             // DB更新
-    //             TangoBookDao().updateOne(book);
-    //         } else {
-    //             // 既存のアイコンを更新する
-    
-    //             IconBook bookIcon = (IconBook)editingIcon;
-    //             TangoBook book = (TangoBook)bookIcon.getTangoItem();
-    
-    //             book.setName(args.getString(EditBookDialogFragment.KEY_NAME, ""));
-    // //            book.setComment(args.getString(EditCardDialogFragment.KEY_COMMENT, ""));
-    //             int color = book.getColor();
-    //             book.setColor(args.getInt(EditBookDialogFragment.KEY_COLOR, 0));
-    
-    //             // アイコンの画像を更新する
-    //             if (color != book.getColor()) {
-    //                 bookIcon.setColor(book.getColor());
-    //                 bookIcon.updateIconImage();
-    //             }
-    
-    //             editingIcon.updateTitle();
-    //             // DB更新
-    //             TangoBookDao().updateOne(book);
-    //         }
-    
-    //         // アイコン整列
-    //         mIconWinManager!.getMainWindow().sortIcons(animate: false);
-    //         mTopView.invalidate();
+    public func submitEditBook(mode : EditBookDialogMode,
+                               name : String?, comment : String?, color : UIColor?)
+    {
+        if mode == EditBookDialogMode.Create {
+            // 新たにアイコンを追加する
+            let iconManager = mIconWinManager!.getMainWindow()!.getIconManager()
+            let bookIcon = iconManager!.addNewIcon(
+                type: IconType.Book,
+                parentType: TangoParentType.Home,
+                parentId: 0,
+                addPos: AddPos.Tail) as! IconBook
+            
+            let book = bookIcon.book
+
+            // 戻り値を取得
+            book!.name = name
+            book!.comment = comment
+            if color != nil {
+                book!.color = color!.intColor()
+            }
+            bookIcon.updateTitle()
+
+            if color!.intColor() != book!.color {
+                bookIcon.setColor(color!)
+                bookIcon.updateIconImage()
+            }
+
+            // DB更新
+            TangoBookDao.updateOne(book: book!)
+        } else {
+            // 既存のアイコンを更新する
+
+            let bookIcon = editingIcon!
+            let book = editingIcon!.getTangoItem() as! TangoBook
+
+            book.name = name
+            book.comment = comment
+            if color != nil {
+                book.setColor(color: color!.intColor())
+                // アイコンの画像を更新する
+                bookIcon.setColor(color!)
+                bookIcon.updateIconImage()
+            }
+
+            bookIcon.updateTitle();
+            // DB更新
+            TangoBookDao.updateOne(book: book)
+        }
+
+        // アイコン整列
+        mIconWinManager!.getMainWindow()!.sortIcons(animate: false);
+        mTopView.invalidate()
     }
     
     public func cancelEditBook() {

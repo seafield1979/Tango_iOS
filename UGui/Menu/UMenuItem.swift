@@ -96,7 +96,7 @@ public class UMenuItem : UDrawable {
             x: x, y: y, width: 0, color: color, bgColor: bgColor)
         
         mShowTitle = true
-        mTextTitle?.setMargin( 15, 15)
+        mTextTitle?.setMargin( UDpi.toPixel(7), UDpi.toPixel(7))
     }
     
     /**

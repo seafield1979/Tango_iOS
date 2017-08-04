@@ -181,8 +181,8 @@ public class UDrawable {
     {
         return CGRect(x:rect.x + offset.x - frameWidth,
                       y:rect.y + offset.y - frameWidth,
-                      width:rect.width + frameWidth,
-                      height:rect.height + frameWidth)
+                      width:rect.width + frameWidth * 2,
+                      height:rect.height + frameWidth * 2)
     }
     
     public func getColor() -> UIColor {

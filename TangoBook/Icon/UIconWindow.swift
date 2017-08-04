@@ -397,7 +397,7 @@ public class UIconWindow : UWindow{
         // 選択中のアイコンに枠を表示する
         if mIconManager!.getSelectedIcon() != nil {
             UDraw.drawRoundRectFill(
-                rect: mIconManager!.getSelectedIcon()!.getRectWithOffset(offset: _offset, frameWidth: UDpi.toPixel(5)),
+                rect: mIconManager!.getSelectedIcon()!.getRectWithOffset(offset: _offset, frameWidth: UDpi.toPixel(2)),
                 cornerR: UDpi.toPixel(10),
                 color: SELECTED_ICON_BG_COLOR,
                 strokeWidth: 0, strokeColor: nil)

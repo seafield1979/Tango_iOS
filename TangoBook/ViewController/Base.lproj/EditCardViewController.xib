@@ -82,18 +82,35 @@
                     </constraints>
                 </scrollView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LR2-JJ-GCH">
-                    <rect key="frame" x="16" y="279" width="138" height="30"/>
+                    <rect key="frame" x="16" y="279" width="163.5" height="50"/>
+                    <color key="backgroundColor" red="0.0" green="0.62920258620689651" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="TpV-8v-j4X"/>
+                    </constraints>
+                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="OK"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="okButtonClicked:" destination="-1" eventType="touchUpInside" id="rOK-Fb-TMJ"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rLB-sA-bc5">
-                    <rect key="frame" x="170" y="279" width="137" height="30"/>
+                    <rect key="frame" x="195.5" y="279" width="163.5" height="50"/>
+                    <color key="backgroundColor" red="1" green="0.28978987068965517" blue="0.24633620689655172" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="137" id="KUa-Kx-cbC"/>
+                        <constraint firstAttribute="height" constant="50" id="PkX-x4-an3"/>
                     </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <state key="normal" title="Cancel"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="cancelButtonClicked:" destination="-1" eventType="touchUpInside" id="2zd-RW-q6o"/>
                     </connections>
@@ -108,26 +125,25 @@
                 <constraint firstAttribute="trailing" secondItem="vGo-7C-wua" secondAttribute="trailing" constant="16" id="95t-jB-RNb"/>
                 <constraint firstItem="y1q-bD-rIW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="EAr-1l-Ktl"/>
                 <constraint firstItem="S0f-95-hUL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="Eoz-Pu-5tt"/>
-                <constraint firstItem="rLB-sA-bc5" firstAttribute="top" secondItem="Vth-GH-x7N" secondAttribute="bottom" constant="8" id="FiA-tK-5X0"/>
                 <constraint firstItem="vGo-7C-wua" firstAttribute="top" secondItem="wxV-kv-hQn" secondAttribute="bottom" constant="8" id="Kkd-FI-VIO"/>
                 <constraint firstItem="Vth-GH-x7N" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="MYh-Sk-TIA"/>
-                <constraint firstItem="rLB-sA-bc5" firstAttribute="width" secondItem="LR2-JJ-GCH" secondAttribute="width" constant="-1" id="PLA-T7-rQb"/>
                 <constraint firstItem="mRa-qm-CCj" firstAttribute="top" secondItem="S0f-95-hUL" secondAttribute="bottom" constant="8" id="PcP-3D-F6D"/>
-                <constraint firstItem="LR2-JJ-GCH" firstAttribute="top" secondItem="Vth-GH-x7N" secondAttribute="bottom" constant="8" id="STr-p0-AgB"/>
-                <constraint firstItem="LR2-JJ-GCH" firstAttribute="top" secondItem="Vth-GH-x7N" secondAttribute="bottom" constant="8" id="Ukm-gp-SYV"/>
+                <constraint firstAttribute="trailing" secondItem="rLB-sA-bc5" secondAttribute="trailing" constant="16" id="TyU-74-eeR"/>
                 <constraint firstItem="Vth-GH-x7N" firstAttribute="top" secondItem="Ffb-Bu-rOu" secondAttribute="bottom" constant="8" id="XcC-wA-uT0"/>
                 <constraint firstAttribute="trailing" secondItem="Ffb-Bu-rOu" secondAttribute="trailing" constant="16" id="ZRy-dw-lGj"/>
                 <constraint firstAttribute="trailing" secondItem="Vth-GH-x7N" secondAttribute="trailing" constant="16" id="eOf-VO-Qc9"/>
                 <constraint firstAttribute="trailing" secondItem="mRa-qm-CCj" secondAttribute="trailing" constant="16" id="efb-NJ-J9Z"/>
-                <constraint firstItem="rLB-sA-bc5" firstAttribute="top" secondItem="Vth-GH-x7N" secondAttribute="bottom" constant="8" id="hwo-3s-Gar"/>
+                <constraint firstItem="rLB-sA-bc5" firstAttribute="width" secondItem="LR2-JJ-GCH" secondAttribute="width" id="gAS-lm-fLO"/>
+                <constraint firstItem="rLB-sA-bc5" firstAttribute="top" secondItem="Vth-GH-x7N" secondAttribute="bottom" constant="8" id="hQU-q4-PcN"/>
+                <constraint firstItem="rLB-sA-bc5" firstAttribute="leading" secondItem="LR2-JJ-GCH" secondAttribute="trailing" constant="16" id="mvw-1l-jsW"/>
                 <constraint firstAttribute="trailing" secondItem="S0f-95-hUL" secondAttribute="trailing" constant="16" id="olY-rC-CWe"/>
                 <constraint firstItem="Ffb-Bu-rOu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="sbT-mS-WPL"/>
+                <constraint firstItem="LR2-JJ-GCH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="uAp-cZ-3t9"/>
                 <constraint firstItem="Ffb-Bu-rOu" firstAttribute="top" secondItem="vGo-7C-wua" secondAttribute="bottom" constant="2" id="uYq-dT-L5a"/>
                 <constraint firstAttribute="trailing" secondItem="y1q-bD-rIW" secondAttribute="trailing" constant="16" id="xQu-Yp-Ns5"/>
                 <constraint firstAttribute="trailing" secondItem="wxV-kv-hQn" secondAttribute="trailing" constant="16" id="z2W-HY-mBr"/>
                 <constraint firstItem="wxV-kv-hQn" firstAttribute="top" secondItem="y1q-bD-rIW" secondAttribute="bottom" constant="8" id="z7j-cj-uNk"/>
-                <constraint firstItem="rLB-sA-bc5" firstAttribute="leading" secondItem="LR2-JJ-GCH" secondAttribute="trailing" constant="16" id="zW0-x9-Zny"/>
-                <constraint firstAttribute="trailing" secondItem="rLB-sA-bc5" secondAttribute="trailing" constant="68" id="zX9-AG-gje"/>
+                <constraint firstItem="LR2-JJ-GCH" firstAttribute="top" secondItem="Vth-GH-x7N" secondAttribute="bottom" constant="8" id="zqM-BJ-tMK"/>
                 <constraint firstItem="mRa-qm-CCj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="zyz-KL-Ueo"/>
             </constraints>
             <point key="canvasLocation" x="24.5" y="51.5"/>

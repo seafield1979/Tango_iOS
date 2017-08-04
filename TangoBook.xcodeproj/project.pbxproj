@@ -11,7 +11,6 @@
 		8A0D6FA11F317618002A1949 /* UFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6FA01F317618002A1949 /* UFileManager.swift */; };
 		8A0D6FB01F319748002A1949 /* EditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6FAE1F319748002A1949 /* EditCardViewController.swift */; };
 		8A0D6FB41F319765002A1949 /* EditBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6FB21F319765002A1949 /* EditBookViewController.swift */; };
-		8A0D6FB51F319765002A1949 /* EditBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A0D6FB31F319765002A1949 /* EditBookViewController.xib */; };
 		8A0D6FB71F31A47A002A1949 /* TangoBackupFileDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6FB61F31A47A002A1949 /* TangoBackupFileDao.swift */; };
 		8A2584AC1F3209C3002EE9E2 /* EditCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A2584AE1F3209C3002EE9E2 /* EditCardViewController.xib */; };
 		8A8522401F22514300B5B8A3 /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A85223F1F22514300B5B8A3 /* TestDatabase.swift */; };
@@ -74,6 +73,7 @@
 		8AB7E9811F278DC7005E36BB /* UIconWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9781F278DC7005E36BB /* UIconWindow.swift */; };
 		8AB7E9821F278DC7005E36BB /* UIconWindows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9791F278DC7005E36BB /* UIconWindows.swift */; };
 		8AB7E9831F278DC7005E36BB /* UIconWindowSub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E97A1F278DC7005E36BB /* UIconWindowSub.swift */; };
+		8AB99D7D1F34210600497E4E /* EditBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AB99D7F1F34210600497E4E /* EditBookViewController.xib */; };
 		8AD631381F2B93780067B57E /* MenuBarTangoEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD631371F2B93780067B57E /* MenuBarTangoEdit.swift */; };
 		8AD6313A1F2B941B0067B57E /* IconInfoDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD631391F2B941B0067B57E /* IconInfoDialog.swift */; };
 		8AD6313C1F2B94CE0067B57E /* IconInfoDialogCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6313B1F2B94CE0067B57E /* IconInfoDialogCard.swift */; };
@@ -164,7 +164,6 @@
 		8A0D6FA01F317618002A1949 /* UFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UFileManager.swift; sourceTree = "<group>"; };
 		8A0D6FAE1F319748002A1949 /* EditCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditCardViewController.swift; path = ViewController/EditCardViewController.swift; sourceTree = "<group>"; };
 		8A0D6FB21F319765002A1949 /* EditBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditBookViewController.swift; path = ViewController/EditBookViewController.swift; sourceTree = "<group>"; };
-		8A0D6FB31F319765002A1949 /* EditBookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EditBookViewController.xib; path = ViewController/EditBookViewController.xib; sourceTree = "<group>"; };
 		8A0D6FB61F31A47A002A1949 /* TangoBackupFileDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TangoBackupFileDao.swift; path = TangoBook/Database/TangoBackupFileDao.swift; sourceTree = "<group>"; };
 		8A2584AD1F3209C3002EE9E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EditCardViewController.xib; sourceTree = "<group>"; };
 		8A2584BB1F320E15002EE9E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditCardViewController.strings; sourceTree = "<group>"; };
@@ -230,6 +229,9 @@
 		8AB7E9781F278DC7005E36BB /* UIconWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIconWindow.swift; path = Icon/UIconWindow.swift; sourceTree = "<group>"; };
 		8AB7E9791F278DC7005E36BB /* UIconWindows.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIconWindows.swift; path = Icon/UIconWindows.swift; sourceTree = "<group>"; };
 		8AB7E97A1F278DC7005E36BB /* UIconWindowSub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIconWindowSub.swift; path = Icon/UIconWindowSub.swift; sourceTree = "<group>"; };
+		8AB99D7E1F34210600497E4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EditBookViewController.xib; sourceTree = "<group>"; };
+		8AB99D811F34210800497E4E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditBookViewController.strings; sourceTree = "<group>"; };
+		8AB99D831F34211200497E4E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/EditBookViewController.strings; sourceTree = "<group>"; };
 		8AD631371F2B93780067B57E /* MenuBarTangoEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuBarTangoEdit.swift; path = TangoEdit/MenuBarTangoEdit.swift; sourceTree = "<group>"; };
 		8AD631391F2B941B0067B57E /* IconInfoDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconInfoDialog.swift; path = Icon/IconInfoDialog.swift; sourceTree = "<group>"; };
 		8AD6313B1F2B94CE0067B57E /* IconInfoDialogCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconInfoDialogCard.swift; path = Icon/IconInfoDialogCard.swift; sourceTree = "<group>"; };
@@ -343,7 +345,7 @@
 				8A0D6FAE1F319748002A1949 /* EditCardViewController.swift */,
 				8A2584AE1F3209C3002EE9E2 /* EditCardViewController.xib */,
 				8A0D6FB21F319765002A1949 /* EditBookViewController.swift */,
-				8A0D6FB31F319765002A1949 /* EditBookViewController.xib */,
+				8AB99D7F1F34210600497E4E /* EditBookViewController.xib */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -777,7 +779,7 @@
 				8AB7E9201F258873005E36BB /* TestGuiTopViewController.xib in Resources */,
 				8AE08A101F24BA1C0024E9B7 /* TestDB5ViewController.xib in Resources */,
 				8AF781821F1F3E4400FC4EF2 /* Assets.xcassets in Resources */,
-				8A0D6FB51F319765002A1949 /* EditBookViewController.xib in Resources */,
+				8AB99D7D1F34210600497E4E /* EditBookViewController.xib in Resources */,
 				8AE08A081F24B9A20024E9B7 /* TestDB3ViewController.xib in Resources */,
 				8AE08A141F24BA310024E9B7 /* TestDB6ViewController.xib in Resources */,
 				8A8522451F22533000B5B8A3 /* TestDBViewController.xib in Resources */,
@@ -1000,6 +1002,17 @@
 			);
 			name = Localizable.strings;
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		8AB99D7F1F34210600497E4E /* EditBookViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8AB99D7E1F34210600497E4E /* Base */,
+				8AB99D811F34210800497E4E /* en */,
+				8AB99D831F34211200497E4E /* ja */,
+			);
+			name = EditBookViewController.xib;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

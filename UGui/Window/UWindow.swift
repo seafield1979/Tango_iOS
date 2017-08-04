@@ -528,8 +528,8 @@ public class UWindow : UDrawable, UButtonCallbacks {
         if offset == nil {
             offset = CGPoint(x: offset!.x, y: offset!.y)
         }
-        offset!.x += pos.x
-        offset!.y += pos.y
+//        offset!.x += pos.x
+//        offset!.y += pos.y
         
         if closeIcon != nil && closeIcon!.isShow {
             if (closeIcon!.touchEvent(vt: vt, offset: offset)) {

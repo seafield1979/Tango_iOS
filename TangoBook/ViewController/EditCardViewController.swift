@@ -1,7 +1,8 @@
 //
 //  EditCardViewController.swift
 //  TangoBook
-//
+//    単語カードの情報を入力するViewController
+//    
 //  Created by Shusuke Unno on 2017/08/02.
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //

@@ -112,6 +112,7 @@ public enum ImageName : String {
     case help_trash_empty2 = "help_trash_empty2.png"
     case history = "history.png"
     case icon_move = "icon_move.png"
+    case icon_test = "icon_test.png"
     case license = "license.png"
     case loupe = "loupe.png"
     case mail = "mail.png"

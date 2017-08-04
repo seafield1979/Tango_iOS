@@ -101,7 +101,7 @@ public class IconCard : UIcon {
                                 dstRect: CGRect(x: drawPos.x, y: drawPos.y,
                                                 width: iconW, height: iconH), alpha: alpha)
         // Text
-        UDraw.drawText(text: title!, alignment: UAlignment.Center,
+        UDraw.drawText(text: title!, alignment: UAlignment.CenterX,
                        textSize: Int(UDpi.toPixel(TEXT_SIZE)),
                        x: drawPos.x + iconW / 2,
                        y: drawPos.y + iconH + UDpi.toPixel(TEXT_MARGIN),

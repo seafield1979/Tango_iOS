@@ -194,14 +194,20 @@ public class UIconManager : UIconCallbacks {
                 let card = TangoCard.createCard()
                 TangoCardDao.addOne(card: card, parentType: parentType,
                                     parentId: parentId, addPos: -1)
-                icon = IconCard(card: card,
+                
+                // あとからプロパティを変更できるようにコピーを設定する
+                let cardCopy = card.copy() as! TangoCard
+                icon = IconCard(card: cardCopy,
                                 parentWindow: mParentWindow!,
                                 iconCallbacks: self)
            
             case .Book:
                 let book = TangoBook.createBook()
                 TangoBookDao.addOne(book: book, addPos: -1)
-                icon = IconBook(book: book,
+                
+                // あとからプロパティを変更できるようにコピーを設定する
+                let bookCopy = book.copy() as! TangoBook
+                icon = IconBook(book: bookCopy,
                                 parentWindow: mParentWindow!,
                                 iconCallbacks: self)
            

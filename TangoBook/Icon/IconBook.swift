@@ -86,7 +86,7 @@ public class IconBook : IconContainer {
         var alpha : CGFloat = 1.0
         if isLongTouched || isTouched || isDroped {
             // 長押し、タッチ、ドロップ中はBGを表示
-            UDraw.drawRoundRectFill(rect: CGRect(x: drawPos.x, y: drawPos.y, width: drawPos.x + iconW, height: drawPos.y + iconH),
+            UDraw.drawRoundRectFill(rect: CGRect(x: drawPos.x, y: drawPos.y, width: iconW, height: iconH),
                                      cornerR: UDpi.toPixel(10),
                                      color: touchedColor!,
                                      strokeWidth: 0, strokeColor: nil)
@@ -105,7 +105,7 @@ public class IconBook : IconContainer {
                                 dstRect: CGRect(x: drawPos.x, y: drawPos.y,
                                                 width: iconW, height: iconH), alpha: alpha)
         // Text
-        UDraw.drawText(text: title!, alignment: UAlignment.Center,
+        UDraw.drawText(text: title!, alignment: UAlignment.CenterX,
                        textSize: Int(UDpi.toPixel(TEXT_SIZE)),
                        x: drawPos.x + iconW / 2,
                        y: drawPos.y + iconH + UDpi.toPixel(TEXT_MARGIN),
