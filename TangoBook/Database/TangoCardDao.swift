@@ -381,10 +381,6 @@ public class TangoCardDao {
         card.comment = "comment:" + randVal
         card.color = (UIColor.black).intColor()
         card.star = false
-        var history : [Int] = Array(repeating: 0, count:3)
-        for i in 0..<history.count {
-            history[i] = 1
-        }
         
         let now = Date()
         card.createTime = now
@@ -394,6 +390,9 @@ public class TangoCardDao {
         try! mRealm!.write() {
             mRealm!.add(card)
         }
+        
+        // Posを追加
+        _ = TangoItemPosDao.addOne(item: card, parentType: .Home, parentId: 0, addPos: -1)
     }
     
     public static func addPresetCards( parentId: Int, cards : List<PresetCard>) {

@@ -59,9 +59,16 @@ public class TangoItemPos : Object, NSCopying {
     
     public dynamic var isChecked : Bool = false
     
+    public dynamic var isCopied : Bool = false      // コピーオブジェクト
+    
     // インデックス
     override public static func indexedProperties() -> [String] {
-        return ["parentType", "parentId", "pos", "itemType", "itemId", "isChecked"]
+        return ["parentType", "parentId", "pos", "itemType", "itemId"]
+    }
+    
+    //保存しないプロパティ
+    override public static func ignoredProperties() -> [String] {
+        return ["isCopied"]
     }
     
     /**
@@ -122,7 +129,8 @@ public class TangoItemPos : Object, NSCopying {
         copy.itemType = itemType
         copy.itemId = itemId
         copy.isChecked = isChecked
-
+        copy.isCopied = true
+        
         return copy
     }
 

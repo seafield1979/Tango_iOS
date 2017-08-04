@@ -13,7 +13,7 @@ import UIKit
 public class TopView : UIView, UButtonCallbacks{
     
     // Consts
-    public static let drawInterval : TimeInterval = 1.0 / 30.0
+    public static let drawInterval : TimeInterval = 1.0 / 60.0
     
     // Propaties
     var vt : ViewTouch = ViewTouch()

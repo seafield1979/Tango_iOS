@@ -103,14 +103,6 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
     public override init(parentView : TopView, title : String) {
         super.init(parentView: parentView, title: title)
         
-        buttonInfo.append(
-            ButtonTInfo(textName: "title_edit",
-            textColor: UColor.DarkGreen,
-            lineColor: UColor.DarkGreen,
-            bgColor: UColor.makeColor(100, 200, 100),
-            imageName: ImageName.edit )
-        )
-        
     }
 
      /**

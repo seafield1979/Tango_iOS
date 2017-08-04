@@ -36,6 +36,8 @@ public class TangoBookHistory : Object, NSCopying {
     // 学習日
     public dynamic var studiedDateTime : Date? = nil
     
+    public dynamic var isCopied : Bool = false      // コピーオブジェクト
+    
     // idをプライマリキーに設定
     override public static func primaryKey() -> String? {
         return "id"
@@ -46,6 +48,11 @@ public class TangoBookHistory : Object, NSCopying {
     override public static func indexedProperties() -> [String] {
         // titleにインデックスを貼る
         return ["bookId"]
+    }
+    
+    //保存しないプロパティ
+    override public static func ignoredProperties() -> [String] {
+        return ["isCopied"]
     }
     
     // オブジェクトのコピーを返す
@@ -59,7 +66,8 @@ public class TangoBookHistory : Object, NSCopying {
         copy.okNum = okNum
         copy.ngNum = ngNum
         copy.studiedDateTime = studiedDateTime
-
+        copy.isCopied = true
+        
         return copy
     }
 

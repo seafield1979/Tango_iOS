@@ -337,7 +337,9 @@ public class UIconWindow : UWindow{
 
         // Windowの移動
         if isMoving {
-            if !autoMoving() {
+            if autoMoving() {
+                ret = DoActionRet.Redraw
+            } else {
                 isMoving = false
             }
         }

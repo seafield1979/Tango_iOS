@@ -1227,18 +1227,15 @@ public class TangoItemPosDao {
         }
        
 
-        if results.count == 0 {
-            return
-        }
-        
         try! mRealm!.write() {
             // いったんクリア
             mRealm!.delete(results)
-            
+        
             // 全要素を追加
             for item in items {
                 if item.getItemPos() != nil {
-                    mRealm!.add(item.getItemPos()!)
+                    let addItem = item.getItemPos()!.copy()
+                    mRealm!.add(addItem as! Object)
                 }
             }
         }
@@ -1431,27 +1428,26 @@ public class TangoItemPosDao {
                                   parentId : Int)
      {  
         var pos = 0
+        var items : [TangoItem] = []
         
         // トランザクション開始
         try! URealmManager.getRealm()!.write() {
-        
+            
             for icon in icons {
                 let item = icon.getTangoItem()
                 if item == nil && icon.getType() == IconType.Trash {
 
                 } else {
-                    let oldPos = icon.getTangoItem()!.getItemPos()!.pos
-                    print("oldPos:" + oldPos.description + " pos:" + pos.description)
-                    if oldPos != pos {
+                    //let oldPos = icon.getTangoItem()!.getItemPos()!.pos
+                    
                         icon.getTangoItem()!.getItemPos()!.pos = pos
-                        TangoItemPosDao.updatePos(oldPos: oldPos, newPos: pos, isTransaction: false)
-                    }
+                        items.append(item!)
                 }
                 pos += 1
             }
         }
 
-       //TangoItemPosDao.updateAll(items: items, parentType: parentType, parentId: parentId)
+       TangoItemPosDao.updateAll(items: items, parentType: parentType, parentId: parentId)
      }
 
      /**

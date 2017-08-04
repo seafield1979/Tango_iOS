@@ -23,11 +23,17 @@ public class TangoStudiedCard : Object, NSCopying {
     
     public dynamic var cardId : Int = 0             // TangoCard の id
     
-    public dynamic var okFlag : Bool = false         // 単語を覚えたかどうか ★アイコンの色がついていたらtrue
+    public dynamic var okFlag : Bool = false        // 単語を覚えたかどうか ★アイコンの色がついていたらtrue
+    public dynamic var isCopied : Bool = false      // コピーオブジェクト
     
     // インデックス
     override public static func indexedProperties() -> [String] {
         return ["bookHistoryId"]
+    }
+    
+    //保存しないプロパティ
+    override public static func ignoredProperties() -> [String] {
+        return ["isCopied"]
     }
     
     /**
@@ -66,6 +72,7 @@ public class TangoStudiedCard : Object, NSCopying {
         copy.bookHistoryId = bookHistoryId
         copy.cardId = cardId
         copy.okFlag = okFlag
+        copy.isCopied = true
         
         return copy
     }

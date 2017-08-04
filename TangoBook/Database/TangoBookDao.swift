@@ -158,10 +158,6 @@ public class TangoBookDao {
         book.name = "book" + randVal
         book.color = 0xffffff
         book.comment = "comment:" + randVal
-        var history : [UInt8] = Array(repeating: 0, count: 3)
-        for i in 0..<history.count {
-            history[i] = 1
-        }
         
         let now = Date()
         book.createTime = now
@@ -170,6 +166,8 @@ public class TangoBookDao {
         try! mRealm!.write() {
             mRealm!.add(book)
         }
+        
+        _ = TangoItemPosDao.addOne(item: book, parentType: .Home, parentId: 0, addPos: -1)
     }
 
     /**

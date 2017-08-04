@@ -40,6 +40,7 @@ public class TangoCardHistory : Object, NSCopying {
     // 最後に学習した日付
     public dynamic var studiedDate : Date? = nil
     
+    public dynamic var isCopied : Bool = false      // コピーオブジェクト
     // 正解フラグリスト
 //    public dynamic var correctFlagsList : [UInt8] = []
     
@@ -53,7 +54,7 @@ public class TangoCardHistory : Object, NSCopying {
     
     //保存しないプロパティを指定する場合、ignoredProperties()をoverrideします。
     override public static func ignoredProperties() -> [String] {
-        return ["correctFlagsList"]
+        return ["correctFlagsList", "isCopied"]
     }
 
     // オブジェクトのコピーを返す
@@ -64,7 +65,8 @@ public class TangoCardHistory : Object, NSCopying {
 
         copy.cardId = cardId
         copy.studiedDate = studiedDate
-
+        copy.isCopied = true
+        
         return copy
     }
 

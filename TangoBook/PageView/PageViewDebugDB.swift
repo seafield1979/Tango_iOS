@@ -114,8 +114,15 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
         TangoItemPosDao.correctHomePos()
     }
     
+    // テスト用の環境を作成する
     private func test2() {
+        _ = TangoCardDao.deleteAll()
+        _ = TangoBookDao.deleteAll()
+        _ = TangoItemPosDao.deleteAll()
         
+        TangoCardDao.addDummy()
+        TangoCardDao.addDummy()
+        TangoBookDao.addDummy()
     }
     
     private func test3() {

@@ -27,6 +27,8 @@ public class TangoBook : Object, TangoItem, NSCopying {
     
     public dynamic var itemPos : TangoItemPos? = nil   // どこにあるか？
     
+    public dynamic var isCopied : Bool = false      // コピーオブジェクト
+    
     // idをプライマリキーに設定
     override public static func primaryKey() -> String? {
         return "id"
@@ -34,7 +36,7 @@ public class TangoBook : Object, TangoItem, NSCopying {
     
     //保存しないプロパティ
     override public static func ignoredProperties() -> [String] {
-        return ["itemPos"]
+        return ["itemPos", "isCopied"]
     }
     
     
@@ -205,6 +207,8 @@ public class TangoBook : Object, TangoItem, NSCopying {
         copy.lastStudiedTime = lastStudiedTime
         copy.isNew = isNew
         copy.itemPos = itemPos
+        
+        copy.isCopied = true
 
         return copy
     }
