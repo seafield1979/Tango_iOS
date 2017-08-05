@@ -1107,40 +1107,56 @@ public class UIconWindow : UWindow{
        checkedIcons : List<UIcon>, dstIcons : List<UIcon>,
        x : CGFloat, y : CGFloat) -> Bool
     {
-      var dropedIcon : UIcon? = nil
+        var dropedIcon : UIcon? = nil
 
-       // ドロップ先に挿入するアイコンのリスト
-       let icons : List<UIcon> = List()
+        // ドロップ先に挿入するアイコンのリスト
+        let icons : List<UIcon> = List()
 
-       for dropIcon in dstIcons {
-           if dropIcon!.getType() == IconType.Card {
-               continue
-           }
+        if dstIcons.count == 0 {
+            // サブウィンドウにチェックしたアイコンをまとめて移動する
+            let dropIcon : UIcon? = windows!.getSubWindow().getParentIcon()
+            
+            for _dragIcon in checkedIcons {
+                // カードだけiconsに追加する
+                if _dragIcon is IconCard {
+                    icons.append(_dragIcon!)
+                }
+            }
+            if icons.count > 0 {
+                dropedIcon = dropIcon
+            }
+        } else {
+            for dropIcon in dstIcons {
+                if dropIcon!.getType() == IconType.Card {
+                    continue
+                }
 
-           for _dragIcon in checkedIcons {
-               if _dragIcon!.canDropIn(dstIcon: dropIcon!, x: x, y: y) {
-                   icons.append(_dragIcon!)
-               }
-           }
-           if icons.count > 0 {
-               dropedIcon = dropIcon!
-               break
-           }
-       }
-
-       if dropedIcon != nil {
-           moveIconsIntoBox(checkedIcons: icons, dropedIcon: dropedIcon!)
-
-           // BlockRect更新
-           for win in windows!.getWindows()! {
-               let manager = win!.getIconManager()
-               if manager != nil {
-                   manager!.updateBlockRect()
-               }
-           }
-           return true
+                // ドロップ可能なアイコンだけiconsに追加する
+                for _dragIcon in checkedIcons {
+                    if _dragIcon!.canDropIn(dstIcon: dropIcon!, x: x, y: y) {
+                        icons.append(_dragIcon!)
+                    }
+                }
+                if icons.count > 0 {
+                    dropedIcon = dropIcon!
+                    break
+                }
+            }
         }
-        return false
+
+        if dropedIcon != nil {
+            moveIconsIntoBox(checkedIcons: icons, dropedIcon: dropedIcon!)
+
+            // BlockRect更新
+            for win in windows!.getWindows()! {
+                let manager = win!.getIconManager()
+                if manager != nil {
+                    manager!.updateBlockRect()
+                }
+            }
+            return true
+         }
+         return false
     }
 
      /**
@@ -1486,10 +1502,14 @@ public class UIconWindow : UWindow{
         let window1 : UIconWindow = dragIcon.parentWindow!
         let window2 : UIconWindow = _dropedIcon.getSubWindow()!
         let icons : List<UIcon> = window1.getIcons()!
+        let icons2 : List<UIcon> = window2.getIcons()!
 
+        // 移動元のアイテムを削除
         icons.remove(objs: checkedIcons.toArray())
-
-        window2.sortIcons(animate: false)
+        
+        // 移動先にアイテムを追加
+        icons2.append(objs: checkedIcons.toArray())
+        
         for icon in checkedIcons {
             icon!.isChecking = false
             icon!.setParentWindow(window2)
@@ -1509,6 +1529,8 @@ public class UIconWindow : UWindow{
                                     parentType: _dropedIcon.getParentType().rawValue,
                                     parentId: itemId)
 
+        window2.sortIcons(animate: true)
+        
         // 箱の中に入れた後のアイコン整列後にチェックを解除したいのでフラグを持っておく
         isDropInBox = true
     }
