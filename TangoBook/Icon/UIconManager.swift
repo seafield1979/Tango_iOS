@@ -127,20 +127,25 @@ public class UIconManager : UIconCallbacks {
 
         switch copySrc.getType() {
             case .Card:
-                let card = TangoCard.copyCard(card: copySrc.getTangoItem() as! TangoCard)
-                card.isNew = true
-                TangoCardDao.addOne( card: card,
+                let _card = TangoCard.copyCard(card: copySrc.getTangoItem() as! TangoCard)
+                _card.isNew = true
+                TangoCardDao.addOne( card: _card,
                                      parentType: TangoParentType.toEnum(itemPos.parentType),
                                      parentId: itemPos.getParentId(),
                                      addPos: itemPos.getPos())
+                // 後で書き換えられるようにコピーを作成
+                let card = _card.copy() as! TangoCard
                 icon = IconCard(card: card,
                                 parentWindow: mParentWindow!,
                                 iconCallbacks: self)
             
             case .Book:
-                let book : TangoBook = TangoBook.copyBook(book: copySrc.getTangoItem() as! TangoBook)
-                book.isNew = true
-                TangoBookDao.addOne(book: book, addPos: itemPos.getPos())
+                let _book : TangoBook = TangoBook.copyBook(book: copySrc.getTangoItem() as! TangoBook)
+                _book.isNew = true
+                TangoBookDao.addOne(book: _book, addPos: itemPos.getPos())
+
+                // 後で書き換えられるようにコピーを作成
+                let book = _book.copy() as! TangoBook
                 icon = IconBook(book: book,
                                 parentWindow: mParentWindow!,
                                 iconCallbacks: self)

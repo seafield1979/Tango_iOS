@@ -211,19 +211,19 @@ public class UIconWindowSub : UIconWindow {
             return ActionInfo(imageName: ImageName.close, buttonId: buttonIdClose,
                               title : "close", color : UColor.DarkRed)
         case .Edit:
-            return ActionInfo(imageName: ImageName.edit, buttonId: buttonIdClose,
+            return ActionInfo(imageName: ImageName.edit, buttonId: buttonIdEdit,
                               title : "edit", color : UColor.DarkGreen)
         case .Copy:
-            return ActionInfo(imageName: ImageName.copy, buttonId: buttonIdClose,
+            return ActionInfo(imageName: ImageName.copy, buttonId: buttonIdCopy,
                               title : "copy", color : UColor.DarkGreen)
         case .Delete:
-            return ActionInfo(imageName: ImageName.trash, buttonId: buttonIdClose,
+            return ActionInfo(imageName: ImageName.trash, buttonId: buttonIdDelete,
                               title : "trash", color : UColor.DarkGreen)
         case .Export:
-            return ActionInfo(imageName: ImageName.export, buttonId: buttonIdClose,
+            return ActionInfo(imageName: ImageName.export, buttonId: buttonIdExport,
                               title : "export", color : UColor.DarkGreen)
         case .Cleanup:
-            return ActionInfo(imageName: ImageName.trash2, buttonId: buttonIdClose,
+            return ActionInfo(imageName: ImageName.trash2, buttonId: buttonIdCleanup,
                               title : "clean_up", color : UColor.DarkGreen)
         }
     }
@@ -294,7 +294,7 @@ public class UIconWindowSub : UIconWindow {
      * @param paint
      * @return trueなら描画継続
      */
-    public func drawContent( offset : CGPoint )
+    public override func drawContent( offset : CGPoint? )
     {
         super.drawContent(offset: offset)
         

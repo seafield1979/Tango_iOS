@@ -74,7 +74,7 @@ public protocol IconInfoDialogCallbacks {
      * コンテナタイプのアイコン以下をクリーンアップ(全削除)する
      * @param icon
      */
-    func IconInfoCleanup(icon: UIcon)
+    func IconInfoCleanup(icon: UIcon?)
     
     /**
      * ゴミ箱内のアイコンを元に戻す
@@ -108,6 +108,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     public static let TAG = "TopView"
 
     private let MARGIN_H : CGFloat = 50
+    private let DialogTextColor = UColor.makeColor(200,100,100)
 
     /**
      * Member varialbes
@@ -121,7 +122,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     private var mLogWin : ULogWindow? = nil
 
     // Dialog
-//    private var debugDialogs : DebugDialogs
     private var mDialog : UDialogWindow? = nil
 
     // メニューバー
@@ -415,21 +415,33 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
      * Edit icon
      */
     private func editCardDialog( iconCard : IconCard) {
-        // todo
-//        let dialogFragment =
-//             EditCardDialogFragment.createInstance(self, (TangoCard)iconCard.getTangoItem());
-//
-//        dialogFragment.show(((AppCompatActivity)mContext).getSupportFragmentManager(),
-//             "fragment_dialog");
+        // カード情報入力用のViewControllerをモーダルで表示
+        let viewController = EditCardViewController(
+            nibName: "EditCardViewController",
+            bundle: nil)
+        
+        viewController.delegate = self
+        viewController.mMode = .Edit
+        viewController.mCard = iconCard.card
+        
+        mTopView.parentVC!.present(viewController,
+                                   animated: true,
+                                   completion: nil)
     }
     
     private func editBookDialog( iconBook : IconBook ) {
-        // todo
-//        let dialogFragment =
-//                 EditBookDialogFragment.createInstance(self, (TangoBook)iconBook.getTangoItem());
-//
-//        dialogFragment.show(((AppCompatActivity)mContext).getSupportFragmentManager(),
-//                 "fragment_dialog");
+        // 単語帳情報入力用のViewControllerをモーダルで表示
+        let viewController = EditBookViewController(
+            nibName: "EditBookViewController",
+            bundle: nil)
+        
+        viewController.delegate = self
+        viewController.mMode = .Edit
+        viewController.mBook = iconBook.book
+        
+        mTopView.parentVC!.present(viewController,
+                                   animated: true,
+                                   completion: nil)
     }
     
     /**
@@ -607,12 +619,12 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 icon.setNewFlag(newFlag: false)
             
             case .Book:
-                IconInfoOpenIcon(icon: icon);
+                IconInfoOpenIcon(icon: icon)
                 // newフラグをクリア
                 icon.setNewFlag(newFlag: false)
             
             case .Trash:
-                IconInfoOpenIcon(icon: icon);
+                IconInfoOpenIcon(icon: icon)
                 
             }
         }
@@ -907,44 +919,33 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
      * @param icon
      */
     public func IconInfoEditIcon( icon : UIcon) {
-    //         switch (icon.getType()) {
-    //             case Card: {
-    //                 editingIcon = icon;
-    //                 if (icon instanceof IconCard) {
-    //                     editCardDialog((IconCard)editingIcon);
-    //                     mIconInfoDlg.closeWindow();
-    //                     mIconInfoDlg = nil;
-    //                 }
-    //             }
-    //             break;
-    //             case Book: {
-    //                 editingIcon = icon;
-    //                 if (icon instanceof IconBook) {
-    //                     editBookDialog((IconBook)editingIcon);
-    //                     mIconInfoDlg.closeWindow();
-    //                     mIconInfoDlg = nil;
-    //                 }
-    //             }
-    //             break;
-    //         }
+        switch icon.getType() {
+        case .Card:
+            editingIcon = icon
+            if icon is IconCard {
+                editCardDialog(iconCard: editingIcon as! IconCard)
+                mIconInfoDlg!.closeWindow()
+                mIconInfoDlg = nil
+            }
+        default:
+            break
+        }
     }
     
     /**
      * アイコンをコピー
      */
     public func IconInfoCopyIcon( icon : UIcon) {
-    //         self.copyIcon(icon);
-    //         mIconInfoDlg.closeWindow();
-    //         mIconInfoDlg = nil;
+        self.copyIcon(icon: icon)
+        mIconInfoDlg!.closeWindow()
+        mIconInfoDlg = nil
     }
     
     /**
      * アイコンをゴミ箱に移動
      */
     public func IconInfoThrowIcon(icon : UIcon) {
-    //         if (icon != nil) {
-    //             moveIconToTrash(icon);
-    //         }
+        moveIconToTrash(icon: icon)
     }
     
     /**
@@ -981,29 +982,32 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     public let ButtonIdMoveIconsToTrash = 105
     public let ButtonIdCopyOK = 106
     
-    public func IconInfoCleanup(icon : UIcon) {
-    //         if (icon == nil || icon.getType() == IconType.Trash) {
-    //             if (mDialog != nil) {
-    //                 mDialog.closeDialog();
-    //                 mDialog = nil;
-    //             }
-    //             // Daoデバッグ用のダイアログを表示
-    //             mDialog = UDialogWindow.createInstance(UDialogWindow.DialogType.Mordal,
-    //                     self, self,
-    //                     UDialogWindow.ButtonDir.Vertical, UDialogWindow.DialogPosType.Center,
-    //                     true,
-    //                     mTopView.getWidth(), mTopView.getHeight(),
-    //                     Color.rgb(200,100,100), Color.WHITE);
-    //             mDialog.addToDrawManager();
-    
-    //             // 確認のダイアログを表示する
-    //             mDialog.setTitle(UResourceManager.getStringById(R.string.confirm_cleanup_trash));
-    
-    //             // ボタンを追加
-    //             mDialog.addButton(CleanupDialogButtonOK, "OK", Color.BLACK,
-    //                     UColor.LightGreen);
-    //             mDialog.addCloseButton(UResourceManager.getStringById(R.string.cancel));
-    //         }
+    public func IconInfoCleanup(icon : UIcon?) {
+         if icon == nil || icon!.getType() == IconType.Trash {
+             if mDialog != nil {
+                 mDialog!.closeDialog()
+                 mDialog = nil
+             }
+             // Daoデバッグ用のダイアログを表示
+             mDialog = UDialogWindow.createInstance(
+                parentView : mTopView,
+                type : .Mordal,
+                buttonCallbacks : self, dialogCallbacks : self,
+                dir : UDialogWindow.ButtonDir.Vertical,
+                posType : .Center,
+                isAnimation : true,
+                screenW : mTopView.getWidth(), screenH : mTopView.getHeight(),
+                textColor : DialogTextColor, dialogColor : UIColor.white)
+             mDialog!.addToDrawManager();
+
+             // 確認のダイアログを表示する
+             mDialog!.setTitle(UResourceManager.getStringByName("confirm_cleanup_trash"))
+
+             // ボタンを追加
+             _ = mDialog!.addButton(id : CleanupDialogButtonOK, text : "OK",
+                                textColor : UIColor.black, color : UColor.LightGreen)
+             mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
+         }
     }
     
     /**
@@ -1011,10 +1015,12 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
      * @param icon
      */
     public func IconInfoReturnIcon(icon : UIcon) {
-    //         icon.getParentWindow().moveIconIntoHome(icon, mIconWinManager!.getMainWindow());
-    
-    //         mIconInfoDlg.closeWindow();
-    //         mIconInfoDlg = nil;
+        icon.getParentWindow()!.moveIconIntoHome(icon: icon,
+                                                mainWindow: mIconWinManager!.getMainWindow())
+        if mIconInfoDlg != nil {
+            mIconInfoDlg!.closeWindow()
+            mIconInfoDlg = nil
+        }
     }
     
     /**
@@ -1022,12 +1028,14 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
      * @param icon
      */
     public func IconInfoDeleteIcon(icon : UIcon) {
-    //         icon.getParentWindow().removeIcon(icon);
-    
-    //         mIconInfoDlg.closeWindow();
-    //         mIconInfoDlg = nil;
-    
-    //         mTopView.invalidate();
+        icon.getParentWindow()!.removeIcon(icon: icon)
+
+        if mIconInfoDlg != nil {
+            mIconInfoDlg!.closeWindow()
+            mIconInfoDlg = nil
+        }
+
+        mTopView.invalidate();
     }
     
     /**
@@ -1043,106 +1051,118 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
      * UIconWindowSubCallbacks
      */
     public func IconWindowSubAction( actionId : SubWindowActionId, icon : UIcon?) {
-    //         switch (id) {
-    //             case Close:
-    //                 mIconWinManager!.hideWindow(mIconWinManager!.getSubWindow(), true);
-    //                 break;
-    //             case Edit:
-    //                 editingIcon = icon;
-    //                 if (icon instanceof IconBook) {
-    //                     editBookDialog((IconBook)editingIcon);
-    //                 }
-    //                 break;
-    //             case Copy:
-    //                 // コピー確認ダイアログを表示する
-    //                 if (mDialog != nil) {
-    //                     mDialog.closeDialog();
-    //                     mDialog = nil;
-    //                 }
-    //                 // Daoデバッグ用のダイアログを表示
-    //                 mDialog = UDialogWindow.createInstance(UDialogWindow.DialogType.Mordal,
-    //                         self, self,
-    //                         UDialogWindow.ButtonDir.Horizontal, UDialogWindow.DialogPosType.Center,
-    //                         true,
-    //                         mTopView.getWidth(), mTopView.getHeight(),
-    //                         Color.rgb(200,100,100), Color.WHITE);
-    //                 mDialog.addToDrawManager();
-    
-    //                 // 確認のダイアログを表示する
-    //                 String text = String.format(UResourceManager.getStringById(R.string.confirm_copy_book), icon.getTitle());
-    //                 mDialog.setTitle(String.format(text, icon.getTitle()));
-    
-    //                 // ボタンを追加
-    //                 mDialog.addButton(ButtonIdCopyOK, "OK", Color.BLACK,
-    //                         UColor.LightGreen);
-    //                 mDialog.addCloseButton(UResourceManager.getStringById(R.string.cancel));
-    
-    //                 // 捨てるアイコンを保持
-    //                 mCopyIcon = icon;
-    //                 break;
-    //             case Delete: {
-    //                 // 確認のダイアログを表示する
-    //                 if (mDialog != nil) {
-    //                     mDialog.closeDialog();
-    //                     mDialog = nil;
-    //                 }
-    //                 // Daoデバッグ用のダイアログを表示
-    //                 mDialog = UDialogWindow.createInstance(UDialogWindow.DialogType.Mordal,
-    //                         self, self,
-    //                         UDialogWindow.ButtonDir.Horizontal, UDialogWindow.DialogPosType.Center,
-    //                         true,
-    //                         mTopView.getWidth(), mTopView.getHeight(),
-    //                         Color.rgb(200,100,100), Color.WHITE);
-    //                 mDialog.addToDrawManager();
-    
-    //                 // 確認のダイアログを表示する
-    //                 mDialog.setTitle(String.format(UResourceManager.getStringById(R.string.confirm_moveto_trash), icon.getTitle()));
-    
-    //                 // ボタンを追加
-    //                 mDialog.addButton(TrashDialogButtonOK, "OK", Color.BLACK,
-    //                         UColor.LightGreen);
-    //                 mDialog.addCloseButton(UResourceManager.getStringById(R.string.cancel));
-    
-    //                 // 捨てるアイコンを保持
-    //                 mThrowIcon = icon;
-    //             }
-    //                 break;
-    //             case Export:
-    //             {
-    //                 // 確認のダイアログを表示する
-    //                 if (mDialog != nil) {
-    //                     mDialog.closeDialog();
-    //                     mDialog = nil;
-    //                 }
-    
-    //                 mDialog = UDialogWindow.createInstance(UDialogWindow.DialogType.Mordal,
-    //                         self, self,
-    //                         UDialogWindow.ButtonDir.Horizontal, UDialogWindow.DialogPosType.Center,
-    //                         true,
-    //                         mTopView.getWidth(), mTopView.getHeight(),
-    //                         Color.rgb(200,100,100), Color.WHITE);
-    //                 mDialog.addToDrawManager();
-    
-    //                 // 確認のダイアログを表示する
-    //                 mDialog.setTitle(UResourceManager.getStringById(R.string.confirm_export_csv));
-    
-    //                 // ボタンを追加
-    //                 mDialog.addButton(ExportDialogButtonOK, "OK", Color.BLACK,
-    //                         UColor.LightGreen);
-    //                 mDialog.addCloseButton(UResourceManager.getStringById(R.string.cancel));
-    
-    //                 // アイコンを保持
-    //                 if (icon.getType() == IconType.Book) {
-    //                     mExportIcon = (IconBook)icon;
-    //                 }
-    //             }
-    //                 break;
-    //             case Cleanup:
-    //                 // ゴミ箱を空にする
-    //                 IconInfoCleanup(nil);
-    //                 break;
-    //         }
-    //     }
+        switch actionId {
+        case .Close:
+            _ = mIconWinManager!.hideWindow(
+                window: mIconWinManager!.getSubWindow(),
+                animation: true)
+           
+        case .Edit:
+            editingIcon = icon;
+            if icon is IconBook {
+                editBookDialog(iconBook: editingIcon as! IconBook)
+            }
+            
+        case .Copy:
+            // コピー確認ダイアログを表示する
+            if mDialog != nil {
+                mDialog!.closeDialog()
+                mDialog = nil
+            }
+            // Daoデバッグ用のダイアログを表示
+            mDialog = UDialogWindow.createInstance(
+                    parentView : mTopView,
+                    type : .Mordal,
+                    buttonCallbacks : self, dialogCallbacks : self,
+                    dir : .Horizontal,
+                    posType : .Center,
+                    isAnimation : true,
+                    screenW : mTopView.getWidth(), screenH : mTopView.getHeight(),
+                    textColor : DialogTextColor,
+                    dialogColor : UColor.White)
+            mDialog!.addToDrawManager();
+
+            // 確認のダイアログを表示する
+            if icon!.getTitle() != nil {
+                let text = String(format:UResourceManager.getStringByName("confirm_copy_book"), icon!.getTitle()!)
+                mDialog!.setTitle(text)
+            }
+
+            // ボタンを追加
+            _ = mDialog!.addButton(id: ButtonIdCopyOK,
+                               text: "OK", textColor: UIColor.black,
+                              color: UColor.LightGreen);
+            mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
+
+            // 捨てるアイコンを保持
+            mCopyIcon = icon
+            
+        case .Delete:
+            // 確認のダイアログを表示する
+            if mDialog != nil {
+                mDialog!.closeDialog()
+                mDialog = nil
+            }
+            // Daoデバッグ用のダイアログを表示
+            mDialog = UDialogWindow.createInstance(
+                parentView : mTopView,
+                type : .Mordal,
+                buttonCallbacks : self, dialogCallbacks : self,
+                dir : .Horizontal,
+                posType : .Center,
+                isAnimation : true,
+                screenW : mTopView.getWidth(), screenH : mTopView.getHeight(),
+                textColor : DialogTextColor, dialogColor : UIColor.white)
+            mDialog!.addToDrawManager()
+
+            // 確認のダイアログを表示する
+            if icon!.getTitle() != nil {
+                mDialog!.setTitle(String(format: UResourceManager.getStringByName("confirm_moveto_trash"), icon!.getTitle()!))
+            }
+
+            // ボタンを追加
+            _ = mDialog!.addButton(id: TrashDialogButtonOK, text: "OK",
+                               textColor: UIColor.black, color: UColor.LightGreen);
+            mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
+
+            // 捨てるアイコンを保持
+            mThrowIcon = icon
+            
+        case .Export:
+            // 確認のダイアログを表示する
+            if (mDialog != nil) {
+                mDialog!.closeDialog();
+                mDialog = nil;
+            }
+
+            mDialog = UDialogWindow.createInstance(
+                parentView : mTopView, type : .Mordal,
+                buttonCallbacks : self, dialogCallbacks : self,
+                dir : .Horizontal,
+                posType : .Center,
+                isAnimation : true,
+                screenW : mTopView.getWidth(), screenH : mTopView.getHeight(),
+                textColor : DialogTextColor, dialogColor : UIColor.white)
+            mDialog!.addToDrawManager();
+
+            // 確認のダイアログを表示する
+            mDialog!.setTitle(UResourceManager.getStringByName("confirm_export_csv"))
+
+            // ボタンを追加
+            _ = mDialog!.addButton(id: ExportDialogButtonOK, text: "OK",
+                               textColor: UIColor.black, color: UColor.LightGreen)
+            mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
+
+            // アイコンを保持
+            if icon is IconBook {
+                mExportIcon = icon as! IconBook
+            }
+            
+        case .Cleanup:
+            // ゴミ箱を空にする
+            IconInfoCleanup(icon: nil)
+            break
+        }
     }
 }
 

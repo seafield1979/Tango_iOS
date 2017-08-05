@@ -361,7 +361,7 @@ public class TangoCardDao {
         
         // データを追加
         try! mRealm!.write() {
-            mRealm!.add(card)
+            mRealm!.add(newCard)
         }
         
         return newCard
@@ -511,9 +511,13 @@ public class TangoCardDao {
             return
         }
         
-        let results = mRealm!.objects(TangoCard.self).filter("id = %@", ids)
+        let results = mRealm!.objects(TangoCard.self).filter("id In %@", ids)
         
-        try! mRealm!.write() {
+        if transaction {
+            try! mRealm!.write() {
+                mRealm!.delete(results)
+            }
+        } else {
             mRealm!.delete(results)
         }
     }

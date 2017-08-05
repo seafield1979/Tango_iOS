@@ -217,11 +217,12 @@ public class UButtonImage : UButton {
                 _image = pressedImage
             } else {
                 // BGの矩形を配置
-                UDraw.drawRoundRectFill( rect: CGRect(x:_rect.x - 10,
-                                                y: _rect.y - 10,
-                                                width: _rect.width + 10,
-                                                height: _rect.height + 10),
-                                         cornerR: 10.0, color: pressedColor,
+                let margin = UDpi.toPixel(5)
+                UDraw.drawRoundRectFill( rect: CGRect(x:_rect.x - margin,
+                                                y: _rect.y - margin,
+                                                width: _rect.width + margin * 2,
+                                                height: _rect.height + margin * 2),
+                                         cornerR: margin, color: pressedColor,
                                          strokeWidth: 0, strokeColor: nil)
             }
         }

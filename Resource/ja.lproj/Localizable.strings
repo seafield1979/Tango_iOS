@@ -119,7 +119,7 @@
 "finish" = "終了";
 "cards_remain" = "あと%d枚";
 "confirm_exit" = "学習を終了しますか？";
-"confirm_copy_book" = "%s(単語帳)をコピーしますか？";
+"confirm_copy_book" = "%@(単語帳)をコピーしますか？";
 "confirm_moveto_trash" = "ゴミ箱に捨てますか？";
 "confirm_cleanup_trash" = "ゴミ箱を空にしますか？";
 "confirm_clear_history" = "学習記録をクリアしますか？";
@@ -130,7 +130,7 @@
 "retry1" = "すべて\nリトライ";
 "retry2" = "NGのみ\nリトライ";
 "title_result" = "学習結果";
-"title_result2" = "%sの学習結果";
+"title_result2" = "%@の学習結果";
 
 "backup" = "バックアップ";
 "backup_auto" = "自動バックアップ";
@@ -159,8 +159,8 @@
 "confirm_cleanup" = "バックアップを空にしてもよろしいですか？";
 "no_backup" = "バックアップはありません";
 "finish_restore" = "復元が完了しました";
-"confirm_add_book" = "%sを追加しますか？";
-"confirm_add_book2" = "%sを追加しました";
+"confirm_add_book" = "%@を追加しますか？";
+"confirm_add_book2" = "%@を追加しました";
 "auto_backup" = "起動時に自動でバックアップする";
 
 "license" = "ライセンス";

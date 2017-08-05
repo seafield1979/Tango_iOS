@@ -97,6 +97,8 @@ public class TangoCard : Object, TangoItem, NSCopying {
         
         newCard.color = card.color
         newCard.star = card.star
+        
+        
         return newCard
     }
     
