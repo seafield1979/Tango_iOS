@@ -59,10 +59,7 @@ public class ListItemTest1 : UListItem {
         }
         
         // BG
-        let _rect = CGRect(x:_pos.x, y:_pos.y,
-                           width: size.width, height: size.height)
-        UDraw.drawRectFill(rect: _rect, color: color!,
-                           strokeWidth: 4, strokeColor: UIColor.black)
+        super.draw(_pos)
         
         // text
         let text = mText

@@ -162,7 +162,7 @@ public class UListView : UScrollWindow
         UIGraphicsGetCurrentContext()!.restoreGState()
     }
 
-    override public func touchEvent(vt : ViewTouch, offset : CGPoint?) -> Bool {
+    public override func touchEvent(vt : ViewTouch, offset : CGPoint?) -> Bool {
         var offset = offset
         if offset == nil {
             offset = CGPoint()

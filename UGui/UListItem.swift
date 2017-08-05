@@ -129,6 +129,9 @@ public class UListItem : UDrawable {
                     isDraw = true
                 }
             }
+        case .LongPress:
+            isTouching = false
+            isDraw = true
         default:
             break
         }

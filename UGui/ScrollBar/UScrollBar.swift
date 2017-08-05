@@ -58,7 +58,7 @@ public class UScrollBar {
     private var _isShow : Bool = false
     
     public var pos = CGPoint()
-    public var parentPos = CGPoint()
+//    public var parentPos = CGPoint()
     public var bgColor : UIColor? = nil, barColor : UIColor? = nil
     private var isDraging : Bool = false
     
@@ -138,7 +138,7 @@ public class UScrollBar {
      * @param contentLen  全体のコンテンツの長さ
      */
     public init(type : ScrollBarType, showType : ScrollBarShowType,
-                parentPos : CGPoint, x : CGFloat, y : CGFloat,
+                x : CGFloat, y : CGFloat,
                 bgLength : CGFloat, bgWidth : CGFloat,
                 pageLen : CGFloat, contentLen : CGFloat )
     {
@@ -151,7 +151,6 @@ public class UScrollBar {
         pos.y = y
         topPos = 0
         barPos = 0
-        self.parentPos = parentPos
         self.bgWidth = bgWidth
         self.bgLength = bgLength
         self.contentLen = contentLen
@@ -228,8 +227,8 @@ public class UScrollBar {
             return
         }
     
-        var baseX : CGFloat = pos.x + parentPos.x
-        var baseY : CGFloat = pos.y + parentPos.y
+        var baseX : CGFloat = pos.x
+        var baseY : CGFloat = pos.y
         if offset != nil {
             baseX += offset!.x
             baseY += offset!.y
@@ -238,9 +237,10 @@ public class UScrollBar {
         var _barLength : CGFloat = barLength
         var _barPos : CGFloat = barPos
         if (showType == ScrollBarShowType.ShowAllways) {
-            _barLength = bgLength - 30;
-            _barPos = 15;
+            _barLength = bgLength - UDpi.toPixel(30);
+            _barPos = UDpi.toPixel(15);
         }
+        let margin = UDpi.toPixel(10)
         if (type == ScrollBarType.Horizontal) {
             if bgColor != nil {
                 bgRect.x = baseX
@@ -250,9 +250,9 @@ public class UScrollBar {
             }
             
             barRect.x = baseX + CGFloat(_barPos)
-            barRect.y = baseY + 10
+            barRect.y = baseY + margin
             barRect.width = CGFloat(_barLength)
-            barRect.height = CGFloat(bgWidth) - 20
+            barRect.height = CGFloat(bgWidth) - margin * 2
         } else {
             if bgColor != nil {
                 bgRect.x = baseX
@@ -261,9 +261,9 @@ public class UScrollBar {
                 bgRect.height = CGFloat(bgLength)
             }
             
-            barRect.x = baseX + 10.0
+            barRect.x = baseX + margin
             barRect.y = baseY + CGFloat(_barPos)
-            barRect.width = CGFloat(bgWidth) - 20.0
+            barRect.width = CGFloat(bgWidth) - margin * 2
             barRect.height = CGFloat(_barLength)
         }
         

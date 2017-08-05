@@ -125,8 +125,11 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
         TangoBookDao.addDummy()
     }
     
+    // たくさんのカードと単語帳を追加する
     private func test3() {
-        
+        for i in 0..<100 {
+            TangoCardDao.addDummy()
+        }
     }
     
     /**

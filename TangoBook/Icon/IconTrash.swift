@@ -122,7 +122,7 @@ public class IconTrash : IconContainer {
      * @param dstIcon
      * @return
      */
-    public func canDrop( dstIcon : UIcon, dropX : CGFloat, dropY : CGFloat) -> Bool {
+    public override func canDrop( dstIcon : UIcon, x dropX : CGFloat, y dropY : CGFloat) -> Bool {
         return true
     }
     
@@ -130,7 +130,7 @@ public class IconTrash : IconContainer {
      * アイコンの中に入れることができるか
      * @return
      */
-    public func canDropIn( dstIcon : UIcon, dropX : CGFloat, dropY : CGFloat) -> Bool
+    public override func canDropIn( dstIcon : UIcon, x dropX : CGFloat, y dropY : CGFloat) -> Bool
     {
         return false
     }

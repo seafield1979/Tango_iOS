@@ -901,94 +901,95 @@ public class UIconWindow : UWindow{
                 }
             }
 
-             // ドロップ処理をチェックする
-             if (dragedIcon!.canDrop(dstIcon: dropIcon, x: winX, y: winY)) {
-                 ret.dropedIcon = dropIcon
-                 switch dropIcon.getType() {
-                     case .Card:
-                         // ドラッグ位置のアイコンと場所を交換する
-                         ret.movingType = IconMovingType.Exchange
-                         ret.isDroped = true
-                    
-                     case .Book:
-                         if dragedIcon!.getType() != IconType.Card {
-                             ret.movingType = IconMovingType.Exchange
-                             ret.isDroped = true
-                             break
-                         }
-                     case .Trash:
-                        // Containerの中に挿入する
-                        moveIconIn(icon1: dragedIcon!, icon2: dropIcon)
-                        ret.movingType = IconMovingType.MoveIn
-
-                        for win in windows!.getWindows()! {
-                            let manager : UIconManager? = win!.getIconManager()
-                            if manager != nil {
-                                manager!.updateBlockRect()
-                            }
-                        }
+            // ドロップ処理をチェックする
+            if (dragedIcon!.canDrop(dstIcon: dropIcon, x: winX, y: winY)) {
+                ret.dropedIcon = dropIcon
+                switch dropIcon.getType() {
+                    case .Card:
+                        // ドラッグ位置のアイコンと場所を交換する
+                        ret.movingType = IconMovingType.Exchange
                         ret.isDroped = true
-                 }
-                 break
-             } else {
-                 // アイコンのマージン部分にドロップされたかのチェック
-                 if dir == WindowDir.Vertical {
-                     // 縦画面
-                     if dropIcon.getX() - iconMargin * 2 <= winX &&
-                             winX <= dropIcon.getRight() + iconMargin * 2 &&
-                             dropIcon.getY() - iconMargin * 2  <= winY &&
-                             winY <= dropIcon.getBottom() + iconMargin * 2
-                     {
-                         // ドラッグ位置（アイコンの左側)にアイコンを挿入する
-                         ret.dropedIcon = dropIcon
-                         ret.isDroped = true
-                         break
-                     } else if (dropIcon.getX() + (iconMargin + iconW) * 2 > size.width )
-                     {
-                         // 右端のアイコンは右側に挿入できる
-                         if winX > dropIcon.getRight() &&
-                                 dropIcon.getY() <= winY &&
-                                 winY <= dropIcon.getY() + dropIcon.getSize().height
-                         {
-                             // 右側の場合は次のアイコンの次の位置に挿入
-                             if i < dstIcons.count - 1 {
-                                 dropIcon = dstIcons[i+1]
-                             }
-                             ret.dropedIcon = dropIcon
-                             ret.isDroped = true
-                             break
-                         }
-                     }
-                 } else {
-                     // 横画面
-                     if dropIcon.getY() - iconMargin * 2 <= winY &&
-                             winY <= dropIcon.getY() + iconMargin &&
-                             dropIcon.getX() <= winX && winX <= dropIcon.getX() + dropIcon.getSize()
-                             .width
-                     {
-                         ret.dropedIcon = dropIcon
-                         ret.isDroped = true
-                         break
-                     } else if (dropIcon.getY() + (iconMargin + iconH) * 2 > size.height ) {
-                         // 下端のアイコンは下側に挿入できる
-                         if (winY > dropIcon.getBottom() &&
-                                 dropIcon.getX() <= winX &&
-                                 winX <= dropIcon.getX() + dropIcon.getSize().width )
-                         {
-                             // 右側の場合は次のアイコンの次の位置に挿入
-                             if i < dstIcons.count - 1 {
-                                 dropIcon = dstIcons[i+1]
-                             }
-                             ret.dropedIcon = dropIcon
-                             ret.isDroped = true
-                             break
-                         }
-                     }
-                 }
-             }
-         }
-         return ret
-     }
+                   
+                    case .Book:
+                        if dragedIcon!.getType() != IconType.Card {
+                            ret.movingType = IconMovingType.Exchange
+                            ret.isDroped = true
+                            break
+                        }
+                        fallthrough
+                    case .Trash:
+                       // Containerの中に挿入する
+                       moveIconIn(icon1: dragedIcon!, icon2: dropIcon)
+                       ret.movingType = IconMovingType.MoveIn
+
+                       for win in windows!.getWindows()! {
+                           let manager : UIconManager? = win!.getIconManager()
+                           if manager != nil {
+                               manager!.updateBlockRect()
+                           }
+                       }
+                       ret.isDroped = true
+                }
+                break
+            } else {
+                // アイコンのマージン部分にドロップされたかのチェック
+                if dir == WindowDir.Vertical {
+                    // 縦画面
+                    if dropIcon.getX() - iconMargin * 2 <= winX &&
+                            winX <= dropIcon.getRight() + iconMargin * 2 &&
+                            dropIcon.getY() - iconMargin * 2  <= winY &&
+                            winY <= dropIcon.getBottom() + iconMargin * 2
+                    {
+                        // ドラッグ位置（アイコンの左側)にアイコンを挿入する
+                        ret.dropedIcon = dropIcon
+                        ret.isDroped = true
+                        break
+                    } else if (dropIcon.getX() + (iconMargin + iconW) * 2 > size.width )
+                    {
+                        // 右端のアイコンは右側に挿入できる
+                        if winX > dropIcon.getRight() &&
+                                dropIcon.getY() <= winY &&
+                                winY <= dropIcon.getY() + dropIcon.getSize().height
+                        {
+                            // 右側の場合は次のアイコンの次の位置に挿入
+                            if i < dstIcons.count - 1 {
+                                dropIcon = dstIcons[i+1]
+                            }
+                            ret.dropedIcon = dropIcon
+                            ret.isDroped = true
+                            break
+                        }
+                    }
+                } else {
+                    // 横画面
+                    if dropIcon.getY() - iconMargin * 2 <= winY &&
+                            winY <= dropIcon.getY() + iconMargin &&
+                            dropIcon.getX() <= winX && winX <= dropIcon.getX() + dropIcon.getSize()
+                            .width
+                    {
+                        ret.dropedIcon = dropIcon
+                        ret.isDroped = true
+                        break
+                    } else if (dropIcon.getY() + (iconMargin + iconH) * 2 > size.height ) {
+                        // 下端のアイコンは下側に挿入できる
+                        if (winY > dropIcon.getBottom() &&
+                                dropIcon.getX() <= winX &&
+                                winX <= dropIcon.getX() + dropIcon.getSize().width )
+                        {
+                            // 右側の場合は次のアイコンの次の位置に挿入
+                            if i < dstIcons.count - 1 {
+                                dropIcon = dstIcons[i+1]
+                            }
+                            ret.dropedIcon = dropIcon
+                            ret.isDroped = true
+                            break
+                        }
+                    }
+                }
+            }
+        }
+        return ret
+    }
 
     /**
      * ドラッグ終了時の処理（アイコン選択時)

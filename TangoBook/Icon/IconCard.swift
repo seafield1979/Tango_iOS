@@ -162,7 +162,7 @@ public class IconCard : UIcon {
      * @param dstIcon
      * @return
      */
-    public func canDrop( dstIcon : UIcon, dropX : CGFloat, dropY : CGFloat) -> Bool {
+    public override func canDrop( dstIcon : UIcon, x dropX : CGFloat, y dropY : CGFloat) -> Bool {
         // ドロップ座標がアイコンの中に含まれているかチェック
         if !dstIcon.checkDrop(x: dropX, y: dropY) {
             return false
@@ -175,7 +175,7 @@ public class IconCard : UIcon {
      * アイコンの中に入れることができるか
      * @return
      */
-    public func canDropIn( dstIcon : UIcon, dropX : CGFloat, dropY : CGFloat) -> Bool
+    public override func canDropIn( dstIcon : UIcon, x dropX : CGFloat, y dropY : CGFloat) -> Bool
     {
         if dstIcon.getType() != IconType.Card {
             if dstIcon.checkDrop(x:dropX, y:dropY) {
@@ -192,7 +192,7 @@ public class IconCard : UIcon {
      */
     public func droped(dstIcon : UIcon, dropX : CGFloat, dropY : CGFloat) -> Bool{
         // 全面的にドロップはできない
-        if (!canDrop(dstIcon: dstIcon, dropX: dropX, dropY: dropY)){
+        if (!canDrop(dstIcon: dstIcon, x: dropX, y: dropY)){
             return false
         }
         return true

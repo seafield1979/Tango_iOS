@@ -226,7 +226,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
         
             mScrollBarV = UScrollBar(
                 type: ScrollBarType.Vertical,
-                showType: showType, parentPos: pos,
+                showType: showType,
                 x: size.width - frameSize.width - scrollBarW,
                 y: frameSize.height + topBarH,
                 bgLength: clientSize.height,
@@ -236,7 +236,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
             
             mScrollBarH = UScrollBar(
                 type: ScrollBarType.Horizontal,
-                showType: showType, parentPos: pos,
+                showType: showType,
                 x: frameSize.width,
                 y: size.height - frameSize.height - scrollBarW,
                 bgLength: clientSize.width,
@@ -447,7 +447,10 @@ public class UWindow : UDrawable, UButtonCallbacks {
         
         // スクロールバー
         if (mScrollBarV != nil && mScrollBarV!.isShow()) {
-            
+            var offset = offset
+            if offset == nil {
+                offset = CGPoint(x: pos.x, y: pos.y)
+            }
             mScrollBarV!.draw(offset: offset)
         }
         if (mScrollBarH != nil && mScrollBarH!.isShow()) {
@@ -525,11 +528,10 @@ public class UWindow : UDrawable, UButtonCallbacks {
     public override func touchEvent(vt : ViewTouch, offset : CGPoint?) -> Bool {
         
         var offset = offset
-        if offset == nil {
-            offset = CGPoint(x: offset!.x, y: offset!.y)
+        if offset != nil {
+            offset!.x += pos.x
+            offset!.y += pos.y
         }
-//        offset!.x += pos.x
-//        offset!.y += pos.y
         
         if closeIcon != nil && closeIcon!.isShow {
             if (closeIcon!.touchEvent(vt: vt, offset: offset)) {

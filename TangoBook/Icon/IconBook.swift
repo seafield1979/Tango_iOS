@@ -84,12 +84,17 @@ public class IconBook : IconContainer {
         }
         
         var alpha : CGFloat = 1.0
-        if isLongTouched || isTouched || isDroped {
+        if isLongTouched || isTouched  {
             // 長押し、タッチ、ドロップ中はBGを表示
             UDraw.drawRoundRectFill(rect: CGRect(x: drawPos.x, y: drawPos.y, width: iconW, height: iconH),
                                      cornerR: UDpi.toPixel(10),
                                      color: touchedColor!,
                                      strokeWidth: 0, strokeColor: nil)
+        } else if  isDroped {
+            UDraw.drawRoundRectFill(rect: CGRect(x: drawPos.x, y: drawPos.y, width: iconW, height: iconH),
+                                    cornerR: UDpi.toPixel(10),
+                                    color: touchedColor!,
+                                    strokeWidth: 0, strokeColor: nil)
         } else if (isAnimating) {
             // 点滅
             let v1 : CGFloat = (CGFloat(animeFrame) / CGFloat(animeFrameMax)) * 180
@@ -151,7 +156,7 @@ public class IconBook : IconContainer {
      * @param dstIcon
      * @return
      */
-    public func canDrop( dstIcon : UIcon, dropX : CGFloat, dropY : CGFloat) -> Bool {
+    public override func canDrop( dstIcon : UIcon, x dropX : CGFloat, y dropY : CGFloat) -> Bool {
         // ドロップ先のアイコンがサブWindowの中なら不可能
         if dstIcon.getParentWindow()!.getType() == WindowType.Sub {
             return false;
@@ -168,7 +173,7 @@ public class IconBook : IconContainer {
      * アイコンの中に入れることができるか
      * @return
      */
-    public func canDropIn(dstIcon : UIcon, dropX : CGFloat, dropY : CGFloat) -> Bool {
+    public override func canDropIn(dstIcon : UIcon, x dropX : CGFloat, y dropY : CGFloat) -> Bool {
         if dstIcon.getType() == IconType.Trash {
             if dstIcon.checkDrop(x: dropX, y: dropY) {
                 return true
