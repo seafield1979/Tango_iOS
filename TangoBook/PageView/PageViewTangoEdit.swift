@@ -22,8 +22,10 @@ public enum EditBookDialogMode {
  単語カード編集ダイアログが終了した時に呼ばれるコールバック
  */
 public protocol EditCardDialogCallbacks {
+    // カード情報が更新された時に呼ばれる
     func submitEditCard(mode : EditCardDialogMode,
                         wordA : String?, wordB : String?, color : UIColor?)
+    // 更新がキャンセルされた時に呼ばれる
     func cancelEditCard()
 }
 
@@ -31,8 +33,10 @@ public protocol EditCardDialogCallbacks {
  単語帳編集ダイアログが終了した時に呼ばれるコールバック
  */
 public protocol EditBookDialogCallbacks {
+    // 単語帳情報が更新された時に呼ばれる
     func submitEditBook(mode : EditBookDialogMode,
                         name : String?, comment : String?, color : UIColor?)
+    // 更新がキャンセルされた時に呼ばれる
     func cancelEditBook()
 }
 
@@ -796,9 +800,10 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         return false
     }
     
+    // MARK: EditCardDialogCallbacks
     /**
-    * EditCardDialogCallbacks
-    */
+     *
+     */
     public func submitEditCard(mode : EditCardDialogMode,
                                wordA : String?, wordB : String?, color : UIColor?) {
          if mode == EditCardDialogMode.Create {
@@ -827,13 +832,14 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             card.wordA = wordA
             card.wordB = wordB
             
+            let oldColor : Int = card.color
             if color != nil {
                 card.color = color!.intColor()
             }
             
             // アイコンの画像を更新する
             let cardIcon = editingIcon as! IconCard
-            if color!.intColor() != card.color {
+            if color!.intColor() != oldColor {
                 cardIcon.setColor(color!)
                 cardIcon.updateIconImage()
             }
@@ -850,9 +856,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     }
     
     
-    /**
-     * EditBookDialogCallbacks
-     */
+    // MARK: EditBookDialogCallbacks
     public func submitEditBook(mode : EditBookDialogMode,
                                name : String?, comment : String?, color : UIColor?)
     {

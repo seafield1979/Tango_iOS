@@ -61,4 +61,19 @@ extension UIColor {
         }
         return UIColor.white
     }
+    
+    // PixelDataに変換する
+    func toPixelColor() -> PixelData {
+        var R : CGFloat = 0.0
+        var G : CGFloat = 0.0
+        var B : CGFloat = 0.0
+        var A : CGFloat = 0.0
+        
+        self.getRed(&R, green: &G, blue: &B, alpha: &A)
+        
+        return PixelData(a: UInt8(A * 255),
+                         r: UInt8(R * 255),
+                         g: UInt8(G * 255),
+                         b: UInt8(B * 255))
+    }
 }

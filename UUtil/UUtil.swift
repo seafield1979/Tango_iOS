@@ -102,39 +102,41 @@ public class UUtil {
      * 元の画像はグレースケール限定
      */
     public static func convImageColor(image : UIImage, newColor : UIColor) -> UIImage {
-    // グレースケール変換
-//    int height = bmp.getHeight();
-//    int width  = bmp.getWidth();
-//    int size   = height * width;
-//    int pix[]  = new int[size];
-//    int pos = 0;
-//    int[] colorConvTbl = new int[256];
-//    
-//    bmp.getPixels(pix, 0, width, 0, 0, width, height);
-//    for (int y = 0; y < height; y++) {
-//    for (int x = 0; x < width; x++) {
-//    int pixel = pix[pos];
-//    int alpha = pixel & 0xff000000;
-//    // 白はそのまま
-//    if ((pixel & 0xffffff) == 0xffffff) {
-//    pix[pos] = pixel;
-//    } else {
-//    // 輝度(明るさ)を元に新しい色を求める。すでに同じ輝度で計算していたら結果をテーブルから取得する
-//    int _y = UColor.RGBtoY(pixel);
-//    if (pixel != 0 && colorConvTbl[_y] == 0) {
-//    colorConvTbl[_y] = UColor.colorWithY(newColor,
-//    _y);
-//    }
-//    pix[pos] = alpha | colorConvTbl[_y];
-//    }
-//    pos++;
-//    }
-//    }
-//    Bitmap newBmp = Bitmap.createBitmap(pix, 0, width, width, height,
-//    Bitmap.Config.ARGB_8888);
-//    
-//    return newBmp;
-        return image
+        // グレースケール変換
+        var pix = image.pixelData()
+        let _newPixColor = newColor.toPixelColor()
+        let width : Int = Int(image.size.width)
+        let height : Int = Int(image.size.height)
+        let size : Int = width * height
+        var pos : Int = 0
+        var colorConvTbl : [PixelData?] = Array(repeating: nil, count: 256)
+        
+        for _ in 0 ..< size {
+            let pixel : PixelData = pix![pos]
+            
+            // 白はそのまま
+            if pixel.isWhite() {
+                pix![pos] = pixel
+            } else {
+                // 輝度(明るさ)を元に新しい色を求める。すでに同じ輝度で計算していたら結果をテーブルから取得する
+                let _y = Int(UColor.colorToY(pixel: pixel))
+                if pixel.a != 0 && colorConvTbl[_y] == nil {
+                    colorConvTbl[_y] =
+                        UColor.colorWithY(pixel: _newPixColor, y: CGFloat(_y))
+                }
+                // アルファは元々の値を使用する
+                if pixel.a != 0 && colorConvTbl[_y] != nil {
+                    pix![pos].r = colorConvTbl[_y]!.r
+                    pix![pos].g = colorConvTbl[_y]!.g
+                    pix![pos].b = colorConvTbl[_y]!.b
+                }
+            }
+            pos += 1
+        }
+        
+        let newImage = UIImage.imageFromBitmap(pixels: pix!, width: width, height: height)
+        
+        return newImage!
     }
     
     /**

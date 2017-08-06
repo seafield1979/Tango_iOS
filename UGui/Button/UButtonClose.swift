@@ -35,7 +35,7 @@ public class UButtonClose : UButton {
                 x : CGFloat, y : CGFloat, color : UIColor)
     {
         self.radius = UDpi.toPixel(UButtonClose.BUTTON_W / 2)
-        self.closeImage = UResourceManager.getImageByName(ImageName.close)!
+        self.closeImage = UResourceManager.getImageWithColor(imageName: ImageName.close, color: UIColor.red)!
 
         super.init(callbacks: callbacks, type: type, id: id, priority: priority,
                    x: x, y: y,

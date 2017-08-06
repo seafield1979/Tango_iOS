@@ -184,6 +184,26 @@ public class UColor {
         return UYuv(y: Y, u: Cb, v: Cr)
     }
     
+    // 色が 0~255
+    public static func RGBtoYUV(_ pixel : PixelData) -> UYuv {
+        var Y  = CGFloat(0.257 * CGFloat(pixel.r) + 0.504 * CGFloat(pixel.g) + 0.098 * CGFloat(pixel.b) + (16.0 / 256.0))
+        var Cb = CGFloat(-0.148 * CGFloat(pixel.r) - 0.291 * CGFloat(pixel.g) + 0.439 * CGFloat(pixel.b) + (128 / 256.0))
+        var Cr = CGFloat(0.439 * CGFloat(pixel.r) - 0.368 * CGFloat(pixel.g) - 0.071 * CGFloat(pixel.b) + (128 / 256.0))
+        
+        if (Y > 255) {
+            Y = 255
+        }
+        if (Cb > 255) {
+            Cb = 255
+        }
+        if (Cr > 255) {
+            Cr = 255
+        }
+        
+        return UYuv(y: Y, u: Cb, v: Cr)
+    }
+
+    
     // 輝度(Y)を指定して色を変更する
     public static func colorWithY(rgb : UIColor, y : CGFloat) -> UIColor {
         var R : CGFloat = 0.0, G : CGFloat = 0.0, B : CGFloat = 0.0 ,A : CGFloat = 0.0
@@ -201,8 +221,21 @@ public class UColor {
         
         return YUVtoRGB(y:y, u:Cb, v:Cr , a:A)
     }
+    public static func colorWithY(pixel : PixelData, y : CGFloat) -> PixelData {
+        var Cb = CGFloat(-0.148 * CGFloat(pixel.r) - 0.291 * CGFloat(pixel.g) + 0.439 * CGFloat(pixel.b) + 128)
+        var Cr = CGFloat(0.439 * CGFloat(pixel.r) - 0.368 * CGFloat(pixel.g) - 0.071 * CGFloat(pixel.b) + 128)
+        
+        if (Cb > 255) {
+            Cb = 255
+        }
+        if (Cr > 255) {
+            Cr = 255
+        }
+        
+        return YUVtoRGB2(y:y, u:Cb, v:Cr, a: CGFloat(pixel.a))
+    }
     
-    public static func RGBtoY(rgb : UInt32) -> UInt32 {
+    public static func colorToY(rgb : UInt32) -> UInt32 {
         let R = CGFloat(UColor.red(rgb))
         let G = CGFloat(UColor.green(rgb))
         let B = CGFloat(UColor.blue(rgb))
@@ -210,6 +243,13 @@ public class UColor {
         return UInt32(0.257 * R + 0.504 * G + 0.098 * B + 16)
     }
     
+    public static func colorToY(pixel : PixelData) -> UInt32 {
+        let R = CGFloat(pixel.r)
+        let G = CGFloat(pixel.g)
+        let B = CGFloat(pixel.b)
+        
+        return UInt32(0.257 * R + 0.504 * G + 0.098 * B + 16)
+    }
     
     /**
      * YUV -> RGB
@@ -218,6 +258,7 @@ public class UColor {
         return YUVtoRGB(y: yuv.y, u: yuv.u, v:yuv.v, a:alpha)
     }
     
+    // 色が 0.0~1.0
     public static func YUVtoRGB(y: CGFloat, u: CGFloat, v: CGFloat, a: CGFloat) -> UIColor {
         var R = CGFloat(1.164 * (y - (16.0 / 256.0))
             + 1.596 * (v-(128.0 / 256.0)))
@@ -236,6 +277,33 @@ public class UColor {
         
         return UIColor(red: R, green:G, blue:B, alpha: a)
     }
+    
+    /**
+     YUVの色をRGBの色に変換
+     - parameter y: 輝度  0~255
+     - parameter u: 色差Cr  0~255
+     - parameter v: 色差Cb  0~255
+     - returns: PixelData
+     */
+    public static func YUVtoRGB2(y: CGFloat, u: CGFloat, v: CGFloat, a: CGFloat) -> PixelData {
+        var R = 1.164 * (y - 16.0)
+            + 1.596 * (v - 128.0)
+        var G = 1.164 * (y - 16.0)
+            - 0.391 * (u - 128.0)
+            - 0.813 * (v - 128.0)
+        var B = 1.164 * (y - 16.0)
+            + 2.018 * (u - 128.0)
+        
+        if (R > 255){ R = 255 }
+        if (R < 0){ R = 0 }
+        if (G > 255){ G = 255 }
+        if (G < 0){ G = 0 }
+        if (B > 255){ B = 255 }
+        if (B < 0){ B = 0 }
+        
+        return PixelData(a: UInt8(a), r: UInt8(R), g: UInt8(G), b: UInt8(B))
+    }
+    
     
     /**
      * 現在の色(RGB)で輝度のみ変更する
