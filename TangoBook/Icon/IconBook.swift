@@ -131,9 +131,8 @@ public class IconBook : IconContainer {
      * タイトルを更新する
      */
     public override func updateTitle() {
-        let len = (book!.getName()!.lengthOfBytes(
-            using: String.Encoding.utf8) < DISP_TITLE_LEN) ?
-                book!.getName()!.lengthOfBytes(using: String.Encoding.utf8) :
+        let len = (book!.getName()!.characters.count < DISP_TITLE_LEN) ?
+                book!.getName()!.characters.count :
                 DISP_TITLE_LEN
         let text = book!.getName()!
         self.title = text.substring(to: text.index(text.startIndex, offsetBy: len))

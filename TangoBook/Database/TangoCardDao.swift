@@ -379,7 +379,7 @@ public class TangoCardDao {
         card.wordA = "hoge" + randVal
         card.wordB = "ほげ" + randVal
         card.comment = "comment:" + randVal
-        card.color = (UIColor.black).intColor()
+        card.color = Int((UIColor.black).intColor())
         card.star = false
         
         let now = Date()

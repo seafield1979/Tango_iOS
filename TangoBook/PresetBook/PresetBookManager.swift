@@ -142,7 +142,7 @@ public class PresetBookManager {
         let book = TangoBook.createBook()
         book.setName(name: presetBook.mName)
         book.setComment(comment: presetBook.mComment)
-        book.setColor(color: presetBook.mColor!.intColor())
+        book.setColor(color: Int(presetBook.mColor!.intColor()))
         TangoBookDao.addOne(book: book, addPos: -1)
 
         // 単語帳以下にカードを追加

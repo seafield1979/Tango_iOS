@@ -156,6 +156,7 @@ public enum ImageName : String {
     // ファイルパスを返す
     // 全てのファイルにパスをつけるのが面倒なのでメソッド化した
     func path() -> String{
-        return "Resource/image/" + self.rawValue
+//        return "Resource/image/" + self.rawValue
+        return self.rawValue
     }
 }

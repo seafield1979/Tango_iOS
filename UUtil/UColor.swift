@@ -125,7 +125,7 @@ public class UColor {
     
     // argb 32bit(r:8bit g:8bit b:8bit a:8bit)の色から UIColor を作成する
     public static func makeColor(argb: UInt32) -> UIColor {
-        let a = CGFloat((argb >> 24) & 0xff) / 255.0
+        let a : CGFloat = 1.0 //CGFloat((argb >> 24) & 0xff) / 255.0
         let r = CGFloat((argb >> 16) & 0xff) / 255.0
         let g = CGFloat((argb >> 8) & 0xff) / 255.0
         let b = CGFloat(argb & 0xff) / 255.0

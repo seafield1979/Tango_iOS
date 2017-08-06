@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension UIColor {
-    func intColor() -> Int {
+    func intColor() -> UInt32 {
         var R : CGFloat = 0.0
         var G : CGFloat = 0.0
         var B : CGFloat = 0.0
@@ -18,10 +18,11 @@ extension UIColor {
         
         self.getRed(&R, green: &G, blue: &B, alpha: &A)
         
-        return Int((UInt32(A * 255.0) << 24) |
+        // IntでオーバーフローするのでAlphaは除外
+        return //(UInt32(A * 255.0) << 24) |
             (UInt32(R * 255.0) << 16) |
             (UInt32(G * 255.0) << 8) |
-            UInt32(B * 255.0))
+            UInt32(B * 255.0)
     }
     
     // １６進数の文字列にして返す

@@ -816,7 +816,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             updateCard.wordA = wordA
             updateCard.wordB = wordB
             if color != nil {
-                updateCard.color = color!.intColor()
+                updateCard.color = Int(color!.intColor())
             }
 
             iconCard.updateTitle()
@@ -832,9 +832,9 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             card.wordA = wordA
             card.wordB = wordB
             
-            let oldColor : Int = card.color
+            let oldColor = UInt32(card.color)
             if color != nil {
-                card.color = color!.intColor()
+                card.color = Int(color!.intColor())
             }
             
             // アイコンの画像を更新する
@@ -875,11 +875,11 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             book!.name = name
             book!.comment = comment
             if color != nil {
-                book!.color = color!.intColor()
+                book!.color = Int(color!.intColor())
             }
             bookIcon.updateTitle()
 
-            if color!.intColor() != book!.color {
+            if color!.intColor() != UInt32(book!.color) {
                 bookIcon.setColor(color!)
                 bookIcon.updateIconImage()
             }
@@ -895,7 +895,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             book.name = name
             book.comment = comment
             if color != nil {
-                book.setColor(color: color!.intColor())
+                book.setColor(color: Int(color!.intColor()))
                 // アイコンの画像を更新する
                 bookIcon.setColor(color!)
                 bookIcon.updateIconImage()

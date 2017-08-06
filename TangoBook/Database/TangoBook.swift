@@ -44,7 +44,7 @@ public class TangoBook : Object, TangoItem, NSCopying {
         let book = TangoBook()
         book.isNew = true
         book.name = ""
-        book.color = (UIColor.black).intColor()
+        book.color = Int((UIColor.black).intColor())
         book.createTime = Date()
         book.updateTime = Date()
         

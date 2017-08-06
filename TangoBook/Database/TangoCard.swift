@@ -57,7 +57,7 @@ public class TangoCard : Object, TangoItem, NSCopying {
         let card = TangoCard()
         card.originalId = 0
         card.isNew = true
-        card.color = (UIColor.black).intColor()
+        card.color = Int((UIColor.black).intColor())
         card.wordA = ""
         card.wordB = ""
         card.star = false
@@ -74,7 +74,7 @@ public class TangoCard : Object, TangoItem, NSCopying {
         card.wordA = " " + String(randVal)
         card.wordB = "あ " + String(randVal)
         card.comment = "C " + String(randVal)
-        card.color = (UIColor.black).intColor()
+        card.color = Int((UIColor.black).intColor())
         card.star = false
         card.isNew = true
         return card
