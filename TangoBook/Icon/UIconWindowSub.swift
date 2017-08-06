@@ -271,13 +271,13 @@ public class UIconWindowSub : UIconWindow {
             return false
         }
         
-        var offset = offset
-        if offset == nil {
-            offset = CGPoint()
+        // アイコンのタッチ処理
+        var offset2 = CGPoint(x: pos.x, y: pos.y + size.height)
+        if offset != nil {
+            offset2.x += offset!.x
+            offset2.y += offset!.y
         }
         
-        // アイコンのタッチ処理
-        let offset2 = CGPoint(x: pos.x + offset!.x, y: pos.y + offset!.y + size.height)
         for button in getButtons() {
             if button.touchEvent(vt: vt, offset: offset2) {
                 return true

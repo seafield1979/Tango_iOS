@@ -50,6 +50,9 @@ class EditCardViewController: UIViewController, UITextFieldDelegate
         let width = buttons.last!.frame.origin.x + buttons.last!.frame.size.width
         
         colorScrollView.contentSize.width = width
+        
+        // 最初のTextFieldにフォーカスを合わせる
+        textWordA.becomeFirstResponder()
     }
     
     // カラーボタンを押した時の処理

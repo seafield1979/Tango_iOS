@@ -528,9 +528,8 @@ public class UWindow : UDrawable, UButtonCallbacks {
     public override func touchEvent(vt : ViewTouch, offset : CGPoint?) -> Bool {
         
         var offset = offset
-        if offset != nil {
-            offset!.x += pos.x
-            offset!.y += pos.y
+        if offset == nil {
+            offset = CGPoint(x: pos.x, y: pos.y)
         }
         
         if closeIcon != nil && closeIcon!.isShow {

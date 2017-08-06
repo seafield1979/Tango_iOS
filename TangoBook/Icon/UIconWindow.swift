@@ -1172,10 +1172,6 @@ public class UIconWindow : UWindow{
             return false
         }
 
-        var offset = offset
-        if offset == nil {
-            offset = CGPoint()
-        }
         if super.touchEvent(vt: vt, offset: offset) {
             return true
         }
@@ -1309,8 +1305,10 @@ public class UIconWindow : UWindow{
         icons1.insert(icon2, atIndex: index2)
 
         // データベース更新
-        TangoItemPosDao.changePos(item1: icon1.getTangoItem()!,
-                                  item2: icon2.getTangoItem()!)
+        if icon1.getTangoItem() != nil {
+            TangoItemPosDao.changePos(item1: icon1.getTangoItem()!,
+                                      item2: icon2.getTangoItem()!)
+        }
 
         // 再配置
         if icons1 !== icons2 {
