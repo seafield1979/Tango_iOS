@@ -143,23 +143,26 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
             zoomButtonW = CGFloat(PageViewTitle.ZOOM_BUTTON_W)
         }
         // +ボタン
-        var button = UButtonImage(callbacks: self,
+        var buttonImage = UResourceManager.getImageWithColor(imageName: ImageName.zoom_in, color: UIColor.orange)
+        var button = UButtonImage.createButton( callbacks: self,
                                   id: PageViewTitle.ButtonIdZoomIn,
                                   priority: PageViewTitle.DRAW_PRIORITY,
                                   x: width - zoomButtonW * 2 - UDpi.toPixel(20),
                                   y: UDpi.toPixel(10),
                                   width: zoomButtonW, height: zoomButtonW,
-                                  imageName: ImageName.zoom_in, pressedImageName: nil)
+                                  image: buttonImage, pressedImage: nil)
         button.addToDrawManager()
+        
         // -ボタン
-        button = UButtonImage(callbacks: self,
+        buttonImage = UResourceManager.getImageWithColor(imageName: ImageName.zoom_out, color: UIColor.orange)
+        button = UButtonImage.createButton(callbacks: self,
                               id: PageViewTitle.ButtonIdZoomOut,
                               priority: PageViewTitle.DRAW_PRIORITY,
                               x:width - zoomButtonW - UDpi.toPixel(10),
                               y: UDpi.toPixel(10),
                               width: zoomButtonW, height: zoomButtonW,
-                              imageName: ImageName.zoom_out,
-                              pressedImageName: nil)
+                              image: buttonImage,
+                              pressedImage: nil)
         button.addToDrawManager()
 
         var x = UDpi.toPixel(PageViewTitle.MARGIN_H2)

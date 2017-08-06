@@ -27,8 +27,8 @@ public class IconInfoDialogCard : IconInfoDialog {
     enum Items : Int, EnumEnumerable {
          case WordA
          case WordB
-         case Comment
-         case History
+//         case Comment
+//         case History
      }
 
      /**
@@ -141,8 +141,12 @@ public class IconInfoDialogCard : IconInfoDialog {
             if item == nil {
                 continue
             }
-            item!.title.draw(pos)
-            item!.body.draw(pos)
+            if item!.title != nil {
+                item!.title!.draw(pos)
+            }
+            if item!.body != nil {
+                item!.body!.draw(pos)
+            }
         }
 
         // Buttons
@@ -162,7 +166,6 @@ public class IconInfoDialogCard : IconInfoDialog {
         let icons : List<ActionIconInfo> = IconInfoDialog.getCardIcons()
 
         var width = UDpi.toPixel(ICON_W) * CGFloat(icons.count) + UDpi.toPixel(ICON_MARGIN_H) * CGFloat(icons.count + 1) + UDpi.toPixel(DLG_MARGIN)
-        let fontSizeS = UDraw.getFontSize(FontSize.S)
         let fontSize = UDraw.getFontSize(FontSize.M)
 
         // タイトル(カード)
@@ -190,12 +193,12 @@ public class IconInfoDialogCard : IconInfoDialog {
                     titleStr = UResourceManager.getStringByName("word_b")
                     bodyStr = UUtil.convString(text: mCard!.wordB!, cutNewLine: false, maxLines: 2, maxLength: 0)
                
-                case .Comment:
-                    titleStr = UResourceManager.getStringByName("comment")
-                    bodyStr = UUtil.convString(text: mCard!.comment, cutNewLine: false, maxLines: 2, maxLength: 0)
-                    if bodyStr == nil || bodyStr!.characters.count == 0 {
-                        continue;
-                    }
+//                case .Comment:
+//                    titleStr = UResourceManager.getStringByName("comment")
+//                    bodyStr = UUtil.convString(text: mCard!.comment, cutNewLine: false, maxLines: 2, maxLength: 0)
+//                    if bodyStr == nil || bodyStr!.characters.count == 0 {
+//                        continue;
+//                    }
 
 //                case .History:   // 学習履歴
 //                   let history = TangoCardHistoryDao.selectByCard(card: mCard!)
@@ -212,34 +215,39 @@ public class IconInfoDialogCard : IconInfoDialog {
                 break
             }
             // title
-            let titleView = UTextView.createInstance(
-               text : titleStr!,
-               textSize : fontSizeS,
-               priority : 0, alignment : UAlignment.None,
-               multiLine : false, isDrawBG : false,
-               x : UDpi.toPixel(MARGIN_H), y : y,
-               width : size.width-UDpi.toPixel(MARGIN_H),
-               color : TEXT_COLOR, bgColor : nil)
+            var titleView : UTextView? = nil
+            if titleStr != nil && titleStr!.isEmpty == false {
+                titleView = UTextView.createInstance(
+                   text : titleStr!,
+                   textSize : fontSize,
+                   priority : 0, alignment : UAlignment.None,
+                   multiLine : false, isDrawBG : false,
+                   x : UDpi.toPixel(MARGIN_H), y : y,
+                   width : size.width-UDpi.toPixel(MARGIN_H),
+                   color : TEXT_COLOR, bgColor : nil)
 
-            y += titleView.getHeight() + UDpi.toPixel(MARGIN_V_S)
+                y += titleView!.getHeight() + UDpi.toPixel(MARGIN_V_S)
+            }
 
             // body
-            let bodyView = UTextView.createInstance(
-               text : bodyStr, textSize : fontSize, priority : 0,
-               alignment : UAlignment.None,
-               multiLine : true, isDrawBG : true,
-               x : UDpi.toPixel(MARGIN_H),
-               y : y, width : size.width-UDpi.toPixel(MARGIN_H),
-               color : TEXT_COLOR, bgColor : bgColor)
-           
-            y += bodyView.getHeight() + UDpi.toPixel(MARGIN_V_S)
-            
-            // 幅は最大サイズに合わせる
-            let _width = bodyView.getWidth() + UDpi.toPixel(MARGIN_H) * 2
-            if _width > width {
-                width = _width
+            var bodyView : UTextView? = nil
+            if bodyStr != nil && bodyStr!.isEmpty == false {
+                bodyView = UTextView.createInstance(
+                   text : bodyStr, textSize : fontSize, priority : 0,
+                   alignment : UAlignment.None,
+                   multiLine : true, isDrawBG : true,
+                   x : UDpi.toPixel(MARGIN_H),
+                   y : y, width : size.width-UDpi.toPixel(MARGIN_H),
+                   color : TEXT_COLOR, bgColor : bgColor)
+               
+                y += bodyView!.getHeight() + UDpi.toPixel(MARGIN_V_S)
+                
+                // 幅は最大サイズに合わせる
+                let _width = bodyView!.getWidth() + UDpi.toPixel(MARGIN_H) * 2
+                if _width > width {
+                    width = _width
+                }
             }
-            
             mItems[item.rawValue] = IconInfoItem(title: titleView, body: bodyView)
         }
         y += UDpi.toPixel(MARGIN_V)
@@ -249,7 +257,9 @@ public class IconInfoDialogCard : IconInfoDialog {
             if item == nil {
                 continue
             }
-            item!.title.setWidth(width - UDpi.toPixel(MARGIN_H) * 2)
+            if item!.title != nil {
+                item!.title!.setWidth(width - UDpi.toPixel(MARGIN_H) * 2)
+            }
         }
 
         // アクションボタン

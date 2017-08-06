@@ -13,8 +13,8 @@ import UIKit
 * ダイアログに表示する項目
 */
 struct IconInfoItem {
-    public var title : UTextView
-    public var body : UTextView
+    public var title : UTextView? = nil
+    public var body : UTextView? = nil
 }
 
  /**

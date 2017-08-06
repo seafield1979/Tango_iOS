@@ -136,8 +136,12 @@ public class IconInfoDialogBook : IconInfoDialog {
             textTitle!.draw(pos)
         }
         for item in mItems {
-            item!.title.draw(pos)
-            item!.body.draw(pos)
+            if item!.title != nil {
+                item!.title!.draw(pos)
+            }
+            if item!.title != nil {
+                item!.body!.draw(pos)
+            }
         }
     }
 
@@ -236,7 +240,9 @@ public class IconInfoDialogBook : IconInfoDialog {
 
         // タイトルのwidthを揃える
         for item in mItems {
-            item!.title.setWidth(width - UDpi.toPixel(MARGIN_H) * 2)
+            if item!.title != nil {
+                item!.title!.setWidth(width - UDpi.toPixel(MARGIN_H) * 2)
+            }
         }
 
         // Action buttons
