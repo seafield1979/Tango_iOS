@@ -349,7 +349,7 @@ public class TangoItemPosDao {
             return nil
         }
         
-        return itemPos!.copy() as! TangoItemPos
+        return itemPos!.copy() as? TangoItemPos
     }
 
      /**

@@ -51,7 +51,7 @@ public class PageViewStudyBookSelect : UPageView
     private var mSortMode : IconSortMode = .None
 
     // 学習開始前のオプション等を選択するダイアログ
-//    private var mPreStudyWindow : PreStudyWindow
+    private var mPreStudyWindow : PreStudyWindow? = nil
 
     /**
      * Propaties
@@ -112,11 +112,11 @@ public class PageViewStudyBookSelect : UPageView
         let width = mTopView.getWidth()
         let height = mTopView.getHeight()
 
-        var x = UDpi.toPixel(MARGIN_H)
+        let x = UDpi.toPixel(MARGIN_H)
         var y = UDpi.toPixel(MARGIN_V_S)
 
         // ListViewにアイテムを追加
-        var books : [TangoItem]? = TangoItemPosDao.selectItemsByParentTypeWithSort(
+        let books : [TangoItem]? = TangoItemPosDao.selectItemsByParentTypeWithSort(
                 parentType : TangoParentType.Home, parentId : 0,
                 itemType : TangoItemType.Book, sortMode : mSortMode,
                 changeable : true)
@@ -144,156 +144,138 @@ public class PageViewStudyBookSelect : UPageView
             y += mTitleText!.getHeight() + UDpi.toPixel(MARGIN_V_S)
 
             // ListView
-//            int listViewH = height - (UDpi.toPixel(MARGIN_V_S) * 3 + mTitleText.getHeight());
-//            mListView = new UListView(null, this, DRAW_PRIORITY, x, y,
-//                    width - UDpi.toPixel(MARGIN_H) * 2, listViewH, 0);
-//            mListView.setFrameColor(Color.BLACK);
-//            mListView.addToDrawManager();
-//
-//            for (TangoItem book : books) {
-//                TangoBook _book = (TangoBook) book;
-//                ListItemStudyBook listItem = new ListItemStudyBook(this, _book, mListView.getWidth(),
-//                        Color.WHITE);
-//                mListView.add(listItem);
-//            }
-//            // スクロールバー等のサイズを更新
-//            mListView.updateWindow();
-//
-//            y += listViewH + UDpi.toPixel(MARGIN_V_S);
-//
-//            // PreStudyWindow 学習開始前に設定を行うウィンドウ
-//            mPreStudyWindow = new PreStudyWindow(this, this, mParentView);
-//            mPreStudyWindow.addToDrawManager();
+            let listViewH = height - (UDpi.toPixel(MARGIN_V_S) * 3 + mTitleText!.getHeight())
+            mListView = UListView(parentView : mTopView, windowCallbacks : nil,
+                                  listItemCallbacks : self, priority : DRAW_PRIORITY,
+                                  x : x, y : y,
+                                  width : width-UDpi.toPixel(MARGIN_H)*2,
+                                  height : listViewH, color : UIColor.white)
+            mListView!.setFrameColor(frameColor: UIColor.black)
+            mListView!.addToDrawManager()
+
+            for book in books! {
+                let _book = book as! TangoBook
+                let listItem = ListItemStudyBook(listItemCallbacks : self, book : _book, width : mListView!.getWidth(), color : UIColor.white)
+                mListView!.add(item: listItem)
+            }
+            // スクロールバー等のサイズを更新
+            mListView!.updateWindow()
+
+            y += listViewH + UDpi.toPixel(MARGIN_V_S)
+
+            // PreStudyWindow 学習開始前に設定を行うウィンドウ
+            mPreStudyWindow = PreStudyWindow(windowCallbacks : self, buttonCallbacks : self, parentView : mTopView)
+            mPreStudyWindow!.addToDrawManager()
         }
     }
 
     /**
-     * そのページで表示される描画オブジェクトを初期化する
+     * アクションIDを処理する
+     * サブクラスでオーバーライドして使用する
      */
-//    override public func initDrawables() {
-//        // 描画オブジェクトクリア
-//        UDrawManager.getInstance().initialize()
-//        
-//        // ここにページで表示するオブジェクト生成処理を記述
-//        let width = self.mTopView.getWidth()
-//        
-//        let button = UButtonText(
-//            callbacks: self, type: UButtonType.Press,
-//            id: PageViewStudyBookSelect.buttonId1, priority: PageViewStudyBookSelect.DRAW_PRIORITY,
-//            text: "test", x: 50, y: 100,
-//            width: width - 100, height: 100,
-//            textSize: 20, textColor: UIColor.white, color: UIColor.blue)
-//        button.addToDrawManager()
-//        
-//    }
-    
-        
-        
-            /**
-             * アクションIDを処理する
-             * サブクラスでオーバーライドして使用する
-             */
-    
     public func setActionId( id : Int ) {
-        //
-        //        switch (id) {
-        //            case R.id.action_sort_none:
-        //                mSortMode = IconSortMode.None;
-        //                break;
-        //            case R.id.action_sort_word_asc:
-        //                mSortMode = IconSortMode.TitleAsc;
-        //                break;
-        //            case R.id.action_sort_word_desc:
-        //                mSortMode = IconSortMode.TitleDesc;
-        //                break;
-        //            case R.id.action_sort_time_asc:
-        //                mSortMode = IconSortMode.CreateTimeAsc;
-        //                break;
-        //            case R.id.action_sort_time_desc:
-        //                mSortMode = IconSortMode.CreateTimeDesc;
-        //                break;
-        //            case R.id.action_sort_studied_time_asc:
-        //                mSortMode = IconSortMode.StudiedTimeAsc;
-        //                break;
-        //            case R.id.action_sort_studied_time_desc:
-        //                mSortMode = IconSortMode.StudiedTimeDesc;
-        //                break;
-        //            default:
-        //                return;
-        //        }
-        //        MySharedPref.writeInt(MySharedPref.StudyBookSortKey, mSortMode.ordinal());
-        //        isFirst = true;
-        //        mParentView.invalidate();
+//        switch (id) {
+//        case R.id.action_sort_none:
+//            mSortMode = IconSortMode.None;
+//            break;
+//        case R.id.action_sort_word_asc:
+//            mSortMode = IconSortMode.TitleAsc;
+//            break;
+//        case R.id.action_sort_word_desc:
+//            mSortMode = IconSortMode.TitleDesc;
+//            break;
+//        case R.id.action_sort_time_asc:
+//            mSortMode = IconSortMode.CreateTimeAsc;
+//            break;
+//        case R.id.action_sort_time_desc:
+//            mSortMode = IconSortMode.CreateTimeDesc;
+//            break;
+//        case R.id.action_sort_studied_time_asc:
+//            mSortMode = IconSortMode.StudiedTimeAsc;
+//            break;
+//        case R.id.action_sort_studied_time_desc:
+//            mSortMode = IconSortMode.StudiedTimeDesc;
+//            break;
+//        default:
+//            return;
+//        }
+//        MySharedPref.writeInt(MySharedPref.StudyBookSortKey, mSortMode.ordinal());
+//        isFirst = true;
+//        mParentView.invalidate();
+    }
+        
+    /**
+     * ソフトウェアキーの戻るボタンを押したときの処理
+     * @return
+     */
+    public override func onBackKeyDown() -> Bool{
+        if mPreStudyWindow != nil {
+            if mPreStudyWindow!.onBackKeyDown() {
+                return true
+            }
+            else if mPreStudyWindow!.isShow {
+                mPreStudyWindow!.isShow = false
+                return true
+            }
         }
-        
-            /**
-             * ソフトウェアキーの戻るボタンを押したときの処理
-             * @return
-             */
-        public override func onBackKeyDown() -> Bool{
-        //        if (mPreStudyWindow != null) {
-        //            if (mPreStudyWindow.onBackKeyDown()) {
-        //                return true;
-        //            }
-        //            else if (mPreStudyWindow.isShow()) {
-        //                mPreStudyWindow.setShow(false);
-        //                return true;
-        //            }
-        //        }
-        //
-                return false;
-            }
+
+        return false
+    }
     
-            /**
-             * Callbacks
-             */
-        
-            /**
-             * UButtonCallbacks
-             */
-            public func UButtonClicked(id : Int, pressedOn : Bool) -> Bool {
-        //        switch(id) {
-        //            case ButtonIdReturn:
-        //                PageViewManager.getInstance().popPage();
-        //                break;
-        //            case ButtonIdStartStudy:
-        //                // 学習開始
-        //                PageViewManager.getInstance().startStudyPage( mBook, true);
-        //                break;
-        //            case ButtonIdCancel:
-        //                mPreStudyWindow.setShow(false);
-        //                break;
-        //        }
-                return false;
-            }
-        
-            /**
-             * UListItemCallbacks
-             */
-            /**
-             * 項目がクリックされた
-             * @param item
-             */
-                public func ListItemClicked( item : UListItem) {
-        //        // 学習開始前のダイアログを表示する
-        //        if (!(item instanceof ListItemStudyBook)) return;
-        //
-        //        ListItemStudyBook bookItem = (ListItemStudyBook)item;
-        //
-        //        mPreStudyWindow.showWithBook(bookItem.getBook());
-        //        mBook = bookItem.getBook();
-            }
-            public func ListItemButtonClicked( item : UListItem, buttonId : Int) {
-        
-            }
-        
-            /**
-             * UWindowCallbacks
-             */
-                public func windowClose( window : UWindow) {
-        //        // Windowを閉じる
-        //        if (mPreStudyWindow == window) {
-        //            mPreStudyWindow.setShow(false);
-        //        }
-            }
+    /**
+     * Callbacks
+     */
+
+    /**
+     * UButtonCallbacks
+     */
+    public func UButtonClicked(id : Int, pressedOn : Bool) -> Bool {
+        switch id {
+        case ButtonIdReturn:
+            _ = PageViewManagerMain.getInstance().popPage()
+            
+        case ButtonIdStartStudy:
+            // 学習開始
+            PageViewManagerMain.getInstance().startStudyPage( book: mBook!, firstStudy: true)
+            
+        case ButtonIdCancel:
+            mPreStudyWindow!.isShow = false
+        default:
+            break
+        }
+        return false
+    }
+    
+    /**
+     * UListItemCallbacks
+     */
+    /**
+     * 項目がクリックされた
+     * @param item
+     */
+        public func ListItemClicked( item : UListItem) {
+        // 学習開始前のダイアログを表示する
+        if !(item is ListItemStudyBook) {
+            return
+        }
+
+        let bookItem = item as! ListItemStudyBook
+
+        mPreStudyWindow!.showWithBook(book: bookItem.getBook()!)
+        mBook = bookItem.getBook()
+    }
+    
+    public func ListItemButtonClicked( item : UListItem, buttonId : Int) {
+
+    }
+
+    /**
+     * UWindowCallbacks
+     */
+    public func windowClose( window : UWindow) {
+        // Windowを閉じる
+        if mPreStudyWindow === window {
+            mPreStudyWindow!.isShow = false
+        }
+    }
 }

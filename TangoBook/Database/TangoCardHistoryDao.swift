@@ -80,7 +80,7 @@ public class TangoCardHistoryDao {
             return nil
         }
         
-        return result!.copy() as! TangoCardHistory
+        return result!.copy() as? TangoCardHistory
     }
 
      /**

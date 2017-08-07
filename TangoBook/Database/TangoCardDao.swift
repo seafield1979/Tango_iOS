@@ -251,7 +251,7 @@ public class TangoCardDao {
             return nil
         }
         
-        return result!.copy() as! TangoCard
+        return result!.copy() as? TangoCard
     }
 
     /**

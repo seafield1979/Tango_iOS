@@ -19,7 +19,7 @@ public class UScrollWindow : UWindow {
                 callbacks : UWindowCallbacks?,
                 priority : Int, x : CGFloat, y : CGFloat,
                 width : CGFloat, height : CGFloat,
-                color : UIColor,
+                color : UIColor?,
                 topBarH : CGFloat, frameW : CGFloat, frameH : CGFloat)
     {
         super.init(parentView: parentView, callbacks: callbacks, priority: priority,

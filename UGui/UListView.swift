@@ -43,7 +43,7 @@ public class UListView : UScrollWindow
                 listItemCallbacks : UListItemCallbacks?,
                 priority : Int,
                 x : CGFloat, y : CGFloat,
-                width : CGFloat, height : CGFloat, color : UIColor)
+                width : CGFloat, height : CGFloat, color : UIColor?)
     {
         mListItemCallbacks = listItemCallbacks
         mClipRect = CGRect()
@@ -130,6 +130,7 @@ public class UListView : UScrollWindow
     
     // ウィンドウの内部領域の描画
     override public func drawContent( offset : CGPoint? ) {
+        
         var _pos = CGPoint(x: pos.x, y: pos.y)
         
         if offset != nil {

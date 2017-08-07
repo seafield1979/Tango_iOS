@@ -106,7 +106,7 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
             screenW : mTopView.getWidth(), screenH : mTopView.getHeight())
         mDialog!.addToDrawManager();
         
-        mDialog!.addButton(id: buttonIdConfirmOK, text: "OK", textColor: UIColor.black, color: UIColor.white)
+        _ = mDialog!.addButton(id: buttonIdConfirmOK, text: "OK", textColor: UIColor.black, color: UIColor.white)
         mDialog!.addCloseButton(text: "close")
     }
     
@@ -127,7 +127,7 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
     
     // たくさんのカードと単語帳を追加する
     private func test3() {
-        for i in 0..<100 {
+        for _ in 0..<100 {
             TangoCardDao.addDummy()
         }
     }

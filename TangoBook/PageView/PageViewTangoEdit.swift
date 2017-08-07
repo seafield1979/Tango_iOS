@@ -1159,7 +1159,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
             // アイコンを保持
             if icon is IconBook {
-                mExportIcon = icon as! IconBook
+                mExportIcon = icon as? IconBook
             }
             
         case .Cleanup:

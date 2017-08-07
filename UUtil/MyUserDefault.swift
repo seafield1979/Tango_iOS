@@ -144,7 +144,7 @@ public class MySharedPref {
     public static func getCardName() -> Bool {
         return readBool(EditCardNameKey)
     }
-    public static func getStudyMode() -> StudyMode? {
+    public static func getStudyMode() -> StudyMode {
         return StudyMode.toEnum(MySharedPref.readInt(StudyModeKey))
     }
     public static func getStudyType() -> StudyType {

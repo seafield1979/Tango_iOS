@@ -106,7 +106,7 @@ public class TangoBookDao {
             return nil
         }
         
-        return result!.copy() as! TangoBook
+        return result!.copy() as? TangoBook
     }
 
     /**

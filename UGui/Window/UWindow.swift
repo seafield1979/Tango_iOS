@@ -421,12 +421,12 @@ public class UWindow : UDrawable, UButtonCallbacks {
             UDraw.drawRectFill( rect: CGRect(x: _pos.x, y: _pos.y,
                                              width: size.width,
                                              height: frameSize.height),
-                                color: frameColor!,
+                                color: UIColor.clear,
                                 strokeWidth: 0, strokeColor: nil)
             UDraw.drawRectFill( rect: CGRect(x: _pos.x, y: _pos.y + size.height - frameSize.height,
                                              width: size.width,
                                              height: size.height),
-                                color:frameColor!,
+                                color: UIColor.clear,
                                 strokeWidth: 0, strokeColor: nil);
         }
         

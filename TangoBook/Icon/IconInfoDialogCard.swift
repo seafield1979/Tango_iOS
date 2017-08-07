@@ -211,8 +211,6 @@ public class IconInfoDialogCard : IconInfoDialog {
 //
 //                    titleStr = UResourceManager.getStringByName("study_history")
 //                    bodyStr = historyStr
-            default:
-                break
             }
             // title
             var titleView : UTextView? = nil
