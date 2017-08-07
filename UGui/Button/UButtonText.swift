@@ -113,7 +113,7 @@ public class UButtonText : UButton {
         
         // ボタンの左側にチェックアイコンを表示
         if checked {
-            setImage(imageName: ImageName.debug,
+            setImage(imageName: ImageName.checked2,
                      imageSize: CGSize(width: UDpi.toPixel(UButtonText.CHECKED_W), height: UDpi.toPixel(UButtonText.CHECKED_W)))
         } else {
             setImage(image: nil, imageSize: nil)

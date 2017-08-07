@@ -52,6 +52,7 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
     private let FRAME_COLOR = UColor.makeColor(120,120,120);
     private let TEXT_COLOR = UIColor.black
     private let TEXT_DATE_COLOR = UColor.makeColor(80,80,80);
+    private let CANCEL_COLOR = UColor.makeColor(200,100,100)
 
     // button Id
     private let ButtonIdOption1 = 100;
@@ -107,7 +108,7 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
     var mDialog : UDialogWindow? = nil
 
     // Dpi計算済みの座標
-    private var marginH : CGFloat, fontSize : CGFloat, buttonIconW : CGFloat
+    private var marginH : CGFloat, fontSize : Int, buttonIconW : CGFloat
     
 
     /**
@@ -127,7 +128,7 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
         mStudyFilter = MySharedPref.getStudyFilter()
         
         marginH = UDpi.toPixel(MARGIN_H)
-        fontSize = UDpi.toPixel(TEXT_SIZE)
+        fontSize = UDpi.toPixelInt(TEXT_SIZE)
         buttonIconW = UDpi.toPixel(BUTTON_ICON_W)
 
         // width, height はinit内で計算するのでここでは0を設定
@@ -147,42 +148,45 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
      * @param book
      */
     public func showWithBook( book : TangoBook) {
-//        isShow = true;
-//        mBook = book;
-//        updateLayout();
+        isShow = true
+        mBook = book
+        updateLayout()
     }
-//
+
     public override func touchEvent( vt : ViewTouch, offset : CGPoint?) -> Bool {
-//        if (!isShow) return false;
-//
-//        if (offset == null) {
-//            offset = new PointF(pos.x, pos.y);
-//        }
-//        if (super.touchEvent(vt, offset)) {
-//            return true;
-//        }
-//
+        if !isShow {
+            return false
+        }
+
+        var offset = offset
+        if offset == nil {
+            offset = CGPoint(x: pos.x, y: pos.y)
+        }
+        if super.touchEvent(vt: vt, offset: offset) {
+            return true
+        }
+
         var isRedraw = false
-//
-//        // touch up
-//        for (UButton button : buttons) {
-//            if (button == null) continue;
-//            if (button.touchUpEvent(vt)) {
-//                isRedraw = true;
-//            }
-//        }
-//        // touch
-//        for (UButton button : buttons) {
-//            if (button == null) continue;
-//            if (button.touchEvent(vt, offset)) {
-//                return true;
-//            }
-//        }
-//
-//        if (super.touchEvent2(vt, null)) {
-//            return true;
-//        }
-//
+
+        // touch up
+        for button in buttons {
+            if button == nil { continue }
+            if button!.touchUpEvent(vt: vt) {
+                isRedraw = true
+            }
+        }
+        // touch
+        for button in buttons {
+            if button == nil { continue }
+            if button!.touchEvent(vt: vt, offset: offset) {
+                return true
+            }
+        }
+
+        if super.touchEvent2(vt: vt, offset: nil) {
+            return true
+        }
+
         return isRedraw
     }
 
@@ -194,19 +198,20 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
      */
     public override func doAction() -> DoActionRet {
         var ret = DoActionRet.None
-//        for (UButton button : buttons) {
-//            if (button == null) continue;
-//
-//            DoActionRet _ret = button.doAction();
-//            switch(_ret) {
-//                case Done:
-//                    return _ret;
-//                case Redraw:
-//                    ret = _ret;
-//                    break;
-//            }
-//        }
-        return ret;
+        for button in buttons {
+            if button == nil { continue }
+
+            let _ret : DoActionRet = button!.doAction()
+            switch _ret {
+            case .Done:
+                return _ret
+            case .Redraw:
+                ret = _ret
+            default:
+                break
+            }
+        }
+        return ret
     }
 
     /**
@@ -215,332 +220,347 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
      * @param paint
      */
     public override func drawContent( offset : CGPoint? ) {
-//        // BG
-//        UDraw.drawRoundRectFill(canvas, paint, new RectF(getRect()), 20,
-//                bgColor, UDpi.toPixel(FRAME_WIDTH), FRAME_COLOR);
-//
-//        // textViews
-//        textTitle.draw(canvas, paint, pos);
-//        textCount.draw(canvas, paint, pos);
-//        if (textLastStudied != null) {
-//            textLastStudied.draw(canvas, paint, pos);
-//        }
-//        textStudyMode.draw(canvas, paint, pos);
-//        textStudyType.draw(canvas, paint, pos);
-//        textStudyOrder.draw(canvas, paint, pos);
-//        textStudyFilter.draw(canvas, paint, pos);
-//
-//        // buttons
-//        for (UButton button : buttons) {
-//            button.draw(canvas, paint, pos) ;
-//        }
+        // BG
+        if bgColor != nil {
+            UDraw.drawRoundRectFill( rect : getRect(),
+                                     cornerR : 20, color : bgColor!,
+                                     strokeWidth : UDpi.toPixel(FRAME_WIDTH),
+                                     strokeColor : FRAME_COLOR)
+        }
+
+        // textViews
+        if textTitle != nil {
+            textTitle!.draw(pos)
+        }
+        if textCount != nil {
+            textCount!.draw(pos)
+        }
+        if textLastStudied != nil {
+            textLastStudied!.draw(pos)
+        }
+        if textStudyMode != nil {
+            textStudyMode!.draw(pos)
+        }
+        if textStudyType != nil {
+            textStudyType!.draw(pos)
+        }
+        if textStudyOrder != nil {
+            textStudyOrder!.draw(pos)
+        }
+        if textStudyFilter != nil {
+            textStudyFilter!.draw(pos)
+        }
+
+        // buttons
+        for button in buttons {
+            button!.draw(pos)
+        }
     }
 
     /**
      * レイアウト更新
      */
     func updateLayout() {
-//
-//        int y = UDpi.toPixel(TOP_ITEM_Y);
-//        int screenW = mParentView.getWidth();
-//        int screenH = mParentView.getHeight();
-//        int width = screenW;
-//
-//        // カード数
-//        mCardCount = RealmManager.getItemPosDao().countInParentType(
-//                TangoParentType.Book, mBook.getId()
-//        );
-//        mNgCount = RealmManager.getItemPosDao().countCardInBook(mBook.getId(),
-//                TangoItemPosDao.BookCountType.NG);
-//
-//        // タイトル(単語帳の名前)
-//        String title = UResourceManager.getInstance().getStringById(R.string.book) + " : " + mBook
-//                .getName();
-//        textTitle = UTextView.createInstance( title, UDpi.toPixel(TEXT_SIZE_3), 0,
-//                UAlignment.CenterX, screenW, false, false,
-//                width / 2, y, 0, TEXT_COLOR, 0);
-//        y += textTitle.getHeight() + UDpi.toPixel(MARGIN_V);
-//
-//        // カード数
-//        String cardCount = UResourceManager.getStringById(R.string.card_count) + ": " + mCardCount +
-//                "  " + UResourceManager.getStringById(R.string.count_not_learned) + ": " + mNgCount;
-//
-//        textCount = UTextView.createInstance(
-//                cardCount,
-//                fontSize, 0,
-//                UAlignment.CenterX, screenW, false, false,
-//                width / 2, y, 0, TEXT_COLOR, 0);
-//        y += textCount.getHeight() + UDpi.toPixel(MARGIN_V);
-//
-//        // 最終学習日時
-//        Date date = RealmManager.getBookHistoryDao().selectMaxDateByBook(mBook.getId());
-//        if (date != null) {
-//            textLastStudied = UTextView.createInstance(
-//                    UResourceManager.getStringById(R.string
-//                            .last_studied_date) + ": " + UUtil.convDateFormat(date, ConvDateMode.DateTime),
-//                    fontSize, 0,
-//                    UAlignment.CenterX, screenW, false, false,
-//                    width / 2, y, 0, TEXT_DATE_COLOR, 0);
-//            y += textLastStudied.getHeight() + UDpi.toPixel(MARGIN_V) * 2;
-//        } else {
-//            textLastStudied = null;
-//        }
-//
-//        /**
-//         * Buttons
-//         */
-//        float titleX = (width - UDpi.toPixel(BUTTON_W - 40)) / 2;
-//        float buttonX = titleX + UDpi.toPixel(8);
-//
-//        // 出題方法（出題モード)
-//        // タイトル
-//        textStudyMode = UTextView.createInstance(
-//                UResourceManager.getStringById(R.string.study_mode),
-//                UDpi.toPixel(TEXT_SIZE_2), 0,
-//                UAlignment.Right_CenterY, screenW, false, false,
-//                titleX, y + UDpi.toPixel(BUTTON_H) / 2, 0, TEXT_COLOR, 0);
-//
-//        // Button
-//        buttons[ButtonId.Option1.ordinal()] = new UButtonText(this, UButtonType.BGColor,
-//                ButtonIdOption1,
-//                0, mStudyMode.getString(),
-//                buttonX, y, UDpi.toPixel(BUTTON_W), UDpi.toPixel(BUTTON_H),
-//                UDpi.toPixel(BUTTON_TEXT_SIZE), TEXT_COLOR, UColor.LightBlue);
-//        buttons[ButtonId.Option1.ordinal()].setPullDownIcon(true);
-//
-//        y += UDpi.toPixel(BUTTON_H) + UDpi.toPixel(MARGIN_V);
-//
-//        // 出題タイプ(英日)
-//        textStudyType = UTextView.createInstance(
-//                UResourceManager.getStringById(R.string.study_type),
-//                UDpi.toPixel(TEXT_SIZE_2), 0,
-//                UAlignment.Right_CenterY, screenW, false, false,
-//                titleX, y + UDpi.toPixel(BUTTON_H) / 2, 0, TEXT_COLOR, 0);
-//
-//        // Button
-//        buttons[ButtonId.Option2.ordinal()] = new UButtonText(this, UButtonType.BGColor,
-//                ButtonIdOption2,
-//                0, mStudyType.getString(),
-//                buttonX, y, UDpi.toPixel(BUTTON_W), UDpi.toPixel(BUTTON_H),
-//                UDpi.toPixel(BUTTON_TEXT_SIZE), TEXT_COLOR, UColor.LightGreen);
-//        buttons[ButtonId.Option2.ordinal()].setPullDownIcon(true);
-//
-//        y += UDpi.toPixel(BUTTON_H + MARGIN_V);
-//
-//        // 順番
-//        // タイトル
-//        textStudyOrder = UTextView.createInstance(
-//                UResourceManager.getStringById(R.string.study_order),
-//                UDpi.toPixel(TEXT_SIZE_2), 0,
-//                UAlignment.Right_CenterY, screenW, false, false,
-//                titleX, y + UDpi.toPixel(BUTTON_H) / 2, 0, TEXT_COLOR, Color.argb(1,0,0,0));
-//
-//        // Button
-//        StudyOrder studyOrder = StudyOrder.toEnum(MySharedPref.readInt(MySharedPref.StudyOrderKey));
-//        buttons[ButtonId.Option3.ordinal()] = new UButtonText(this, UButtonType.BGColor,
-//                ButtonIdOption3,
-//                0, studyOrder.getString(),
-//                buttonX, y, UDpi.toPixel(BUTTON_W), UDpi.toPixel(BUTTON_H),
-//                UDpi.toPixel(BUTTON_TEXT_SIZE), TEXT_COLOR, UColor.Gold);
-//        buttons[ButtonId.Option3.ordinal()].setPullDownIcon(true);
-//
-//        y += UDpi.toPixel(BUTTON_H + MARGIN_V);
-//
-//
-//        // 学習単語
-//        // タイトル
-//        textStudyFilter = UTextView.createInstance(
-//                UResourceManager.getStringById(R.string.study_filter),
-//                UDpi.toPixel(TEXT_SIZE_2), 0,
-//                UAlignment.Right_CenterY, screenW, false, false,
-//                titleX, y + UDpi.toPixel(BUTTON_H) / 2, 0, TEXT_COLOR, 0);
-//
-//        // Button
-//        StudyFilter studyFilter = StudyFilter.toEnum(MySharedPref.readInt(MySharedPref
-//                .StudyFilterKey));
-//        buttons[ButtonId.Option4.ordinal()] = new UButtonText(this, UButtonType.BGColor,
-//                ButtonIdOption4,
-//                0, studyFilter.getString(),
-//                buttonX, y, UDpi.toPixel(BUTTON_W), UDpi.toPixel(BUTTON_H),
-//                UDpi.toPixel(BUTTON_TEXT_SIZE), TEXT_COLOR, UColor.LightPink);
-//        buttons[ButtonId.Option4.ordinal()].setPullDownIcon(true);
-//
-//        y += UDpi.toPixel(BUTTON_H + MARGIN_V);
-//
-//        // センタリング
-//        pos.x = (screenW - size.width) / 2;
-//        pos.y = (screenH - size.height) / 2;
-//
-//        // 開始ボタン
-//        buttons[ButtonId.Start.ordinal()] = new UButtonText(this, UButtonType.Press,
-//                PageViewStudyBookSelect.ButtonIdStartStudy,
-//                0, UResourceManager.getStringById(R.string.start),
-//                width / 2 - UDpi.toPixel(BUTTON2_W) - marginH / 2,
-//                size.height - UDpi.toPixel(BUTTON2_H + MARGIN_V),
-//                UDpi.toPixel(BUTTON2_W), UDpi.toPixel(BUTTON2_H),
-//                fontSize, TEXT_COLOR, Color.rgb(100,200,100));
-//        if (mCardCount == 0) {
-//            buttons[ButtonId.Start.ordinal()].setEnabled(false);
-//        }
-//
-//        // キャンセルボタン
-//        buttons[ButtonId.Cancel.ordinal()] = new UButtonText(this, UButtonType.Press,
-//                PageViewStudyBookSelect.ButtonIdCancel,
-//                0, UResourceManager.getStringById(R.string.cancel),
-//                width / 2 + marginH / 2,
-//                size.height - UDpi.toPixel(BUTTON2_H) - UDpi.toPixel(MARGIN_V),
-//                UDpi.toPixel(BUTTON2_W), UDpi.toPixel(BUTTON2_H),
-//                fontSize, Color.WHITE, Color.rgb(200,100,100));
-//
-//        updateRect();
+
+        var y = UDpi.toPixel(TOP_ITEM_Y)
+        let screenW = parentView.getWidth()
+        let screenH = parentView.getHeight()
+        let width = screenW
+
+        // カード数
+        mCardCount = TangoItemPosDao.countInParentType(
+            parentType: TangoParentType.Book, parentId: mBook!.getId()
+        );
+        mNgCount = TangoItemPosDao.countCardInBook( bookId: mBook!.getId(),
+                                                    countType: TangoItemPosDao.BookCountType.NG);
+
+        // タイトル(単語帳の名前)
+        let title : String = UResourceManager.getStringByName("book") + " : " + mBook!.getName()!
+        textTitle = UTextView.createInstance(
+            text : title, textSize : UDpi.toPixelInt(TEXT_SIZE_3), priority : 0,
+            alignment : UAlignment.CenterX, multiLine : false, isDrawBG : false,
+            x : width/2, y : y, width : 0, color : TEXT_COLOR, bgColor : nil)
+        y += textTitle!.getHeight() + UDpi.toPixel(MARGIN_V)
+        
+        // カード数
+        let cardCount = UResourceManager.getStringByName("card_count") + ": " + mCardCount.description +
+                "  " + UResourceManager.getStringByName("count_not_learned") + ": " + mNgCount.description
+
+        textCount = UTextView.createInstance(
+                text : cardCount, textSize : fontSize, priority : 0,
+                alignment : UAlignment.CenterX, multiLine : false, isDrawBG : false,
+                x : width / 2, y : y, width : 0,
+                color : TEXT_COLOR, bgColor : nil);
+        y += textCount!.getHeight() + UDpi.toPixel(MARGIN_V)
+
+        // 最終学習日時
+        let date = TangoBookHistoryDao.selectMaxDateByBook(bookId: mBook!.getId())
+        if date != nil {
+            textLastStudied = UTextView.createInstance(
+                text : UResourceManager.getStringByName("last_studied_date") + ":" + UUtil.convDateFormat(date: date!, mode: ConvDateMode.DateTime),
+                textSize : fontSize, priority : 0,
+                alignment : UAlignment.CenterX, multiLine : false, isDrawBG : false, x : width/2, y : y, width : 0, color : TEXT_DATE_COLOR, bgColor : nil)
+            y += textLastStudied!.getHeight() + UDpi.toPixel(MARGIN_V) * 2
+        } else {
+            textLastStudied = nil
+        }
+
+        /**
+         * Buttons
+         */
+        let titleX = (width - UDpi.toPixel(BUTTON_W - 40)) / 2
+        let buttonX = titleX + UDpi.toPixel(8)
+
+        // 出題方法（出題モード)
+        // タイトル
+        textStudyMode = UTextView.createInstance(
+                text : UResourceManager.getStringByName("study_mode"),
+                textSize : UDpi.toPixelInt(TEXT_SIZE_2), priority : 0,
+                alignment : UAlignment.Right_CenterY, multiLine : false,
+                isDrawBG : false, x : titleX, y : y + UDpi.toPixel(BUTTON_H) / 2,
+                width : 0, color : TEXT_COLOR, bgColor : nil)
+
+        // Button
+        buttons[ButtonId.Option1.rawValue] = UButtonText(
+            callbacks : self, type : UButtonType.BGColor, id : ButtonIdOption1,
+            priority : 0, text : mStudyMode.getString(),
+            x : buttonX, y : y,
+            width : UDpi.toPixel(BUTTON_W), height : UDpi.toPixel(BUTTON_H),
+            textSize : UDpi.toPixelInt(BUTTON_TEXT_SIZE), textColor : TEXT_COLOR,
+            color : UColor.LightBlue)
+        
+        buttons[ButtonId.Option1.rawValue]!.setPullDownIcon(true)
+
+        y += UDpi.toPixel(BUTTON_H) + UDpi.toPixel(MARGIN_V)
+
+        // 出題タイプ(英日)
+        textStudyType = UTextView.createInstance(
+                text : UResourceManager.getStringByName("study_type"),
+                textSize : UDpi.toPixelInt(TEXT_SIZE_2), priority : 0,
+                alignment : UAlignment.Right_CenterY, multiLine : false,
+                isDrawBG : false, x : titleX, y : y+UDpi.toPixel(BUTTON_H)/2,
+                width : 0, color : TEXT_COLOR, bgColor : nil)
+
+        // Button
+        buttons[ButtonId.Option2.rawValue] = UButtonText(
+            callbacks : self, type : UButtonType.BGColor, id : ButtonIdOption2,
+            priority : 0, text : mStudyType.getString(),
+            x : buttonX, y : y,
+            width : UDpi.toPixel(BUTTON_W), height : UDpi.toPixel(BUTTON_H),
+            textSize : UDpi.toPixelInt(BUTTON_TEXT_SIZE), textColor : TEXT_COLOR,
+            color : UColor.LightGreen)
+        
+        buttons[ButtonId.Option2.rawValue]!.setPullDownIcon(true)
+
+        y += UDpi.toPixel(BUTTON_H + MARGIN_V)
+
+        // 順番
+        // タイトル
+        textStudyOrder = UTextView.createInstance(
+                text : UResourceManager.getStringByName("study_order"),
+                textSize : UDpi.toPixelInt(TEXT_SIZE_2), priority : 0,
+                alignment : UAlignment.Right_CenterY, multiLine : false,
+                isDrawBG : false, x : titleX, y : y+UDpi.toPixel(BUTTON_H)/2,
+                width : 0, color : TEXT_COLOR, bgColor : UIColor.black)
+
+        // Button
+        let studyOrder = StudyOrder.toEnum(MySharedPref.readInt(MySharedPref.StudyOrderKey))
+        buttons[ButtonId.Option3.rawValue] = UButtonText(
+            callbacks : self, type : UButtonType.BGColor,
+            id : ButtonIdOption3, priority : 0, text : studyOrder.getString(),
+            x : buttonX, y : y,
+            width : UDpi.toPixel(BUTTON_W), height : UDpi.toPixel(BUTTON_H),
+            textSize : UDpi.toPixelInt(BUTTON_TEXT_SIZE), textColor : TEXT_COLOR,
+            color : UColor.Gold)
+        
+        buttons[ButtonId.Option3.rawValue]!.setPullDownIcon(true)
+
+        y += UDpi.toPixel(BUTTON_H + MARGIN_V)
+
+        // 学習単語
+        // タイトル
+        textStudyFilter = UTextView.createInstance(
+                text : UResourceManager.getStringByName("study_filter"),
+                textSize : UDpi.toPixelInt(TEXT_SIZE_2), priority : 0,
+                alignment : UAlignment.Right_CenterY, multiLine : false,
+                isDrawBG : false, x : titleX, y : y+UDpi.toPixel(BUTTON_H)/2,
+                width : 0, color : TEXT_COLOR, bgColor : nil)
+
+        // Button
+        let studyFilter = StudyFilter.toEnum(MySharedPref.readInt(MySharedPref
+                .StudyFilterKey))
+        buttons[ButtonId.Option4.rawValue] = UButtonText(callbacks : self, type : UButtonType.BGColor, id : ButtonIdOption4, priority : 0, text : studyFilter.getString(), x : buttonX, y : y, width : UDpi.toPixel(BUTTON_W), height : UDpi.toPixel(BUTTON_H), textSize : UDpi.toPixelInt(BUTTON_TEXT_SIZE), textColor : TEXT_COLOR, color : UColor.LightPink);
+        buttons[ButtonId.Option4.rawValue]!.setPullDownIcon(true);
+
+        y += UDpi.toPixel(BUTTON_H + MARGIN_V);
+
+        // センタリング
+        pos.x = (screenW - size.width) / 2;
+        pos.y = (screenH - size.height) / 2;
+
+        // 開始ボタン
+        buttons[ButtonId.Start.rawValue] = UButtonText(callbacks : self, type : UButtonType.Press, id : PageViewStudyBookSelect.ButtonIdStartStudy, priority : 0, text : UResourceManager.getStringByName("start"), x : width/2-UDpi.toPixel(BUTTON2_W)-marginH/2, y : size.height-UDpi.toPixel(BUTTON2_H+MARGIN_V), width : UDpi.toPixel(BUTTON2_W), height : UDpi.toPixel(BUTTON2_H), textSize : fontSize, textColor : TEXT_COLOR, color : UColor.LightGreen)
+        if (mCardCount == 0) {
+            buttons[ButtonId.Start.rawValue]!.setEnabled(false);
+        }
+
+        // キャンセルボタン
+        buttons[ButtonId.Cancel.rawValue] = UButtonText(
+            callbacks : self, type : UButtonType.Press,
+            id : PageViewStudyBookSelect.ButtonIdCancel, priority : 0,
+            text : UResourceManager.getStringByName("cancel"),
+            x : width / 2 + marginH / 2, y : size.height-UDpi.toPixel(BUTTON2_H) - UDpi.toPixel(MARGIN_V),
+            width : UDpi.toPixel(BUTTON2_W), height : UDpi.toPixel(BUTTON2_H),
+            textSize : fontSize, textColor : UIColor.white, color : CANCEL_COLOR)
+
+        updateRect()
     }
 
     /**
      * 出題モード選択ダイアログを表示する
      */
     private func showOption1Dialog() {
-//        if (mDialog == null) {
-//            mDialog = UDialogWindow.createInstance(this, this, UDialogWindow.ButtonDir.Vertical,
-//                    mParentView.getWidth(), mParentView.getHeight());
-//            mDialog.setTitle(UResourceManager.getStringById(R.string.study_mode));
-//
-//            int margin = UDpi.toPixel(17);
-//            // Slide one
-//            UButtonText button = new UButtonText(
-//            this, UButtonType.Press, ButtonIdOption1_1,
-//            0, UResourceManager.getStringById(R.string.study_mode_1),
-//                    marginH, 0, mDialog.getWidth() - marginH * 2, buttonIconW + margin,
-//                    fontSize, TEXT_COLOR, UColor.LightBlue);
-//            button.setImage(UResourceManager.getBitmapById(R.drawable.study_mode1), new Size
-//                    (buttonIconW,buttonIconW));
-//            button.setImageAlignment(UAlignment.Center);
-//            button.setImageOffset(-buttonIconW - margin, 0);
-//            mDialog.addDrawable(button);
-//
-//            // Slide multi
-//            button = new UButtonText(
-//                    this, UButtonType.Press, ButtonIdOption1_2,
-//                    0, UResourceManager.getStringById(R.string.study_mode_2),
-//                    marginH, 0, mDialog.getWidth() - marginH * 2, buttonIconW + margin,
-//                    fontSize, TEXT_COLOR, UColor.LightBlue);
-//            button.setImage(UResourceManager.getBitmapById(R.drawable.study_mode2), new Size
-//                    (buttonIconW,buttonIconW));
-//            button.setImageAlignment(UAlignment.Center);
-//            button.setImageOffset(-buttonIconW - margin, 0);
-//            mDialog.addDrawable(button);
-//
-//            // 4 choice
-//            button = new UButtonText(
-//                    this, UButtonType.Press, ButtonIdOption1_3,
-//                    0, UResourceManager.getStringById(R.string.study_mode_3),
-//                    marginH, 0, mDialog.getWidth() - marginH * 2, buttonIconW + margin,
-//                    fontSize, TEXT_COLOR, UColor.LightBlue);
-//            button.setImage(UResourceManager.getBitmapById(R.drawable.study_mode3), new Size
-//                    (buttonIconW,buttonIconW));
-//            button.setImageAlignment(UAlignment.Center);
-//            button.setImageOffset(-buttonIconW - margin, 0);
-//            mDialog.addDrawable(button);
-//
-//            // input correct
-//            button = new UButtonText(
-//                    this, UButtonType.Press, ButtonIdOption1_4,
-//                    0, UResourceManager.getStringById(R.string.study_mode_4),
-//                    marginH, 0, mDialog.getWidth() - marginH * 2, buttonIconW + margin,
-//                    fontSize, TEXT_COLOR, UColor.LightBlue);
-//            button.setImage(UResourceManager.getBitmapById(R.drawable.study_mode4), new Size
-//                    (buttonIconW,buttonIconW));
-//            button.setImageAlignment(UAlignment.Center);
-//            button.setImageOffset(-buttonIconW - margin, 0);
-//            mDialog.addDrawable(button);
-//
-//            mDialog.addCloseButton(UResourceManager.getStringById(R.string.cancel));
-//
-//            mDialog.addToDrawManager();
-//        }
+        if mDialog == nil {
+            mDialog = UDialogWindow.createInstance(
+                parentView : parentView,
+                buttonCallbacks : self, dialogCallbacks : self,
+                buttonDir : UDialogWindow.ButtonDir.Vertical,
+                screenW : parentView.getWidth(), screenH : parentView.getHeight())
+            
+            mDialog!.setTitle(UResourceManager.getStringByName("study_mode"))
+
+            let margin = UDpi.toPixel(17)
+            // Slide one
+            var button = UButtonText(
+            callbacks : self, type : UButtonType.Press, id : ButtonIdOption1_1, priority : 0, text : UResourceManager.getStringByName("study_mode_1"), x : marginH, y : 0, width : mDialog!.getWidth() - marginH * 2, height : buttonIconW+margin,
+            textSize : fontSize, textColor : TEXT_COLOR, color : UColor.LightBlue)
+            
+            button.setImage( image: UResourceManager.getImageByName(ImageName.study_mode1),
+                             imageSize: CGSize(width: buttonIconW, height: buttonIconW))
+            button.setImageAlignment(UAlignment.Center)
+            button.setImageOffset( x: -buttonIconW - margin, y: 0)
+            mDialog!.addDrawable(obj: button)
+
+            // Slide multi
+            button = UButtonText(
+                    callbacks : self, type : UButtonType.Press, id : ButtonIdOption1_2, priority : 0, text : UResourceManager.getStringByName("study_mode_2"), x : marginH, y : 0, width : mDialog!.getWidth() - marginH * 2,
+                    height : buttonIconW+margin, textSize : fontSize, textColor : TEXT_COLOR, color : UColor.LightBlue);
+            button.setImage(image: UResourceManager.getImageByName(ImageName.study_mode2),
+                            imageSize: CGSize(width: buttonIconW, height: buttonIconW))
+            button.setImageAlignment(UAlignment.Center);
+            button.setImageOffset(x: -buttonIconW - margin, y: 0)
+            mDialog!.addDrawable(obj: button)
+
+            // 4 choice
+            button = UButtonText(
+                    callbacks : self, type : UButtonType.Press,
+                    id : ButtonIdOption1_3, priority : 0,
+                    text : UResourceManager.getStringByName("study_mode_3"), x : marginH, y : 0, width : mDialog!.getWidth() - marginH * 2,
+                    height : buttonIconW+margin, textSize : fontSize, textColor : TEXT_COLOR, color : UColor.LightBlue)
+            button.setImage(image: UResourceManager.getImageByName(ImageName.study_mode3), imageSize: CGSize(width: buttonIconW, height: buttonIconW))
+            button.setImageAlignment( UAlignment.Center )
+            button.setImageOffset( x: -buttonIconW - margin, y: 0)
+            mDialog!.addDrawable(obj: button)
+
+            // input correct
+            button = UButtonText(
+                    callbacks : self, type : UButtonType.Press, id : ButtonIdOption1_4, priority : 0, text : UResourceManager.getStringByName("study_mode_4"), x : marginH, y : 0, width : mDialog!.getWidth() - marginH * 2,
+                    height : buttonIconW+margin, textSize : fontSize, textColor : TEXT_COLOR, color : UColor.LightBlue)
+            button.setImage(image: UResourceManager.getImageByName(ImageName.study_mode4), imageSize: CGSize(width: buttonIconW, height: buttonIconW))
+            button.setImageAlignment(UAlignment.Center)
+            button.setImageOffset(x: -buttonIconW - margin, y: 0)
+            
+            mDialog!.addDrawable(obj: button)
+            mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
+            mDialog!.addToDrawManager();
+        }
     }
 
     /**
      * 出題方法を選択するダイアログを表示
      */
     private func showOption2Dialog() {
-//        if (mDialog == null) {
-//            mDialog = UDialogWindow.createInstance(this, this, UDialogWindow.ButtonDir.Vertical,
-//                    mParentView.getWidth(), mParentView.getHeight());
-//            mDialog.setTitle(UResourceManager.getStringById(R.string.study_type));
-//            mDialog.addTextView(UResourceManager.getStringById(R.string.study_type_exp),
-//                    UAlignment.Center, false, false, UDpi.toPixel(TEXT_SIZE_2), TEXT_COLOR, 0);
-//            UButton button = mDialog.addButton(ButtonIdOption2_1, UResourceManager.getStringById(R.string
-//                    .study_type_1), TEXT_COLOR, UColor.LightGreen);
-//            UButton button2 = mDialog.addButton(ButtonIdOption2_2, UResourceManager.getStringById(R.string
-//                    .study_type_2), TEXT_COLOR, UColor.LightGreen);
-//
-//            if (mStudyType == StudyType.EtoJ) {
-//                button.setChecked(true);
-//            } else {
-//                button2.setChecked(true);
-//            }
-//
-//            mDialog.addCloseButton(UResourceManager.getStringById(R.string.cancel));
-//
-//            mDialog.addToDrawManager();
-//        }
+        if mDialog == nil {
+            mDialog = UDialogWindow.createInstance(
+                parentView : parentView, buttonCallbacks : self, dialogCallbacks : self, buttonDir : UDialogWindow.ButtonDir.Vertical, screenW : parentView.getWidth(), screenH : parentView.getHeight())
+            mDialog!.setTitle(UResourceManager.getStringByName("study_type"));
+            _ = mDialog!.addTextView(
+                text : UResourceManager.getStringByName("study_type_exp"),
+                alignment : UAlignment.Center, multiLine : false,
+                isDrawBG : false, textSize : UDpi.toPixelInt(TEXT_SIZE_2),
+                textColor : TEXT_COLOR, bgColor : nil)
+            
+            let button = mDialog!.addButton(id : ButtonIdOption2_1, text : UResourceManager.getStringByName("study_type_1"), textColor : TEXT_COLOR, color : UColor.LightGreen)
+            let button2 = mDialog!.addButton(id : ButtonIdOption2_2, text : UResourceManager.getStringByName("study_type_2"), textColor : TEXT_COLOR, color : UColor.LightGreen);
+
+            if (mStudyType == StudyType.EtoJ) {
+                button.setChecked(true)
+            } else {
+                button2.setChecked(true)
+            }
+
+            mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
+
+            mDialog!.addToDrawManager()
+        }
     }
 
     /**
      * 並び順を選択するダイアログを表示
      */
     private func showOption3Dialog() {
-//        if (mDialog == null) {
-//            mDialog = UDialogWindow.createInstance(this, this, UDialogWindow.ButtonDir.Vertical,
-//                    mParentView.getWidth(), mParentView.getHeight());
-//            mDialog.setTitle(UResourceManager.getStringById(R.string.study_order));
-//            mDialog.addTextView(UResourceManager.getStringById(R.string.study_order_exp),
-//                    UAlignment.Center, false, false, UDpi.toPixel(TEXT_SIZE_2), TEXT_COLOR, 0);
-//
-//            // buttons
-//            UButton button1 = mDialog.addButton(ButtonIdOption3_1, UResourceManager.getStringById(R.string
-//                    .study_order_1), TEXT_COLOR, UColor.Gold);
-//            UButton button2 = mDialog.addButton(ButtonIdOption3_2, UResourceManager.getStringById(R.string
-//                    .study_order_2), TEXT_COLOR, UColor.Gold);
-//
-//            if (mStudyOrder == StudyOrder.Normal) {
-//                button1.setChecked(true);
-//            } else {
-//                button2.setChecked(true);
-//            }
-//
-//            mDialog.addCloseButton(UResourceManager.getStringById(R.string.cancel));
-//
-//            mDialog.addToDrawManager();
-//        }
+        if mDialog == nil {
+            mDialog = UDialogWindow.createInstance(
+                parentView : parentView, buttonCallbacks : self,
+                dialogCallbacks : self, buttonDir : UDialogWindow.ButtonDir.Vertical,
+                screenW : parentView.getWidth(), screenH : parentView.getHeight())
+            mDialog!.setTitle(UResourceManager.getStringByName("study_order"))
+            _ = mDialog!.addTextView(
+                text : UResourceManager.getStringByName("study_order_exp"),
+                alignment : UAlignment.Center, multiLine : false, isDrawBG : false,
+                textSize : UDpi.toPixelInt(TEXT_SIZE_2), textColor : TEXT_COLOR,
+                bgColor : nil)
+
+            // buttons
+            let button1 = mDialog!.addButton(id : ButtonIdOption3_1, text : UResourceManager.getStringByName("study_order_1"), textColor : TEXT_COLOR, color : UColor.Gold)
+            let button2 = mDialog!.addButton(id : ButtonIdOption3_2, text : UResourceManager.getStringByName("study_order_2"), textColor : TEXT_COLOR, color : UColor.Gold)
+
+            if (mStudyOrder == StudyOrder.Normal) {
+                button1.setChecked(true);
+            } else {
+                button2.setChecked(true);
+            }
+
+            mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
+
+            mDialog!.addToDrawManager()
+        }
     }
 
     /**
      * 出題単語の絞り込みを選択するダイアログ表示
      */
     private func showOption4Dialog() {
-//        if (mDialog == null) {
-//            mDialog = UDialogWindow.createInstance(this, this, UDialogWindow.ButtonDir.Vertical,
-//                    mParentView.getWidth(), mParentView.getHeight());
-//            mDialog.setTitle(UResourceManager.getStringById(R.string.study_filter));
-//            mDialog.addTextView(UResourceManager.getStringById(R.string.study_filter_exp),
-//                    UAlignment.Center, false, false, UDpi.toPixel(TEXT_SIZE_2), TEXT_COLOR, 0);
-//            // buttons
-//            UButton button1 = mDialog.addButton(ButtonIdOption4_1, UResourceManager.getStringById(R.string
-//                    .study_filter_1), TEXT_COLOR, UColor.LightPink);
-//            UButton button2 = mDialog.addButton(ButtonIdOption4_2, UResourceManager.getStringById(R.string
-//                    .study_filter_2), TEXT_COLOR, UColor.LightPink);
-//            if (mStudyFilter == StudyFilter.All) {
-//                button1.setChecked(true);
-//            } else {
-//                button2.setChecked(true);
-//            }
-//
-//
-//            mDialog.addCloseButton(UResourceManager.getStringById(R.string.cancel));
-//
-//            mDialog.addToDrawManager();
-//        }
+        if mDialog == nil {
+            mDialog = UDialogWindow.createInstance(parentView : parentView, buttonCallbacks : self, dialogCallbacks : self, buttonDir : UDialogWindow.ButtonDir.Vertical, screenW : parentView.getWidth(), screenH : parentView.getHeight())
+            mDialog!.setTitle(UResourceManager.getStringByName("study_filter"))
+            
+            _ = mDialog!.addTextView(
+                text : UResourceManager.getStringByName("study_filter_exp"),
+                alignment : UAlignment.Center, multiLine : false, isDrawBG : false, textSize : UDpi.toPixelInt(TEXT_SIZE_2), textColor : TEXT_COLOR, bgColor : nil);
+            // buttons
+            let button1 = mDialog!.addButton(id : ButtonIdOption4_1, text : UResourceManager.getStringByName("study_filter_1"), textColor : TEXT_COLOR, color : UColor.LightPink)
+            let button2 = mDialog!.addButton(id : ButtonIdOption4_2, text : UResourceManager.getStringByName("study_filter_2"), textColor : TEXT_COLOR, color : UColor.LightPink)
+            if (mStudyFilter == StudyFilter.All) {
+                button1.setChecked(true)
+            } else {
+                button2.setChecked(true)
+            }
+
+            mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
+
+            mDialog!.addToDrawManager()
+        }
     }
 
     /**
@@ -550,92 +570,91 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
      * UButtonCallbacks
      */
     public override func UButtonClicked( id : Int, pressedOn : Bool) -> Bool {
-//        switch (id) {
-//            case PageViewStudyBookSelect.ButtonIdStartStudy:
-//                if (mCardCount == 0 || (mStudyFilter == StudyFilter.NotLearned && mNgCount == 0))
-//                {
-//                    // 未収得カード数が0なら終了
-//                    mDialog = UDialogWindow.createInstance(
-//                            null, this,
-//                            UDialogWindow.ButtonDir.Vertical, mParentView.getWidth(), mParentView
-//                                    .getHeight());
-//                    mDialog.setTitle(UResourceManager.getStringById(R.string.not_exit_study_card));
-//                    mDialog.addCloseButton(UResourceManager.getStringById(R.string.ok));
-//                    mDialog.addToDrawManager();
-//                    break;
-//                }
-//                // オプションを保存
-//                MySharedPref.writeInt(MySharedPref.StudyModeKey, mStudyMode.ordinal());
-//                MySharedPref.writeInt(MySharedPref.StudyTypeKey, mStudyType.ordinal());
-//                MySharedPref.writeInt(MySharedPref.StudyOrderKey, mStudyOrder.ordinal());
-//                MySharedPref.writeInt(MySharedPref.StudyFilterKey, mStudyFilter.ordinal());
-//
-//                if (mButtonCallbacks != null) {
-//                    mButtonCallbacks.UButtonClicked(id, pressedOn);
-//                }
-//                break;
-//            case PageViewStudyBookSelect.ButtonIdCancel:
-//                if (mButtonCallbacks != null) {
-//                    mButtonCallbacks.UButtonClicked(id, pressedOn);
-//                }
-//                break;
-//            case ButtonIdOption1:
-//                showOption1Dialog();
-//                break;
-//            case ButtonIdOption2:
-//                showOption2Dialog();
-//                break;
-//            case ButtonIdOption3:
-//                showOption3Dialog();
-//                break;
-//            case ButtonIdOption4:
-//                showOption4Dialog();
-//                break;
-//            case ButtonIdOption1_1:
-//                mDialog.startClosing();
-//                setStudyMode(StudyMode.SlideOne);
-//                break;
-//            case ButtonIdOption1_2:
-//                mDialog.startClosing();
-//                setStudyMode(StudyMode.SlideMulti);
-//                break;
-//            case ButtonIdOption1_3:
-//                mDialog.startClosing();
-//                setStudyMode(StudyMode.Choice4);
-//                break;
-//            case ButtonIdOption1_4:
-//                mDialog.startClosing();
-//                setStudyMode(StudyMode.Input);
-//                break;
-//            case ButtonIdOption2_1:
-//                mDialog.startClosing();
-//                setStudyType(StudyType.EtoJ);
-//                break;
-//            case ButtonIdOption2_2:
-//                mDialog.startClosing();
-//                setStudyType(StudyType.JtoE);
-//                break;
-//            case ButtonIdOption3_1:
-//                mDialog.startClosing();
-//                setStudyOrder(StudyOrder.Normal);
-//                break;
-//            case ButtonIdOption3_2:
-//                mDialog.startClosing();
-//                setStudyOrder(StudyOrder.Random);
-//                break;
-//            case ButtonIdOption4_1:
-//                mDialog.startClosing();
-//                setStudyFilter(StudyFilter.All);
-//                break;
-//            case ButtonIdOption4_2:
-//                mDialog.startClosing();
-//                setStudyFilter(StudyFilter.NotLearned);
-//                break;
-//
-//        }
-//        if (super.UButtonClicked(id, pressedOn)) {
-//            return true;
-//        }
+        switch (id) {
+        case PageViewStudyBookSelect.ButtonIdStartStudy:
+            if mCardCount == 0 || (mStudyFilter == StudyFilter.NotLearned && mNgCount == 0)
+            {
+                // 未収得カード数が0なら終了
+                mDialog = UDialogWindow.createInstance(
+                        parentView : parentView, buttonCallbacks : nil, dialogCallbacks : self, buttonDir : UDialogWindow.ButtonDir.Vertical, screenW : parentView.getWidth(), screenH : parentView.getHeight())
+                mDialog!.setTitle(UResourceManager.getStringByName("not_exit_study_card"))
+                mDialog!.addCloseButton(text: UResourceManager.getStringByName("ok"))
+                mDialog!.addToDrawManager();
+                
+            } else {
+                // オプションを保存
+                MySharedPref.writeInt(key: MySharedPref.StudyModeKey, value: mStudyMode.rawValue);
+                MySharedPref.writeInt(key: MySharedPref.StudyTypeKey, value: mStudyType.rawValue);
+                MySharedPref.writeInt(key: MySharedPref.StudyOrderKey, value: mStudyOrder.rawValue);
+                MySharedPref.writeInt(key: MySharedPref.StudyFilterKey, value: mStudyFilter.rawValue);
+
+                if mButtonCallbacks != nil {
+                    _ = mButtonCallbacks!.UButtonClicked(id: id, pressedOn: pressedOn)
+                }
+            }
+            
+        case PageViewStudyBookSelect.ButtonIdCancel:
+            if mButtonCallbacks != nil {
+                _ = mButtonCallbacks!.UButtonClicked(id: id, pressedOn: pressedOn)
+            }
+            
+        case ButtonIdOption1:
+            showOption1Dialog()
+            
+        case ButtonIdOption2:
+            showOption2Dialog()
+            
+        case ButtonIdOption3:
+            showOption3Dialog()
+            
+        case ButtonIdOption4:
+            showOption4Dialog()
+            
+        case ButtonIdOption1_1:
+            mDialog!.startClosing()
+            setStudyMode(mode: StudyMode.SlideOne)
+            
+        case ButtonIdOption1_2:
+            mDialog!.startClosing()
+            setStudyMode(mode: StudyMode.SlideMulti)
+            
+        case ButtonIdOption1_3:
+            mDialog!.startClosing()
+            setStudyMode(mode: StudyMode.Choice4)
+            
+        case ButtonIdOption1_4:
+            mDialog!.startClosing()
+            setStudyMode(mode: StudyMode.Input)
+            
+        case ButtonIdOption2_1:
+            mDialog!.startClosing()
+            setStudyType(type: StudyType.EtoJ)
+            
+        case ButtonIdOption2_2:
+            mDialog!.startClosing()
+            setStudyType(type: StudyType.JtoE)
+            
+        case ButtonIdOption3_1:
+            mDialog!.startClosing()
+            setStudyOrder(order: StudyOrder.Normal)
+            
+        case ButtonIdOption3_2:
+            mDialog!.startClosing()
+            setStudyOrder(order: StudyOrder.Random)
+            
+        case ButtonIdOption4_1:
+            mDialog!.startClosing()
+            setStudyFilter(filter: StudyFilter.All)
+            
+        case ButtonIdOption4_2:
+            mDialog!.startClosing()
+            setStudyFilter(filter: StudyFilter.NotLearned)
+        default:
+            break
+        }
+        if super.UButtonClicked(id: id, pressedOn: pressedOn) {
+            return true
+        }
         return false
     }
 
@@ -643,22 +662,22 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
      * 学習モードを設定
      */
     private func setStudyMode( mode : StudyMode) {
-//        if (mStudyMode != mode) {
-//            mStudyMode = mode;
-//            MySharedPref.writeInt(MySharedPref.StudyModeKey, mode.ordinal());
-//            buttons[ButtonId.Option1.ordinal()].setText(mode.getString());
-//        }
+        if mStudyMode != mode {
+            self.mStudyMode = mode
+            MySharedPref.writeInt(key: MySharedPref.StudyModeKey, value: mode.rawValue);
+            buttons[ButtonId.Option1.rawValue]!.setText(mText: mode.getString())
+        }
     }
 
     /**
      * 学習タイプを設定
      */
     private func setStudyType( type : StudyType) {
-//        if (mStudyType != type) {
-//            mStudyType = type;
-//            MySharedPref.writeInt(MySharedPref.StudyTypeKey, type.ordinal());
-//            buttons[ButtonId.Option2.ordinal()].setText(type.getString());
-//        }
+        if mStudyType != type {
+            mStudyType = type
+            MySharedPref.writeInt(key: MySharedPref.StudyTypeKey, value: type.rawValue)
+            buttons[ButtonId.Option2.rawValue]!.setText(mText: type.getString())
+        }
     }
 
     /**
@@ -666,22 +685,22 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
      * @param order
      */
     private func setStudyOrder( order : StudyOrder) {
-//        if (mStudyOrder != order) {
-//            mStudyOrder = order;
-//            MySharedPref.writeInt(MySharedPref.StudyOrderKey, order.ordinal());
-//            buttons[ButtonId.Option3.ordinal()].setText(order.getString());
-//        }
+        if mStudyOrder != order {
+            mStudyOrder = order
+            MySharedPref.writeInt(key: MySharedPref.StudyOrderKey, value: order.rawValue)
+            buttons[ButtonId.Option3.rawValue]!.setText(mText: order.getString())
+        }
     }
 
     /**
      * 絞り込みを設定
      */
     private func setStudyFilter( filter : StudyFilter ) {
-//        if (mStudyFilter != filter) {
-//            mStudyFilter = filter;
-//            MySharedPref.writeInt(MySharedPref.StudyFilterKey, filter.ordinal());
-//            buttons[ButtonId.Option4.ordinal()].setText(filter.getString());
-//        }
+        if mStudyFilter != filter {
+            mStudyFilter = filter
+            MySharedPref.writeInt(key: MySharedPref.StudyFilterKey, value: filter.rawValue)
+            buttons[ButtonId.Option4.rawValue]!.setText(mText: filter.getString())
+        }
     }
 
     /**
@@ -689,11 +708,11 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
      * @return
      */
     public func onBackKeyDown() -> Bool {
-//        if (mDialog != null) {
-//            mDialog.closeDialog();
-//            mDialog = null;
-//            return true;
-//        }
+        if mDialog != nil {
+            mDialog!.closeDialog()
+            mDialog = nil
+            return true
+        }
         return false
     }
 
@@ -701,8 +720,8 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
      * UDialogCallbacks
      */
     public func dialogClosed(dialog : UDialogWindow ) {
-//        if (dialog == mDialog) {
-//            mDialog = null;
-//        }
+        if dialog === mDialog {
+            mDialog = nil
+        }
     }
 }

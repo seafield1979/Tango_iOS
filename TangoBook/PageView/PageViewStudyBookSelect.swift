@@ -39,8 +39,8 @@ public class PageViewStudyBookSelect : UPageView
     private let ButtonIdReturn = 100
 
     // 開始ダイアログ(PreStudyWindow)でボタンが押されたときに使用する
-    public let ButtonIdStartStudy = 2001
-    public let ButtonIdCancel = 2002
+    public static let ButtonIdStartStudy = 2001
+    public static let ButtonIdCancel = 2002
 
     /**
      * Member variables
@@ -234,11 +234,11 @@ public class PageViewStudyBookSelect : UPageView
         case ButtonIdReturn:
             _ = PageViewManagerMain.getInstance().popPage()
             
-        case ButtonIdStartStudy:
+        case PageViewStudyBookSelect.ButtonIdStartStudy:
             // 学習開始
             PageViewManagerMain.getInstance().startStudyPage( book: mBook!, firstStudy: true)
             
-        case ButtonIdCancel:
+        case PageViewStudyBookSelect.ButtonIdCancel:
             mPreStudyWindow!.isShow = false
         default:
             break

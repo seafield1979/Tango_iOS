@@ -156,4 +156,9 @@ public class UDpi {
     public static func toPixel(_ dpi : Int) -> CGFloat {
         return CGFloat(dpi) * dpiToPixel
     }
+
+    public static func toPixelInt(_ dpi : Int) -> Int {
+        return Int(CGFloat(dpi) * dpiToPixel)
+    }
+
 }
