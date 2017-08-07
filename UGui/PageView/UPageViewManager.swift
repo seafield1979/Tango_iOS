@@ -148,10 +148,9 @@ public class UPageViewManager {
     /**
      * ページを取得する
      */
-//    public func getPageView(pageId : Int) -> UPageView {
-//        _ = initPage(pageId)
-//        return pages[pageId.rawValue]!
-//    }
+    public func getPageView(pageId : Int) -> UPageView {
+        return initPage(pageId)!
+    }
     
     /**
      * ページをスタックする

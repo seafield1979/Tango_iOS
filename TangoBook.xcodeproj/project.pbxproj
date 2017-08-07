@@ -181,6 +181,14 @@
 		8A5709661F3767D8004387D4 /* ListViewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5709651F3767D8004387D4 /* ListViewResult.swift */; };
 		8A5709681F3767F7004387D4 /* ListViewStudyHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5709671F3767F7004387D4 /* ListViewStudyHistory.swift */; };
 		8A66358F1F3800BC000EAAF0 /* PreStudyWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A66358E1F3800BC000EAAF0 /* PreStudyWindow.swift */; };
+		8A6635921F384B77000EAAF0 /* StudyCardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6635911F384B77000EAAF0 /* StudyCardStack.swift */; };
+		8A6635941F384BC2000EAAF0 /* StudyCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6635931F384BC2000EAAF0 /* StudyCard.swift */; };
+		8A6635961F384BFE000EAAF0 /* StudyCardsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6635951F384BFE000EAAF0 /* StudyCardsManager.swift */; };
+		8A6635981F384C37000EAAF0 /* StudyCardInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6635971F384C37000EAAF0 /* StudyCardInput.swift */; };
+		8A66359A1F384C77000EAAF0 /* StudyCardSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6635991F384C77000EAAF0 /* StudyCardSelect.swift */; };
+		8A66359C1F384CA2000EAAF0 /* StudyCardsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A66359B1F384CA2000EAAF0 /* StudyCardsStack.swift */; };
+		8A66359E1F384CEF000EAAF0 /* StudyCardStackInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A66359D1F384CEF000EAAF0 /* StudyCardStackInput.swift */; };
+		8A6635A01F384D1D000EAAF0 /* StudyCardStackSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A66359F1F384D1D000EAAF0 /* StudyCardStackSelect.swift */; };
 		8A6DA4E41F346D29000F4057 /* URealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DA4E31F346D29000F4057 /* URealmManager.swift */; };
 		8A8522401F22514300B5B8A3 /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A85223F1F22514300B5B8A3 /* TestDatabase.swift */; };
 		8A8522441F22533000B5B8A3 /* TestDBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8522421F22533000B5B8A3 /* TestDBViewController.swift */; };
@@ -503,6 +511,14 @@
 		8A5709651F3767D8004387D4 /* ListViewResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListViewResult.swift; path = ListView/ListViewResult.swift; sourceTree = "<group>"; };
 		8A5709671F3767F7004387D4 /* ListViewStudyHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListViewStudyHistory.swift; path = ListView/ListViewStudyHistory.swift; sourceTree = "<group>"; };
 		8A66358E1F3800BC000EAAF0 /* PreStudyWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreStudyWindow.swift; path = Window/PreStudyWindow.swift; sourceTree = "<group>"; };
+		8A6635911F384B77000EAAF0 /* StudyCardStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyCardStack.swift; path = Study/StudyCardStack.swift; sourceTree = "<group>"; };
+		8A6635931F384BC2000EAAF0 /* StudyCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyCard.swift; path = Study/StudyCard.swift; sourceTree = "<group>"; };
+		8A6635951F384BFE000EAAF0 /* StudyCardsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyCardsManager.swift; path = Study/StudyCardsManager.swift; sourceTree = "<group>"; };
+		8A6635971F384C37000EAAF0 /* StudyCardInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyCardInput.swift; path = Study/StudyCardInput.swift; sourceTree = "<group>"; };
+		8A6635991F384C77000EAAF0 /* StudyCardSelect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyCardSelect.swift; path = Study/StudyCardSelect.swift; sourceTree = "<group>"; };
+		8A66359B1F384CA2000EAAF0 /* StudyCardsStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyCardsStack.swift; path = Study/StudyCardsStack.swift; sourceTree = "<group>"; };
+		8A66359D1F384CEF000EAAF0 /* StudyCardStackInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyCardStackInput.swift; path = Study/StudyCardStackInput.swift; sourceTree = "<group>"; };
+		8A66359F1F384D1D000EAAF0 /* StudyCardStackSelect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyCardStackSelect.swift; path = Study/StudyCardStackSelect.swift; sourceTree = "<group>"; };
 		8A6DA4E31F346D29000F4057 /* URealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URealmManager.swift; path = TangoBook/Database/URealmManager.swift; sourceTree = "<group>"; };
 		8A85223F1F22514300B5B8A3 /* TestDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDatabase.swift; path = TangoBook/Database/Test/TestDatabase.swift; sourceTree = "<group>"; };
 		8A8522421F22533000B5B8A3 /* TestDBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDBViewController.swift; path = TangoBook/Database/Test/TestDBViewController.swift; sourceTree = "<group>"; };
@@ -890,6 +906,21 @@
 			name = Window;
 			sourceTree = "<group>";
 		};
+		8A6635901F384B54000EAAF0 /* Study */ = {
+			isa = PBXGroup;
+			children = (
+				8A6635911F384B77000EAAF0 /* StudyCardStack.swift */,
+				8A6635931F384BC2000EAAF0 /* StudyCard.swift */,
+				8A6635951F384BFE000EAAF0 /* StudyCardsManager.swift */,
+				8A6635971F384C37000EAAF0 /* StudyCardInput.swift */,
+				8A6635991F384C77000EAAF0 /* StudyCardSelect.swift */,
+				8A66359B1F384CA2000EAAF0 /* StudyCardsStack.swift */,
+				8A66359D1F384CEF000EAAF0 /* StudyCardStackInput.swift */,
+				8A66359F1F384D1D000EAAF0 /* StudyCardStackSelect.swift */,
+			);
+			name = Study;
+			sourceTree = "<group>";
+		};
 		8A85223E1F22512100B5B8A3 /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -1195,6 +1226,7 @@
 		8AF781791F1F3E4400FC4EF2 /* TangoBook */ = {
 			isa = PBXGroup;
 			children = (
+				8A6635901F384B54000EAAF0 /* Study */,
 				8A66358D1F380098000EAAF0 /* Window */,
 				8A5709521F376698004387D4 /* ListView */,
 				8AF5E9F91F2ED2FA008D8508 /* PresetBook */,
@@ -1543,6 +1575,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A6635981F384C37000EAAF0 /* StudyCardInput.swift in Sources */,
 				8AF781A71F1F445500FC4EF2 /* BackupFileDao.swift in Sources */,
 				8A57095A1F376738004387D4 /* LIstItemResult.swift in Sources */,
 				8AE08A9F1F2580D00024E9B7 /* UPopupWindow.swift in Sources */,
@@ -1551,6 +1584,8 @@
 				8AA3B5091F29B4F500AE445E /* TangoEnums.swift in Sources */,
 				8AF781A91F1F445500FC4EF2 /* TangoBookDao.swift in Sources */,
 				8AB7E94C1F25A00F005E36BB /* PageViewCsvBook.swift in Sources */,
+				8A6635941F384BC2000EAAF0 /* StudyCard.swift in Sources */,
+				8A6635921F384B77000EAAF0 /* StudyCardStack.swift in Sources */,
 				8AE08A921F2580D00024E9B7 /* DrawList.swift in Sources */,
 				8AE08A871F2580D00024E9B7 /* UButtonImage.swift in Sources */,
 				8AB7E96E1F25E1D0005E36BB /* TangoTopView.swift in Sources */,
@@ -1571,6 +1606,7 @@
 				8AE08ABB1F2580D70024E9B7 /* UUtil.swift in Sources */,
 				8AB7E9591F25A00F005E36BB /* PageViewStudyInputCorrect.swift in Sources */,
 				8AF781AB1F1F445500FC4EF2 /* TangoBookHistoryDao.swift in Sources */,
+				8A6635A01F384D1D000EAAF0 /* StudyCardStackSelect.swift in Sources */,
 				8AE08A861F2580D00024E9B7 /* UButtonClose.swift in Sources */,
 				8AB7E92E1F259991005E36BB /* PageViewTest1.swift in Sources */,
 				8A66358F1F3800BC000EAAF0 /* PreStudyWindow.swift in Sources */,
@@ -1649,6 +1685,7 @@
 				8AF5E9FD1F2ED332008D8508 /* PresetCard.swift in Sources */,
 				8A5709681F3767F7004387D4 /* ListViewStudyHistory.swift in Sources */,
 				8AB7E9551F25A00F005E36BB /* PageViewSettingsTop.swift in Sources */,
+				8A66359E1F384CEF000EAAF0 /* StudyCardStackInput.swift in Sources */,
 				8AB7E9121F2583F4005E36BB /* UPageView.swift in Sources */,
 				8AE08A991F2580D00024E9B7 /* UListItem.swift in Sources */,
 				8AB7E9311F259991005E36BB /* PageViewTest4.swift in Sources */,
@@ -1664,10 +1701,13 @@
 				8AB7E9111F2583F4005E36BB /* PageViewTest.swift in Sources */,
 				8AB7E8FC1F258384005E36BB /* ViewTouch.swift in Sources */,
 				8AF7817D1F1F3E4400FC4EF2 /* ViewController.swift in Sources */,
+				8A66359C1F384CA2000EAAF0 /* StudyCardsStack.swift in Sources */,
 				8AB7E97E1F278DC7005E36BB /* IconTrash.swift in Sources */,
 				8AF781B21F1F445500FC4EF2 /* TangoItemPosDao.swift in Sources */,
 				8A0D6FB71F31A47A002A1949 /* TangoBackupFileDao.swift in Sources */,
 				8AF781AC1F1F445500FC4EF2 /* TangoCard.swift in Sources */,
+				8A6635961F384BFE000EAAF0 /* StudyCardsManager.swift in Sources */,
+				8A66359A1F384C77000EAAF0 /* StudyCardSelect.swift in Sources */,
 				8AA3B5071F29B1F100AE445E /* UIImage+ex.swift in Sources */,
 				8AE08A131F24BA310024E9B7 /* TestDB6ViewController.swift in Sources */,
 				8AE08A8F1F2580D00024E9B7 /* UTextView.swift in Sources */,

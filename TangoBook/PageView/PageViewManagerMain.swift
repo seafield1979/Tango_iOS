@@ -176,38 +176,32 @@ public class PageViewManagerMain : UPageViewManager {
       * @param firstStudy trueならリトライでない学習
       */
     public func startStudyPage( book : TangoBook, firstStudy : Bool) {
-    
-    //         switch( MySharedPref.getStudyMode()) {
-    //             case SlideOne:
-    //             case SlideMulti:
-    //             {
-    //                 PageViewStudySlide page = (PageViewStudySlide)getPageView(PageView.StudySlide);
-    //                 page.setBook(book);
-    //                 page.setFirstStudy(firstStudy);
-    //                 stackPage(PageView.StudySlide);
-    //             }
-    //                 break;
-    //             case Choice4:
-    //             {
-    //                 PageViewStudySelect4 page = (PageViewStudySelect4)getPageView(PageView
-    //                         .StudySelect4);
-    //                 page.setBook(book);
-    //                 page.setFirstStudy(firstStudy);
-    //                 stackPage(PageView.StudySelect4);
-    //             }
-    //                 break;
-    //             case Input:
-    //             {
-    //                 PageViewStudyInputCorrect page = (PageViewStudyInputCorrect)getPageView(PageView
-    //                         .StudyInputCorrect);
-    //                 page.setBook(book);
-    //                 page.setFirstStudy(firstStudy);
-    //                 stackPage(PageView.StudyInputCorrect);
-    //             }
-    //                 break;
-    //         }
-    
+         switch( MySharedPref.getStudyMode()) {
+         case .SlideOne:
+            fallthrough
+         case .SlideMulti:
+            let pageView = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.StudySlide.rawValue) as! PageViewStudySlide
+//             let page = getPageView(pageId: PageIdMain.StudySlide) as! PageViewStudySlide
+             pageView.setBook(book: book)
+             pageView.isFirst = firstStudy
+//             stackPage(PageView.StudySlide)
+         
+//         case .Choice4:
+//             let page = getPageView(PageView.StudySelect4) as! PageViewStudySelect4
+//             page.setBook(book)
+//             page.setFirstStudy(firstStudy)
+//             stackPage(PageView!.StudySelect4)
+//         
+//         case .Input:
+//             PageViewStudyInputCorrect page = (PageViewStudyInputCorrect)getPageView(PageView
+//                     .StudyInputCorrect);
+//             page.setBook(book);
+//             page.setFirstStudy(firstStudy);
+//             stackPage(PageView.StudyInputCorrect);
+         default:
+            break
          }
+    }
     
     /**
     * 学習ページを表示開始(リトライ時)

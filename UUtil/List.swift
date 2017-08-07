@@ -54,6 +54,16 @@ public class List<T> : Sequence, Hashable{
         insert(newElement, atIndex: 0)
     }
     
+    // リストの先頭の要素を抜き出し、リストから削除する
+    func pop() -> T? {
+        if elements.count > 0 {
+            let obj = elements[0]
+            elements.removeFirst()
+            return obj
+        }
+        return nil
+    }
+    
     // リストの指定位置に要素を追加する
     func insert(_ newElement: T, atIndex index: Int) {
         elements.insert(newElement, at: index)
@@ -128,6 +138,22 @@ public class List<T> : Sequence, Hashable{
     
     func reduce<U>(initial: U, combine: (U, T) -> U) -> U {
         return elements.reduce(initial, combine)
+    }
+    
+    func shuffled() {
+        var array = elements
+        
+        for i in 0..<array.count {
+            let ub = UInt32(array.count - i)
+            let d = Int(arc4random_uniform(ub))
+            
+            let tmp = array[i]
+            array[i] = array[i+d]
+            array[i+d] = tmp
+        }
+        
+        // シャッフル済みに置き換える
+        elements = array
     }
     
     public func makeIterator() -> AnyIterator<T?> {
