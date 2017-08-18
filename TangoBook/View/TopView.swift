@@ -113,9 +113,9 @@ public class TopView : UIView, UButtonCallbacks{
         if touch == nil {
             return
         }
-        _ = vt.checkTouchType(e: TouchEventType.Down,
-                          touch: touch!, view: self)
-        
+//        _ = vt.checkTouchType(e: TouchEventType.Down,
+//                          touch: touch!, view: self)
+//        
         // 描画オブジェクトのタッチ処理はすべてUDrawManagerにまかせる
         if UDrawManager.getInstance().touchEvent(vt) {
             invalidate()
@@ -135,9 +135,9 @@ public class TopView : UIView, UButtonCallbacks{
         if touch == nil {
             return
         }
-        _ = vt.checkTouchType(e: TouchEventType.Move,
-                              touch: touch!, view: self)
-        
+//        _ = vt.checkTouchType(e: TouchEventType.Move,
+//                              touch: touch!, view: self)
+//        
         
         // 描画オブジェクトのタッチ処理はすべてUDrawManagerにまかせる
         if UDrawManager.getInstance().touchEvent(vt) {
@@ -159,9 +159,9 @@ public class TopView : UIView, UButtonCallbacks{
         if touch == nil {
             return
         }
-        _ = vt.checkTouchType(e: TouchEventType.Up,
-                              touch: touch!, view: self)
-        
+//        _ = vt.checkTouchType(e: TouchEventType.Up,
+//                              touch: touch!, view: self)
+//        
         // 描画オブジェクトのタッチ処理はすべてUDrawManagerにまかせる
         if UDrawManager.getInstance().touchEvent(vt) {
             invalidate()
@@ -181,8 +181,8 @@ public class TopView : UIView, UButtonCallbacks{
         if touch == nil {
             return
         }
-        _ = vt.checkTouchType(e: TouchEventType.Cancel,
-                              touch: touch!, view: self)
+//        _ = vt.checkTouchType(e: TouchEventType.Cancel,
+//                              touch: touch!, view: self)
         
     }
 
@@ -245,7 +245,7 @@ public class TopView : UIView, UButtonCallbacks{
         {
             print("長押し開始")
             // 長押し開始
-            _ = vt.checkTouchType(e: .LongPress, touch: nil, view: self)
+//            _ = vt.checkTouchType(e: .LongPress, touch: nil, view: self)
             
             longPressBeginTime = NSDate.timeIntervalSinceReferenceDate
             

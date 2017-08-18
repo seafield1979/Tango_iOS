@@ -249,6 +249,9 @@
 		8AB7E9821F278DC7005E36BB /* UIconWindows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9791F278DC7005E36BB /* UIconWindows.swift */; };
 		8AB7E9831F278DC7005E36BB /* UIconWindowSub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E97A1F278DC7005E36BB /* UIconWindowSub.swift */; };
 		8AB99D7D1F34210600497E4E /* EditBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AB99D7F1F34210600497E4E /* EditBookViewController.xib */; };
+		8AC44FF81F471ED300ECAD00 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC44FF61F471ED300ECAD00 /* GameViewController.swift */; };
+		8AC44FF91F471ED300ECAD00 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AC44FF71F471ED300ECAD00 /* GameViewController.xib */; };
+		8AC44FFE1F471F9F00ECAD00 /* TopScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC44FFD1F471F9F00ECAD00 /* TopScene.swift */; };
 		8AD631381F2B93780067B57E /* MenuBarTangoEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD631371F2B93780067B57E /* MenuBarTangoEdit.swift */; };
 		8AD6313A1F2B941B0067B57E /* IconInfoDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD631391F2B941B0067B57E /* IconInfoDialog.swift */; };
 		8AD6313C1F2B94CE0067B57E /* IconInfoDialogCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6313B1F2B94CE0067B57E /* IconInfoDialogCard.swift */; };
@@ -308,6 +311,7 @@
 		8AE08ABB1F2580D70024E9B7 /* UUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08AAE1F2580D70024E9B7 /* UUtil.swift */; };
 		8AE08ABF1F2580E00024E9B7 /* CGRect+U.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08ABD1F2580E00024E9B7 /* CGRect+U.swift */; };
 		8AE08AC01F2580E00024E9B7 /* UIColor+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08ABE1F2580E00024E9B7 /* UIColor+ex.swift */; };
+		8AF1A56E1F4722B800B47000 /* TopScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8AF1A56D1F4722B800B47000 /* TopScene.sks */; };
 		8AF5E9F81F2EC009008D8508 /* Int+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E9F71F2EC009008D8508 /* Int+ex.swift */; };
 		8AF5E9FB1F2ED31E008D8508 /* PresetBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E9FA1F2ED31E008D8508 /* PresetBook.swift */; };
 		8AF5E9FD1F2ED332008D8508 /* PresetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E9FC1F2ED331008D8508 /* PresetCard.swift */; };
@@ -582,6 +586,9 @@
 		8AB99D7E1F34210600497E4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EditBookViewController.xib; sourceTree = "<group>"; };
 		8AB99D811F34210800497E4E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditBookViewController.strings; sourceTree = "<group>"; };
 		8AB99D831F34211200497E4E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/EditBookViewController.strings; sourceTree = "<group>"; };
+		8AC44FF61F471ED300ECAD00 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameViewController.swift; path = ViewController/GameViewController.swift; sourceTree = "<group>"; };
+		8AC44FF71F471ED300ECAD00 /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GameViewController.xib; path = ViewController/GameViewController.xib; sourceTree = "<group>"; };
+		8AC44FFD1F471F9F00ECAD00 /* TopScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopScene.swift; path = SpriteKit/TopScene.swift; sourceTree = "<group>"; };
 		8AD631371F2B93780067B57E /* MenuBarTangoEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuBarTangoEdit.swift; path = TangoEdit/MenuBarTangoEdit.swift; sourceTree = "<group>"; };
 		8AD631391F2B941B0067B57E /* IconInfoDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconInfoDialog.swift; path = Icon/IconInfoDialog.swift; sourceTree = "<group>"; };
 		8AD6313B1F2B94CE0067B57E /* IconInfoDialogCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconInfoDialogCard.swift; path = Icon/IconInfoDialogCard.swift; sourceTree = "<group>"; };
@@ -641,6 +648,7 @@
 		8AE08AAE1F2580D70024E9B7 /* UUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUtil.swift; sourceTree = "<group>"; };
 		8AE08ABD1F2580E00024E9B7 /* CGRect+U.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+U.swift"; sourceTree = "<group>"; };
 		8AE08ABE1F2580E00024E9B7 /* UIColor+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ex.swift"; sourceTree = "<group>"; };
+		8AF1A56D1F4722B800B47000 /* TopScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = TopScene.sks; path = SpriteKit/TopScene.sks; sourceTree = "<group>"; };
 		8AF5E9F71F2EC009008D8508 /* Int+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+ex.swift"; sourceTree = "<group>"; };
 		8AF5E9FA1F2ED31E008D8508 /* PresetBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresetBook.swift; path = PresetBook/PresetBook.swift; sourceTree = "<group>"; };
 		8AF5E9FC1F2ED331008D8508 /* PresetCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresetCard.swift; path = PresetBook/PresetCard.swift; sourceTree = "<group>"; };
@@ -1046,6 +1054,15 @@
 			name = Icon;
 			sourceTree = "<group>";
 		};
+		8AC44FFA1F471F2700ECAD00 /* SpriteKit */ = {
+			isa = PBXGroup;
+			children = (
+				8AC44FFD1F471F9F00ECAD00 /* TopScene.swift */,
+				8AF1A56D1F4722B800B47000 /* TopScene.sks */,
+			);
+			name = SpriteKit;
+			sourceTree = "<group>";
+		};
 		8AD631361F2B93500067B57E /* TangoEdit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1202,6 +1219,7 @@
 		8AF7816E1F1F3E4400FC4EF2 = {
 			isa = PBXGroup;
 			children = (
+				8AC44FFA1F471F2700ECAD00 /* SpriteKit */,
 				8A5708151F373D09004387D4 /* Resource */,
 				8AB7E9631F25B43E005E36BB /* Localizable.strings */,
 				8AE08ABC1F2580E00024E9B7 /* Extension */,
@@ -1244,6 +1262,8 @@
 				8A5709501F37428C004387D4 /* TopViewController.xib */,
 				8AF781811F1F3E4400FC4EF2 /* Assets.xcassets */,
 				8AF781861F1F3E4400FC4EF2 /* Info.plist */,
+				8AC44FF61F471ED300ECAD00 /* GameViewController.swift */,
+				8AC44FF71F471ED300ECAD00 /* GameViewController.xib */,
 			);
 			path = TangoBook;
 			sourceTree = "<group>";
@@ -1478,6 +1498,7 @@
 				8A5709051F373D27004387D4 /* help_icon_long_push.png in Resources */,
 				8A5708E51F373D27004387D4 /* help_add_button.png in Resources */,
 				8A5709511F37428C004387D4 /* TopViewController.xib in Resources */,
+				8AC44FF91F471ED300ECAD00 /* GameViewController.xib in Resources */,
 				8A57090E1F373D28004387D4 /* help_selected_icon_move.png in Resources */,
 				8AE08A141F24BA310024E9B7 /* TestDB6ViewController.xib in Resources */,
 				8A5708B51F373D27004387D4 /* drink.csv in Resources */,
@@ -1514,6 +1535,7 @@
 				8A5709261F373D28004387D4 /* history.png in Resources */,
 				8A5709331F373D28004387D4 /* number_6.png in Resources */,
 				8A57094A1F373D28004387D4 /* text.png in Resources */,
+				8AF1A56E1F4722B800B47000 /* TopScene.sks in Resources */,
 				8A5708F11F373D27004387D4 /* help_card_info3.png in Resources */,
 				8A5709411F373D28004387D4 /* sort_by_alphabet2_asc.png in Resources */,
 				8A5708D11F373D27004387D4 /* backup_page_restore.png in Resources */,
@@ -1586,6 +1608,7 @@
 				8AB7E94C1F25A00F005E36BB /* PageViewCsvBook.swift in Sources */,
 				8A6635941F384BC2000EAAF0 /* StudyCard.swift in Sources */,
 				8A6635921F384B77000EAAF0 /* StudyCardStack.swift in Sources */,
+				8AC44FFE1F471F9F00ECAD00 /* TopScene.swift in Sources */,
 				8AE08A921F2580D00024E9B7 /* DrawList.swift in Sources */,
 				8AE08A871F2580D00024E9B7 /* UButtonImage.swift in Sources */,
 				8AB7E96E1F25E1D0005E36BB /* TangoTopView.swift in Sources */,
@@ -1617,6 +1640,7 @@
 				8AF781B11F1F445500FC4EF2 /* TangoItemPos.swift in Sources */,
 				8AF781AA1F1F445500FC4EF2 /* TangoBookHistory.swift in Sources */,
 				8AE08A8A1F2580D00024E9B7 /* MenuBarTest1.swift in Sources */,
+				8AC44FF81F471ED300ECAD00 /* GameViewController.swift in Sources */,
 				8AE08A8D1F2580D00024E9B7 /* UCircle.swift in Sources */,
 				8AE08A9E1F2580D00024E9B7 /* ULogWindow.swift in Sources */,
 				8AB7E9221F258A1B005E36BB /* TestGuiView.swift in Sources */,
