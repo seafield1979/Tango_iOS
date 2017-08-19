@@ -6,7 +6,7 @@
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import UIKit
+import SpriteKit
 
 public class IconBook : IconContainer {
     
@@ -48,14 +48,14 @@ public class IconBook : IconContainer {
     /**
      * Constructor
      */
-    public init( book : TangoBook, parentWindow : UIconWindow, iconCallbacks : UIconCallbacks?)
+    public init( book : TangoBook, parentWindow : UIconWindow, iconCallbacks : UIconCallbacks?, x: CGFloat, y: CGFloat)
     {
         iconW = UDpi.toPixel(ICON_W)
         iconH = UDpi.toPixel(ICON_H)
         textSize = Int(UDpi.toPixel(TEXT_SIZE2))
         
         super.init(parentWindow: parentWindow, iconCallbacks: iconCallbacks,
-                   type: IconType.Book, x: 0, y: 0,
+                   type: IconType.Book, x: x, y: y,
                    width: UDpi.toPixel(ICON_W), height: UDpi.toPixel(ICON_H))
         
         setColor(ICON_COLOR)
@@ -68,6 +68,11 @@ public class IconBook : IconContainer {
         let color = UColor.makeColor(argb: UInt32(book.getColor()))
         image = UResourceManager.getImageWithColor(imageName: ImageName.cards,
                                                    color: color)
+        
+        // アイコンの画像を設定
+        if let _image = image {
+            imageNode.texture = SKTexture(image: _image)
+        }
     }
 
     /**
@@ -132,6 +137,10 @@ public class IconBook : IconContainer {
                 DISP_TITLE_LEN
         let text = book!.getName()!
         self.title = text.substring(to: text.index(text.startIndex, offsetBy: len))
+        
+        textNode.isHidden = (title!.characters.count == 0)
+        
+        textNode.text = title
     }
     
     /**

@@ -318,7 +318,7 @@ public class UIconWindowSub : UIconWindow {
                                 strokeWidth: 0, strokeColor: nil)
         
         // アイコンの描画
-        let _pos = CGPoint(x: pos.x, y: pos.y + size.height)
+        _ = CGPoint(x: pos.x, y: pos.y + size.height)
         for button in buttons {
             button.draw()
         }

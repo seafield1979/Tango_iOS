@@ -68,7 +68,7 @@ public class UImageView : UDrawable {
     public override func draw() {
         var _image : UIImage
         
-        var _pos = CGPoint(x: pos.x, y: pos.y)
+        let _pos = CGPoint(x: pos.x, y: pos.y)
 //        if offset != nil {
 //            _pos.x += offset!.x
 //            _pos.y += offset!.y

@@ -103,7 +103,7 @@ public class SKNodeUtil {
         n.fontSize = textSize
         n.fontName = "HiraKakuProN-W6"
         if offset != nil {
-            n.position = offset!.convToSK()
+            n.position = offset!
         }
         
         switch alignment {

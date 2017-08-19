@@ -148,7 +148,7 @@ public class UIconManager : UIconCallbacks {
                 let book = _book.copy() as! TangoBook
                 icon = IconBook(book: book,
                                 parentWindow: mParentWindow!,
-                                iconCallbacks: self)
+                                iconCallbacks: self, x: 0, y: 0)
         default:
             break
         }
@@ -214,7 +214,7 @@ public class UIconManager : UIconCallbacks {
                 let bookCopy = book.copy() as! TangoBook
                 icon = IconBook(book: bookCopy,
                                 parentWindow: mParentWindow!,
-                                iconCallbacks: self)
+                                iconCallbacks: self, x: 0, y: 0)
            
             case .Trash:
                 icon = IconTrash(parentWindow: mParentWindow!,
@@ -267,7 +267,7 @@ public class UIconManager : UIconCallbacks {
                     let book = item as! TangoBook
                     icon = IconBook(book: book,
                                     parentWindow: mParentWindow!,
-                                    iconCallbacks: self)
+                                    iconCallbacks: self, x: 0, y: 0)
                 }
         default:
             break
@@ -367,7 +367,7 @@ public class UIconManager : UIconCallbacks {
      */
     public func sortWithMode( mode : SortMode) {
         let _icons : List<UIcon> = getIcons()
-        let  _mode : SortMode = mode
+        let  _ : SortMode = mode
 
         // _icons を SortMode の方法でソートする
         // todo いろいろなソートモードには未対応

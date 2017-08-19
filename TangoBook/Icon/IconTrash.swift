@@ -7,7 +7,7 @@
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import UIKit
+import SpriteKit
 
 /**
  * Created by shutaro on 2016/11/21.
@@ -57,6 +57,8 @@ public class IconTrash : IconContainer {
         textSize = UDpi.toPixel(TEXT_SIZE)
         
         title = UResourceManager.getStringByName("trash")
+        textNode.text = title
+        textNode.isHidden = false
         setColor(ICON_COLOR)
         
         // 中のアイコンを表示するためのSubWindow
@@ -64,6 +66,10 @@ public class IconTrash : IconContainer {
         subWindow = windows!.getSubWindow()
         
         image = UResourceManager.getImageWithColor( imageName: ImageName.trash, color: UColor.DarkBlue)
+        
+        if let _image = image {
+            imageNode.texture = SKTexture(image: _image)
+        }
     }
 
     /**
@@ -79,14 +85,14 @@ public class IconTrash : IconContainer {
      */
     public override func drawIcon() {
         
-        var drawPos : CGPoint = pos
+        var _ : CGPoint = pos
         
         var alpha : CGFloat = 1.0
         if isLongTouched || isTouched || isDroped {
             // 長押し、タッチ、ドロップ中はBGを表示
-            UDraw.drawRoundRectFill(rect: CGRect(x: drawPos.x, y: drawPos.y, width: iconW, height: iconH),
-                                     cornerR: UDpi.toPixel(10),
-                                     color: touchedColor!, strokeWidth: 0, strokeColor: nil)
+//            UDraw.drawRoundRectFill(rect: CGRect(x: drawPos.x, y: drawPos.y, width: iconW, height: iconH),
+//                                     cornerR: UDpi.toPixel(10),
+//                                     color: touchedColor!, strokeWidth: 0, strokeColor: nil)
         } else if (isAnimating) {
             // 点滅
             let v1 = (CGFloat(animeFrame) / CGFloat(animeFrameMax)) * 180
@@ -97,17 +103,17 @@ public class IconTrash : IconContainer {
         
         // icon
         // 領域の幅に合わせて伸縮
-        UDraw.drawImageWithCrop(image: image!,
-                                srcRect: CGRect(x: 0,y: 0, width: image!.getWidth(), height: image!.getHeight()),
-                                dstRect: CGRect(x: drawPos.x, y: drawPos.y,
-                                                width: iconW, height: iconH), alpha: alpha)
-        
-        // Text
-        UDraw.drawText(text: title!, alignment: UAlignment.CenterX,
-                       textSize: Int(UDpi.toPixel(TEXT_SIZE)),
-                       x: drawPos.x + iconW / 2,
-                       y: drawPos.y + iconH + UDpi.toPixel(TEXT_MARGIN),
-                       color: UIColor.black)
+//        UDraw.drawImageWithCrop(image: image!,
+//                                srcRect: CGRect(x: 0,y: 0, width: image!.getWidth(), height: image!.getHeight()),
+//                                dstRect: CGRect(x: drawPos.x, y: drawPos.y,
+//                                                width: iconW, height: iconH), alpha: alpha)
+//        
+//        // Text
+//        UDraw.drawText(text: title!, alignment: UAlignment.CenterX,
+//                       textSize: Int(UDpi.toPixel(TEXT_SIZE)),
+//                       x: drawPos.x + iconW / 2,
+//                       y: drawPos.y + iconH + UDpi.toPixel(TEXT_MARGIN),
+//                       color: UIColor.black)
 
     }
     

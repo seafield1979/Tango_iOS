@@ -558,7 +558,6 @@ public class UDialogWindow : UWindow {
             animatingBgNode!.removeFromParent()
             animatingBgNode = nil
         }
-        let _offset : CGPoint = pos
         
         // Title
         if mTitleView != nil {

@@ -6,7 +6,7 @@
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import UIKit
+import SpriteKit
 
 public class IconCard : UIcon {
     /**
@@ -40,6 +40,7 @@ public class IconCard : UIcon {
     convenience public init( card : TangoCard, parentWindow : UIconWindow, iconCallbacks : UIconCallbacks?)
     {
         self.init(card: card, parentWindow: parentWindow,iconCallbacks: iconCallbacks, x: 0, y: 0)
+        
     }
 
     public init( card : TangoCard, parentWindow : UIconWindow, iconCallbacks : UIconCallbacks?, x : CGFloat, y : CGFloat)
@@ -56,9 +57,14 @@ public class IconCard : UIcon {
         updateTitle()
         setColor(TOUCHED_COLOR)
         
-        // アイコン画像の読み込み
-        image = UResourceManager.getImageWithColor(imageName: ImageName.card,
-                                                   color: UColor.makeColor(argb: UInt32(card.color)))
+        // アイコンの画像を設定
+        let image = UResourceManager.getImageWithColor(
+            imageName: ImageName.card,
+            color: UColor.makeColor(argb: UInt32(card.color)))
+
+        if let _image = image {
+            imageNode.texture = SKTexture(image: _image)
+        }
     }
 
     /**
@@ -146,9 +152,11 @@ public class IconCard : UIcon {
                 } else {
                     self.title = self.title!.substring(to: str!.index(str!.startIndex, offsetBy: maxLen))
                 }
-
             }
         }
+        textNode.isHidden = (title!.characters.count == 0)
+        
+        textNode.text = title
     }
     
 

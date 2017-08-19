@@ -174,10 +174,10 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         let width = mTopScene.getWidth()
         let height = mTopScene.getHeight()
 
-
          // 描画オブジェクトクリア
          UDrawManager.getInstance().initialize()
 
+        
          // DebugDialogs
 //         debugDialogs = DebugDialogs(mTopScene)
 
@@ -194,19 +194,17 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         }
 
         // Main
-        let mainWindow : UIconWindow = UIconWindow(
+        let mainWindow = UIconWindow(
             topScene: mTopScene, windowCallbacks: self,
             iconCallbacks: self,
             isHome : true,
             dir: winDir, width: size1.width,
             height: size1.height, bgColor: UIColor.white)
         
+        mTopScene.addChild2( mainWindow.parentNode )
         mainWindow.addToDrawManager()
         mWindows[WindowType.Icon1.rawValue] = mainWindow
-
-        let icon = UIcon(parentWindow: mainWindow, iconCallbacks: nil, type: .Card,
-                         x: 100, y: 100, width: 100, height: 100)
-        
+      
         // Sub
         let subWindow = UIconWindowSub(
             topScene: mTopScene,
@@ -216,6 +214,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             isHome: false, dir: winDir, width: size2.width, height: size2.height,
             bgColor: UIColor.lightGray)
         
+        mTopScene.addChild2( subWindow.parentNode )
         subWindow.addToDrawManager()
         subWindow.isShow = false
         mWindows[WindowType.Icon2.rawValue] = subWindow
@@ -231,11 +230,27 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         mainWindow.initialize()
         subWindow.initialize()
 
+        //let icon = UIcon(parentWindow: mainWindow, iconCallbacks: nil, type: .Card,
+        //                 x: 50, y: 50, width: 50, height: 50)
+        
+        //        let card = TangoCard.createDummyCard()
+        //
+        //        let icon = IconCard(card: card, parentWindow: mainWindow, iconCallbacks: self, x: 50, y: 50)
+        //
+//        let book = TangoBook.createDummyBook()
+//        let icon = IconBook(book: book, parentWindow: mainWindow, iconCallbacks: self,
+//                            x: 50, y: 50)
+        let icon = IconTrash(parentWindow: mainWindow, iconCallbacks: self)
+        icon.setPos(50, 50)
+        
+        icon.parentNode.zPosition = 1000
+        mTopScene.addChild2(icon.parentNode)
+
         // UMenuBar
-        mMenuBar = MenuBarTangoEdit.createInstance(
-            topScene: mTopScene, callbackClass: self,
-            parentW: width, parentH: height, bgColor: nil)
-        mWindows[WindowType.MenuBar.rawValue] = mMenuBar!
+//        mMenuBar = MenuBarTangoEdit.createInstance(
+//            topScene: mTopScene, callbackClass: self,
+//            parentW: width, parentH: height, bgColor: nil)
+//        mWindows[WindowType.MenuBar.rawValue] = mMenuBar!
 
     }
     
@@ -341,18 +356,21 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         }
 
         // メニューが開いていたら閉じる
-        if mMenuBar!.onBackKeyDown() {
-            return true
-        }
-
-        // サブウィンドウが表示されていたら閉じる
-        let subWindow : UIconWindow = mIconWinManager!.getSubWindow()
-        if subWindow.isShow {
-            if mIconWinManager!.hideWindow(window: subWindow, animation: true) {
+        if let bar = mMenuBar {
+            if bar.onBackKeyDown() {
                 return true
             }
         }
 
+        // サブウィンドウが表示されていたら閉じる
+        if let manager = mIconWinManager {
+            let subWindow : UIconWindow = manager.getSubWindow()
+            if subWindow.isShow {
+                if mIconWinManager!.hideWindow(window: subWindow, animation: true) {
+                    return true
+                }
+            }
+        }
         return false
     }
     

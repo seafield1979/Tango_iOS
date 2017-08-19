@@ -138,15 +138,8 @@ public class UListView : UScrollWindow
             _pos.y += offset!.y
         }
         
-        // クリッピングを設定        
-        mClipRect = CGRect( x: _pos.x, y: _pos.y,
-                            width: clientSize.width, height: clientSize.height)
-        
-        UIGraphicsGetCurrentContext()!.saveGState()
-        UIGraphicsGetCurrentContext()!.clip(to: mClipRect)
-        
         // アイテムを描画
-        let _offset = CGPoint(x:_pos.x, y:_pos.y - contentTop.y)
+        _ = CGPoint(x:_pos.x, y:_pos.y - contentTop.y)
         for item in mItems {
             if item!.getBottom() < contentTop.y {
                 continue
@@ -159,8 +152,6 @@ public class UListView : UScrollWindow
                 break
             }
         }
-        // クリッピングを解除
-        UIGraphicsGetCurrentContext()!.restoreGState()
     }
 
     public override func touchEvent(vt : ViewTouch, offset : CGPoint?) -> Bool {

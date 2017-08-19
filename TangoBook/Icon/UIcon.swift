@@ -62,7 +62,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
      private static let TAG = "UIcon"
      private let DRAW_PRIORITY = 200
 
-     public let TEXT_SIZE = 13
+     public let TEXT_SIZE = 15
      let TEXT_MARGIN = 4
 
      // タッチ領域の拡張幅
@@ -174,6 +174,8 @@ public class UIcon : UDrawable, CustomStringConvertible {
         self.setSize(width, height)
         updateRect()
         UIcon.count += 1
+        
+        initSKNode()
     }
     
     /**
@@ -181,41 +183,57 @@ public class UIcon : UDrawable, CustomStringConvertible {
      */
     override public func initSKNode() {
         parentNode.zPosition = CGFloat(drawPriority)
+        parentNode.position = pos
         
         // bg1
-        bg1Node = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height))
+        bg1Node = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height).convToSK(), cornerRadius: UDpi.toPixel(5))
         bg1Node.zPosition = 0
         bg1Node.fillColor = TOUCHED_COLOR
         bg1Node.strokeColor = .clear
         bg1Node.isAntialiased = true
+        bg1Node.isHidden = true
         parentNode.addChild2(bg1Node)
         
         // bg2
-        bg2Node = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height))
-        bg2Node.zPosition = 0.3
+        bg2Node = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height).convToSK(), cornerRadius: UDpi.toPixel(5))
+        bg2Node.zPosition = 0.2
         bg2Node.fillColor = SELECTED_ICON_BG_COLOR
         bg2Node.strokeColor = .clear
         bg2Node.isAntialiased = true
+        bg2Node.isHidden = true
         parentNode.addChild2(bg2Node)
         
         // icon image
-//        imageNode = SKSpriteNode()
-        imageNode = SKSpriteNode(imageNamed: ImageName.card.rawValue)
+        imageNode = SKSpriteNode()
+//        imageNode = SKSpriteNode(imageNamed: ImageName.card.rawValue)
         imageNode.zPosition = 0.1
         imageNode.anchorPoint = CGPoint(x:0, y:1.0)
+        imageNode.size = size
         parentNode.addChild2(imageNode)
         
         // text
-        textNode = SKNodeUtil.createLabelNode(text: "hoge", textSize: UDpi.toPixel(TEXT_SIZE), color: .black, alignment: .CenterX, offset: CGPoint(x:size.width / 2, y: size.height))
-        textNode.zPosition = 0.1
+        textNode = SKNodeUtil.createLabelNode(text: "", textSize: UDpi.toPixel(TEXT_SIZE), color: .black, alignment: .CenterX, offset: CGPoint(x:size.width / 2, y: size.height))
+        textNode.zPosition = 0.3
+        textNode.isHidden = true
         parentNode.addChild2(textNode)
         
         // checked
+        let checkedW = size.width * 0.7
         checkedNode = SKSpriteNode(imageNamed: ImageName.checked3_frame.rawValue)
         checkedNode.anchorPoint = CGPoint(x:0, y:1.0)
+        checkedNode.size = CGSize(width: checkedW, height: checkedW)
+        checkedNode.position = CGPoint(x: size.width * 0.1, y: size.width * 0.25)
+        checkedNode.zPosition = 0.4
+        checkedNode.isHidden = true
         parentNode.addChild2(checkedNode)
     }
 
+    override public func setPos(_ x : CGFloat, _ y : CGFloat) {
+        super.setPos(x, y)
+        
+        parentNode.position = pos
+    }
+    
     override public func setColor(_ color : UIColor) {
         self.color = color
         self.touchedColor = UColor.addBrightness(argb: color, addY : 0.3)
@@ -280,6 +298,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
         // 文字の周りのマージン
         newTextView!.setMargin(UDpi.toPixel(NEW_TEXT_MARGIN), UDpi.toPixel(NEW_TEXT_MARGIN));
     }
+    
 
     /**
      * Newフラグ設定
@@ -514,7 +533,8 @@ public class UIcon : UDrawable, CustomStringConvertible {
     * アイコンの色が変更された際に呼び出す
     */
     public func updateIconImage() {
-        image = UUtil.convImageColor(image: image!, newColor: color)
+        let _image = UUtil.convImageColor(image: self.image!, newColor: color)
+        imageNode.texture = SKTexture( image: _image)
     }
 
      /**

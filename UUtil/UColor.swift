@@ -148,7 +148,8 @@ public class UColor {
         let r = arc4random() % 256
         let g = arc4random() % 256
         let b = arc4random() % 256
-        return Int((0xff << 24) | (r << 16) | (g << 8) | (b))
+//        return Int((0xff << 24) | (r << 16) | (g << 8) | (b))
+        return Int((r << 16) | (g << 8) | (b))
     }
     
     /**

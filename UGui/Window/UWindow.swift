@@ -232,7 +232,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
         // parent
         parentNode.zPosition = CGFloat(drawPriority)
         parentNode.position = topScene.convertPoint(fromView: CGPoint(x:pos.x, y: pos.y))
-        topScene.addChild(parentNode)
+//        topScene.addChild(parentNode)
         
         // frame
         if frameColor != nil && (frameSize.width > 0 || (topBarH + frameSize.height) > 0) {
@@ -423,7 +423,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
         }
         
         // Window内部
-        var _pos : CGPoint = CGPoint(x: frameSize.width, y: frameSize.height + topBarH)
+        let _pos : CGPoint = CGPoint(x: frameSize.width, y: frameSize.height + topBarH)
         
         drawContent(offset: _pos)
         
