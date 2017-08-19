@@ -114,6 +114,8 @@ public class UPageViewManager {
      */
     public func pageChanged(pageId: Int) {
         UDrawManager.clearDebugPoint()
+        
+        self.mTopScene.removeAllChildren()
     }
     
     /**

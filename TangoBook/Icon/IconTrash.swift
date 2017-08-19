@@ -77,14 +77,9 @@ public class IconTrash : IconContainer {
      * @param paint
      * @param offset
      */
-    public override func drawIcon(offset : CGPoint?) {
+    public override func drawIcon() {
         
-        var drawPos : CGPoint
-        if offset != nil {
-            drawPos = CGPoint(x: pos.x + offset!.x, y: pos.y + offset!.y);
-        } else {
-            drawPos = pos
-        }
+        var drawPos : CGPoint = pos
         
         var alpha : CGFloat = 1.0
         if isLongTouched || isTouched || isDroped {

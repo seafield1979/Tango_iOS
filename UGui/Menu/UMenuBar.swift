@@ -66,7 +66,7 @@ public class UMenuBar : UWindow {
      * @param image
      */
     func addTopMenuItem(menuId : Int, image : UIImage) -> UMenuItem {
-        let item = UMenuItem(menuBar: self, id: menuId, isTop: true, icon: image)
+        let item = UMenuItem(menuBar: self, parentItem: nil, id: menuId, isTop: true, icon: image)
         item.mCallbacks = mMenuItemCallbacks
         item.isShow = true
         
@@ -89,7 +89,7 @@ public class UMenuBar : UWindow {
      */
     func addMenuItem(parent : UMenuItem, menuId : Int, image : UIImage) -> UMenuItem
     {
-        let item = UMenuItem(menuBar: self, id: menuId, isTop: false, icon: image)
+        let item = UMenuItem(menuBar: self, parentItem: parent, id: menuId, isTop: false, icon: image)
         item.mCallbacks = mMenuItemCallbacks
         item.mParentItem = parent
         // 子要素は初期状態では非表示。オープン時に表示される
@@ -226,7 +226,7 @@ public class UMenuBar : UWindow {
         // トップのアイテムから描画
         for item in topItems {
             if item != nil && item!.isShow {
-                item!.draw(CGPoint())
+                item!.draw()
             }
         }
         return;

@@ -66,7 +66,7 @@ public class UButtonClose : UButton {
      * @param paint
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
-    override public func draw(_ offset : CGPoint?) {
+    override public func draw() {
         //        var _rect = CGRect(origin: rect!.origin, size: rect!.size)
         //        if offset != nil {
         //            _rect.x += offset!.x

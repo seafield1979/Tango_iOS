@@ -72,13 +72,9 @@ public class IconCard : UIcon {
      * @param paint
      * @param offset
      */
-    override public func drawIcon( offset : CGPoint? ) {
-        var drawPos : CGPoint
-        if offset != nil {
-            drawPos = CGPoint(x: pos.x + offset!.x, y: pos.y + offset!.y);
-        } else {
-            drawPos = pos
-        }
+    override public func drawIcon() {
+        var drawPos : CGPoint = pos
+        
         var alpha : CGFloat = 1.0
         
         if (isLongTouched || isTouched || isDroped) {
@@ -96,23 +92,23 @@ public class IconCard : UIcon {
         }
         // icon
         // 領域の幅に合わせて伸縮
-        UDraw.drawImageWithCrop(image: image!,
-                                srcRect: CGRect(x: 0,y: 0, width: image!.getWidth(), height: image!.getHeight()),
-                                dstRect: CGRect(x: drawPos.x, y: drawPos.y,
-                                                width: iconW, height: iconH), alpha: alpha)
-        // Text
-        UDraw.drawText(text: title!, alignment: UAlignment.CenterX,
-                       textSize: Int(UDpi.toPixel(TEXT_SIZE)),
-                       x: drawPos.x + iconW / 2,
-                       y: drawPos.y + iconH + UDpi.toPixel(TEXT_MARGIN),
-                       color: UIColor.black)
+//        UDraw.drawImageWithCrop(image: image!,
+//                                srcRect: CGRect(x: 0,y: 0, width: image!.getWidth(), height: image!.getHeight()),
+//                                dstRect: CGRect(x: drawPos.x, y: drawPos.y,
+//                                                width: iconW, height: iconH), alpha: alpha)
+//        // Text
+//        UDraw.drawText(text: title!, alignment: UAlignment.CenterX,
+//                       textSize: Int(UDpi.toPixel(TEXT_SIZE)),
+//                       x: drawPos.x + iconW / 2,
+//                       y: drawPos.y + iconH + UDpi.toPixel(TEXT_MARGIN),
+//                       color: UIColor.black)
 
         // New!
         if card.isNew {
             if newTextView == nil {
                 createNewBadge()
             }
-            newTextView!.draw( CGPoint(x: drawPos.x + iconW / 2, y:drawPos.y + iconW / 2))
+//            newTextView!.draw( CGPoint(x: drawPos.x + iconW / 2, y:drawPos.y + iconW / 2))
         }
     }
 

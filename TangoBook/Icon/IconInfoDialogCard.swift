@@ -136,22 +136,22 @@ public class IconInfoDialogCard : IconInfoDialog {
                                  strokeWidth: UDpi.toPixel(FRAME_WIDTH),
                                  strokeColor: frameColor)
 
-        textTitle!.draw(pos)
+        textTitle!.draw()
         for item in mItems {
             if item == nil {
                 continue
             }
             if item!.title != nil {
-                item!.title!.draw(pos)
+                item!.title!.draw()
             }
             if item!.body != nil {
-                item!.body!.draw(pos)
+                item!.body!.draw()
             }
         }
 
         // Buttons
         for button in imageButtons {
-            button!.draw(pos)
+            button!.draw()
         }
     }
 

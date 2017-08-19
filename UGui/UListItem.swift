@@ -149,7 +149,7 @@ public class UListItem : UDrawable {
         return isDraw
     }
     
-    override public func draw(_ offset : CGPoint?) {
+    override public func draw() {
         // BG　タッチ中は色を変更
         var _color = color
         
@@ -159,10 +159,6 @@ public class UListItem : UDrawable {
         
         var rect = CGRect(x: 0, y: 0,
                           width:size.width, height:size.height)
-        if offset != nil {
-            rect.x += offset!.x
-            rect.y += offset!.y
-        }
         
         if mFrameW > 0 {
             //            UDraw.drawRectFill( rect: rect, color: _color!,

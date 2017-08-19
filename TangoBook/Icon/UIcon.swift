@@ -6,8 +6,7 @@
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import UIKit
-
+import SpriteKit
 
 /**
  * アイコンをクリックしたりドロップした時のコールバック
@@ -81,18 +80,27 @@ public class UIcon : UDrawable, CustomStringConvertible {
     // アニメーション用
     public let ANIME_FRAME = 20
 
+    private let SELECTED_ICON_BG_COLOR = UColor.makeColor(80, 255, 100, 100)
+    private let TOUCHED_COLOR = UColor.makeColor(100,200,100)
+    
      /**
      * Class variables
      */
      // "New" バッジ用
     var newTextView : UTextView? = nil
 
-
      /**
      * Member variables
      */
     private static var count : Int = 0
 
+    // SpriteKit Node
+    var bg1Node : SKShapeNode           // 選択時に表示されるBG
+    var bg2Node : SKShapeNode           // タップ時に表示されるBG
+    var imageNode : SKSpriteNode        // アイコンの画像
+    var textNode : SKLabelNode          // アイコンのテキスト
+    var checkedNode : SKSpriteNode      // 選択状態時に表示するチェック枠画像
+    
     public var id : Int = 0
     var parentWindow : UIconWindow? = nil
     private var callbacks : UIconCallbacks? = nil
@@ -151,6 +159,12 @@ public class UIcon : UDrawable, CustomStringConvertible {
                 type : IconType, x : CGFloat,
                 y : CGFloat, width : CGFloat, height : CGFloat)
     {
+        bg1Node = SKShapeNode()
+        bg2Node = SKShapeNode()
+        imageNode = SKSpriteNode()
+        textNode = SKLabelNode()
+        checkedNode = SKSpriteNode()
+        
         super.init(priority: DRAW_PRIORITY, x: x, y: y, width: width, height: height)
         self.parentWindow = parentWindow
         self.callbacks = iconCallbacks
@@ -160,6 +174,46 @@ public class UIcon : UDrawable, CustomStringConvertible {
         self.setSize(width, height)
         updateRect()
         UIcon.count += 1
+    }
+    
+    /**
+     * SpriteKitのノードを作成
+     */
+    override public func initSKNode() {
+        parentNode.zPosition = CGFloat(drawPriority)
+        
+        // bg1
+        bg1Node = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height))
+        bg1Node.zPosition = 0
+        bg1Node.fillColor = TOUCHED_COLOR
+        bg1Node.strokeColor = .clear
+        bg1Node.isAntialiased = true
+        parentNode.addChild2(bg1Node)
+        
+        // bg2
+        bg2Node = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height))
+        bg2Node.zPosition = 0.3
+        bg2Node.fillColor = SELECTED_ICON_BG_COLOR
+        bg2Node.strokeColor = .clear
+        bg2Node.isAntialiased = true
+        parentNode.addChild2(bg2Node)
+        
+        // icon image
+//        imageNode = SKSpriteNode()
+        imageNode = SKSpriteNode(imageNamed: ImageName.card.rawValue)
+        imageNode.zPosition = 0.1
+        imageNode.anchorPoint = CGPoint(x:0, y:1.0)
+        parentNode.addChild2(imageNode)
+        
+        // text
+        textNode = SKNodeUtil.createLabelNode(text: "hoge", textSize: UDpi.toPixel(TEXT_SIZE), color: .black, alignment: .CenterX, offset: CGPoint(x:size.width / 2, y: size.height))
+        textNode.zPosition = 0.1
+        parentNode.addChild2(textNode)
+        
+        // checked
+        checkedNode = SKSpriteNode(imageNamed: ImageName.checked3_frame.rawValue)
+        checkedNode.anchorPoint = CGPoint(x:0, y:1.0)
+        parentNode.addChild2(checkedNode)
     }
 
     override public func setColor(_ color : UIColor) {
@@ -277,30 +331,31 @@ public class UIcon : UDrawable, CustomStringConvertible {
      /**
      * アイコンを描画
      */
-    public override func draw(_ offset : CGPoint? ) {
-        drawIcon(offset: offset)
+    public override func draw() {
+//        drawIcon(offset: offset)
 
         if isChecking {
     
-            var _x = pos.x
-            var _y = pos.y
-            if offset != nil {
-                _x += offset!.x
-                _y += offset!.y
-            }
-            let width = UDpi.toPixel(CHECKED_WIDTH)
-            drawCheckboxImage(x: _x + UDpi.toPixel(CHECKED_FRAME),
-                          y: _y + size.height - width - UDpi.toPixel(CHECKED_FRAME),
-                          width: width,
-                          color: UColor.makeColor(100,100,200))
+//            var _x = pos.x
+//            var _y = pos.y
+//            if offset != nil {
+//                _x += offset!.x
+//                _y += offset!.y
+//            }
+//            let width = UDpi.toPixel(CHECKED_WIDTH)
+//            drawCheckboxImage(x: _x + UDpi.toPixel(CHECKED_FRAME),
+//                          y: _y + size.height - width - UDpi.toPixel(CHECKED_FRAME),
+//                          width: width,
+//                          color: UColor.makeColor(100,100,200))
         }
     }
 
     /**
     * アイコンを描画する
     */
-    func drawIcon(offset : CGPoint?) {
+    func drawIcon() {
         // 抽象メソッド
+        print("UIcon drawIcon() オーバーライドして使用してください")
     }
 
     /*

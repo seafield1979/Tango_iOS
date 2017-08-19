@@ -416,7 +416,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
      * @param paint
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
-    override public func draw(_ offset : CGPoint?) {
+    override public func draw() {
         parentNode.isHidden = !isShow
         if !isShow {
             return
@@ -424,14 +424,11 @@ public class UWindow : UDrawable, UButtonCallbacks {
         
         // Window内部
         var _pos : CGPoint = CGPoint(x: frameSize.width, y: frameSize.height + topBarH)
-        if offset != nil {
-            _pos.x += offset!.x
-            _pos.y += offset!.y
-        }
+        
         drawContent(offset: _pos)
         
         // Window枠
-        drawFrame(offset: offset!)
+        drawFrame()
     }
     
     /**
@@ -452,15 +449,15 @@ public class UWindow : UDrawable, UButtonCallbacks {
      * @param canvas
      * @param paint
      */
-    public func drawFrame(offset: CGPoint?) {
+    public func drawFrame() {
         // スクロールバー
         if (mScrollBarV != nil && mScrollBarV!.isShow()) {
-            mScrollBarV!.draw(offset: offset)
+            mScrollBarV!.draw()
         } else {
             
         }
         if (mScrollBarH != nil && mScrollBarH!.isShow()) {
-            mScrollBarH!.draw(offset: offset)
+            mScrollBarH!.draw()
         }
     }
     

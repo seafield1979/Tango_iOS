@@ -174,6 +174,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         let width = mTopScene.getWidth()
         let height = mTopScene.getHeight()
 
+
          // 描画オブジェクトクリア
          UDrawManager.getInstance().initialize()
 
@@ -203,6 +204,9 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         mainWindow.addToDrawManager()
         mWindows[WindowType.Icon1.rawValue] = mainWindow
 
+        let icon = UIcon(parentWindow: mainWindow, iconCallbacks: nil, type: .Card,
+                         x: 100, y: 100, width: 100, height: 100)
+        
         // Sub
         let subWindow = UIconWindowSub(
             topScene: mTopScene,

@@ -65,14 +65,14 @@ public class UImageView : UDrawable {
      * @param paint
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
-    public override func draw( _ offset : CGPoint?) {
+    public override func draw() {
         var _image : UIImage
         
         var _pos = CGPoint(x: pos.x, y: pos.y)
-        if offset != nil {
-            _pos.x += offset!.x
-            _pos.y += offset!.y
-        }
+//        if offset != nil {
+//            _pos.x += offset!.x
+//            _pos.y += offset!.y
+//        }
         
         _image = images[mStateId]
         let _rect = CGRect(x: _pos.x, y: _pos.y,

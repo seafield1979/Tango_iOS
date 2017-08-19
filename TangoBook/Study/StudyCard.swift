@@ -295,12 +295,9 @@ public class StudyCard : UDrawable, UButtonCallbacks {
      * @param paint
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
-    public override func draw(_ offset : CGPoint?) {
+    public override func draw() {
         var _pos = CGPoint(x: pos.x, y: pos.y)
-        if offset != nil {
-            _pos.x += offset!.x
-            _pos.y += offset!.y
-        }
+        
         _pos.x += slideX
 
         // BG
@@ -314,15 +311,15 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         } else {
             color = UColor.mixRGBColor(color1: BG_COLOR, color2: OK_BG_COLOR, ratio: slideX / UDpi.toPixel(SLIDE_LEN));
         }
-        UDraw.drawRoundRectFill(
-            rect: CGRect(x: _pos.x - size.width / 2 ,y:  _pos.y,
-                         width: size.width / 2, height: size.height),
-            cornerR: UDpi.toPixel(3), color: color, strokeWidth: UDpi.toPixel(2), strokeColor: FRAME_COLOR);
+//        UDraw.drawRoundRectFill(
+//            rect: CGRect(x: _pos.x - size.width / 2 ,y:  _pos.y,
+//                         width: size.width / 2, height: size.height),
+//            cornerR: UDpi.toPixel(3), color: color, strokeWidth: UDpi.toPixel(2), strokeColor: FRAME_COLOR);
 
         // 矢印
         if showArrow && !isTouching && !isMoveToBox {
-            mArrowL!.draw(_pos)
-            mArrowR!.draw(_pos)
+            mArrowL!.draw()
+            mArrowR!.draw()
         }
         // Text
         if (!isMoveToBox) {
@@ -337,7 +334,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
                 textSize = textSizeA
             }
             if text != nil {
-                UDraw.drawText( text : text!, alignment : UAlignment.Center, textSize : textSize, x : _pos.x, y : _pos.y+size.height/2, color : TEXT_COLOR)
+//                UDraw.drawText( text : text!, alignment : UAlignment.Center, textSize : textSize, x : _pos.x, y : _pos.y+size.height/2, color : TEXT_COLOR)
             }
         }
     }

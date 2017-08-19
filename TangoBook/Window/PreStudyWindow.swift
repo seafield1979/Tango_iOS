@@ -235,30 +235,30 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
 
         // textViews
         if textTitle != nil {
-            textTitle!.draw(pos)
+            textTitle!.draw()
         }
         if textCount != nil {
-            textCount!.draw(pos)
+            textCount!.draw()
         }
         if textLastStudied != nil {
-            textLastStudied!.draw(pos)
+            textLastStudied!.draw()
         }
         if textStudyMode != nil {
-            textStudyMode!.draw(pos)
+            textStudyMode!.draw()
         }
         if textStudyType != nil {
-            textStudyType!.draw(pos)
+            textStudyType!.draw()
         }
         if textStudyOrder != nil {
-            textStudyOrder!.draw(pos)
+            textStudyOrder!.draw()
         }
         if textStudyFilter != nil {
-            textStudyFilter!.draw(pos)
+            textStudyFilter!.draw()
         }
 
         // buttons
         for button in buttons {
-            button!.draw(pos)
+            button!.draw()
         }
     }
 

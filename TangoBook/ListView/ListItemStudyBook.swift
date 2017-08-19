@@ -94,34 +94,30 @@ public class ListItemStudyBook : UListItem {
      * @param paint
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
-    public override func draw( _ offset : CGPoint? ) {
-        var _pos = CGPoint(x: pos.x, y: pos.y)
-        if offset != nil {
-            _pos.x += offset!.x
-            _pos.y += offset!.y
-        }
-
-        super.draw(_pos)
-
-        var x = _pos.x + UDpi.toPixel(MARGIN_H)
-        var y = _pos.y + UDpi.toPixel(MARGIN_V)
-        let margin = UDpi.toPixel(TEXT_SIZE + MARGIN_V)
-
-        // Icon image
-        UDraw.drawImage( image : mIcon!, x : x, y : _pos.y + (itemH-UDpi.toPixel(ICON_W)) / 2,
-                         width : UDpi.toPixel(ICON_W), height : UDpi.toPixel(ICON_W) );
-        x += UDpi.toPixel(ICON_W + MARGIN_H);
-        // Book名
-        UDraw.drawText( text : mTextName!, alignment : UAlignment.None, textSize : Int(UDpi.toPixel(TEXT_SIZE)), x : x, y : y, color : UColor.makeColor(50,150,50))
-        y += margin
-        
-        // 学習日時
-        UDraw.drawText( text : mStudiedDate!, alignment : UAlignment.None, textSize : Int(UDpi.toPixel(TEXT_SIZE2)),
-                        x : x, y : y, color : TEXT_COLOR)
-        y += margin;
-
-        // カード数
-        UDraw.drawText( text : mCardCount!, alignment : UAlignment.None, textSize : Int(UDpi.toPixel(TEXT_SIZE2)), x : x, y : y, color : UColor.DarkGray)
+    public override func draw() {
+//        var _pos = CGPoint(x: pos.x, y: pos.y)
+//        
+//        super.draw(_pos)
+//
+//        var x = _pos.x + UDpi.toPixel(MARGIN_H)
+//        var y = _pos.y + UDpi.toPixel(MARGIN_V)
+//        let margin = UDpi.toPixel(TEXT_SIZE + MARGIN_V)
+//
+//        // Icon image
+//        UDraw.drawImage( image : mIcon!, x : x, y : _pos.y + (itemH-UDpi.toPixel(ICON_W)) / 2,
+//                         width : UDpi.toPixel(ICON_W), height : UDpi.toPixel(ICON_W) );
+//        x += UDpi.toPixel(ICON_W + MARGIN_H);
+//        // Book名
+//        UDraw.drawText( text : mTextName!, alignment : UAlignment.None, textSize : Int(UDpi.toPixel(TEXT_SIZE)), x : x, y : y, color : UColor.makeColor(50,150,50))
+//        y += margin
+//        
+//        // 学習日時
+//        UDraw.drawText( text : mStudiedDate!, alignment : UAlignment.None, textSize : Int(UDpi.toPixel(TEXT_SIZE2)),
+//                        x : x, y : y, color : TEXT_COLOR)
+//        y += margin;
+//
+//        // カード数
+//        UDraw.drawText( text : mCardCount!, alignment : UAlignment.None, textSize : Int(UDpi.toPixel(TEXT_SIZE2)), x : x, y : y, color : UColor.DarkGray)
     }
 
     /**

@@ -320,7 +320,7 @@ public class UIconWindowSub : UIconWindow {
         // アイコンの描画
         let _pos = CGPoint(x: pos.x, y: pos.y + size.height)
         for button in buttons {
-            button.draw(_pos)
+            button.draw()
         }
     }
 

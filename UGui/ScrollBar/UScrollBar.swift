@@ -251,7 +251,7 @@ public class UScrollBar {
         return topPos
     }
     
-    public func draw(offset : CGPoint?) {
+    public func draw() {
         if !_isShow {
             return
         }

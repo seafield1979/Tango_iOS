@@ -129,18 +129,18 @@ public class IconInfoDialogBook : IconInfoDialog {
 
         // Buttons
         for button in imageButtons {
-            button!.draw(pos)
+            button!.draw()
         }
 
         if textTitle != nil {
-            textTitle!.draw(pos)
+            textTitle!.draw()
         }
         for item in mItems {
             if item!.title != nil {
-                item!.title!.draw(pos)
+                item!.title!.draw()
             }
             if item!.title != nil {
-                item!.body!.draw(pos)
+                item!.body!.draw()
             }
         }
     }

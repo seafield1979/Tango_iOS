@@ -76,12 +76,8 @@ public class IconBook : IconContainer {
      * @param paint
      * @param offset
      */
-    public override func drawIcon( offset : CGPoint? ) {
+    public override func drawIcon() {
         var drawPos : CGPoint = pos
-        if offset != nil {
-            drawPos.x += offset!.x
-            drawPos.y += offset!.y
-        }
         
         var alpha : CGFloat = 1.0
         if isLongTouched || isTouched  {
@@ -121,8 +117,8 @@ public class IconBook : IconContainer {
             if newTextView == nil {
                 createNewBadge()
             }
-            newTextView!.draw( CGPoint(x: drawPos.x + iconW / 2,
-                                       y: drawPos.y + iconH - UDpi.toPixel(NEW_TEXT_SIZE)))
+//            newTextView!.draw( CGPoint(x: drawPos.x + iconW / 2,
+//                                       y: drawPos.y + iconH - UDpi.toPixel(NEW_TEXT_SIZE)))
 
         }
     }

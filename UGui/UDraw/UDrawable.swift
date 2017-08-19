@@ -222,7 +222,7 @@ public class UDrawable {
      * 描画処理(抽象メソッド)
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
-    public func draw(_ offset : CGPoint) {
+    public func draw() {
         // 抽象メソッド(Swiftではサポートされていないので仕方なく実装)
         print("UDrawable draw() オーバーライドされていません")
     }

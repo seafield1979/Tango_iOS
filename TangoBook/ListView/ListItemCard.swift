@@ -66,7 +66,7 @@ public class ListItemCard : UListItem {
      * @param paint
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
-    public func draw( offset : CGPoint?) {
+    public override func draw() {
 //        PointF _pos = new PointF(pos.x, pos.y);
 //        if (offset != null) {
 //            _pos.x += offset.x;

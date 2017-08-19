@@ -51,20 +51,20 @@ public class ListItemTest1 : UListItem {
      * @param paint
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
-    override public func draw( _ offset : CGPoint? ) {
-        var _pos = CGPoint(x: pos.x, y: pos.y)
-        if offset != nil {
-            _pos.x += offset!.x
-            _pos.y += offset!.y
-        }
-        
-        // BG
-        super.draw(_pos)
-        
-        // text
-        let text = mText
-        UDraw.drawText(text: text!, alignment: UAlignment.Center, textSize: mTextSize,
-                       x: _pos.x + size.width / 2, y: _pos.y + size.height / 2, color: ListItemTest1.TEXT_COLOR )
+    override public func draw() {
+//        var _pos = CGPoint(x: pos.x, y: pos.y)
+//        if offset != nil {
+//            _pos.x += offset!.x
+//            _pos.y += offset!.y
+//        }
+//        
+//        // BG
+//        super.draw(_pos)
+//        
+//        // text
+//        let text = mText
+//        UDraw.drawText(text: text!, alignment: UAlignment.Center, textSize: mTextSize,
+//                       x: _pos.x + size.width / 2, y: _pos.y + size.height / 2, color: ListItemTest1.TEXT_COLOR )
     }
     
     /**

@@ -152,7 +152,7 @@ public class UListView : UScrollWindow
                 continue
             }
             
-            item!.draw(_offset)
+            item!.draw()
             
             if (item!.getY() + item!.getHeight() > contentTop.y + size.height) {
                 // アイテムの下端が画面外にきたので以降のアイテムは表示されない

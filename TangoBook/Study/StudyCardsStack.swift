@@ -256,7 +256,7 @@ public class StudyCardsStack : UDrawable {
      * @param paint
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
-    public override func draw(_ offset : CGPoint?) {
+    public override func draw() {
 //        PointF _offset = new PointF(pos.x + size.width / 2, pos.y);
 //        // 配下のカードを描画する
 //        for (StudyCard card : mCards) {

@@ -264,7 +264,7 @@ public class UTextView : UDrawable {
      * @param paint
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
-    public override func draw(_ offset : CGPoint?) {
+    public override func draw() {
     }
     
     /**

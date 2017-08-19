@@ -115,15 +115,15 @@ public class IconInfoDialogInTrash : IconInfoDialog {
                                  strokeColor: FRAME_COLOR)
         
         if (textTitle != nil) {
-            textTitle!.draw(pos)
+            textTitle!.draw()
         }
         if (textCount != nil) {
-            textCount!.draw(pos)
+            textCount!.draw()
         }
         
         // Buttons
         for button in imageButtons {
-            button!.draw(pos)
+            button!.draw()
         }
     }
 

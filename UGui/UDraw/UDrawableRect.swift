@@ -32,8 +32,8 @@ class UDrawableRect : UDrawable {
      * @param paint
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
-    public func draw(offset: CGPoint) {
-        UDraw.drawRect(rect: CGRect(x:offset.x, y:offset.y, width:offset.x + size.width, height: offset.y + size.height), width: 2.0, color: UIColor.red)
+    public override func draw() {
+//        UDraw.drawRect(rect: CGRect(x:offset.x, y:offset.y, width:offset.x + size.width, height: size.height), width: 2.0, color: UIColor.red)
     }
     
     /**

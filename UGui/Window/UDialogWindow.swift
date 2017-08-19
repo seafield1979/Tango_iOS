@@ -539,16 +539,12 @@ public class UDialogWindow : UWindow {
      * @param paint
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
-    override public func draw(_ offset: CGPoint?) {
+    override public func draw() {
         if (!isShow) {
             return
         }
         // Window内部
-        var _pos = CGPoint(x: frameSize.width, y: frameSize.height + topBarH)
-        if offset != nil {
-            _pos.x += offset!.x
-            _pos.y += offset!.y
-        }
+        let _pos = CGPoint(x: frameSize.width, y: frameSize.height + topBarH)
         drawContent(offset: _pos)
     }
     
@@ -566,17 +562,17 @@ public class UDialogWindow : UWindow {
         
         // Title
         if mTitleView != nil {
-            mTitleView!.draw(_offset)
+            mTitleView!.draw()
         }
         
         // TextViews
         for textView in mTextViews {
-            textView!.draw(_offset)
+            textView!.draw()
         }
         
         // Buttons
         for button in mButtons {
-            button!.draw(_offset)
+            button!.draw()
         }
     }
     
