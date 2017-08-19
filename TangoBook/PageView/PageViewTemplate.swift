@@ -83,9 +83,9 @@ public class PageViewTemplate : UPageView, UButtonCallbacks {
         let button = UButtonText(
             callbacks: self, type: UButtonType.Press,
             id: PageViewTemplate.buttonId1, priority: PageViewTemplate.DRAW_PRIORITY,
-            text: "test", x: 50, y: 100,
+            text: "test", createNode: true, x: 50, y: 100,
             width: width - 100, height: 100,
-            textSize: 20, textColor: UIColor.white, color: UIColor.blue)
+            textSize: 20, textColor: UIColor.white, bgColor: .blue)
         button.addToDrawManager()
 
     }

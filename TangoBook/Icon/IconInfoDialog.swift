@@ -117,6 +117,7 @@ public class IconInfoDialog : UWindow {
         super.init(topScene: topScene,
                    callbacks: windowCallbacks,
                    priority : DrawPriority.Dialog.rawValue,
+                   createNode: true, cropping: false,
                    x : x, y : y, width : 0, height : 0,
                    bgColor : color,
                    topBarH: 0, frameW: 0, frameH: 0)

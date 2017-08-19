@@ -30,7 +30,7 @@ public class ListItemTest1 : UListItem {
      */
     public init(callbacks : UListItemCallbacks?,
                               text : String,
-                              x : CGFloat, width : CGFloat, color : UIColor?)
+                              x : CGFloat, width : CGFloat, color : UIColor)
     {
         super.init(callbacks: callbacks,
                    isTouchable: true,

@@ -173,8 +173,9 @@ public class IconInfoDialogCard : IconInfoDialog {
            text : UResourceManager.getStringByName("card"),
            textSize : Int(UDpi.toPixel(TEXT_SIZE_M)),
            priority : 0,
-           alignment : UAlignment.None, multiLine : false,
-           isDrawBG : false, x : UDpi.toPixel(MARGIN_H),
+           alignment : UAlignment.None, createNode: true,
+           multiLine : false, isDrawBG : false,
+           x : UDpi.toPixel(MARGIN_H),
            y : y, width : width-UDpi.toPixel(MARGIN_H)*2,
            color : TITLE_COLOR, bgColor : TEXT_BG_COLOR)
         y += UDpi.toPixel(TEXT_SIZE_L + MARGIN_V)
@@ -218,7 +219,7 @@ public class IconInfoDialogCard : IconInfoDialog {
                 titleView = UTextView.createInstance(
                    text : titleStr!,
                    textSize : fontSize,
-                   priority : 0, alignment : UAlignment.None,
+                   priority : 0, alignment : UAlignment.None, createNode: true,
                    multiLine : false, isDrawBG : false,
                    x : UDpi.toPixel(MARGIN_H), y : y,
                    width : size.width-UDpi.toPixel(MARGIN_H),
@@ -231,8 +232,8 @@ public class IconInfoDialogCard : IconInfoDialog {
             var bodyView : UTextView? = nil
             if bodyStr != nil && bodyStr!.isEmpty == false {
                 bodyView = UTextView.createInstance(
-                   text : bodyStr, textSize : fontSize, priority : 0,
-                   alignment : UAlignment.None,
+                   text : bodyStr!, textSize : fontSize, priority : 0,
+                   alignment : UAlignment.None, createNode: true,
                    multiLine : true, isDrawBG : true,
                    x : UDpi.toPixel(MARGIN_H),
                    y : y, width : size.width-UDpi.toPixel(MARGIN_H),
@@ -275,11 +276,11 @@ public class IconInfoDialogCard : IconInfoDialog {
                     imageName: ImageName.favorites2,
                     color: UColor.OrangeRed)
 
-                imageButton = UButtonImage.createButton(
+                imageButton = UButtonImage(
                     callbacks : self,
                     id : icon!.id.rawValue, priority : 0,
                     x : x, y : y, width : UDpi.toPixel(ICON_W), height : UDpi.toPixel(ICON_W),
-                    image : image, pressedImage : nil)
+                    image : image!, pressedImage : nil)
 
                 imageButton.addState(image: image2!)
                 if mCard!.star {
@@ -288,11 +289,11 @@ public class IconInfoDialogCard : IconInfoDialog {
             } else {
                 let image = UResourceManager.getImageWithColor(
                     imageName: icon!.imageName, color: color);
-                imageButton = UButtonImage.createButton(
+                imageButton = UButtonImage(
                     callbacks : self, id : icon!.id.rawValue,
                     priority : 0, x : x, y : y,
                     width : UDpi.toPixel(ICON_W), height : UDpi.toPixel(ICON_W),
-                    image : image, pressedImage : nil)
+                    image : image!, pressedImage : nil)
             }
 
             // アイコンの下に表示するテキストを設定

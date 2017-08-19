@@ -317,6 +317,9 @@
 		8AF1A5771F47CC5800B47000 /* CGSize+sk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1A5721F47CC5800B47000 /* CGSize+sk.swift */; };
 		8AF1A5781F47CC5800B47000 /* SKNode+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1A5731F47CC5800B47000 /* SKNode+ex.swift */; };
 		8AF1A5791F47CC5800B47000 /* SKScene+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1A5741F47CC5800B47000 /* SKScene+ex.swift */; };
+		8AF1A57C1F47E18100B47000 /* SKNodeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1A57A1F47E18100B47000 /* SKNodeUtil.swift */; };
+		8AF1A57D1F47E18100B47000 /* SKUNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1A57B1F47E18100B47000 /* SKUNode.swift */; };
+		8AF1A57F1F47E1BD00B47000 /* SKUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1A57E1F47E1BD00B47000 /* SKUtil.swift */; };
 		8AF5E9F81F2EC009008D8508 /* Int+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E9F71F2EC009008D8508 /* Int+ex.swift */; };
 		8AF5E9FB1F2ED31E008D8508 /* PresetBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E9FA1F2ED31E008D8508 /* PresetBook.swift */; };
 		8AF5E9FD1F2ED332008D8508 /* PresetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E9FC1F2ED331008D8508 /* PresetCard.swift */; };
@@ -659,6 +662,9 @@
 		8AF1A5721F47CC5800B47000 /* CGSize+sk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGSize+sk.swift"; path = "SpriteKit/Extension/CGSize+sk.swift"; sourceTree = "<group>"; };
 		8AF1A5731F47CC5800B47000 /* SKNode+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SKNode+ex.swift"; path = "SpriteKit/Extension/SKNode+ex.swift"; sourceTree = "<group>"; };
 		8AF1A5741F47CC5800B47000 /* SKScene+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SKScene+ex.swift"; path = "SpriteKit/Extension/SKScene+ex.swift"; sourceTree = "<group>"; };
+		8AF1A57A1F47E18100B47000 /* SKNodeUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKNodeUtil.swift; path = SpriteKit/SKNodeUtil.swift; sourceTree = "<group>"; };
+		8AF1A57B1F47E18100B47000 /* SKUNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKUNode.swift; path = SpriteKit/SKUNode.swift; sourceTree = "<group>"; };
+		8AF1A57E1F47E1BD00B47000 /* SKUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKUtil.swift; path = SpriteKit/SKUtil.swift; sourceTree = "<group>"; };
 		8AF5E9F71F2EC009008D8508 /* Int+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+ex.swift"; sourceTree = "<group>"; };
 		8AF5E9FA1F2ED31E008D8508 /* PresetBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresetBook.swift; path = PresetBook/PresetBook.swift; sourceTree = "<group>"; };
 		8AF5E9FC1F2ED331008D8508 /* PresetCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresetCard.swift; path = PresetBook/PresetCard.swift; sourceTree = "<group>"; };
@@ -1067,9 +1073,12 @@
 		8AC44FFA1F471F2700ECAD00 /* SpriteKit */ = {
 			isa = PBXGroup;
 			children = (
+				8AF1A57A1F47E18100B47000 /* SKNodeUtil.swift */,
+				8AF1A57B1F47E18100B47000 /* SKUNode.swift */,
 				8AF1A56F1F47CBEA00B47000 /* Extension */,
 				8AC44FFD1F471F9F00ECAD00 /* TopScene.swift */,
 				8AF1A56D1F4722B800B47000 /* TopScene.sks */,
+				8AF1A57E1F47E1BD00B47000 /* SKUtil.swift */,
 			);
 			name = SpriteKit;
 			sourceTree = "<group>";
@@ -1622,6 +1631,7 @@
 			files = (
 				8A6635981F384C37000EAAF0 /* StudyCardInput.swift in Sources */,
 				8AF781A71F1F445500FC4EF2 /* BackupFileDao.swift in Sources */,
+				8AF1A57F1F47E1BD00B47000 /* SKUtil.swift in Sources */,
 				8A57095A1F376738004387D4 /* LIstItemResult.swift in Sources */,
 				8AE08A9F1F2580D00024E9B7 /* UPopupWindow.swift in Sources */,
 				8AE08AB81F2580D70024E9B7 /* UIViewUtil.swift in Sources */,
@@ -1655,6 +1665,7 @@
 				8AE08ABB1F2580D70024E9B7 /* UUtil.swift in Sources */,
 				8AB7E9591F25A00F005E36BB /* PageViewStudyInputCorrect.swift in Sources */,
 				8AF781AB1F1F445500FC4EF2 /* TangoBookHistoryDao.swift in Sources */,
+				8AF1A57D1F47E18100B47000 /* SKUNode.swift in Sources */,
 				8A6635A01F384D1D000EAAF0 /* StudyCardStackSelect.swift in Sources */,
 				8AE08A861F2580D00024E9B7 /* UButtonClose.swift in Sources */,
 				8AB7E92E1F259991005E36BB /* PageViewTest1.swift in Sources */,
@@ -1689,6 +1700,7 @@
 				8AE08A961F2580D00024E9B7 /* UDrawManager.swift in Sources */,
 				8AE08A9C1F2580D00024E9B7 /* UView.swift in Sources */,
 				8AF781AE1F1F445500FC4EF2 /* TangoCardHistory.swift in Sources */,
+				8AF1A57C1F47E18100B47000 /* SKNodeUtil.swift in Sources */,
 				8AE08A9D1F2580D00024E9B7 /* UDialogWindow.swift in Sources */,
 				8A6DA4E41F346D29000F4057 /* URealmManager.swift in Sources */,
 				8AE08A9B1F2580D00024E9B7 /* URect.swift in Sources */,

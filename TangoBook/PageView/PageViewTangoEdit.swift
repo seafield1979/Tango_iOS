@@ -326,7 +326,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     public override func onBackKeyDown() -> Bool {
         // 各種ダイアログ
         if mDialog != nil {
-            mDialog!.startClosing()
+            mDialog!.closeDialog()
             return true
         }
         // アイコンダイアログが開いていたら閉じる
@@ -728,7 +728,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             }
 
             if(mDialog != nil) {
-                mDialog!.startClosing()
+                mDialog!.closeDialog()
             }
             return true
         case ButtonIdCopyOK:

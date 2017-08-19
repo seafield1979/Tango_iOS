@@ -82,9 +82,9 @@ public class PageViewDebug : UPageView, UButtonCallbacks {
         let button = UButtonText(
             callbacks: self, type: UButtonType.Press,
             id: buttonId1, priority: DRAW_PRIORITY,
-            text: "データベース", x: 50, y: 50,
+            text: "データベース", createNode: true, x: 50, y: 50,
             width: width - 100, height: 100,
-            textSize: 20, textColor: UIColor.white, color: UIColor.blue)
+            textSize: 20, textColor: UIColor.white, bgColor: .blue)
         button.addToDrawManager()
         
     }

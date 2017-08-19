@@ -91,7 +91,7 @@ public class DrawList {
             }
             ULog.count(UDrawManager.TAG)
             let offset = obj!.getDrawOffset()
-            obj!.draw(offset)
+            obj!.draw(offset!)
             drawId(rect: obj!.rect, priority: priority)
             
 //            print("DrawList:draw():" + obj.debugDescription)

@@ -185,7 +185,7 @@ public class UIconWindowSub : UIconWindow {
     func createActionButton(info : ActionInfo, x: CGFloat, y: CGFloat) -> UButtonImage {
         let image = UResourceManager.getImageWithColor(imageName: info.imageName, color: info.color)!
         
-        let button = UButtonImage.createButton(
+        let button = UButtonImage(
             callbacks: self,
             id: info.buttonId, priority: 0, x: x, y: y,
             width: UDpi.toPixel(UIconWindowSub.ACTION_ICON_W),

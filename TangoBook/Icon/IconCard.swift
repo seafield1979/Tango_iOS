@@ -92,7 +92,7 @@ public class IconCard : UIcon {
             let v1 : CGFloat = (CGFloat(animeFrame) / CGFloat(animeFrameMax)) * 180
             alpha = 1.0 -  sin(v1 * UUtil.RAD)
         } else {
-            alpha = self.color!.alpha()
+            alpha = self.color.alpha()
         }
         // icon
         // 領域の幅に合わせて伸縮

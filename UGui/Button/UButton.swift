@@ -112,7 +112,7 @@ public class UButton : UDrawable {
         
         super.init(priority: priority,x: x,y: y,width: width,height: height)
         
-        self.color = color
+        self.color = color!
         self.id = id
         self.enabled = true
         self.buttonCallback = callbacks
@@ -135,7 +135,7 @@ public class UButton : UDrawable {
      * 描画オフセットを取得する
      * @return
      */
-    public override func getDrawOffset() -> CGPoint? {
+    public override func getDrawOffset() -> CGPoint {
         // 親Windowの座標とスクロール量を取得
         return CGPoint()
     }

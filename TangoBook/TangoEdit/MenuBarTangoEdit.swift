@@ -63,7 +63,7 @@ public class MenuBarTangoEdit : UMenuBar {
         super.init (topScene: topScene, callbacks: callbackClass, parentW: parentW, parentH: parentH, bgColor: bgColor)
         
         // 画面右端に寄せる
-        pos.x = parentW - UDpi.toPixel(UMenuItem.ITEM_W + MARGIN_H)
+        pos.x = parentW - UDpi.toPixel(UMenuItem.ITEM_W + UMenuBar.MARGIN_H)
     
         itemInfos.append( MenuItemInfo(id: MenuItemId.AddTop, type: MenuItemType.Top, imageName: ImageName.add, stringName: "add_item", color: UIColor.blue, forDebug: false))
         

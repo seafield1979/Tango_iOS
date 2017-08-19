@@ -90,7 +90,7 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
 
         let textView = UTextView.createInstance(
             text : "helloworld",
-        priority : 0, isDrawBG : false, x : 0, y : 0)
+            priority : 0, createNode: true, isDrawBG : false, x : 0, y : 0)
         mDialog!.addDrawable(obj: textView)
         mDialog!.addCloseButton(text: "close")
     }
@@ -254,7 +254,7 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
             _ = TangoCardDao.deleteAll()
             _ = TangoBookDao.deleteAll()
             _ = TangoItemPosDao.deleteAll()
-            mDialog!.startClosing()
+            mDialog!.closeDialog()
 
         default:
             break

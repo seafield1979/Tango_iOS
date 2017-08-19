@@ -144,24 +144,24 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
         }
         // +ボタン
         var buttonImage = UResourceManager.getImageWithColor(imageName: ImageName.zoom_in, color: UIColor.orange)
-        var button = UButtonImage.createButton( callbacks: self,
+        var button = UButtonImage( callbacks: self,
                                   id: PageViewTitle.ButtonIdZoomIn,
                                   priority: PageViewTitle.DRAW_PRIORITY,
                                   x: width - zoomButtonW * 2 - UDpi.toPixel(20),
                                   y: UDpi.toPixel(10),
                                   width: zoomButtonW, height: zoomButtonW,
-                                  image: buttonImage, pressedImage: nil)
+                                  image: buttonImage!, pressedImage: nil)
         button.addToDrawManager()
         
         // -ボタン
         buttonImage = UResourceManager.getImageWithColor(imageName: ImageName.zoom_out, color: UIColor.orange)
-        button = UButtonImage.createButton(callbacks: self,
+        button = UButtonImage(callbacks: self,
                               id: PageViewTitle.ButtonIdZoomOut,
                               priority: PageViewTitle.DRAW_PRIORITY,
                               x:width - zoomButtonW - UDpi.toPixel(10),
                               y: UDpi.toPixel(10),
                               width: zoomButtonW, height: zoomButtonW,
-                              image: buttonImage,
+                              image: buttonImage!,
                               pressedImage: nil)
         button.addToDrawManager()
 
@@ -178,17 +178,17 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                 type: buttonType!,
                 id: i,
                 priority: PageViewTitle.DRAW_PRIORITY,
-                text: info.getTitle(),
+                text: info.getTitle(), createNode: true,
                 x: x, y: y,
                 width: buttonW, height: buttonW,
                 textSize: Int(UDpi.toPixel(PageViewTitle.TEXT_SIZE)),
-                textColor: info.textColor, color: info.bgColor)
+                textColor: info.textColor, bgColor: info.bgColor)
             
             mButtons.append(button)
                 
             let image = UResourceManager.getImageWithColor(imageName: info.imageName, color: info.lineColor)
             
-            button.setImage(image: image,
+            button.setImage(image: image!,
                                  imageSize: CGSize(width: UDpi.toPixel(PageViewTitle.IMAGE_W), height: UDpi.toPixel(PageViewTitle.IMAGE_W)))
             _ = UDrawManager.getInstance().addDrawable(button)
 
@@ -221,18 +221,19 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                                      id: i,
                                      priority: PageViewTitle.DRAW_PRIORITY,
                                      text: info.getTitle(),
+                                     createNode : true,
                                      x: x, y: y,
                                      width: buttonW, height: buttonH,
                                      textSize: Int(UDpi.toPixel(PageViewTitle.TEXT_SIZE)),
                                      textColor: info.textColor,
-                                     color: info.bgColor)
+                                     bgColor: info.bgColor)
             mButtons.append(button)
             
             let image = UResourceManager.getImageWithColor(
                 imageName: info.imageName, color: info.lineColor)
             
             button.setImage(
-                image: image,
+                image: image!,
                 imageSize: CGSize(width: UDpi.toPixel(PageViewTitle.IMAGE_W),
                         height: UDpi.toPixel(PageViewTitle.IMAGE_W)))
             _ = UDrawManager.getInstance().addDrawable(button);

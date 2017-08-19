@@ -128,7 +128,8 @@ public class PageViewStudyBookSelect : UPageView
             let text = UTextView.createInstance(
                 text : UResourceManager.getStringByName("no_study_history"),
                 textSize : Int(UDpi.toPixel(TEXT_SIZE)), priority : DRAW_PRIORITY-1,
-                alignment : UAlignment.CenterX, multiLine : false, isDrawBG : false,
+                alignment : UAlignment.CenterX, createNode: true,
+                multiLine : false, isDrawBG : false,
                 x : width/2, y : y, width : width, color : UIColor.black, bgColor : nil)
             text.addToDrawManager()
 
@@ -137,9 +138,10 @@ public class PageViewStudyBookSelect : UPageView
             mTitleText = UTextView.createInstance(
                 text : UResourceManager.getStringByName("title_study2"),
                 textSize : Int(UDpi.toPixel(TEXT_SIZE)), priority : DRAW_PRIORITY,
-                alignment : UAlignment.CenterX, multiLine : false,
-                isDrawBG : false, x : width/2, y : y, width : width,
-                color : UIColor.black, bgColor : nil)
+                alignment : UAlignment.CenterX, createNode: true,
+                multiLine : false, isDrawBG : false,
+                x : width/2, y : y, width : width,
+                color : .black, bgColor : nil)
             mTitleText!.addToDrawManager()
             y += mTitleText!.getHeight() + UDpi.toPixel(MARGIN_V_S)
 

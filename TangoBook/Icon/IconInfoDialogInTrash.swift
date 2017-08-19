@@ -152,12 +152,12 @@ public class IconInfoDialogInTrash : IconInfoDialog {
                 imageName: icon!.imageName, color: UColor
                 .DarkOrange)
             
-            let imageButton = UButtonImage.createButton(
+            let imageButton = UButtonImage(
                 callbacks: self,
                 id: icon!.id.rawValue, priority: 0,
                 x: x, y: y,
                 width: iconW, height: iconW,
-                image: image, pressedImage: nil)
+                image: image!, pressedImage: nil)
             
             // アイコンの下に表示するテキストを設定
             imageButton.setTitle(
@@ -175,7 +175,7 @@ public class IconInfoDialogInTrash : IconInfoDialog {
         // Title
         textTitle = UTextView.createInstance(
             text: mIcon.getTitle()!, textSize: Int(textSize), priority: 0,
-            alignment: UAlignment.None,
+            alignment: UAlignment.None, createNode: true,
             multiLine: false, isDrawBG: true,
             x: marginH, y: y,
             width: width - marginH * 2, color: TEXT_COLOR, bgColor: TEXT_BG_COLOR)
@@ -199,7 +199,7 @@ public class IconInfoDialogInTrash : IconInfoDialog {
                 text: UResourceManager.getStringByName("book_count") + ":" + count.description,
                 textSize: Int(textSize),
                 priority: 0,
-                alignment: UAlignment.None,
+                alignment: UAlignment.None, createNode: true,
                 multiLine: false,
                 isDrawBG: true,
                 x: marginH, y: y,

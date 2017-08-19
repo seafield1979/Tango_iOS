@@ -90,10 +90,14 @@ public class PageViewTest2 : UPageView, UButtonCallbacks, UDialogCallbacks {
         var y : CGFloat = UUtil.navigationBarHeight() + PageViewTest1.MARGIN
         
         for button in buttonInfo {
-            let textButton = UButtonText(callbacks: self, type: UButtonType.BGColor, id: button.id, priority: 100, text: button.name,
-                                         x: x, y: y,
-                                         width: 200.0, height: 50.0, textSize: 20,
-                                         textColor: UColor.White, color: UColor.Blue)
+            let textButton = UButtonText(
+                callbacks: self, type: UButtonType.BGColor, id: button.id,
+                priority: 100, text: button.name,
+                createNode: true,
+                x: x, y: y,
+                width: 200.0, height: 50.0, textSize: 20,
+                textColor: UColor.White, bgColor: .blue)
+            
             textButton.addToDrawManager()
             
             y += 60.0

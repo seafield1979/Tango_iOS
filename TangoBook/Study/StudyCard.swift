@@ -136,18 +136,18 @@ public class StudyCard : UDrawable, UButtonCallbacks {
             imageName: ImageName.arrow_r,
             color: UColor.DarkGreen)!
         
-        mArrowL = UButtonImage.createButton(
+        mArrowL = UButtonImage(
             callbacks : self, id : ButtonIdArrowL, priority : 0,
             x : -(size.width / 2 + UDpi.toPixel(ARROW_MARGIN+ARROW_W)),
             y : (size.height-arrowH)/2,
-            width : arrowW, height : arrowH, image : arrowLImage,
+            width : arrowW, height : arrowH, image : arrowLImage!,
             pressedImage : nil)
         
-        mArrowR = UButtonImage.createButton(
+        mArrowR = UButtonImage(
             callbacks : self, id : ButtonIdArrowR,
             priority : 0,
             x : size.width / 2 + UDpi.toPixel(ARROW_MARGIN),
-            y : (size.height-arrowH)/2, width : arrowW, height : UDpi.toPixel(ARROW_H), image : arrowRImage, pressedImage : nil)
+            y : (size.height-arrowH)/2, width : arrowW, height : UDpi.toPixel(ARROW_H), image : arrowRImage!, pressedImage : nil)
         
         
         if isEnglish {
@@ -317,7 +317,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         UDraw.drawRoundRectFill(
             rect: CGRect(x: _pos.x - size.width / 2 ,y:  _pos.y,
                          width: size.width / 2, height: size.height),
-            cornerR: UDpi.toPixel(3), color: color!, strokeWidth: UDpi.toPixel(2), strokeColor: FRAME_COLOR);
+            cornerR: UDpi.toPixel(3), color: color, strokeWidth: UDpi.toPixel(2), strokeColor: FRAME_COLOR);
 
         // 矢印
         if showArrow && !isTouching && !isMoveToBox {

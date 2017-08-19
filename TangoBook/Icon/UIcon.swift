@@ -219,7 +219,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
     func createNewBadge() {
         newTextView = UTextView.createInstance(
            text: "New", textSize: Int(UDpi.toPixel(NEW_TEXT_SIZE)),
-           priority: 0, alignment: UAlignment.Center,
+           priority: 0, alignment: UAlignment.Center, createNode: true,
            multiLine: false, isDrawBG: true,
            x: 0, y: 0, width: 100, color: UIColor.white, bgColor: NEW_TEXT_COLOR)
        
@@ -459,7 +459,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
     * アイコンの色が変更された際に呼び出す
     */
     public func updateIconImage() {
-        image = UUtil.convImageColor(image: image!, newColor: color!)
+        image = UUtil.convImageColor(image: image!, newColor: color)
     }
 
      /**

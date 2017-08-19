@@ -89,31 +89,48 @@ public class PageViewTest1 : UPageView, UButtonCallbacks {
         let buttonW : CGFloat = CGFloat(UUtil.screenWidth()) - PageViewTest1.MARGIN * 2
         let buttonH : CGFloat = 50.0
         
-        let colorButton = UButtonText(callbacks: self, type: UButtonType.BGColor, id: PageViewTest1.buttonId1, priority: 100, text: "button1", x: x, y: y, width: buttonW, height: buttonH, textSize: 20, textColor: UIColor.white, color: UIColor.blue)
+        let colorButton = UButtonText(
+            callbacks: self, type: UButtonType.BGColor, id: PageViewTest1.buttonId1,
+            priority: 100, text: "button1", createNode: true,
+            x: x, y: y, width: buttonW, height: buttonH,
+            textSize: 20, textColor: UIColor.white, bgColor: .blue)
         colorButton.addToDrawManager()
         
         y += buttonH + PageViewTest1.MARGIN
 
         // UButtonText
         // Press 押したら凹むボタン
-        let textButton = UButtonText(callbacks: self, type: UButtonType.Press, id: PageViewTest1.buttonId2, priority: 100, text: "button2", x: x, y: y, width: buttonW, height: buttonH, textSize: 20, textColor: UIColor.white, color: UIColor.blue)
+        let textButton = UButtonText(
+            callbacks: self, type: UButtonType.Press, id: PageViewTest1.buttonId2,
+            priority: 100, text: "button2", createNode: true,
+            x: x, y: y, width: buttonW, height: buttonH, textSize: 20, textColor: .white, bgColor: .blue)
         textButton.addToDrawManager()
         
         y += buttonH + PageViewTest1.MARGIN
 
         // Press2 押すたびにON/OFFが切り替わるボタン
-        let textButton2 = UButtonText(callbacks: self, type: UButtonType.Press2, id: PageViewTest1.buttonId3, priority: 100, text: "button3", x: x, y: y, width: buttonW, height: buttonH, textSize: 20, textColor: UIColor.white, color: UIColor.blue)
+        let textButton2 = UButtonText(
+            callbacks: self, type: UButtonType.Press2, id: PageViewTest1.buttonId3,
+            priority: 100, text: "button3", createNode: true,
+            x: x, y: y, width: buttonW, height: buttonH,
+            textSize: 20, textColor: .white, bgColor: .blue)
         textButton2.addToDrawManager()
 
         y += buttonH + PageViewTest1.MARGIN
         
         // Press3 
         // 押されたら凹んで戻らないボタン。戻すには isPressed を falseに設定する
-        pressedButton1 = UButtonText(callbacks: self, type: UButtonType.Press3, id: PageViewTest1.buttonId41, priority: 100, text: "button41", x: x, y: y, width: buttonW / 2, height: buttonH, textSize: 20, textColor: UIColor.white, color: UIColor.blue)
+        pressedButton1 = UButtonText(
+            callbacks: self, type: UButtonType.Press3, id: PageViewTest1.buttonId41,
+            priority: 100, text: "button41", createNode: true,
+            x: x, y: y, width: buttonW / 2, height: buttonH, textSize: 20, textColor: .white, bgColor: .blue)
         pressedButton1?.addToDrawManager()
         
-        pressedButton2 = UButtonText(callbacks: self, type: UButtonType.Press3, id: PageViewTest1.buttonId42, priority: 100, text: "button42",
-                                       x: x + buttonW / 2 + 10.0, y: y, width: buttonW / 2, height: buttonH, textSize: 20, textColor: UIColor.white, color: UIColor.blue)
+        pressedButton2 = UButtonText(
+            callbacks: self, type: UButtonType.Press3, id: PageViewTest1.buttonId42,
+            priority: 100, text: "button42", createNode: true,
+            x: x + buttonW / 2 + 10.0, y: y, width: buttonW / 2, height: buttonH,
+            textSize: 20, textColor: .white, bgColor: .blue)
         pressedButton2?.addToDrawManager()
         
         y += buttonH + PageViewTest1.MARGIN
@@ -121,7 +138,7 @@ public class PageViewTest1 : UPageView, UButtonCallbacks {
         // 画像ボタン(ONとOFFで別の画像を設定している)
         let image1 = UResourceManager.getImageByName(ImageName.debug)
         let image2 = UResourceManager.getImageByName(ImageName.debug)
-        let imageButton = UButtonImage.createButton(callbacks: nil, id: PageViewTest1.buttonId5, priority: 100, x: x, y: y, width: buttonW, height: buttonH, image: image1, pressedImage: image2)
+        let imageButton = UButtonImage(callbacks: nil, id: PageViewTest1.buttonId5, priority: 100, x: x, y: y, width: buttonW, height: buttonH, image: image1!, pressedImage: image2)
         imageButton.addToDrawManager()
         
         y += buttonH + PageViewTest1.MARGIN

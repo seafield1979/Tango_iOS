@@ -283,7 +283,9 @@ public class UIconWindow : UWindow{
           width : CGFloat, height : CGFloat, bgColor : UIColor)
     {
         super.init(topScene: topScene, callbacks: nil,
-                   priority: DRAW_PRIORITY, x: 0, y: 0, width: width, height: height, bgColor: bgColor, topBarH: 0, frameW: 0, frameH: 0)
+                   priority: DRAW_PRIORITY, createNode: true, cropping: true,
+                   x: 0, y: 0, width: width, height: height,
+                   bgColor: bgColor, topBarH: 0, frameW: 0, frameH: 0)
          basePos = CGPoint()
          if isHome {
              type = WindowType.Home
@@ -382,7 +384,7 @@ public class UIconWindow : UWindow{
         }
 
         // 背景を描画
-        drawBG()
+//        drawBG()
 
         // ウィンドウの座標とスクロールの座標を求める
         let _offset = CGPoint(x: pos.x - contentTop.x,
@@ -392,27 +394,27 @@ public class UIconWindow : UWindow{
 
         // クリッピング領域を設定
         // 現在のクリッピング領域を保存
-        UIGraphicsGetCurrentContext()!.saveGState()
-        // クリッピングの矩形を設定
-        UIGraphicsGetCurrentContext()!.clip(to: rect)
+//        UIGraphicsGetCurrentContext()!.saveGState()
+//        // クリッピングの矩形を設定
+//        UIGraphicsGetCurrentContext()!.clip(to: rect)
         
         // 選択中のアイコンに枠を表示する
         if mIconManager!.getSelectedIcon() != nil {
-            UDraw.drawRoundRectFill(
-                rect: mIconManager!.getSelectedIcon()!.getRectWithOffset(offset: _offset, frameWidth: UDpi.toPixel(2)),
-                cornerR: UDpi.toPixel(10),
-                color: SELECTED_ICON_BG_COLOR,
-                strokeWidth: 0, strokeColor: nil)
+//            UDraw.drawRoundRectFill(
+//                rect: mIconManager!.getSelectedIcon()!.getRectWithOffset(offset: _offset, frameWidth: UDpi.toPixel(2)),
+//                cornerR: UDpi.toPixel(10),
+//                color: SELECTED_ICON_BG_COLOR,
+//                strokeWidth: 0, strokeColor: nil)
         }
         for icon in mIconManager!.getIcons() {
             if icon === dragedIcon {
                 continue
             }
             // 矩形範囲外なら描画しない
-            if URect.intersect(rect1: windowRect, rect2: icon!.getRect()) {
-                icon!.draw(_offset)
-            } else {
-            }
+//            if URect.intersect(rect1: windowRect, rect2: icon!.getRect()) {
+//                icon!.draw(_offset)
+//            } else {
+//            }
         }
 
         // todo
@@ -421,7 +423,7 @@ public class UIconWindow : UWindow{
 //        }
 
         // クリッピング解除
-        UIGraphicsGetCurrentContext()!.restoreGState()
+//        UIGraphicsGetCurrentContext()!.restoreGState()
     }
 
      /**

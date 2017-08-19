@@ -160,7 +160,8 @@ public class IconInfoDialogBook : IconInfoDialog {
         textTitle = UTextView.createInstance(
             text: UResourceManager.getStringByName("book"),
           textSize: Int(UDpi.toPixel(TEXT_SIZE)), priority: 0,
-          alignment: UAlignment.None, multiLine: false, isDrawBG: false,
+          alignment: UAlignment.None, createNode: true,
+          multiLine: false, isDrawBG: false,
           x: UDpi.toPixel(MARGIN_H), y: y,
           width: width - UDpi.toPixel(MARGIN_H) * 2,
           color: TEXT_COLOR, bgColor: TEXT_BG_COLOR)
@@ -212,7 +213,7 @@ public class IconInfoDialogBook : IconInfoDialog {
                 text: titleStr! ,
                 textSize: Int(UDpi.toPixel(TEXT_SIZE_S)),
                 priority: 0,
-                alignment: UAlignment.None,
+                alignment: UAlignment.None, createNode: true,
                 multiLine: false, isDrawBG: false,
                 x: UDpi.toPixel(MARGIN_H), y: y, width: size.width - UDpi.toPixel(MARGIN_H),
                 color: TEXT_COLOR, bgColor: nil)
@@ -222,7 +223,7 @@ public class IconInfoDialogBook : IconInfoDialog {
             let body = UTextView.createInstance(
                 text: bodyStr!,
                 textSize: Int(UDpi.toPixel(TEXT_SIZE_S)), priority: 0,
-                alignment: UAlignment.None, multiLine: true, isDrawBG: true,
+                alignment: UAlignment.None, createNode: true, multiLine: true, isDrawBG: true,
                 x: UDpi.toPixel(MARGIN_H), y: y,
                 width: size.width - UDpi.toPixel(MARGIN_H), color: TEXT_COLOR, bgColor: bgColor)
             y += body.getHeight() + UDpi.toPixel(MARGIN_V_S)
@@ -250,7 +251,8 @@ public class IconInfoDialogBook : IconInfoDialog {
         for icon in icons {
             let image = UResourceManager.getImageWithColor(
                 imageName: icon!.imageName, color: frameColor)
-            let imageButton = UButtonImage.createButton(
+            
+            let imageButton = UButtonImage(
                 callbacks : self, id : icon!.id.rawValue,
                 priority : 0, x : x, y : y,
                 width : UDpi.toPixel(ICON_W), height : UDpi.toPixel(ICON_W),

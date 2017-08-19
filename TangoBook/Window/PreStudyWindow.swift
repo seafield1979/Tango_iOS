@@ -132,8 +132,13 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
         buttonIconW = UDpi.toPixel(BUTTON_ICON_W)
 
         // width, height はinit内で計算するのでここでは0を設定
-        super.init(topScene: topScene, callbacks: windowCallbacks, priority: DrawPriority.Dialog.rawValue + 1, x: 0, y: 0,
-                   width: topScene.getWidth(), height: topScene.getHeight(), bgColor : BG_COLOR, topBarH: 0, frameW: 0, frameH: 0)
+        super.init(
+                topScene: topScene, callbacks: windowCallbacks,
+                priority: DrawPriority.Dialog.rawValue + 1,
+                createNode: true, cropping: false,
+                x: 0, y: 0,
+                width: topScene.getWidth(), height: topScene.getHeight(),
+                bgColor : BG_COLOR, topBarH: 0, frameW: 0, frameH: 0)
         
         mButtonCallbacks = buttonCallbacks
         isShow = false;     // 初期状態は非表示
@@ -278,7 +283,8 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
         let title : String = UResourceManager.getStringByName("book") + " : " + mBook!.getName()!
         textTitle = UTextView.createInstance(
             text : title, textSize : UDpi.toPixelInt(TEXT_SIZE_3), priority : 0,
-            alignment : UAlignment.CenterX, multiLine : false, isDrawBG : false,
+            alignment : UAlignment.CenterX, createNode: true,
+            multiLine : false, isDrawBG : false,
             x : width/2, y : y, width : 0, color : TEXT_COLOR, bgColor : nil)
         y += textTitle!.getHeight() + UDpi.toPixel(MARGIN_V)
         
@@ -288,7 +294,8 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
 
         textCount = UTextView.createInstance(
                 text : cardCount, textSize : fontSize, priority : 0,
-                alignment : UAlignment.CenterX, multiLine : false, isDrawBG : false,
+                alignment : UAlignment.CenterX, createNode: true,
+                multiLine : false, isDrawBG : false,
                 x : width / 2, y : y, width : 0,
                 color : TEXT_COLOR, bgColor : nil);
         y += textCount!.getHeight() + UDpi.toPixel(MARGIN_V)
@@ -299,7 +306,8 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
             textLastStudied = UTextView.createInstance(
                 text : UResourceManager.getStringByName("last_studied_date") + ":" + UUtil.convDateFormat(date: date!, mode: ConvDateMode.DateTime),
                 textSize : fontSize, priority : 0,
-                alignment : UAlignment.CenterX, multiLine : false, isDrawBG : false, x : width/2, y : y, width : 0, color : TEXT_DATE_COLOR, bgColor : nil)
+                alignment : UAlignment.CenterX, createNode: true,
+                multiLine : false, isDrawBG : false, x : width/2, y : y, width : 0, color : TEXT_DATE_COLOR, bgColor : nil)
             y += textLastStudied!.getHeight() + UDpi.toPixel(MARGIN_V) * 2
         } else {
             textLastStudied = nil
@@ -316,18 +324,18 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
         textStudyMode = UTextView.createInstance(
                 text : UResourceManager.getStringByName("study_mode"),
                 textSize : UDpi.toPixelInt(TEXT_SIZE_2), priority : 0,
-                alignment : UAlignment.Right_CenterY, multiLine : false,
+                alignment : UAlignment.Right_CenterY, createNode: true,
+                multiLine : false,
                 isDrawBG : false, x : titleX, y : y + UDpi.toPixel(BUTTON_H) / 2,
                 width : 0, color : TEXT_COLOR, bgColor : nil)
 
         // Button
         buttons[ButtonId.Option1.rawValue] = UButtonText(
             callbacks : self, type : UButtonType.BGColor, id : ButtonIdOption1,
-            priority : 0, text : mStudyMode.getString(),
+            priority : 0, text : mStudyMode.getString(), createNode: true,
             x : buttonX, y : y,
             width : UDpi.toPixel(BUTTON_W), height : UDpi.toPixel(BUTTON_H),
-            textSize : UDpi.toPixelInt(BUTTON_TEXT_SIZE), textColor : TEXT_COLOR,
-            color : UColor.LightBlue)
+            textSize : UDpi.toPixelInt(BUTTON_TEXT_SIZE), textColor : TEXT_COLOR, bgColor: UColor.LightBlue)
         
         buttons[ButtonId.Option1.rawValue]!.setPullDownIcon(true)
 
@@ -337,18 +345,19 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
         textStudyType = UTextView.createInstance(
                 text : UResourceManager.getStringByName("study_type"),
                 textSize : UDpi.toPixelInt(TEXT_SIZE_2), priority : 0,
-                alignment : UAlignment.Right_CenterY, multiLine : false,
+                alignment : UAlignment.Right_CenterY, createNode: true,
+                multiLine : false,
                 isDrawBG : false, x : titleX, y : y+UDpi.toPixel(BUTTON_H)/2,
                 width : 0, color : TEXT_COLOR, bgColor : nil)
 
         // Button
         buttons[ButtonId.Option2.rawValue] = UButtonText(
             callbacks : self, type : UButtonType.BGColor, id : ButtonIdOption2,
-            priority : 0, text : mStudyType.getString(),
+            priority : 0, text : mStudyType.getString(), createNode: true,
             x : buttonX, y : y,
             width : UDpi.toPixel(BUTTON_W), height : UDpi.toPixel(BUTTON_H),
             textSize : UDpi.toPixelInt(BUTTON_TEXT_SIZE), textColor : TEXT_COLOR,
-            color : UColor.LightGreen)
+            bgColor : UColor.LightGreen)
         
         buttons[ButtonId.Option2.rawValue]!.setPullDownIcon(true)
 
@@ -359,19 +368,21 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
         textStudyOrder = UTextView.createInstance(
                 text : UResourceManager.getStringByName("study_order"),
                 textSize : UDpi.toPixelInt(TEXT_SIZE_2), priority : 0,
-                alignment : UAlignment.Right_CenterY, multiLine : false,
+                alignment : UAlignment.Right_CenterY, createNode: true,
+                multiLine : false,
                 isDrawBG : false, x : titleX, y : y+UDpi.toPixel(BUTTON_H)/2,
-                width : 0, color : TEXT_COLOR, bgColor : UIColor.black)
+                width : 0, color : TEXT_COLOR, bgColor : .black)
 
         // Button
         let studyOrder = StudyOrder.toEnum(MySharedPref.readInt(MySharedPref.StudyOrderKey))
         buttons[ButtonId.Option3.rawValue] = UButtonText(
             callbacks : self, type : UButtonType.BGColor,
             id : ButtonIdOption3, priority : 0, text : studyOrder.getString(),
+            createNode: true,
             x : buttonX, y : y,
             width : UDpi.toPixel(BUTTON_W), height : UDpi.toPixel(BUTTON_H),
             textSize : UDpi.toPixelInt(BUTTON_TEXT_SIZE), textColor : TEXT_COLOR,
-            color : UColor.Gold)
+            bgColor : UColor.Gold)
         
         buttons[ButtonId.Option3.rawValue]!.setPullDownIcon(true)
 
@@ -382,14 +393,21 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
         textStudyFilter = UTextView.createInstance(
                 text : UResourceManager.getStringByName("study_filter"),
                 textSize : UDpi.toPixelInt(TEXT_SIZE_2), priority : 0,
-                alignment : UAlignment.Right_CenterY, multiLine : false,
+                alignment : UAlignment.Right_CenterY, createNode: true,
+                multiLine : false,
                 isDrawBG : false, x : titleX, y : y+UDpi.toPixel(BUTTON_H)/2,
                 width : 0, color : TEXT_COLOR, bgColor : nil)
 
         // Button
         let studyFilter = StudyFilter.toEnum(MySharedPref.readInt(MySharedPref
                 .StudyFilterKey))
-        buttons[ButtonId.Option4.rawValue] = UButtonText(callbacks : self, type : UButtonType.BGColor, id : ButtonIdOption4, priority : 0, text : studyFilter.getString(), x : buttonX, y : y, width : UDpi.toPixel(BUTTON_W), height : UDpi.toPixel(BUTTON_H), textSize : UDpi.toPixelInt(BUTTON_TEXT_SIZE), textColor : TEXT_COLOR, color : UColor.LightPink);
+        buttons[ButtonId.Option4.rawValue] = UButtonText(
+            callbacks : self, type : UButtonType.BGColor, id : ButtonIdOption4,
+            priority : 0, text : studyFilter.getString(), createNode: true,
+            x : buttonX, y : y,
+            width : UDpi.toPixel(BUTTON_W), height : UDpi.toPixel(BUTTON_H),
+            textSize : UDpi.toPixelInt(BUTTON_TEXT_SIZE), textColor : TEXT_COLOR,
+            bgColor : UColor.LightPink);
         buttons[ButtonId.Option4.rawValue]!.setPullDownIcon(true);
 
         y += UDpi.toPixel(BUTTON_H + MARGIN_V);
@@ -399,19 +417,26 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
         pos.y = (screenH - size.height) / 2;
 
         // 開始ボタン
-        buttons[ButtonId.Start.rawValue] = UButtonText(callbacks : self, type : UButtonType.Press, id : PageViewStudyBookSelect.ButtonIdStartStudy, priority : 0, text : UResourceManager.getStringByName("start"), x : width/2-UDpi.toPixel(BUTTON2_W)-marginH/2, y : size.height-UDpi.toPixel(BUTTON2_H+MARGIN_V), width : UDpi.toPixel(BUTTON2_W), height : UDpi.toPixel(BUTTON2_H), textSize : fontSize, textColor : TEXT_COLOR, color : UColor.LightGreen)
+        buttons[ButtonId.Start.rawValue] = UButtonText(
+            callbacks : self, type : UButtonType.Press,
+            id : PageViewStudyBookSelect.ButtonIdStartStudy, priority : 0,
+            text : UResourceManager.getStringByName("start"), createNode: true,
+            x : width/2-UDpi.toPixel(BUTTON2_W)-marginH/2, y : size.height-UDpi.toPixel(BUTTON2_H+MARGIN_V),
+            width : UDpi.toPixel(BUTTON2_W), height : UDpi.toPixel(BUTTON2_H),
+            textSize : fontSize, textColor : TEXT_COLOR, bgColor : UColor.LightGreen)
+        
         if (mCardCount == 0) {
-            buttons[ButtonId.Start.rawValue]!.setEnabled(false);
+            buttons[ButtonId.Start.rawValue]!.setEnabled(false)
         }
 
         // キャンセルボタン
         buttons[ButtonId.Cancel.rawValue] = UButtonText(
             callbacks : self, type : UButtonType.Press,
             id : PageViewStudyBookSelect.ButtonIdCancel, priority : 0,
-            text : UResourceManager.getStringByName("cancel"),
+            text : UResourceManager.getStringByName("cancel"), createNode: true,
             x : width / 2 + marginH / 2, y : size.height-UDpi.toPixel(BUTTON2_H) - UDpi.toPixel(MARGIN_V),
             width : UDpi.toPixel(BUTTON2_W), height : UDpi.toPixel(BUTTON2_H),
-            textSize : fontSize, textColor : UIColor.white, color : CANCEL_COLOR)
+            textSize: fontSize, textColor : UIColor.white, bgColor : CANCEL_COLOR)
 
         updateRect()
     }
@@ -432,10 +457,14 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
             let margin = UDpi.toPixel(17)
             // Slide one
             var button = UButtonText(
-            callbacks : self, type : UButtonType.Press, id : ButtonIdOption1_1, priority : 0, text : UResourceManager.getStringByName("study_mode_1"), x : marginH, y : 0, width : mDialog!.getWidth() - marginH * 2, height : buttonIconW+margin,
-            textSize : fontSize, textColor : TEXT_COLOR, color : UColor.LightBlue)
+            callbacks : self, type : UButtonType.Press, id : ButtonIdOption1_1,
+            priority : 0, text : UResourceManager.getStringByName("study_mode_1"),
+            createNode: true,
+            x : marginH, y : 0,
+            width : mDialog!.getWidth() - marginH * 2, height : buttonIconW+margin,
+            textSize: fontSize, textColor: TEXT_COLOR, bgColor : UColor.LightBlue)
             
-            button.setImage( image: UResourceManager.getImageByName(ImageName.study_mode1),
+            button.setImage( image: UResourceManager.getImageByName(ImageName.study_mode1)!,
                              imageSize: CGSize(width: buttonIconW, height: buttonIconW))
             button.setImageAlignment(UAlignment.Center)
             button.setImageOffset( x: -buttonIconW - margin, y: 0)
@@ -443,11 +472,15 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
 
             // Slide multi
             button = UButtonText(
-                    callbacks : self, type : UButtonType.Press, id : ButtonIdOption1_2, priority : 0, text : UResourceManager.getStringByName("study_mode_2"), x : marginH, y : 0, width : mDialog!.getWidth() - marginH * 2,
-                    height : buttonIconW+margin, textSize : fontSize, textColor : TEXT_COLOR, color : UColor.LightBlue);
-            button.setImage(image: UResourceManager.getImageByName(ImageName.study_mode2),
+                    callbacks : self, type : UButtonType.Press, id : ButtonIdOption1_2,
+                    priority : 0, text :UResourceManager.getStringByName("study_mode_2"),
+                    createNode: true,
+                    x : marginH, y : 0, width : mDialog!.getWidth() - marginH * 2,
+                    height : buttonIconW+margin, textSize : fontSize, textColor : TEXT_COLOR,  bgColor: UColor.LightBlue)
+            
+            button.setImage(image: UResourceManager.getImageByName(ImageName.study_mode2)!,
                             imageSize: CGSize(width: buttonIconW, height: buttonIconW))
-            button.setImageAlignment(UAlignment.Center);
+            button.setImageAlignment(UAlignment.Center)
             button.setImageOffset(x: -buttonIconW - margin, y: 0)
             mDialog!.addDrawable(obj: button)
 
@@ -455,18 +488,26 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
             button = UButtonText(
                     callbacks : self, type : UButtonType.Press,
                     id : ButtonIdOption1_3, priority : 0,
-                    text : UResourceManager.getStringByName("study_mode_3"), x : marginH, y : 0, width : mDialog!.getWidth() - marginH * 2,
-                    height : buttonIconW+margin, textSize : fontSize, textColor : TEXT_COLOR, color : UColor.LightBlue)
-            button.setImage(image: UResourceManager.getImageByName(ImageName.study_mode3), imageSize: CGSize(width: buttonIconW, height: buttonIconW))
+                    text : UResourceManager.getStringByName("study_mode_3"),
+                    createNode: true,
+                    x : marginH, y : 0,
+                    width : mDialog!.getWidth() - marginH * 2,
+                    height : buttonIconW+margin, textSize : fontSize, textColor : TEXT_COLOR, bgColor: UColor.LightBlue)
+            
+            button.setImage(image: UResourceManager.getImageByName(ImageName.study_mode3)!, imageSize: CGSize(width: buttonIconW, height: buttonIconW))
             button.setImageAlignment( UAlignment.Center )
             button.setImageOffset( x: -buttonIconW - margin, y: 0)
             mDialog!.addDrawable(obj: button)
 
             // input correct
             button = UButtonText(
-                    callbacks : self, type : UButtonType.Press, id : ButtonIdOption1_4, priority : 0, text : UResourceManager.getStringByName("study_mode_4"), x : marginH, y : 0, width : mDialog!.getWidth() - marginH * 2,
-                    height : buttonIconW+margin, textSize : fontSize, textColor : TEXT_COLOR, color : UColor.LightBlue)
-            button.setImage(image: UResourceManager.getImageByName(ImageName.study_mode4), imageSize: CGSize(width: buttonIconW, height: buttonIconW))
+                    callbacks : self, type : UButtonType.Press, id : ButtonIdOption1_4, priority : 0,
+                    text : UResourceManager.getStringByName("study_mode_4"),
+                    createNode: true,
+                    x : marginH, y : 0,
+                    width : mDialog!.getWidth() - marginH * 2,
+                    height : buttonIconW+margin, textSize : fontSize, textColor : TEXT_COLOR, bgColor : UColor.LightBlue)
+            button.setImage(image: UResourceManager.getImageByName(ImageName.study_mode4)!, imageSize: CGSize(width: buttonIconW, height: buttonIconW))
             button.setImageAlignment(UAlignment.Center)
             button.setImageOffset(x: -buttonIconW - margin, y: 0)
             
@@ -483,6 +524,7 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
         if mDialog == nil {
             mDialog = UDialogWindow.createInstance(
                 topScene : topScene, buttonCallbacks : self, dialogCallbacks : self, buttonDir : UDialogWindow.ButtonDir.Vertical, screenW : topScene.getWidth(), screenH : topScene.getHeight())
+            
             mDialog!.setTitle(UResourceManager.getStringByName("study_type"));
             _ = mDialog!.addTextView(
                 text : UResourceManager.getStringByName("study_type_exp"),
@@ -512,9 +554,11 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
         if mDialog == nil {
             mDialog = UDialogWindow.createInstance(
                 topScene : topScene, buttonCallbacks : self,
-                dialogCallbacks : self, buttonDir : UDialogWindow.ButtonDir.Vertical,
+                dialogCallbacks : self, buttonDir : .Vertical,
                 screenW : topScene.getWidth(), screenH : topScene.getHeight())
+            
             mDialog!.setTitle(UResourceManager.getStringByName("study_order"))
+            
             _ = mDialog!.addTextView(
                 text : UResourceManager.getStringByName("study_order_exp"),
                 alignment : UAlignment.Center, multiLine : false, isDrawBG : false,
@@ -611,43 +655,43 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
             showOption4Dialog()
             
         case ButtonIdOption1_1:
-            mDialog!.startClosing()
+            mDialog!.closeDialog()
             setStudyMode(mode: StudyMode.SlideOne)
             
         case ButtonIdOption1_2:
-            mDialog!.startClosing()
+            mDialog!.closeDialog()
             setStudyMode(mode: StudyMode.SlideMulti)
             
         case ButtonIdOption1_3:
-            mDialog!.startClosing()
+            mDialog!.closeDialog()
             setStudyMode(mode: StudyMode.Choice4)
             
         case ButtonIdOption1_4:
-            mDialog!.startClosing()
+            mDialog!.closeDialog()
             setStudyMode(mode: StudyMode.Input)
             
         case ButtonIdOption2_1:
-            mDialog!.startClosing()
+            mDialog!.closeDialog()
             setStudyType(type: StudyType.EtoJ)
             
         case ButtonIdOption2_2:
-            mDialog!.startClosing()
+            mDialog!.closeDialog()
             setStudyType(type: StudyType.JtoE)
             
         case ButtonIdOption3_1:
-            mDialog!.startClosing()
+            mDialog!.closeDialog()
             setStudyOrder(order: StudyOrder.Normal)
             
         case ButtonIdOption3_2:
-            mDialog!.startClosing()
+            mDialog!.closeDialog()
             setStudyOrder(order: StudyOrder.Random)
             
         case ButtonIdOption4_1:
-            mDialog!.startClosing()
+            mDialog!.closeDialog()
             setStudyFilter(filter: StudyFilter.All)
             
         case ButtonIdOption4_2:
-            mDialog!.startClosing()
+            mDialog!.closeDialog()
             setStudyFilter(filter: StudyFilter.NotLearned)
         default:
             break
