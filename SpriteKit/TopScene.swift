@@ -27,11 +27,6 @@ public class TopScene: SKScene {
     }
     
     override public func didMove(to view: SKView) {
-        let n = SKShapeNode(rect: CGRect(x:0, y:0, width: 100, height: 100))
-        n.fillColor = .red
-        n.strokeColor = .clear
-        n.position = CGPoint(x:100, y:100)
-        self.addChild(n)
         
         self.scaleMode = SKSceneScaleMode.resizeFill
         // ページマネージャーを初期化

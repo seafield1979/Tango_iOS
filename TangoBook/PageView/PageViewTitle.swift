@@ -83,8 +83,8 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
     private static let IMAGE_W = 35
 
     // button Ids
-    private static let ButtonIdZoomIn = 100
-    private static let ButtonIdZoomOut = 101
+    private let ButtonIdZoomIn = 100
+    private let ButtonIdZoomOut = 101
 
      /**
      * Member variables
@@ -121,6 +121,8 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
      * そのページで表示される描画オブジェクトを初期化する
      */
      public override func initDrawables() {
+        mTopScene.removeAllChildren()
+        
         let width = self.mTopScene.getWidth()
 
         var buttonType : UButtonType? = nil
@@ -145,24 +147,26 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
         // +ボタン
         var buttonImage = UResourceManager.getImageWithColor(imageName: ImageName.zoom_in, color: UIColor.orange)
         var button = UButtonImage( callbacks: self,
-                                  id: PageViewTitle.ButtonIdZoomIn,
+                                  id: ButtonIdZoomIn,
                                   priority: PageViewTitle.DRAW_PRIORITY,
                                   x: width - zoomButtonW * 2 - UDpi.toPixel(20),
                                   y: UDpi.toPixel(10),
                                   width: zoomButtonW, height: zoomButtonW,
                                   image: buttonImage!, pressedImage: nil)
+        mTopScene.addChild2(button.parentNode)
         button.addToDrawManager()
         
         // -ボタン
         buttonImage = UResourceManager.getImageWithColor(imageName: ImageName.zoom_out, color: UIColor.orange)
         button = UButtonImage(callbacks: self,
-                              id: PageViewTitle.ButtonIdZoomOut,
+                              id: ButtonIdZoomOut,
                               priority: PageViewTitle.DRAW_PRIORITY,
                               x:width - zoomButtonW - UDpi.toPixel(10),
                               y: UDpi.toPixel(10),
                               width: zoomButtonW, height: zoomButtonW,
                               image: buttonImage!,
                               pressedImage: nil)
+        mTopScene.addChild2(button.parentNode)
         button.addToDrawManager()
 
         var x = UDpi.toPixel(PageViewTitle.MARGIN_H2)
@@ -183,7 +187,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                 width: buttonW, height: buttonW,
                 textSize: Int(UDpi.toPixel(PageViewTitle.TEXT_SIZE)),
                 textColor: info.textColor, bgColor: info.bgColor)
-            
+            mTopScene.addChild2(button.parentNode)
             mButtons.append(button)
                 
             let image = UResourceManager.getImageWithColor(imageName: info.imageName, color: info.lineColor)
@@ -227,6 +231,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                                      textSize: Int(UDpi.toPixel(PageViewTitle.TEXT_SIZE)),
                                      textColor: info.textColor,
                                      bgColor: info.bgColor)
+            mTopScene.addChild2(button.parentNode)
             mButtons.append(button)
             
             let image = UResourceManager.getImageWithColor(
@@ -290,12 +295,12 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
         } else {
             // ズームボタン
             switch (id) {
-                case PageViewTitle.ButtonIdZoomOut:
+                case ButtonIdZoomOut:
                     UDpi.scaleDown()
                     initDrawables()
                     showScaleToast()
                     break
-                case PageViewTitle.ButtonIdZoomIn:
+                case ButtonIdZoomIn:
                     UDpi.scaleUp()
                     initDrawables()
                     showScaleToast()

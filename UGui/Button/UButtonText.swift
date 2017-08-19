@@ -44,6 +44,7 @@ public class UButtonText : UButton {
     private var mImageAlignment : UAlignment = UAlignment.Left     // 画像の表示位置
     private var mImageOffset : CGPoint? = CGPoint()
     private var mImageSize : CGSize? = CGSize()
+    private var mBasePos : CGPoint = CGPoint()
     
     /**
      * Get/Set
@@ -66,7 +67,6 @@ public class UButtonText : UButton {
         if imageNode != nil {
             imageNode!.size = imageSize
             bgNode!.addChild( imageNode! )
-            imageNode!.position = CGPoint(x: 100.0, y: -20)
             
             mImageSize = imageSize
             calcImageOffset(alignment: mImageAlignment)
@@ -80,6 +80,7 @@ public class UButtonText : UButton {
         mImageSize = imageSize
         
         calcImageOffset(alignment: mImageAlignment)
+        bgNode!.addChild(imageNode!)
     }
     
     // 画像の表示座標を計算する
@@ -88,6 +89,8 @@ public class UButtonText : UButton {
         
         switch mImageAlignment {
         case .None:
+            fallthrough
+        case .Left:
             baseX = 0
             baseY = bgNode!.frame.size.height / 2
             break
@@ -97,10 +100,6 @@ public class UButtonText : UButton {
             break
         case .Center:
             baseX = bgNode!.frame.size.width / 2
-            baseY = bgNode!.frame.size.height / 2
-            break
-        case .Left:
-            baseX = 50
             baseY = bgNode!.frame.size.height / 2
             break
         case .Right:
@@ -115,7 +114,7 @@ public class UButtonText : UButton {
         }
         
         imageNode!.position = CGPoint(x: baseX + offset.x,
-                                      y: SKUtil.convY(fromView: baseY + offset.y))
+                                      y: baseY + offset.y).convToSK()
         
     }
     
@@ -124,11 +123,14 @@ public class UButtonText : UButton {
     }
     
     public func setTextOffset(x : CGFloat, y : CGFloat) {
-        labelNode.position = CGPoint(x: x, y: SKUtil.convY(fromView: y))
+        labelNode.position = CGPoint(x: mBasePos.x + x, y: mBasePos.y + y).convToSK()
     }
     
     public func setImageOffset(x : CGFloat, y : CGFloat) {
         mImageOffset = CGPoint(x: x, y: y)
+        if imageNode != nil {
+            calcImageOffset(alignment: .Center)
+        }
     }
     
     /**
@@ -178,7 +180,8 @@ public class UButtonText : UButton {
         self.labelNode.fontName = "HiraKakuProN-W6"
         self.labelNode.horizontalAlignmentMode = .center
         self.labelNode.verticalAlignmentMode = .center
-        self.labelNode.position = CGPoint(x: size.width / 2, y: bgH / 2)
+        mBasePos = CGPoint(x: size.width / 2, y: bgH / 2)
+        self.labelNode.position = mBasePos
         self.bgNode!.addChild2(self.labelNode)
         
         if size.height == 0 {
