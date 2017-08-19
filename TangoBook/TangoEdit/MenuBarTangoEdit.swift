@@ -57,10 +57,10 @@ public class MenuBarTangoEdit : UMenuBar {
     /**
      * Constructor
      */
-    public init( parentView: TopView, callbackClass : UMenuItemCallbacks,
+    public init( topScene: TopScene, callbackClass : UMenuItemCallbacks,
                  parentW : CGFloat, parentH : CGFloat, bgColor : UIColor?)
     {
-        super.init (parentView: parentView, callbacks: callbackClass, parentW: parentW, parentH: parentH, bgColor: bgColor)
+        super.init (topScene: topScene, callbacks: callbackClass, parentW: parentW, parentH: parentH, bgColor: bgColor)
         
         // 画面右端に寄せる
         pos.x = parentW - UDpi.toPixel(UMenuItem.ITEM_W + MARGIN_H)
@@ -82,19 +82,19 @@ public class MenuBarTangoEdit : UMenuBar {
 
     /**
      * メニューバーを生成する
-     * @param parentView
+     * @param topScene
      * @param callbackClass
      * @param parentW     親Viewのwidth
      * @param parentH    親Viewのheight
      * @param bgColor
      * @return
      */
-    public static func createInstance(parentView : TopView,
+    public static func createInstance(topScene : TopScene,
                                       callbackClass : UMenuItemCallbacks,
                                       parentW : CGFloat, parentH : CGFloat,
                                       bgColor : UIColor?) -> MenuBarTangoEdit
     {
-        let instance = MenuBarTangoEdit( parentView: parentView,
+        let instance = MenuBarTangoEdit( topScene: topScene,
                                          callbackClass: callbackClass,
                                          parentW: parentW, parentH: parentH,
                                          bgColor: bgColor)

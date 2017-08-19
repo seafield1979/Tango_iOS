@@ -34,8 +34,8 @@ public class PageViewTest2 : UPageView, UButtonCallbacks, UDialogCallbacks {
     /**
      * Constructor
      */
-    public override init( parentView topView : TopView, title : String) {
-        super.init( parentView: topView, title: title)
+    public override init( topScene : TopScene, title : String) {
+        super.init( topScene: topScene, title: title)
         
         buttonInfo.append(ButtonInfo(id: PageViewTest2.buttonId1, name: "ダイアログ1"))
         buttonInfo.append(ButtonInfo(id: PageViewTest2.buttonId2, name: "ダイアログ2"))
@@ -106,7 +106,7 @@ public class PageViewTest2 : UPageView, UButtonCallbacks, UDialogCallbacks {
     
     // OK/Cancelを選択 モーダル
     func showDialog1() {
-        let dialog = UPopupWindow(parentView : mTopView,
+        let dialog = UPopupWindow(topScene : mTopScene,
                                   popupType: UPopupType.OKCancel,
                                   title: "hoge", isAnimation: true,
                                   screenW: CGFloat(UUtil.screenWidth()),
@@ -117,7 +117,7 @@ public class PageViewTest2 : UPageView, UButtonCallbacks, UDialogCallbacks {
     // OK/Cancelを選択
     func showDialog2() {
         let dialog = UDialogWindow.createInstance(
-            parentView: mTopView,
+            topScene: mTopScene,
             buttonCallbacks: self, dialogCallbacks: nil,
             buttonDir: UDialogWindow.ButtonDir.Vertical,
             screenW: CGFloat(UUtil.screenWidth()), screenH: CGFloat(UUtil.screenHeight()))
@@ -132,7 +132,7 @@ public class PageViewTest2 : UPageView, UButtonCallbacks, UDialogCallbacks {
         dialog.addToDrawManager()
     }
     func showDialog3() {
-        let dialog = UPopupWindow(parentView : mTopView,
+        let dialog = UPopupWindow(topScene : mTopScene,
                                   popupType: UPopupType.OKCancel,
                                   title: "hoge", isAnimation: true,
                                   screenW: CGFloat(UUtil.screenWidth()),
@@ -140,7 +140,7 @@ public class PageViewTest2 : UPageView, UButtonCallbacks, UDialogCallbacks {
         dialog.addToDrawManager()
     }
     func showDialog4() {
-        let dialog = UPopupWindow(parentView : mTopView,
+        let dialog = UPopupWindow(topScene : mTopScene,
                                   popupType: UPopupType.OKCancel,
                                   title: "hoge", isAnimation: true,
                                   screenW: CGFloat(UUtil.screenWidth()),
@@ -148,7 +148,7 @@ public class PageViewTest2 : UPageView, UButtonCallbacks, UDialogCallbacks {
         dialog.addToDrawManager()
     }
     func showDialog5() {
-        let dialog = UPopupWindow(parentView : mTopView,
+        let dialog = UPopupWindow(topScene : mTopScene,
                                   popupType: UPopupType.OKCancel,
                                   title: "hoge", isAnimation: true,
                                   screenW: CGFloat(UUtil.screenWidth()),

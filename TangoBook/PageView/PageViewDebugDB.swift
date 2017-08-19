@@ -60,11 +60,11 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
         UDrawManager.getInstance().initialize()
 
         let mListView = UListView(
-            parentView : mTopView, windowCallbacks : nil,
+            topScene : mTopScene, windowCallbacks : nil,
             listItemCallbacks : self, priority : DRAW_PRIORITY,
             x : MARGIN_H, y : MARGIN_V,
-            width : mTopView.getWidth() - MARGIN_H * 2,
-            height : mTopView.getHeight() - MARGIN_V * 2, color : UIColor.white)
+            width : mTopScene.getWidth() - MARGIN_H * 2,
+            height : mTopScene.getHeight() - MARGIN_V * 2, color : UIColor.white)
         
         mListView.addToDrawManager()
 
@@ -82,10 +82,10 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
             mDialog!.closeDialog()
         }
         mDialog = UDialogWindow.createInstance(
-            parentView : mTopView,
+            topScene : mTopScene,
             buttonCallbacks : nil, dialogCallbacks : nil,
             buttonDir : UDialogWindow.ButtonDir.Horizontal,
-            screenW : mTopView.getWidth(), screenH : mTopView.getHeight())
+            screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight())
         mDialog!.addToDrawManager();
 
         let textView = UTextView.createInstance(
@@ -100,10 +100,10 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
             mDialog!.closeDialog()
         }
         mDialog = UDialogWindow.createInstance(
-            parentView : mTopView,
+            topScene : mTopScene,
             buttonCallbacks : self, dialogCallbacks : nil,
             buttonDir : UDialogWindow.ButtonDir.Horizontal,
-            screenW : mTopView.getWidth(), screenH : mTopView.getHeight())
+            screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight())
         mDialog!.addToDrawManager();
         
         _ = mDialog!.addButton(id: buttonIdConfirmOK, text: "OK", textColor: UIColor.black, color: UIColor.white)
@@ -187,8 +187,8 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
     /**
      * Constructor
      */
-    public override init( parentView topView : TopView, title : String) {
-        super.init( parentView: topView, title: title)
+    public override init( topScene : TopScene, title : String) {
+        super.init( topScene: topScene, title: title)
     }
     
     /**

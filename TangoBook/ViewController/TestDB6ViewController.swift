@@ -22,7 +22,7 @@ class TestDB6ViewController: UNViewController {
         
         // テスト用の処理を呼び出すボタン
         let scrollView = UIViewUtil.createButtonsWithScrollBar2(
-            parentView: self,
+            topScene: self,
             y : 0, height: TestDBViewController.BUTTON_AREA_H, count : 10,
             lineCount: 3, texts: TestDBViewController.buttonNames, tagId: 1,
             selector: #selector(self.tappedButton(_:)))

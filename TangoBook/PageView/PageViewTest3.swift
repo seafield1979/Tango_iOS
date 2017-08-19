@@ -32,8 +32,8 @@ public class PageViewTest3 : UPageView, UButtonCallbacks {
     /**
      * Constructor
      */
-    public override init( parentView topView : TopView, title : String) {
-        super.init( parentView: topView, title: title)
+    public override init( topScene : TopScene, title : String) {
+        super.init( topScene: topScene, title: title)
     }
     
     /**
@@ -97,7 +97,7 @@ public class PageViewTest3 : UPageView, UButtonCallbacks {
         // ULogWindow
         // 自動で描画リストに追加される
         logWindow = ULogWindow.createInstance(
-            parentView: mTopView, type: LogWindowType.Fix,
+            topScene: mTopScene, type: LogWindowType.Fix,
             x: 0, y: y,
             width: CGFloat(UUtil.screenWidth()),
             height: CGFloat(UUtil.screenHeight()) - y - 40.0)
@@ -105,7 +105,7 @@ public class PageViewTest3 : UPageView, UButtonCallbacks {
     
     // ダイアログを表示する
     func showDialog() {
-        let dialog = UPopupWindow(parentView: mTopView,
+        let dialog = UPopupWindow(topScene: mTopScene,
                                   popupType: UPopupType.OKCancel,
                                   title: "hoge", isAnimation: true,
                                   screenW: CGFloat(UUtil.screenWidth()),

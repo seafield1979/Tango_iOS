@@ -38,7 +38,7 @@ public class UListView : UScrollWindow
     /**
      * Constructor
      */
-    public init(parentView : TopView,
+    public init(topScene : TopScene,
                 windowCallbacks : UWindowCallbacks?,
                 listItemCallbacks : UListItemCallbacks?,
                 priority : Int,
@@ -48,7 +48,7 @@ public class UListView : UScrollWindow
         mListItemCallbacks = listItemCallbacks
         mClipRect = CGRect()
         
-        super.init(parentView: parentView,
+        super.init(topScene: topScene,
                    callbacks: windowCallbacks, priority:priority,
                     x: x, y: y,
                     width: width, height: height,

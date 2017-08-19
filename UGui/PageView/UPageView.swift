@@ -27,7 +27,7 @@ public class UPageView {
     /**
      * Member Variables
      */
-    public var mTopView : TopView
+    public var mTopScene : TopScene
     var mTitle : String
     
     // UDrawManagerで描画を行うページ番号
@@ -43,8 +43,8 @@ public class UPageView {
     /**
      * Constructor
      */
-    public init(parentView : TopView, title : String) {
-        mTopView = parentView
+    public init(topScene: TopScene, title : String) {
+        mTopScene = topScene
         mTitle = title
     }
     

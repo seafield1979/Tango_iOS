@@ -38,8 +38,8 @@ public class PageViewTest1 : UPageView, UButtonCallbacks {
     /**
      * Constructor
      */
-    public override init( parentView topView : TopView, title : String) {
-        super.init( parentView: topView, title: title)
+    public override init( topScene : TopScene, title : String) {
+        super.init( topScene: topScene, title: title)
     }
     
     /**

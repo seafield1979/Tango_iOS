@@ -22,10 +22,8 @@ public class UPageViewManager {
     /**
      * Member Variables
      */
-    var mTopView : TopView
+    var mTopScene : TopScene
     var mParentVC : UIViewController? = nil
-//    var pages : List<UPageView?> = List()
-//    var pageIdStack : List<PageView> = List()   // ページ遷移のスタックを管理。このスタックを元に元のページに戻ることができる
     var pageStack : List<UPageView> = List()
     var returnButton : UIBarButtonItem?      // ナビゲーションバーに表示する戻るボタン
     
@@ -36,12 +34,13 @@ public class UPageViewManager {
     /**
      * Constructor
      */
-    init(topView : TopView) {
+    init(topScene : TopScene, vc: UIViewController?) {
         // 最初にページのリストに全ページ分の要素を追加しておく
 //        for _ in PageView.cases {
 //            pages.append(nil)
 //        }
-        mTopView = topView
+        mTopScene = topScene
+        mParentVC = vc
         
         // 戻るボタン
         returnButton = UIBarButtonItem(title: "戻る", style: UIBarButtonItemStyle.plain, target: self, action: #selector(UPageViewManager.clickReturnButton))
@@ -247,6 +246,5 @@ public class UPageViewManager {
      */
     @objc func clickReturnButton() {
         _ = onBackKeyDown()
-        mTopView.redraw = true
     }
 }

@@ -276,13 +276,13 @@ public class UIconWindow : UWindow{
      /**
      * Constructor
      */
-    init( parentView : TopView,
+    init( topScene : TopScene,
           windowCallbacks : UWindowCallbacks?,
           iconCallbacks : UIconCallbacks?,
           isHome : Bool, dir : WindowDir,
           width : CGFloat, height : CGFloat, bgColor : UIColor)
     {
-        super.init(parentView: parentView, callbacks: nil,
+        super.init(topScene: topScene, callbacks: nil,
                    priority: DRAW_PRIORITY, x: 0, y: 0, width: width, height: height, bgColor: bgColor, topBarH: 0, frameW: 0, frameH: 0)
          basePos = CGPoint()
          if isHome {

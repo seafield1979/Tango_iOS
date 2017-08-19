@@ -33,13 +33,13 @@ public class UPopupWindow : UDialogWindow {
     /**
      * Constructor
      */
-    public init( parentView : TopView,
+    public init( topScene : TopScene,
                   popupType : UPopupType,
                  title : String,
                  isAnimation : Bool,
                  screenW : CGFloat, screenH : CGFloat)
     {
-        super.init( parentView: parentView,
+        super.init( topScene: topScene,
                     type: DialogType.Mordal,
                     buttonCallbacks: nil,
                     dialogCallbacks: nil,

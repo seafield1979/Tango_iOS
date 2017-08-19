@@ -17,7 +17,7 @@ class TestDBTopViewController: UNViewController {
         let titles : [String] = ["Card", "Book", "ItemPos", "CardHistory", "BookHistory", "StudiedCard"]
         
         let scrollView = UIViewUtil.createButtonsWithScrollBar2(
-            parentView: self,
+            topScene: self,
             y : 0, height: self.view.frame.size.height, count : 6,
             lineCount: 1, texts: titles, tagId: 1,
             selector: #selector(self.tappedButton(_:)))

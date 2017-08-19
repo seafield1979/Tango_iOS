@@ -53,14 +53,14 @@ public class IconInfoDialogBook : IconInfoDialog {
     /**
      * Constructor
      */
-    public init(parentView : TopView,
+    public init(topScene : TopScene,
                    iconInfoDialogCallbacks : IconInfoDialogCallbacks,
                    windowCallbacks : UWindowCallbacks,
                    icon : UIcon,
                    x : CGFloat, y : CGFloat,
                    color : UIColor?)
     {
-        super.init( parentView : parentView,
+        super.init( topScene : topScene,
                     iconInfoCallbacks : iconInfoDialogCallbacks,
                     windowCallbacks : windowCallbacks,
                     icon : icon, x : x, y : y,
@@ -83,14 +83,14 @@ public class IconInfoDialogBook : IconInfoDialog {
      * createInstance
      */
     public static func createInstance(
-        parentView : TopView,
+        topScene : TopScene,
         iconInfoDialogCallbacks : IconInfoDialogCallbacks,
         windowCallbacks : UWindowCallbacks,
         icon : UIcon,
         x : CGFloat, y : CGFloat) -> IconInfoDialogBook
     {
         let instance = IconInfoDialogBook(
-            parentView : parentView,
+            topScene : topScene,
             iconInfoDialogCallbacks : iconInfoDialogCallbacks,
             windowCallbacks : windowCallbacks,
             icon : icon, x : x, y : y,
@@ -271,11 +271,11 @@ public class IconInfoDialogBook : IconInfoDialog {
         setSize(width, y)
 
         // Correct position
-        if ( pos.x + size.width > parentView.getWidth() - UDpi.toPixel(DLG_MARGIN)) {
-            pos.x = parentView.getWidth() - size.width - UDpi.toPixel(DLG_MARGIN)
+        if ( pos.x + size.width > topScene.getWidth() - UDpi.toPixel(DLG_MARGIN)) {
+            pos.x = topScene.getWidth() - size.width - UDpi.toPixel(DLG_MARGIN)
         }
-        if (pos.y + size.height > parentView.getHeight() - UDpi.toPixel(DLG_MARGIN)) {
-            pos.y = parentView.getHeight() - size.height - UDpi.toPixel(DLG_MARGIN)
+        if (pos.y + size.height > topScene.getHeight() - UDpi.toPixel(DLG_MARGIN)) {
+            pos.y = topScene.getHeight() - size.height - UDpi.toPixel(DLG_MARGIN)
         }
         updateRect()
     }

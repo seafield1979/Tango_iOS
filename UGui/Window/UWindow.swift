@@ -53,7 +53,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
      * Member Variables
      */
     var windowCallbacks : UWindowCallbacks? = nil
-    var parentView : TopView
+    var topScene : TopScene
     var bgColor : UIColor? = nil
     var frameColor : UIColor? = nil
     
@@ -177,22 +177,22 @@ public class UWindow : UDrawable, UButtonCallbacks {
     /**
      * 外部からインスタンスを生成できないようにprivateでコンストラクタを定義する
      */
-    convenience init(parentView : TopView, callbacks: UWindowCallbacks?, priority : Int,
+    convenience init(topScene : TopScene, callbacks: UWindowCallbacks?, priority : Int,
          x : CGFloat, y : CGFloat, width : CGFloat, height : CGFloat,
          bgColor : UIColor?)
     {
-        self.init(parentView : parentView,
+        self.init(topScene : topScene,
                   callbacks: callbacks!, priority: priority,
              x: x, y: y, width: width, height: height,
              bgColor: bgColor, topBarH: 0, frameW: 0, frameH: 0)
     }
     
-    init(parentView: TopView, callbacks: UWindowCallbacks?, priority : Int,
+    init(topScene: TopScene, callbacks: UWindowCallbacks?, priority : Int,
          x : CGFloat, y : CGFloat, width : CGFloat, height : CGFloat,
          bgColor : UIColor?, topBarH : CGFloat, frameW : CGFloat, frameH : CGFloat)
     {
         self.windowCallbacks = callbacks
-        self.parentView = parentView
+        self.topScene = topScene
         self.bgColor = bgColor
         self.mSBType = WindowSBShowType.Show2
         self.clientSize.width = width - frameW * 2

@@ -28,17 +28,17 @@ public class PageViewManagerTest1 : UPageViewManager {
     private static var singleton : PageViewManagerTest1? = nil
     
     // Singletonオブジェクトを作成する
-    public static func createInstance(topView : TopView) -> PageViewManagerTest1
+    public static func createInstance(topScene : TopScene, vc: UIViewController?) -> PageViewManagerTest1
     {
-        singleton = PageViewManagerTest1(topView: topView)
+        singleton = PageViewManagerTest1(topScene: topScene, vc: vc)
         return singleton!
     }
     public static func getInstance() -> PageViewManagerTest1 {
         return singleton!
     }
     
-    private override init(topView : TopView) {
-        super.init(topView: topView)
+    private override init(topScene : TopScene, vc : UIViewController?) {
+        super.init(topScene: topScene, vc: vc)
         
         // 最初に表示するページ
         _ = stackPage(pageId: PageIdTest1.Title.rawValue)
@@ -52,25 +52,25 @@ public class PageViewManagerTest1 : UPageViewManager {
         
         switch PageIdTest1.toEnum(pageId) {
         case .Title:              // タイトル画面
-            page = PageViewTitle( parentView: mTopView,
+            page = PageViewTitle( topScene: mTopScene,
                                   title: UResourceManager.getStringByName("app_title"))
         case .Test1:
-            page = PageViewTest1( parentView: mTopView,
+            page = PageViewTest1( topScene: mTopScene,
                                   title: UResourceManager.getStringByName("test1"))
         case .Test2:
-            page = PageViewTest2( parentView: mTopView,
+            page = PageViewTest2( topScene: mTopScene,
                                   title: UResourceManager.getStringByName("test2"))
         case .Test3:
-            page = PageViewTest3( parentView: mTopView,
+            page = PageViewTest3( topScene: mTopScene,
                                   title: UResourceManager.getStringByName("test3"))
         case .Test4:
-            page = PageViewTest4( parentView: mTopView,
+            page = PageViewTest4( topScene: mTopScene,
                                   title: UResourceManager.getStringByName("test4"))
         case .Test5:
-            page = PageViewTest5( parentView: mTopView,
+            page = PageViewTest5( topScene: mTopScene,
                                   title: UResourceManager.getStringByName("test5"))
         case .Test6:
-            page = PageViewTest6( parentView: mTopView,
+            page = PageViewTest6( topScene: mTopScene,
                                   title: UResourceManager.getStringByName("test6"))
         }
         

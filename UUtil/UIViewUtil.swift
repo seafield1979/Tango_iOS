@@ -163,7 +163,7 @@ public class UIViewUtil {
      ボタンとそれを囲むScrollViewを作成する
      */
     public static func createButtonsWithScrollBar(
-        parentView: UIViewController,
+        topScene: UIViewController,
         y : CGFloat, height: CGFloat, count : Int,
         lineCount: Int, text: String, tagId: Int,
         selector: Selector ) -> UIScrollView?
@@ -175,14 +175,14 @@ public class UIViewUtil {
         }
         
         let scrollView = self.createButtonsWithScrollBar2(
-            parentView: parentView, y: y, height: height,
+            topScene: topScene, y: y, height: height,
             count: count, lineCount: lineCount, texts: texts, tagId: tagId, selector: selector)
         
         return scrollView
     }
     
     public static func createButtonsWithScrollBar2(
-        parentView: UIViewController,
+        topScene: UIViewController,
         y : CGFloat, height: CGFloat, count : Int,
         lineCount: Int, texts: [String], tagId: Int,
         selector: Selector ) -> UIScrollView?
@@ -212,7 +212,7 @@ public class UIViewUtil {
         scrollView.scrollsToTop = false;
         
         for button in buttons {
-            button.addTarget(parentView, action: selector, for: .touchUpInside)
+            button.addTarget(topScene, action: selector, for: .touchUpInside)
             scrollView.addSubview(button)
         }
         

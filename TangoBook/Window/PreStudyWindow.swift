@@ -119,7 +119,7 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
      * Constructor
      */
     public init(windowCallbacks : UWindowCallbacks?, buttonCallbacks : UButtonCallbacks?,
-                parentView : TopView)
+                topScene : TopScene)
     {
         // get options
         mStudyMode = MySharedPref.getStudyMode()
@@ -132,8 +132,8 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
         buttonIconW = UDpi.toPixel(BUTTON_ICON_W)
 
         // width, height はinit内で計算するのでここでは0を設定
-        super.init(parentView: parentView, callbacks: windowCallbacks, priority: DrawPriority.Dialog.rawValue + 1, x: 0, y: 0,
-                   width: parentView.getWidth(), height: parentView.getHeight(), bgColor : BG_COLOR, topBarH: 0, frameW: 0, frameH: 0)
+        super.init(topScene: topScene, callbacks: windowCallbacks, priority: DrawPriority.Dialog.rawValue + 1, x: 0, y: 0,
+                   width: topScene.getWidth(), height: topScene.getHeight(), bgColor : BG_COLOR, topBarH: 0, frameW: 0, frameH: 0)
         
         mButtonCallbacks = buttonCallbacks
         isShow = false;     // 初期状態は非表示
@@ -263,8 +263,8 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
     func updateLayout() {
 
         var y = UDpi.toPixel(TOP_ITEM_Y)
-        let screenW = parentView.getWidth()
-        let screenH = parentView.getHeight()
+        let screenW = topScene.getWidth()
+        let screenH = topScene.getHeight()
         let width = screenW
 
         // カード数
@@ -422,10 +422,10 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
     private func showOption1Dialog() {
         if mDialog == nil {
             mDialog = UDialogWindow.createInstance(
-                parentView : parentView,
+                topScene : topScene,
                 buttonCallbacks : self, dialogCallbacks : self,
                 buttonDir : UDialogWindow.ButtonDir.Vertical,
-                screenW : parentView.getWidth(), screenH : parentView.getHeight())
+                screenW : topScene.getWidth(), screenH : topScene.getHeight())
             
             mDialog!.setTitle(UResourceManager.getStringByName("study_mode"))
 
@@ -482,7 +482,7 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
     private func showOption2Dialog() {
         if mDialog == nil {
             mDialog = UDialogWindow.createInstance(
-                parentView : parentView, buttonCallbacks : self, dialogCallbacks : self, buttonDir : UDialogWindow.ButtonDir.Vertical, screenW : parentView.getWidth(), screenH : parentView.getHeight())
+                topScene : topScene, buttonCallbacks : self, dialogCallbacks : self, buttonDir : UDialogWindow.ButtonDir.Vertical, screenW : topScene.getWidth(), screenH : topScene.getHeight())
             mDialog!.setTitle(UResourceManager.getStringByName("study_type"));
             _ = mDialog!.addTextView(
                 text : UResourceManager.getStringByName("study_type_exp"),
@@ -511,9 +511,9 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
     private func showOption3Dialog() {
         if mDialog == nil {
             mDialog = UDialogWindow.createInstance(
-                parentView : parentView, buttonCallbacks : self,
+                topScene : topScene, buttonCallbacks : self,
                 dialogCallbacks : self, buttonDir : UDialogWindow.ButtonDir.Vertical,
-                screenW : parentView.getWidth(), screenH : parentView.getHeight())
+                screenW : topScene.getWidth(), screenH : topScene.getHeight())
             mDialog!.setTitle(UResourceManager.getStringByName("study_order"))
             _ = mDialog!.addTextView(
                 text : UResourceManager.getStringByName("study_order_exp"),
@@ -542,7 +542,7 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
      */
     private func showOption4Dialog() {
         if mDialog == nil {
-            mDialog = UDialogWindow.createInstance(parentView : parentView, buttonCallbacks : self, dialogCallbacks : self, buttonDir : UDialogWindow.ButtonDir.Vertical, screenW : parentView.getWidth(), screenH : parentView.getHeight())
+            mDialog = UDialogWindow.createInstance(topScene : topScene, buttonCallbacks : self, dialogCallbacks : self, buttonDir : UDialogWindow.ButtonDir.Vertical, screenW : topScene.getWidth(), screenH : topScene.getHeight())
             mDialog!.setTitle(UResourceManager.getStringByName("study_filter"))
             
             _ = mDialog!.addTextView(
@@ -576,7 +576,7 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
             {
                 // 未収得カード数が0なら終了
                 mDialog = UDialogWindow.createInstance(
-                        parentView : parentView, buttonCallbacks : nil, dialogCallbacks : self, buttonDir : UDialogWindow.ButtonDir.Vertical, screenW : parentView.getWidth(), screenH : parentView.getHeight())
+                        topScene : topScene, buttonCallbacks : nil, dialogCallbacks : self, buttonDir : UDialogWindow.ButtonDir.Vertical, screenW : topScene.getWidth(), screenH : topScene.getHeight())
                 mDialog!.setTitle(UResourceManager.getStringByName("not_exit_study_card"))
                 mDialog!.addCloseButton(text: UResourceManager.getStringByName("ok"))
                 mDialog!.addToDrawManager();

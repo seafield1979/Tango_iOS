@@ -103,7 +103,7 @@ public class IconInfoDialog : UWindow {
     /**
      * Constructor
      */
-    public init( parentView : TopView,
+    public init( topScene : TopScene,
                                 iconInfoCallbacks : IconInfoDialogCallbacks?,
                                 windowCallbacks : UWindowCallbacks?,
                                 icon : UIcon,
@@ -114,7 +114,7 @@ public class IconInfoDialog : UWindow {
         mIcon = icon
         
         // width, height はinit内で計算するのでここでは0を設定
-        super.init(parentView: parentView,
+        super.init(topScene: topScene,
                    callbacks: windowCallbacks,
                    priority : DrawPriority.Dialog.rawValue,
                    x : x, y : y, width : 0, height : 0,

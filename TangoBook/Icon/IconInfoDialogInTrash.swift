@@ -53,14 +53,14 @@ public class IconInfoDialogInTrash : IconInfoDialog {
     /**
      * Constructor
      */
-    public init(parentView : TopView,
+    public init(topScene : TopScene,
                 iconInfoDialogCallbacks : IconInfoDialogCallbacks?,
                 windowCallbacks : UWindowCallbacks?,
                 icon : UIcon,
                 x : CGFloat, y : CGFloat,
                 color : UIColor?)
     {
-        super.init( parentView : parentView,
+        super.init( topScene : topScene,
                     iconInfoCallbacks: iconInfoDialogCallbacks,
                     windowCallbacks : windowCallbacks,
                     icon : icon, x: x, y: y, color: color)
@@ -70,14 +70,14 @@ public class IconInfoDialogInTrash : IconInfoDialog {
      * createInstance
      */
     public static func createInstance(
-        parentView : TopView,
+        topScene : TopScene,
         iconInfoDialogCallbacks : IconInfoDialogCallbacks?,
         windowCallbacks : UWindowCallbacks?,
         icon : UIcon,
         x : CGFloat, y : CGFloat) -> IconInfoDialogInTrash
     {
         let instance = IconInfoDialogInTrash(
-            parentView: parentView,
+            topScene: topScene,
             iconInfoDialogCallbacks: iconInfoDialogCallbacks,
             windowCallbacks : windowCallbacks, icon : icon,
             x: x, y: y, color: BG_COLOR)
@@ -220,11 +220,11 @@ public class IconInfoDialogInTrash : IconInfoDialog {
         setSize(width, y);
         
         // Correct position
-        if ( pos.x + size.width > parentView.getWidth() - dlgMargin) {
-            pos.x = parentView.getWidth() - size.width - dlgMargin
+        if ( pos.x + size.width > topScene.getWidth() - dlgMargin) {
+            pos.x = topScene.getWidth() - size.width - dlgMargin
         }
-        if (pos.y + size.height > parentView.getHeight() - dlgMargin) {
-            pos.y = parentView.getHeight() - size.height - dlgMargin
+        if (pos.y + size.height > topScene.getHeight() - dlgMargin) {
+            pos.y = topScene.getHeight() - size.height - dlgMargin
         }
         updateRect()
     }

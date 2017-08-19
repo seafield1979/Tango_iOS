@@ -312,6 +312,11 @@
 		8AE08ABF1F2580E00024E9B7 /* CGRect+U.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08ABD1F2580E00024E9B7 /* CGRect+U.swift */; };
 		8AE08AC01F2580E00024E9B7 /* UIColor+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08ABE1F2580E00024E9B7 /* UIColor+ex.swift */; };
 		8AF1A56E1F4722B800B47000 /* TopScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8AF1A56D1F4722B800B47000 /* TopScene.sks */; };
+		8AF1A5751F47CC5800B47000 /* CGPoint+sk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1A5701F47CC5800B47000 /* CGPoint+sk.swift */; };
+		8AF1A5761F47CC5800B47000 /* CGRect+sk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1A5711F47CC5800B47000 /* CGRect+sk.swift */; };
+		8AF1A5771F47CC5800B47000 /* CGSize+sk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1A5721F47CC5800B47000 /* CGSize+sk.swift */; };
+		8AF1A5781F47CC5800B47000 /* SKNode+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1A5731F47CC5800B47000 /* SKNode+ex.swift */; };
+		8AF1A5791F47CC5800B47000 /* SKScene+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1A5741F47CC5800B47000 /* SKScene+ex.swift */; };
 		8AF5E9F81F2EC009008D8508 /* Int+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E9F71F2EC009008D8508 /* Int+ex.swift */; };
 		8AF5E9FB1F2ED31E008D8508 /* PresetBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E9FA1F2ED31E008D8508 /* PresetBook.swift */; };
 		8AF5E9FD1F2ED332008D8508 /* PresetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E9FC1F2ED331008D8508 /* PresetCard.swift */; };
@@ -649,6 +654,11 @@
 		8AE08ABD1F2580E00024E9B7 /* CGRect+U.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+U.swift"; sourceTree = "<group>"; };
 		8AE08ABE1F2580E00024E9B7 /* UIColor+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ex.swift"; sourceTree = "<group>"; };
 		8AF1A56D1F4722B800B47000 /* TopScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = TopScene.sks; path = SpriteKit/TopScene.sks; sourceTree = "<group>"; };
+		8AF1A5701F47CC5800B47000 /* CGPoint+sk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGPoint+sk.swift"; path = "SpriteKit/Extension/CGPoint+sk.swift"; sourceTree = "<group>"; };
+		8AF1A5711F47CC5800B47000 /* CGRect+sk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGRect+sk.swift"; path = "SpriteKit/Extension/CGRect+sk.swift"; sourceTree = "<group>"; };
+		8AF1A5721F47CC5800B47000 /* CGSize+sk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGSize+sk.swift"; path = "SpriteKit/Extension/CGSize+sk.swift"; sourceTree = "<group>"; };
+		8AF1A5731F47CC5800B47000 /* SKNode+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SKNode+ex.swift"; path = "SpriteKit/Extension/SKNode+ex.swift"; sourceTree = "<group>"; };
+		8AF1A5741F47CC5800B47000 /* SKScene+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SKScene+ex.swift"; path = "SpriteKit/Extension/SKScene+ex.swift"; sourceTree = "<group>"; };
 		8AF5E9F71F2EC009008D8508 /* Int+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+ex.swift"; sourceTree = "<group>"; };
 		8AF5E9FA1F2ED31E008D8508 /* PresetBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresetBook.swift; path = PresetBook/PresetBook.swift; sourceTree = "<group>"; };
 		8AF5E9FC1F2ED331008D8508 /* PresetCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresetCard.swift; path = PresetBook/PresetCard.swift; sourceTree = "<group>"; };
@@ -1057,6 +1067,7 @@
 		8AC44FFA1F471F2700ECAD00 /* SpriteKit */ = {
 			isa = PBXGroup;
 			children = (
+				8AF1A56F1F47CBEA00B47000 /* Extension */,
 				8AC44FFD1F471F9F00ECAD00 /* TopScene.swift */,
 				8AF1A56D1F4722B800B47000 /* TopScene.sks */,
 			);
@@ -1203,6 +1214,18 @@
 				8AF5E9F71F2EC009008D8508 /* Int+ex.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		8AF1A56F1F47CBEA00B47000 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				8AF1A5701F47CC5800B47000 /* CGPoint+sk.swift */,
+				8AF1A5711F47CC5800B47000 /* CGRect+sk.swift */,
+				8AF1A5721F47CC5800B47000 /* CGSize+sk.swift */,
+				8AF1A5731F47CC5800B47000 /* SKNode+ex.swift */,
+				8AF1A5741F47CC5800B47000 /* SKScene+ex.swift */,
+			);
+			name = Extension;
 			sourceTree = "<group>";
 		};
 		8AF5E9F91F2ED2FA008D8508 /* PresetBook */ = {
@@ -1617,14 +1640,17 @@
 				8AB7E91F1F258873005E36BB /* TestGuiTopViewController.swift in Sources */,
 				8AE08AB51F2580D70024E9B7 /* UColor.swift in Sources */,
 				8AB7E94F1F25A00F005E36BB /* PageViewHelp.swift in Sources */,
+				8AF1A5751F47CC5800B47000 /* CGPoint+sk.swift in Sources */,
 				8AE08A9A1F2580D00024E9B7 /* UListView.swift in Sources */,
 				8AB7E95E1F25A2AF005E36BB /* PageViewTitle.swift in Sources */,
 				8AE08ABA1F2580D70024E9B7 /* UResourceManager.swift in Sources */,
 				8AE08AB41F2580D70024E9B7 /* RefDictionary.swift in Sources */,
 				8AD631401F2B97450067B57E /* IconInfoDialogInTrash.swift in Sources */,
+				8AF1A5771F47CC5800B47000 /* CGSize+sk.swift in Sources */,
 				8AE08A981F2580D00024E9B7 /* UImageView.swift in Sources */,
 				8AB7E8F71F25824C005E36BB /* ImageName.swift in Sources */,
 				8AE08AB01F2580D70024E9B7 /* List.swift in Sources */,
+				8AF1A5781F47CC5800B47000 /* SKNode+ex.swift in Sources */,
 				8AB7E8FA1F2582C0005E36BB /* TopView.swift in Sources */,
 				8AE08ABB1F2580D70024E9B7 /* UUtil.swift in Sources */,
 				8AB7E9591F25A00F005E36BB /* PageViewStudyInputCorrect.swift in Sources */,
@@ -1656,6 +1682,7 @@
 				8AE08AB71F2580D70024E9B7 /* UDpi.swift in Sources */,
 				8AB7E94B1F25A00F005E36BB /* PageViewBackup.swift in Sources */,
 				8AB7E9561F25A00F005E36BB /* PageViewStudySlide.swift in Sources */,
+				8AF1A5761F47CC5800B47000 /* CGRect+sk.swift in Sources */,
 				8A5709541F3766DC004387D4 /* ListItemCard.swift in Sources */,
 				8A5709601F376788004387D4 /* ListItemStudyBook.swift in Sources */,
 				8A57095C1F376753004387D4 /* ListItemSearchedCard.swift in Sources */,
@@ -1688,6 +1715,7 @@
 				8AE08A891F2580D00024E9B7 /* ListItemTest1.swift in Sources */,
 				8AE08A8E1F2580D00024E9B7 /* UScrollBar.swift in Sources */,
 				8AF781B61F1F44B400FC4EF2 /* TangoItem.swift in Sources */,
+				8AF1A5791F47CC5800B47000 /* SKScene+ex.swift in Sources */,
 				8AB7E97B1F278DC7005E36BB /* IconBook.swift in Sources */,
 				8AB7E92C1F259991005E36BB /* PageViewManagerMain.swift in Sources */,
 				8A0D6FA11F317618002A1949 /* UFileManager.swift in Sources */,

@@ -30,8 +30,8 @@ public class PageViewTest6 : UPageView {
     /**
      * Constructor
      */
-    public override init( parentView topView : TopView, title : String) {
-        super.init( parentView: topView, title: title)
+    public override init( topScene : TopScene, title : String) {
+        super.init( topScene: topScene, title: title)
     }
     
     /**
@@ -80,7 +80,7 @@ public class PageViewTest6 : UPageView {
     
     // ダイアログを表示する
     func showDialog() {
-        let dialog = UPopupWindow(parentView: mTopView, popupType: UPopupType.OKCancel,
+        let dialog = UPopupWindow(topScene: mTopScene, popupType: UPopupType.OKCancel,
                                   title: "hoge", isAnimation: true,
                                   screenW: CGFloat(UUtil.screenWidth()),
                                   screenH: CGFloat(UUtil.screenHeight()))

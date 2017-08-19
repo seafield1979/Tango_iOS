@@ -100,8 +100,8 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
      /**
      * Constructor
      */
-    public override init(parentView : TopView, title : String) {
-        super.init(parentView: parentView, title: title)
+    public override init(topScene : TopScene, title : String) {
+        super.init(topScene: topScene, title: title)
         
     }
 
@@ -121,7 +121,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
      * そのページで表示される描画オブジェクトを初期化する
      */
      public override func initDrawables() {
-        let width = self.mTopView.getWidth()
+        let width = self.mTopScene.getWidth()
 
         var buttonType : UButtonType? = nil
 
@@ -292,13 +292,11 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                 case PageViewTitle.ButtonIdZoomOut:
                     UDpi.scaleDown()
                     initDrawables()
-                    mTopView.invalidate()
                     showScaleToast()
                     break
                 case PageViewTitle.ButtonIdZoomIn:
                     UDpi.scaleUp()
                     initDrawables()
-                    mTopView.invalidate()
                     showScaleToast()
                     break
             default:

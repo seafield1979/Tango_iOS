@@ -103,14 +103,14 @@ public class UIconWindowSub : UIconWindow {
     /**
      * Constructor
      */
-    public init( parentView: TopView,
+    public init( topScene: TopScene,
                  windowCallbacks : UWindowCallbacks?,
                  iconCallbacks : UIconCallbacks?,
                  iconWindowSubCallbacks : UIconWindowSubCallbacks?,
                  isHome : Bool, dir : WindowDir,
                  width : CGFloat, height : CGFloat, bgColor : UIColor)
     {
-        super.init(parentView: parentView,
+        super.init(topScene: topScene,
                    windowCallbacks: windowCallbacks,
                    iconCallbacks: iconCallbacks,
                    isHome: isHome, dir: dir, width: width, height: height,
@@ -127,7 +127,7 @@ public class UIconWindowSub : UIconWindow {
      * @return
      */
 //    public static func createInstance(
-//        parentView : TopView,
+//        topScene : TopView,
 //        windowCallbacks : UWindowCallbacks?,
 //        iconCallbacks : UIconCallbacks?,
 //        iconWindowSubCallbacks : UIconWindowSubCallbacks?,
@@ -135,7 +135,7 @@ public class UIconWindowSub : UIconWindow {
 //        width : CGFloat, height : CGFloat, bgColor : UIColor) -> UIconWindowSub
 //    {
 //        let instance = UIconWindowSub(
-//            parentView: parentView,
+//            topScene: topScene,
 //            windowCallbacks : windowCallbacks, iconCallbacks: iconCallbacks,
 //            iconWindowSubCallbacks: iconWindowSubCallbacks,
 //            isHome: isHome, dir: dir, width: width, height: height,

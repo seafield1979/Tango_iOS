@@ -27,8 +27,8 @@ public class PageViewTest4 : UPageView, UMenuItemCallbacks {
     /**
      * Constructor
      */
-    public override init( parentView topView : TopView, title : String) {
-        super.init( parentView: topView, title: title)
+    public override init( topScene: TopScene, title : String) {
+        super.init( topScene: topScene, title: title)
     }
     
     /**
@@ -74,14 +74,14 @@ public class PageViewTest4 : UPageView, UMenuItemCallbacks {
         UDrawManager.getInstance().initialize()
         
         // MenuBar
-        menuBar = MenuBarTest1.createInstance(parentView: mTopView, callbacks: self,
-                                              parentW: mTopView.frame.size.width,
-                                              parentH: mTopView.frame.size.height, bgColor: nil)
+        menuBar = MenuBarTest1.createInstance(topScene: mTopScene, callbacks: self,
+                                              parentW: mTopScene.frame.size.width,
+                                              parentH: mTopScene.frame.size.height, bgColor: nil)
         
         // ULogWindow
         // 自動で描画リストに追加される
         logWindow = ULogWindow.createInstance(
-            parentView: mTopView, type: LogWindowType.Fix,
+            topScene: mTopScene, type: LogWindowType.Fix,
             x: 0, y: UUtil.navigationBarHeight(),
             width: CGFloat(UUtil.screenWidth()),
             height: CGFloat(UUtil.screenHeight()) / 2 - UUtil.navigationBarHeight())

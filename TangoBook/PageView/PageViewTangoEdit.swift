@@ -109,7 +109,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     /**
      * Constants
      */
-    public static let TAG = "TopView"
+    public static let TAG = "PageViewTangoEdit"
 
     private let MARGIN_H : CGFloat = 50
     private let DialogTextColor = UColor.makeColor(200,100,100)
@@ -152,8 +152,8 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     /**
      * Constructor
      */
-    public override init(parentView : TopView, title : String) {
-        super.init(parentView: parentView, title: title)
+    public override init(topScene : TopScene, title : String) {
+        super.init(topScene: topScene, title: title)
     }
     
     /**
@@ -171,14 +171,14 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     }
 
     override func initDrawables() {
-        let width = mTopView.getWidth()
-        let height = mTopView.getHeight()
+        let width = mTopScene.getWidth()
+        let height = mTopScene.getHeight()
 
          // 描画オブジェクトクリア
          UDrawManager.getInstance().initialize()
 
          // DebugDialogs
-//         debugDialogs = DebugDialogs(mTopView)
+//         debugDialogs = DebugDialogs(mTopScene)
 
          // UIconWindow
         var size1 : CGSize, size2 : CGSize
@@ -194,7 +194,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
         // Main
         let mainWindow : UIconWindow = UIconWindow(
-            parentView: mTopView, windowCallbacks: self,
+            topScene: mTopScene, windowCallbacks: self,
             iconCallbacks: self,
             isHome : true,
             dir: winDir, width: size1.width,
@@ -205,7 +205,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
         // Sub
         let subWindow = UIconWindowSub(
-            parentView: mTopView,
+            topScene: mTopScene,
             windowCallbacks : self,
             iconCallbacks :self,
             iconWindowSubCallbacks : self,
@@ -229,7 +229,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
         // UMenuBar
         mMenuBar = MenuBarTangoEdit.createInstance(
-            parentView: mTopView, callbackClass: self,
+            topScene: mTopScene, callbackClass: self,
             parentW: width, parentH: height, bgColor: nil)
         mWindows[WindowType.MenuBar.rawValue] = mMenuBar!
 
@@ -258,13 +258,13 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 }
                 // ゴミ箱に移動するかの確認ダイアログを表示する
                 mDialog = UDialogWindow.createInstance(
-                    parentView: mTopView,
+                    topScene: mTopScene,
                     type: DialogType.Mordal,
                     buttonCallbacks: self, dialogCallbacks: self,
                     dir: UDialogWindow.ButtonDir.Horizontal,
                     posType: DialogPosType.Center,
                     isAnimation: true,
-                    screenW: mTopView.getWidth(), screenH: mTopView.getHeight(),
+                    screenW: mTopScene.getWidth(), screenH: mTopScene.getHeight(),
                         textColor: UIColor.black, dialogColor: UIColor.lightGray)
                 mDialog!.addToDrawManager()
                 mDialog!.setTitle(
@@ -275,46 +275,39 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                     textColor: UIColor.black, color: UIColor.white)
                 _ = mDialog!.addCloseButton(
                     text: UResourceManager.getStringByName("cancel"))
-                mTopView.invalidate()
         
             case .action_sort_word_asc:
                 let window = getCurrentWindow()
                 window.mIconManager!.sortWithMode(mode: UIconManager.SortMode.TitleAsc)
                 window.sortIcons(animate: true)
-                mTopView.invalidate()
         
             case .action_sort_word_desc:
                 let window = getCurrentWindow()
                 window.mIconManager!.sortWithMode(mode: UIconManager.SortMode
                         .TitleDesc)
                 window.sortIcons(animate: true);
-                mTopView.invalidate();
             
             case .action_sort_time_asc:
                 let window = getCurrentWindow();
                 window.mIconManager!.sortWithMode(mode: UIconManager.SortMode
                         .CreateDateAsc);
                 window.sortIcons(animate: true);
-                mTopView.invalidate();
             
             case .action_sort_time_desc:
                 let window = getCurrentWindow();
                 window.mIconManager!.sortWithMode(mode: UIconManager.SortMode
                         .CreateDateDesc);
                 window.sortIcons(animate: true);
-                mTopView.invalidate();
             
             case .action_card_name_a:
                 // カードアイコンの名前を英語で表示
                 MySharedPref.writeBool(key: MySharedPref.EditCardNameKey, value: false)
                 mIconWinManager!.resetCardTitle()
-                mTopView.invalidate()
             
             case .action_card_name_b:
                 // カードアイコンの名前を日本語で表示
                 MySharedPref.writeBool(key: MySharedPref.EditCardNameKey, value: true)
                 mIconWinManager!.resetCardTitle()
-                mTopView.invalidate()
             
             case .action_search_card:
                 _ = PageViewManagerMain.getInstance().stackPage(
@@ -323,7 +316,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             case .action_settings:
                 PageViewManagerMain.getInstance().startOptionPage(
                     mode: PageViewOptions.Mode.Edit)
-                mTopView.invalidate()
          }
     }
     
@@ -374,7 +366,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         viewController.delegate = self
         viewController.mMode = .Create
         
-        mTopView.parentVC!.present(viewController,
+        mTopScene.parentVC!.present(viewController,
                                    animated: true,
                                    completion: nil)
     }
@@ -389,7 +381,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         viewController.delegate = self
         viewController.mMode = .Create
         
-        mTopView.parentVC!.present(viewController,
+        mTopScene.parentVC!.present(viewController,
                                    animated: true,
                                    completion: nil)
     }
@@ -397,7 +389,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
      // ダミーのCardを追加
      private func addDummyCard() {
          _ = addCardIcon()
-         mTopView.invalidate()
      }
     
      // ダミーのBookを追加
@@ -428,7 +419,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         viewController.mMode = .Edit
         viewController.mCard = iconCard.card
         
-        mTopView.parentVC!.present(viewController,
+        mTopScene.parentVC!.present(viewController,
                                    animated: true,
                                    completion: nil)
     }
@@ -443,7 +434,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         viewController.mMode = .Edit
         viewController.mBook = iconBook.book
         
-        mTopView.parentVC!.present(viewController,
+        mTopScene.parentVC!.present(viewController,
                                    animated: true,
                                    completion: nil)
     }
@@ -523,8 +514,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                                 parentId: 0, addPos: AddPos.Tail) as! IconBook
         mIconWinManager!.getMainWindow()!.sortIcons(animate: true)
 
-        mTopView.invalidate()
-        
         return iconBook
     }
     
@@ -538,7 +527,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
              mIconInfoDlg!.closeWindow()
              mIconInfoDlg = nil
         }
-        mTopView.invalidate()
     }
     
     /**
@@ -608,7 +596,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         // ゴミ箱のWindow内なら別のダイアログを表示
         if icon.getParentWindow()!.getParentType() == TangoParentType.Trash {
             mIconInfoDlg = IconInfoDialogInTrash.createInstance(
-                parentView: mTopView,
+                topScene: mTopScene,
                 iconInfoDialogCallbacks: self,
                 windowCallbacks: self,
                 icon: icon,
@@ -617,7 +605,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             switch icon.getType() {
             case .Card:
                 mIconInfoDlg = IconInfoDialogCard.createInstance(
-                    parentView : mTopView, iconInfoDialogCallbacks : self, windowCallbacks : self,
+                    topScene : mTopScene, iconInfoDialogCallbacks : self, windowCallbacks : self,
                     icon : icon, x : x, y : y)
                 // newフラグをクリア
                 icon.setNewFlag(newFlag: false)
@@ -632,7 +620,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 
             }
         }
-        mTopView.invalidate();
     }
     
     public func longClickIcon(icon : UIcon) {
@@ -672,7 +659,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
             // SubWindowを画面外から移動させる
             mIconWinManager!.showWindow(window: subWindow, animation: true)
-            mTopView.invalidate()
         
         case .Trash:
             let window : UIconWindow = mIconWinManager!.getSubWindow()
@@ -683,7 +669,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
             // SubWindowを画面外から移動させる
             mIconWinManager!.showWindow(window: window, animation: true)
-            mTopView.invalidate()
         default:
             break
         }
@@ -773,12 +758,12 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 mDialog!.closeDialog()
             }
             mDialog = UDialogWindow.createInstance(
-                parentView : mTopView,
+                topScene : mTopScene,
                 type : DialogType.Mordal,
                 buttonCallbacks : self, dialogCallbacks : self, dir : UDialogWindow.ButtonDir.Horizontal,
                 posType : DialogPosType.Center,
                 isAnimation : true,
-                screenW : mTopView.getWidth(), screenH : mTopView.getHeight(),
+                screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
                 textColor : UIColor.black, dialogColor : UIColor.lightGray)
             
             mDialog!.addToDrawManager();
@@ -848,7 +833,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             // DB更新
             TangoCardDao.updateOne(card: card)
         }
-        mTopView.invalidate();
     }
     
     public func cancelEditCard() {
@@ -908,7 +892,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
         // アイコン整列
         mIconWinManager!.getMainWindow()!.sortIcons(animate: false);
-        mTopView.invalidate()
     }
     
     public func cancelEditBook() {
@@ -994,13 +977,13 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
              }
              // Daoデバッグ用のダイアログを表示
              mDialog = UDialogWindow.createInstance(
-                parentView : mTopView,
+                topScene : mTopScene,
                 type : .Mordal,
                 buttonCallbacks : self, dialogCallbacks : self,
                 dir : UDialogWindow.ButtonDir.Vertical,
                 posType : .Center,
                 isAnimation : true,
-                screenW : mTopView.getWidth(), screenH : mTopView.getHeight(),
+                screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
                 textColor : DialogTextColor, dialogColor : UIColor.white)
              mDialog!.addToDrawManager();
 
@@ -1039,7 +1022,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             mIconInfoDlg = nil
         }
 
-        mTopView.invalidate();
     }
     
     /**
@@ -1075,13 +1057,13 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             }
             // Daoデバッグ用のダイアログを表示
             mDialog = UDialogWindow.createInstance(
-                    parentView : mTopView,
+                    topScene : mTopScene,
                     type : .Mordal,
                     buttonCallbacks : self, dialogCallbacks : self,
                     dir : .Horizontal,
                     posType : .Center,
                     isAnimation : true,
-                    screenW : mTopView.getWidth(), screenH : mTopView.getHeight(),
+                    screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
                     textColor : DialogTextColor,
                     dialogColor : UColor.White)
             mDialog!.addToDrawManager();
@@ -1109,13 +1091,13 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             }
             // Daoデバッグ用のダイアログを表示
             mDialog = UDialogWindow.createInstance(
-                parentView : mTopView,
+                topScene : mTopScene,
                 type : .Mordal,
                 buttonCallbacks : self, dialogCallbacks : self,
                 dir : .Horizontal,
                 posType : .Center,
                 isAnimation : true,
-                screenW : mTopView.getWidth(), screenH : mTopView.getHeight(),
+                screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
                 textColor : DialogTextColor, dialogColor : UIColor.white)
             mDialog!.addToDrawManager()
 
@@ -1140,12 +1122,12 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             }
 
             mDialog = UDialogWindow.createInstance(
-                parentView : mTopView, type : .Mordal,
+                topScene : mTopScene, type : .Mordal,
                 buttonCallbacks : self, dialogCallbacks : self,
                 dir : .Horizontal,
                 posType : .Center,
                 isAnimation : true,
-                screenW : mTopView.getWidth(), screenH : mTopView.getHeight(),
+                screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
                 textColor : DialogTextColor, dialogColor : UIColor.white)
             mDialog!.addToDrawManager();
 

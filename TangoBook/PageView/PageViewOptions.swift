@@ -35,8 +35,8 @@ public class PageViewOptions : UPageView, UButtonCallbacks {
     /**
      * Constructor
      */
-    public override init( parentView topView : TopView, title : String) {
-        super.init( parentView: topView, title: title)
+    public override init( topScene : TopScene, title : String) {
+        super.init( topScene: topScene, title: title)
     }
     
     /**
@@ -83,7 +83,7 @@ public class PageViewOptions : UPageView, UButtonCallbacks {
         UDrawManager.getInstance().initialize()
         
         // ここにページで表示するオブジェクト生成処理を記述
-        let width = self.mTopView.getWidth()
+        let width = self.mTopScene.getWidth()
         
         let button = UButtonText(
             callbacks: self, type: UButtonType.Press,

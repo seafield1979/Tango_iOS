@@ -60,8 +60,8 @@ public class PageViewStudyBookSelect : UPageView
     /**
      * Constructor
      */
-    public override init( parentView : TopView, title : String) {
-        super.init( parentView: parentView, title: title)
+    public override init( topScene : TopScene, title : String) {
+        super.init( topScene: topScene, title: title)
 
         mSortMode = IconSortMode.toEnum(MySharedPref.readInt(MySharedPref
                 .StudyBookSortKey));
@@ -109,8 +109,8 @@ public class PageViewStudyBookSelect : UPageView
     public override func initDrawables() {
         UDrawManager.getInstance().initialize()
 
-        let width = mTopView.getWidth()
-        let height = mTopView.getHeight()
+        let width = mTopScene.getWidth()
+        let height = mTopScene.getHeight()
 
         let x = UDpi.toPixel(MARGIN_H)
         var y = UDpi.toPixel(MARGIN_V_S)
@@ -145,7 +145,7 @@ public class PageViewStudyBookSelect : UPageView
 
             // ListView
             let listViewH = height - (UDpi.toPixel(MARGIN_V_S) * 3 + mTitleText!.getHeight())
-            mListView = UListView(parentView : mTopView, windowCallbacks : nil,
+            mListView = UListView(topScene : mTopScene, windowCallbacks : nil,
                                   listItemCallbacks : self, priority : DRAW_PRIORITY,
                                   x : x, y : y,
                                   width : width-UDpi.toPixel(MARGIN_H)*2,
@@ -164,7 +164,7 @@ public class PageViewStudyBookSelect : UPageView
             y += listViewH + UDpi.toPixel(MARGIN_V_S)
 
             // PreStudyWindow 学習開始前に設定を行うウィンドウ
-            mPreStudyWindow = PreStudyWindow(windowCallbacks : self, buttonCallbacks : self, parentView : mTopView)
+            mPreStudyWindow = PreStudyWindow(windowCallbacks : self, buttonCallbacks : self, topScene : mTopScene)
             mPreStudyWindow!.addToDrawManager()
         }
     }
@@ -201,7 +201,7 @@ public class PageViewStudyBookSelect : UPageView
 //        }
 //        MySharedPref.writeInt(MySharedPref.StudyBookSortKey, mSortMode.ordinal());
 //        isFirst = true;
-//        mParentView.invalidate();
+//        mTopScene.invalidate();
     }
         
     /**

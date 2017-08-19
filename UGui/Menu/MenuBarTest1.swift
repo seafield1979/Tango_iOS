@@ -25,17 +25,17 @@ public class MenuBarTest1 : UMenuBar {
     /**
      * Constructor
      */
-    public init(parentView : TopView, callbacks : UMenuItemCallbacks,
+    public init(topScene : TopScene, callbacks : UMenuItemCallbacks,
                 parentW : CGFloat, parentH : CGFloat, bgColor : UIColor? )
     {
-        super.init(parentView: parentView, callbacks: callbacks,
+        super.init(topScene: topScene, callbacks: callbacks,
                    parentW: parentW, parentH: parentH,
                    bgColor: bgColor)
     }
     
     /**
      * メニューバーを生成する
-     * @param parentView
+     * @param topScene
      * @param callbackClass
      * @param parentW     親Viewのwidth
      * @param parentH    親Viewのheight
@@ -43,11 +43,11 @@ public class MenuBarTest1 : UMenuBar {
      * @return
      */
     public static func createInstance(
-        parentView : TopView, callbacks : UMenuItemCallbacks,
+        topScene : TopScene, callbacks : UMenuItemCallbacks,
         parentW : CGFloat, parentH : CGFloat, bgColor : UIColor?) -> MenuBarTest1
     {
         let instance = MenuBarTest1(
-            parentView: parentView, callbacks : callbacks,
+            topScene: topScene, callbacks : callbacks,
             parentW: parentW, parentH: parentH, bgColor: bgColor)
         
         instance.initMenuBar()

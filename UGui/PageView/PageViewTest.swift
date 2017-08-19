@@ -51,8 +51,8 @@ public class PageViewTest : UPageView, UButtonCallbacks {
     /**
      * Constructor
      */
-    public override init( parentView topView : TopView, title : String) {
-        super.init( parentView: topView, title: title)
+    public override init( topScene : TopScene, title : String) {
+        super.init( topScene: topScene, title: title)
         
         buttonInfo.append(ButtonInfo(id: 100, name: "ボタン"))
         buttonInfo.append(ButtonInfo(id: 101, name: "ダイアログ"))

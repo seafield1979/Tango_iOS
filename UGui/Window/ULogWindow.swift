@@ -34,12 +34,12 @@ public class ULogWindow : UWindow {
     private var count : Int = 1
     private var maxLog : Int = 0
     
-    private init( parentView: TopView,
+    private init( topScene: TopScene,
                   x : CGFloat, y : CGFloat,
                   width : CGFloat, height : CGFloat,
                   color: UIColor)
     {
-        super.init(parentView: parentView,
+        super.init(topScene: topScene,
                    callbacks: nil, priority: ULogWindow.DRAW_PRIORITY,
                    x: x, y: y, width: width, height: height,
                    bgColor: color, topBarH: 0, frameW: 0, frameH: 0)
@@ -53,20 +53,20 @@ public class ULogWindow : UWindow {
     /**
      * インスタンスを生成する
      * @param context
-     * @param parentView
+     * @param topScene
      * @param width
      * @param height
      * @return
      */
-    public static func createInstance( parentView : TopView,
+    public static func createInstance( topScene : TopScene,
                                        type : LogWindowType,
                                        x : CGFloat, y : CGFloat,
                                        width : CGFloat, height : CGFloat) -> ULogWindow
     {
-        let instance = ULogWindow( parentView : parentView, x:x, y:y,
+        let instance = ULogWindow( topScene : topScene, x:x, y:y,
                                    width:width, height:height,
                                    color: UColor.makeColor(128,0,0,0))
-        instance.parentView = parentView
+        instance.topScene = topScene
         instance.type = type
         instance.initialize()
         return instance
@@ -214,7 +214,7 @@ public class ULogWindow : UWindow {
     // タイマー処理
     @objc func timerFunc() {
         // 再描画
-        parentView.redraw = true
+//        topScene.redraw = true
     }
     
     /*

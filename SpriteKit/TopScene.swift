@@ -32,18 +32,16 @@ public class TopScene: SKScene {
         n.strokeColor = .clear
         n.position = CGPoint(x:100, y:100)
         self.addChild(n)
-//        self.scaleMode = SKSceneScaleMode.resizeFill
-//        // ページマネージャーを初期化
-//        UDrawManager.getInstance().initialize()
-//        mPageManager = PageViewManager.createInstance(topScene: self)
-//        if parentVC != nil {
-//            mPageManager?.mParentVC = parentVC
-//        }
-//        
-//        // DPI初期化
-//        UDpi.initialize()
-//        
-//        TopScene.instance = self
+        
+        self.scaleMode = SKSceneScaleMode.resizeFill
+        // ページマネージャーを初期化
+        UDrawManager.getInstance().initialize()
+        mPageManager = PageViewManagerMain.createInstance(topScene: self, vc : parentVC)
+
+        // DPI初期化
+        UDpi.initialize()
+        
+        TopScene.instance = self
     }
     
     
@@ -110,17 +108,13 @@ public class TopScene: SKScene {
     
     
     override public func update(_ currentTime: TimeInterval) {
-        // todo 
-        return
-        
         // 現在のページの描画
-        if (mPageManager!.draw()) {
-            
-        }
+        _ = mPageManager!.draw()
         
         // マネージャに登録した描画オブジェクトをまとめて描画
         if UDrawManager.getInstance().draw() == true {
             //            redraw = true
         }
     }
+    
 }
