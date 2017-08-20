@@ -228,10 +228,14 @@ public class UIcon : UDrawable, CustomStringConvertible {
         parentNode.addChild2(checkedNode)
     }
 
-    override public func setPos(_ x : CGFloat, _ y : CGFloat) {
-        super.setPos(x, y)
+    public override func setPos(_ pos : CGPoint) {
+        setPos(pos, true)
         
-        parentNode.position = pos
+        parentNode.position = pos.convToSK()
+    }
+    
+    override public func setPos(_ x : CGFloat, _ y : CGFloat) {
+        self.setPos( CGPoint(x: x, y: y))
     }
     
     override public func setColor(_ color : UIColor) {
@@ -353,6 +357,9 @@ public class UIcon : UDrawable, CustomStringConvertible {
     public override func draw() {
 //        drawIcon(offset: offset)
 
+        if isDraging {
+            
+        }
         if isChecking {
     
 //            var _x = pos.x
@@ -367,6 +374,15 @@ public class UIcon : UDrawable, CustomStringConvertible {
 //                          width: width,
 //                          color: UColor.makeColor(100,100,200))
         }
+    }
+
+    /**
+     * 毎フレームの処理(抽象メソッド)
+     * サブクラスでオーバーライドして使用する
+     * @return true:処理中 / false:処理完了
+     */
+    public override func doAction() -> DoActionRet{
+        return DoActionRet.None
     }
 
     /**

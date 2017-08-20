@@ -176,7 +176,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
          // 描画オブジェクトクリア
          UDrawManager.getInstance().initialize()
-
         
          // DebugDialogs
 //         debugDialogs = DebugDialogs(mTopScene)
@@ -200,7 +199,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             isHome : true,
             dir: winDir, width: size1.width,
             height: size1.height, bgColor: UIColor.white)
-        
+
         mTopScene.addChild2( mainWindow.parentNode )
         mainWindow.addToDrawManager()
         mWindows[WindowType.Icon1.rawValue] = mainWindow
@@ -229,22 +228,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         // アイコンの登録はMainとSubのWindowを作成後に行う必要がある
         mainWindow.initialize()
         subWindow.initialize()
-
-        //let icon = UIcon(parentWindow: mainWindow, iconCallbacks: nil, type: .Card,
-        //                 x: 50, y: 50, width: 50, height: 50)
-        
-        //        let card = TangoCard.createDummyCard()
-        //
-        //        let icon = IconCard(card: card, parentWindow: mainWindow, iconCallbacks: self, x: 50, y: 50)
-        //
-//        let book = TangoBook.createDummyBook()
-//        let icon = IconBook(book: book, parentWindow: mainWindow, iconCallbacks: self,
-//                            x: 50, y: 50)
-        let icon = IconTrash(parentWindow: mainWindow, iconCallbacks: self)
-        icon.setPos(50, 50)
-        
-        icon.parentNode.zPosition = 1000
-        mTopScene.addChild2(icon.parentNode)
 
         // UMenuBar
 //        mMenuBar = MenuBarTangoEdit.createInstance(

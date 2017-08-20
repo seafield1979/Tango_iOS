@@ -12,6 +12,9 @@
                value = "icon.checkedNode.frame">
             </PersistentString>
             <PersistentString
+               value = "mainWindow.parentNode.frame">
+            </PersistentString>
+            <PersistentString
                value = "icon.bg2Node.frame">
             </PersistentString>
             <PersistentString

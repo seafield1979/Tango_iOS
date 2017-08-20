@@ -154,7 +154,8 @@ public class UIconWindow : UWindow{
             }
         }
         else {
-            _ = UDrawManager.getInstance().addWithNewPriority(obj: dragedIcon!, priority: DrawPriority.DragIcon.rawValue)
+            dragedIcon!.parentNode.zPosition = CGFloat(DrawPriority.DragIcon.rawValue)
+//            _ = UDrawManager.getInstance().addWithNewPriority(obj: dragedIcon!, priority: DrawPriority.DragIcon.rawValue)
         }
         self.dragedIcon = dragedIcon
     }
@@ -251,22 +252,33 @@ public class UIconWindow : UWindow{
         self.parentId = parentId
 
         // DBからホームに表示するアイコンをロード
-        let items = TangoItemPosDao.selectItemsByParentType(
+        let items : [TangoItem]? = TangoItemPosDao.selectItemsByParentType(
            parentType: parentType, parentId: parentId, changeable: true
         )
         // 今あるアイコンはクリアしておく
         mIconManager?.getIcons().removeAll()
+        
+        // 一旦ウィンドウ以下のアイコンを削除
+        self.clientNode.removeAllChildren()
 
         // ゴミ箱を配置
         if parentType == TangoParentType.Home {
-           _ = mIconManager!.addNewIcon(type: IconType.Trash,
-                                    parentType: TangoParentType.Home,
-                                    parentId: 0, addPos: AddPos.Top)
+//            for _ in 0...100 {
+                let icon = mIconManager!.addNewIcon(type: IconType.Trash,
+                                        parentType: TangoParentType.Home,
+                                        parentId: 0, addPos: AddPos.Top)
+                if let _icon = icon {
+                    self.clientNode.addChild2( _icon.parentNode )
+                }
+//            }
         }
 
         if items != nil {
             for item in items! {
-                _ = mIconManager!.addIcon(item, addPos: AddPos.Tail)
+                let icon = mIconManager!.addIcon(item, addPos: AddPos.Tail)
+                if let _icon = icon {
+                    self.clientNode.addChild2( _icon.parentNode )
+                }
             }
         }
 
@@ -374,6 +386,8 @@ public class UIconWindow : UWindow{
      */
     public override func drawContent( offset : CGPoint? )
     {
+        super.drawContent(offset: offset)
+        
         if !isShow {
             return
         }
@@ -392,14 +406,12 @@ public class UIconWindow : UWindow{
         let windowRect = CGRect(x: contentTop.x, y: contentTop.y,
                                 width: size.width, height: size.height)
 
-        // クリッピング領域を設定
-        // 現在のクリッピング領域を保存
-//        UIGraphicsGetCurrentContext()!.saveGState()
-//        // クリッピングの矩形を設定
-//        UIGraphicsGetCurrentContext()!.clip(to: rect)
-        
         // 選択中のアイコンに枠を表示する
         if mIconManager!.getSelectedIcon() != nil {
+            if let selectedIcon = mIconManager!.getSelectedIcon() {
+                print("selectedIconPos:" + selectedIcon.getPos().debugDescription)
+                selectedIcon.parentNode.position = selectedIcon.getPos()
+            }
 //            UDraw.drawRoundRectFill(
 //                rect: mIconManager!.getSelectedIcon()!.getRectWithOffset(offset: _offset, frameWidth: UDpi.toPixel(2)),
 //                cornerR: UDpi.toPixel(10),
@@ -411,19 +423,16 @@ public class UIconWindow : UWindow{
                 continue
             }
             // 矩形範囲外なら描画しない
-//            if URect.intersect(rect1: windowRect, rect2: icon!.getRect()) {
-//                icon!.draw(_offset)
-//            } else {
-//            }
+            if URect.intersect(rect1: windowRect, rect2: icon!.getRect()) {
+//                icon!.draw( _offset )
+            } else {
+            }
         }
 
         // todo
 //        if UDebug.DRAW_ICON_BLOCK_RECT {
 //            mIconManager!.getBlockManager()!.draw(getToScreenPos())
 //        }
-
-        // クリッピング解除
-//        UIGraphicsGetCurrentContext()!.restoreGState()
     }
 
      /**
@@ -542,7 +551,7 @@ public class UIconWindow : UWindow{
 
         // 必要があれば選択アイコンをクリア
         if selectedIcon == nil {
-            mIconManager!.setSelectedIcon(selectedIcon: nil)
+            mIconManager!.setSelectedIcon(nil)
         }
     }
 
@@ -670,6 +679,8 @@ public class UIconWindow : UWindow{
             }
             // ドラッグ中のアイコンを移動する
             dragedIcon!.move( vt.moveX, vt.moveY)
+            dragedIcon!.parentNode.position = dragedIcon!.pos.convToSK()
+            
         } else if state == WindowState.icon_selecting {
             // チェックしたアイコンをまとめて移動する
             let icons : List<UIcon> = mIconManager!.getCheckedIcons()
@@ -681,7 +692,7 @@ public class UIconWindow : UWindow{
         }
 
         // 現在のドロップフラグをクリア
-        mIconManager!.setDropedIcon(dropedIcon: nil)
+        mIconManager!.setDropedIcon(nil)
 
         for window in windows!.getWindows()! {
             // ドラッグ中のアイコンが別のアイコンの上にあるかをチェック
@@ -717,14 +728,14 @@ public class UIconWindow : UWindow{
                         }
                     }
                     if allOk {
-                        mIconManager!.setDropedIcon(dropedIcon: dropIcon!)
+                        mIconManager!.setDropedIcon(dropIcon!)
                     }
                 } else {
                     // シングル
                     isDone = true
                     if dragedIcon!.canDrop(dstIcon: dropIcon!, x: dragPos.x, y: dragPos.y)
                     {
-                        mIconManager!.setDropedIcon(dropedIcon: dropIcon!)
+                        mIconManager!.setDropedIcon(dropIcon!)
                     }
                 }
                 break
@@ -745,7 +756,7 @@ public class UIconWindow : UWindow{
             return false
         }
 
-        mIconManager!.setDropedIcon(dropedIcon: nil)
+        mIconManager!.setDropedIcon(nil)
 
         let srcIcons : List<UIcon>? = getIcons()
        
@@ -1003,7 +1014,7 @@ public class UIconWindow : UWindow{
          // 他のアイコンの上にドロップされたらドロップ処理を呼び出す
          var isDroped = false, isMoved = false;
 
-         mIconManager!.setDropedIcon(dropedIcon: nil)
+         mIconManager!.setDropedIcon(nil)
 
         let srcIcons : List<UIcon> = getIcons()!
         let checkedIcons : List<UIcon> = mIconManager!.getCheckedIcons()

@@ -60,7 +60,7 @@ public class UIconManager : UIconCallbacks {
         return selectedIcon
     }
 
-    public func setSelectedIcon(selectedIcon : UIcon?) {
+    public func setSelectedIcon( _ selectedIcon : UIcon?) {
         self.selectedIcon = selectedIcon
     }
 
@@ -68,7 +68,7 @@ public class UIconManager : UIconCallbacks {
         return dropedIcon
     }
 
-    public func setDropedIcon( dropedIcon : UIcon?) {
+    public func setDropedIcon( _ dropedIcon : UIcon?) {
         // 全てのアイコンのdropフラグを解除
         UIconWindows.getInstance().clearDroped()
 
@@ -429,7 +429,7 @@ public class UIconManager : UIconCallbacks {
     */
     public func iconClicked(icon : UIcon) {
         if icon.getParentWindow()!.type == WindowType.Home {
-            selectedIcon = icon
+            setSelectedIcon(icon)
         }
         if mIconCallbacks != nil {
             mIconCallbacks!.iconClicked(icon: icon)

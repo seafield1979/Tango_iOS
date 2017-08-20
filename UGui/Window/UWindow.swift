@@ -231,8 +231,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
     public override func initSKNode() {
         // parent
         parentNode.zPosition = CGFloat(drawPriority)
-        parentNode.position = topScene.convertPoint(fromView: CGPoint(x:pos.x, y: pos.y))
-//        topScene.addChild(parentNode)
+        parentNode.position = CGPoint(x:pos.x, y: pos.y)
         
         // frame
         if frameColor != nil && (frameSize.width > 0 || (topBarH + frameSize.height) > 0) {
@@ -438,10 +437,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
      */
     public func drawContent(offset : CGPoint?) {
         // 抽象クラス　サブクラスでオーバーライドして使用する
-        
-        // test
         clientNode.position = CGPoint(x: -contentTop.x, y: -contentTop.y).convToSK()
-        
     }
     
     /**
