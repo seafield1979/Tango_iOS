@@ -61,12 +61,12 @@ public class UIconManager : UIconCallbacks {
     }
 
     public func setSelectedIcon( _ selectedIcon : UIcon?) {
-        if selectedIcon == nil {
-            if self.selectedIcon != nil {
-                self.selectedIcon!.bg1Node.isHidden = true
-            }
-        } else {
-            selectedIcon!.bg1Node.isHidden = false
+        if self.selectedIcon != nil {
+            self.selectedIcon!.selectedBgNode.isHidden = true
+        }
+
+        if selectedIcon != nil {
+            selectedIcon!.selectedBgNode.isHidden = false
         }
         self.selectedIcon = selectedIcon
     }

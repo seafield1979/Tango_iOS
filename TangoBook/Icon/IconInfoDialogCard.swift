@@ -131,23 +131,23 @@ public class IconInfoDialogCard : IconInfoDialog {
         }
 
          // BG
-        UDraw.drawRoundRectFill( rect: getRect(), cornerR: UDpi.toPixel(7),
-                                 color: bgColor!,
-                                 strokeWidth: UDpi.toPixel(FRAME_WIDTH),
-                                 strokeColor: frameColor)
+//        UDraw.drawRoundRectFill( rect: getRect(), cornerR: UDpi.toPixel(7),
+//                                 color: bgColor!,
+//                                 strokeWidth: UDpi.toPixel(FRAME_WIDTH),
+//                                 strokeColor: frameColor)
 
-        textTitle!.draw()
-        for item in mItems {
-            if item == nil {
-                continue
-            }
-            if item!.title != nil {
-                item!.title!.draw()
-            }
-            if item!.body != nil {
-                item!.body!.draw()
-            }
-        }
+//        textTitle!.draw()
+//        for item in mItems {
+//            if item == nil {
+//                continue
+//            }
+//            if item!.title != nil {
+//                item!.title!.draw()
+//            }
+//            if item!.body != nil {
+//                item!.body!.draw()
+//            }
+//        }
 
         // Buttons
         for button in imageButtons {

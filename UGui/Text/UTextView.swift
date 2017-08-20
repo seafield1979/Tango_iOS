@@ -268,18 +268,6 @@ public class UTextView : UDrawable {
     }
     
     /**
-     * 背景色を描画する
-     * @parameter pos : 描画位置
-     */
-    func drawBG(_ pos : CGPoint) {
-        UDraw.drawRoundRectFill(rect: CGRect(x: pos.x, y:pos.y,
-                                             width: size.width,
-                                             height: size.height),
-                                cornerR: UDpi.toPixel(7), color: bgColor!,
-                                strokeWidth: 0, strokeColor: nil)
-    }
-    
-    /**
      * テキストのサイズを取得する（マルチライン対応）
      * @return
      */

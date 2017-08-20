@@ -80,7 +80,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
     // アニメーション用
     public let ANIME_FRAME = 20
 
-    private let SELECTED_ICON_BG_COLOR = UColor.makeColor(80, 255, 100, 100)
+    private let SELECTED_COLOR = UColor.makeColor(80, 255, 100, 100)
     private let TOUCHED_COLOR = UColor.makeColor(100,200,100)
     
      /**
@@ -95,8 +95,8 @@ public class UIcon : UDrawable, CustomStringConvertible {
     private static var count : Int = 0
 
     // SpriteKit Node
-    var bg1Node : SKShapeNode           // 選択時に表示されるBG
-    var bg2Node : SKShapeNode           // タップ時に表示されるBG
+    var selectedBgNode : SKShapeNode           // 選択時のBG
+    var dragedBgNode : SKShapeNode           // タップ中のBG
     var imageNode : SKSpriteNode        // アイコンの画像
     var textNode : SKLabelNode          // アイコンのテキスト
     var checkedNode : SKSpriteNode      // 選択状態時に表示するチェック枠画像
@@ -159,8 +159,8 @@ public class UIcon : UDrawable, CustomStringConvertible {
                 type : IconType, x : CGFloat,
                 y : CGFloat, width : CGFloat, height : CGFloat)
     {
-        bg1Node = SKShapeNode()
-        bg2Node = SKShapeNode()
+        selectedBgNode = SKShapeNode()
+        dragedBgNode = SKShapeNode()
         imageNode = SKSpriteNode()
         textNode = SKLabelNode()
         checkedNode = SKSpriteNode()
@@ -185,28 +185,28 @@ public class UIcon : UDrawable, CustomStringConvertible {
         parentNode.zPosition = CGFloat(drawPriority)
         parentNode.position = pos
         
-        // bg1
-        bg1Node = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height).convToSK(), cornerRadius: UDpi.toPixel(5))
-        bg1Node.zPosition = 0
-        bg1Node.fillColor = TOUCHED_COLOR
-        bg1Node.strokeColor = .clear
-        bg1Node.isAntialiased = true
-        bg1Node.isHidden = true
-        parentNode.addChild2(bg1Node)
+        // selectedBgNode
+        selectedBgNode = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height).convToSK(), cornerRadius: UDpi.toPixel(5))
+        selectedBgNode.zPosition = 0
+        selectedBgNode.fillColor = SELECTED_COLOR
+        selectedBgNode.strokeColor = .clear
+        selectedBgNode.isAntialiased = true
+        selectedBgNode.isHidden = true
+        parentNode.addChild2(selectedBgNode)
         
-        // bg2
-        bg2Node = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height).convToSK(), cornerRadius: UDpi.toPixel(5))
-        bg2Node.zPosition = 0.2
-        bg2Node.fillColor = SELECTED_ICON_BG_COLOR
-        bg2Node.strokeColor = .clear
-        bg2Node.isAntialiased = true
-        bg2Node.isHidden = true
-        parentNode.addChild2(bg2Node)
+        // dragedBg
+        dragedBgNode = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height).convToSK(), cornerRadius: UDpi.toPixel(5))
+        dragedBgNode.zPosition = 0.1
+        dragedBgNode.fillColor = TOUCHED_COLOR
+        dragedBgNode.strokeColor = .clear
+        dragedBgNode.isAntialiased = true
+        dragedBgNode.isHidden = true
+        parentNode.addChild2(dragedBgNode)
         
         // icon image
         imageNode = SKSpriteNode()
 //        imageNode = SKSpriteNode(imageNamed: ImageName.card.rawValue)
-        imageNode.zPosition = 0.1
+        imageNode.zPosition = 0.2
         imageNode.anchorPoint = CGPoint(x:0, y:1.0)
         imageNode.size = size
         parentNode.addChild2(imageNode)

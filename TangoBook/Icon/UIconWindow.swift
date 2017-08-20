@@ -147,16 +147,20 @@ public class UIconWindow : UWindow{
         isAnimating = animating
     }
 
-    public func setDragedIcon(_ dragedIcon : UIcon?) {
-        if dragedIcon == nil {
+    public func setDragedIcon(_ icon : UIcon?) {
+        if icon == nil {
             if self.dragedIcon != nil {
-                self.dragedIcon!.parentNode.zPosition = 0
+                // Sceneトップから UIconWindow配下へ付け替え
+                dragedIcon!.parentNode.removeFromParent()
+                self.clientNode.addChild( dragedIcon!.parentNode )
             }
         }
         else {
-            dragedIcon!.parentNode.zPosition = CGFloat(DrawPriority.DragIcon.rawValue)
+            // UIconWindowからSceneトップに付け替え
+            icon!.parentNode.removeFromParent()
+            TopScene.getInstance().addChild( icon!.parentNode )
         }
-        self.dragedIcon = dragedIcon
+        self.dragedIcon = icon
     }
 
     public override func setPos(_ x : CGFloat, _ y : CGFloat) {
@@ -396,34 +400,26 @@ public class UIconWindow : UWindow{
             return
         }
 
-        // 背景を描画
-//        drawBG()
-
         // ウィンドウの座標とスクロールの座標を求める
         let windowRect = CGRect(x: contentTop.x, y: contentTop.y,
                                 width: size.width, height: size.height)
 
         // 選択中のアイコンに枠を表示する
         if mIconManager!.getSelectedIcon() != nil {
-            if let selectedIcon = mIconManager!.getSelectedIcon() {
-                selectedIcon.bg2Node.isHidden = false
-            }
+//            if let selectedIcon = mIconManager!.getSelectedIcon() {
+//                selectedIcon.selectedBgNode.isHidden = false
+//            }
         }
         for icon in mIconManager!.getIcons() {
             if icon === dragedIcon {
                 continue
             }
             // 矩形範囲外なら描画しない
-            if URect.intersect(rect1: windowRect, rect2: icon!.getRect()) {
-//                icon!.draw( _offset )
-            } else {
-            }
+//            if URect.intersect(rect1: windowRect, rect2: icon!.getRect()) {
+////                icon!.draw( _offset )
+//            } else {
+//            }
         }
-
-        // todo
-//        if UDebug.DRAW_ICON_BLOCK_RECT {
-//            mIconManager!.getBlockManager()!.draw(getToScreenPos())
-//        }
     }
 
      /**
@@ -620,7 +616,6 @@ public class UIconWindow : UWindow{
                     setDragedIcon(icon!)
                     ret = true
                     isDragMove = true
-                    print("isDragMove=true")
                     break
                 }
             }
