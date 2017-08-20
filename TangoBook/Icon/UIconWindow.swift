@@ -150,7 +150,7 @@ public class UIconWindow : UWindow{
     public func setDragedIcon(_ dragedIcon : UIcon?) {
         if dragedIcon == nil {
             if self.dragedIcon != nil {
-                dragedIcon!.parentNode.zPosition = 0
+                self.dragedIcon!.parentNode.zPosition = 0
             }
         }
         else {

@@ -228,15 +228,15 @@ public class UIcon : UDrawable, CustomStringConvertible {
         parentNode.addChild2(checkedNode)
     }
 
-    public override func setPos(_ pos : CGPoint) {
-        setPos(pos, true)
-        
-        parentNode.position = pos.convToSK()
-    }
-    
-    override public func setPos(_ x : CGFloat, _ y : CGFloat) {
-        self.setPos( CGPoint(x: x, y: y))
-    }
+//    public override func setPos(_ pos : CGPoint) {
+//        setPos(pos, true)
+//        
+//        parentNode.position = pos.convToSK()
+//    }
+//    
+//    override public func setPos(_ x : CGFloat, _ y : CGFloat) {
+//        self.setPos( CGPoint(x: x, y: y))
+//    }
     
     override public func setColor(_ color : UIColor) {
         self.color = color

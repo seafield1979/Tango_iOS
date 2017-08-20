@@ -107,6 +107,8 @@ public class UDrawable {
     
     public func setPos(_ x : CGFloat, _ y : CGFloat) {
         setPos(x, y, true)
+        
+        parentNode.position = pos.convToSK()
     }
     public func setPos(_ x:CGFloat, _ y:CGFloat, _ update : Bool)
     {
@@ -115,6 +117,7 @@ public class UDrawable {
         if update {
             updateRect()
         }
+        parentNode.position = pos.convToSK()
     }
     public func setPos(_ pos : CGPoint) {
         setPos(pos, true)
@@ -124,6 +127,7 @@ public class UDrawable {
         self.pos.x = pos.x
         self.pos.y = pos.y
         updateRect()
+        parentNode.position = pos.convToSK()
     }
     
     public func getSize() -> CGSize {
