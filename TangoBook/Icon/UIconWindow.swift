@@ -148,17 +148,19 @@ public class UIconWindow : UWindow{
     }
 
     public func setDragedIcon(_ icon : UIcon?) {
-        if icon == nil {
-            if self.dragedIcon != nil {
-                // Sceneトップから UIconWindow配下へ付け替え
-                dragedIcon!.parentNode.removeFromParent()
-                self.clientNode.addChild( dragedIcon!.parentNode )
+        if icon != nil {
+            // clientNodeからbgNodeに付け替え
+            icon!.parentNode.removeFromParent()
+            if let bg = bgNode {
+                bg.addChild( icon!.parentNode )
             }
         }
         else {
-            // UIconWindowからSceneトップに付け替え
-            icon!.parentNode.removeFromParent()
-            TopScene.getInstance().addChild( icon!.parentNode )
+            if self.dragedIcon != nil {
+                // bgNodeからclientNode以下に付け替え
+//                dragedIcon!.parentNode.removeFromParent()
+//                clientNode.addChild( dragedIcon!.parentNode )
+            }
         }
         self.dragedIcon = icon
     }
@@ -818,7 +820,12 @@ public class UIconWindow : UWindow{
                     dstIcons?.append(dragedIcon!)
                     // 親の付け替え
                     dragedIcon!.setParentWindow(window!)
-
+                    // SKノードの親を付け替え
+                    if self !== window {
+                        dragedIcon!.parentNode.removeFromParent()
+                        window!.clientNode.addChild2( dragedIcon!.parentNode )
+                    }
+            
                     // データベース更新
                     if self === window {
                         // debug
@@ -1366,6 +1373,11 @@ public class UIconWindow : UWindow{
             // ドロップアイコンの座標系を変換
             dragedIcon?.setPos(icon1.getX() + window2.pos.x - window1.pos.x,
                     icon1.getY() + window2.pos.y - window1.pos.y)
+            
+            // SpriteKit ノードの付け替え
+            dragedIcon!.parentNode.removeFromParent()
+            icon2.parentWindow?.clientNode.addChild2( dragedIcon!.parentNode )
+            
             window2.sortIcons(animate: animate)
 
             // データベース更新
