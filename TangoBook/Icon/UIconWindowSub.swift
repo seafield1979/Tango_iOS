@@ -313,15 +313,15 @@ public class UIconWindowSub : UIconWindow {
         let y = pos.y + size.height + UDpi.toPixel( -UIconWindowSub.MARGIN_V2 - UIconWindowSub.MARGIN_V - UIconWindowSub.ACTION_ICON_W);
         
         // BG
-        UDraw.drawRoundRectFill(rect: CGRect(x:x, y:y, width:width, height:height),
-                                cornerR: UDpi.toPixel(10), color:UIconWindowSub.ICON_BG_COLOR,
-                                strokeWidth: 0, strokeColor: nil)
+//        UDraw.drawRoundRectFill(rect: CGRect(x:x, y:y, width:width, height:height),
+//                                cornerR: UDpi.toPixel(10), color:UIconWindowSub.ICON_BG_COLOR,
+//                                strokeWidth: 0, strokeColor: nil)
         
         // アイコンの描画
         _ = CGPoint(x: pos.x, y: pos.y + size.height)
-        for button in buttons {
-            button.draw()
-        }
+//        for button in buttons {
+//            button.draw()
+//        }
     }
 
     /**

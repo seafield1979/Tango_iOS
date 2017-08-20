@@ -150,12 +150,11 @@ public class UIconWindow : UWindow{
     public func setDragedIcon(_ dragedIcon : UIcon?) {
         if dragedIcon == nil {
             if self.dragedIcon != nil {
-                UDrawManager.getInstance().removeDrawable(self.dragedIcon!)
+                dragedIcon!.parentNode.zPosition = 0
             }
         }
         else {
             dragedIcon!.parentNode.zPosition = CGFloat(DrawPriority.DragIcon.rawValue)
-//            _ = UDrawManager.getInstance().addWithNewPriority(obj: dragedIcon!, priority: DrawPriority.DragIcon.rawValue)
         }
         self.dragedIcon = dragedIcon
     }
@@ -401,22 +400,14 @@ public class UIconWindow : UWindow{
 //        drawBG()
 
         // ウィンドウの座標とスクロールの座標を求める
-        let _offset = CGPoint(x: pos.x - contentTop.x,
-                              y: pos.y - contentTop.y)
         let windowRect = CGRect(x: contentTop.x, y: contentTop.y,
                                 width: size.width, height: size.height)
 
         // 選択中のアイコンに枠を表示する
         if mIconManager!.getSelectedIcon() != nil {
             if let selectedIcon = mIconManager!.getSelectedIcon() {
-                print("selectedIconPos:" + selectedIcon.getPos().debugDescription)
-                selectedIcon.parentNode.position = selectedIcon.getPos()
+                selectedIcon.bg2Node.isHidden = false
             }
-//            UDraw.drawRoundRectFill(
-//                rect: mIconManager!.getSelectedIcon()!.getRectWithOffset(offset: _offset, frameWidth: UDpi.toPixel(2)),
-//                cornerR: UDpi.toPixel(10),
-//                color: SELECTED_ICON_BG_COLOR,
-//                strokeWidth: 0, strokeColor: nil)
         }
         for icon in mIconManager!.getIcons() {
             if icon === dragedIcon {

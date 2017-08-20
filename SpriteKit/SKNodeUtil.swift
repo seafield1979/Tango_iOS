@@ -17,8 +17,8 @@ public class SKNodeUtil {
     public static func createLineNode( p1 : CGPoint, p2 : CGPoint, color : SKColor, lineWidth : CGFloat) -> SKShapeNode
     {
         let scene = TopScene.getInstance()
-        var points = [ scene.convertPoint(fromView: p1),
-                       scene.convertPoint(fromView: p2) ]
+        var points = [ p1.convToSK(),
+                       p2.convToSK() ]
         let node = SKShapeNode(points: &points, count: points.count)
         node.strokeColor = color
         node.lineWidth = lineWidth
@@ -69,7 +69,7 @@ public class SKNodeUtil {
         
         // ２本の線の親
         let parentNode = SKNode()
-        parentNode.position = scene.convertPoint(fromView: pos)
+        parentNode.position = pos.convToSK()
         parentNode.zPosition = 1000.0
         
         // line1

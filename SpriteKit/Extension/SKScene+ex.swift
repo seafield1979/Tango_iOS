@@ -23,7 +23,7 @@ extension SKScene {
      シーンに追加する
      */
     public override func addChild2(_ node : SKNode) {
-        node.position = self.convertPoint(fromView: node.position)
+        node.position = node.position.convToSK()
         self.addChild(node)
     }
 }

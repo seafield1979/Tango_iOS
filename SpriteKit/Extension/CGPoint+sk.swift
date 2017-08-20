@@ -21,11 +21,4 @@ extension CGPoint {
         self.y = -y
     }
     
-    /**
-     UIKitの座標系からSpriteKitの座標系に変換する
-     Sceneにappendする際の変換
-     */
-    public mutating func toSK(fromView scene: SKScene) {
-        self = scene.convertPoint(fromView: self)
-    }
 }

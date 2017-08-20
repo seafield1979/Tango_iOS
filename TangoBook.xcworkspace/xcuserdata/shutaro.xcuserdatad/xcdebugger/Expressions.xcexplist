@@ -25,5 +25,30 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "UDrawable.startMovingSize(dstW : CGFloat, dstH : CGFloat, frame : Int) -&gt; ():UDrawable.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "size">
+            </PersistentString>
+            <PersistentString
+               value = "dstSize">
+            </PersistentString>
+            <PersistentString
+               value = "pos">
+            </PersistentString>
+            <PersistentString
+               value = "srcSize">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "UIconWindows.updateLayout(animation : Bool) -&gt; ():UIconWindows.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "size">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>
