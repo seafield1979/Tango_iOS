@@ -355,24 +355,18 @@ public class UIcon : UDrawable, CustomStringConvertible {
      * アイコンを描画
      */
     public override func draw() {
-//        drawIcon(offset: offset)
 
-        if isDraging {
-            
+//        var isDraging : Bool = false        // ドラッグ中
+//        var isDroped : Bool = false        // ドロップ中(上に他のアイコンがドラッグ)
+//        var isTouched : Bool = false        // タッチ中
+//        var isLongTouched : Bool = false    // 長押し中
+        if isDroped {
+            dragedBgNode.isHidden = false
         }
-        if isChecking {
-    
-//            var _x = pos.x
-//            var _y = pos.y
-//            if offset != nil {
-//                _x += offset!.x
-//                _y += offset!.y
-//            }
-//            let width = UDpi.toPixel(CHECKED_WIDTH)
-//            drawCheckboxImage(x: _x + UDpi.toPixel(CHECKED_FRAME),
-//                          y: _y + size.height - width - UDpi.toPixel(CHECKED_FRAME),
-//                          width: width,
-//                          color: UColor.makeColor(100,100,200))
+        else if isDraging  || isTouched {
+            dragedBgNode.isHidden = false
+        } else {
+            dragedBgNode.isHidden = true
         }
     }
 

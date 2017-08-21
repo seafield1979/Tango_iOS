@@ -213,13 +213,6 @@ public class IconCard : UIcon {
     }
     
     /**
-     * 描画処理(抽象メソッド)
-     * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
-     */
-    public override func draw() {
-    }
-    
-    /**
      * 毎フレームの処理(抽象メソッド)
      * サブクラスでオーバーライドして使用する
      * @return true:処理中 / false:処理完了

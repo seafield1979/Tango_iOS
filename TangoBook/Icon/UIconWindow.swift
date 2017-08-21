@@ -417,10 +417,9 @@ public class UIconWindow : UWindow{
                 continue
             }
             // 矩形範囲外なら描画しない
-//            if URect.intersect(rect1: windowRect, rect2: icon!.getRect()) {
-////                icon!.draw( _offset )
-//            } else {
-//            }
+            if URect.intersect(rect1: windowRect, rect2: icon!.getRect()) {
+                icon!.draw()
+            }
         }
     }
 
@@ -1349,8 +1348,8 @@ public class UIconWindow : UWindow{
         let icons1 : List<UIcon> = window1.getIcons()!
         let icons2 : List<UIcon> = window2.getIcons()!
         
-        let index1 = icons2.indexOf(obj: icon2)
-        let index2 = icons1.indexOf(obj: icon1)
+        let index1 = icons1.indexOf(obj: icon1)
+        let index2 = icons2.indexOf(obj: icon2)
         if index1 == -1 || index2 == -1 {
             return
         }
