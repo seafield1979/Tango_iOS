@@ -124,9 +124,6 @@ public class IconInfoDialogCard : IconInfoDialog {
         if isUpdate {
             isUpdate = false
             updateLayout()
-
-            // 閉じるボタンの再配置
-            updateCloseIconPos()
         }
 
         // Buttons
@@ -260,7 +257,9 @@ public class IconInfoDialogCard : IconInfoDialog {
             }
 
             // アイコンの下に表示するテキストを設定
-            imageButton.addTitle(title: icon!.titleName, alignment: .CenterX,
+            imageButton.addTitle(title: UResourceManager.getStringByName(icon!.titleName),
+                                 textSize: UDpi.toPixel(ICON_TEXT_SIZE),
+                                 alignment: .CenterX,
                                  x: imageButton.size.width / 2,
                                  y: imageButton.size.height + UDpi.toPixel(4),
                                  color: .black, bgColor: nil)

@@ -32,7 +32,7 @@ public class IconInfoDialogInTrash : IconInfoDialog {
 //    private let MARGIN_V = 13
 //    private let MARGIN_H = 13
     private let TEXT_SIZE = 17
-    private let ICON_TEXT_SIZE = 10
+    private let ICON_TEXT_SIZE = 12
     
     private let TEXT_COLOR = UIColor.black
     private let TEXT_BG_COLOR = UIColor.white
@@ -83,8 +83,6 @@ public class IconInfoDialogInTrash : IconInfoDialog {
             x: x, y: y, color: BG_COLOR)
         
         // 初期化処理
-        instance.addCloseIcon(pos: CloseIconPos.RightTop);
-        
         instance.addToDrawManager()
         
         return instance
@@ -103,22 +101,6 @@ public class IconInfoDialogInTrash : IconInfoDialog {
         if isUpdate {
             isUpdate = false
             updateLayout()
-            
-            // 閉じるボタンの再配置
-            updateCloseIconPos()
-        }
-        
-        // BG
-        UDraw.drawRoundRectFill( rect: getRect(), cornerR: UDpi.toPixel(7),
-                                 color: bgColor!,
-                                 strokeWidth: UDpi.toPixel(FRAME_WIDTH),
-                                 strokeColor: FRAME_COLOR)
-        
-        if (textTitle != nil) {
-            textTitle!.draw()
-        }
-        if (textCount != nil) {
-            textCount!.draw()
         }
         
         // Buttons
@@ -145,32 +127,8 @@ public class IconInfoDialogInTrash : IconInfoDialog {
         var width = iconW * CGFloat(icons.count) +
             iconMargin * CGFloat(icons.count + 1)
         
-        // Action buttons
-        var x = iconMargin
-        for icon in icons {
-            let image = UResourceManager.getImageWithColor(
-                imageName: icon!.imageName, color: UColor
-                .DarkOrange)
-            
-            let imageButton = UButtonImage(
-                callbacks: self,
-                id: icon!.id.rawValue, priority: 0,
-                x: x, y: y,
-                width: iconW, height: iconW,
-                image: image!, pressedImage: nil)
-            
-            // アイコンの下に表示するテキストを設定
-            imageButton.setTitle(
-                title: UResourceManager.getStringByName(icon!.titleName),
-                size: Int(UDpi.toPixel(ICON_TEXT_SIZE)),
-                color: UIColor.black)
-            
-            imageButtons.append(imageButton)
-            ULog.showRect(rect: imageButton.getRect())
-            
-            x += iconW + iconMargin;
-        }
-        y += iconW + UDpi.toPixel(MARGIN_V + 17);
+        // SpriteKitのノードを削除
+        parentNode.removeAllChildren()
         
         // Title
         textTitle = UTextView.createInstance(
@@ -184,7 +142,11 @@ public class IconInfoDialogInTrash : IconInfoDialog {
         
         // テキストの幅に合わせてダイアログのサイズ更新
         var textSize2 : CGSize = UDraw.getTextSize( text: mIcon.getTitle()!, textSize: Int(textSize))
-        if textSize2.width + marginH * 4 > width {
+
+        if width < UDpi.toPixel(200) {
+            width = UDpi.toPixel(200)
+        }
+        if width < textSize2.width + marginH * 4  {
             width = textSize2.width + marginH * 4
         }
         
@@ -216,10 +178,41 @@ public class IconInfoDialogInTrash : IconInfoDialog {
             
             y += UDpi.toPixel(TEXT_VIEW_H) + marginV;
         }
+        // Action buttons
+        var x = iconMargin
+        for icon in icons {
+            let image = UResourceManager.getImageWithColor(
+                imageName: icon!.imageName, color: UColor
+                    .DarkOrange)
+            
+            let imageButton = UButtonImage(
+                callbacks: self,
+                id: icon!.id.rawValue, priority: 0,
+                x: x, y: y,
+                width: iconW, height: iconW,
+                image: image!, pressedImage: nil)
+            
+            // アイコンの下に表示するテキストを設定
+            imageButton.addTitle(
+                title: UResourceManager.getStringByName(icon!.titleName),
+                textSize: UDpi.toPixel(ICON_TEXT_SIZE),
+                alignment: .CenterX,
+                                 x: imageButton.size.width / 2,
+                                 y: imageButton.size.height + UDpi.toPixel(4),
+                                 color: .black, bgColor: nil)
+            
+            imageButtons.append(imageButton)
+            ULog.showRect(rect: imageButton.getRect())
+            
+            x += iconW + iconMargin;
+        }
+
+        y += iconW + UDpi.toPixel(MARGIN_V + 17);
         
         setSize(width, y);
         
         // Correct position
+        // ダイアログが画面外にはみ出さないように補正
         if ( pos.x + size.width > topScene.getWidth() - dlgMargin) {
             pos.x = topScene.getWidth() - size.width - dlgMargin
         }
@@ -227,6 +220,28 @@ public class IconInfoDialogInTrash : IconInfoDialog {
             pos.y = topScene.getHeight() - size.height - dlgMargin
         }
         updateRect()
+        
+        
+        // SpriteKitノード作成
+        // SpriteKitのノードを生成する
+        updateWindow()
+        initSKNode()
+        addCloseIcon(pos: CloseIconPos.RightTop)
+        
+        if textTitle != nil {
+            clientNode.addChild2( textTitle!.parentNode )
+        }
+        
+        if textWord != nil {
+            clientNode.addChild2( textWord!.parentNode )
+        }
+        if textCount != nil {
+            clientNode.addChild2( textCount!.parentNode )
+        }
+        
+        for button in imageButtons {
+            clientNode.addChild2( button!.parentNode )
+        }
     }
 
     public override func touchEvent( vt : ViewTouch, offset : CGPoint?) -> Bool {

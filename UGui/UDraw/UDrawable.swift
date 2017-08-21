@@ -107,8 +107,6 @@ public class UDrawable {
     
     public func setPos(_ x : CGFloat, _ y : CGFloat) {
         setPos(x, y, true)
-        
-        parentNode.position = pos.convToSK()
     }
     public func setPos(_ x:CGFloat, _ y:CGFloat, _ update : Bool)
     {

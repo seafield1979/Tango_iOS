@@ -206,22 +206,29 @@ public class UTextView : UDrawable {
         
         // BG
         if isDrawBG {
-            
+            let radius = UDpi.toPixel(10)
             switch alignment {
             case .None:
-                self.bgNode = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: SKUtil.convY(fromView: size.height)))
+                self.bgNode = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height).convToSK(),
+                                          cornerRadius: radius)
             case .CenterX:
-                self.bgNode = SKShapeNode(rect: CGRect(x: -size.width / 2, y:0, width: size.width, height: SKUtil.convY(fromView: size.height)))
+                self.bgNode = SKShapeNode(rect: CGRect(x: -size.width / 2, y:0, width: size.width, height: size.height).convToSK(),
+                                          cornerRadius: radius)
             case .CenterY:
-                self.bgNode = SKShapeNode(rect: CGRect(x:0, y: size.height / 2, width: size.width, height: SKUtil.convY(fromView: size.height)))
+                self.bgNode = SKShapeNode(rect: CGRect(x:0, y: size.height / 2, width: size.width, height: size.height).convToSK(),
+                                          cornerRadius: radius)
             case .Center:
-                self.bgNode = SKShapeNode(rect: CGRect(x: -size.width / 2, y: size.height / 2, width: size.width, height: SKUtil.convY(fromView: size.height)))
+                self.bgNode = SKShapeNode(rect: CGRect(x: -size.width / 2, y: size.height / 2, width: size.width, height: size.height).convToSK(),
+                                          cornerRadius: radius)
             case .Left:
-                self.bgNode = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: SKUtil.convY(fromView: size.height)))
+                self.bgNode = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height).convToSK(),
+                                          cornerRadius: radius)
             case .Right:
-                self.bgNode = SKShapeNode(rect: CGRect(x: -size.width, y:0, width: size.width, height: SKUtil.convY(fromView: size.height)))
+                self.bgNode = SKShapeNode(rect: CGRect(x: -size.width, y:0, width: size.width, height: size.height).convToSK(),
+                                          cornerRadius: radius)
             case .Right_CenterY:
-                self.bgNode = SKShapeNode(rect: CGRect(x: -size.width, y: size.height / 2, width: size.width, height: SKUtil.convY(fromView: size.height)))
+                self.bgNode = SKShapeNode(rect: CGRect(x: -size.width, y: size.height / 2, width: size.width, height: size.height).convToSK(),
+                                          cornerRadius: radius)
             }
             
             

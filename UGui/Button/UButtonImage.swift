@@ -178,7 +178,7 @@ public class UButtonImage : UButton {
     /**
      * テキストを追加する
      */
-    public func addTitle(title : String, alignment: UAlignment,
+    public func addTitle(title : String, textSize: CGFloat, alignment: UAlignment,
                          x : CGFloat, y : CGFloat,
                          color : UIColor, bgColor : UIColor?)
     {
@@ -188,7 +188,7 @@ public class UButtonImage : UButton {
         
         titleNode = SKNodeUtil.createLabelNode(
             text: title,
-            textSize: UDpi.toPixel(TEXT_SIZE), color: color,
+            textSize: textSize, color: color,
             alignment: alignment, offset: CGPoint(x: x, y: y))
         titleNode?.zPosition = 0.2
         parentNode.addChild2(titleNode!)

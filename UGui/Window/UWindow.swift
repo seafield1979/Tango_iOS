@@ -611,7 +611,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
                                  x: 0, y: 0,
                                  color: UColor.makeColor(255,0,0))
         updateCloseIconPos()
-        parentNode.addChild2( closeIcon!.parentNode )
+        bgNode.addChild( closeIcon!.parentNode )
     }
     
     /**
@@ -624,12 +624,12 @@ public class UWindow : UDrawable, UButtonCallbacks {
         }
         
         var x, y : CGFloat
-        let MARGIN : Int = 4
-        y = UDpi.toPixel(MARGIN)
+        let margin = UDpi.toPixel(5)
+        y = margin
         if (closeIconPos == CloseIconPos.LeftTop) {
-            x = UDpi.toPixel(UButtonClose.BUTTON_W + MARGIN);
+            x = margin
         } else {
-            x = size.width - UDpi.toPixel(UButtonClose.BUTTON_W + MARGIN);
+            x = size.width - closeIcon!.size.width - margin * 2
         }
         
         closeIcon?.setPos(x, y)
