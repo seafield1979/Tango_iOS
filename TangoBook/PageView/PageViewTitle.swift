@@ -153,7 +153,6 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                                   y: UDpi.toPixel(10),
                                   width: zoomButtonW, height: zoomButtonW,
                                   image: buttonImage!, pressedImage: nil)
-        mTopScene.addChild2(button.parentNode)
         button.addToDrawManager()
         
         // -ボタン
@@ -166,7 +165,6 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                               width: zoomButtonW, height: zoomButtonW,
                               image: buttonImage!,
                               pressedImage: nil)
-        mTopScene.addChild2(button.parentNode)
         button.addToDrawManager()
 
         var x = UDpi.toPixel(PageViewTitle.MARGIN_H2)
@@ -187,14 +185,13 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                 width: buttonW, height: buttonW,
                 textSize: Int(UDpi.toPixel(PageViewTitle.TEXT_SIZE)),
                 textColor: info.textColor, bgColor: info.bgColor)
-            mTopScene.addChild2(button.parentNode)
             mButtons.append(button)
                 
             let image = UResourceManager.getImageWithColor(imageName: info.imageName, color: info.lineColor)
             
             button.setImage(image: image!,
                                  imageSize: CGSize(width: UDpi.toPixel(PageViewTitle.IMAGE_W), height: UDpi.toPixel(PageViewTitle.IMAGE_W)))
-            _ = UDrawManager.getInstance().addDrawable(button)
+            button.addToDrawManager()
 
             // 表示座標を少し調整
             button.setImageAlignment(UAlignment.Center)
@@ -231,7 +228,6 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                                      textSize: Int(UDpi.toPixel(PageViewTitle.TEXT_SIZE)),
                                      textColor: info.textColor,
                                      bgColor: info.bgColor)
-            mTopScene.addChild2(button.parentNode)
             mButtons.append(button)
             
             let image = UResourceManager.getImageWithColor(
@@ -241,7 +237,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                 image: image!,
                 imageSize: CGSize(width: UDpi.toPixel(PageViewTitle.IMAGE_W),
                         height: UDpi.toPixel(PageViewTitle.IMAGE_W)))
-            _ = UDrawManager.getInstance().addDrawable(button);
+            button.addToDrawManager()
 
             // 表示座標を少し調整
             button.setImageAlignment(UAlignment.Center);

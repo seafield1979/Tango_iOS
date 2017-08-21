@@ -194,6 +194,9 @@ public class UPageViewManager {
             
             _ = pageStack.removeLast()
             
+            // SpriteKit
+            mTopScene.removeAllChildren()
+            
             // 新しいページの前処理
             let newPage = pageStack.last()!
             newPage.onShow()

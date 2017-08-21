@@ -284,6 +284,9 @@ public class UDrawable {
      */
     public func addToDrawManager() {
         _ = UDrawManager.getInstance().addDrawable(self)
+        
+        // SpriteKitのノードを追加
+        TopScene.getInstance().addChild2(self.parentNode)
     }
     
     /**

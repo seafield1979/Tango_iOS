@@ -151,7 +151,7 @@ public class PageViewStudyBookSelect : UPageView
                                   listItemCallbacks : self, priority : DRAW_PRIORITY,
                                   x : x, y : y,
                                   width : width-UDpi.toPixel(MARGIN_H)*2,
-                                  height : listViewH, color : UIColor.white)
+                                  height : listViewH, bgColor : UIColor.white)
             mListView!.setFrameColor(frameColor: UIColor.black)
             mListView!.addToDrawManager()
 

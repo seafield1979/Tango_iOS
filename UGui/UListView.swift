@@ -30,7 +30,6 @@ public class UListView : UScrollWindow
      */
     var mItems : List<UListItem> = List()
     var mListItemCallbacks : UListItemCallbacks?
-    var mClipRect : CGRect
     
     // リストの最後のアイテムの下端の座標
     var mBottomY : CGFloat = 0
@@ -43,17 +42,16 @@ public class UListView : UScrollWindow
                 listItemCallbacks : UListItemCallbacks?,
                 priority : Int,
                 x : CGFloat, y : CGFloat,
-                width : CGFloat, height : CGFloat, color : UIColor?)
+                width : CGFloat, height : CGFloat, bgColor : UIColor?)
     {
         mListItemCallbacks = listItemCallbacks
-        mClipRect = CGRect()
         
         super.init(topScene: topScene,
                    callbacks: windowCallbacks, priority:priority,
                     x: x, y: y,
                     width: width, height: height,
-                    color: color,
-                    topBarH: 0, frameW: 0, frameH: UDpi.toPixel(10))
+                    bgColor: bgColor,
+                    topBarH: 0, frameW: UDpi.toPixel(3), frameH: UDpi.toPixel(20))
         
     }
     
@@ -72,11 +70,13 @@ public class UListView : UScrollWindow
         item.setPos( 0, mBottomY )
         item.setIndex( mItems.count )
         item.setListItemCallbacks( mListItemCallbacks )
+        item.parentNode.position = CGPoint(x:item.pos.x, y:mBottomY)
+        clientNode.addChild2( item.parentNode )
         
         mItems.append(item)
         
         mBottomY += item.getHeight()
-        mBottomY -= item.mFrameW / 2       // フレーム部分は重なってもOK
+        mBottomY -= item.mFrameW       // 上下のフレーム部分は重なってもOK
         
         contentSize.height = mBottomY
     }
@@ -208,7 +208,7 @@ public class UListView : UScrollWindow
         for _ in 0...19 {
             let item = ListItemTest1(callbacks: nil,
                                      text: "hoge",
-                                     x: 0, width: size.width, color:UIColor.yellow)
+                                     x: 0, width: size.width, bgColor:UIColor.yellow)
             add(item: item)
         }
         updateWindow()

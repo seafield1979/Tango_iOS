@@ -200,7 +200,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             dir: winDir, width: size1.width,
             height: size1.height, bgColor: UIColor.white)
 
-        mTopScene.addChild2( mainWindow.parentNode )
         mainWindow.addToDrawManager()
         mWindows[WindowType.Icon1.rawValue] = mainWindow
       
@@ -213,7 +212,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             isHome: false, dir: winDir, width: size2.width, height: size2.height,
             bgColor: UIColor.lightGray)
         
-        mTopScene.addChild2( subWindow.parentNode )
         subWindow.addToDrawManager()
         subWindow.isShow = false
         mWindows[WindowType.Icon2.rawValue] = subWindow
@@ -269,6 +267,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                     screenW: mTopScene.getWidth(), screenH: mTopScene.getHeight(),
                         textColor: UIColor.black, dialogColor: UIColor.lightGray)
                 mDialog!.addToDrawManager()
+                
                 mDialog!.setTitle(
                 UResourceManager.getStringByName("confirm_moveto_trash"))
                 _ = mDialog!.addButton(

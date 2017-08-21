@@ -81,14 +81,14 @@ public class PageViewTest5 : UPageView, UListItemCallbacks {
             listItemCallbacks : self,
             priority : 100,
             x : 50.0, y : 50.0,
-            width : 300, height : 400, color : UIColor.red)
+            width : 300, height : 400, bgColor : UIColor.red)
   
         // アイテムを追加
         for _ in 0...19 {
             let item = ListItemTest1(callbacks: self,
                                      text: "hoge",
                                      x: 0, width: listView!.size.width,
-                                     color:UIColor.yellow)
+                                     bgColor:UIColor.yellow)
             listView?.add(item: item)
         }
         listView?.updateWindow()

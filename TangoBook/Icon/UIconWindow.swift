@@ -151,9 +151,8 @@ public class UIconWindow : UWindow{
         if icon != nil {
             // clientNodeからbgNodeに付け替え
             icon!.parentNode.removeFromParent()
-            if let bg = bgNode {
-                bg.addChild( icon!.parentNode )
-            }
+            bgNode.addChild( icon!.parentNode )
+            
             // 優先度を上げて他のアイコンの下に隠れないようにする
             icon!.parentNode.zPosition = CGFloat(DrawPriority.DragIcon.rawValue)
         }
@@ -269,14 +268,12 @@ public class UIconWindow : UWindow{
 
         // ゴミ箱を配置
         if parentType == TangoParentType.Home {
-//            for _ in 0...100 {
-                let icon = mIconManager!.addNewIcon(type: IconType.Trash,
-                                        parentType: TangoParentType.Home,
-                                        parentId: 0, addPos: AddPos.Top)
-                if let _icon = icon {
-                    self.clientNode.addChild2( _icon.parentNode )
-                }
-//            }
+            let icon = mIconManager!.addNewIcon(type: IconType.Trash,
+                                    parentType: TangoParentType.Home,
+                                    parentId: 0, addPos: AddPos.Top)
+            if let _icon = icon {
+                self.clientNode.addChild2( _icon.parentNode )
+            }
         }
 
         if items != nil {
@@ -1272,7 +1269,16 @@ public class UIconWindow : UWindow{
 
         return done
     }
-
+    
+    /**
+     * タッチアップ処理
+     * @param vt
+     * @return
+     */
+    public override func touchUpEvent(vt: ViewTouch) -> Bool {
+        return false
+    }
+    
      /**
      * アイコンの移動が完了
      */
@@ -1321,8 +1327,8 @@ public class UIconWindow : UWindow{
             icon1.parentNode.removeFromParent()
             icon2.parentNode.removeFromParent()
             // アイコン移動中はクロップされないようにする
-            window1.bgNode!.addChild2(icon2.parentNode)
-            window2.bgNode!.addChild2(icon1.parentNode)
+            window1.bgNode.addChild2(icon2.parentNode)
+            window2.bgNode.addChild2(icon1.parentNode)
         }
         
         // 再配置
@@ -1330,8 +1336,6 @@ public class UIconWindow : UWindow{
             // 親の付け替え
             icon1.setParentWindow(window2)
             icon2.setParentWindow(window1)
-
-            // ドロップアイコンの座標系を変換
 
             // アイコン2 UWindow -> アイコン1 UWindow
             icon2.setPos(icon2.getX() + (window2.pos.x - window1.pos.x),

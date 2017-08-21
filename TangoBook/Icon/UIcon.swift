@@ -356,14 +356,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
      */
     public override func draw() {
 
-//        var isDraging : Bool = false        // ドラッグ中
-//        var isDroped : Bool = false        // ドロップ中(上に他のアイコンがドラッグ)
-//        var isTouched : Bool = false        // タッチ中
-//        var isLongTouched : Bool = false    // 長押し中
-        if isDroped {
-            dragedBgNode.isHidden = false
-        }
-        else if isDraging  || isTouched {
+        if isDraging  || isDroped || isTouched {
             dragedBgNode.isHidden = false
         } else {
             dragedBgNode.isHidden = true
@@ -535,6 +528,15 @@ public class UIcon : UDrawable, CustomStringConvertible {
         }
 
         return done
+    }
+
+    /**
+     * タッチアップ処理(抽象メソッド)
+     * @param vt
+     * @return
+     */
+    public override func touchUpEvent(vt: ViewTouch) -> Bool {
+        return false
     }
 
 

@@ -51,7 +51,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
      */
     // SpriteKit nodes
     var frameNode : SKShapeNode?
-    var bgNode : SKShapeNode?
+    var bgNode : SKShapeNode
     var cropNode : SKCropNode?
     var clientNode : SKNode           // スクロールする子ノードの親
     var animatingBgNode : SKShapeNode?  // アニメーション中のBG
@@ -217,6 +217,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
         self.mCropping = cropping
         
         clientNode = SKNode()
+        bgNode = SKShapeNode()
         
         super.init(priority: priority, x: x,y: y,width: width,height: height)
         
@@ -243,14 +244,16 @@ public class UWindow : UDrawable, UButtonCallbacks {
         
         // bg
         bgNode = SKShapeNode(rect:
-            CGRect(x: frameSize.width, y: topBarH + frameSize.height,
+            CGRect(x: 0, y: 0,
                    width: clientSize.width, height: clientSize.height).convToSK(),
-                             cornerRadius: UDpi.toPixel(5))
+                             cornerRadius: UDpi.toPixel(0))
+        bgNode.position = CGPoint(x: frameSize.width,
+                                  y: topBarH + frameSize.height)
         if bgColor != nil {
-            bgNode!.fillColor = bgColor!
-            bgNode!.strokeColor = .clear
+            bgNode.fillColor = bgColor!
+            bgNode.strokeColor = .clear
         }
-        parentNode.addChild2( bgNode! )
+        parentNode.addChild2( bgNode )
         
         // crop
         if mCropping {
@@ -260,9 +263,8 @@ public class UWindow : UDrawable, UButtonCallbacks {
             
             cropNode = SKCropNode()
             cropNode!.maskNode = maskNode
-            cropNode!.position = CGPoint(x: frameSize.width, y: topBarH + frameSize.height)
-            
-            parentNode.addChild2(cropNode!)
+            cropNode!.position = bgNode.position            
+            parentNode.addChild(cropNode!)
         }
         
         // clientNode
@@ -272,11 +274,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
         if mCropping {
             cropNode!.addChild( clientNode )
         } else {
-            if bgNode != nil {
-                bgNode!.addChild( clientNode )
-            } else {
-                parentNode.addChild( clientNode )
-            }
+            bgNode.addChild( clientNode )
         }
         
         updateRect()

@@ -23,8 +23,8 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
     
     private let DRAW_PRIORITY = 100
     private let MenuIdTop : CGFloat = 100
-    private let MARGIN_H : CGFloat = 50
-    private let MARGIN_V : CGFloat = 50
+    private let MARGIN_H : CGFloat = 10
+    private let MARGIN_V : CGFloat = 10
 
     
     /**
@@ -64,12 +64,12 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
             listItemCallbacks : self, priority : DRAW_PRIORITY,
             x : MARGIN_H, y : MARGIN_V,
             width : mTopScene.getWidth() - MARGIN_H * 2,
-            height : mTopScene.getHeight() - MARGIN_V * 2, color : UIColor.white)
+            height : mTopScene.getHeight() - MARGIN_V * 2, bgColor : UIColor.white)
         
         mListView.addToDrawManager()
-
+        
         for menu in DebugMenu.cases {
-            let item = ListItemTest1(callbacks : self, text : menu.rawValue, x : 0, width : mListView.getSize().width, color : UIColor.white)
+            let item = ListItemTest1(callbacks : self, text : menu.rawValue, x : 0, width : mListView.clientSize.width, bgColor : .white)
             mListView.add(item: item)
         }
     }

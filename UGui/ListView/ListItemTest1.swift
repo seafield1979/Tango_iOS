@@ -6,8 +6,7 @@
 //  Copyright © 2017年 Shusuke Unno. All rights reserved.
 //
 
-import Foundation
-import UIKit
+import SpriteKit
 
 public class ListItemTest1 : UListItem {
     /**
@@ -25,20 +24,30 @@ public class ListItemTest1 : UListItem {
     private var mText : String? = nil
     private var mTextSize : Int = 10
     
+    private var labelNode : SKLabelNode
+    
     /**
      * Constructor
      */
     public init(callbacks : UListItemCallbacks?,
                               text : String,
-                              x : CGFloat, width : CGFloat, color : UIColor)
+                              x : CGFloat, width : CGFloat, bgColor : UIColor)
     {
+        labelNode = SKLabelNode()
+        
         super.init(callbacks: callbacks,
                    isTouchable: true,
                    x: x, width: width, height: UDpi.toPixel(ListItemTest1.ITEM_H),
-                   bgColor: color, frameW: 2, frameColor: UIColor.black)
+                   bgColor: bgColor, frameW: 2, frameColor: UIColor.black)
         self.color = color
         mText = text
         mTextSize = Int(UDpi.toPixel(ListItemTest1.TEXT_SIZE))
+        
+        // SpriteKit Node
+        labelNode = SKNodeUtil.createLabelNode(text: text, textSize: CGFloat(mTextSize), color: .black, alignment: .Center, offset: nil)
+        labelNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        
+        bgNode.addChild2(labelNode)
     }
     
     /**
@@ -52,19 +61,6 @@ public class ListItemTest1 : UListItem {
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
     override public func draw() {
-//        var _pos = CGPoint(x: pos.x, y: pos.y)
-//        if offset != nil {
-//            _pos.x += offset!.x
-//            _pos.y += offset!.y
-//        }
-//        
-//        // BG
-//        super.draw(_pos)
-//        
-//        // text
-//        let text = mText
-//        UDraw.drawText(text: text!, alignment: UAlignment.Center, textSize: mTextSize,
-//                       x: _pos.x + size.width / 2, y: _pos.y + size.height / 2, color: ListItemTest1.TEXT_COLOR )
     }
     
     /**
