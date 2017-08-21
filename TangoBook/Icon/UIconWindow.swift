@@ -154,12 +154,13 @@ public class UIconWindow : UWindow{
             if let bg = bgNode {
                 bg.addChild( icon!.parentNode )
             }
+            // 優先度を上げて他のアイコンの下に隠れないようにする
+            icon!.parentNode.zPosition = CGFloat(DrawPriority.DragIcon.rawValue)
         }
         else {
             if self.dragedIcon != nil {
-                // bgNodeからclientNode以下に付け替え
-//                dragedIcon!.parentNode.removeFromParent()
-//                clientNode.addChild( dragedIcon!.parentNode )
+                // 優先度を元に戻す
+                self.dragedIcon!.parentNode.zPosition = 0
             }
         }
         self.dragedIcon = icon
@@ -1314,7 +1315,16 @@ public class UIconWindow : UWindow{
             TangoItemPosDao.changePos(item1: icon1.getTangoItem()!,
                                       item2: icon2.getTangoItem()!)
         }
-
+        
+        // SpriteKitノード　親の付け替え
+        if window1 !== window2 {
+            icon1.parentNode.removeFromParent()
+            icon2.parentNode.removeFromParent()
+            // アイコン移動中はクロップされないようにする
+            window1.bgNode!.addChild2(icon2.parentNode)
+            window2.bgNode!.addChild2(icon1.parentNode)
+        }
+        
         // 再配置
         if icons1 !== icons2 {
             // 親の付け替え
@@ -1426,6 +1436,11 @@ public class UIconWindow : UWindow{
 
         icons.remove(obj: icon1!)
 
+        // SpriteKit ノード
+        // ドラッグアイコンを親から削除
+        icon1!.parentNode.removeFromParent()
+        window2.clientNode.addChild2(icon1!.parentNode)
+
         if icon2 === windows!.getSubWindow().getParentIcon() &&
             window2.isShow
         {
@@ -1435,6 +1450,7 @@ public class UIconWindow : UWindow{
             window2.sortIcons(animate: false)
             icon1!.setParentWindow(window2)
         }
+        
         // データベース更新
         // 位置情報(TangoItemPos)を書き換える
         var itemId = 0
