@@ -15,7 +15,7 @@ import UIKit
  */
 public class UMenuBar : UWindow {
     public static let TAG = "UMenuBar"
-    public static let DRAW_PRIORITY = 90
+    public static let DRAW_PRIORITY = 110
     public static let MENU_BAR_H = 60
     static let MARGIN_L = 10
     static let MARGIN_H = 16
@@ -75,8 +75,7 @@ public class UMenuBar : UWindow {
         
         // 座標設定
         item.setPos(
-            UDpi.toPixel(UMenuBar.MARGIN_H + (UMenuItem.ITEM_W + UMenuBar.MARGIN_H) * (topItems.count - 1)),
-            UDpi.toPixel(UMenuBar.MARGIN_TOP))
+            UDpi.toPixel((UMenuItem.ITEM_W + UMenuBar.MARGIN_H) * (topItems.count - 1)),0 )
         return item
     }
     

@@ -75,8 +75,8 @@ public class UDrawable {
     {
         parentNode = SKNode()
         
-        setPos(x, y)
-        setSize(width, height)
+        pos = CGPoint(x: x, y: y)
+        size = CGSize(width: width, height: height)
         updateRect()
         
         drawPriority = priority

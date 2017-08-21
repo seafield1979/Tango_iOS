@@ -131,7 +131,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
     public override func initSKNode() {
         // parent
         parentNode.zPosition = CGFloat(drawPriority)
-        parentNode.position = CGPoint(x:pos.x, y: pos.y).convToSK()
+        parentNode.position = CGPoint(x:pos.x, y: pos.y)
         
         // frame
         if frameColor != nil && (frameSize.width > 0 || (topBarH + frameSize.height) > 0) {

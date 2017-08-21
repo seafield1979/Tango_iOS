@@ -69,7 +69,7 @@ public class SKNodeUtil {
         
         // ２本の線の親
         let parentNode = SKNode()
-        parentNode.position = pos.convToSK()
+        parentNode.position = pos
         parentNode.zPosition = 1000.0
         
         // line1

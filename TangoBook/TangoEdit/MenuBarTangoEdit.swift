@@ -64,7 +64,11 @@ public class MenuBarTangoEdit : UMenuBar {
         
         // 画面右端に寄せる
         pos.x = parentW - UDpi.toPixel(UMenuItem.ITEM_W + UMenuBar.MARGIN_H)
-    
+        parentNode.position = pos
+
+        let n = SKNodeUtil.createCrossPoint(pos: pos, length: 10.0, lineWidth: 2.0, color: .red)
+        TopScene.getInstance().addChild2(n)
+        
         itemInfos.append( MenuItemInfo(id: MenuItemId.AddTop, type: MenuItemType.Top, imageName: ImageName.add, stringName: "add_item", color: UIColor.blue, forDebug: false))
         
         itemInfos.append( MenuItemInfo(id: MenuItemId.AddCard, type: MenuItemType.Child, imageName: ImageName.card, stringName: "add_card", color: ICON_COLOR, forDebug: false))
@@ -123,7 +127,7 @@ public class MenuBarTangoEdit : UMenuBar {
             case .Top:
                 itemTop = addTopMenuItem(menuId: itemInfo.id.rawValue, image: image)
                 item = itemTop
-                break;
+                
             case .Child:
                 item = addMenuItem(parent: itemTop!, menuId: itemInfo.id.rawValue, image:image)
                 

@@ -176,9 +176,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
          // 描画オブジェクトクリア
          UDrawManager.getInstance().initialize()
-        
-         // DebugDialogs
-//         debugDialogs = DebugDialogs(mTopScene)
 
          // UIconWindow
         var size1 : CGSize, size2 : CGSize
@@ -228,10 +225,11 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         subWindow.initialize()
 
         // UMenuBar
-//        mMenuBar = MenuBarTangoEdit.createInstance(
-//            topScene: mTopScene, callbackClass: self,
-//            parentW: width, parentH: height, bgColor: nil)
-//        mWindows[WindowType.MenuBar.rawValue] = mMenuBar!
+        mMenuBar = MenuBarTangoEdit.createInstance(
+            topScene: mTopScene, callbackClass: self,
+            parentW: width, parentH: height, bgColor: nil)
+        
+        mWindows[WindowType.MenuBar.rawValue] = mMenuBar!
 
     }
     

@@ -38,8 +38,6 @@ public class UMenuItem : UDrawable {
     var mNestCount : Int = 0
     var mStateId : Int = 0          // 現在の状態
     var mStateMax : Int = 0         // 状態の最大値 addState で増える
-    var mShowTitle : Bool = false
-    
     
     // SpriteKit Node
     var spriteNode : SKSpriteNode?
@@ -113,11 +111,11 @@ public class UMenuItem : UDrawable {
             createNode : true,
             multiLine: false, isDrawBG: true,
             x: x, y: y, width: 0, color: color, bgColor: bgColor)
+
+        // 初期状態ではタイトルは非表示
+        mTextTitle!.parentNode.isHidden = true
         
-        mShowTitle = true
-        mTextTitle?.setMargin( 15, 15)
-        
-        parentNode.addChild(mTextTitle!.parentNode)
+        parentNode.addChild2(mTextTitle!.parentNode)
     }
     
     /**

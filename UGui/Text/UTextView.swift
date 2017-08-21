@@ -153,91 +153,49 @@ public class UTextView : UDrawable {
         if isMargin {
             mMargin = CGSize(width: UDpi.toPixel(UTextView.MARGIN_H),
                              height: UDpi.toPixel(UTextView.MARGIN_V))
+            labelNode!.position = CGPoint(x: mMargin.width,
+                                    y: mMargin.height )
             size = CGSize(width: size.width + mMargin.width * 2,
                           height: size.height + mMargin.height * 2)
         }
         
         self.labelNode!.zPosition = 0.1
-        switch alignment {
-        case .None:
-            labelNode!.horizontalAlignmentMode = .left
-            labelNode!.verticalAlignmentMode = .top
-            if isMargin {
-                labelNode!.position = CGPoint(x:mMargin.width, y: SKUtil.convY(fromView: mMargin.height))
-            }
-        case .CenterX:
-            labelNode!.horizontalAlignmentMode = .center
-            labelNode!.verticalAlignmentMode = .top
-            if isMargin {
-                labelNode!.position = CGPoint(x: 0, y: SKUtil.convY(fromView: mMargin.height))
-            }
-        case .CenterY:
-            labelNode!.horizontalAlignmentMode = .left
-            labelNode!.verticalAlignmentMode = .center
-            if isMargin {
-                labelNode!.position = CGPoint(x:mMargin.width, y: 0)
-            }
-        case .Center:
-            labelNode!.horizontalAlignmentMode = .center
-            labelNode!.verticalAlignmentMode = .center
-            
-        case .Left:
-            labelNode!.horizontalAlignmentMode = .left
-            labelNode!.verticalAlignmentMode = .top
-            if isMargin {
-                labelNode!.position = CGPoint(x:mMargin.width, y: SKUtil.convY(fromView: mMargin.height))
-            }
-        case .Right:
-            labelNode!.horizontalAlignmentMode = .right
-            labelNode!.verticalAlignmentMode = .top
-            if isMargin {
-                labelNode!.position = CGPoint(x:-mMargin.width, y: SKUtil.convY(fromView: mMargin.height))
-            }
-        case .Right_CenterY:
-            labelNode!.horizontalAlignmentMode = .right
-            labelNode!.verticalAlignmentMode = .center
-            if isMargin {
-                labelNode!.position = CGPoint(x: -mMargin.width, y: 0)
-            }
-        }
-        
-        parentNode.addChild(self.labelNode!)
-        
+
+        parentNode.addChild2(self.labelNode!)
         
         // BG
         if isDrawBG {
             let radius = UDpi.toPixel(10)
-            switch alignment {
-            case .None:
-                self.bgNode = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height).convToSK(),
-                                          cornerRadius: radius)
-            case .CenterX:
-                self.bgNode = SKShapeNode(rect: CGRect(x: -size.width / 2, y:0, width: size.width, height: size.height).convToSK(),
-                                          cornerRadius: radius)
-            case .CenterY:
-                self.bgNode = SKShapeNode(rect: CGRect(x:0, y: size.height / 2, width: size.width, height: size.height).convToSK(),
-                                          cornerRadius: radius)
-            case .Center:
-                self.bgNode = SKShapeNode(rect: CGRect(x: -size.width / 2, y: size.height / 2, width: size.width, height: size.height).convToSK(),
-                                          cornerRadius: radius)
-            case .Left:
-                self.bgNode = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height).convToSK(),
-                                          cornerRadius: radius)
-            case .Right:
-                self.bgNode = SKShapeNode(rect: CGRect(x: -size.width, y:0, width: size.width, height: size.height).convToSK(),
-                                          cornerRadius: radius)
-            case .Right_CenterY:
-                self.bgNode = SKShapeNode(rect: CGRect(x: -size.width, y: size.height / 2, width: size.width, height: size.height).convToSK(),
-                                          cornerRadius: radius)
-            }
-            
+            self.bgNode = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height).convToSK(),
+                cornerRadius: radius)
             
             if bgColor != nil {
                 self.bgNode!.fillColor = bgColor!
             }
             self.bgNode!.strokeColor = .clear
-            parentNode.addChild(self.bgNode!)
+            parentNode.addChild2(self.bgNode!)
         }
+        
+        // alignment
+        var alignPos : CGPoint
+        switch alignment {
+        case .None:
+            fallthrough
+        case .Left:
+            alignPos = CGPoint(x: 0, y: 0)
+        case .CenterX:
+            alignPos = CGPoint(x: -size.width / 2, y: 0)
+        case .CenterY:
+            alignPos = CGPoint(x: 0, y: -size.height / 2)
+        case .Center:
+            alignPos = CGPoint(x: -size.width / 2, y: -size.height / 2)
+        case .Right:
+            alignPos = CGPoint(x: -size.width, y: 0)
+        case .Right_CenterY:
+            alignPos = CGPoint(x: -size.width, y: -size.height / 2)
+        }
+        parentNode.position = CGPoint(x: parentNode.position.x + alignPos.x,
+                                      y: parentNode.position.y + alignPos.y)
     }
     
     /**
