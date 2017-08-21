@@ -300,13 +300,13 @@ public class UIconWindow : UWindow{
         super.init(topScene: topScene, callbacks: nil,
                    priority: DRAW_PRIORITY, createNode: true, cropping: true,
                    x: 0, y: 0, width: width, height: height,
-                   bgColor: bgColor, topBarH: 0, frameW: 0, frameH: 0)
+                   bgColor: bgColor, topBarH: 0, frameW: 0, frameH: 0,
+                   cornerRadius: UDpi.toPixel(10))
          basePos = CGPoint()
          if isHome {
              type = WindowType.Home
          } else {
              type = WindowType.Sub
-             addCloseIcon()
          }
          mIconManager = UIconManager.createInstance(parentWindow: self, iconCallbacks: iconCallbacks)
          self.windowCallbacks = windowCallbacks
@@ -314,7 +314,7 @@ public class UIconWindow : UWindow{
          iconMargin = UDpi.toPixel(ICON_MARGIN)
          iconW = UDpi.toPixel(UIconWindow.ICON_W)
          iconH = UDpi.toPixel(UIconWindow.ICON_H)
-     }
+    }
 
      /**
      * Create class instance
@@ -1341,7 +1341,6 @@ public class UIconWindow : UWindow{
             icon2.setPos(icon2.getX() + (window2.pos.x - window1.pos.x),
                     icon2.getY() + (window2.pos.y - window1.pos.y));
             window2.sortIcons(animate: true)
-
         }
 
         window1.sortIcons(animate: true)

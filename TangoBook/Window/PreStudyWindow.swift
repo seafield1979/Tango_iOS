@@ -138,7 +138,8 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
                 createNode: true, cropping: false,
                 x: 0, y: 0,
                 width: topScene.getWidth(), height: topScene.getHeight(),
-                bgColor : BG_COLOR, topBarH: 0, frameW: 0, frameH: 0)
+                bgColor : BG_COLOR, topBarH: 0, frameW: 0, frameH: 0,
+                cornerRadius: 0)
         
         mButtonCallbacks = buttonCallbacks
         isShow = false;     // 初期状態は非表示

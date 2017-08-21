@@ -73,29 +73,30 @@ public enum ActionIconId : Int, EnumEnumerable{
   */
 public class IconInfoDialog : UWindow {
     
-     /**
-      * Consts
-      */
-     let FRAME_WIDTH = 2
-     let FRAME_COLOR = UColor.makeColor(120,120,120)
-     let TOP_ITEM_Y = 10
+    /**
+     * Consts
+     */
+    let FRAME_WIDTH = 2
+    let FRAME_COLOR = UColor.makeColor(120,120,120)
+    let TOP_ITEM_Y = 10
 
-     let MARGIN_H = 17
-     let MARGIN_V = 17
-     let MARGIN_V_S = 7
-     let DLG_MARGIN = 15
-
-     /**
-      * Member Variables
-      */
+    let MARGIN_H = 17
+    let MARGIN_V = 17
+    let MARGIN_V_S = 7
+    let DLG_MARGIN = 15
+    let FRAME_W = 3
+    
+    /**
+     * Member Variables
+     */
     var mIconInfoCallbacks : IconInfoDialogCallbacks? = nil
 
     // ダイアログに情報を表示元のアイコン
     var mIcon : UIcon
 
-     /**
-      * Get/Set
-      */
+    /**
+     * Get/Set
+     */
     public func getmIcon() -> UIcon {
         return mIcon
     }
@@ -117,12 +118,16 @@ public class IconInfoDialog : UWindow {
         super.init(topScene: topScene,
                    callbacks: windowCallbacks,
                    priority : DrawPriority.Dialog.rawValue,
-                   createNode: true, cropping: false,
+                   createNode: false, cropping: false,
                    x : x, y : y, width : 0, height : 0,
                    bgColor : color,
-                   topBarH: 0, frameW: 0, frameH: 0)
-
+                   topBarH: 0, frameW: 0, frameH: 0, cornerRadius: UDpi.toPixel(10))
         
+        parentNode.zPosition = CGFloat(DrawPriority.Dialog.rawValue)
+        
+        frameColor = .darkGray
+        frameSize = CGSize(width: UDpi.toPixel(FRAME_W),
+                           height: UDpi.toPixel(FRAME_W))
     }
 
 

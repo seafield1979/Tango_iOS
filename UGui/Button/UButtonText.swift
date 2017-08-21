@@ -270,8 +270,10 @@ public class UButtonText : UButton {
             _height -= UDpi.toPixel(UButton.PRESS_Y)
             
         }
-        self.bgNode!.position = CGPoint(x: 0, y: SKUtil.convY(fromView: _pos.y))
-        self.bgNode!.fillColor = _color
+        if let n = bgNode {
+            n.position = CGPoint(x: 0, y: SKUtil.convY(fromView: _pos.y))
+            n.fillColor = _color
+        }
     }
 }
 

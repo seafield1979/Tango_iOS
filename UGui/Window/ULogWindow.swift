@@ -44,7 +44,7 @@ public class ULogWindow : UWindow {
                    callbacks: nil, priority: ULogWindow.DRAW_PRIORITY,
                    createNode: true, cropping: true,
                    x: x, y: y, width: width, height: height,
-                   bgColor: color, topBarH: 0, frameW: 0, frameH: 0)
+                   bgColor: color, topBarH: 0, frameW: 0, frameH: 0, cornerRadius: 0)
         isShow = true
         if type == LogWindowType.AutoDisappear {
             startTimer(time: ULogWindow.SHOW_TIME)

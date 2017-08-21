@@ -51,7 +51,8 @@ public class UListView : UScrollWindow
                     x: x, y: y,
                     width: width, height: height,
                     bgColor: bgColor,
-                    topBarH: 0, frameW: UDpi.toPixel(3), frameH: UDpi.toPixel(20))
+                    topBarH: 0, frameW: UDpi.toPixel(3), frameH: UDpi.toPixel(20),
+                    cornerRadius: 0)
         
     }
     

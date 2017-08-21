@@ -49,7 +49,7 @@ public class IconInfoDialogCard : IconInfoDialog {
      * Member Variables
      */
     var isUpdate = true     // ボタンを追加するなどしてレイアウトが変更された
-    private var textTitle : UTextView? = nil
+    private var mTitleView : UTextView? = nil
     private var mItems : [IconInfoItem?] = Array(repeating: nil, count: Items.count) 
     private var mCard : TangoCard? = nil
     private var imageButtons : List<UButtonImage> = List()
@@ -106,7 +106,6 @@ public class IconInfoDialogCard : IconInfoDialog {
             color : UColor.makeColor(argb: UInt32((icon.getTangoItem() as! TangoCard).color)))
 
         // 初期化処理
-        instance.addCloseIcon(pos: CloseIconPos.RightTop)
         instance.addToDrawManager()
 
         return instance;
@@ -130,25 +129,6 @@ public class IconInfoDialogCard : IconInfoDialog {
             updateCloseIconPos()
         }
 
-         // BG
-//        UDraw.drawRoundRectFill( rect: getRect(), cornerR: UDpi.toPixel(7),
-//                                 color: bgColor!,
-//                                 strokeWidth: UDpi.toPixel(FRAME_WIDTH),
-//                                 strokeColor: frameColor)
-
-//        textTitle!.draw()
-//        for item in mItems {
-//            if item == nil {
-//                continue
-//            }
-//            if item!.title != nil {
-//                item!.title!.draw()
-//            }
-//            if item!.body != nil {
-//                item!.body!.draw()
-//            }
-//        }
-
         // Buttons
         for button in imageButtons {
             button!.draw()
@@ -160,7 +140,9 @@ public class IconInfoDialogCard : IconInfoDialog {
       * @param canvas
       */
      func updateLayout() {
-
+        // ダイアログのアイテムは clientNode 以下に配置する
+        clientNode.removeAllChildren()
+        
         var y = UDpi.toPixel(TOP_ITEM_Y)
 
         let icons : List<ActionIconInfo> = IconInfoDialog.getCardIcons()
@@ -169,7 +151,7 @@ public class IconInfoDialogCard : IconInfoDialog {
         let fontSize = UDraw.getFontSize(FontSize.M)
 
         // タイトル(カード)
-        textTitle = UTextView.createInstance(
+        mTitleView = UTextView.createInstance(
            text : UResourceManager.getStringByName("card"),
            textSize : Int(UDpi.toPixel(TEXT_SIZE_M)),
            priority : 0,
@@ -193,25 +175,6 @@ public class IconInfoDialogCard : IconInfoDialog {
                 case .WordB:
                     titleStr = UResourceManager.getStringByName("word_b")
                     bodyStr = UUtil.convString(text: mCard!.wordB!, cutNewLine: false, maxLines: 2, maxLength: 0)
-               
-//                case .Comment:
-//                    titleStr = UResourceManager.getStringByName("comment")
-//                    bodyStr = UUtil.convString(text: mCard!.comment, cutNewLine: false, maxLines: 2, maxLength: 0)
-//                    if bodyStr == nil || bodyStr!.characters.count == 0 {
-//                        continue;
-//                    }
-
-//                case .History:   // 学習履歴
-//                   let history = TangoCardHistoryDao.selectByCard(card: mCard!)
-//                    var historyStr : String
-//                    if history != nil {
-//                        historyStr = history.getCorrectFlagsAsString()
-//                    } else {
-//                        continue
-//                    }
-//
-//                    titleStr = UResourceManager.getStringByName("study_history")
-//                    bodyStr = historyStr
             }
             // title
             var titleView : UTextView? = nil
@@ -297,10 +260,11 @@ public class IconInfoDialogCard : IconInfoDialog {
             }
 
             // アイコンの下に表示するテキストを設定
-            imageButton.setTitle(title: UResourceManager.getStringByName(icon!.titleName),
-                                 size: Int(UDpi.toPixel(ICON_TEXT_SIZE)),
-                                 color: UIColor.black)
-
+            imageButton.addTitle(title: icon!.titleName, alignment: .CenterX,
+                                 x: imageButton.size.width / 2,
+                                 y: imageButton.size.height + UDpi.toPixel(4),
+                                 color: .black, bgColor: nil)
+            
             imageButtons.append(imageButton)
             ULog.showRect(rect: imageButton.getRect())
 
@@ -318,6 +282,32 @@ public class IconInfoDialogCard : IconInfoDialog {
             pos.y = topScene.getHeight() - size.height - UDpi.toPixel(DLG_MARGIN)
         }
         updateRect()
+        
+        
+        
+        
+        // SpriteKitのノードを生成する
+        updateWindow()
+        initSKNode()
+        addCloseIcon(pos: CloseIconPos.RightTop)
+        
+        
+        if mTitleView != nil {
+            clientNode.addChild2( mTitleView!.parentNode )
+        }
+        
+        for item in mItems {
+            if let _title = item!.title {
+                clientNode.addChild2( _title.parentNode )
+            }
+            if let _body = item!.body {
+                clientNode.addChild2( _body.parentNode )
+            }
+        }
+        
+        for button in imageButtons {
+            clientNode.addChild2( button!.parentNode )
+        }
     }
 
     public override func touchEvent(vt : ViewTouch, offset : CGPoint?) -> Bool {

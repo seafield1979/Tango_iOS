@@ -20,14 +20,15 @@ public class UScrollWindow : UWindow {
                 priority : Int, x : CGFloat, y : CGFloat,
                 width : CGFloat, height : CGFloat,
                 bgColor : UIColor?,
-                topBarH : CGFloat, frameW : CGFloat, frameH : CGFloat)
+                topBarH : CGFloat, frameW : CGFloat, frameH : CGFloat, cornerRadius: CGFloat)
     {
         super.init(topScene: topScene, callbacks: callbacks, priority: priority,
                    createNode: true, cropping: true,
                    x: x, y: y,
                    width: width, height: height,
                    bgColor: bgColor,
-                   topBarH: topBarH, frameW: frameW, frameH: frameH)
+                   topBarH: topBarH, frameW: frameW, frameH: frameH,
+                   cornerRadius: cornerRadius)
     }
     
     /**

@@ -13,8 +13,8 @@ import Foundation
  * 描画優先度
  */
 public enum DrawPriority : Int {
-    case Dialog = 5
+    case Dialog = 100
     case DragIcon = 11
-    case IconWindow = 100
+    case IconWindow = 5
     ;
 }

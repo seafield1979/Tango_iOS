@@ -42,7 +42,7 @@ public class UMenuBar : UWindow {
                    x:0, y:parentH - UDpi.toPixel(UMenuBar.MENU_BAR_H),
                    width: parentW, height: UDpi.toPixel(UMenuBar.MENU_BAR_H),
                    bgColor: bgColor,
-                   topBarH: 0, frameW : 0, frameH : 0)
+                   topBarH: 0, frameW : 0, frameH : 0, cornerRadius: UDpi.toPixel(10))
         mMenuItemCallbacks = callbacks
     }
     

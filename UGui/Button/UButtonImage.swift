@@ -188,9 +188,9 @@ public class UButtonImage : UButton {
         
         titleNode = SKNodeUtil.createLabelNode(
             text: title,
-            textSize: UDpi.toPixel(TEXT_SIZE), color: titleColor,
-            alignment: .CenterX, offset: CGPoint(x: 0, y: UDpi.toPixel(TEXT_MARGIN)))
-        titleNode?.zPosition = 0.1
+            textSize: UDpi.toPixel(TEXT_SIZE), color: color,
+            alignment: alignment, offset: CGPoint(x: x, y: y))
+        titleNode?.zPosition = 0.2
         parentNode.addChild2(titleNode!)
     }
     

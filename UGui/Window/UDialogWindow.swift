@@ -154,7 +154,8 @@ public class UDialogWindow : UWindow {
                    x: x, y: y,
                    width: screenW, height: screenH,
                    bgColor: dialogColor,
-                   topBarH : 0, frameW : 0, frameH : 0)
+                   topBarH : 0, frameW : 0, frameH : 0,
+                   cornerRadius: UDpi.toPixel(10))
         
         size = CGSize(width: screenW - marginH * 2,
                       height: screenH - marginH * 2)
@@ -433,13 +434,11 @@ public class UDialogWindow : UWindow {
                 x: size.width / 2, y: y,
                 width: size.width, color: .black, bgColor: nil)
             
-            print("1:\(y)")
             y += mTitleView!.getHeight() + UDpi.toPixel( UDialogWindow.MARGIN_V * 2)
         }
         
         // テキスト
         for textView in mTextViews {
-            print("2:\(y)")
             textView!.setPos( size.width / 2, y)
             y += textView!.getHeight() + UDpi.toPixel( UDialogWindow.MARGIN_V )
         }
@@ -497,7 +496,6 @@ public class UDialogWindow : UWindow {
                     _button.setPos((size.width - _button.getWidth()) / 2, y)
                     y += button!.getHeight() + buttonMarginV
                 } else {
-                    print("2:\(y)")
                     button!.setPos(buttonMarginH, y)
                     button!.setSize(size.width - buttonMarginH * 2, buttonH)
                     y += buttonH + buttonMarginV

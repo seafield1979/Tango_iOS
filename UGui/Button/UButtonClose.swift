@@ -42,6 +42,7 @@ public class UButtonClose : UButton {
         let width = UDpi.toPixel(UButtonClose.BUTTON_W)
         
         buttonNode = SKSpriteNode(imageNamed: "close.png")
+        buttonNode.anchorPoint = CGPoint(x:0, y:1.0)
         buttonNode.size = CGSize(width: width, height: width)
         
         super.init(callbacks: callbacks, type: type, id: id, priority: priority,
