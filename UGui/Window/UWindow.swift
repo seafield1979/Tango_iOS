@@ -150,8 +150,8 @@ public class UWindow : UDrawable, UButtonCallbacks {
                                   y: topBarH + frameSize.height)
         if bgColor != nil {
             bgNode.fillColor = bgColor!
-            bgNode.strokeColor = .clear
         }
+        bgNode.strokeColor = .clear
         parentNode.addChild2( bgNode )
         
         // crop

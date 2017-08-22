@@ -190,18 +190,11 @@ public class UMenuItem : UDrawable {
             }
             
             spriteNode!.texture = texture
-            spriteNode!.alpha = alpha
-            spriteNode!.blendMode = .alpha
+//            spriteNode!.alpha = alpha
+//            spriteNode!.blendMode = .alpha
             parentNode.position = CGPoint(x: pos.x, y: pos.y).convToSK()
             
-            // 領域の幅に合わせて伸縮
-            //            icon.draw(in: CGRect(x:drawPos.x, y:drawPos.y,
-            //                                 width: size.width, height: size.width),
-            //                      blendMode: CGBlendMode.sourceAtop, alpha: alpha)
-            // タイトル
-            //            if !isMoving && !isClosing {
-            //                mTextTitle?.draw(drawPos)
-            //            }
+            parentNode.alpha = alpha
         }
         
         // 子要素
@@ -389,6 +382,27 @@ public class UMenuItem : UDrawable {
             }
         }
         return ret
+    }
+    
+    /**
+     * 自動移動開始時の処理
+     */
+    public override func startMoving() {
+        super.startMoving()
+        mTextTitle!.parentNode.isHidden = true
+    }
+    
+    /**
+     * 自動移動完了時の処理
+     */
+    public override func endMoving() {
+        if isClosing {
+            isShow = false
+            mTextTitle!.parentNode.isHidden = true
+        } else {
+            isShow = true
+            mTextTitle!.parentNode.isHidden = false
+        }
     }
     
     /**

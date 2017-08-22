@@ -288,6 +288,7 @@ public class IconInfoDialogCard : IconInfoDialog {
         // SpriteKitのノードを生成する
         updateWindow()
         initSKNode()
+        parentNode.position.toSK()
         addCloseIcon(pos: CloseIconPos.RightTop)
         
         

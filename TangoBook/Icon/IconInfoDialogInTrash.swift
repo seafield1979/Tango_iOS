@@ -226,6 +226,7 @@ public class IconInfoDialogInTrash : IconInfoDialog {
         // SpriteKitのノードを生成する
         updateWindow()
         initSKNode()
+        parentNode.position.toSK()
         addCloseIcon(pos: CloseIconPos.RightTop)
         
         if textTitle != nil {

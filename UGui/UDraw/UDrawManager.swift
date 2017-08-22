@@ -303,7 +303,7 @@ class UDrawManager {
         var isRedraw = false
         
         // 手前から順に処理したいので priority が低い順に操作する
-        let sortedKeys = lists!.keys.sorted()
+        let sortedKeys = lists!.keys.sorted().reversed()
         
         for key in sortedKeys {
             let list = lists![key]
