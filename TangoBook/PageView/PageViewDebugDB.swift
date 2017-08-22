@@ -80,6 +80,7 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
             let item = ListItemTest1(callbacks : self, text : menu.rawValue, x : 0, width : mListView.clientSize.width, bgColor : .white)
             mListView.add(item: item)
         }
+        mListView.updateWindow()
     }
     
     /**

@@ -7,7 +7,7 @@
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import UIKit
+import SpriteKit
 
 /**
  * Window state
@@ -275,14 +275,20 @@ public class UIconWindow : UWindow{
                 self.clientNode.addChild2( _icon.parentNode )
             }
         }
+        
+        let n = SKNodeUtil.createLineNode(p1: CGPoint(x:0, y:0), p2: CGPoint(x: 1, y:0), color: .red, lineWidth: 1)
+        self.clientNode.addChild(n)
 
-        if items != nil {
+        if items != nil && items!.count > 0 {
             for item in items! {
                 let icon = mIconManager!.addIcon(item, addPos: AddPos.Tail)
                 if let _icon = icon {
                     self.clientNode.addChild2( _icon.parentNode )
                 }
             }
+        } else {
+            // clientNodeに子ノードが１つもないと表示されないためダミーのノードを追加する
+            self.clientNode.addChild(SKNode())
         }
 
         sortIcons(animate: false)

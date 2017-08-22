@@ -131,6 +131,7 @@ public class UListView : UScrollWindow
     
     // ウィンドウの内部領域の描画
     override public func drawContent( offset : CGPoint? ) {
+        super.drawContent(offset: offset)
         
         var _pos = CGPoint(x: pos.x, y: pos.y)
         
@@ -168,7 +169,8 @@ public class UListView : UScrollWindow
         }
         
         // アイテムのクリック判定処理
-        let _offset = CGPoint(x:pos.x + offset!.x, y:pos.y - contentTop.y + offset!.y)
+        let _offset = CGPoint(x:pos.x + frameSize.width + offset!.x,
+                              y:pos.y + frameSize.height + topBarH - contentTop.y + offset!.y)
         var isDraw = false
         
         if (super.touchEvent(vt:vt, offset:offset)) {
