@@ -54,6 +54,14 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
     
     
     /**
+     * Constructor
+     */
+    // MARK: Initializer
+    public override init( topScene : TopScene, title : String) {
+        super.init( topScene: topScene, title: title)
+    }
+    
+    /**
      * そのページで表示される描画オブジェクトを初期化する
      */
     public override func initDrawables() {
@@ -109,6 +117,8 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
         _ = mDialog!.addButton(id: buttonIdConfirmOK, text: "OK", textColor: UIColor.black, color: UIColor.white)
         mDialog!.addCloseButton(text: "close")
     }
+    
+    // MARK: UPageView
     
     private func test1() {
         TangoItemPosDao.correctHomePos()
@@ -183,14 +193,7 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
     /**
      * Propaties
      */
-    
-    /**
-     * Constructor
-     */
-    public override init( topScene : TopScene, title : String) {
-        super.init( topScene: topScene, title: title)
-    }
-    
+
     /**
      * Methods
      */

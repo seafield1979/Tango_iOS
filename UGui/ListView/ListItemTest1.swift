@@ -61,6 +61,7 @@ public class ListItemTest1 : UListItem {
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
     override public func draw() {
+        super.draw()
     }
     
     /**
