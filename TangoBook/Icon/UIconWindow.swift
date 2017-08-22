@@ -64,7 +64,7 @@ public class UIconWindow : UWindow{
     */
     public static let TAG = "UIconWindow"
 
-    public let DRAW_PRIORITY = 100
+    public let DRAW_PRIORITY = 10
     public let DRAG_ICON_PRIORITY = 11
 
     public let ICON_MARGIN = 10

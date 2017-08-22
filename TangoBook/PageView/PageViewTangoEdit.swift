@@ -900,9 +900,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
     }
     
-    /**
-     * IconInfoDialogCallbacks
-     */
+    // MARK: IconInfoDialogCallbacks
     /**
      * ダイアログで表示しているアイコンの内容を編集
      * @param icon
@@ -972,31 +970,33 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     public let ButtonIdCopyOK = 106
     
     public func IconInfoCleanup(icon : UIcon?) {
-         if icon == nil || icon!.getType() == IconType.Trash {
-             if mDialog != nil {
-                 mDialog!.closeDialog()
-                 mDialog = nil
-             }
-             // Daoデバッグ用のダイアログを表示
-             mDialog = UDialogWindow.createInstance(
-                topScene : mTopScene,
-                type : .Mordal,
-                buttonCallbacks : self, dialogCallbacks : self,
-                dir : UDialogWindow.ButtonDir.Vertical,
-                posType : .Center,
-                isAnimation : true,
-                screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
-                textColor : DialogTextColor, dialogColor : UIColor.white)
-             mDialog!.addToDrawManager();
+        if icon == nil || icon!.getType() == IconType.Trash {
+            if mDialog != nil {
+                mDialog!.closeDialog()
+                mDialog = nil
+            }
+            // Daoデバッグ用のダイアログを表示
+            mDialog = UDialogWindow.createInstance(
+               topScene : mTopScene,
+               type : .Mordal,
+               buttonCallbacks : self, dialogCallbacks : self,
+               dir : UDialogWindow.ButtonDir.Vertical,
+               posType : .Center,
+               isAnimation : true,
+               screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
+               textColor : DialogTextColor, dialogColor : UIColor.white)
+            
+            // 確認のダイアログを表示する
+            mDialog!.setTitle(UResourceManager.getStringByName("confirm_cleanup_trash"))
 
-             // 確認のダイアログを表示する
-             mDialog!.setTitle(UResourceManager.getStringByName("confirm_cleanup_trash"))
-
-             // ボタンを追加
-             _ = mDialog!.addButton(id : CleanupDialogButtonOK, text : "OK",
-                                textColor : UIColor.black, color : UColor.LightGreen)
-             mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
-         }
+            // ボタンを追加
+            _ = mDialog!.addButton(id : CleanupDialogButtonOK, text : "OK",
+                               textColor : UIColor.black, color : UColor.LightGreen)
+            mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
+            
+            mDialog!.updateLayout()
+            mDialog!.addToDrawManager()
+        }
     }
     
     /**
