@@ -42,9 +42,6 @@ public class UIconWindowSub : UIconWindow {
     private static let buttonIdCleanup = 303
     private static let buttonIdExport = 304
     
-    // color
-    private static let ICON_BG_COLOR = UColor.LightYellow
-
     // ウィンドウの下に表示されるアクションボタンの情報
     public struct ActionInfo {
         var imageName : ImageName
@@ -69,8 +66,6 @@ public class UIconWindowSub : UIconWindow {
     private static let MARGIN_H = 17
     private static let MARGIN_V = 7
     private static let MARGIN_V2 = 17
-    private static let ICON_TEXT_SIZE = 10
-    private static let ACTION_ICON_W = 34
     
     /**
      * Member variables
@@ -79,9 +74,9 @@ public class UIconWindowSub : UIconWindow {
     private var mParentIcon : UIcon?
     
     // SubWindowの上に表示するアイコンボタン
-    private var mBookButtons : [UButtonImage] = []
-    private var mTrashButtons : [UButtonImage] = []
-
+    private var mBookButtons : UIconWindowButtons?
+    private var mTrashButtons : UIconWindowButtons?
+    
     // コールバック用のインターフェース
     private var mIconWindowSubCallback : UIconWindowSubCallbacks? = nil
     
@@ -95,8 +90,8 @@ public class UIconWindowSub : UIconWindow {
         return mParentIcon
     }
     
-    private func getButtons() -> [UButtonImage] {
-        return (getParentType() == TangoParentType.Book) ? mBookButtons : mTrashButtons;
+    private func getButtons() -> UIconWindowButtons {
+        return (getParentType() == TangoParentType.Book) ? mBookButtons! : mTrashButtons!
         
     }
 
@@ -151,54 +146,48 @@ public class UIconWindowSub : UIconWindow {
         super.initialize()
         
         // アイコンボタンの初期化
-        let marginH = UDpi.toPixel(UIconWindowSub.MARGIN_H)
-        var x = marginH
-        let y = UDpi.toPixel(-UIconWindowSub.ACTION_ICON_W - UIconWindowSub.MARGIN_V2)
         
         // Bookを開いたときのアイコンを初期化
-        var i : Int = 0
+        mBookButtons = UIconWindowButtons(callbacks: self,
+                                          priority: DrawPriority.SubWindowIcon.rawValue, x: 0, y: 0)
         for id in UIconWindowSub.bookIds {
-            let info = UIconWindowSub.getActionInfo(id: id)
-            let button = createActionButton(info: info, x: x, y: y)
-            mBookButtons.append(button)
-            
-            x += UDpi.toPixel(UIconWindowSub.ACTION_ICON_W + UIconWindowSub.MARGIN_H);
-            i += 1
+            mBookButtons?.addButton(id: id)
         }
+        mBookButtons!.initSKNode()
+        mBookButtons!.parentNode.isHidden = true
+        self.parentNode.addChild2(mBookButtons!.parentNode)
 
         // ゴミ箱を開いたときのアイコンを初期化
-        x = marginH
-        i = 0
+        mTrashButtons = UIconWindowButtons(callbacks: self,
+                                          priority: DrawPriority.SubWindowIcon.rawValue, x: 0, y: 0)
         for id in UIconWindowSub.trashIds {
-            let info = UIconWindowSub.getActionInfo(id: id)
-            let button = createActionButton(info: info, x: x, y: y)
-            mTrashButtons.append(button)
-            
-            x += UDpi.toPixel(UIconWindowSub.ACTION_ICON_W + UIconWindowSub.MARGIN_H);
-            i += 1
+            mTrashButtons!.addButton(id: id)
         }
+        mTrashButtons!.initSKNode()
+        mTrashButtons!.parentNode.isHidden = true
+        self.parentNode.addChild2(mTrashButtons!.parentNode)
     }
     
     /**
      ウィンドウの下に表示するアクションボタンを生成する
      */
-    func createActionButton(info : ActionInfo, x: CGFloat, y: CGFloat) -> UButtonImage {
-        let image = UResourceManager.getImageWithColor(imageName: info.imageName, color: info.color)!
-        
-        let button = UButtonImage(
-            callbacks: self,
-            id: info.buttonId, priority: 0, x: x, y: y,
-            width: UDpi.toPixel(UIconWindowSub.ACTION_ICON_W),
-            height: UDpi.toPixel(UIconWindowSub.ACTION_ICON_W),
-            image: image,
-            pressedImage: nil)
-        
-        button.setTitle(title: info.title,
-                        size: Int(UDpi.toPixel(UIconWindowSub.ICON_TEXT_SIZE)),
-                        color: UIColor.black)
-        return button
-
-    }
+//    func createActionButton(info : ActionInfo, x: CGFloat, y: CGFloat) -> UButtonImage {
+//        let image = UResourceManager.getImageWithColor(imageName: info.imageName, color: info.color)!
+//        
+//        let button = UButtonImage(
+//            callbacks: self,
+//            id: info.buttonId, priority: DrawPriority.SubWindowIcon.rawValue, x: x, y: y,
+//            width: UDpi.toPixel(UIconWindowSub.ACTION_ICON_W),
+//            height: UDpi.toPixel(UIconWindowSub.ACTION_ICON_W),
+//            image: image,
+//            pressedImage: nil)
+//        
+//        button.setTitle(title: info.title,
+//                        size: Int(UDpi.toPixel(UIconWindowSub.ICON_TEXT_SIZE)),
+//                        color: UIColor.black)
+//        return button
+//
+//    }
 
     /**
      アクションボタンの情報を取得する
@@ -244,16 +233,14 @@ public class UIconWindowSub : UIconWindow {
             break
         }
         
-        for button in getButtons() {
-            _ret = button.doAction()
-            switch _ret {
-            case .Done:
-                return _ret
-            case .Redraw:
-                ret = _ret
-            default:
-                break
-            }
+        _ret = getButtons().doAction()
+        switch _ret {
+        case .Done:
+            return _ret
+        case .Redraw:
+            ret = _ret
+        default:
+            break
         }
         return ret
     }
@@ -272,20 +259,29 @@ public class UIconWindowSub : UIconWindow {
         }
         
         // アイコンのタッチ処理
-        var offset2 = CGPoint(x: pos.x, y: pos.y + size.height)
+        let buttons = getButtons()
+        var offset2 = CGPoint(x: pos.x, y: pos.y + buttons.pos.y)
         if offset != nil {
             offset2.x += offset!.x
             offset2.y += offset!.y
         }
-        
-        for button in getButtons() {
-            if button.touchEvent(vt: vt, offset: offset2) {
-                return true
-            }
+
+        if buttons.touchEvent(vt: vt, offset: offset2) {
+            return true
         }
         
         return super.touchEvent(vt: vt, offset: offset)
     }
+    
+    /**
+     * 移動が完了した時の処理
+     */
+//    public override func endMoving() {
+//        super.endMoving()
+//        
+//        
+//    }
+
 
     /**
      * 描画処理
@@ -298,30 +294,15 @@ public class UIconWindowSub : UIconWindow {
     {
         super.drawContent(offset: offset)
         
-        if isMoving {
-            return
-        }
+        // アクションボタンの表示
+        // 非表示時、移動時は表示しない
+        let buttons : UIconWindowButtons = getButtons()
+        let y = size.height - buttons.size.height
+        buttons.pos = CGPoint(x: 0, y: y)
+        buttons.parentNode.isHidden = !(isShow && !isMoving)
+        buttons.parentNode.position = CGPoint( x: 0, y: y).convToSK()
         
-        let marginH = UDpi.toPixel(UIconWindowSub.MARGIN_H)
-        
-        // アイコンの背景
-        let buttons : [UButtonImage] = getButtons()
-        
-        let width = CGFloat(buttons.count) * (UDpi.toPixel(UIconWindowSub.ACTION_ICON_W) + marginH) + marginH
-        let height = UDpi.toPixel(UIconWindowSub.ACTION_ICON_W + UIconWindowSub.MARGIN_V + UIconWindowSub.MARGIN_V2)
-        let x = pos.x
-        let y = pos.y + size.height + UDpi.toPixel( -UIconWindowSub.MARGIN_V2 - UIconWindowSub.MARGIN_V - UIconWindowSub.ACTION_ICON_W);
-        
-        // BG
-//        UDraw.drawRoundRectFill(rect: CGRect(x:x, y:y, width:width, height:height),
-//                                cornerR: UDpi.toPixel(10), color:UIconWindowSub.ICON_BG_COLOR,
-//                                strokeWidth: 0, strokeColor: nil)
-        
-        // アイコンの描画
-        _ = CGPoint(x: pos.x, y: pos.y + size.height)
-//        for button in buttons {
-//            button.draw()
-//        }
+        buttons.draw()
     }
 
     /**

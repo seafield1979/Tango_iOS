@@ -66,9 +66,6 @@ public class MenuBarTangoEdit : UMenuBar {
         pos.x = parentW - UDpi.toPixel(UMenuItem.ITEM_W + UMenuBar.MARGIN_H)
         parentNode.position = pos
 
-        let n = SKNodeUtil.createCrossPoint(pos: pos, length: 10.0, lineWidth: 2.0, color: .red)
-        TopScene.getInstance().addChild2(n)
-        
         itemInfos.append( MenuItemInfo(id: MenuItemId.AddTop, type: MenuItemType.Top, imageName: ImageName.add, stringName: "add_item", color: UIColor.blue, forDebug: false))
         
         itemInfos.append( MenuItemInfo(id: MenuItemId.AddCard, type: MenuItemType.Child, imageName: ImageName.card, stringName: "add_card", color: ICON_COLOR, forDebug: false))

@@ -180,6 +180,7 @@
 		8A5709621F3767A3004387D4 /* ListViewBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5709611F3767A3004387D4 /* ListViewBackup.swift */; };
 		8A5709661F3767D8004387D4 /* ListViewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5709651F3767D8004387D4 /* ListViewResult.swift */; };
 		8A5709681F3767F7004387D4 /* ListViewStudyHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5709671F3767F7004387D4 /* ListViewStudyHistory.swift */; };
+		8A6087781F4BF16E00259191 /* UIconWindowButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6087771F4BF16E00259191 /* UIconWindowButtons.swift */; };
 		8A66358F1F3800BC000EAAF0 /* PreStudyWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A66358E1F3800BC000EAAF0 /* PreStudyWindow.swift */; };
 		8A6635921F384B77000EAAF0 /* StudyCardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6635911F384B77000EAAF0 /* StudyCardStack.swift */; };
 		8A6635941F384BC2000EAAF0 /* StudyCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6635931F384BC2000EAAF0 /* StudyCard.swift */; };
@@ -521,6 +522,7 @@
 		8A5709611F3767A3004387D4 /* ListViewBackup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListViewBackup.swift; path = ListView/ListViewBackup.swift; sourceTree = "<group>"; };
 		8A5709651F3767D8004387D4 /* ListViewResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListViewResult.swift; path = ListView/ListViewResult.swift; sourceTree = "<group>"; };
 		8A5709671F3767F7004387D4 /* ListViewStudyHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListViewStudyHistory.swift; path = ListView/ListViewStudyHistory.swift; sourceTree = "<group>"; };
+		8A6087771F4BF16E00259191 /* UIconWindowButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIconWindowButtons.swift; sourceTree = "<group>"; };
 		8A66358E1F3800BC000EAAF0 /* PreStudyWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreStudyWindow.swift; path = Window/PreStudyWindow.swift; sourceTree = "<group>"; };
 		8A6635911F384B77000EAAF0 /* StudyCardStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyCardStack.swift; path = Study/StudyCardStack.swift; sourceTree = "<group>"; };
 		8A6635931F384BC2000EAAF0 /* StudyCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyCard.swift; path = Study/StudyCard.swift; sourceTree = "<group>"; };
@@ -1098,8 +1100,9 @@
 				8AE08A6C1F2580D00024E9B7 /* Primitive */,
 				8AE08A6E1F2580D00024E9B7 /* ScrollBar */,
 				8AE08A701F2580D00024E9B7 /* Text */,
-				8AE08A731F2580D00024E9B7 /* UAlignment.swift */,
+				8AE08A801F2580D00024E9B7 /* Window */,
 				8AE08A741F2580D00024E9B7 /* UDraw */,
+				8AE08A731F2580D00024E9B7 /* UAlignment.swift */,
 				8AE08A7A1F2580D00024E9B7 /* UDraw.swift */,
 				8AE08A7B1F2580D00024E9B7 /* UImageView.swift */,
 				8AE08A7C1F2580D00024E9B7 /* UListItem.swift */,
@@ -1107,7 +1110,6 @@
 				8AB7E8FB1F258384005E36BB /* ViewTouch.swift */,
 				8AE08A7E1F2580D00024E9B7 /* URect.swift */,
 				8AE08A7F1F2580D00024E9B7 /* UView.swift */,
-				8AE08A801F2580D00024E9B7 /* Window */,
 			);
 			path = UGui;
 			sourceTree = "<group>";
@@ -1186,6 +1188,7 @@
 				8AE08A821F2580D00024E9B7 /* ULogWindow.swift */,
 				8AE08A831F2580D00024E9B7 /* UPopupWindow.swift */,
 				8AE08A841F2580D00024E9B7 /* UWindow.swift */,
+				8A6087771F4BF16E00259191 /* UIconWindowButtons.swift */,
 			);
 			path = Window;
 			sourceTree = "<group>";
@@ -1710,6 +1713,7 @@
 				8AB7E9801F278DC7005E36BB /* UIconManager.swift in Sources */,
 				8A0D6FB41F319765002A1949 /* EditBookViewController.swift in Sources */,
 				8AD6313C1F2B94CE0067B57E /* IconInfoDialogCard.swift in Sources */,
+				8A6087781F4BF16E00259191 /* UIconWindowButtons.swift in Sources */,
 				8A5709661F3767D8004387D4 /* ListViewResult.swift in Sources */,
 				8AB7E9321F259991005E36BB /* PageViewTest5.swift in Sources */,
 				8AB7E9581F25A00F005E36BB /* PageViewStudyBookSelect.swift in Sources */,

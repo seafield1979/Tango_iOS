@@ -19,14 +19,15 @@ public class UButtonImage : UButton {
      * Consts
      */
     public let TEXT_MARGIN : Int = 4
-    
-    private let TEXT_SIZE : Int = 10
+    public let BG_MARGIN : Int = 4
+    public static let TEXT_SIZE : Int = 10
+    private let BG_COLOR = UIColor.init(red: 1.0, green: 0.0, blue: 0, alpha: 0.5)
     
     /**
      * Member Variables
      */
     // SpriteKit Node
-    var bgNode : SKShapeNode        // タップ時に表示されるBG
+    var bgNode : SKShapeNode?        // タップ時に表示されるBG
     var titleNode : SKLabelNode?    // ボタンの下に表示されるテキスト
     var imageNode : SKSpriteNode   // ボタン用画像
     var textures : [SKTexture] = []
@@ -60,22 +61,19 @@ public class UButtonImage : UButton {
         pressedTexture = SKTexture(image: image)
     }
     
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init(callbacks : UButtonCallbacks?,
                 id : Int , priority : Int,
                 x : CGFloat, y : CGFloat,
                 width : CGFloat, height : CGFloat,
                 image : UIImage, pressedImage : UIImage? )
     {
-        bgNode = SKShapeNode()
         imageNode = SKSpriteNode()
         
         super.init(callbacks: callbacks, type: UButtonType.BGColor,
                    id: id, priority: priority,
                    x: x, y: y, width: width, height: height,
-                   color: UColor.Blue)
+                   color: .clear)
         
         textures.append( SKTexture(image: image))
         
@@ -128,16 +126,21 @@ public class UButtonImage : UButton {
         if title != nil {
             titleNode = SKNodeUtil.createLabelNode(
                 text: title!,
-                textSize: UDpi.toPixel(TEXT_SIZE), color: titleColor,
-                alignment: .CenterX, offset: CGPoint(x: 0, y: UDpi.toPixel(TEXT_MARGIN)))
+                textSize: UDpi.toPixel(UButtonImage.TEXT_SIZE), color: titleColor,
+                alignment: .CenterX, offset: CGPoint(x: 0, y: UDpi.toPixel(0)))
             titleNode?.zPosition = 0.1
             parentNode.addChild2(titleNode!)
         }
-        
+
+        // タップ時に表示されるBG
+        let bgMargin = UDpi.toPixel( BG_MARGIN )
         bgNode = SKNodeUtil.createRectNode(
-            rect: CGRect(x: 0, y:0, width: size.width, height: size.height),
-            color: UIColor.init(red: 1.0, green: 1.0, blue: 0, alpha: 0.5), pos: CGPoint(), cornerR: 5.0)
-        parentNode.addChild2(bgNode)
+            rect: CGRect(x: -bgMargin, y: -bgMargin,
+                         width: size.width + bgMargin * 2,
+                         height: size.height + bgMargin * 2),
+            color: BG_COLOR, pos: CGPoint(), cornerR: 5.0)
+        bgNode!.isHidden = true
+        parentNode.addChild2(bgNode!)
         
         imageNode = SKSpriteNode(texture: textures[0])
         imageNode.size = size
@@ -229,12 +232,6 @@ public class UButtonImage : UButton {
     public override func draw() {
         var _texture : SKTexture? = nil
         
-        //        var _pos = CGPoint(x: pos.x, y: pos.y)
-        //        if (offset != nil) {
-        //            _pos.x += offset!.x
-        //            _pos.y += offset!.y
-        //        }
-        
         // 表示するテクスチャは状態によって変わる
         if !enabled {
             _texture = disabledTexture
@@ -247,10 +244,10 @@ public class UButtonImage : UButton {
                 _texture = pressedTexture
             } else {
                 // BGの矩形を配置
-                bgNode.isHidden = false
+                bgNode!.isHidden = false
             }
         } else {
-            bgNode.isHidden = true
+            bgNode!.isHidden = true
         }
         imageNode.texture = _texture
     }

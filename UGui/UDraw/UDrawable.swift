@@ -70,10 +70,11 @@ public class UDrawable {
     var animeFrameMax : Int = 20
     var animeRatio : CGFloat = 0.0
     
-    // Constructor
+    // MARK: Initializer
     init(priority: Int, x: CGFloat, y: CGFloat, width : CGFloat, height : CGFloat)
     {
         parentNode = SKNode()
+        parentNode.zPosition = CGFloat(priority)
         
         pos = CGPoint(x: x, y: y)
         size = CGSize(width: width, height: height)

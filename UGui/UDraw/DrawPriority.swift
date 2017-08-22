@@ -14,6 +14,7 @@ import Foundation
  */
 public enum DrawPriority : Int {
     case Dialog = 100
+    case SubWindowIcon = 20
     case DragIcon = 11
     case IconWindow = 5
     ;
