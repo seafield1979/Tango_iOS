@@ -10,13 +10,13 @@ import SpriteKit
 
 public class SKNodeUtil {
     
+    static private let fontName = "HiraKakuProN-W6"
     
     /**
      線のShapeNodeを作成する
      */
     public static func createLineNode( p1 : CGPoint, p2 : CGPoint, color : SKColor, lineWidth : CGFloat) -> SKShapeNode
     {
-        let scene = TopScene.getInstance()
         var points = [ p1.convToSK(),
                        p2.convToSK() ]
         let node = SKShapeNode(points: &points, count: points.count)
@@ -65,8 +65,6 @@ public class SKNodeUtil {
      */
     public static func createCrossPoint( pos : CGPoint, length : CGFloat, lineWidth : CGFloat, color : SKColor) -> SKNode
     {
-        let scene = TopScene.getInstance()
-        
         // ２本の線の親
         let parentNode = SKNode()
         parentNode.position = pos
@@ -101,7 +99,7 @@ public class SKNodeUtil {
         let n = SKLabelNode(text: text)
         n.fontColor = color
         n.fontSize = textSize
-        n.fontName = "HiraKakuProN-W6"
+        n.fontName = SKNodeUtil.fontName
         if offset != nil {
             n.position = offset!
         }
@@ -131,5 +129,43 @@ public class SKNodeUtil {
         }
         
         return n
+    }
+    
+    /**
+     改行に対応したLabel
+     */
+    static func createMultiLineLabelNode(text: String, fontSize: CGFloat, color : SKColor, alignment : UAlignment, pos: CGPoint?) -> (node: SKLabelNode, size: CGSize)
+    {
+        let subStrings:[String] = text.components(separatedBy:"\n")
+        var labelOutPut = SKLabelNode()
+        var subStringNumber:Int = 0
+        var maxWidth : CGFloat = 0
+        
+        for subString in subStrings {
+            let labelTemp = SKLabelNode(fontNamed: SKNodeUtil.fontName)
+            labelTemp.text = subString
+            labelTemp.horizontalAlignmentMode = .left
+            labelTemp.verticalAlignmentMode = .top
+            labelTemp.fontColor = color
+            labelTemp.fontSize = fontSize
+            if labelTemp.frame.size.width > maxWidth {
+                maxWidth = labelTemp.frame.size.width
+            }
+            
+            let y : CGFloat = CGFloat(subStringNumber) * fontSize
+            
+            if subStringNumber == 0 {
+                if pos != nil {
+                    labelTemp.position = pos!
+                }
+                labelOutPut = labelTemp
+            } else {
+                labelTemp.position = CGPoint(x: 0, y: -y)
+                labelOutPut.addChild(labelTemp)
+            }
+            
+            subStringNumber += 1
+        }
+        return (labelOutPut, CGSize(width: maxWidth, height: CGFloat(subStringNumber) * fontSize))
     }
 }

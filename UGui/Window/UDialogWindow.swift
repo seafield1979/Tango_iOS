@@ -48,7 +48,7 @@ public class UDialogWindow : UWindow {
     public static let CloseDialogId = 10000123
     
     static let MARGIN_H : Int = 17
-    static let MARGIN_V : Int = 5
+    static let MARGIN_V : Int = 8
     static let ANIMATION_FRAME : Int = 100
     
     static let TEXT_MARGIN_V : Int = 17
@@ -437,7 +437,7 @@ public class UDialogWindow : UWindow {
                 text: title!,
                 textSize: UDraw.getFontSize(FontSize.L),
                 priority: 0,
-                alignment: UAlignment.Center,
+                alignment: UAlignment.CenterX,
                 createNode : true,
                 multiLine: true, isDrawBG: false,
                 x: size.width / 2, y: y,

@@ -162,6 +162,8 @@ public class UIconManager : UIconCallbacks {
         if icon == nil {
             return nil
         }
+        // SKノードを追加
+        self.mParentWindow!.clientNode.addChild2( icon!.parentNode )
 
         // リストに追加
 //        if addPos != nil {

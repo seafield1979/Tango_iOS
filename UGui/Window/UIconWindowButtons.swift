@@ -13,7 +13,7 @@ class UIconWindowButtons : UDrawable {
     private let MARGIN_H = 15
     private let MARGIN_V = 10
     private let ACTION_ICON_W = 34
-    private let ICON_TEXT_SIZE = 10
+    private let ICON_TEXT_SIZE = 14
 
     private let BG_COLOR = UColor.LightYellow
 

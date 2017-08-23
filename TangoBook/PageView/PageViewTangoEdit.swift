@@ -264,7 +264,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                     isAnimation: true,
                     screenW: mTopScene.getWidth(), screenH: mTopScene.getHeight(),
                         textColor: UIColor.black, dialogColor: UIColor.lightGray)
-                mDialog!.addToDrawManager()
                 
                 mDialog!.setTitle(
                 UResourceManager.getStringByName("confirm_moveto_trash"))
@@ -275,6 +274,9 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 _ = mDialog!.addCloseButton(
                     text: UResourceManager.getStringByName("cancel"))
         
+                mDialog!.updateLayout()
+                mDialog!.addToDrawManager()
+
             case .action_sort_word_asc:
                 let window = getCurrentWindow()
                 window.mIconManager!.sortWithMode(mode: UIconManager.SortMode.TitleAsc)
@@ -768,10 +770,12 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
                 textColor : UIColor.black, dialogColor : UIColor.lightGray)
             
-            mDialog!.addToDrawManager();
             mDialog!.setTitle(message);
             _ = mDialog!.addButton(id : ExportFinishedDialogButtonOk, text : "OK", textColor : UIColor.black, color : UIColor.white)
         
+            mDialog!.updateLayout()
+            mDialog!.addToDrawManager()
+
         case ExportFinishedDialogButtonOk:
             if mDialog != nil {
                 mDialog!.closeDialog()
@@ -1068,8 +1072,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                     screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
                     textColor : DialogTextColor,
                     dialogColor : UColor.White)
-            mDialog!.addToDrawManager();
-
+            
             // 確認のダイアログを表示する
             if icon!.getTitle() != nil {
                 let text = String(format:UResourceManager.getStringByName("confirm_copy_book"), icon!.getTitle()!)
@@ -1085,6 +1088,9 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             // 捨てるアイコンを保持
             mCopyIcon = icon
             
+            mDialog!.updateLayout()
+            mDialog!.addToDrawManager()
+
         case .Delete:
             // 確認のダイアログを表示する
             if mDialog != nil {
@@ -1101,8 +1107,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 isAnimation : true,
                 screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
                 textColor : DialogTextColor, dialogColor : UIColor.white)
-            mDialog!.addToDrawManager()
-
+            
             // 確認のダイアログを表示する
             if icon!.getTitle() != nil {
                 mDialog!.setTitle(String(format: UResourceManager.getStringByName("confirm_moveto_trash"), icon!.getTitle()!))
@@ -1115,7 +1120,10 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
             // 捨てるアイコンを保持
             mThrowIcon = icon
-            
+
+            mDialog!.updateLayout()
+            mDialog!.addToDrawManager()
+
         case .Export:
             // 確認のダイアログを表示する
             if (mDialog != nil) {
@@ -1131,8 +1139,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 isAnimation : true,
                 screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
                 textColor : DialogTextColor, dialogColor : UIColor.white)
-            mDialog!.addToDrawManager();
-
+            
             // 確認のダイアログを表示する
             mDialog!.setTitle(UResourceManager.getStringByName("confirm_export_csv"))
 
@@ -1145,7 +1152,9 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             if icon is IconBook {
                 mExportIcon = icon as? IconBook
             }
-            
+            mDialog!.updateLayout()
+            mDialog!.addToDrawManager()
+
         case .Cleanup:
             // ゴミ箱を空にする
             IconInfoCleanup(icon: nil)
