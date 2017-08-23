@@ -169,26 +169,21 @@ public class UIconWindowSub : UIconWindow {
     }
     
     /**
-     ウィンドウの下に表示するアクションボタンを生成する
+     * サブウィンドウに表示するアクションボタンを設定する
      */
-//    func createActionButton(info : ActionInfo, x: CGFloat, y: CGFloat) -> UButtonImage {
-//        let image = UResourceManager.getImageWithColor(imageName: info.imageName, color: info.color)!
-//        
-//        let button = UButtonImage(
-//            callbacks: self,
-//            id: info.buttonId, priority: DrawPriority.SubWindowIcon.rawValue, x: x, y: y,
-//            width: UDpi.toPixel(UIconWindowSub.ACTION_ICON_W),
-//            height: UDpi.toPixel(UIconWindowSub.ACTION_ICON_W),
-//            image: image,
-//            pressedImage: nil)
-//        
-//        button.setTitle(title: info.title,
-//                        size: Int(UDpi.toPixel(UIconWindowSub.ICON_TEXT_SIZE)),
-//                        color: UIColor.black)
-//        return button
-//
-//    }
-
+    public func setActionButtons(_ type : TangoParentType) {
+        mBookButtons!.parentNode.isHidden = true
+        mTrashButtons!.parentNode.isHidden = true
+        
+        if type == .Book {
+            mBookButtons!.isShow = true
+            mTrashButtons!.isShow = false
+        } else if type == .Trash {
+            mBookButtons!.isShow = false
+            mTrashButtons!.isShow = true
+        }
+    }
+    
     /**
      アクションボタンの情報を取得する
      - parameter id: 情報を取得するアクションボタンのID
@@ -273,16 +268,6 @@ public class UIconWindowSub : UIconWindow {
         return super.touchEvent(vt: vt, offset: offset)
     }
     
-    /**
-     * 移動が完了した時の処理
-     */
-//    public override func endMoving() {
-//        super.endMoving()
-//        
-//        
-//    }
-
-
     /**
      * 描画処理
      * UIconManagerに登録されたIconを描画する

@@ -657,22 +657,24 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         case .Book:
             let subWindow : UIconWindowSub = mIconWinManager!.getSubWindow()
             subWindow.setIcons(
-                parentType: TangoParentType.Book,
+                parentType: .Book,
                 parentId: icon.getTangoItem()!.getId())
             subWindow.setParentIcon(icon: icon)
+            subWindow.setActionButtons(.Book)
 
             // SubWindowを画面外から移動させる
             mIconWinManager!.showWindow(window: subWindow, animation: true)
         
         case .Trash:
-            let window : UIconWindow = mIconWinManager!.getSubWindow()
-            window.setIcons(
-                parentType: TangoParentType.Trash,
+            let subWindow : UIconWindowSub = mIconWinManager!.getSubWindow()
+            subWindow.setIcons(
+                parentType: .Trash,
                 parentId: 0)
             mIconWinManager!.getSubWindow().setParentIcon(icon: icon)
+            subWindow.setActionButtons(.Trash)
 
             // SubWindowを画面外から移動させる
-            mIconWinManager!.showWindow(window: window, animation: true)
+            mIconWinManager!.showWindow(window: subWindow, animation: true)
         default:
             break
         }
