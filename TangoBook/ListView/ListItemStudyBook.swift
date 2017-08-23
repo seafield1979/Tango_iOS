@@ -6,7 +6,7 @@
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import UIKit
+import SpriteKit
 
 public class ListItemStudyBook : UListItem {
     /**
@@ -32,6 +32,12 @@ public class ListItemStudyBook : UListItem {
     /**
      * Member variables
      */
+    // SpriteKit Node
+    private var iconNode : SKSpriteNode?
+    private var titleNode : SKLabelNode?
+    private var dateNode : SKLabelNode?
+    private var infoNode : SKLabelNode?
+    
     private var mTextName : String? = nil
     private var mStudiedDate : String? = nil
     private var mCardCount : String? = nil
@@ -52,12 +58,12 @@ public class ListItemStudyBook : UListItem {
      * Constructor
      */
     public init(listItemCallbacks : UListItemCallbacks?,
-                book : TangoBook, width : CGFloat, color : UIColor)
+                book : TangoBook, width : CGFloat, bgColor : UIColor)
     {
         super.init(callbacks : listItemCallbacks,
                    isTouchable : true,
                    x : 0, width : width, height : UDpi.toPixel(TEXT_SIZE) * 3 + UDpi.toPixel(MARGIN_V)*4,
-                   bgColor : color, frameW : UDpi.toPixel(FRAME_WIDTH), frameColor : FRAME_COLOR)
+                   bgColor : bgColor, frameW : UDpi.toPixel(FRAME_WIDTH), frameColor : FRAME_COLOR)
         mBook = book;
         itemH = UDpi.toPixel(TEXT_SIZE) * 3 + UDpi.toPixel(MARGIN_V) * 4
 
@@ -83,6 +89,42 @@ public class ListItemStudyBook : UListItem {
         let dateStr = (date == nil) ? " --- " : UUtil.convDateFormat(date: date!, mode: ConvDateMode.DateTime)
 
         mStudiedDate = String(format: "学習日時 : %@", dateStr)
+        
+        initSKNode()
+    }
+    
+    /**
+     * SpriteKitノードを生成
+     */
+    public override func initSKNode() {
+        var x = UDpi.toPixel(MARGIN_H)
+        var y = UDpi.toPixel(MARGIN_V)
+        let margin = UDpi.toPixel(TEXT_SIZE + MARGIN_V)
+
+        // 単語帳アイコン
+        iconNode = SKSpriteNode(texture : SKTexture(image: mIcon!))
+        iconNode!.position = CGPoint(x: x, y: (itemH - UDpi.toPixel(ICON_W)) / 2)
+        iconNode!.anchorPoint = CGPoint(x:0, y:1)
+        iconNode!.size = CGSize(width: UDpi.toPixel(ICON_W), height: UDpi.toPixel(ICON_W))
+        parentNode.addChild2( iconNode! )
+        
+        x += UDpi.toPixel(ICON_W + MARGIN_H)
+        
+        // 単語帳の名前
+        titleNode = SKNodeUtil.createLabelNode(text: mTextName!, textSize: UDpi.toPixel(TEXT_SIZE), color: UColor.makeColor(50,150,50),
+                                               alignment: .Left, pos: CGPoint(x:x, y:y))
+        parentNode.addChild2(titleNode!)
+        
+        y += margin
+        // 学習日時
+        dateNode = SKNodeUtil.createLabelNode(text: mStudiedDate!, textSize: UDpi.toPixel(TEXT_SIZE2), color: TEXT_COLOR, alignment: .Left, pos: CGPoint(x: x, y: y))
+        parentNode.addChild2( dateNode! )
+
+        y += margin
+        
+        // カード数
+        infoNode = SKNodeUtil.createLabelNode(text: mCardCount!, textSize: UDpi.toPixel(TEXT_SIZE2), color: UColor.DarkGray, alignment: .Left, pos: CGPoint(x: x, y: y))
+        parentNode.addChild2( infoNode! )
     }
 
     /**
@@ -95,29 +137,7 @@ public class ListItemStudyBook : UListItem {
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
     public override func draw() {
-//        var _pos = CGPoint(x: pos.x, y: pos.y)
-//        
-//        super.draw(_pos)
-//
-//        var x = _pos.x + UDpi.toPixel(MARGIN_H)
-//        var y = _pos.y + UDpi.toPixel(MARGIN_V)
-//        let margin = UDpi.toPixel(TEXT_SIZE + MARGIN_V)
-//
-//        // Icon image
-//        UDraw.drawImage( image : mIcon!, x : x, y : _pos.y + (itemH-UDpi.toPixel(ICON_W)) / 2,
-//                         width : UDpi.toPixel(ICON_W), height : UDpi.toPixel(ICON_W) );
-//        x += UDpi.toPixel(ICON_W + MARGIN_H);
-//        // Book名
-//        UDraw.drawText( text : mTextName!, alignment : UAlignment.None, textSize : Int(UDpi.toPixel(TEXT_SIZE)), x : x, y : y, color : UColor.makeColor(50,150,50))
-//        y += margin
-//        
-//        // 学習日時
-//        UDraw.drawText( text : mStudiedDate!, alignment : UAlignment.None, textSize : Int(UDpi.toPixel(TEXT_SIZE2)),
-//                        x : x, y : y, color : TEXT_COLOR)
-//        y += margin;
-//
-//        // カード数
-//        UDraw.drawText( text : mCardCount!, alignment : UAlignment.None, textSize : Int(UDpi.toPixel(TEXT_SIZE2)), x : x, y : y, color : UColor.DarkGray)
+        super.draw()
     }
 
     /**
@@ -127,9 +147,9 @@ public class ListItemStudyBook : UListItem {
      */
     public override func touchEvent( vt : ViewTouch, offset : CGPoint?) -> Bool {
         if super.touchEvent(vt: vt, offset: offset) {
-            return true;
+            return true
         }
-        return false;
+        return false
     }
 
     /**

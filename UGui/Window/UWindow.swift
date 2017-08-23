@@ -142,10 +142,11 @@ public class UWindow : UDrawable, UButtonCallbacks {
         }
         
         // bg
+        let radius = (frameNode == nil) ? mCornerRadius : 0
         bgNode = SKShapeNode(rect:
             CGRect(x: 0, y: 0,
                    width: clientSize.width, height: clientSize.height).convToSK(),
-                             cornerRadius: mCornerRadius)
+                             cornerRadius: radius)
         bgNode.position = CGPoint(x: frameSize.width,
                                   y: topBarH + frameSize.height)
         if bgColor != nil {
@@ -444,6 +445,11 @@ public class UWindow : UDrawable, UButtonCallbacks {
      * @param paint
      */
     public func drawFrame() {
+        // 閉じるボタン
+        if closeIcon != nil {
+            closeIcon!.draw()
+        }
+        
         // スクロールバー
         if (mScrollBarV != nil && mScrollBarV!.isShow()) {
             mScrollBarV!.draw()

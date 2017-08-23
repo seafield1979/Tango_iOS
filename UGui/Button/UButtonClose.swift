@@ -37,11 +37,11 @@ public class UButtonClose : UButton {
                 x : CGFloat, y : CGFloat, color : UIColor)
     {
         self.radius = UDpi.toPixel(UButtonClose.BUTTON_W / 2)
-        self.closeImage = UResourceManager.getImageByName(ImageName.close)!
+        self.closeImage = UResourceManager.getImageWithColor(imageName: ImageName.close, color: .red)!
         
         let width = UDpi.toPixel(UButtonClose.BUTTON_W)
         
-        buttonNode = SKSpriteNode(imageNamed: "close.png")
+        buttonNode = SKSpriteNode(texture: SKTexture(image: self.closeImage))
         buttonNode.anchorPoint = CGPoint(x:0, y:1.0)
         buttonNode.size = CGSize(width: width, height: width)
         
@@ -52,7 +52,6 @@ public class UButtonClose : UButton {
         
         parentNode.position = CGPoint(x: x, y: y)
         parentNode.addChild2( buttonNode )
-        
         
         self.updateRect()
     }
@@ -68,12 +67,6 @@ public class UButtonClose : UButton {
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
     override public func draw() {
-        //        var _rect = CGRect(origin: rect!.origin, size: rect!.size)
-        //        if offset != nil {
-        //            _rect.x += offset!.x
-        //            _rect.y += offset!.y
-        //        }
-        //        UDraw.drawImage(image: closeImage, rect: _rect)
     }
     
     /**

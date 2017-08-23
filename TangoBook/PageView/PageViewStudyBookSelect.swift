@@ -157,7 +157,7 @@ public class PageViewStudyBookSelect : UPageView
 
             for book in books! {
                 let _book = book as! TangoBook
-                let listItem = ListItemStudyBook(listItemCallbacks : self, book : _book, width : mListView!.getWidth(), color : UIColor.white)
+                let listItem = ListItemStudyBook(listItemCallbacks : self, book : _book, width : mListView!.getWidth(), bgColor : UIColor.white)
                 mListView!.add(item: listItem)
             }
             // スクロールバー等のサイズを更新

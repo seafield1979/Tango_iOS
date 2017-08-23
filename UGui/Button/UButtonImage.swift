@@ -127,7 +127,7 @@ public class UButtonImage : UButton {
             titleNode = SKNodeUtil.createLabelNode(
                 text: title!,
                 textSize: UDpi.toPixel(UButtonImage.TEXT_SIZE), color: titleColor,
-                alignment: .CenterX, offset: CGPoint(x: 0, y: UDpi.toPixel(0)))
+                alignment: .CenterX, pos: CGPoint(x: 0, y: UDpi.toPixel(0)))
             titleNode?.zPosition = 0.1
             parentNode.addChild2(titleNode!)
         }
@@ -192,7 +192,7 @@ public class UButtonImage : UButton {
         titleNode = SKNodeUtil.createLabelNode(
             text: title,
             textSize: textSize, color: color,
-            alignment: alignment, offset: CGPoint(x: x, y: y))
+            alignment: alignment, pos: CGPoint(x: x, y: y))
         titleNode?.zPosition = 0.2
         parentNode.addChild2(titleNode!)
     }

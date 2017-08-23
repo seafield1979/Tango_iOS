@@ -210,7 +210,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
         parentNode.addChild2(imageNode)
         
         // text
-        textNode = SKNodeUtil.createLabelNode(text: "", textSize: UDpi.toPixel(TEXT_SIZE), color: .black, alignment: .CenterX, offset: CGPoint(x:size.width / 2, y: size.height))
+        textNode = SKNodeUtil.createLabelNode(text: "", textSize: UDpi.toPixel(TEXT_SIZE), color: .black, alignment: .CenterX, pos: CGPoint(x:size.width / 2, y: size.height))
         textNode.zPosition = 0.3
         textNode.isHidden = true
         parentNode.addChild2(textNode)

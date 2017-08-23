@@ -149,7 +149,7 @@ public class UTextView : UDrawable {
             self.labelNode = result.node
             size = result.size
         } else {
-            self.labelNode = SKNodeUtil.createLabelNode(text: text, textSize: CGFloat(textSize), color: color, alignment: .Left, offset: nil)
+            self.labelNode = SKNodeUtil.createLabelNode(text: text, textSize: CGFloat(textSize), color: color, alignment: .Left, pos: nil)
             size = labelNode!.frame.size
         }
         

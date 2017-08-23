@@ -44,7 +44,7 @@ public class ListItemTest1 : UListItem {
         mTextSize = Int(UDpi.toPixel(ListItemTest1.TEXT_SIZE))
         
         // SpriteKit Node
-        labelNode = SKNodeUtil.createLabelNode(text: text, textSize: CGFloat(mTextSize), color: .black, alignment: .Center, offset: nil)
+        labelNode = SKNodeUtil.createLabelNode(text: text, textSize: CGFloat(mTextSize), color: .black, alignment: .Center, pos: nil)
         labelNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
         
         bgNode.addChild2(labelNode)
