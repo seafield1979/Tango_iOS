@@ -89,7 +89,7 @@ public class UMenuItem : UDrawable {
             icons.append(texture)
             spriteNode = SKSpriteNode(texture: texture)
             spriteNode!.size = size
-            spriteNode!.anchorPoint = CGPoint(x:0, y:1)
+            spriteNode!.anchorPoint = CGPoint(x:0, y:1 )
             parentNode.addChild(spriteNode!)
         }
     }

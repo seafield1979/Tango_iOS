@@ -66,11 +66,10 @@ public class IconBook : IconContainer {
         subWindow = windows!.getSubWindow()
         
         let color = UColor.makeColor(argb: UInt32(book.getColor()))
-        image = UResourceManager.getImageWithColor(imageName: ImageName.cards,
-                                                   color: color)
-        
+        self.image = UResourceManager.getImageWithColor(imageName: ImageName.cards,
+                                                        color: color)
         // アイコンの画像を設定
-        if let _image = image {
+        if let _image = self.image {
             imageNode.texture = SKTexture(image: _image)
         }
     }
@@ -82,21 +81,11 @@ public class IconBook : IconContainer {
      * @param offset
      */
     public override func drawIcon() {
-        var drawPos : CGPoint = pos
-        
         var alpha : CGFloat = 1.0
         if isLongTouched || isTouched  {
             // 長押し、タッチ、ドロップ中はBGを表示
             dragedBgNode.isHidden = false
-//            UDraw.drawRoundRectFill(rect: CGRect(x: drawPos.x, y: drawPos.y, width: iconW, height: iconH),
-//                                     cornerR: UDpi.toPixel(10),
-//                                     color: touchedColor!,
-//                                     strokeWidth: 0, strokeColor: nil)
         } else if  isDroped {
-//            UDraw.drawRoundRectFill(rect: CGRect(x: drawPos.x, y: drawPos.y, width: iconW, height: iconH),
-//                                    cornerR: UDpi.toPixel(10),
-//                                    color: touchedColor!,
-//                                    strokeWidth: 0, strokeColor: nil)
         } else if (isAnimating) {
             // 点滅
             let v1 : CGFloat = (CGFloat(animeFrame) / CGFloat(animeFrameMax)) * 180
@@ -104,28 +93,13 @@ public class IconBook : IconContainer {
         } else {
             alpha = self.color.alpha()
         }
-        
-        // icon
-        // 領域の幅に合わせて伸縮
-        UDraw.drawImageWithCrop(image: image!,
-                                srcRect: CGRect(x: 0,y: 0, width: image!.getWidth(), height: image!.getHeight()),
-                                dstRect: CGRect(x: drawPos.x, y: drawPos.y,
-                                                width: iconW, height: iconH), alpha: alpha)
-        // Text
-        UDraw.drawText(text: title!, alignment: UAlignment.CenterX,
-                       textSize: Int(UDpi.toPixel(TEXT_SIZE)),
-                       x: drawPos.x + iconW / 2,
-                       y: drawPos.y + iconH + UDpi.toPixel(TEXT_MARGIN),
-                       color: UIColor.black)
+        parentNode.alpha = alpha
         
         // New!
         if book!.isNew {
             if newTextView == nil {
                 createNewBadge()
             }
-//            newTextView!.draw( CGPoint(x: drawPos.x + iconW / 2,
-//                                       y: drawPos.y + iconH - UDpi.toPixel(NEW_TEXT_SIZE)))
-
         }
     }
 

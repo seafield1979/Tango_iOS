@@ -204,8 +204,6 @@ public class UIcon : UDrawable, CustomStringConvertible {
         parentNode.addChild2(dragedBgNode)
         
         // icon image
-        imageNode = SKSpriteNode()
-//        imageNode = SKSpriteNode(imageNamed: ImageName.card.rawValue)
         imageNode.zPosition = 0.2
         imageNode.anchorPoint = CGPoint(x:0, y:1.0)
         imageNode.size = size
@@ -545,8 +543,10 @@ public class UIcon : UDrawable, CustomStringConvertible {
     * アイコンの色が変更された際に呼び出す
     */
     public func updateIconImage() {
-        let _image = UUtil.convImageColor(image: self.image!, newColor: color)
-        imageNode.texture = SKTexture( image: _image)
+        if let _image = self.image {
+            let _image2 = UUtil.convImageColor(image: _image, newColor: color)
+            imageNode.texture = SKTexture( image: _image2)
+        }
     }
 
      /**

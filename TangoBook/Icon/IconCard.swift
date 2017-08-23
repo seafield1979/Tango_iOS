@@ -58,7 +58,7 @@ public class IconCard : UIcon {
         setColor(TOUCHED_COLOR)
         
         // アイコンの画像を設定
-        let image = UResourceManager.getImageWithColor(
+        self.image = UResourceManager.getImageWithColor(
             imageName: ImageName.card,
             color: UColor.makeColor(argb: UInt32(card.color)))
 
@@ -96,25 +96,13 @@ public class IconCard : UIcon {
         } else {
             alpha = self.color.alpha()
         }
-        // icon
-        // 領域の幅に合わせて伸縮
-//        UDraw.drawImageWithCrop(image: image!,
-//                                srcRect: CGRect(x: 0,y: 0, width: image!.getWidth(), height: image!.getHeight()),
-//                                dstRect: CGRect(x: drawPos.x, y: drawPos.y,
-//                                                width: iconW, height: iconH), alpha: alpha)
-//        // Text
-//        UDraw.drawText(text: title!, alignment: UAlignment.CenterX,
-//                       textSize: Int(UDpi.toPixel(TEXT_SIZE)),
-//                       x: drawPos.x + iconW / 2,
-//                       y: drawPos.y + iconH + UDpi.toPixel(TEXT_MARGIN),
-//                       color: UIColor.black)
+        parentNode.alpha = alpha
 
         // New!
         if card.isNew {
             if newTextView == nil {
                 createNewBadge()
             }
-//            newTextView!.draw( CGPoint(x: drawPos.x + iconW / 2, y:drawPos.y + iconW / 2))
         }
     }
 

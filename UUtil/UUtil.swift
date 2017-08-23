@@ -37,15 +37,21 @@ public class UUtil {
     }
     
     //スクリーンの幅
-    public static func screenWidth() -> Int {
-        return Int( UIScreen.main.bounds.size.width)
+    public static func screenWidth() -> CGFloat {
+        return UIScreen.main.bounds.size.width
     }
     
     //スクリーンの高さ
-    public static func screenHeight() -> Int {
-        return Int(UIScreen.main.bounds.size.height)
+    public static func screenHeight() -> CGFloat {
+        return UIScreen.main.bounds.size.height
+    }
+
+    // ステータスバーとナビゲーションバーの高さを引いたスクリーンの高さ
+    public static func topViewHeight() -> CGFloat {
+        return UUtil.screenHeight() - UUtil.navigationBarHeight() - UUtil.statusBarHeight()
     }
     
+
     /**
      * sinテーブルの0->90度の 0.0~1.0 の値を取得する
      *

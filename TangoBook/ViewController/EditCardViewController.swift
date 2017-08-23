@@ -15,6 +15,8 @@ class EditCardViewController: UIViewController, UITextFieldDelegate
     @IBOutlet weak var textWordB: UITextField!
     @IBOutlet weak var colorView: UIView!
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     @IBOutlet weak var colorScrollView: UIScrollView!
     
     public var mCard : TangoCard? = nil
@@ -36,6 +38,9 @@ class EditCardViewController: UIViewController, UITextFieldDelegate
         
         // 色選択用のボタンを追加
         let buttons = createButtons(count: 10, width :50, height: 50)
+        
+        scrollView.frame = self.view.frame
+        scrollView.contentSize = self.view.frame.size
         
         // 色を設定
         let colors : [UIColor] = [UIColor.white, UIColor.black, UIColor.red, UIColor.blue, UIColor.green, UIColor.brown, UIColor.cyan, UIColor.yellow, UIColor.purple, UIColor.darkGray]

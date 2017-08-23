@@ -11,6 +11,8 @@ import UIKit
 
 class EditBookViewController: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     @IBOutlet weak var nameTextField: UITextField!
     
     @IBOutlet weak var commentTextField: UITextField!
@@ -36,6 +38,10 @@ class EditBookViewController: UIViewController, UITextFieldDelegate {
         nameTextField.delegate = self
         commentTextField.delegate = self
         
+        self.view.frame.size = CGSize(width: UUtil.screenWidth(),
+                                      height: UUtil.topViewHeight())
+        scrollView.frame = self.view.frame
+        scrollView.contentSize = self.view.frame.size
         // 色選択用のボタンを追加
         let buttons = createButtons(count: 10, width :50, height: 50)
         
