@@ -79,13 +79,13 @@ public class UImageView : UDrawable {
                            width: size.width, height: size.height)
         
         // 領域の幅に合わせて伸縮
-        UDraw.drawImage(image: _image, rect: _rect)
+//        UDraw.drawImage(image: _image, rect: _rect)
         
         // 下にテキストを表示
         if mTitle != nil && mTitleColor != nil {
-            UDraw.drawText( text : mTitle!, alignment : UAlignment.CenterX,
-                            fontSize : mTitleSize,
-                            x : _rect.centerX(), y : _rect.bottom + UDpi.toPixel(TEXT_MARGIN), color : mTitleColor!)
+//            UDraw.drawText( text : mTitle!, alignment : UAlignment.CenterX,
+//                            fontSize : mTitleSize,
+//                            x : _rect.centerX(), y : _rect.bottom + UDpi.toPixel(TEXT_MARGIN), color : mTitleColor!)
         }
     }
     

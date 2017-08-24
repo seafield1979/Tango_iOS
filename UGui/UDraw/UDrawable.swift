@@ -248,16 +248,16 @@ public class UDrawable {
      * Rectをライン描画する for Debug
      */
     public func drawRectLine(offset : CGPoint?, color : UIColor) {
-        var _rect = CGRect(x: rect.x,
-                           y: rect.y,
-                           width: rect.width,
-                           height: rect.height)
-        if offset != nil {
-            _rect.x += offset!.x
-            _rect.y += offset!.y
-        }
-        
-        UDraw.drawRect(rect: _rect, width: 2, color: color)
+//        var _rect = CGRect(x: rect.x,
+//                           y: rect.y,
+//                           width: rect.width,
+//                           height: rect.height)
+//        if offset != nil {
+//            _rect.x += offset!.x
+//            _rect.y += offset!.y
+//        }
+//        
+//        UDraw.drawRect(rect: _rect, width: 2, color: color)
     }
     
     /**

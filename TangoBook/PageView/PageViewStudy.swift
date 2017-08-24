@@ -1,14 +1,14 @@
 //
 //  PageViewBackup.swift
 //  TangoBook
-//
+//      PageViewStudy~系クラスの親クラス
 //  Created by Shusuke Unno on 2017/07/24.
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
 import UIKit
 
-public class PageViewStudy : UPageView, UButtonCallbacks {
+public class PageViewStudy : UPageView, UButtonCallbacks, UDialogCallbacks {
     /**
      * Enums
      */
@@ -16,12 +16,19 @@ public class PageViewStudy : UPageView, UButtonCallbacks {
      * Constants
      */
     public static let TAG = "PageViewStudy"
-    
-    // button id
-    private static let buttonId1 = 100
-    
-    private static let DRAW_PRIORITY = 100
-    
+    /**
+      * Constants
+      */
+    public static let ButtonIdExit = 200
+    public static let ButtonIdExitOk = 201
+
+    /**
+     * Member variables
+     */
+    // 終了確認ダイアログ
+    var mConfirmDialog : UDialogWindow?
+    var isCloseOk : Bool = false
+
     /**
      * Propaties
      */
@@ -29,10 +36,37 @@ public class PageViewStudy : UPageView, UButtonCallbacks {
     /**
      * Constructor
      */
-    public override init( topScene : TopScene, title : String) {
-        super.init( topScene: topScene, title: title)
+    public override init( topScene : TopScene, pageId: Int, title : String) {
+        super.init( topScene: topScene, pageId: pageId, title: title)
     }
     
+    /**
+      * ページ終了確認ダイアログを表示する
+      */
+    private func showExitConfirm() {
+        if mConfirmDialog == nil {
+            isCloseOk = false
+
+            mConfirmDialog = UDialogWindow.createInstance(
+                topScene: mTopScene,
+                type: .Mordal,
+                buttonCallbacks: self, dialogCallbacks: self,
+                dir: UDialogWindow.ButtonDir.Horizontal,
+                posType: .Center,
+                isAnimation: true, x: 0, y: 0,
+                screenW: mTopScene.getWidth(), screenH: mTopScene.getHeight(),
+                textColor: .black, dialogColor: .lightGray)
+            
+            mConfirmDialog!.addToDrawManager()
+            mConfirmDialog!.setTitle( UResourceManager.getStringByName("confirm_exit"))
+            mConfirmDialog!.addButton(id: PageViewStudy.ButtonIdExitOk, text: "OK", fontSize: UDraw.getFontSize(FontSize.M), textColor: .black, color: .white)
+            
+            mConfirmDialog!.addCloseButton( text: UResourceManager.getStringByName(
+                "cancel"))
+        }
+    }
+    
+
     /**
      * Methods
      */
@@ -76,16 +110,7 @@ public class PageViewStudy : UPageView, UButtonCallbacks {
         // 描画オブジェクトクリア
         UDrawManager.getInstance().initialize()
         
-        // ここにページで表示するオブジェクト生成処理を記述
-        let width = self.mTopScene.getWidth()
-        
-        let button = UButtonText(
-            callbacks: self, type: UButtonType.Press,
-            id: PageViewStudy.buttonId1, priority: PageViewStudy.DRAW_PRIORITY,
-            text: "test", createNode: true, x: 50, y: 100,
-            width: width - 100, height: 100,
-            fontSize: UDpi.toPixel(20), textColor: UIColor.white, bgColor: .blue)
-        button.addToDrawManager()
+
         
     }
     
@@ -94,12 +119,11 @@ public class PageViewStudy : UPageView, UButtonCallbacks {
      * @return
      */
     public override func onBackKeyDown() -> Bool {
-        return false
+        showExitConfirm()
+        return true
     }
     
-    /**
-     * Callbacks
-     */
+    // MARK: Callbacks
     /**
      * UButtonCallbacks
      */
@@ -109,8 +133,32 @@ public class PageViewStudy : UPageView, UButtonCallbacks {
      * @param pressedOn  押された状態かどうか(On/Off)
      * @return
      */
-    public func UButtonClicked(id : Int, pressedOn : Bool) -> Bool
-    {
-        return true
+    public func UButtonClicked(id : Int, pressedOn : Bool) -> Bool {
+        switch(id) {
+        case PageViewStudy.ButtonIdExit:
+            // 終了ボタンを押したら確認用のモーダルダイアログを表示
+            showExitConfirm();
+            
+        case PageViewStudy.ButtonIdExitOk:
+            // 終了
+            isCloseOk = true
+            mConfirmDialog!.closeDialog()
+        default:
+            break
+        }
+        return false
+    }
+
+    /**
+     * UDialogCallbacks
+     */
+    public func dialogClosed( dialog : UDialogWindow ) {
+        if isCloseOk {
+            // 終了して前のページに戻る
+            _ = PageViewManagerMain.getInstance().popPage()
+        }
+        if dialog === mConfirmDialog {
+            mConfirmDialog = nil
+        }
     }
 }

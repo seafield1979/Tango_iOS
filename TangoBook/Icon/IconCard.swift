@@ -85,10 +85,10 @@ public class IconCard : UIcon {
         
         if (isLongTouched || isTouched || isDroped) {
             // 長押し、タッチ、ドロップ中はBGを表示
-            UDraw.drawRoundRectFill(rect: CGRect(x: drawPos.x, y: drawPos.y,
-                                            width: iconW, height: iconH),
-                                    cornerR: UDpi.toPixel(10),
-                                    color: touchedColor!, strokeWidth: 0, strokeColor: nil)
+//            UDraw.drawRoundRectFill(rect: CGRect(x: drawPos.x, y: drawPos.y,
+//                                            width: iconW, height: iconH),
+//                                    cornerR: UDpi.toPixel(10),
+//                                    color: touchedColor!, strokeWidth: 0, strokeColor: nil)
         } else if (isAnimating) {
             // 点滅
             let v1 : CGFloat = (CGFloat(animeFrame) / CGFloat(animeFrameMax)) * 180

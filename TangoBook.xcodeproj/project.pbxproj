@@ -200,7 +200,6 @@
 		8AB7E8F71F25824C005E36BB /* ImageName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E8F61F25824C005E36BB /* ImageName.swift */; };
 		8AB7E8FA1F2582C0005E36BB /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E8F91F2582C0005E36BB /* TopView.swift */; };
 		8AB7E8FC1F258384005E36BB /* ViewTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E8FB1F258384005E36BB /* ViewTouch.swift */; };
-		8AB7E9111F2583F4005E36BB /* PageViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9061F2583F4005E36BB /* PageViewTest.swift */; };
 		8AB7E9121F2583F4005E36BB /* UPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9071F2583F4005E36BB /* UPageView.swift */; };
 		8AB7E9131F2583F4005E36BB /* UPageViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9081F2583F4005E36BB /* UPageViewManager.swift */; };
 		8AB7E9151F258463005E36BB /* UScrollWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9141F258463005E36BB /* UScrollWindow.swift */; };
@@ -211,12 +210,6 @@
 		8AB7E9221F258A1B005E36BB /* TestGuiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9211F258A1B005E36BB /* TestGuiView.swift */; };
 		8AB7E92C1F259991005E36BB /* PageViewManagerMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9241F259991005E36BB /* PageViewManagerMain.swift */; };
 		8AB7E92D1F259991005E36BB /* PageViewTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9251F259991005E36BB /* PageViewTemplate.swift */; };
-		8AB7E92E1F259991005E36BB /* PageViewTest1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9261F259991005E36BB /* PageViewTest1.swift */; };
-		8AB7E92F1F259991005E36BB /* PageViewTest2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9271F259991005E36BB /* PageViewTest2.swift */; };
-		8AB7E9301F259991005E36BB /* PageViewTest3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9281F259991005E36BB /* PageViewTest3.swift */; };
-		8AB7E9311F259991005E36BB /* PageViewTest4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9291F259991005E36BB /* PageViewTest4.swift */; };
-		8AB7E9321F259991005E36BB /* PageViewTest5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E92A1F259991005E36BB /* PageViewTest5.swift */; };
-		8AB7E9331F259991005E36BB /* PageViewTest6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E92B1F259991005E36BB /* PageViewTest6.swift */; };
 		8AB7E94B1F25A00F005E36BB /* PageViewBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9391F25A00F005E36BB /* PageViewBackup.swift */; };
 		8AB7E94C1F25A00F005E36BB /* PageViewCsvBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E93A1F25A00F005E36BB /* PageViewCsvBook.swift */; };
 		8AB7E94D1F25A00F005E36BB /* PageViewDebug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E93B1F25A00F005E36BB /* PageViewDebug.swift */; };
@@ -236,7 +229,6 @@
 		8AB7E95B1F25A00F005E36BB /* PageViewTangoEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9491F25A00F005E36BB /* PageViewTangoEdit.swift */; };
 		8AB7E95E1F25A2AF005E36BB /* PageViewTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E95D1F25A2AF005E36BB /* PageViewTitle.swift */; };
 		8AB7E9611F25B43E005E36BB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AB7E9631F25B43E005E36BB /* Localizable.strings */; };
-		8AB7E9671F25D29E005E36BB /* PageViewManagerTest1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9661F25D29E005E36BB /* PageViewManagerTest1.swift */; };
 		8AB7E96B1F25E12E005E36BB /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9691F25E12E005E36BB /* TopViewController.swift */; };
 		8AB7E96E1F25E1D0005E36BB /* TangoTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E96D1F25E1D0005E36BB /* TangoTopView.swift */; };
 		8AB7E9711F278CE2005E36BB /* UIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9701F278CE2005E36BB /* UIcon.swift */; };
@@ -542,7 +534,6 @@
 		8AB7E8F61F25824C005E36BB /* ImageName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageName.swift; sourceTree = "<group>"; };
 		8AB7E8F91F2582C0005E36BB /* TopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
 		8AB7E8FB1F258384005E36BB /* ViewTouch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewTouch.swift; sourceTree = "<group>"; };
-		8AB7E9061F2583F4005E36BB /* PageViewTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewTest.swift; sourceTree = "<group>"; };
 		8AB7E9071F2583F4005E36BB /* UPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPageView.swift; sourceTree = "<group>"; };
 		8AB7E9081F2583F4005E36BB /* UPageViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPageViewManager.swift; sourceTree = "<group>"; };
 		8AB7E9141F258463005E36BB /* UScrollWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UScrollWindow.swift; sourceTree = "<group>"; };
@@ -553,12 +544,6 @@
 		8AB7E9211F258A1B005E36BB /* TestGuiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGuiView.swift; sourceTree = "<group>"; };
 		8AB7E9241F259991005E36BB /* PageViewManagerMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewManagerMain.swift; path = PageView/PageViewManagerMain.swift; sourceTree = "<group>"; };
 		8AB7E9251F259991005E36BB /* PageViewTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewTemplate.swift; path = PageView/PageViewTemplate.swift; sourceTree = "<group>"; };
-		8AB7E9261F259991005E36BB /* PageViewTest1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewTest1.swift; path = PageView/PageViewTest1.swift; sourceTree = "<group>"; };
-		8AB7E9271F259991005E36BB /* PageViewTest2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewTest2.swift; path = PageView/PageViewTest2.swift; sourceTree = "<group>"; };
-		8AB7E9281F259991005E36BB /* PageViewTest3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewTest3.swift; path = PageView/PageViewTest3.swift; sourceTree = "<group>"; };
-		8AB7E9291F259991005E36BB /* PageViewTest4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewTest4.swift; path = PageView/PageViewTest4.swift; sourceTree = "<group>"; };
-		8AB7E92A1F259991005E36BB /* PageViewTest5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewTest5.swift; path = PageView/PageViewTest5.swift; sourceTree = "<group>"; };
-		8AB7E92B1F259991005E36BB /* PageViewTest6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewTest6.swift; path = PageView/PageViewTest6.swift; sourceTree = "<group>"; };
 		8AB7E9391F25A00F005E36BB /* PageViewBackup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewBackup.swift; path = PageView/PageViewBackup.swift; sourceTree = "<group>"; };
 		8AB7E93A1F25A00F005E36BB /* PageViewCsvBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewCsvBook.swift; path = PageView/PageViewCsvBook.swift; sourceTree = "<group>"; };
 		8AB7E93B1F25A00F005E36BB /* PageViewDebug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewDebug.swift; path = PageView/PageViewDebug.swift; sourceTree = "<group>"; };
@@ -579,7 +564,6 @@
 		8AB7E95D1F25A2AF005E36BB /* PageViewTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewTitle.swift; path = PageView/PageViewTitle.swift; sourceTree = "<group>"; };
 		8AB7E9641F25B441005E36BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8AB7E9651F25B52A005E36BB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
-		8AB7E9661F25D29E005E36BB /* PageViewManagerTest1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewManagerTest1.swift; path = PageView/PageViewManagerTest1.swift; sourceTree = "<group>"; };
 		8AB7E9691F25E12E005E36BB /* TopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopViewController.swift; path = ViewController/TopViewController.swift; sourceTree = "<group>"; };
 		8AB7E96D1F25E1D0005E36BB /* TangoTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TangoTopView.swift; sourceTree = "<group>"; };
 		8AB7E9701F278CE2005E36BB /* UIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIcon.swift; path = Icon/UIcon.swift; sourceTree = "<group>"; };
@@ -991,7 +975,6 @@
 		8AB7E8FD1F2583F4005E36BB /* PageView */ = {
 			isa = PBXGroup;
 			children = (
-				8AB7E9061F2583F4005E36BB /* PageViewTest.swift */,
 				8AB7E9071F2583F4005E36BB /* UPageView.swift */,
 				8AB7E9081F2583F4005E36BB /* UPageViewManager.swift */,
 			);
@@ -1013,13 +996,6 @@
 				8AB7E9251F259991005E36BB /* PageViewTemplate.swift */,
 				8AB7E9381F259FFF005E36BB /* Tango */,
 				8AB7E9241F259991005E36BB /* PageViewManagerMain.swift */,
-				8AB7E9661F25D29E005E36BB /* PageViewManagerTest1.swift */,
-				8AB7E9261F259991005E36BB /* PageViewTest1.swift */,
-				8AB7E9271F259991005E36BB /* PageViewTest2.swift */,
-				8AB7E9281F259991005E36BB /* PageViewTest3.swift */,
-				8AB7E9291F259991005E36BB /* PageViewTest4.swift */,
-				8AB7E92A1F259991005E36BB /* PageViewTest5.swift */,
-				8AB7E92B1F259991005E36BB /* PageViewTest6.swift */,
 			);
 			name = PageView;
 			sourceTree = "<group>";
@@ -1668,7 +1644,6 @@
 				8AF1A57D1F47E18100B47000 /* SKUNode.swift in Sources */,
 				8A6635A01F384D1D000EAAF0 /* StudyCardStackSelect.swift in Sources */,
 				8AE08A861F2580D00024E9B7 /* UButtonClose.swift in Sources */,
-				8AB7E92E1F259991005E36BB /* PageViewTest1.swift in Sources */,
 				8A66358F1F3800BC000EAAF0 /* PreStudyWindow.swift in Sources */,
 				8AB7E9531F25A00F005E36BB /* PageViewRestore.swift in Sources */,
 				8A0D6FB01F319748002A1949 /* EditCardViewController.swift in Sources */,
@@ -1707,15 +1682,12 @@
 				8A57095E1F376767004387D4 /* ListItemStudiedBook.swift in Sources */,
 				8AE08AC01F2580E00024E9B7 /* UIColor+ex.swift in Sources */,
 				8AB7E9131F2583F4005E36BB /* UPageViewManager.swift in Sources */,
-				8AB7E9671F25D29E005E36BB /* PageViewManagerTest1.swift in Sources */,
-				8AB7E92F1F259991005E36BB /* PageViewTest2.swift in Sources */,
 				8AB7E9521F25A00F005E36BB /* PageViewPresetBook.swift in Sources */,
 				8AB7E9801F278DC7005E36BB /* UIconManager.swift in Sources */,
 				8A0D6FB41F319765002A1949 /* EditBookViewController.swift in Sources */,
 				8AD6313C1F2B94CE0067B57E /* IconInfoDialogCard.swift in Sources */,
 				8A6087781F4BF16E00259191 /* UIconWindowButtons.swift in Sources */,
 				8A5709661F3767D8004387D4 /* ListViewResult.swift in Sources */,
-				8AB7E9321F259991005E36BB /* PageViewTest5.swift in Sources */,
 				8AB7E9581F25A00F005E36BB /* PageViewStudyBookSelect.swift in Sources */,
 				8AE08A881F2580D00024E9B7 /* UButtonText.swift in Sources */,
 				8AB7E95B1F25A00F005E36BB /* PageViewTangoEdit.swift in Sources */,
@@ -1752,7 +1724,6 @@
 				8A66359E1F384CEF000EAAF0 /* StudyCardStackInput.swift in Sources */,
 				8AB7E9121F2583F4005E36BB /* UPageView.swift in Sources */,
 				8AE08A991F2580D00024E9B7 /* UListItem.swift in Sources */,
-				8AB7E9311F259991005E36BB /* PageViewTest4.swift in Sources */,
 				8AD6313A1F2B941B0067B57E /* IconInfoDialog.swift in Sources */,
 				8AE08A931F2580D00024E9B7 /* DrawPriority.swift in Sources */,
 				8AB7E9811F278DC7005E36BB /* UIconWindow.swift in Sources */,
@@ -1762,7 +1733,6 @@
 				8AB7E9571F25A00F005E36BB /* PageViewStudy.swift in Sources */,
 				8AB7E96B1F25E12E005E36BB /* TopViewController.swift in Sources */,
 				8AE08A911F2580D00024E9B7 /* UAlignment.swift in Sources */,
-				8AB7E9111F2583F4005E36BB /* PageViewTest.swift in Sources */,
 				8AB7E8FC1F258384005E36BB /* ViewTouch.swift in Sources */,
 				8AF7817D1F1F3E4400FC4EF2 /* ViewController.swift in Sources */,
 				8A66359C1F384CA2000EAAF0 /* StudyCardsStack.swift in Sources */,
@@ -1775,7 +1745,6 @@
 				8AA3B5071F29B1F100AE445E /* UIImage+ex.swift in Sources */,
 				8AE08A131F24BA310024E9B7 /* TestDB6ViewController.swift in Sources */,
 				8AE08A8F1F2580D00024E9B7 /* UTextView.swift in Sources */,
-				8AB7E9331F259991005E36BB /* PageViewTest6.swift in Sources */,
 				8AB7E9831F278DC7005E36BB /* UIconWindowSub.swift in Sources */,
 				8AE08AA01F2580D00024E9B7 /* UWindow.swift in Sources */,
 				8AF5E9FB1F2ED31E008D8508 /* PresetBook.swift in Sources */,
@@ -1789,7 +1758,6 @@
 				8AF781AF1F1F445500FC4EF2 /* TangoCardHistoryDao.swift in Sources */,
 				8AE08A0F1F24BA1C0024E9B7 /* TestDB5ViewController.swift in Sources */,
 				8AF781A81F1F445500FC4EF2 /* TangoBook.swift in Sources */,
-				8AB7E9301F259991005E36BB /* PageViewTest3.swift in Sources */,
 				8AE08A851F2580D00024E9B7 /* UButton.swift in Sources */,
 				8AB7E92D1F259991005E36BB /* PageViewTemplate.swift in Sources */,
 			);

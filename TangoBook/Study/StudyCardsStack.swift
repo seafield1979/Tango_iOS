@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 /**
  * Created by shutaro on 2016/12/07.
  *
@@ -51,9 +50,7 @@ public class StudyCardsStack : UDrawable {
     
     var mOkBoxPos = CGPoint(), mNgBoxPos = CGPoint()
     
-    /**
-     * Get/Set
-     */
+    // MARK: Get/Set
     public func setOkBoxPos( x : CGFloat, y : CGFloat) {
         self.mOkBoxPos.x = x
         self.mOkBoxPos.y = y
@@ -79,13 +76,11 @@ public class StudyCardsStack : UDrawable {
         return mCardsInBackYard.count + mCards.count + mToBoxCards.count
     }
     
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init( cardManager : StudyCardsManager,
-                                 cardsStackCallbacks : CardsStackCallbacks?,
-                                 x : CGFloat, y : CGFloat,
-                                 width : CGFloat, maxHeight : CGFloat)
+                 cardsStackCallbacks : CardsStackCallbacks?,
+                x : CGFloat, y : CGFloat,
+                width : CGFloat, maxHeight : CGFloat)
     {
         super.init(priority : 90, x : x, y : y, width : width, height : 0)
         
@@ -98,7 +93,6 @@ public class StudyCardsStack : UDrawable {
         if mStudyMode == StudyMode.SlideMulti {
             isMultiCard = true
         }
-        
         setInitialCards( isMultiCard: isMultiCard, maxHeight: maxHeight)
     }
 
@@ -109,14 +103,16 @@ public class StudyCardsStack : UDrawable {
      * 初期表示分のカードを取得
      */
     func setInitialCards( isMultiCard : Bool, maxHeight : CGFloat) {
-//        boolean isEnglish = (MySharedPref.getStudyType() == StudyType.EtoJ);
-//        
-//        while(mCardManager.getCardCount() > 0) {
-//            TangoCard tangoCard = mCardManager.popCard();
-//            StudyCard studyCard = new StudyCard(tangoCard, isMultiCard, isEnglish,
-//                                                canvasW, maxHeight);
-//            mCardsInBackYard.add(studyCard);
-//        }
+        let isEnglish = (MySharedPref.getStudyType() == StudyType.EtoJ)
+        
+        while mCardManager!.getCardCount() > 0 {
+            let tangoCard : TangoCard? = mCardManager!.popCard()
+            let studyCard : StudyCard = StudyCard(
+                card : tangoCard!, isMultiCard : isMultiCard,
+                isEnglish : isEnglish, screenW : TopScene.getInstance().getWidth(),
+                maxHeight : maxHeight)
+            mCardsInBackYard.append( studyCard )
+        }
     }
 
     /**
@@ -124,129 +120,141 @@ public class StudyCardsStack : UDrawable {
      * @return true:処理中
      */
     public override func doAction() -> DoActionRet {
-//        // 表示待ちのカードを表示させるかの判定
-//        if (mCardsInBackYard.count > 0) {
-//            boolean startFlag = false;
-//            if (mCards.count == 0 ) {
-//                // 表示中のカードが0なら無条件で投入
-//                startFlag = true;
-//            } else {
-//                // 現在表示中のカードが一定位置より下に来たら次のカードを投入する
-//                StudyCard card = mCards.getLast();
-//                if (card.getY() >= card.getHeight()) {
-//                    startFlag = true;
-//                }
-//            }
-//            if (startFlag) {
-//                appearCardFromBackYard();
-//            }
-//        }
-//        
-//        // スライドしたカードをボックスに移動する処理
-//        for (int i=0; i<mCards.count; i++) {
-//            StudyCard card = mCards.get(i);
-//            
-//            if (card.getMoveRequest() == StudyCard.RequestToParent.MoveToOK ||
-//                card.getMoveRequest() == StudyCard.RequestToParent.MoveToNG)
-//            {
-//                int margin = UDpi.toPixel(17);
-//                
-//                if (card.getMoveRequest() == StudyCard.RequestToParent.MoveToOK ) {
-//                    mCardManager.putCardIntoBox(card.getTangoCard(), StudyCardsManager.BoxType.OK);
-//                    card.startMoveIntoBox(mOkBoxPos.x + margin, mOkBoxPos.y + margin);
-//                } else {
-//                    mCardManager.putCardIntoBox(card.getTangoCard(), StudyCardsManager.BoxType.NG);
-//                    card.startMoveIntoBox(mNgBoxPos.x + margin, mNgBoxPos.y + margin);
-//                }
-//                
-//                card.setMoveRequest(StudyCard.RequestToParent.None);
-//                
-//                // スライドして無くなったすきまを埋めるための移動
-//                float bottomY = card.getBottom();
-//                
-//                for (int j=i+1; j<mCards.count; j++) {
-//                    StudyCard card2 = mCards.get(j);
-//                    card2.startMoving(0, bottomY - card2.getHeight(),
-//                                      MOVING_FRAME + 5);
-//                    bottomY -= card2.getHeight() + UDpi.toPixel(MARGIN_V);
-//                }
-//                mCards.remove(card);
-//                mToBoxCards.add(card);
-//            }
-//        }
-//        
-//        // ボックスへ移動中のカードへの要求を処理
-//        for (int i=0; i<mToBoxCards.count; i++) {
-//            StudyCard card = mToBoxCards.get(i);
-//            // ボックスへの移動開始
-//            boolean breakLoop = false;
-//            
-//            switch (card.getMoveRequest()) {
-//            case MoveIntoOK:
-//            case MoveIntoNG:
-//                card.setMoveRequest(StudyCard.RequestToParent.None);
-//                mToBoxCards.remove(card);
-//                breakLoop = true;
-//                
-//                if (cardsStackCallbacks != nil) {
-//                    cardsStackCallbacks.CardsStackChangedCardNum(getCardCount2());
-//                }
-//                
-//                if (getCardCount2() == 0) {
-//                    cardsStackCallbacks.CardsStackFinished();
-//                }
-//                break;
-//            }
-//            if (breakLoop) break;
-//        }
-//        
-//        
+        // 表示待ちのカードを表示させるかの判定
+        if mCardsInBackYard.count > 0 {
+            var startFlag = false
+            if mCards.count == 0 {
+                // 表示中のカードが0なら無条件で投入
+                startFlag = true
+            } else {
+                // 現在表示中のカードが一定位置より下に来たら次のカードを投入する
+                let card : StudyCard? = mCards.last()
+                if let _card = card {
+                    if _card.getY() >= _card.getHeight() {
+                        startFlag = true
+                    }
+                }
+            }
+            if startFlag {
+                appearCardFromBackYard()
+            }
+        }
+
+        // スライドしたカードをボックスに移動する処理
+        for i in 0..<mCards.count {
+            let card : StudyCard = mCards[i]
+            
+            if card.getMoveRequest() == StudyCard.RequestToParent.MoveToOK ||
+                card.getMoveRequest() == StudyCard.RequestToParent.MoveToNG
+            {
+                let margin = UDpi.toPixel(17)
+                
+                if card.getMoveRequest() == StudyCard.RequestToParent.MoveToOK {
+                    mCardManager!.putCardIntoBox( card: card.getTangoCard()!,
+                                                  boxType: .OK)
+                    card.startMoveIntoBox( dstX: mOkBoxPos.x + margin,
+                                           dstY: mOkBoxPos.y + margin)
+                } else {
+                    mCardManager!.putCardIntoBox( card: card.getTangoCard()!,
+                                                  boxType: .NG)
+                    card.startMoveIntoBox( dstX: mNgBoxPos.x + margin,
+                                           dstY: mNgBoxPos.y + margin)
+                }
+                
+                card.setMoveRequest( .None )
+                
+                // スライドして無くなったすきまを埋めるための移動
+                var bottomY = card.getBottom()
+                
+                for j in i+1 ..< mCards.count {
+                    let card2 : StudyCard = mCards[j]
+                    card2.startMoving( dstX: 0, dstY: bottomY - card2.getHeight(),
+                                       frame: MOVING_FRAME + 5)
+                    bottomY -= card2.getHeight() + UDpi.toPixel(MARGIN_V)
+                }
+                mCards.remove(obj: card)
+                mToBoxCards.append(card)
+            }
+        }
+
+        // ボックスへ移動中のカードへの要求を処理
+        for i in 0..<mToBoxCards.count {
+            let card : StudyCard = mToBoxCards[i]
+            // ボックスへの移動開始
+            var breakLoop = false
+            
+            switch card.getMoveRequest() {
+            case .MoveIntoOK:
+                fallthrough
+            case .MoveIntoNG:
+                card.setMoveRequest( .None )
+                mToBoxCards.remove(obj: card )
+                breakLoop = true
+                
+                if (cardsStackCallbacks != nil) {
+                    cardsStackCallbacks?.CardsStackChangedCardNum( cardNum: getCardCount2())
+                }
+                
+                if (getCardCount2() == 0) {
+                    cardsStackCallbacks?.CardsStackFinished()
+                }
+            default:
+                break
+            }
+            if breakLoop {
+                break
+            }
+        }
+        
+        
         // カードの移動等の処理
         var ret = DoActionRet.None
-//        for (StudyCard card : mCards) {
-//            if (card.doAction() != DoActionRet.None) {
-//                ret = DoActionRet.Redraw;
-//            }
-//        }
-//        for (StudyCard card : mToBoxCards) {
-//            if (card.doAction() != DoActionRet.None) {
-//                ret = DoActionRet.Redraw;
-//            }
-//        }
-        return ret;
+        for card in mCards {
+            if card!.doAction() != DoActionRet.None {
+                ret = .Redraw
+            }
+        }
+        for card in mToBoxCards {
+            if card!.doAction() != DoActionRet.None {
+                ret = .Redraw
+            }
+        }
+        return ret
     }
 
     /**
      * バックヤードから１つカードを補充
      */
     func appearCardFromBackYard() {
-//        if (mCardsInBackYard.count == 0) {
-//            return;
-//        }
-//        
-//        // バックヤードから取り出して表示用のリストに追加
-//        StudyCard card = mCardsInBackYard.pop();
-//        
-//        // 初期座標設定
-//        card.setPos(0, -card.getHeight());
-//        
-//        float dstY;
-//        
-//        if (mCards.count > 0) {
-//            // スタックの最後のカードの上に配置
-//            int height = 0;
-//            for (StudyCard _card : mCards) {
-//                height += _card.getHeight() + UDpi.toPixel(MARGIN_V);
-//            }
-//            dstY = size.height - height - card.getHeight();
-//        } else {
-//            dstY = size.height - card.getHeight();
-//        }
-//        
-//        mCards.add(card);
-//        
-//        card.startMoving(0, dstY, MOVING_FRAME);
-//        card.setBasePos(0, dstY);
+        if mCardsInBackYard.count == 0 {
+            return
+        }
+        
+        // バックヤードから取り出して表示用のリストに追加
+        let _card : StudyCard? = mCardsInBackYard.pop()
+        
+        if let card = _card {
+            // 初期座標設定
+            card.setPos(0, -card.getHeight(), convSKPos: false)
+            
+            var dstY : CGFloat
+            
+            if mCards.count > 0 {
+                // スタックの最後のカードの上に配置
+                var height : CGFloat = 0
+                for card2 in mCards {
+                    height += card2!.getHeight() + UDpi.toPixel(MARGIN_V)
+                }
+                dstY = size.height - height - card.getHeight()
+            } else {
+                dstY = size.height - card.getHeight()
+            }
+            
+            mCards.append(card)
+            
+            card.startMoving(dstX: 0, dstY: dstY, frame: MOVING_FRAME)
+            card.setBasePos(x: 0, y: dstY)
+        }
     }
 
     
@@ -257,14 +265,13 @@ public class StudyCardsStack : UDrawable {
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
     public override func draw() {
-//        PointF _offset = new PointF(pos.x + size.width / 2, pos.y);
-//        // 配下のカードを描画する
-//        for (StudyCard card : mCards) {
-//            card.draw(canvas, paint, _offset);
-//        }
-//        for (StudyCard card : mToBoxCards) {
-//            card.draw(canvas, paint, _offset);
-//        }
+        // 配下のカードを描画する
+        for card in mCards {
+            card!.draw()
+        }
+        for card in mToBoxCards {
+            card!.draw()
+        }
     }
 
     /**
@@ -273,12 +280,12 @@ public class StudyCardsStack : UDrawable {
      * @return true:処理中
      */
     public override func touchEvent( vt : ViewTouch, offset : CGPoint? ) -> Bool {
-//        PointF _offset = new PointF(pos.x + size.width / 2, pos.y);
-//        for (StudyCard card : mCards) {
-//            if (card.touchEvent(vt, _offset)) {
-//                return true;
-//            }
-//        }
+        let _offset = CGPoint(x: pos.x + size.width / 2, y: pos.y)
+        for card in mCards {
+            if card!.touchEvent(vt: vt, offset: _offset) {
+                return true
+            }
+        }
         return false
     }
 }

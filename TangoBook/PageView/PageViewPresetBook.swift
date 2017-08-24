@@ -29,8 +29,8 @@ public class PageViewPresetBook : UPageView, UButtonCallbacks {
     /**
      * Constructor
      */
-    public override init( topScene : TopScene, title : String) {
-        super.init( topScene: topScene, title: title)
+    public init( topScene : TopScene, title : String) {
+        super.init( topScene: topScene, pageId: PageIdMain.PresetBook.rawValue, title: title)
     }
     
     /**

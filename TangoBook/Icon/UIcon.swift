@@ -395,12 +395,12 @@ public class UIcon : UDrawable, CustomStringConvertible {
     {
         if isChecked {
             // 枠とチェック
-            UDraw.drawImage( image: UResourceManager.getImageWithColor(imageName: ImageName.checked2, color: color)!,
-                              x: x, y: y, width: width, height: width)
+//            UDraw.drawImage( image: UResourceManager.getImageWithColor(imageName: ImageName.checked2, color: color)!,
+//                              x: x, y: y, width: width, height: width)
         } else {
             // 枠
-            UDraw.drawImage( image: UResourceManager.getImageByName(ImageName.checked3_frame)!,
-                             x: x, y: y, width: width, height: width)
+//            UDraw.drawImage( image: UResourceManager.getImageByName(ImageName.checked3_frame)!,
+//                             x: x, y: y, width: width, height: width)
         }
     }
 

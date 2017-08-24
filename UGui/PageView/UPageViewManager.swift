@@ -158,28 +158,35 @@ public class UPageViewManager {
      * ソフトウェアキーの戻るボタンを押すと元のページに戻れる
      * @param pageId
      */
-    public func stackPage(pageId : Int) -> UPageView {
-        pageChanged(pageId: pageId)
-    
-        // ページ初期化
-        let newPage = initPage(pageId)
+    public func stackPage(pageView: UPageView) {
+        pageChanged(pageId: pageView.mPageId)
         
         // 古いページの後処理
-        if (pageStack.count > 0) {
+        if pageStack.count > 0 {
             let page : UPageView = pageStack.last()!
             page.onHide()
         }
         
-        pageStack.append(newPage!)
+        pageStack.append(pageView)
         
-        newPage!.onShow()
-        setActionBarTitle(newPage!.getTitle())
+        pageView.onShow()
+        setActionBarTitle(pageView.getTitle())
         
         // アクションバーに戻るボタンを表示
         if (pageStack.count >= 2) {
             showActionBarBack(show: true)
         }
-        return newPage!
+    }
+    
+    // ページIDでPageViewを初期化する
+    public func stackPage(pageId : Int) -> UPageView {
+        
+        // ページ生成
+        let pageView = initPage(pageId)
+        
+        stackPage(pageView: pageView!)
+        
+        return pageView!
     }
     
     /**

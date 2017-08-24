@@ -194,10 +194,10 @@ class IconsBlock {
      */
     public func draw( toScreenPos : CGPoint ) {
         
-        let _rect = CGRect(x: rect.left + toScreenPos.x,
-                          y: rect.top + toScreenPos.y,
-                          width: rect.width,
-                          height: rect.height)
-        UDraw.drawRect(rect: _rect, width: 2, color: color)
+//        let _rect = CGRect(x: rect.left + toScreenPos.x,
+//                          y: rect.top + toScreenPos.y,
+//                          width: rect.width,
+//                          height: rect.height)
+//        UDraw.drawRect(rect: _rect, width: 2, color: color)
     }
 }

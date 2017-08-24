@@ -8,12 +8,7 @@
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import UIKit
-
-/**
- * Created by shutaro on 2016/12/07.
- *
- */
+import SpriteKit
 
 public class StudyCard : UDrawable, UButtonCallbacks {
     /**
@@ -36,7 +31,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
     /**
      * Consts
      */
-    public let WIDTH = 170
+    public static let WIDTH = 170
     public let MIN_HEIGHT = 50
 
     let MOVE_FRAME = 10
@@ -73,6 +68,11 @@ public class StudyCard : UDrawable, UButtonCallbacks {
     /**
      * Member Variables
      */
+    // SpriteKit Node
+    var bgNode : SKShapeNode?
+    var wordANode : SKLabelNode?
+    var wordBNode : SKLabelNode?
+    
     var basePos = CGPoint()
     var mState : State = .None
     var wordA : String? = nil             // 正解（表）のテキスト
@@ -85,8 +85,8 @@ public class StudyCard : UDrawable, UButtonCallbacks {
     var showArrow : Bool = false
     var isMoveToBox : Bool = false
 
-    var mArrowL : UButtonImage? = nil
-    var mArrowR : UButtonImage? = nil
+    var mArrowL : UButtonImage?
+    var mArrowR : UButtonImage?
 
     // ボックス移動要求（親への通知用)
     var moveRequest = RequestToParent.None;
@@ -96,7 +96,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         return moveRequest
     }
 
-    public func setMoveRequest( moveRequest : RequestToParent) {
+    public func setMoveRequest( _ moveRequest : RequestToParent) {
         self.moveRequest = moveRequest
     }
 
@@ -124,7 +124,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
     public init(card : TangoCard, isMultiCard : Bool, isEnglish : Bool,
                 screenW : CGFloat, maxHeight : CGFloat)
     {
-        super.init(priority : 0, x : 0, y : 0, width : UDpi.toPixel(WIDTH), height : 0)
+        super.init(priority : 0, x : 0, y : 0, width : UDpi.toPixel(StudyCard.WIDTH), height : 0)
         
         let arrowW = UDpi.toPixel(ARROW_W)
         let arrowH = UDpi.toPixel(ARROW_H)
@@ -148,7 +148,6 @@ public class StudyCard : UDrawable, UButtonCallbacks {
             priority : 0,
             x : size.width / 2 + UDpi.toPixel(ARROW_MARGIN),
             y : (size.height-arrowH)/2, width : arrowW, height : UDpi.toPixel(ARROW_H), image : arrowRImage!, pressedImage : nil)
-        
         
         if isEnglish {
             wordA = card.wordA
@@ -198,6 +197,38 @@ public class StudyCard : UDrawable, UButtonCallbacks {
             size.height = maxHeight
         }
 
+        initSKNode()
+    }
+    
+    /**
+     * SpriteKitのノードを生成
+     */
+    public override func initSKNode() {
+        if mArrowL != nil {
+            parentNode.addChild2( mArrowL!.parentNode )
+        }
+        if mArrowR != nil {
+            parentNode.addChild2( mArrowR!.parentNode )
+        }
+        
+        // BG
+        bgNode = SKNodeUtil.createRectNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height), color: color, pos: CGPoint(), cornerR: UDpi.toPixel(4))
+        parentNode.addChild2( bgNode! )
+        
+        // Text
+        // WordA
+        if wordA != nil {
+            wordANode = SKNodeUtil.createLabelNode(text: wordA!, fontSize: UDpi.toPixel(FONT_SIZE_A), color: .black, alignment: .Center, pos: CGPoint(x: size.width / 2, y: size.height / 2))
+            parentNode.addChild2( wordANode! )
+            wordANode!.isHidden = true
+        }
+        
+        // WordB
+        if wordB != nil {
+            wordBNode = SKNodeUtil.createLabelNode(text: wordB!, fontSize: UDpi.toPixel(FONT_SIZE_A), color: .black, alignment: .Center, pos: CGPoint(x: size.width / 2, y: size.height / 2))
+            parentNode.addChild2( wordBNode! )
+            wordBNode!.isHidden = true
+        }
     }
 
     /**
@@ -238,7 +269,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         startMoving(movingType: MovingType.Deceleration,
                     dstX: basePos.x, dstY: basePos.y,
                     frame: frame)
-        mState = State.Moving;
+        mState = State.Moving
     }
 
     public func setBasePos( x : CGFloat, y : CGFloat) {
@@ -311,6 +342,8 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         } else {
             color = UColor.mixRGBColor(color1: BG_COLOR, color2: OK_BG_COLOR, ratio: slideX / UDpi.toPixel(SLIDE_LEN));
         }
+        
+        bgNode!.fillColor = color
 //        UDraw.drawRoundRectFill(
 //            rect: CGRect(x: _pos.x - size.width / 2 ,y:  _pos.y,
 //                         width: size.width / 2, height: size.height),
@@ -320,21 +353,21 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         if showArrow && !isTouching && !isMoveToBox {
             mArrowL!.draw()
             mArrowR!.draw()
+            mArrowL!.parentNode.isHidden = false
+            mArrowR!.parentNode.isHidden = false
+        } else {
+            mArrowL!.parentNode.isHidden = true
+            mArrowR!.parentNode.isHidden = true
         }
         // Text
         if (!isMoveToBox) {
             // タッチ中は正解を表示
-            var text : String?
-            var fontSize : CGFloat
             if isTouching {
-                text = wordB
-                fontSize = fontSizeB
+                wordBNode!.isHidden = false
+                wordANode!.isHidden = true
             } else {
-                text = wordA
-                fontSize = fontSizeA
-            }
-            if text != nil {
-//                UDraw.drawText( text : text!, alignment : UAlignment.Center, textSize : textSize, x : _pos.x, y : _pos.y+size.height/2, color : TEXT_COLOR)
+                wordANode!.isHidden = false
+                wordBNode!.isHidden = true
             }
         }
     }
@@ -349,81 +382,83 @@ public class StudyCard : UDrawable, UButtonCallbacks {
     }
 
     public override func touchEvent( vt : ViewTouch, offset : CGPoint?) -> Bool {
-//        PointF _pos = new PointF(pos.x, pos.y);
-//        if (offset != nil) {
-//            _pos.x += offset.x;
-//            _pos.y += offset.y;
-//        }
-//        _pos.x += slideX;
-//
+        var _pos = CGPoint(x: pos.x, y: pos.y)
+        if offset != nil {
+            _pos.x += offset!.x
+            _pos.y += offset!.y
+        }
+        _pos.x += slideX
+
         var done = false
-//
-//        // 矢印
-//        if ( mArrowL.touchUpEvent(vt) ) {
-//            done = true;
-//        }
-//        if ( mArrowR.touchUpEvent(vt) ) {
-//            done = true;
-//        }
-//
-//        if ( mArrowL.touchEvent(vt, _pos) ) {
-//            return true;
-//        }
-//        if ( mArrowR.touchEvent(vt, _pos)) {
-//            return true;
-//        }
-//
-//        switch(vt.type) {
-//            case Touch:        // タッチ開始
-//                Rect _rect = new Rect((int)_pos.x - size.width / 2 , (int)_pos.y,
-//                        (int)_pos.x + size.width / 2, (int)_pos.y + size.height);
-//                if (_rect.contains((int)(vt.touchX()), (int)(vt.touchY()))) {
-//                    isTouching = true;
-//                    done = true;
-//                }
-//                break;
-//            case Moving:       // 移動
-//                if (isTouching && mState == State.None) {
-//                    done = true;
-//                    // 左右にスライド
-//                    slideX += vt.getMoveX();
-//                    // 一定ラインを超えたらボックスに移動
-//                    if (slideX <= UDpi.toPixel(-SLIDE_LEN)) {
-//                        // NG
-//                        pos.x += slideX;
-//                        slideX = 0;
-//                        moveRequest = lastRequest = RequestToParent.MoveToNG;
-//                    } else if (slideX >= UDpi.toPixel(SLIDE_LEN)) {
-//                        // OK
-//                        pos.x += slideX;
-//                        slideX = 0;
-//                        moveRequest = lastRequest = RequestToParent.MoveToOK;
-//                    }
-//                }
-//                break;
-//            case Click: {
-//            }
-//                break;
-//        }
-//        if (vt.isTouchUp()) {
-//            if (isTouching) {
-//                isTouching = false;
-//                done = true;
-//                if (mState == State.None && slideX != 0) {
-//                    // ベースの位置に戻る
-//                    pos.x = basePos.x + slideX;
-//                    moveToBasePos(MOVE_FRAME);
-//                    slideX = 0;
-//                }
-//            }
-//        }
-//
-        return done;
+
+        // タッチアップ処理
+        if mArrowL!.touchUpEvent(vt: vt) {
+            done = true
+        }
+        if mArrowR!.touchUpEvent(vt: vt) {
+            done = true
+        }
+
+        // タッチ処理
+        if mArrowL!.touchEvent(vt: vt, offset: _pos) {
+            return true
+        }
+        if ( mArrowR!.touchEvent(vt: vt, offset: _pos)) {
+            return true
+        }
+
+        switch vt.type {
+            case .Touch:        // タッチ開始
+                let _rect = CGRect( x: _pos.x - size.width / 2 , y: _pos.y,
+                                  width: size.width / 2, height: size.height)
+                if _rect.contains( x: vt.touchX, y: vt.touchY) {
+                    isTouching = true
+                    done = true
+                }
+            case .Moving:       // 移動
+                if isTouching && mState == State.None {
+                    done = true
+                    // 左右にスライド
+                    slideX += vt.moveX
+                    // 一定ラインを超えたらボックスに移動
+                    if (slideX <= UDpi.toPixel(-SLIDE_LEN)) {
+                        // NG
+                        pos.x += slideX
+                        slideX = 0
+                        lastRequest = RequestToParent.MoveToNG
+                        moveRequest = lastRequest
+                    } else if (slideX >= UDpi.toPixel(SLIDE_LEN)) {
+                        // OK
+                        pos.x += slideX
+                        slideX = 0
+                        lastRequest = RequestToParent.MoveToOK
+                        moveRequest = lastRequest
+                    }
+                }
+                break
+            case .Click:
+                break
+        default:
+            break
+        }
+
+        if vt.isTouchUp {
+            if isTouching {
+                isTouching = false
+                done = true
+                if (mState == State.None && slideX != 0) {
+                    // ベースの位置に戻る
+                    pos.x = basePos.x + slideX
+                    moveToBasePos( frame: MOVE_FRAME )
+                    slideX = 0
+                }
+            }
+        }
+
+        return done
     }
 
-    /**
-     * Callbacks
-     */
+    // MARK: Callbacks
     /**
      * UButtonCallbacks
      */
@@ -434,16 +469,20 @@ public class StudyCard : UDrawable, UButtonCallbacks {
      * @return
      */
     public func UButtonClicked( id : Int, pressedOn : Bool) -> Bool {
-//        switch(id) {
-//            case ButtonIdArrowL:
-//                showArrow = false;
-//                moveRequest = lastRequest = RequestToParent.MoveToNG;
-//                return true;
-//            case ButtonIdArrowR:
-//                showArrow = false;
-//                moveRequest = lastRequest = RequestToParent.MoveToOK;
-//                return true;
-//        }
+        switch(id) {
+        case ButtonIdArrowL:
+            showArrow = false
+            lastRequest = RequestToParent.MoveToNG
+            moveRequest = lastRequest
+            return true
+        case ButtonIdArrowR:
+            showArrow = false
+            lastRequest = RequestToParent.MoveToOK
+            moveRequest = lastRequest
+            return true
+        default:
+            break
+        }
         return false
     }
 }

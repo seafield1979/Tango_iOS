@@ -57,8 +57,8 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
      * Constructor
      */
     // MARK: Initializer
-    public override init( topScene : TopScene, title : String) {
-        super.init( topScene: topScene, title: title)
+    public init( topScene : TopScene, title : String) {
+        super.init( topScene: topScene, pageId: PageIdMain.DebugDB.rawValue, title: title)
     }
     
     /**

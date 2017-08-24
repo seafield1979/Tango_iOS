@@ -353,18 +353,18 @@ class UDrawManager {
     private static func drawDebugPoint() {
         for dp in debugPoints {
             if let _dp = dp {
-                UDraw.drawLine(x1:_dp.x - 50, y1: _dp.y, x2: _dp.x + 50, y2: _dp.y, lineWidth: 3, color: _dp.color)
-                UDraw.drawLine(x1: _dp.x, y1: _dp.y - 50, x2: _dp.x, y2: _dp.y + 50, lineWidth: 3, color: _dp.color)
+//                UDraw.drawLine(x1:_dp.x - 50, y1: _dp.y, x2: _dp.x + 50, y2: _dp.y, lineWidth: 3, color: _dp.color)
+//                UDraw.drawLine(x1: _dp.x, y1: _dp.y - 50, x2: _dp.x, y2: _dp.y + 50, lineWidth: 3, color: _dp.color)
             }
         }
          
         for dp in debugPoints2.values {
-            UDraw.drawLine(x1: dp.x - 50, y1: dp.y,
-                           x2: dp.x + 50, y2: dp.y,
-                           lineWidth: 3, color: dp.color)
-            UDraw.drawLine(x1: dp.x, y1: dp.y - 50,
-                           x2: dp.x, y2: dp.y + 50,
-                           lineWidth: 3, color: dp.color)
+//            UDraw.drawLine(x1: dp.x - 50, y1: dp.y,
+//                           x2: dp.x + 50, y2: dp.y,
+//                           lineWidth: 3, color: dp.color)
+//            UDraw.drawLine(x1: dp.x, y1: dp.y - 50,
+//                           x2: dp.x, y2: dp.y + 50,
+//                           lineWidth: 3, color: dp.color)
         }
     }
 }

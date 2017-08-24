@@ -29,6 +29,7 @@ public class UPageView {
      */
     public var mTopScene : TopScene
     var mTitle : String
+    var mPageId : Int
     
     // UDrawManagerで描画を行うページ番号
     var isFirst : Bool = true
@@ -43,9 +44,10 @@ public class UPageView {
     /**
      * Constructor
      */
-    public init(topScene: TopScene, title : String) {
+    public init(topScene: TopScene, pageId: Int, title : String) {
         mTopScene = topScene
         mTitle = title
+        mPageId = pageId
     }
     
     /**

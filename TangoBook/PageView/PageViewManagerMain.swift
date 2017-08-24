@@ -181,11 +181,10 @@ public class PageViewManagerMain : UPageViewManager {
          case .SlideOne:
             fallthrough
          case .SlideMulti:
-            let pageView = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.StudySlide.rawValue) as! PageViewStudySlide
-//             let page = getPageView(pageId: PageIdMain.StudySlide) as! PageViewStudySlide
+             let pageView = getPageView(pageId: PageIdMain.StudySlide.rawValue) as! PageViewStudySlide
              pageView.setBook(book: book)
              pageView.isFirst = firstStudy
-//             stackPage(PageView.StudySlide)
+             stackPage(pageView: pageView)
          
 //         case .Choice4:
 //             let page = getPageView(PageView.StudySelect4) as! PageViewStudySelect4
