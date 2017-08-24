@@ -28,7 +28,7 @@ public class IconTrash : IconContainer {
     
     // Dpi補正済みのサイズ
     private var iconW : CGFloat, iconH : CGFloat
-    private var textSize : CGFloat = 0
+    private var fontSize : CGFloat = 0
     
     
     /**
@@ -54,7 +54,7 @@ public class IconTrash : IconContainer {
         super.init( parentWindow: parentWindow, iconCallbacks: iconCallbacks,
                     type: IconType.Trash,
                     x: 0, y: 0, width: UDpi.toPixel(ICON_W), height: UDpi.toPixel(ICON_H));
-        textSize = UDpi.toPixel(TEXT_SIZE)
+        fontSize = UDpi.toPixel(FONT_SIZE)
         
         title = UResourceManager.getStringByName("trash")
         textNode.text = title
@@ -100,21 +100,6 @@ public class IconTrash : IconContainer {
         } else {
             alpha = self.color.alpha()
         }
-        
-        // icon
-        // 領域の幅に合わせて伸縮
-//        UDraw.drawImageWithCrop(image: image!,
-//                                srcRect: CGRect(x: 0,y: 0, width: image!.getWidth(), height: image!.getHeight()),
-//                                dstRect: CGRect(x: drawPos.x, y: drawPos.y,
-//                                                width: iconW, height: iconH), alpha: alpha)
-//        
-//        // Text
-//        UDraw.drawText(text: title!, alignment: UAlignment.CenterX,
-//                       textSize: Int(UDpi.toPixel(TEXT_SIZE)),
-//                       x: drawPos.x + iconW / 2,
-//                       y: drawPos.y + iconH + UDpi.toPixel(TEXT_MARGIN),
-//                       color: UIColor.black)
-
     }
     
     /**

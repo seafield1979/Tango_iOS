@@ -22,8 +22,8 @@ import Foundation
 //    
 //    private static final int MAX_TEXT_LEN = 20;
 //    
-//    private static final int TEXT_SIZE = 17;
-//    private static final int TEXT_SIZE2 = 14;
+//    private static final int FONT_SIZE = 17;
+//    private static final int FONT_SIZE2 = 14;
 //    private static final int TEXT_COLOR = Color.BLACK;
 //    
 //    private static final int MARGIN_H = 17;
@@ -54,7 +54,7 @@ import Foundation
 //    public ListItemSearchedCard(UListItemCallbacks listItemCallbacks,
 //    TangoCard card, int width, int color)
 //    {
-//        super(listItemCallbacks, true, 0, width, UDpi.toPixel(TEXT_SIZE) * 3 + UDpi.toPixel(MARGIN_V) * 4, color, UDpi.toPixel(FRAME_WIDTH), FRAME_COLOR);
+//        super(listItemCallbacks, true, 0, width, UDpi.toPixel(FONT_SIZE) * 3 + UDpi.toPixel(MARGIN_V) * 4, color, UDpi.toPixel(FRAME_WIDTH), FRAME_COLOR);
 //        mCard = card;
 //        
 //        mWordA = UResourceManager.getStringById(R.string.word_a) + " : " +
@@ -90,12 +90,12 @@ import Foundation
 //        float y = _pos.y + UDpi.toPixel(MARGIN_V);
 //        
 //        // WordA
-//        UDraw.drawTextOneLine(canvas, paint, mWordA, UAlignment.None, UDpi.toPixel(TEXT_SIZE2), x, y, TEXT_COLOR);
-//        y += UDpi.toPixel(TEXT_SIZE + MARGIN_V);
+//        UDraw.drawTextOneLine(canvas, paint, mWordA, UAlignment.None, UDpi.toPixel(FONT_SIZE2), x, y, TEXT_COLOR);
+//        y += UDpi.toPixel(FONT_SIZE + MARGIN_V);
 //        
 //        // WordB
-//        UDraw.drawTextOneLine(canvas, paint, mWordB, UAlignment.None, UDpi.toPixel(TEXT_SIZE2), x, y, TEXT_COLOR);
-//        y += UDpi.toPixel(TEXT_SIZE + MARGIN_V);
+//        UDraw.drawTextOneLine(canvas, paint, mWordB, UAlignment.None, UDpi.toPixel(FONT_SIZE2), x, y, TEXT_COLOR);
+//        y += UDpi.toPixel(FONT_SIZE + MARGIN_V);
 //        
 //        // parent book
 //        String location = null;
@@ -113,7 +113,7 @@ import Foundation
 //                        : R.string.trash);
 //            
 //        }
-//        UDraw.drawTextOneLine(canvas, paint, location, UAlignment.None, UDpi.toPixel(TEXT_SIZE2), x,
+//        UDraw.drawTextOneLine(canvas, paint, location, UAlignment.None, UDpi.toPixel(FONT_SIZE2), x,
 //                              y, TEXT_COLOR);
 //    }
 //    

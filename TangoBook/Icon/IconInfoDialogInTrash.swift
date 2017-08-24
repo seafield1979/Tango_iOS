@@ -31,8 +31,8 @@ public class IconInfoDialogInTrash : IconInfoDialog {
     private let ICON_MARGIN_H = 10
 //    private let MARGIN_V = 13
 //    private let MARGIN_H = 13
-    private let TEXT_SIZE = 17
-    private let ICON_TEXT_SIZE = 12
+    private let FONT_SIZE = 17
+    private let ICON_FONT_SIZE = 12
     
     private let TEXT_COLOR = UIColor.black
     private let TEXT_BG_COLOR = UIColor.white
@@ -120,7 +120,7 @@ public class IconInfoDialogInTrash : IconInfoDialog {
         let marginH = UDpi.toPixel(MARGIN_H)
         let marginV = UDpi.toPixel(MARGIN_V)
         let dlgMargin = UDpi.toPixel(DLG_MARGIN)
-        let textSize = UDpi.toPixel(TEXT_SIZE)
+        let fontSize = UDpi.toPixel(FONT_SIZE)
         
         let icons : List<ActionIconInfo> = IconInfoDialog.getInTrashIcons()
         
@@ -132,7 +132,7 @@ public class IconInfoDialogInTrash : IconInfoDialog {
         
         // Title
         textTitle = UTextView.createInstance(
-            text: mIcon.getTitle()!, textSize: Int(textSize), priority: 0,
+            text: mIcon.getTitle()!, fontSize: fontSize, priority: 0,
             alignment: UAlignment.None, createNode: true,
             multiLine: false, isDrawBG: true,
             x: marginH, y: y,
@@ -141,13 +141,13 @@ public class IconInfoDialogInTrash : IconInfoDialog {
         y += UDpi.toPixel(TEXT_VIEW_H) + marginV;
         
         // テキストの幅に合わせてダイアログのサイズ更新
-        var textSize2 : CGSize = UDraw.getTextSize( text: mIcon.getTitle()!, textSize: Int(textSize))
+        var textSize : CGSize = UDraw.getTextSize( text: mIcon.getTitle()!, fontSize: fontSize)
 
         if width < UDpi.toPixel(200) {
             width = UDpi.toPixel(200)
         }
-        if width < textSize2.width + marginH * 4  {
-            width = textSize2.width + marginH * 4
+        if width < textSize.width + marginH * 4  {
+            width = textSize.width + marginH * 4
         }
         
         // Count(Bookの場合のみ)
@@ -159,7 +159,7 @@ public class IconInfoDialogInTrash : IconInfoDialog {
             
             textCount = UTextView.createInstance(
                 text: UResourceManager.getStringByName("book_count") + ":" + count.description,
-                textSize: Int(textSize),
+                fontSize: fontSize,
                 priority: 0,
                 alignment: UAlignment.None, createNode: true,
                 multiLine: false,
@@ -169,11 +169,11 @@ public class IconInfoDialogInTrash : IconInfoDialog {
                 color: TEXT_COLOR, bgColor:TEXT_BG_COLOR)
             
             // テキストの幅に合わせてダイアログのサイズ更新
-            textSize2 = UDraw.getTextSize(
+            textSize = UDraw.getTextSize(
                 text: textCount!.getText(),
-                textSize: Int(textSize))
-            if textSize2.width + marginH * 4 > width {
-                width = textSize2.width + marginH * 4
+                fontSize: fontSize)
+            if textSize.width + marginH * 4 > width {
+                width = textSize.width + marginH * 4
             }
             
             y += UDpi.toPixel(TEXT_VIEW_H) + marginV;
@@ -195,7 +195,7 @@ public class IconInfoDialogInTrash : IconInfoDialog {
             // アイコンの下に表示するテキストを設定
             imageButton.addTitle(
                 title: UResourceManager.getStringByName(icon!.titleName),
-                textSize: UDpi.toPixel(ICON_TEXT_SIZE),
+                fontSize: UDpi.toPixel(ICON_FONT_SIZE),
                 alignment: .CenterX,
                                  x: imageButton.size.width / 2,
                                  y: imageButton.size.height + UDpi.toPixel(4),

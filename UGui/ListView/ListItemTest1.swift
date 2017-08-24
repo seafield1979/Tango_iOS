@@ -13,7 +13,7 @@ public class ListItemTest1 : UListItem {
      * Constants
      */
     public static let ITEM_H = 50
-    public static let TEXT_SIZE = 17
+    public static let FONT_SIZE = 17
     
     // colors
     private static let TEXT_COLOR = UIColor.blue
@@ -22,7 +22,7 @@ public class ListItemTest1 : UListItem {
      * Member variables
      */
     private var mText : String? = nil
-    private var mTextSize : Int = 10
+    private var mFontSize : CGFloat = 10
     
     private var labelNode : SKLabelNode
     
@@ -41,10 +41,10 @@ public class ListItemTest1 : UListItem {
                    bgColor: bgColor, frameW: 2, frameColor: UIColor.black)
         self.color = color
         mText = text
-        mTextSize = Int(UDpi.toPixel(ListItemTest1.TEXT_SIZE))
+        mFontSize = UDpi.toPixel(ListItemTest1.FONT_SIZE)
         
         // SpriteKit Node
-        labelNode = SKNodeUtil.createLabelNode(text: text, textSize: CGFloat(mTextSize), color: .black, alignment: .Center, pos: nil)
+        labelNode = SKNodeUtil.createLabelNode(text: text, fontSize: mFontSize, color: .black, alignment: .Center, pos: nil)
         labelNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
         
         bgNode.addChild2(labelNode)

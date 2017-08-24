@@ -37,9 +37,9 @@ public class IconInfoDialogCard : IconInfoDialog {
      private let TAG = "IconInfoDialogCard"
      private let ICON_W = 40
      private let ICON_MARGIN_H = 10
-     private let TEXT_SIZE_M = 14
-     private let TEXT_SIZE_L = 17
-     private let ICON_TEXT_SIZE = 10
+     private let FONT_SIZE_M = 14
+     private let FONT_SIZE_L = 17
+     private let ICON_FONT_SIZE = 10
 
      private let TITLE_COLOR = UIColor.black
      private let TEXT_COLOR = UIColor.black
@@ -150,14 +150,14 @@ public class IconInfoDialogCard : IconInfoDialog {
         // タイトル(カード)
         mTitleView = UTextView.createInstance(
            text : UResourceManager.getStringByName("card"),
-           textSize : Int(UDpi.toPixel(TEXT_SIZE_M)),
+           fontSize : UDpi.toPixel(FONT_SIZE_M),
            priority : 0,
            alignment : UAlignment.None, createNode: true,
            multiLine : false, isDrawBG : false,
            x : UDpi.toPixel(MARGIN_H),
            y : y, width : width-UDpi.toPixel(MARGIN_H)*2,
            color : TITLE_COLOR, bgColor : TEXT_BG_COLOR)
-        y += UDpi.toPixel(TEXT_SIZE_L + MARGIN_V)
+        y += UDpi.toPixel(FONT_SIZE_L + MARGIN_V)
 
         var titleStr : String? = nil
         var bodyStr : String? = nil
@@ -178,7 +178,7 @@ public class IconInfoDialogCard : IconInfoDialog {
             if titleStr != nil && titleStr!.isEmpty == false {
                 titleView = UTextView.createInstance(
                    text : titleStr!,
-                   textSize : fontSize,
+                   fontSize : fontSize,
                    priority : 0, alignment : UAlignment.None, createNode: true,
                    multiLine : false, isDrawBG : false,
                    x : UDpi.toPixel(MARGIN_H), y : y,
@@ -192,7 +192,7 @@ public class IconInfoDialogCard : IconInfoDialog {
             var bodyView : UTextView? = nil
             if bodyStr != nil && bodyStr!.isEmpty == false {
                 bodyView = UTextView.createInstance(
-                   text : bodyStr!, textSize : fontSize, priority : 0,
+                   text : bodyStr!, fontSize : fontSize, priority : 0,
                    alignment : UAlignment.None, createNode: true,
                    multiLine : true, isDrawBG : true,
                    x : UDpi.toPixel(MARGIN_H),
@@ -258,7 +258,7 @@ public class IconInfoDialogCard : IconInfoDialog {
 
             // アイコンの下に表示するテキストを設定
             imageButton.addTitle(title: UResourceManager.getStringByName(icon!.titleName),
-                                 textSize: UDpi.toPixel(ICON_TEXT_SIZE),
+                                 fontSize: UDpi.toPixel(ICON_FONT_SIZE),
                                  alignment: .CenterX,
                                  x: imageButton.size.width / 2,
                                  y: imageButton.size.height + UDpi.toPixel(4),

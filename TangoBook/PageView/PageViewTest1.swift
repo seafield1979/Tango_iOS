@@ -93,7 +93,7 @@ public class PageViewTest1 : UPageView, UButtonCallbacks {
             callbacks: self, type: UButtonType.BGColor, id: PageViewTest1.buttonId1,
             priority: 100, text: "button1", createNode: true,
             x: x, y: y, width: buttonW, height: buttonH,
-            textSize: 20, textColor: UIColor.white, bgColor: .blue)
+            fontSize: UDpi.toPixel(20), textColor: UIColor.white, bgColor: .blue)
         colorButton.addToDrawManager()
         
         y += buttonH + PageViewTest1.MARGIN
@@ -103,7 +103,7 @@ public class PageViewTest1 : UPageView, UButtonCallbacks {
         let textButton = UButtonText(
             callbacks: self, type: UButtonType.Press, id: PageViewTest1.buttonId2,
             priority: 100, text: "button2", createNode: true,
-            x: x, y: y, width: buttonW, height: buttonH, textSize: 20, textColor: .white, bgColor: .blue)
+            x: x, y: y, width: buttonW, height: buttonH, fontSize: UDpi.toPixel(20), textColor: .white, bgColor: .blue)
         textButton.addToDrawManager()
         
         y += buttonH + PageViewTest1.MARGIN
@@ -113,7 +113,7 @@ public class PageViewTest1 : UPageView, UButtonCallbacks {
             callbacks: self, type: UButtonType.Press2, id: PageViewTest1.buttonId3,
             priority: 100, text: "button3", createNode: true,
             x: x, y: y, width: buttonW, height: buttonH,
-            textSize: 20, textColor: .white, bgColor: .blue)
+            fontSize: UDpi.toPixel(20), textColor: .white, bgColor: .blue)
         textButton2.addToDrawManager()
 
         y += buttonH + PageViewTest1.MARGIN
@@ -123,14 +123,14 @@ public class PageViewTest1 : UPageView, UButtonCallbacks {
         pressedButton1 = UButtonText(
             callbacks: self, type: UButtonType.Press3, id: PageViewTest1.buttonId41,
             priority: 100, text: "button41", createNode: true,
-            x: x, y: y, width: buttonW / 2, height: buttonH, textSize: 20, textColor: .white, bgColor: .blue)
+            x: x, y: y, width: buttonW / 2, height: buttonH, fontSize: UDpi.toPixel(20), textColor: .white, bgColor: .blue)
         pressedButton1?.addToDrawManager()
         
         pressedButton2 = UButtonText(
             callbacks: self, type: UButtonType.Press3, id: PageViewTest1.buttonId42,
             priority: 100, text: "button42", createNode: true,
             x: x + buttonW / 2 + 10.0, y: y, width: buttonW / 2, height: buttonH,
-            textSize: 20, textColor: .white, bgColor: .blue)
+            fontSize: UDpi.toPixel(20), textColor: .white, bgColor: .blue)
         pressedButton2?.addToDrawManager()
         
         y += buttonH + PageViewTest1.MARGIN

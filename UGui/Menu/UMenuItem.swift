@@ -26,7 +26,7 @@ public class UMenuItem : UDrawable {
     
     private static let CHILD_MARGIN_V = 10
     private static let CHILD_MARGIN_H = 10
-    private static let TEXT_SIZE = 13
+    private static let FONT_SIZE = 13
     
     /**
      * メンバ変数
@@ -107,7 +107,7 @@ public class UMenuItem : UDrawable {
     {
         mTextTitle = UTextView.createInstance(
             text: title,
-            textSize: UMenuItem.TEXT_SIZE, priority: 0, alignment: alignment,
+            fontSize: UDpi.toPixel(UMenuItem.FONT_SIZE), priority: 0, alignment: alignment,
             createNode : true,
             multiLine: false, isDrawBG: true,
             x: x, y: y, width: 0, color: color, bgColor: bgColor)

@@ -13,7 +13,7 @@ class UIconWindowButtons : UDrawable {
     private let MARGIN_H = 15
     private let MARGIN_V = 10
     private let ACTION_ICON_W = 34
-    private let ICON_TEXT_SIZE = 14
+    private let ICON_FONT_SIZE = 14
 
     private let BG_COLOR = UColor.LightYellow
 
@@ -50,7 +50,7 @@ class UIconWindowButtons : UDrawable {
     }
     
     public override func initSKNode() {
-        size = CGSize(width: topX, height: UDpi.toPixel(MARGIN_V * 2 + ACTION_ICON_W + UButtonImage.TEXT_SIZE))
+        size = CGSize(width: topX, height: UDpi.toPixel(MARGIN_V * 2 + ACTION_ICON_W + UButtonImage.FONT_SIZE))
         
         // bgNode
         bgNode = SKNodeUtil.createRectNode(
@@ -79,7 +79,7 @@ class UIconWindowButtons : UDrawable {
             image: image,
             pressedImage: nil)
         
-        button.addTitle(title: info.title, textSize: UDpi.toPixel(ICON_TEXT_SIZE), alignment: .CenterX,
+        button.addTitle(title: info.title, fontSize: UDpi.toPixel(ICON_FONT_SIZE), alignment: .CenterX,
                         x: button.size.width / 2,
                         y: button.size.height + UDpi.toPixel(4), color: .black, bgColor: nil)
         return button

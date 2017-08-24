@@ -27,7 +27,7 @@ public class UImageView : UDrawable {
     
     var images : List<UIImage> = List()    // 画像
     var mTitle : String? = nil             // 画像の下に表示するテキスト
-    var mTitleSize : Int = 0
+    var mTitleSize : CGFloat = 0
     var mTitleColor : UIColor? = nil
     var mStateId : Int = 0          // 現在の状態
     var mStateMax : Int = 0         // 状態の最大値 addState で増える
@@ -36,7 +36,7 @@ public class UImageView : UDrawable {
     /**
      * Get/Set
      */
-    public func setTitle( text : String?, size : Int, color : UIColor?) {
+    public func setTitle( text : String?, size : CGFloat, color : UIColor?) {
         mTitle = text
         mTitleSize = size
         mTitleColor = color
@@ -84,7 +84,7 @@ public class UImageView : UDrawable {
         // 下にテキストを表示
         if mTitle != nil && mTitleColor != nil {
             UDraw.drawText( text : mTitle!, alignment : UAlignment.CenterX,
-                            textSize : mTitleSize,
+                            fontSize : mTitleSize,
                             x : _rect.centerX(), y : _rect.bottom + UDpi.toPixel(TEXT_MARGIN), color : mTitleColor!)
         }
     }

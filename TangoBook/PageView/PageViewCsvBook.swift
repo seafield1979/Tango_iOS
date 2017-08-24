@@ -84,7 +84,7 @@ public class PageViewCsvBook : UPageView, UButtonCallbacks {
             id: PageViewCsvBook.buttonId1, priority: PageViewCsvBook.DRAW_PRIORITY,
             text: "test", createNode: true, x: 50, y: 100,
             width: width - 100, height: 100,
-            textSize: 20, textColor: UIColor.white, bgColor: .blue)
+            fontSize: UDpi.toPixel(20), textColor: UIColor.white, bgColor: .blue)
         button.addToDrawManager()
         
     }

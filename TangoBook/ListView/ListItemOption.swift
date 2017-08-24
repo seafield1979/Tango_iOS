@@ -80,7 +80,7 @@ public class ListItemOption : UListItem {
      */
     public let TAG = "ListItemOption"
     private let TITLE_H = 27
-    private let TEXT_SIZE = 17
+    private let FONT_SIZE = 17
     private let FRAME_WIDTH = 1
     private let FRAME_COLOR = UIColor.black
     
@@ -156,7 +156,7 @@ public class ListItemOption : UListItem {
 //        
 //        super.draw(canvas, paint, _pos);
 //        
-//        UDraw.drawText(canvas, mTitle, UAlignment.Center, UDpi.toPixel(TEXT_SIZE),
+//        UDraw.drawText(canvas, mTitle, UAlignment.Center, UDpi.toPixel(FONT_SIZE),
 //                       _pos.x + size.width / 2, _pos.y + size.height / 2, mColor);
 //        
 //        switch(mItemType) {

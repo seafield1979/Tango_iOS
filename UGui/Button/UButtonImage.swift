@@ -20,7 +20,7 @@ public class UButtonImage : UButton {
      */
     public let TEXT_MARGIN : Int = 4
     public let BG_MARGIN : Int = 4
-    public static let TEXT_SIZE : Int = 10
+    public static let FONT_SIZE : Int = 10
     private let BG_COLOR = UIColor.init(red: 1.0, green: 0.0, blue: 0, alpha: 0.5)
     
     /**
@@ -126,7 +126,7 @@ public class UButtonImage : UButton {
         if title != nil {
             titleNode = SKNodeUtil.createLabelNode(
                 text: title!,
-                textSize: UDpi.toPixel(UButtonImage.TEXT_SIZE), color: titleColor,
+                fontSize: UDpi.toPixel(UButtonImage.FONT_SIZE), color: titleColor,
                 alignment: .CenterX, pos: CGPoint(x: 0, y: UDpi.toPixel(0)))
             titleNode?.zPosition = 0.1
             parentNode.addChild2(titleNode!)
@@ -181,7 +181,7 @@ public class UButtonImage : UButton {
     /**
      * テキストを追加する
      */
-    public func addTitle(title : String, textSize: CGFloat, alignment: UAlignment,
+    public func addTitle(title : String, fontSize: CGFloat, alignment: UAlignment,
                          x : CGFloat, y : CGFloat,
                          color : UIColor, bgColor : UIColor?)
     {
@@ -191,7 +191,7 @@ public class UButtonImage : UButton {
         
         titleNode = SKNodeUtil.createLabelNode(
             text: title,
-            textSize: textSize, color: color,
+            fontSize: fontSize, color: color,
             alignment: alignment, pos: CGPoint(x: x, y: y))
         titleNode?.zPosition = 0.2
         parentNode.addChild2(titleNode!)
@@ -259,7 +259,7 @@ public class UButtonImage : UButton {
 //     */
 //    public static let TEXT_MARGIN : Int = 4
 //    
-//    private static let TEXT_SIZE : Int = 10
+//    private static let FONT_SIZE : Int = 10
 //    
 //    /**
 //     * Member Variables
@@ -393,7 +393,7 @@ public class UButtonImage : UButton {
 //                         color : UIColor, bgColor : UIColor?)
 //    {
 //        mTextTitle = UTextView.createInstance(text: title,
-//                                              textSize:Int(UDpi.toPixel(UButtonImage.TEXT_SIZE)),
+//                                              fontSize:Int(UDpi.toPixel(UButtonImage.FONT_SIZE)),
 //                                              priority: 0, alignment: alignment,
 //                                              multiLine:false, isDrawBG: true,
 //                                              x:x, y:y,
@@ -476,7 +476,7 @@ public class UButtonImage : UButton {
 //        // 下にテキストを表示
 //        if title != nil {
 //            UDraw.drawText(text: title!, alignment: UAlignment.CenterX,
-//                           textSize: titleSize,
+//                           fontSize: titleSize,
 //                           x:_rect.centerX(),
 //                           y:_rect.bottom + UDpi.toPixel(UButtonImage.TEXT_MARGIN),
 //                           color: titleColor)

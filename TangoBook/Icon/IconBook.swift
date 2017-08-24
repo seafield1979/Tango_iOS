@@ -17,7 +17,7 @@ public class IconBook : IconContainer {
     private let ICON_W = 40
     private let ICON_H = 40
     
-    private let TEXT_SIZE2 = 14
+    private let FONT_SIZE2 = 14
     private let ICON_COLOR = UColor.makeColor(100,200,100)
     
     /**
@@ -27,7 +27,7 @@ public class IconBook : IconContainer {
     
     // Dpi補正済みのサイズ
     private var iconW : CGFloat, iconH : CGFloat
-    private var textSize : Int
+    private var fontSize : CGFloat
     
     /**
      * Get/Set
@@ -52,7 +52,7 @@ public class IconBook : IconContainer {
     {
         iconW = UDpi.toPixel(ICON_W)
         iconH = UDpi.toPixel(ICON_H)
-        textSize = Int(UDpi.toPixel(TEXT_SIZE2))
+        fontSize = UDpi.toPixel(FONT_SIZE2)
         
         super.init(parentWindow: parentWindow, iconCallbacks: iconCallbacks,
                    type: IconType.Book, x: x, y: y,

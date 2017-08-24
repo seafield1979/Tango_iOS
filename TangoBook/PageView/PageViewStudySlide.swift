@@ -149,7 +149,7 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
 
     private let TOP_AREA_H = 50
     private let BOTTOM_AREA_H = 100
-    private let TEXT_SIZE = 17
+    private let FONT_SIZE = 17
     private let BUTTON_W = 100
     private let BUTTON_H = 40
     private let BOX_W = 50
@@ -273,7 +273,7 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
 //                DRAW_PRIORITY, mContext.getString(R.string.finish),
 //                (screenW - UDpi.toPixel(BUTTON_W)) / 2, screenH - UDpi.toPixel(50),
 //                UDpi.toPixel(BUTTON_W), UDpi.toPixel(BUTTON_H),
-//                UDpi.toPixel(TEXT_SIZE), Color.BLACK, Color.rgb(100,200,100));
+//                UDpi.toPixel(FONT_SIZE), Color.BLACK, Color.rgb(100,200,100));
 //        mExitButton.addToDrawManager();
 //
 //        // OK

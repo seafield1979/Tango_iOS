@@ -36,7 +36,7 @@ import Foundation
 //    // 座標系
 //    private static final int TITLE_H = 27;
 //    private static final int CARD_H = 40;
-//    private static final int TEXT_SIZE = 17;
+//    private static final int FONT_SIZE = 17;
 //    private static final int STAR_ICON_W = 34;
 //    private static final int FRAME_WIDTH = 1;
 //
@@ -157,7 +157,7 @@ import Foundation
 //
 //        super.draw(canvas, paint, _pos);
 //
-//        int fontSize = UDpi.toPixel(TEXT_SIZE);
+//        int fontSize = UDpi.toPixel(FONT_SIZE);
 //
 //        switch(mType) {
 //            case Title:

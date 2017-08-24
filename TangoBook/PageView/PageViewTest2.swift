@@ -95,7 +95,7 @@ public class PageViewTest2 : UPageView, UButtonCallbacks, UDialogCallbacks {
                 priority: 100, text: button.name,
                 createNode: true,
                 x: x, y: y,
-                width: 200.0, height: 50.0, textSize: 20,
+                width: 200.0, height: 50.0, fontSize: UDpi.toPixel(20),
                 textColor: UColor.White, bgColor: .blue)
             
             textButton.addToDrawManager()
@@ -127,10 +127,10 @@ public class PageViewTest2 : UPageView, UButtonCallbacks, UDialogCallbacks {
             screenW: CGFloat(UUtil.screenWidth()), screenH: CGFloat(UUtil.screenHeight()))
         dialog.setTitle("ダイアログ")
         _ = dialog.addTextView(text: "テキスト1", alignment: UAlignment.Center,
-                           multiLine: true, isDrawBG: false, textSize: 20,
+                           multiLine: true, isDrawBG: false, fontSize: UDpi.toPixel(20),
                            textColor: UIColor.green, bgColor: nil)
         _ = dialog.addTextView(text: "テキスト2", alignment: UAlignment.Center,
-                           multiLine: true, isDrawBG: false, textSize: 20,
+                           multiLine: true, isDrawBG: false, fontSize: UDpi.toPixel(20),
                            textColor: UIColor.green, bgColor: nil)
         dialog.addCloseButton(text: "閉じる")
         dialog.addToDrawManager()

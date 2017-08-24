@@ -316,12 +316,12 @@ public class UDialogWindow : UWindow {
      */
     public func addTextView(text : String, alignment : UAlignment,
                             multiLine : Bool, isDrawBG : Bool,
-                            textSize : Int, textColor : UIColor,
+                            fontSize : CGFloat, textColor : UIColor,
                             bgColor : UIColor? ) -> UTextView
     {
         let textView : UTextView =
             UTextView.createInstance(text: text,
-                                     textSize: textSize,
+                                     fontSize: fontSize,
                                      priority: 0,
                                      alignment: alignment,
                                      createNode: false,
@@ -341,7 +341,7 @@ public class UDialogWindow : UWindow {
      * @param text
      * @param color
      */
-    public func addButton(id : Int, text : String,
+    public func addButton(id : Int, text : String, fontSize: CGFloat,
                           textColor : UIColor, color : UIColor ) -> UButton
     {
         let button = UButtonText( callbacks: buttonCallbacks!,
@@ -350,7 +350,7 @@ public class UDialogWindow : UWindow {
                                   text: text, createNode: false,
                                   x: 0, y: 0,
                                   width: 0, height: 0,
-                                  textSize: UDraw.getFontSize(FontSize.M),
+                                  fontSize: fontSize,
                                   textColor: textColor, bgColor: color)
         mButtons.append(button)
         
@@ -382,7 +382,7 @@ public class UDialogWindow : UWindow {
             text: text, createNode: false,
             x: 0, y: 0,
             width: 0, height: 0,
-            textSize: UDraw.getFontSize(FontSize.M),
+            fontSize: UDraw.getFontSize(FontSize.M),
             textColor: textColor, bgColor: bgColor)
         
         mButtons.append(button)
@@ -435,7 +435,7 @@ public class UDialogWindow : UWindow {
         if title != nil && mTitleView == nil {
             mTitleView = UTextView.createInstance(
                 text: title!,
-                textSize: UDraw.getFontSize(FontSize.L),
+                fontSize: UDraw.getFontSize(FontSize.L),
                 priority: 0,
                 alignment: UAlignment.CenterX,
                 createNode : true,

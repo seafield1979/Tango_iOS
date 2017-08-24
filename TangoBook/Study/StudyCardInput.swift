@@ -47,15 +47,15 @@ import Foundation
 //    protected static final int MARGIN_V = 17;
 //    protected static final int QBUTTON_W = 40;
 //    protected static final int QBUTTON_H = 40;
-//    protected static final int TEXT_SIZE = 17;
-//    protected static final int TEXT_SIZE_L = 23;
+//    protected static final int FONT_SIZE = 17;
+//    protected static final int FONT_SIZE_L = 23;
 //    protected static final int TEXT_COLOR = Color.BLACK;
 //    protected static final int FRAME_COLOR = Color.rgb(150,150,150);
 //
 //    protected static final int TEXT_MARGIN_H2 = 10;
 //    protected static final int TEXT_MARGIN_V = 10;
-//    protected static final int ONE_TEXT_WIDTH = TEXT_SIZE + 7;
-//    protected static final int ONE_TEXT_HEIGHT = TEXT_SIZE + 7;
+//    protected static final int ONE_TEXT_WIDTH = FONT_SIZE + 7;
+//    protected static final int ONE_TEXT_HEIGHT = FONT_SIZE + 7;
 //
 //    // color
 //    protected static final int BUTTON_COLOR = UColor.LTGRAY;
@@ -163,7 +163,7 @@ import Foundation
 //        int i=0;
 //        for (String str : _questions) {
 //            UButtonText button = new UButtonText(this, UButtonType.BGColor, i, 0, str,
-//                    0, 0, UDpi.toPixel(QBUTTON_W), UDpi.toPixel(QBUTTON_H), UDpi.toPixel(TEXT_SIZE_L), TEXT_COLOR, BUTTON_COLOR);
+//                    0, 0, UDpi.toPixel(QBUTTON_W), UDpi.toPixel(QBUTTON_H), UDpi.toPixel(FONT_SIZE_L), TEXT_COLOR, BUTTON_COLOR);
 //            mQuestionButtons.add(button);
 //            i++;
 //        }
@@ -307,7 +307,7 @@ import Foundation
 //        if (mState == State.None || mState == State.ShowAnswer) {
 //            float x, y = _pos.y + UDpi.toPixel(MARGIN_V);
 //            // 出題単語(日本語)
-//            Size _size = UDraw.drawText(canvas, mCard.getWordB(), UAlignment.CenterX, UDpi.toPixel(TEXT_SIZE),
+//            Size _size = UDraw.drawText(canvas, mCard.getWordB(), UAlignment.CenterX, UDpi.toPixel(FONT_SIZE),
 //                    _pos2.x, y, TEXT_COLOR);
 //            y += _size.height + UDpi.toPixel(MARGIN_V);
 //

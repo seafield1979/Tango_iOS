@@ -84,7 +84,7 @@ public class PageViewStudySelect4 : UPageView, UButtonCallbacks {
             id: PageViewStudySelect4.buttonId1, priority: PageViewStudySelect4.DRAW_PRIORITY,
             text: "test", createNode: true, x: 50, y: 100,
             width: width - 100, height: 100,
-            textSize: 20, textColor: UIColor.white, bgColor: .blue)
+            fontSize: UDpi.toPixel(20), textColor: UIColor.white, bgColor: .blue)
         button.addToDrawManager()
         
     }

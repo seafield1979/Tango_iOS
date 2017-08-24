@@ -79,7 +79,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
     internal static let MARGIN_H2 = 18
     internal static let MARGIN_V2 = 10
 
-    private static let TEXT_SIZE = 17
+    private static let FONT_SIZE = 17
     private static let IMAGE_W = 35
 
     // button Ids
@@ -183,7 +183,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                 text: info.getTitle(), createNode: true,
                 x: x, y: y,
                 width: buttonW, height: buttonW,
-                textSize: Int(UDpi.toPixel(PageViewTitle.TEXT_SIZE)),
+                fontSize: UDpi.toPixel(PageViewTitle.FONT_SIZE),
                 textColor: info.textColor, bgColor: info.bgColor)
             mButtons.append(button)
                 
@@ -226,7 +226,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                                      createNode : true,
                                      x: x, y: y,
                                      width: buttonW, height: buttonH,
-                                     textSize: Int(UDpi.toPixel(PageViewTitle.TEXT_SIZE)),
+                                     fontSize: UDpi.toPixel(PageViewTitle.FONT_SIZE),
                                      textColor: info.textColor,
                                      bgColor: info.bgColor)
             mButtons.append(button)

@@ -54,11 +54,11 @@ public class UPopupWindow : UDialogWindow {
         self.title = title
         
         if popupType == UPopupType.OK {
-            _ = addButton(id: UPopupWindow.OKButtonId, text: "OK",
+            _ = addButton(id: UPopupWindow.OKButtonId, text: "OK", fontSize: 10,
                       textColor: UIColor.black,
                       color: UIColor.lightGray)
         } else {
-            _ = addButton(id: UPopupWindow.OKButtonId, text: "OK",
+            _ = addButton(id: UPopupWindow.OKButtonId, text: "OK", fontSize: 10,
                       textColor: UIColor.black,
                       color: UIColor.lightGray)
             addCloseButton(text: UResourceManager.getStringByName("cancel"))

@@ -33,7 +33,7 @@ public class PageViewStudyBookSelect : UPageView
     private let MARGIN_H = 17
     private let MARGIN_V_S = 10
 
-    private let TEXT_SIZE = 17
+    private let FONT_SIZE = 17
 
     // Button Ids
     private let ButtonIdReturn = 100
@@ -127,17 +127,17 @@ public class PageViewStudyBookSelect : UPageView
             y += UDpi.toPixel(67)
             let text = UTextView.createInstance(
                 text : UResourceManager.getStringByName("no_study_history"),
-                textSize : Int(UDpi.toPixel(TEXT_SIZE)), priority : DRAW_PRIORITY-1,
+                fontSize : UDpi.toPixel(FONT_SIZE), priority : DRAW_PRIORITY-1,
                 alignment : UAlignment.CenterX, createNode: true,
                 multiLine : false, isDrawBG : false,
-                x : width/2, y : y, width : width, color : UIColor.black, bgColor : nil)
+                x : width/2, y : y, width : width, color : .black, bgColor : nil)
             text.addToDrawManager()
 
         } else {
             // Title
             mTitleText = UTextView.createInstance(
                 text : UResourceManager.getStringByName("title_study2"),
-                textSize : Int(UDpi.toPixel(TEXT_SIZE)), priority : DRAW_PRIORITY,
+                fontSize : UDpi.toPixel(FONT_SIZE), priority : DRAW_PRIORITY,
                 alignment : UAlignment.CenterX, createNode: true,
                 multiLine : false, isDrawBG : false,
                 x : width/2, y : y, width : width,
@@ -152,7 +152,7 @@ public class PageViewStudyBookSelect : UPageView
                                   x : x, y : y,
                                   width : width-UDpi.toPixel(MARGIN_H)*2,
                                   height : listViewH, bgColor : UIColor.white)
-            mListView!.setFrameColor(frameColor: UIColor.black)
+            mListView!.setFrameColor(frameColor: .gray)
             mListView!.addToDrawManager()
 
             for book in books! {
@@ -171,6 +171,17 @@ public class PageViewStudyBookSelect : UPageView
         }
     }
 
+    public func setShowPreStudyWindow(_ show : Bool) {
+        if show {
+            mPreStudyWindow!.isShow = true
+            // 隠されていたものを再表示
+            mListView?.parentNode.isHidden = true
+        } else {
+            mPreStudyWindow!.isShow = false
+            // 隠されていたものを再表示
+            mListView?.parentNode.isHidden = false
+        }
+    }
     /**
      * アクションIDを処理する
      * サブクラスでオーバーライドして使用する
@@ -216,7 +227,7 @@ public class PageViewStudyBookSelect : UPageView
                 return true
             }
             else if mPreStudyWindow!.isShow {
-                mPreStudyWindow!.isShow = false
+                setShowPreStudyWindow(false)
                 return true
             }
         }
@@ -241,7 +252,7 @@ public class PageViewStudyBookSelect : UPageView
             PageViewManagerMain.getInstance().startStudyPage( book: mBook!, firstStudy: true)
             
         case PageViewStudyBookSelect.ButtonIdCancel:
-            mPreStudyWindow!.isShow = false
+            setShowPreStudyWindow(false)
         default:
             break
         }
@@ -264,6 +275,7 @@ public class PageViewStudyBookSelect : UPageView
         let bookItem = item as! ListItemStudyBook
 
         mPreStudyWindow!.showWithBook(book: bookItem.getBook()!)
+        setShowPreStudyWindow(true)
         mBook = bookItem.getBook()
     }
     
@@ -277,7 +289,7 @@ public class PageViewStudyBookSelect : UPageView
     public func windowClose( window : UWindow) {
         // Windowを閉じる
         if mPreStudyWindow === window {
-            mPreStudyWindow!.isShow = false
+            setShowPreStudyWindow(false)
         }
     }
 }

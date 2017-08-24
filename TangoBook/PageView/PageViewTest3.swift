@@ -84,12 +84,12 @@ public class PageViewTest3 : UPageView, UButtonCallbacks {
         let buttonH : CGFloat = 50.0
         
         // UButtonText
-        let textButton = UButtonText(callbacks: self, type: UButtonType.Press, id: PageViewTest3.buttonId1, priority: 100, text: "button1", createNode: true, x: x, y: y, width: buttonW, height: buttonH, textSize: 20, textColor: UIColor.white, bgColor: .blue)
+        let textButton = UButtonText(callbacks: self, type: UButtonType.Press, id: PageViewTest3.buttonId1, priority: 100, text: "button1", createNode: true, x: x, y: y, width: buttonW, height: buttonH, fontSize: UDpi.toPixel(20), textColor: UIColor.white, bgColor: .blue)
         textButton.addToDrawManager()
         
         y += 70.0
         
-        let textButton2 = UButtonText(callbacks: self, type: UButtonType.Press2, id: PageViewTest3.buttonId2, priority: 100, text: "button2", createNode: true, x: x, y: y, width: buttonW, height: buttonH, textSize: 20, textColor: UIColor.white, bgColor: .blue)
+        let textButton2 = UButtonText(callbacks: self, type: UButtonType.Press2, id: PageViewTest3.buttonId2, priority: 100, text: "button2", createNode: true, x: x, y: y, width: buttonW, height: buttonH, fontSize: UDpi.toPixel(20), textColor: UIColor.white, bgColor: .blue)
         textButton2.addToDrawManager()
         
         y += 70.0

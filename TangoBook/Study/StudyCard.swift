@@ -42,8 +42,8 @@ public class StudyCard : UDrawable, UButtonCallbacks {
     let MOVE_FRAME = 10
     let MOVE_IN_FRAME = 30
 
-    let TEXT_SIZE_A = 20
-    let TEXT_SIZE_B = 17
+    let FONT_SIZE_A = 20
+    let FONT_SIZE_B = 17
     let MARGIN_TEXT_H = 13
     let MARGIN_TEXT_V = 20
 
@@ -77,8 +77,8 @@ public class StudyCard : UDrawable, UButtonCallbacks {
     var mState : State = .None
     var wordA : String? = nil             // 正解（表）のテキスト
     var wordB : String? = nil             // 不正解（裏）のテキスト
-    var textSizeA : Int = 0            // 正解のテキストサイズ
-    var textSizeB : Int = 0            // 不正解(裏)のテキスト
+    var fontSizeA : CGFloat = 0            // 正解のテキストサイズ
+    var fontSizeB : CGFloat = 0            // 不正解(裏)のテキスト
     var mCard : TangoCard? = nil
     var isTouching : Bool = false
     var slideX : CGFloat = 0
@@ -153,13 +153,13 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         if isEnglish {
             wordA = card.wordA
             wordB = card.wordB
-            textSizeA = UDpi.toPixelInt(TEXT_SIZE_A)
-            textSizeB = UDpi.toPixelInt(TEXT_SIZE_B)
+            fontSizeA = UDpi.toPixel(FONT_SIZE_A)
+            fontSizeB = UDpi.toPixel(FONT_SIZE_B)
         } else {
             wordA = card.wordB
             wordB = card.wordA
-            textSizeA = UDpi.toPixelInt(TEXT_SIZE_B)
-            textSizeB = UDpi.toPixelInt(TEXT_SIZE_A)
+            fontSizeA = UDpi.toPixel(FONT_SIZE_B)
+            fontSizeB = UDpi.toPixel(FONT_SIZE_A)
         }
         mState = State.None
         mCard = card
@@ -168,8 +168,8 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         let maxWidth = screenW - UDpi.toPixel(ARROW_W * 2 + ARROW_MARGIN * 4)
         if isMultiCard {
             // WordA,WordBの大きい方の高さに合わせる
-            let sizeA = UDraw.getTextSize( text: wordA, textSize: UDpi.toPixelInt(TEXT_SIZE_A))
-            let sizeB = UDraw.getTextSize( text: wordB, textSize: UDpi.toPixelInt(TEXT_SIZE_B))
+            let sizeA = UDraw.getTextSize( text: wordA, fontSize: UDpi.toPixel(FONT_SIZE_A))
+            let sizeB = UDraw.getTextSize( text: wordB, fontSize: UDpi.toPixel(FONT_SIZE_B))
 
             // width
             var width = (sizeA.width > sizeB.width) ? sizeA.width : sizeB.width;
@@ -325,13 +325,13 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         if (!isMoveToBox) {
             // タッチ中は正解を表示
             var text : String?
-            var textSize : Int
+            var fontSize : CGFloat
             if isTouching {
                 text = wordB
-                textSize = textSizeB
+                fontSize = fontSizeB
             } else {
                 text = wordA
-                textSize = textSizeA
+                fontSize = fontSizeA
             }
             if text != nil {
 //                UDraw.drawText( text : text!, alignment : UAlignment.Center, textSize : textSize, x : _pos.x, y : _pos.y+size.height/2, color : TEXT_COLOR)

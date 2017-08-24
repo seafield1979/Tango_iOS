@@ -36,8 +36,8 @@ import Foundation
 //    public static final int MARGIN_V = 10;
 //    protected static final int MOVING_FRAME = 10;
 //    protected static final int STUDY_CARD_NUM = 4;
-//    protected static final int TEXT_SIZE = 17;
-//    protected static final int TEXT_SIZE_L = 20;
+//    protected static final int FONT_SIZE = 17;
+//    protected static final int FONT_SIZE_L = 20;
 //    protected static final int CARD_MARGIN_V = 7;
 //
 //    protected static final int DRAW_PRIORITY = 100;
@@ -97,7 +97,7 @@ import Foundation
 //
 //        // 出題 TextView
 //        mQuestionView = UTextView.createInstance(
-//                "", UDpi.toPixel(TEXT_SIZE_L), DRAW_PRIORITY,
+//                "", UDpi.toPixel(FONT_SIZE_L), DRAW_PRIORITY,
 //                UAlignment.CenterX, canvasW,
 //                true, false, width / 2, 0,
 //                width, TEXT_COLOR, 0);

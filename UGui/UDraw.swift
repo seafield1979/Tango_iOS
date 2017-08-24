@@ -21,19 +21,19 @@ public enum FontSize : Int {
 class UDraw {
     
     // フォントのサイズ
-    public static func getFontSize(_ size: FontSize) -> Int {
+    public static func getFontSize(_ size: FontSize) -> CGFloat {
         var _size : Int
         switch (size) {
         case .S:
-            _size = 10
+            _size = 12
         case .M:
-            _size = 13
+            _size = 15
         case .L:
             fallthrough
         default:
-            _size = 17
+            _size = 20
         }
-        return Int(UDpi.toPixel(_size))
+        return UDpi.toPixel(_size)
     }
     
     // 360度の角度をラジアン角に変換する用
@@ -303,7 +303,7 @@ class UDraw {
     
     // テキストを描画する
     // アライメントは自前で計算している
-    public static func drawText(text: String,alignment: UAlignment, textSize: Int, x: CGFloat, y: CGFloat, color: UIColor )
+    public static func drawText(text: String,alignment: UAlignment, fontSize: CGFloat, x: CGFloat, y: CGFloat, color: UIColor )
     {
         // 文字描画時に反映される影の指定
 //        let shadow = NSShadow()
@@ -312,7 +312,7 @@ class UDraw {
 //        shadow.shadowBlurRadius = 0
         
         // 文字描画に使用するフォントの指定
-        let font = UIFont.boldSystemFont(ofSize:CGFloat(textSize))
+        let font = UIFont.boldSystemFont(ofSize:CGFloat(fontSize))
         
         // パラグラフ関連の情報の指定
         let style = NSMutableParagraphStyle()
@@ -364,13 +364,13 @@ class UDraw {
     
     
     // テキストの描画サイズを取得する
-    public static func getTextSize(text: String?, textSize: Int) -> CGSize
+    public static func getTextSize(text: String?, fontSize: CGFloat) -> CGSize
     {
         if text == nil {
             return CGSize()
         }
         // 文字描画に使用するフォントの指定
-        let font = UIFont.boldSystemFont(ofSize:CGFloat(textSize))
+        let font = UIFont.boldSystemFont(ofSize: fontSize)
         
         return text!.size(attributes: [NSFontAttributeName : font])
     }

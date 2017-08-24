@@ -40,7 +40,7 @@ public class UButtonText : UButton {
     
     private var mText : String?
     private var mTextColor : UIColor
-    private var mTextSize : CGFloat = 0
+    private var mFontSize : CGFloat = 0
     private var mImage : UIImage?
     private var mImageAlignment : UAlignment = UAlignment.Left     // 画像の表示位置
     private var mImageOffset : CGPoint? = CGPoint()
@@ -55,12 +55,14 @@ public class UButtonText : UButton {
         return mText
     }
     
-    public func setText(mText : String?) {
-        self.mText = mText;
+    public func setText(text : String?) {
+        self.mText = text
+        labelNode.text = text
     }
     
-    public func setTextColor(mTextColor : UIColor) {
-        self.mTextColor = mTextColor
+    public func setTextColor(textColor : UIColor) {
+        self.mTextColor = textColor
+        labelNode.fontColor = textColor
     }
     
     public func setImage(imageName : ImageName, imageSize : CGSize, initNode: Bool) {
@@ -105,17 +107,21 @@ public class UButtonText : UButton {
             baseY = bgNode!.frame.size.height / 2
             break
         case .CenterX:
-            break
+            baseX = bgNode!.frame.size.width / 2
+            baseY = 0
         case .CenterY:
-            break
+            baseX = 0
+            baseY = bgNode!.frame.size.height / 2
         case .Center:
             baseX = bgNode!.frame.size.width / 2
             baseY = bgNode!.frame.size.height / 2
             break
         case .Right:
-            break
+            baseX = bgNode!.frame.size.width - imageNode!.size.width
+            baseY = 0
         case .Right_CenterY:
-            break
+            baseX = bgNode!.frame.size.width - imageNode!.size.width
+            baseY = bgNode!.frame.size.height / 2
         }
         
         if mImageOffset != nil {
@@ -150,11 +156,11 @@ public class UButtonText : UButton {
     init(callbacks : UButtonCallbacks?, type : UButtonType, id : Int,
          priority : Int, text : String, createNode : Bool,
          x : CGFloat, y : CGFloat, width : CGFloat, height : CGFloat,
-         textSize : Int, textColor : UIColor?, bgColor : UIColor?)
+         fontSize : CGFloat, textColor : UIColor?, bgColor : UIColor?)
     {
         self.mText = text
         self.mTextColor = textColor!
-        self.mTextSize = CGFloat(textSize)
+        self.mFontSize = fontSize
         
         self.labelNode = SKLabelNode(text: text)
         
@@ -187,7 +193,7 @@ public class UButtonText : UButton {
         
         // Label
         self.labelNode.fontColor = mTextColor
-        self.labelNode.fontSize = CGFloat(mTextSize)
+        self.labelNode.fontSize = mFontSize
         self.labelNode.fontName = "HiraKakuProN-W6"
         self.labelNode.horizontalAlignmentMode = .center
         self.labelNode.verticalAlignmentMode = .center
@@ -200,7 +206,7 @@ public class UButtonText : UButton {
             if mText == nil {
                 size = CGSize()
             } else {
-                size = UDraw.getTextSize(text: mText!, textSize: Int(mTextSize))
+                size = UDraw.getTextSize(text: mText!, fontSize: mFontSize)
             }
             setSize(size.width, size.height + UDpi.toPixel( UButtonText.MARGIN_V) * 2)
         }
@@ -228,7 +234,7 @@ public class UButtonText : UButton {
     /**
      * Methods
      */
-    public override func setChecked(_ checked : Bool) {
+    public func setChecked(_ checked : Bool, initNode : Bool) {
         super.setChecked(checked)
         
         // ボタンの左側にチェックアイコンを表示
@@ -236,7 +242,9 @@ public class UButtonText : UButton {
             if imageNode == nil {
                 setImage(imageName: ImageName.checked2,
                          imageSize: CGSize(width: UDpi.toPixel(UButtonText.CHECKED_W), height: UDpi.toPixel(UButtonText.CHECKED_W)),
-                         initNode : true)
+                         initNode : initNode)
+                self.setImageAlignment( .CenterY )
+                self.setImageOffset( x: UDpi.toPixel(30), y: size.height / 2)
             }
         } else {
             if imageNode != nil {

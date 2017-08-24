@@ -269,7 +269,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 UResourceManager.getStringByName("confirm_moveto_trash"))
                 _ = mDialog!.addButton(
                     id: ButtonIdMoveIconsToTrash,
-                    text: "OK",
+                    text: "OK", fontSize: UDraw.getFontSize(FontSize.M),
                     textColor: UIColor.black, color: UIColor.white)
                 _ = mDialog!.addCloseButton(
                     text: UResourceManager.getStringByName("cancel"))
@@ -773,7 +773,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 textColor : UIColor.black, dialogColor : UIColor.lightGray)
             
             mDialog!.setTitle(message);
-            _ = mDialog!.addButton(id : ExportFinishedDialogButtonOk, text : "OK", textColor : UIColor.black, color : UIColor.white)
+            _ = mDialog!.addButton(id : ExportFinishedDialogButtonOk, text : "OK", fontSize: UDraw.getFontSize(FontSize.M), textColor : UIColor.black, color : UIColor.white)
         
             mDialog!.updateLayout()
             mDialog!.addToDrawManager()
@@ -996,7 +996,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             mDialog!.setTitle(UResourceManager.getStringByName("confirm_cleanup_trash"))
 
             // ボタンを追加
-            _ = mDialog!.addButton(id : CleanupDialogButtonOK, text : "OK",
+            _ = mDialog!.addButton(id : CleanupDialogButtonOK, text : "OK", fontSize: UDraw.getFontSize(FontSize.M),
                                textColor : UIColor.black, color : UColor.LightGreen)
             mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
             
@@ -1083,7 +1083,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
             // ボタンを追加
             _ = mDialog!.addButton(id: ButtonIdCopyOK,
-                               text: "OK", textColor: UIColor.black,
+                               text: "OK", fontSize: UDraw.getFontSize(FontSize.M), textColor: UIColor.black,
                               color: UColor.LightGreen);
             mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
 
@@ -1116,7 +1116,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             }
 
             // ボタンを追加
-            _ = mDialog!.addButton(id: TrashDialogButtonOK, text: "OK",
+            _ = mDialog!.addButton(id: TrashDialogButtonOK, text: "OK", fontSize: UDraw.getFontSize(FontSize.M),
                                textColor: UIColor.black, color: UColor.LightGreen);
             mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
 
@@ -1146,7 +1146,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             mDialog!.setTitle(UResourceManager.getStringByName("confirm_export_csv"))
 
             // ボタンを追加
-            _ = mDialog!.addButton(id: ExportDialogButtonOK, text: "OK",
+            _ = mDialog!.addButton(id: ExportDialogButtonOK, text: "OK", fontSize: UDraw.getFontSize(FontSize.M),
                                textColor: UIColor.black, color: UColor.LightGreen)
             mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
 

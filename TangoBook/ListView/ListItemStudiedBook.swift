@@ -25,8 +25,8 @@ import Foundation
 //     */
 //    public static final String TAG = "ListItemStudiedBook";
 //    
-//    private static final int TEXT_SIZE = 17;
-//    private static final int TEXT_SIZE2 = 14;
+//    private static final int FONT_SIZE = 17;
+//    private static final int FONT_SIZE2 = 14;
 //    private static final int MARGIN_H = 17;
 //    private static final int MARGIN_V = 5;
 //    private static final int TITLE_H = 27;
@@ -73,7 +73,7 @@ import Foundation
 //    int width, int textColor,int bgColor) {
 //        ListItemStudiedBook instance = new ListItemStudiedBook(null,
 //                                                               ListItemStudiedBookType.History, true, history,
-//                                                               0, width, UDpi.toPixel(TEXT_SIZE) * 3 + UDpi.toPixel(MARGIN_V) * 4, textColor, bgColor);
+//                                                               0, width, UDpi.toPixel(FONT_SIZE) * 3 + UDpi.toPixel(MARGIN_V) * 4, textColor, bgColor);
 //        
 //        TangoBook book = RealmManager.getBookDao().selectById(history.getBookId());
 //        if (book == null) {
@@ -125,7 +125,7 @@ import Foundation
 //        // BGや枠描画は親クラスのdrawメソッドで行う
 //        super.draw(canvas, paint, _pos);
 //        
-//        int fontSize = UDpi.toPixel(TEXT_SIZE);
+//        int fontSize = UDpi.toPixel(FONT_SIZE);
 //        
 //        if (mType == ListItemStudiedBookType.History) {
 //            // 履歴
@@ -136,12 +136,12 @@ import Foundation
 //            
 //            // 学習日時
 //            UDraw.drawTextOneLine(canvas, paint, mTextDate, UAlignment.None,
-//                                  UDpi.toPixel(TEXT_SIZE2) , x, y, _textColor);
+//                                  UDpi.toPixel(FONT_SIZE2) , x, y, _textColor);
 //            y += fontSize + UDpi.toPixel(MARGIN_V);
 //            
 //            // OK/NG数 正解率
 //            UDraw.drawTextOneLine(canvas, paint, mTextInfo, UAlignment.None,
-//                                  UDpi.toPixel(TEXT_SIZE2), x, y, _textColor);
+//                                  UDpi.toPixel(FONT_SIZE2), x, y, _textColor);
 //        } else {
 //            // タイトル
 //            UDraw.drawTextOneLine( canvas, paint, mTitle, UAlignment.Center, fontSize,

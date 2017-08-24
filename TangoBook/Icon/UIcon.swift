@@ -62,7 +62,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
      private static let TAG = "UIcon"
      private let DRAW_PRIORITY = 200
 
-     public let TEXT_SIZE = 15
+     public let FONT_SIZE = 15
      let TEXT_MARGIN = 4
 
      // タッチ領域の拡張幅
@@ -74,7 +74,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
      private let CHECKED_WIDTH = 24    // 選択中のアイコンのチェックの幅
      private let CHECKED_FRAME = 3    // 選択中のアイコンのチェックの枠
 
-     let NEW_TEXT_SIZE = 10
+     let NEW_FONT_SIZE = 10
      let NEW_TEXT_MARGIN = 5
      let NEW_TEXT_COLOR = UColor.makeColor(200, 255, 80, 80)
     // アニメーション用
@@ -210,7 +210,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
         parentNode.addChild2(imageNode)
         
         // text
-        textNode = SKNodeUtil.createLabelNode(text: "", textSize: UDpi.toPixel(TEXT_SIZE), color: .black, alignment: .CenterX, pos: CGPoint(x:size.width / 2, y: size.height))
+        textNode = SKNodeUtil.createLabelNode(text: "", fontSize: UDpi.toPixel(FONT_SIZE), color: .black, alignment: .CenterX, pos: CGPoint(x:size.width / 2, y: size.height))
         textNode.zPosition = 0.3
         textNode.isHidden = true
         parentNode.addChild2(textNode)
@@ -292,7 +292,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
     */
     func createNewBadge() {
         newTextView = UTextView.createInstance(
-           text: "New", textSize: Int(UDpi.toPixel(NEW_TEXT_SIZE)),
+           text: "New", fontSize: UDpi.toPixel(NEW_FONT_SIZE),
            priority: 0, alignment: UAlignment.Center, createNode: true,
            multiLine: false, isDrawBG: true,
            x: 0, y: 0, width: 100, color: UIColor.white, bgColor: NEW_TEXT_COLOR)

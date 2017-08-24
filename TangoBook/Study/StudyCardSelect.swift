@@ -37,7 +37,7 @@ import Foundation
 //    /**
 //     * Consts
 //     */
-//    protected static final int TEXT_SIZE = 17;
+//    protected static final int FONT_SIZE = 17;
 //    protected static final int TEXT_COLOR = Color.BLACK;
 //    protected static final int FRAME_COLOR = Color.rgb(150,150,150);
 //    
@@ -234,7 +234,7 @@ import Foundation
 //                text.append("\n");
 //                text.append(wordB);
 //            }
-//            UDraw.drawText(canvas, text.toString(), UAlignment.Center, UDpi.toPixel(TEXT_SIZE),
+//            UDraw.drawText(canvas, text.toString(), UAlignment.Center, UDpi.toPixel(FONT_SIZE),
 //                           _pos2.x, _pos2.y, TEXT_COLOR);
 //        }
 //        

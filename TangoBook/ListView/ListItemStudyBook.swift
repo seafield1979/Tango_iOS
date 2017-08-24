@@ -18,8 +18,8 @@ public class ListItemStudyBook : UListItem {
      */
     public let TAG = "ListItemStudiedBook";
 
-    private let TEXT_SIZE = 17
-    private let TEXT_SIZE2 = 14
+    private let FONT_SIZE = 17
+    private let FONT_SIZE2 = 14
     private let TEXT_COLOR = UIColor.black
     private let ICON_W = 45;
 
@@ -62,10 +62,10 @@ public class ListItemStudyBook : UListItem {
     {
         super.init(callbacks : listItemCallbacks,
                    isTouchable : true,
-                   x : 0, width : width, height : UDpi.toPixel(TEXT_SIZE) * 3 + UDpi.toPixel(MARGIN_V)*4,
+                   x : 0, width : width, height : UDpi.toPixel(FONT_SIZE) * 3 + UDpi.toPixel(MARGIN_V)*4,
                    bgColor : bgColor, frameW : UDpi.toPixel(FRAME_WIDTH), frameColor : FRAME_COLOR)
         mBook = book;
-        itemH = UDpi.toPixel(TEXT_SIZE) * 3 + UDpi.toPixel(MARGIN_V) * 4
+        itemH = UDpi.toPixel(FONT_SIZE) * 3 + UDpi.toPixel(MARGIN_V) * 4
 
         // 単語帳名
         mTextName = UResourceManager.getStringByName("book_name2") + " : " + book.getName()!
@@ -99,7 +99,7 @@ public class ListItemStudyBook : UListItem {
     public override func initSKNode() {
         var x = UDpi.toPixel(MARGIN_H)
         var y = UDpi.toPixel(MARGIN_V)
-        let margin = UDpi.toPixel(TEXT_SIZE + MARGIN_V)
+        let margin = UDpi.toPixel(FONT_SIZE + MARGIN_V)
 
         // 単語帳アイコン
         iconNode = SKSpriteNode(texture : SKTexture(image: mIcon!))
@@ -111,19 +111,19 @@ public class ListItemStudyBook : UListItem {
         x += UDpi.toPixel(ICON_W + MARGIN_H)
         
         // 単語帳の名前
-        titleNode = SKNodeUtil.createLabelNode(text: mTextName!, textSize: UDpi.toPixel(TEXT_SIZE), color: UColor.makeColor(50,150,50),
+        titleNode = SKNodeUtil.createLabelNode(text: mTextName!, fontSize: UDpi.toPixel(FONT_SIZE), color: UColor.makeColor(50,150,50),
                                                alignment: .Left, pos: CGPoint(x:x, y:y))
         parentNode.addChild2(titleNode!)
         
         y += margin
         // 学習日時
-        dateNode = SKNodeUtil.createLabelNode(text: mStudiedDate!, textSize: UDpi.toPixel(TEXT_SIZE2), color: TEXT_COLOR, alignment: .Left, pos: CGPoint(x: x, y: y))
+        dateNode = SKNodeUtil.createLabelNode(text: mStudiedDate!, fontSize: UDpi.toPixel(FONT_SIZE2), color: TEXT_COLOR, alignment: .Left, pos: CGPoint(x: x, y: y))
         parentNode.addChild2( dateNode! )
 
         y += margin
         
         // カード数
-        infoNode = SKNodeUtil.createLabelNode(text: mCardCount!, textSize: UDpi.toPixel(TEXT_SIZE2), color: UColor.DarkGray, alignment: .Left, pos: CGPoint(x: x, y: y))
+        infoNode = SKNodeUtil.createLabelNode(text: mCardCount!, fontSize: UDpi.toPixel(FONT_SIZE2), color: UColor.DarkGray, alignment: .Left, pos: CGPoint(x: x, y: y))
         parentNode.addChild2( infoNode! )
     }
 

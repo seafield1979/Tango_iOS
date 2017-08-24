@@ -20,7 +20,7 @@ public class UTextView : UDrawable {
     static let MARGIN_H : Int = 10
     static let MARGIN_V : Int = 5
     
-    static let DEFAULT_TEXT_SIZE : Int = 17
+    static let DEFAULT_FONT_SIZE : Int = 17
     static let DEFAULT_COLOR : UIColor = UIColor.black
     static let DEFAULT_BG_COLOR : UIColor = UIColor.white
     
@@ -34,7 +34,7 @@ public class UTextView : UDrawable {
     var alignment : UAlignment
     var isMargin : Bool
     var mMargin : CGSize = CGSize()
-    var textSize : Int = 0
+    var fontSize : CGFloat = 0
     var bgColor : UIColor? = nil
     var multiLine : Bool = false      // 複数行表示する
     
@@ -69,7 +69,7 @@ public class UTextView : UDrawable {
     /**
      * Constructor
      */
-    public init(text : String, textSize : Int, priority : Int,
+    public init(text : String, fontSize : CGFloat, priority : Int,
                 alignment : UAlignment, createNode: Bool,
                 multiLine : Bool, isDrawBG : Bool, isMargin : Bool,
                 x : CGFloat, y : CGFloat,
@@ -80,9 +80,9 @@ public class UTextView : UDrawable {
         self.isMargin = isMargin
         self.multiLine = multiLine
         self.isDrawBG = isDrawBG
-        self.textSize = textSize
+        self.fontSize = fontSize
         
-        super.init( priority: priority, x: x, y: y, width: width, height: CGFloat(textSize))
+        super.init( priority: priority, x: x, y: y, width: width, height: fontSize)
         
         self.color = color
         self.bgColor = bgColor
@@ -94,7 +94,7 @@ public class UTextView : UDrawable {
         updateSize()
     }
     
-    public static func createInstance(text: String, textSize : Int, priority : Int,
+    public static func createInstance(text: String, fontSize : CGFloat, priority : Int,
                                       alignment : UAlignment, createNode : Bool,
                                       multiLine : Bool, isDrawBG : Bool,
                                       x: CGFloat, y: CGFloat,
@@ -102,7 +102,7 @@ public class UTextView : UDrawable {
                                       color : UIColor, bgColor : UIColor?) -> UTextView
     {
         let instance = UTextView(text: text,
-                                 textSize: textSize,
+                                 fontSize: fontSize,
                                  priority: priority,
                                  alignment: alignment,
                                  createNode : createNode,
@@ -122,7 +122,7 @@ public class UTextView : UDrawable {
                                       x : CGFloat, y : CGFloat) -> UTextView
     {
         let instance = UTextView(text:text,
-                                 textSize: UTextView.DEFAULT_TEXT_SIZE,
+                                 fontSize: UDpi.toPixel(UTextView.DEFAULT_FONT_SIZE),
                                  priority:priority,
                                  alignment: UAlignment.None, createNode : createNode,
                                  multiLine: false,
@@ -145,11 +145,11 @@ public class UTextView : UDrawable {
         
         // Label
         if text.contains("\n") {
-            let result = SKNodeUtil.createMultiLineLabelNode(text: text, fontSize: CGFloat(textSize), color: color, alignment: .Left, pos: nil)
+            let result = SKNodeUtil.createMultiLineLabelNode(text: text, fontSize: fontSize, color: color, alignment: .Left, pos: nil)
             self.labelNode = result.node
             size = result.size
         } else {
-            self.labelNode = SKNodeUtil.createLabelNode(text: text, textSize: CGFloat(textSize), color: color, alignment: .Left, pos: nil)
+            self.labelNode = SKNodeUtil.createLabelNode(text: text, fontSize: fontSize, color: color, alignment: .Left, pos: nil)
             size = labelNode!.frame.size
         }
         
@@ -225,7 +225,7 @@ public class UTextView : UDrawable {
         return size
     }
     
-    
+    // MARK: UDrawable
     /**
      * 描画処理
      * @param canvas
@@ -235,12 +235,16 @@ public class UTextView : UDrawable {
     public override func draw() {
     }
     
+    public override func doAction() -> DoActionRet {
+        return .None
+    }
+    
     /**
      * テキストのサイズを取得する（マルチライン対応）
      * @return
      */
     public func getTextSize() -> CGSize {
-        return UDraw.getTextSize(text: text, textSize: textSize)
+        return UDraw.getTextSize(text: text, fontSize: fontSize)
     }
     
     /**

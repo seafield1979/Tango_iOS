@@ -94,11 +94,11 @@ public class SKNodeUtil {
     
     // MARK : Label系
     
-    public static func createLabelNode( text : String, textSize: CGFloat, color : SKColor, alignment : UAlignment, pos: CGPoint?) -> SKLabelNode
+    public static func createLabelNode( text : String, fontSize: CGFloat, color : SKColor, alignment : UAlignment, pos: CGPoint?) -> SKLabelNode
     {
         let n = SKLabelNode(text: text)
         n.fontColor = color
-        n.fontSize = textSize
+        n.fontSize = fontSize
         n.fontName = SKNodeUtil.fontName
         if pos != nil {
             n.position = pos!

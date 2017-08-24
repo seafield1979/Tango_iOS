@@ -32,7 +32,7 @@ import Foundation
 //    
 //    // layout
 //    public static final int MARGIN_V = 10;
-//    protected static final int TEXT_SIZE = 17;
+//    protected static final int FONT_SIZE = 17;
 //    
 //    
 //    protected static final int DRAW_PRIORITY = 100;

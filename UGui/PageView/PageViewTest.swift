@@ -111,7 +111,7 @@ public class PageViewTest : UPageView, UButtonCallbacks {
                 callbacks: self, type: UButtonType.BGColor, id: button.id,
                 priority: 100, text: button.name, createNode: true,
                 x: x, y: y,
-                width: 200.0, height: 50.0, textSize: 20,
+                width: 200.0, height: 50.0, fontSize: UDpi.toPixel(20),
                 textColor: UColor.White, bgColor: .blue)
             textButton.addToDrawManager()
             

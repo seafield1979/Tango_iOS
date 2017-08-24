@@ -23,7 +23,7 @@ public enum LogWindowType : Int {
 public class ULogWindow : UWindow {
     public static let SHOW_TIME : TimeInterval = 3.0
     public static let DRAW_PRIORITY : Int = 5
-    private static let TEXT_SIZE : Int = 14
+    private static let FONT_SIZE : Int = 14
     private static let MARGIN : Int = 10
     
     private var logs : List<LogData> = List()
@@ -49,15 +49,15 @@ public class ULogWindow : UWindow {
         if type == LogWindowType.AutoDisappear {
             startTimer(time: ULogWindow.SHOW_TIME)
         }
-        let textSize = UDpi.toPixel(ULogWindow.TEXT_SIZE)
-        maxLog = Int(height / textSize) + 1
+        let fontSize = UDpi.toPixel(ULogWindow.FONT_SIZE)
+        maxLog = Int(height / fontSize) + 1
         
         var y : CGFloat = 0
         for _ in 0..<maxLog {
-            let n = SKNodeUtil.createLabelNode(text: "", textSize: textSize, color: .white, alignment: .Left, pos: CGPoint(x:10, y: y))
+            let n = SKNodeUtil.createLabelNode(text: "", fontSize: fontSize, color: .white, alignment: .Left, pos: CGPoint(x:10, y: y))
             labelNodes.append(n)
             clientNode.addChild(n)
-            y += textSize
+            y += fontSize
         }
     }
     
@@ -283,7 +283,7 @@ public struct LogData {
 //public class ULogWindow : UWindow {
 //    public static let SHOW_TIME : TimeInterval = 3.0
 //    public static let DRAW_PRIORITY : Int = 5
-//    private static let TEXT_SIZE : Int = 14
+//    private static let FONT_SIZE : Int = 14
 //    private static let MARGIN : Int = 10
 //    
 //    private var logs : List<LogData> = List()
@@ -305,7 +305,7 @@ public struct LogData {
 //        if type == LogWindowType.AutoDisappear {
 //            startTimer(time: ULogWindow.SHOW_TIME)
 //        }
-//        maxLog = Int(height / UDpi.toPixel(ULogWindow.TEXT_SIZE)) + 1
+//        maxLog = Int(height / UDpi.toPixel(ULogWindow.FONT_SIZE)) + 1
 //    }
 //    
 //    /**
@@ -497,7 +497,7 @@ public struct LogData {
 //    
 //    private func drawText() {
 //
-//        let lineH = UDpi.toPixel(ULogWindow.TEXT_SIZE)
+//        let lineH = UDpi.toPixel(ULogWindow.FONT_SIZE)
 //
 //        // クリッピングを設定
 //        let mClipRect = CGRect( x: pos.x, y: pos.y,
