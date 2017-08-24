@@ -190,7 +190,8 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
             let image = UResourceManager.getImageWithColor(imageName: info.imageName, color: info.lineColor)
             
             button.setImage(image: image!,
-                                 imageSize: CGSize(width: UDpi.toPixel(PageViewTitle.IMAGE_W), height: UDpi.toPixel(PageViewTitle.IMAGE_W)))
+                                 imageSize: CGSize(width: UDpi.toPixel(PageViewTitle.IMAGE_W), height: UDpi.toPixel(PageViewTitle.IMAGE_W)),
+                                 initNode: true)
             button.addToDrawManager()
 
             // 表示座標を少し調整
@@ -236,7 +237,8 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
             button.setImage(
                 image: image!,
                 imageSize: CGSize(width: UDpi.toPixel(PageViewTitle.IMAGE_W),
-                        height: UDpi.toPixel(PageViewTitle.IMAGE_W)))
+                        height: UDpi.toPixel(PageViewTitle.IMAGE_W)),
+                initNode: true)
             button.addToDrawManager()
 
             // 表示座標を少し調整

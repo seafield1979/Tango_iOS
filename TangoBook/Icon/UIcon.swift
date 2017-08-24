@@ -170,7 +170,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
         self.callbacks = iconCallbacks
         self.id = UIcon.count
         self.type = type
-        self.setPos(x, y)
+        self.setPos(x, y, convSKPos: false)
         self.setSize(width, height)
         updateRect()
         UIcon.count += 1

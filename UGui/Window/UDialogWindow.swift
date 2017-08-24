@@ -448,8 +448,14 @@ public class UDialogWindow : UWindow {
         
         // テキスト
         for textView in mTextViews {
-            textView!.setPos( size.width / 2, y)
+            textView!.setPos( size.width / 2, y, convSKPos: false)
             y += textView!.getHeight() + UDpi.toPixel( UDialogWindow.MARGIN_V )
+        }
+        
+        // Drawables
+        for obj in mDrawables {
+            obj!.setPos( buttonMarginH, y, convSKPos: false)
+            y += obj!.getHeight() + UDpi.toPixel( UDialogWindow.MARGIN_V )
         }
         
         // ボタン
@@ -479,12 +485,12 @@ public class UDialogWindow : UWindow {
                 let button : UButton = mButtons[i]
                 if button is UButtonImage {
                     let _button = button as! UButtonImage
-                    _button.setPos(x, y)
+                    _button.setPos(x, y, convSKPos: false)
                     x += _button.getWidth() + buttonMarginH
                     _height = _button.getHeight()
                     
                 } else {
-                    button.setPos(x, y)
+                    button.setPos(x, y, convSKPos: false)
                     button.setSize(buttonW, buttonH)
                     x += buttonW + buttonMarginH
                     _height = buttonH
@@ -502,10 +508,10 @@ public class UDialogWindow : UWindow {
                 if button! is UButtonImage {
                     let _button = button! as! UButtonImage
                     
-                    _button.setPos((size.width - _button.getWidth()) / 2, y)
+                    _button.setPos((size.width - _button.getWidth()) / 2, y, convSKPos: false)
                     y += button!.getHeight() + buttonMarginV
                 } else {
-                    button!.setPos(buttonMarginH, y)
+                    button!.setPos(buttonMarginH, y, convSKPos: false)
                     button!.setSize(size.width - buttonMarginH * 2, buttonH)
                     y += buttonH + buttonMarginV
                 }
@@ -518,7 +524,7 @@ public class UDialogWindow : UWindow {
         self.pos = CGPoint(x: margin, y: (screenSize.height - size.height) / 2)
         
         updateWindow()
-        initSKNode()
+        super.initSKNode()
         
         // SpriteKit のノードを生成
         if mTitleView != nil {
@@ -526,9 +532,16 @@ public class UDialogWindow : UWindow {
         }
         
         // テキスト
+        // ダイアログに追加時にはレイアウトが決まっていなかったため、ここでノードを作成する
         for textView in mTextViews {
             textView!.initSKNode()
             clientNode.addChild2( textView!.parentNode )
+        }
+        
+        // Drawables 
+        for obj in mDrawables {
+            obj!.initSKNode()
+            clientNode.addChild2( obj!.parentNode )
         }
         
         // ボタン
@@ -576,6 +589,11 @@ public class UDialogWindow : UWindow {
             textView!.draw()
         }
         
+        // Drawables 
+        for obj in mDrawables {
+            obj!.draw()
+        }
+        
         // Buttons
         for button in mButtons {
             button!.draw()
@@ -609,11 +627,11 @@ public class UDialogWindow : UWindow {
             }
         }
         // タッチアップ処理(Drawable)
-        //        for obj in mDrawables {
-        //            if obj!.touchUpEvent(vt: vt) {
-        //                isRedraw = true
-        //            }
-        //        }
+        for obj in mDrawables {
+            if obj!.touchUpEvent(vt: vt) {
+                isRedraw = true
+            }
+        }
         
         // タッチ処理(Button)
         for button in mButtons {
@@ -623,11 +641,11 @@ public class UDialogWindow : UWindow {
         }
         
         // タッチ処理(Drawable)
-        //        for obj in mDrawables {
-        //            if obj!.touchEvent(vt: vt, offset: offset) {
-        //                return true
-        //            }
-        //        }
+        for obj in mDrawables {
+            if obj!.touchEvent(vt: vt, offset: offset) {
+                return true
+            }
+        }
         
         // 範囲外をタッチしたら閉じる
         if type == DialogType.Normal {

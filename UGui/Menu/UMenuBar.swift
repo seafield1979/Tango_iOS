@@ -75,7 +75,9 @@ public class UMenuBar : UWindow {
         
         // 座標設定
         item.setPos(
-            UDpi.toPixel((UMenuItem.ITEM_W + UMenuBar.MARGIN_H) * (topItems.count - 1)),0 )
+            UDpi.toPixel((UMenuItem.ITEM_W + UMenuBar.MARGIN_H) * (topItems.count - 1)),
+            0,
+            convSKPos: true )
         return item
     }
     

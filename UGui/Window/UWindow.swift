@@ -129,6 +129,8 @@ public class UWindow : UDrawable, UButtonCallbacks {
      * SpriteKitノードを生成
      */
     public override func initSKNode() {
+        parentNode.removeAllChildren()
+        
         // parent
         parentNode.zPosition = CGFloat(drawPriority)
         parentNode.position = CGPoint(x:pos.x, y: pos.y)
@@ -638,7 +640,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
             x = size.width - closeIcon!.size.width - margin * 2
         }
         
-        closeIcon?.setPos(x, y)
+        closeIcon?.setPos(x, y, convSKPos : true)
     }
     
     /**

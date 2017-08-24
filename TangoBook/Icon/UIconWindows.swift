@@ -73,12 +73,12 @@ public class UIconWindows : UWindowCallbacks {
         self.windows.append(subWindow)
         
         // 初期配置(HomeWindowで画面が占有されている)
-        mainWindow.setPos(0, 0)
+        mainWindow.setPos(0, 0, convSKPos: true)
         mainWindow.setSize(screenW, screenH)
         if self.directionType == DirectionType.Landscape {
-            subWindow.setPos(screenW, 0)
+            subWindow.setPos(screenW, 0, convSKPos: true)
         } else {
-            subWindow.setPos(0, screenH)
+            subWindow.setPos(0, screenH, convSKPos: true)
         }
     }
 
@@ -155,19 +155,19 @@ public class UIconWindows : UWindowCallbacks {
         // 座標を設定する
         if animation {
             // Main
-            mainWindow.setPos(0, 0)
+            mainWindow.setPos(0, 0, convSKPos: true)
             mainWindow.startMovingSize(dstW: width, dstH: height, frame: UIconWindows.MOVING_FRAME)
             
             // Sub
             if subWindow.isAppearance {
                 // appear
                 if directionType == DirectionType.Landscape {
-                    subWindow.setPos(size.width, 0)
+                    subWindow.setPos(size.width, 0, convSKPos: true)
                     subWindow.startMoving(dstX: width, dstY: 0,
                                           dstW: width, dstH: height,
                                           frame: UIconWindows.MOVING_FRAME)
                 } else {
-                    subWindow.setPos(0, size.height)
+                    subWindow.setPos(0, size.height, convSKPos: true)
                     subWindow.startMoving(dstX: 0, dstY: height,
                                           dstW: width, dstH: height,
                                           frame: UIconWindows.MOVING_FRAME)
@@ -187,7 +187,7 @@ public class UIconWindows : UWindowCallbacks {
         } else {
             var x : CGFloat = 0, y : CGFloat = 0
             for _window in showWindows {
-                _window!.setPos(x, y)
+                _window!.setPos(x, y, convSKPos: true)
                 _window!.setSize(width, height)
                 if directionType == DirectionType.Landscape {
                     x += width

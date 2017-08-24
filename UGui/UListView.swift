@@ -68,7 +68,7 @@ public class UListView : UScrollWindow
     }
     
     public func add(item : UListItem) {
-        item.setPos( 0, mBottomY )
+        item.setPos( 0, mBottomY, convSKPos: false )
         item.setIndex( mItems.count )
         item.setListItemCallbacks( mListItemCallbacks )
         item.parentNode.position = CGPoint(x:item.pos.x, y:mBottomY)

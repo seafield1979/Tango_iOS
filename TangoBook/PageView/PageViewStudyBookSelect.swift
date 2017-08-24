@@ -28,7 +28,7 @@ public class PageViewStudyBookSelect : UPageView
     /**
      * Constants
      */
-    private let DRAW_PRIORITY = 100
+    private let DRAW_PRIORITY = 1
 
     private let MARGIN_H = 17
     private let MARGIN_V_S = 10

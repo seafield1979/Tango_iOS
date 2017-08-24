@@ -165,8 +165,8 @@ public class UIconWindow : UWindow{
         self.dragedIcon = icon
     }
 
-    public override func setPos(_ x : CGFloat, _ y : CGFloat) {
-        super.setPos(x,y)
+    public override func setPos(_ x : CGFloat, _ y : CGFloat, convSKPos : Bool) {
+        super.setPos(x,y, convSKPos: true)
         ULog.printMsg(UIconWindow.TAG, String(format:"x:%f y:%f",x, y))
     }
 
@@ -480,7 +480,7 @@ public class UIconWindow : UWindow{
                 if animate {
                     icon!.startMoving( dstX: x, dstY: y, frame: MOVING_TIME)
                 } else {
-                    icon!.setPos(x, y)
+                    icon!.setPos(x, y, convSKPos: true)
                 }
                 // 選択アイコンがあるかどうかチェック
                 if icon === mIconManager!.getSelectedIcon() {
@@ -505,7 +505,7 @@ public class UIconWindow : UWindow{
                 if animate {
                     icon!.startMoving(dstX: x, dstY: y, frame: MOVING_TIME)
                 } else {
-                    icon!.setPos(x, y)
+                    icon!.setPos(x, y, convSKPos: true)
                 }
 
                 // 選択アイコンがあるかどうかチェック
@@ -860,7 +860,7 @@ public class UIconWindow : UWindow{
                         win1ToWin2X(win1X: dragedIcon!.getPos().x,
                                     win1: self, win2: window!),
                         win1ToWin2Y(win1Y: dragedIcon!.getPos().y,
-                                    win1: self, win2: window!))
+                                    win1: self, win2: window!), convSKPos: true)
                 }
                 window!.sortIcons(animate: true)
             }
@@ -1093,7 +1093,7 @@ public class UIconWindow : UWindow{
                 // 座標系変換(移動元Windowから移動先Window)
                 for icon in checkedIcons {
                     icon!.setPos( win1ToWin2X( win1X: icon!.getX(), win1: self, win2: window!),
-                                  win1ToWin2Y( win1Y: icon!.getY(), win1: self, win2: window!))
+                                  win1ToWin2Y( win1Y: icon!.getY(), win1: self, win2: window!), convSKPos: true)
                 }
                 window!.sortIcons(animate: true)
             }
@@ -1345,7 +1345,7 @@ public class UIconWindow : UWindow{
 
             // アイコン2 UWindow -> アイコン1 UWindow
             icon2.setPos(icon2.getX() + (window2.pos.x - window1.pos.x),
-                    icon2.getY() + (window2.pos.y - window1.pos.y));
+                    icon2.getY() + (window2.pos.y - window1.pos.y), convSKPos: true)
             window2.sortIcons(animate: true)
         }
 
@@ -1390,7 +1390,7 @@ public class UIconWindow : UWindow{
 
             // ドロップアイコンの座標系を変換
             dragedIcon?.setPos(icon1.getX() + window2.pos.x - window1.pos.x,
-                    icon1.getY() + window2.pos.y - window1.pos.y)
+                    icon1.getY() + window2.pos.y - window1.pos.y, convSKPos: true)
             
             // SpriteKit ノードの付け替え
             dragedIcon!.parentNode.removeFromParent()

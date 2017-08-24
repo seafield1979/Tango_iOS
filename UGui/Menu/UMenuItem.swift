@@ -312,7 +312,7 @@ public class UMenuItem : UDrawable {
         var count = 1
         
         for item in mChildItem! {
-            item!.setPos(0, 0)
+            item!.setPos(0, 0, convSKPos: true)
             
             // 親の階層により開く方向が変わる
             item!.isClosing = false
