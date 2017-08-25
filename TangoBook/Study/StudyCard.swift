@@ -249,17 +249,10 @@ public class StudyCard : UDrawable, UButtonCallbacks {
      */
     public func startMoveIntoBox( dstX : CGFloat, dstY : CGFloat)
     {
-        var width : CGFloat, height : CGFloat
-        let dstWidth = UDpi.toPixel(17)
-        if size.width > size.height {
-            width = dstWidth
-            height = dstWidth * (size.height / size.width)
-        } else {
-            height = dstWidth
-            width = dstWidth * (size.width / size.height)
-        }
-
-        startMoving(movingType : MovingType.Deceleration, dstX : dstX, dstY : dstY, dstW : width, dstH : height, frame : MOVE_IN_FRAME)
+        startMoving(movingType : MovingType.Deceleration,
+                    dstX : dstX, dstY : dstY,
+                    dstW: size.width, dstH: size.height,
+                    dstScale: 0, frame : MOVE_IN_FRAME)
         mState = State.Moving
         isMoveToBox = true
     }
@@ -335,21 +328,20 @@ public class StudyCard : UDrawable, UButtonCallbacks {
 
         // BG
         // スライド量に合わせて色を帰る
-        if (isMovingSize) {
-        }
-        else if (slideX == 0) {
-            color = BG_COLOR
-        } else if (slideX < 0) {
-            color = UColor.mixRGBColor(color1: BG_COLOR, color2: NG_BG_COLOR, ratio: -slideX / UDpi.toPixel(SLIDE_LEN))
+        if (isMoveToBox) {
         } else {
-            color = UColor.mixRGBColor(color1: BG_COLOR, color2: OK_BG_COLOR, ratio: slideX / UDpi.toPixel(SLIDE_LEN));
+            if (slideX == 0) {
+                color = BG_COLOR
+            } else if (slideX < 0) {
+                color = UColor.mixRGBColor(color1: BG_COLOR, color2: NG_BG_COLOR, ratio: -slideX / UDpi.toPixel(SLIDE_LEN))
+            } else {
+                color = UColor.mixRGBColor(color1: BG_COLOR, color2: OK_BG_COLOR, ratio: slideX / UDpi.toPixel(SLIDE_LEN));
+            }
+            bgNode!.fillColor = color
         }
         
-        bgNode!.fillColor = color
-//        UDraw.drawRoundRectFill(
-//            rect: CGRect(x: _pos.x - size.width / 2 ,y:  _pos.y,
-//                         width: size.width / 2, height: size.height),
-//            cornerR: UDpi.toPixel(3), color: color, strokeWidth: UDpi.toPixel(2), strokeColor: FRAME_COLOR);
+        // 箱に移動中のスケールを適用
+        parentNode.setScale(mScale)
 
         // 矢印
         if showArrow && !isTouching && !isMoveToBox {
@@ -384,7 +376,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
     }
 
     public override func touchEvent( vt : ViewTouch, offset : CGPoint?) -> Bool {
-        var _pos = CGPoint(x: pos.x, y: pos.y)
+        var _pos = CGPoint()
         if offset != nil {
             _pos.x += offset!.x
             _pos.y += offset!.y
@@ -412,7 +404,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         switch vt.type {
             case .Touch:        // タッチ開始
                 let _rect = CGRect( x: _pos.x - size.width / 2 , y: _pos.y,
-                                  width: size.width / 2, height: size.height)
+                                  width: size.width, height: size.height)
                 if _rect.contains( x: vt.touchX, y: vt.touchY) {
                     isTouching = true
                     done = true

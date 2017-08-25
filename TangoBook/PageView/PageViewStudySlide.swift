@@ -207,10 +207,10 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
 
         // OK/NGボタンの座標をCardsStackに教えてやる
         var _pos = mOkView!.getPos()
-        mCardsStack!.setOkBoxPos( x: _pos.x - (mCardsStack!.getX() + mCardsStack!.getWidth() / 2),
+        mCardsStack!.setOkBoxPos( x: _pos.x - mCardsStack!.getX(),
                                   y: _pos.y - mCardsStack!.getY())
-        _pos = mNgView!.getPos();
-        mCardsStack!.setNgBoxPos( x: _pos.x - (mCardsStack!.getX() + mCardsStack!.getWidth() / 2),
+        _pos = mNgView!.getPos()
+        mCardsStack!.setNgBoxPos( x: _pos.x - mCardsStack!.getX(),
                                  y: _pos.y - mCardsStack!.getY())
     }
 

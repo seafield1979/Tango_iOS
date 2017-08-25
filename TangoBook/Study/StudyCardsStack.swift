@@ -188,6 +188,7 @@ public class StudyCardsStack : UDrawable {
                 fallthrough
             case .MoveIntoNG:
                 card.setMoveRequest( .None )
+                card.parentNode.removeFromParent()
                 mToBoxCards.remove(obj: card )
                 breakLoop = true
                 
@@ -283,7 +284,11 @@ public class StudyCardsStack : UDrawable {
      * @return true:処理中
      */
     public override func touchEvent( vt : ViewTouch, offset : CGPoint? ) -> Bool {
-        let _offset = CGPoint(x: pos.x + size.width / 2, y: pos.y)
+        var _offset = pos
+        if offset != nil {
+            _offset.x += offset!.x
+            _offset.y += offset!.y
+        }
         for card in mCards {
             if card!.touchEvent(vt: vt, offset: _offset) {
                 return true

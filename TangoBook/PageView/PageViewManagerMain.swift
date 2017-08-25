@@ -267,9 +267,9 @@ public class PageViewManagerMain : UPageViewManager {
     public func startStudyResultPage( book : TangoBook, okCards : List<TangoCard>, ngCards : List<TangoCard>)
     {
         let page : PageViewResult = getPageView(pageId: PageIdMain.StudyResult.rawValue) as! PageViewResult
-         page.setBook(mBook: book)
-         page.setCardsLists(okCards: okCards, ngCards: ngCards)
-         changePage( PageIdMain.StudyResult.rawValue )
+        page.setBook(mBook: book)
+        page.setCardsLists(okCards: okCards, ngCards: ngCards)
+        changePage( pageView: page)
     }
     
     /**

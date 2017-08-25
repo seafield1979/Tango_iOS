@@ -123,15 +123,10 @@ public class UPageViewManager {
      * ページスタックの末尾を削除後、新しいページを追加する
      * @param pageId
      */
-    public func changePage(_ pageId : Int) {
-        pageChanged(pageId: pageId)
     
-        // ページが未初期化なら初期化
-        let newPage = initPage(pageId)
-        if newPage == nil {
-            return
-        }
-        
+    public func changePage( pageView : UPageView) {
+        pageChanged(pageId: pageView.mPageId)
+    
         if pageStack.count > 0 {
             // 古いページの後処理(onHide)
             let oldPage : UPageView = pageStack.last()!
@@ -139,13 +134,24 @@ public class UPageViewManager {
             
             _ = pageStack.removeLast()
         }
-        pageStack.append(newPage!)
+        pageStack.append(pageView)
         
         // 新しいページの前処理(onShow)
-        newPage!.onShow()
-        setActionBarTitle(newPage!.getTitle())
+        pageView.onShow()
+        setActionBarTitle(pageView.getTitle())
     }
     
+    // ページIDでPageViewを初期化する
+    public func changePage(pageId : Int) -> UPageView {
+        
+        // ページ生成
+        let pageView = initPage(pageId)
+        
+        changePage(pageView: pageView!)
+        
+        return pageView!
+    }
+
     /**
      * ページを取得する
      */

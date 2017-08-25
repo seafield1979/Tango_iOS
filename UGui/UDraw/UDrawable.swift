@@ -46,6 +46,7 @@ public class UDrawable {
     var pos = CGPoint()
     var size = CGSize()
     var rect : CGRect = CGRect()
+    var mScale : CGFloat = 1
     var color : UIColor = UIColor()
     var drawPriority = 0     // DrawManagerに渡す描画優先度
     
@@ -53,17 +54,23 @@ public class UDrawable {
     var isMoving : Bool = false;
     var isMovingPos : Bool = false
     var isMovingSize : Bool = false
+    var isMovingScale : Bool = false
     
     var isShow : Bool = false
     var movingType : MovingType = .UniformMotion
     var movingFrame : Int = 0
     var movingFrameMax : Int = 0
     
+    // アニメーション用
+    // 座標
     var srcPos = CGPoint()
     var dstPos = CGPoint()
-    
+    // サイズ
     var srcSize = CGSize()
     var dstSize = CGSize()
+    // スケール
+    var srcScale : CGFloat = 1
+    var dstScale : CGFloat = 0
     
     // アニメーション用
     var isAnimating : Bool = false
@@ -338,6 +345,7 @@ public class UDrawable {
         isMoving = true
         isMovingPos = true
         isMovingSize = false
+        isMovingScale = false
         self.movingType = movingType
         movingFrame = 0
         movingFrameMax = frame
@@ -355,10 +363,7 @@ public class UDrawable {
     }
     
     /**
-     * 自動移動(サイズ)
-     * @param dstW
-     * @param dstH
-     * @param frame
+     * 自動リサイズ
      */
     public func startMovingSize(dstW : CGFloat, dstH : CGFloat, frame : Int) {
         if (!setMovingSize(dstW: dstW, dstH: dstH)) {
@@ -371,10 +376,30 @@ public class UDrawable {
         isMoving = true
         isMovingPos = false
         isMovingSize = true
+        isMovingScale = false
         movingFrame = 0
         movingFrameMax = frame
     }
     
+    /**
+     * 自動スケーリング
+     */
+    public func startMovingScale(dstScale : CGFloat, frame : Int) {
+        if !setMovingScale(scale: dstScale) {
+            // 移動不要
+            return
+        }
+        startMoving()
+        
+        movingType = MovingType.UniformMotion
+        isMoving = true
+        isMovingPos = false
+        isMovingSize = false
+        isMovingScale = true
+        movingFrame = 0
+        movingFrameMax = frame
+    }
+
     private func setMovingSize(dstW : CGFloat, dstH : CGFloat) -> Bool {
         if (size.width == dstW && size.height == dstH) {
             return false
@@ -383,6 +408,15 @@ public class UDrawable {
         srcSize.height = size.height
         dstSize.width = dstW
         dstSize.height = dstH
+        return true
+    }
+    
+    private func setMovingScale(scale : CGFloat) -> Bool {
+        if mScale == dstScale {
+            return false
+        }
+        srcScale = mScale
+        dstScale = scale
         return true
     }
     
@@ -396,23 +430,34 @@ public class UDrawable {
      */
     public func startMoving(dstX : CGFloat, dstY : CGFloat, dstW : CGFloat, dstH : CGFloat, frame : Int)
     {
-        startMoving(movingType: MovingType.UniformMotion, dstX: dstX, dstY: dstY, dstW: dstW, dstH: dstH, frame: frame);
+        startMoving(movingType: MovingType.UniformMotion,
+                    dstX: dstX, dstY: dstY,
+                    dstW: dstW, dstH: dstH,
+                    dstScale : 1.0,
+                    frame: frame)
     }
     public func startMoving(movingType : MovingType,
-                            dstX : CGFloat, dstY : CGFloat, dstW : CGFloat, dstH : CGFloat, frame : Int)
+                            dstX : CGFloat, dstY : CGFloat,
+                            dstW : CGFloat, dstH : CGFloat,
+                            dstScale : CGFloat, frame : Int)
     {
         var noMoving = true
         startMoving()
         
         if (setMovingPos(dstX: dstX, dstY: dstY)) {
             noMoving = false
+            isMovingPos = true
         }
         if (setMovingSize(dstW: dstW, dstH: dstH)) {
             noMoving = false
-        }
-        if (!noMoving) {
-            isMovingPos = true
             isMovingSize = true
+        }
+        if (setMovingScale(scale: dstScale)) {
+            noMoving = false
+            isMovingScale = true
+        }
+        
+        if (!noMoving) {
             self.movingType = movingType
             movingFrame = 0
             movingFrameMax = frame
@@ -449,15 +494,15 @@ public class UDrawable {
         } else {
             // 移動中
             // ratio 0.0(始点) -> 1.0(終点)
-            let ratio : CGFloat = CGFloat(movingFrame) / CGFloat(movingFrameMax)
+            var ratio : CGFloat = CGFloat(movingFrame) / CGFloat(movingFrameMax)
             switch(movingType) {
             case .UniformMotion:
                 break
             case .Acceleration:
-                // todo                ratio = UUtil.toAccel(ratio)
+                ratio = UUtil.toAccel(ratio: ratio)
                 break
             case .Deceleration:
-                // todo                ratio = UUtil.toDecel(ratio)
+                ratio = UUtil.toDecel(ratio: ratio)
                 break
             }
             if isMovingPos {
@@ -467,6 +512,9 @@ public class UDrawable {
             if isMovingSize {
                 setSize((srcSize.width + (dstSize.width - srcSize.width) * ratio),
                         (srcSize.height + (dstSize.height - srcSize.height) * ratio))
+            }
+            if isMovingScale {
+                mScale = 1.0 - ratio
             }
         }
         return true;
