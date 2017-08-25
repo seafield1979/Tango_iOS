@@ -1,265 +1,280 @@
 //
 //  LIstItemResult.swift
 //  TangoBook
-//
+//      学習結果ListView(ListViewResult)のアイテム
 //  Created by Shusuke Unno on 2017/08/07.
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-///**
-// * Created by shutaro on 2016/12/11.
-// *
-// * 学習結果ListView(ListViewResult)のアイテム
-// */
-//
-//public class ListItemResult extends UListItem implements UButtonCallbacks {
-//    /**
-//     * Enums
-//     */
-//    public enum ListItemResultType {
-//        Title,
-//        OK,
-//        NG
-//    }
-//
-//    /**
-//     * Constants
-//     */
-//    public static final String TAG = "ListItemOption";
-//
-//    private static final int MAX_TEXT = 20;
-//
-//    private static final int ButtonIdStar = 100100;
-//
-//    // 座標系
-//    private static final int TITLE_H = 27;
-//    private static final int CARD_H = 40;
-//    private static final int FONT_SIZE = 17;
-//    private static final int STAR_ICON_W = 34;
-//    private static final int FRAME_WIDTH = 1;
-//
-//    // color
-//    private static final int FRAME_COLOR = Color.BLACK;
-//
-//    /**
-//     * Member variables
-//     */
-//    private ListItemResultType mType;
-//    private String mText, mText2;
-//    private boolean isOK;
-//    private TangoCard mCard;
-//    private int mTextColor;
-//    private UButtonImage mStarButton;
-//    private int mLearnedTextW;        // "覚えた"のテキストの幅
-//
-//    /**
-//     * Get/Set
-//     */
-//    public ListItemResultType getType() {
-//        return mType;
-//    }
-//
-//    public TangoCard getCard() {
-//        return mCard;
-//    }
-//
-//    /**
-//     * Constructor
-//     */
-//    public ListItemResult(UListItemCallbacks listItemCallbacks,
-//                          ListItemResultType type, boolean isTouchable, TangoCard card,
-//                          float x, int width, int textColor, int color) {
-//        super(listItemCallbacks, isTouchable, x, width, 0, color, UDpi.toPixel(FRAME_WIDTH), FRAME_COLOR);
-//        mType = type;
-//        mTextColor = textColor;
-//        mCard = card;
-//    }
-//
-//    // ListItemResultType.Title のインスタンスを生成する
-//    public static ListItemResult createTitle(boolean isOK, int width,
-//                                             int textColor,int bgColor)
-//    {
-//        String text = isOK ? "OK" : "NG";
-//        ListItemResult instance = new ListItemResult(null, ListItemResultType.Title,
-//                false, null, 0, width, textColor, bgColor);
-//        instance.isOK = isOK;
-//        instance.mText = text;
-//        instance.size.height = UDpi.toPixel(TITLE_H);
-//        return instance;
-//    }
-//
-//    // ListItemResultType.OKのインスタンスを生成する
-//    // @param star 覚えたアイコン(Star)を表示するかどうか
-//    public static ListItemResult createOK(TangoCard card, StudyMode studyMode,
-//                                          boolean isEnglish, boolean  star,
-//                                          int width, int textColor,int bgColor) {
-//        ListItemResult instance = new ListItemResult(null,
-//                ListItemResultType.OK, true, card,
-//                0, width, textColor, bgColor);
-//
-//        instance.mText = convString(isEnglish ? card.getWordA() : card.getWordB());
-//        instance.mText2 = convString(isEnglish ? card.getWordB() : card.getWordA());
-//        instance.size.height = UDpi.toPixel(CARD_H);
-//        // Starボタンを追加(On/Offあり)
-//        if (star) {
-//            Bitmap image = UResourceManager.getBitmapWithColor(R.drawable.favorites, UColor
-//                    .OrangeRed);
-//            Bitmap image2 = UResourceManager.getBitmapWithColor(R.drawable.favorites2, UColor
-//                    .OrangeRed);
-//            instance.mStarButton = UButtonImage.createButton(instance, ButtonIdStar, 100,
-//                    instance.size.width - UDpi.toPixel(67), (instance.size.height - UDpi.toPixel(STAR_ICON_W)) / 2,
-//                    UDpi.toPixel(STAR_ICON_W), UDpi.toPixel(STAR_ICON_W), image, null);
-//            instance.mStarButton.addState(image2);
-//            instance.mStarButton.setState(card.getStar() ? 1 : 0);
-////            instance.mStarButton.scaleRect(1.3f, 1.0f);
-//        }
-//        return instance;
-//    }
-//
-//    // ListItemResultType.NGのインスタンスを生成する
-//    public static ListItemResult createNG(TangoCard card, StudyMode studyMode, boolean isEnglish,
-//                                          int width, int textColor,int bgColor)
-//    {
-//        ListItemResult instance = new ListItemResult(null,
-//                ListItemResultType.NG, true, card,
-//                0, width, textColor, bgColor);
-//        instance.mText = convString(isEnglish ? card.getWordA() : card.getWordB());
-//        instance.mText2 = convString(isEnglish ? card.getWordB() : card.getWordA());
-//        instance.size.height = UDpi.toPixel(CARD_H);
-//        return instance;
-//    }
-//
-//    /**
-//     * Methods
-//     */
-//
-//    public DoActionRet doAction() {
-//        if (mStarButton != null) {
-//            return mStarButton.doAction();
-//        }
-//        return DoActionRet.None;
-//    }
-//
-//    /**
-//     * 描画処理
-//     * @param canvas
-//     * @param paint
-//     * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
-//     */
-//    public void draw(Canvas canvas, Paint paint, PointF offset) {
-//        PointF _pos = new PointF(pos.x, pos.y);
-//        if (offset != null) {
-//            _pos.x += offset.x;
-//            _pos.y += offset.y;
-//        }
-//
-//        super.draw(canvas, paint, _pos);
-//
-//        int fontSize = UDpi.toPixel(FONT_SIZE);
-//
-//        switch(mType) {
-//            case Title:
+public class ListItemResult : UListItem {
+    /**
+     * Enums
+     */
+    public enum ListItemResultType : Int{
+        case Title
+        case OK
+        case NG
+    }
+
+    /**
+     * Constants
+     */
+    public let TAG = "ListItemOption"
+
+    private static let MAX_TEXT = 20
+
+    private static let ButtonIdStar = 100100
+
+    // 座標系
+    private static let TITLE_H = 27
+    private static let CARD_H = 40
+    private let FONT_SIZE = 17
+    private static let STAR_ICON_W = 34
+    private let FRAME_WIDTH = 1
+
+    // color
+    private let FRAME_COLOR : UIColor = .black
+
+    /**
+     * Member variables
+     */
+    private var mType : ListItemResultType
+    private var mText : String?, mText2 : String?
+    private var isOK : Bool = false
+    private var mCard : TangoCard?
+    private var mTextColor : UIColor
+    private var mStarButton : UButtonImage?
+    private var mLearnedTextW : Int = 0        // "覚えた"のテキストの幅
+
+    /**
+     * Get/Set
+     */
+    public func getType() -> ListItemResultType {
+        return mType
+    }
+
+    public func getCard() -> TangoCard? {
+        return mCard
+    }
+
+    /**
+     * Constructor
+     */
+    public init(listItemCallbacks : UListItemCallbacks?,
+                type : ListItemResultType, isTouchable : Bool, card : TangoCard?,
+                x : CGFloat, width : CGFloat, textColor : UIColor, color : UIColor)
+    {
+        mType = type
+        mTextColor = textColor
+        mCard = card
+
+        super.init( callbacks : listItemCallbacks, isTouchable : isTouchable, x : x, width : width, height : 0, bgColor : color, frameW : UDpi.toPixel(FRAME_WIDTH), frameColor : FRAME_COLOR )
+    }
+
+    // ListItemResultType.Title のインスタンスを生成する
+    public static func createTitle( isOK : Bool, width : CGFloat,
+                                    textColor : UIColor, bgColor : UIColor ) -> ListItemResult?
+    {
+        let text = isOK ? "OK" : "NG"
+        let instance = ListItemResult(
+            listItemCallbacks : nil,
+            type : ListItemResultType.Title, isTouchable : false,
+            card : nil, x : 0, width : width,
+            textColor : textColor, color : bgColor )
+        
+        instance.isOK = isOK
+        instance.mText = text
+        instance.size.height = UDpi.toPixel(ListItemResult.TITLE_H)
+        return instance
+    }
+
+    // ListItemResultType.OKのインスタンスを生成する
+    // @param star 覚えたアイコン(Star)を表示するかどうか
+    public static func createOK(
+        card : TangoCard, studyMode : StudyMode,
+        isEnglish : Bool, star : Bool,
+        width : CGFloat, textColor : UIColor, bgColor : UIColor) -> ListItemResult
+    {
+        let instance : ListItemResult = ListItemResult(
+            listItemCallbacks : nil, type : ListItemResultType.OK, isTouchable : true,
+            card : card, x : 0, width : width,
+            textColor : textColor, color : bgColor)
+
+        instance.mText = ListItemResult.convString(isEnglish ? card.wordA : card.wordB)
+        instance.mText2 = ListItemResult.convString(isEnglish ? card.wordB : card.wordA)
+        instance.size.height = UDpi.toPixel(ListItemResult.CARD_H)
+        
+        // Starボタンを追加(On/Offあり)
+        if star {
+            let image = UResourceManager.getImageWithColor(
+                imageName: ImageName.favorites, color: UColor.OrangeRed)
+            let image2 = UResourceManager.getImageWithColor(
+                imageName: ImageName.favorites2, color: UColor.OrangeRed)
+            
+            instance.mStarButton = UButtonImage(
+                callbacks : instance as? UButtonCallbacks, id : ListItemResult.ButtonIdStar, priority : 100,
+                x : instance.size.width - UDpi.toPixel(67),
+                y : (instance.size.height - UDpi.toPixel( ListItemResult.STAR_ICON_W ) ) / 2,
+                width : UDpi.toPixel(ListItemResult.STAR_ICON_W),
+                height : UDpi.toPixel(STAR_ICON_W),
+                image : image!, pressedImage : nil)
+            
+            instance.mStarButton!.addState( image: image2!)
+            instance.mStarButton!.setState(card.star ? 1 : 0)
+        }
+        return instance
+    }
+
+    // ListItemResultType.NGのインスタンスを生成する
+    public static func createNG(
+        card : TangoCard, studyMode : StudyMode, isEnglish : Bool,
+        width : CGFloat, textColor : UIColor, bgColor : UIColor) -> ListItemResult
+    {
+        let instance = ListItemResult(
+            listItemCallbacks : nil, type : ListItemResultType.NG,
+            isTouchable : true, card : card, x : 0, width : width,
+            textColor : textColor, color : bgColor)
+        instance.mText = convString(isEnglish ? card.wordA : card.wordB)
+        instance.mText2 = convString(isEnglish ? card.wordB : card.wordA)
+        instance.size.height = UDpi.toPixel(ListItemResult.CARD_H)
+        return instance
+    }
+
+    /**
+     * Methods
+     */
+
+    public override func doAction() -> DoActionRet{
+        if mStarButton != nil {
+            return mStarButton!.doAction()
+        }
+        return .None
+    }
+
+    /**
+     * 描画処理
+     * @param canvas
+     * @param paint
+     * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
+     */
+    public override func draw() {
+        super.draw()
+
+        let fontSize = UDpi.toPixel(FONT_SIZE)
+
+        switch mType {
+            case .Title:
 //                UDraw.drawTextOneLine(canvas, paint, mText, UAlignment.Center, fontSize,
 //                        _pos.x + size.width / 2, _pos.y + size.height / 2, mTextColor);
-//                // 覚えた
-//                if (isOK) {
-//                    if (mLearnedTextW == 0) {
+                // 覚えた
+                if (isOK) {
+                    if (mLearnedTextW == 0) {
 //                        mLearnedTextW = UDraw.getTextSize(canvas.getWidth(),
 //                                UResourceManager.getStringById(R.string.learned), fontSize).width;
-//                    }
+                    }
 //                    UDraw.drawTextOneLine(canvas, paint,
 //                            UResourceManager.getStringById(R.string.learned),
 //                            UAlignment.Center, fontSize,
 //                            _pos.x + size.width - mLearnedTextW / 2 - UDpi.toPixel(23), _pos.y + size.height / 2,
 //                            mTextColor);
-//                }
-//                break;
-//            case OK: {
+                }
+                break;
+            case .OK:
 //                String text = isTouching ? mText2 : mText;
 //                UDraw.drawTextOneLine(canvas, paint, text, UAlignment.Center, fontSize,
 //                        _pos.x + size.width / 2, _pos.y + size.height / 2, mTextColor);
-//            }
-//                break;
-//            case NG: {
+            
+                break
+            case .NG:
 //                String text = isTouching ? mText2 : mText;
 //                UDraw.drawTextOneLine(canvas, paint, text, UAlignment.Center, fontSize,
 //                        _pos.x + size.width / 2, _pos.y + size.height / 2, mTextColor);
-//            }
-//                break;
-//        }
-//
-//        if (mStarButton != null) {
-//            mStarButton.draw(canvas, paint, _pos);
-//        }
-//    }
-//
-//    /**
-//     *
-//     * @param vt
-//     * @return
-//     */
-//    public boolean touchEvent(ViewTouch vt, PointF offset) {
-//        // Starボタンのクリック処理
-//        if (mStarButton != null) {
-//            PointF offset2 = new PointF(pos.x + offset.x, pos.y + offset.y);
-//            if (mStarButton.touchEvent(vt, offset2)) {
-//                return true;
-//            }
-//        }
-//
-//        boolean isDraw = false;
-//        switch(vt.type) {
-//            case Touch:
-//                if (isTouchable) {
-//                    if (rect.contains((int) (vt.touchX() - offset.x),
-//                            (int) (vt.touchY() - offset.y))) {
-//                        isTouching = true;
-//                        isDraw = true;
-//                    }
-//                }
-//                break;
-//        }
-//
-//        return isDraw;
-//    }
-//
-//    /**
-//     * 高さを返す
-//     */
-//    public int getHeight() {
-//        return size.height;
-//    }
-//
-//    /**
-//     * UButtonCallbacks
-//     */
-//    public boolean UButtonClicked(int id, boolean pressedOn) {
-//        if (id == ButtonIdStar) {
-//            boolean star = RealmManager.getCardDao().toggleStar(mCard);
-//
-//            // 表示アイコンを更新
-//            mStarButton.setState(star ? 1 : 0);
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    /**
-//     * 表示するためのテキストに変換（改行なし、最大文字数制限）
-//     * @param text
-//     * @return
-//     */
-//    private static String convString(String text) {
-//        // 改行を除去
-//        String _text = text.replace("\n", " ");
-//
-//        // 最大文字数制限
-//        if (_text.length() > MAX_TEXT) {
-//            return _text.substring(0, MAX_TEXT - 1);
-//        }
-//        return _text;
-//    }
-//}
-//
+                break
+        }
+
+        if mStarButton != nil {
+            mStarButton!.draw()
+        }
+    }
+
+    /**
+     *
+     * @param vt
+     * @return
+     */
+    public override func touchEvent( vt : ViewTouch, offset : CGPoint?) -> Bool{
+        var offset = offset
+        if offset == nil {
+            offset = CGPoint()
+        }
+        // Starボタンのクリック処理
+        if mStarButton != nil {
+            var offset2 = pos
+            offset2.x += offset!.x
+            offset2.y += offset!.y
+            
+            if mStarButton!.touchEvent(vt: vt, offset: offset2) {
+                return true
+            }
+        }
+
+        var isDraw = false
+        switch vt.type {
+        case .Touch:
+            if isTouchable {
+                if rect.contains(x: vt.touchX - offset!.x, y: vt.touchY - offset!.y) {
+                    isTouching = true
+                    isDraw = true
+                }
+            }
+            break
+        default:
+            break
+        }
+
+        return isDraw
+    }
+
+    /**
+     * 高さを返す
+     */
+    public override func getHeight() -> CGFloat {
+        return size.height
+    }
+
+    /**
+     * UButtonCallbacks
+     */
+    public func UButtonClicked(id : Int, pressedOn : Bool) -> Bool{
+        if id == ListItemResult.ButtonIdStar {
+            let star = TangoCardDao.toggleStar(card: mCard!)
+
+            // 表示アイコンを更新
+            mStarButton!.setState(star ? 1 : 0)
+            return true
+        }
+        return false
+    }
+
+    /**
+     * 表示するためのテキストに変換（改行なし、最大文字数制限）
+     * @param text
+     * @return
+     */
+    private static func convString( _ text : String?) -> String? {
+        if text == nil {
+            return nil
+        }
+        // 改行を除去
+        var _text = text!.replacingOccurrences(of: "\n", with: " ")
+        
+        // 最大文字数制限
+        if _text.characters.count > MAX_TEXT {
+            return _text.substring(to: _text.index( _text.startIndex, offsetBy: MAX_TEXT))
+        }
+        return _text
+    }
+}
+

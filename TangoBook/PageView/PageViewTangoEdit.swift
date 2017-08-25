@@ -257,7 +257,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 // ゴミ箱に移動するかの確認ダイアログを表示する
                 mDialog = UDialogWindow.createInstance(
                     topScene: mTopScene,
-                    type: DialogType.Mordal,
+                    type: DialogType.Modal,
                     buttonCallbacks: self, dialogCallbacks: self,
                     dir: UDialogWindow.ButtonDir.Horizontal,
                     posType: DialogPosType.Center,
@@ -765,7 +765,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             }
             mDialog = UDialogWindow.createInstance(
                 topScene : mTopScene,
-                type : DialogType.Mordal,
+                type : DialogType.Modal,
                 buttonCallbacks : self, dialogCallbacks : self, dir : UDialogWindow.ButtonDir.Horizontal,
                 posType : DialogPosType.Center,
                 isAnimation : true,
@@ -984,7 +984,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             // Daoデバッグ用のダイアログを表示
             mDialog = UDialogWindow.createInstance(
                topScene : mTopScene,
-               type : .Mordal,
+               type : .Modal,
                buttonCallbacks : self, dialogCallbacks : self,
                dir : UDialogWindow.ButtonDir.Vertical,
                posType : .Center,
@@ -1066,7 +1066,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             // Daoデバッグ用のダイアログを表示
             mDialog = UDialogWindow.createInstance(
                     topScene : mTopScene,
-                    type : .Mordal,
+                    type : .Modal,
                     buttonCallbacks : self, dialogCallbacks : self,
                     dir : .Horizontal,
                     posType : .Center,
@@ -1102,7 +1102,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             // Daoデバッグ用のダイアログを表示
             mDialog = UDialogWindow.createInstance(
                 topScene : mTopScene,
-                type : .Mordal,
+                type : .Modal,
                 buttonCallbacks : self, dialogCallbacks : self,
                 dir : .Horizontal,
                 posType : .Center,
@@ -1134,7 +1134,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             }
 
             mDialog = UDialogWindow.createInstance(
-                topScene : mTopScene, type : .Mordal,
+                topScene : mTopScene, type : .Modal,
                 buttonCallbacks : self, dialogCallbacks : self,
                 dir : .Horizontal,
                 posType : .Center,

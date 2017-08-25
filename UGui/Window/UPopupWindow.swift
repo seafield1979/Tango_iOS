@@ -40,7 +40,7 @@ public class UPopupWindow : UDialogWindow {
                  screenW : CGFloat, screenH : CGFloat)
     {
         super.init( topScene: topScene,
-                    type: DialogType.Mordal,
+                    type: DialogType.Modal,
                     buttonCallbacks: nil,
                     dialogCallbacks: nil,
                     dir: ButtonDir.Horizontal, posType: DialogPosType.Center,

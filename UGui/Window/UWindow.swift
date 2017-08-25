@@ -259,7 +259,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
         contentTop.y = y
     }
     
-    public func setFrameColor(frameColor : UIColor?) {
+    public func setFrameColor(_ frameColor : UIColor?) {
         self.frameColor = frameColor
         if frameNode != nil {
             self.frameNode!.fillColor = frameColor!

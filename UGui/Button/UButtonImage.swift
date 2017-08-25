@@ -207,7 +207,7 @@ public class UButtonImage : UButton {
         return stateId
     }
     
-    public func setState(state : Int) {
+    public func setState(_ state : Int) {
         if (stateMax > state) {
             stateId = state;
         }

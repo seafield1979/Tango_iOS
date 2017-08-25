@@ -78,15 +78,15 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
     /**
      * Get/Set
      */
-    public func setBook( book : TangoBook ) {
+    public func setBook( _ book : TangoBook ) {
         mBook = book
     }
 
-    public func setCards( cards : List<TangoCard> ) {
+    public func setCards( _ cards : List<TangoCard> ) {
         mCards = cards
     }
 
-    public func setFirstStudy( firstStudy : Bool ) {
+    public func setFirstStudy( _ firstStudy : Bool ) {
         mFirstStudy = firstStudy
     }
 
@@ -148,17 +148,20 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
         // カードスタック
         mCardsStack = StudyCardsStack(
             cardManager : mCardsManager!, cardsStackCallbacks : self,
-            x : (mTopScene.getWidth() - UDpi.toPixel(StudyCard.WIDTH))/2,
+            x : screenW / 2,
             y : UDpi.toPixel(TOP_AREA_H),
             width : UDpi.toPixel(StudyCard.WIDTH), maxHeight : mTopScene.getHeight()-UDpi.toPixel(TOP_AREA_H + BOTTOM_AREA_H))
         mCardsStack!.addToDrawManager()
+        
+        let n = SKNodeUtil.createCrossPoint(pos: mCardsStack!.pos, length: 15, lineWidth: 2, color: .red)
+        mTopScene.addChild2(n)
 
         // あと〜枚
         let title = getCardsRemainText( count: mCardsStack!.getCardCount())
         
         mTextCardCount = UTextView.createInstance(
             text : title, fontSize : UDraw.getFontSize(FontSize.L),
-            priority : DRAW_PRIORITY, alignment : UAlignment.CenterX,
+            priority : 1, alignment : UAlignment.CenterX,
             createNode : true, multiLine : false, isDrawBG : true,
             x : screenW/2, y : UDpi.toPixel(10), width : UDpi.toPixel(100),
             color : COLOR1, bgColor : nil)
@@ -168,7 +171,7 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
         // 終了ボタン
         mExitButton = UButtonText(
             callbacks : self, type : UButtonType.Press, id : PageViewStudy.ButtonIdExit,
-            priority : DRAW_PRIORITY, text : UResourceManager.getStringByName ("finish"),
+            priority : 1, text : UResourceManager.getStringByName ("finish"),
             createNode : true, x : (screenW - UDpi.toPixel(BUTTON_W))/2,
             y : screenH-UDpi.toPixel(50), width : UDpi.toPixel(BUTTON_W),
             height : UDpi.toPixel(BUTTON_H), fontSize : UDpi.toPixel(FONT_SIZE),
@@ -178,26 +181,28 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
 
         // OK
         mOkView = UImageView(
-            priority : DRAW_PRIORITY, imageName : ImageName.box1,
-            x : screenW-UDpi.toPixel(BOX_W+MARGIN_H),
-            y : screenH-UDpi.toPixel(BOX_H+MARGIN_V),
+            priority : DRAW_PRIORITY, imageName : ImageName.box1, initNode: false,
+            x : screenW - UDpi.toPixel(BOX_W + MARGIN_H),
+            y : screenH - UDpi.toPixel(BOX_H + MARGIN_V),
             width : UDpi.toPixel(BOX_W), height : UDpi.toPixel(BOX_H),
             color : UColor.DarkGreen )
         
         mOkView!.setTitle( text: UResourceManager.getStringByName("know"),
                            size: UDpi.toPixel(17),
                            color: UColor.DarkGreen)
+        mOkView!.initSKNode()
         mOkView!.addToDrawManager()
 
         // NG
         mNgView = UImageView(
-            priority : DRAW_PRIORITY, imageName : ImageName.box1,
-            x : UDpi.toPixel(MARGIN_H), y : screenH-UDpi.toPixel(BOX_H+MARGIN_V),
+            priority : DRAW_PRIORITY, imageName : ImageName.box1, initNode: false,
+            x : UDpi.toPixel(MARGIN_H), y : screenH - UDpi.toPixel(BOX_H + MARGIN_V),
             width : UDpi.toPixel(BOX_W), height : UDpi.toPixel(BOX_H),
             color : UColor.DarkRed )
         
         mNgView!.setTitle( text: UResourceManager.getStringByName("dont_know"),
                            size: UDpi.toPixel(17), color: UColor.DarkRed)
+        mNgView!.initSKNode()
         mNgView!.addToDrawManager()
 
         // OK/NGボタンの座標をCardsStackに教えてやる
@@ -242,8 +247,8 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
      * CardsStackCallbacks
      */
     public func CardsStackChangedCardNum(cardNum : Int) {
-//        String title = getCardsRemainText(count);
-//        mTextCardCount.setText(title);
+        let title = getCardsRemainText(count: cardNum)
+        mTextCardCount?.setText(text: title)
     }
 
     /**

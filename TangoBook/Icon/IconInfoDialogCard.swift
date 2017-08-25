@@ -244,7 +244,7 @@ public class IconInfoDialogCard : IconInfoDialog {
 
                 imageButton.addState(image: image2!)
                 if mCard!.star {
-                    imageButton.setState(state: mCard!.star ? 1 : 0)
+                    imageButton.setState(mCard!.star ? 1 : 0)
                 }
             } else {
                 let image = UResourceManager.getImageWithColor(
@@ -374,7 +374,7 @@ public class IconInfoDialogCard : IconInfoDialog {
             card.star = star
 
             // 表示アイコンを更新
-            imageButtons[ButtonId.Favorite.rawValue].setState(state: star ? 1 : 0)
+            imageButtons[ButtonId.Favorite.rawValue].setState(star ? 1 : 0)
         default:
             break
         }

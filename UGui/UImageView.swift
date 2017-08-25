@@ -7,7 +7,7 @@
 //  Copyright © 2017年 Shusuke Unno. All rights reserved.
 //
 
-import UIKit
+import SpriteKit
 
 /**
  * Created by shutaro on 2016/12/13.
@@ -24,10 +24,13 @@ public class UImageView : UDrawable {
     /**
      * Member variables
      */
+    // SpriteKit Node
+    var imageNode : SKSpriteNode?
+    var titleNode : SKLabelNode?
     
     var images : List<UIImage> = List()    // 画像
     var mTitle : String? = nil             // 画像の下に表示するテキスト
-    var mTitleSize : CGFloat = 0
+    var mFontSize : CGFloat = 0
     var mTitleColor : UIColor? = nil
     var mStateId : Int = 0          // 現在の状態
     var mStateMax : Int = 0         // 状態の最大値 addState で増える
@@ -38,26 +41,52 @@ public class UImageView : UDrawable {
      */
     public func setTitle( text : String?, size : CGFloat, color : UIColor?) {
         mTitle = text
-        mTitleSize = size
+        mFontSize = size
         mTitleColor = color
     }
     
     /**
      * Constructor
      */
-    public init(priority : Int, imageName : ImageName, x : CGFloat, y : CGFloat, width : CGFloat, height : CGFloat,
+    public init(priority : Int, imageName : ImageName, initNode: Bool,
+                x : CGFloat, y : CGFloat, width : CGFloat, height : CGFloat,
                 color : UIColor?)
     {
         super.init( priority: priority, x: x, y: y, width: width, height: height)
         
+        parentNode.position = CGPoint(x: x, y: y)
         let image = UResourceManager.getImageWithColor(
             imageName: imageName, color: color)
         
         self.images.append(image!)
         mStateId = 0
         mStateMax = 1
+        
+        if initNode {
+            initSKNode()
+        }
     }
     
+    /**
+     * SpriteKitのノード生成
+     */
+    public override func initSKNode() {
+        if images.count > 0 {
+            let texture = SKTexture(image: images[0])
+            imageNode = SKSpriteNode(texture: texture)
+            imageNode!.size = size
+            imageNode?.anchorPoint = CGPoint(x:0, y:1)
+            parentNode.addChild2( imageNode! )
+
+            if let title = mTitle {
+                titleNode = SKNodeUtil.createLabelNode(
+                    text: title, fontSize: mFontSize,
+                    color: mTitleColor!, alignment: .CenterX,
+                    pos: CGPoint(x: imageNode!.frame.size.width / 2, y: imageNode!.frame.size.height + UDpi.toPixel(0)))
+            }
+            parentNode.addChild2( titleNode! )
+        }
+    }
     
     /**
      * 描画処理
@@ -66,27 +95,6 @@ public class UImageView : UDrawable {
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
     public override func draw() {
-        var _image : UIImage
-        
-        let _pos = CGPoint(x: pos.x, y: pos.y)
-//        if offset != nil {
-//            _pos.x += offset!.x
-//            _pos.y += offset!.y
-//        }
-        
-        _image = images[mStateId]
-        let _rect = CGRect(x: _pos.x, y: _pos.y,
-                           width: size.width, height: size.height)
-        
-        // 領域の幅に合わせて伸縮
-//        UDraw.drawImage(image: _image, rect: _rect)
-        
-        // 下にテキストを表示
-        if mTitle != nil && mTitleColor != nil {
-//            UDraw.drawText( text : mTitle!, alignment : UAlignment.CenterX,
-//                            fontSize : mTitleSize,
-//                            x : _rect.centerX(), y : _rect.bottom + UDpi.toPixel(TEXT_MARGIN), color : mTitleColor!)
-        }
     }
     
     /**
@@ -105,6 +113,8 @@ public class UImageView : UDrawable {
     public func setNextState() -> Int {
         if mStateMax >= 2 {
             mStateId = (mStateId + 1) % mStateMax
+            
+            imageNode!.texture = SKTexture(image: images[mStateId])
         }
         return mStateId
     }
@@ -112,6 +122,8 @@ public class UImageView : UDrawable {
     public func setState( state : Int) {
         if mStateMax > state {
             mStateId = state
+            
+            imageNode!.texture = SKTexture(image: images[mStateId])
         }
     }
     

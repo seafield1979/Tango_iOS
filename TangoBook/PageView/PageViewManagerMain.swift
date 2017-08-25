@@ -182,7 +182,7 @@ public class PageViewManagerMain : UPageViewManager {
             fallthrough
          case .SlideMulti:
              let pageView = getPageView(pageId: PageIdMain.StudySlide.rawValue) as! PageViewStudySlide
-             pageView.setBook(book: book)
+             pageView.setBook(book)
              pageView.isFirst = firstStudy
              stackPage(pageView: pageView)
          
@@ -208,7 +208,7 @@ public class PageViewManagerMain : UPageViewManager {
     * @param book
     * @param cards  リトライで学習するカード
     */
-    public func startStudyPage( book : TangoBook, cards : List<TangoCard>, stack : Bool )
+    public func startStudyPage( book : TangoBook, cards : List<TangoCard>?, stack : Bool )
     {
     
     //         PageView pageView = null;
@@ -266,10 +266,10 @@ public class PageViewManagerMain : UPageViewManager {
     */
     public func startStudyResultPage( book : TangoBook, okCards : List<TangoCard>, ngCards : List<TangoCard>)
     {
-    //         PageViewResult page = (PageViewResult)getPageView(PageView.StudyResult);
-    //         page.setBook(book);
-    //         page.setCardsLists(okCards, ngCards);
-    //         changePage(PageView.StudyResult);
+        let page : PageViewResult = getPageView(pageId: PageIdMain.StudyResult.rawValue) as! PageViewResult
+         page.setBook(mBook: book)
+         page.setCardsLists(okCards: okCards, ngCards: ngCards)
+         changePage( PageIdMain.StudyResult.rawValue )
     }
     
     /**

@@ -40,6 +40,7 @@ public class UDrawable {
      */
     // SpriteKit
     public var parentNode : SKNode
+    public var debugNode : SKNode?
     
     var drawList : DrawList? = nil    // DrawManagerに描画登録するとnull以外になる
     var pos = CGPoint()
@@ -73,16 +74,24 @@ public class UDrawable {
     // MARK: Initializer
     init(priority: Int, x: CGFloat, y: CGFloat, width : CGFloat, height : CGFloat)
     {
-        parentNode = SKNode()
-        parentNode.zPosition = CGFloat(priority)
-        
         pos = CGPoint(x: x, y: y)
         size = CGSize(width: width, height: height)
-        updateRect()
         
         drawPriority = priority
         color = UIColor.black
         isShow = true
+        
+        // SpriteKit
+        parentNode = SKNode()
+        parentNode.zPosition = CGFloat(priority)
+        parentNode.position = pos
+        
+        // debug
+        if UDebug.isDebug {
+            debugNode = SKNodeUtil.createCrossPoint(pos: CGPoint(), length: 10.0, lineWidth: 2.0, color: .red)
+            parentNode.addChild2(debugNode!)
+        }
+        updateRect()
     }
     
     /**
@@ -120,6 +129,10 @@ public class UDrawable {
         parentNode.position = pos
         if convSKPos {
             parentNode.position.toSK()
+        }
+        
+        if UDebug.isDebug {
+            debugNode!.position = parentNode.position
         }
     }
     public func setPos(_ pos : CGPoint) {
@@ -242,22 +255,6 @@ public class UDrawable {
     public func doAction() -> DoActionRet{
         print("UDrawable doAction() オーバーライドされていません")
         return DoActionRet.None;
-    }
-    
-    /**
-     * Rectをライン描画する for Debug
-     */
-    public func drawRectLine(offset : CGPoint?, color : UIColor) {
-//        var _rect = CGRect(x: rect.x,
-//                           y: rect.y,
-//                           width: rect.width,
-//                           height: rect.height)
-//        if offset != nil {
-//            _rect.x += offset!.x
-//            _rect.y += offset!.y
-//        }
-//        
-//        UDraw.drawRect(rect: _rect, width: 2, color: color)
     }
     
     /**

@@ -152,7 +152,7 @@ public class PageViewStudyBookSelect : UPageView
                                   x : x, y : y,
                                   width : width-UDpi.toPixel(MARGIN_H)*2,
                                   height : listViewH, bgColor : UIColor.white)
-            mListView!.setFrameColor(frameColor: .gray)
+            mListView!.setFrameColor(.gray)
             mListView!.addToDrawManager()
 
             for book in books! {

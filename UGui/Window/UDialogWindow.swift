@@ -21,7 +21,7 @@ import SpriteKit
  */
 public enum DialogType {
     case Normal     // 移動可能、下にあるWindowをタッチできる
-    case Mordal     // 移動不可、下にあるWindowをタッチできない
+    case Modal     // 移動不可、下にあるWindowをタッチできない
 }
 
 public enum DialogPosType {
@@ -160,7 +160,7 @@ public class UDialogWindow : UWindow {
         size = CGSize(width: screenW - marginH * 2,
                       height: screenH - marginH * 2)
         
-        if (type == DialogType.Mordal) {
+        if (type == DialogType.Modal) {
             // 背景の暗幕を用意
             dialogBgNode = SKNodeUtil.createRectNode(
                 rect: CGRect(x:0, y:0, width: self.topScene.size.width, height: self.topScene.size.height),
@@ -234,7 +234,7 @@ public class UDialogWindow : UWindow {
         screenW : CGFloat, screenH : CGFloat) -> UDialogWindow
     {
         return createInstance( topScene: topScene,
-                               type: DialogType.Mordal,
+                               type: DialogType.Modal,
                                buttonCallbacks: buttonCallbacks,
                                dialogCallbacks: dialogCallbacks,
                                dir: buttonDir,
@@ -658,7 +658,7 @@ public class UDialogWindow : UWindow {
             }
         }
         // モーダルなら他のオブジェクトにタッチ処理を渡さない
-        if (type == DialogType.Mordal) {
+        if (type == DialogType.Modal) {
             if (vt.type == TouchType.Touch ||
                 vt.type == TouchType.LongPress ||
                 vt.type == TouchType.Click ||

@@ -33,9 +33,9 @@ public class StudyCardsStack : UDrawable {
     let MOVING_FRAME = 10
     
     
-    /**
-     * Member Variables
-     */
+    // MARK: Properties
+    
+    
     var mCardManager : StudyCardsManager? = nil
     var cardsStackCallbacks : CardsStackCallbacks? = nil
     var mStudyMode : StudyMode = .SlideOne
@@ -251,6 +251,9 @@ public class StudyCardsStack : UDrawable {
             }
             
             mCards.append(card)
+            
+            // SpriteKit Node
+            parentNode.addChild2( card.parentNode )
             
             card.startMoving(dstX: 0, dstY: dstY, frame: MOVING_FRAME)
             card.setBasePos(x: 0, y: dstY)

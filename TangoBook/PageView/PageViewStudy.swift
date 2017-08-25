@@ -49,7 +49,7 @@ public class PageViewStudy : UPageView, UButtonCallbacks, UDialogCallbacks {
 
             mConfirmDialog = UDialogWindow.createInstance(
                 topScene: mTopScene,
-                type: .Mordal,
+                type: .Modal,
                 buttonCallbacks: self, dialogCallbacks: self,
                 dir: UDialogWindow.ButtonDir.Horizontal,
                 posType: .Center,
@@ -57,12 +57,14 @@ public class PageViewStudy : UPageView, UButtonCallbacks, UDialogCallbacks {
                 screenW: mTopScene.getWidth(), screenH: mTopScene.getHeight(),
                 textColor: .black, dialogColor: .lightGray)
             
-            mConfirmDialog!.addToDrawManager()
             mConfirmDialog!.setTitle( UResourceManager.getStringByName("confirm_exit"))
             mConfirmDialog!.addButton(id: PageViewStudy.ButtonIdExitOk, text: "OK", fontSize: UDraw.getFontSize(FontSize.M), textColor: .black, color: .white)
             
             mConfirmDialog!.addCloseButton( text: UResourceManager.getStringByName(
                 "cancel"))
+            
+            mConfirmDialog!.updateLayout()
+            mConfirmDialog!.addToDrawManager()
         }
     }
     

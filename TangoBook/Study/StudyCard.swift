@@ -136,19 +136,6 @@ public class StudyCard : UDrawable, UButtonCallbacks {
             imageName: ImageName.arrow_r,
             color: UColor.DarkGreen)!
         
-        mArrowL = UButtonImage(
-            callbacks : self, id : ButtonIdArrowL, priority : 0,
-            x : -(size.width / 2 + UDpi.toPixel(ARROW_MARGIN+ARROW_W)),
-            y : (size.height-arrowH)/2,
-            width : arrowW, height : arrowH, image : arrowLImage!,
-            pressedImage : nil)
-        
-        mArrowR = UButtonImage(
-            callbacks : self, id : ButtonIdArrowR,
-            priority : 0,
-            x : size.width / 2 + UDpi.toPixel(ARROW_MARGIN),
-            y : (size.height-arrowH)/2, width : arrowW, height : UDpi.toPixel(ARROW_H), image : arrowRImage!, pressedImage : nil)
-        
         if isEnglish {
             wordA = card.wordA
             wordB = card.wordB
@@ -196,6 +183,19 @@ public class StudyCard : UDrawable, UButtonCallbacks {
             size.width = maxWidth
             size.height = maxHeight
         }
+        mArrowL = UButtonImage(
+            callbacks : self, id : ButtonIdArrowL, priority : 0,
+            x : -(size.width / 2 + UDpi.toPixel(ARROW_MARGIN + ARROW_W)),
+            y : (size.height-arrowH)/2,
+            width : arrowW, height : arrowH, image : arrowLImage!,
+            pressedImage : nil)
+        
+        mArrowR = UButtonImage(
+            callbacks : self, id : ButtonIdArrowR,
+            priority : 0,
+            x : size.width / 2 + UDpi.toPixel(ARROW_MARGIN),
+            y : (size.height - arrowH)/2, width : arrowW, height : UDpi.toPixel(ARROW_H), image : arrowRImage!, pressedImage : nil)
+        
 
         initSKNode()
     }
@@ -212,20 +212,22 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         }
         
         // BG
-        bgNode = SKNodeUtil.createRectNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height), color: color, pos: CGPoint(), cornerR: UDpi.toPixel(4))
+        bgNode = SKNodeUtil.createRectNode(rect: CGRect(x:-size.width / 2, y:0, width: size.width, height: size.height), color: color, pos: CGPoint(), cornerR: UDpi.toPixel(4))
+        bgNode!.strokeColor = .gray
+        bgNode!.lineWidth = UDpi.toPixel(2)
         parentNode.addChild2( bgNode! )
         
         // Text
         // WordA
         if wordA != nil {
-            wordANode = SKNodeUtil.createLabelNode(text: wordA!, fontSize: UDpi.toPixel(FONT_SIZE_A), color: .black, alignment: .Center, pos: CGPoint(x: size.width / 2, y: size.height / 2))
+            wordANode = SKNodeUtil.createLabelNode(text: wordA!, fontSize: UDpi.toPixel(FONT_SIZE_A), color: .black, alignment: .Center, pos: CGPoint(x: 0, y: size.height / 2))
             parentNode.addChild2( wordANode! )
             wordANode!.isHidden = true
         }
         
         // WordB
         if wordB != nil {
-            wordBNode = SKNodeUtil.createLabelNode(text: wordB!, fontSize: UDpi.toPixel(FONT_SIZE_A), color: .black, alignment: .Center, pos: CGPoint(x: size.width / 2, y: size.height / 2))
+            wordBNode = SKNodeUtil.createLabelNode(text: wordB!, fontSize: UDpi.toPixel(FONT_SIZE_A), color: .black, alignment: .Center, pos: CGPoint(x: 0, y: size.height / 2))
             parentNode.addChild2( wordBNode! )
             wordBNode!.isHidden = true
         }
@@ -378,7 +380,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
      * @return
      */
     public func touchEvent( vt : ViewTouch) -> Bool {
-        return touchEvent(vt: vt, offset: nil)
+        return self.touchEvent(vt: vt, offset: nil)
     }
 
     public override func touchEvent( vt : ViewTouch, offset : CGPoint?) -> Bool {
@@ -427,12 +429,16 @@ public class StudyCard : UDrawable, UButtonCallbacks {
                         slideX = 0
                         lastRequest = RequestToParent.MoveToNG
                         moveRequest = lastRequest
+                        setPos(pos.x, pos.y, convSKPos: true)
                     } else if (slideX >= UDpi.toPixel(SLIDE_LEN)) {
                         // OK
                         pos.x += slideX
                         slideX = 0
                         lastRequest = RequestToParent.MoveToOK
                         moveRequest = lastRequest
+                        setPos(pos.x, pos.y, convSKPos: true)
+                    } else {
+                        parentNode.position = CGPoint(x: pos.x + slideX, y: pos.y).convToSK()
                     }
                 }
                 break

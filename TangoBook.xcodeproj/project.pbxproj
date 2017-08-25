@@ -12,6 +12,7 @@
 		8A0D6FB01F319748002A1949 /* EditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6FAE1F319748002A1949 /* EditCardViewController.swift */; };
 		8A0D6FB41F319765002A1949 /* EditBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6FB21F319765002A1949 /* EditBookViewController.swift */; };
 		8A0D6FB71F31A47A002A1949 /* TangoBackupFileDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6FB61F31A47A002A1949 /* TangoBackupFileDao.swift */; };
+		8A0F64421F4FC9750019BAC7 /* DialogCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0F64411F4FC9750019BAC7 /* DialogCard.swift */; };
 		8A2584AC1F3209C3002EE9E2 /* EditCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A2584AE1F3209C3002EE9E2 /* EditCardViewController.xib */; };
 		8A5708B41F373D27004387D4 /* animal.csv in Resources */ = {isa = PBXBuildFile; fileRef = 8A5708171F373D27004387D4 /* animal.csv */; };
 		8A5708B51F373D27004387D4 /* drink.csv in Resources */ = {isa = PBXBuildFile; fileRef = 8A5708181F373D27004387D4 /* drink.csv */; };
@@ -182,7 +183,6 @@
 		8A5709681F3767F7004387D4 /* ListViewStudyHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5709671F3767F7004387D4 /* ListViewStudyHistory.swift */; };
 		8A6087781F4BF16E00259191 /* UIconWindowButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6087771F4BF16E00259191 /* UIconWindowButtons.swift */; };
 		8A66358F1F3800BC000EAAF0 /* PreStudyWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A66358E1F3800BC000EAAF0 /* PreStudyWindow.swift */; };
-		8A6635921F384B77000EAAF0 /* StudyCardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6635911F384B77000EAAF0 /* StudyCardStack.swift */; };
 		8A6635941F384BC2000EAAF0 /* StudyCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6635931F384BC2000EAAF0 /* StudyCard.swift */; };
 		8A6635961F384BFE000EAAF0 /* StudyCardsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6635951F384BFE000EAAF0 /* StudyCardsManager.swift */; };
 		8A6635981F384C37000EAAF0 /* StudyCardInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6635971F384C37000EAAF0 /* StudyCardInput.swift */; };
@@ -344,6 +344,7 @@
 		8A0D6FAE1F319748002A1949 /* EditCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditCardViewController.swift; path = ViewController/EditCardViewController.swift; sourceTree = "<group>"; };
 		8A0D6FB21F319765002A1949 /* EditBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditBookViewController.swift; path = ViewController/EditBookViewController.swift; sourceTree = "<group>"; };
 		8A0D6FB61F31A47A002A1949 /* TangoBackupFileDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TangoBackupFileDao.swift; path = TangoBook/Database/TangoBackupFileDao.swift; sourceTree = "<group>"; };
+		8A0F64411F4FC9750019BAC7 /* DialogCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DialogCard.swift; path = Window/DialogCard.swift; sourceTree = "<group>"; };
 		8A2584AD1F3209C3002EE9E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EditCardViewController.xib; sourceTree = "<group>"; };
 		8A2584BB1F320E15002EE9E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditCardViewController.strings; sourceTree = "<group>"; };
 		8A2584BC1F320E19002EE9E2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/EditCardViewController.strings; sourceTree = "<group>"; };
@@ -516,7 +517,6 @@
 		8A5709671F3767F7004387D4 /* ListViewStudyHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListViewStudyHistory.swift; path = ListView/ListViewStudyHistory.swift; sourceTree = "<group>"; };
 		8A6087771F4BF16E00259191 /* UIconWindowButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIconWindowButtons.swift; sourceTree = "<group>"; };
 		8A66358E1F3800BC000EAAF0 /* PreStudyWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreStudyWindow.swift; path = Window/PreStudyWindow.swift; sourceTree = "<group>"; };
-		8A6635911F384B77000EAAF0 /* StudyCardStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyCardStack.swift; path = Study/StudyCardStack.swift; sourceTree = "<group>"; };
 		8A6635931F384BC2000EAAF0 /* StudyCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyCard.swift; path = Study/StudyCard.swift; sourceTree = "<group>"; };
 		8A6635951F384BFE000EAAF0 /* StudyCardsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyCardsManager.swift; path = Study/StudyCardsManager.swift; sourceTree = "<group>"; };
 		8A6635971F384C37000EAAF0 /* StudyCardInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyCardInput.swift; path = Study/StudyCardInput.swift; sourceTree = "<group>"; };
@@ -910,6 +910,7 @@
 			isa = PBXGroup;
 			children = (
 				8A66358E1F3800BC000EAAF0 /* PreStudyWindow.swift */,
+				8A0F64411F4FC9750019BAC7 /* DialogCard.swift */,
 			);
 			name = Window;
 			sourceTree = "<group>";
@@ -917,7 +918,6 @@
 		8A6635901F384B54000EAAF0 /* Study */ = {
 			isa = PBXGroup;
 			children = (
-				8A6635911F384B77000EAAF0 /* StudyCardStack.swift */,
 				8A6635931F384BC2000EAAF0 /* StudyCard.swift */,
 				8A6635951F384BFE000EAAF0 /* StudyCardsManager.swift */,
 				8A6635971F384C37000EAAF0 /* StudyCardInput.swift */,
@@ -1616,7 +1616,6 @@
 				8AF781A91F1F445500FC4EF2 /* TangoBookDao.swift in Sources */,
 				8AB7E94C1F25A00F005E36BB /* PageViewCsvBook.swift in Sources */,
 				8A6635941F384BC2000EAAF0 /* StudyCard.swift in Sources */,
-				8A6635921F384B77000EAAF0 /* StudyCardStack.swift in Sources */,
 				8AC44FFE1F471F9F00ECAD00 /* TopScene.swift in Sources */,
 				8AE08A921F2580D00024E9B7 /* DrawList.swift in Sources */,
 				8AE08A871F2580D00024E9B7 /* UButtonImage.swift in Sources */,
@@ -1685,6 +1684,7 @@
 				8AB7E9521F25A00F005E36BB /* PageViewPresetBook.swift in Sources */,
 				8AB7E9801F278DC7005E36BB /* UIconManager.swift in Sources */,
 				8A0D6FB41F319765002A1949 /* EditBookViewController.swift in Sources */,
+				8A0F64421F4FC9750019BAC7 /* DialogCard.swift in Sources */,
 				8AD6313C1F2B94CE0067B57E /* IconInfoDialogCard.swift in Sources */,
 				8A6087781F4BF16E00259191 /* UIconWindowButtons.swift in Sources */,
 				8A5709661F3767D8004387D4 /* ListViewResult.swift in Sources */,
