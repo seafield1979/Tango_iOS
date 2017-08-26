@@ -186,18 +186,19 @@ public class PageViewManagerMain : UPageViewManager {
              pageView.isFirst = firstStudy
              stackPage(pageView: pageView)
          
-//         case .Choice4:
-//             let page = getPageView(PageView.StudySelect4) as! PageViewStudySelect4
-//             page.setBook(book)
-//             page.setFirstStudy(firstStudy)
-//             stackPage(PageView!.StudySelect4)
-//         
-//         case .Input:
+         case .Choice4:
+//            let page = getPageView(pageId: PageIdMain.StudySelect4.rawValue) as! PageViewStudySelect4
+//            page.setBook(book)
+//            page.setFirstStudy(firstStudy)
+//            stackPage(pageView: PageView)
+            break
+         case .Input:
 //             PageViewStudyInputCorrect page = (PageViewStudyInputCorrect)getPageView(PageView
 //                     .StudyInputCorrect);
 //             page.setBook(book);
 //             page.setFirstStudy(firstStudy);
 //             stackPage(PageView.StudyInputCorrect);
+            break
          default:
             break
          }
@@ -210,54 +211,48 @@ public class PageViewManagerMain : UPageViewManager {
     */
     public func startStudyPage( book : TangoBook, cards : List<TangoCard>?, stack : Bool )
     {
-    
-    //         PageView pageView = null;
-    //         switch( MySharedPref.getStudyMode()) {
-    //             case SlideOne:
-    //             case SlideMulti: {
-    //                 pageView = PageView.StudySlide;
-    //                 PageViewStudySlide page = (PageViewStudySlide) getPageView(pageView);
-    //                 page.setBook(book);
-    //                 page.setCards(cards);
-    
-    //                 if (stack) {
-    //                     stackPage(pageView);
-    //                 } else {
-    //                     changePage(pageView);
-    //                 }
-    //             }
-    //                 break;
-    //             case Choice4: {
-    //                 pageView = PageView.StudySelect4;
-    //                 PageViewStudySelect4 page = (PageViewStudySelect4) getPageView(pageView);
-    //                 page.setBook(book);
-    //                 page.setCards(cards);
-    
-    //                 if (stack) {
-    //                     stackPage(pageView);
-    //                 } else {
-    //                     changePage(pageView);
-    //                 }
-    //             }
-    //                 break;
-    //             case Input: {
-    //                 pageView = PageView.StudyInputCorrect;
-    //                 PageViewStudyInputCorrect page = (PageViewStudyInputCorrect) getPageView(pageView);
-    //                 page.setBook(book);
-    //                 page.setCards(cards);
-    
-    //                 if (stack) {
-    //                     stackPage(pageView);
-    //                 } else {
-    //                     changePage(pageView);
-    //                 }
-    //             }
-    //                 break;
-    //         }
-    
-    //         if (pageView != null) {
-    
-    //         }
+        var pageId : PageIdMain
+        
+        switch( MySharedPref.getStudyMode()) {
+        case .SlideOne:
+            fallthrough
+        case .SlideMulti:
+            pageId = PageIdMain.StudySlide
+            let page : PageViewStudySlide = getPageView(pageId: pageId.rawValue) as! PageViewStudySlide
+            page.setBook(book)
+            page.setCards(cards)
+
+            if stack {
+                stackPage(pageView: page)
+            } else {
+                changePage(pageView: page)
+            }
+        
+        case .Choice4:
+            pageId = PageIdMain.StudySelect4
+            let page : PageViewStudySelect4 = getPageView(pageId: pageId.rawValue) as! PageViewStudySelect4
+            page.setBook(book)
+            page.setCards(cards)
+            
+            if stack {
+                stackPage(pageView: page)
+            } else {
+                changePage(pageView: page)
+            }
+            break
+        case .Input:
+            pageId = PageIdMain.StudyInputCorrect
+            let page : PageViewStudyInputCorrect = getPageView(pageId: pageId.rawValue) as! PageViewStudyInputCorrect
+            page.setBook(book)
+            page.setCards(cards!)
+            
+            if stack {
+                stackPage(pageView: page)
+            } else {
+                changePage(pageView: page)
+            }
+            break
+        }
     }
     
     /**

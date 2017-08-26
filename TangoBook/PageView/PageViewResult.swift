@@ -199,9 +199,9 @@ public class PageViewResult : UPageView, UButtonCallbacks, UListItemCallbacks {
             priority : PRIORITY_LV, x : marginH, y : y,
             width : width - marginH * 2, height : height - y-marginV,
             color : .white)
+        mListView!.setFrameColor(.gray)
         
         mListView!.addToDrawManager()
-        mListView!.setFrameColor(.black)
     }
     
     /**

@@ -57,6 +57,8 @@ public class UTextView : UDrawable {
         } else {
             setSize(size.width, size.height)
         }
+        labelNode!.text = text
+        
         updateRect()
     }
     

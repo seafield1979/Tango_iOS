@@ -29,10 +29,21 @@ public class PageViewStudy : UPageView, UButtonCallbacks, UDialogCallbacks {
     var mConfirmDialog : UDialogWindow?
     var isCloseOk : Bool = false
 
-    /**
-     * Propaties
-     */
+    // 学習する単語帳 or カードリスト
+    public var mBook : TangoBook?
+    public var mCards : List<TangoCard>?
     
+    /**
+     * Get/Set
+     */
+    public func setBook( _ book : TangoBook? ) {
+        mBook = book
+    }
+    
+    public func setCards( _ cards : List<TangoCard>? ) {
+        mCards = cards
+    }
+
     /**
      * Constructor
      */

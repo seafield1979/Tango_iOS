@@ -45,6 +45,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
     private static let TOUCH_MARGIN : Int = 13
     private static let BG_RADIUS : Int = 7
     private static let BG_FRAME_W : Int = 1
+    private let FRAME_LINE_W = 2
     
     /**
      * Member Variables
@@ -138,8 +139,9 @@ public class UWindow : UDrawable, UButtonCallbacks {
         // frame
         if frameColor != nil && (frameSize.width > 0 || (topBarH + frameSize.height) > 0) {
             frameNode = SKShapeNode(rect: CGRect(x: 0, y: 0, width: size.width, height: size.height).convToSK(), cornerRadius: mCornerRadius)
-            frameNode!.fillColor = frameColor!
+            frameNode!.fillColor = .gray
             frameNode!.strokeColor = .clear
+            frameNode!.lineWidth = UDpi.toPixel(FRAME_LINE_W)
             parentNode.addChild2(frameNode!)
         }
         
@@ -259,10 +261,17 @@ public class UWindow : UDrawable, UButtonCallbacks {
         contentTop.y = y
     }
     
-    public func setFrameColor(_ frameColor : UIColor?) {
-        self.frameColor = frameColor
-        if frameNode != nil {
-            self.frameNode!.fillColor = frameColor!
+    public func setFrameColor(_ color : UIColor?) {
+        self.frameColor = color
+        if color != nil {
+            self.frameNode!.fillColor = color!
+        }
+    }
+    
+    public func setFrameLineColor( _ color : UIColor? ) {
+        self.frameColor = color
+        if color != nil {
+            self.frameNode!.strokeColor = color!
         }
     }
     

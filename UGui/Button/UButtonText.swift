@@ -91,8 +91,8 @@ public class UButtonText : UButton {
         
         // BG2(影の部分)
         if type != .BGColor {
-            let _h = UDpi.toPixel( UButton.PRESS_Y + 20)
-            self.bg2Node = SKShapeNode(rect: CGRect(x:0, y:bgH - UDpi.toPixel(20), width: size.width, height: _h).convToSK(),
+            let _h = UDpi.toPixel( UButton.PRESS_Y + 25)
+            self.bg2Node = SKShapeNode(rect: CGRect(x:0, y:bgH - UDpi.toPixel(25), width: size.width, height: _h).convToSK(),
                                        cornerRadius: 10.0)
             self.bg2Node!.fillColor = pressedColor
             self.bg2Node!.strokeColor = .clear
@@ -274,6 +274,9 @@ public class UButtonText : UButton {
             // 押したら凹むボタン
             if !enabled {
                 _color = disabledColor
+                if let n = bg2Node {
+                    n.fillColor = disabledColor2
+                }
             }
             if isPressed || pressedOn {
                 _pos.y += UDpi.toPixel( UButton.PRESS_Y)

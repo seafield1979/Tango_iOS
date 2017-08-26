@@ -71,21 +71,6 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
     private var mExitButton : UButtonText?
     private var mOkView : UImageView?, mNgView : UImageView?
 
-    // 学習する単語帳 or カードリスト
-    private var mBook : TangoBook?
-    private var mCards : List<TangoCard>?
-
-    /**
-     * Get/Set
-     */
-    public func setBook( _ book : TangoBook ) {
-        mBook = book
-    }
-
-    public func setCards( _ cards : List<TangoCard> ) {
-        mCards = cards
-    }
-
     public func setFirstStudy( _ firstStudy : Bool ) {
         mFirstStudy = firstStudy
     }

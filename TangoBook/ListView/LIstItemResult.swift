@@ -123,8 +123,8 @@ public class ListItemResult : UListItem, UButtonCallbacks {
         instance.mText = ListItemResult.convString(isEnglish ? card.wordA : card.wordB)
         instance.mText2 = ListItemResult.convString(isEnglish ? card.wordB : card.wordA)
         
-        let node = SKNodeUtil.createLabelNode(text: instance.mText!, fontSize: UDpi.toPixel(ListItemResult.FONT_SIZE), color: .black, alignment: .Center, pos: CGPoint(x: instance.size.width / 2, y: instance.size.height / 2)).node
-        instance.parentNode.addChild2(node)
+        instance.titleNode = SKNodeUtil.createLabelNode(text: instance.mText!, fontSize: UDpi.toPixel(ListItemResult.FONT_SIZE), color: .black, alignment: .Center, pos: CGPoint(x: instance.size.width / 2, y: instance.size.height / 2)).node
+        instance.parentNode.addChild2(instance.titleNode)
         
         // Starボタンを追加(On/Offあり)
         if star {
@@ -162,9 +162,9 @@ public class ListItemResult : UListItem, UButtonCallbacks {
         instance.mText2 = convString(isEnglish ? card.wordB : card.wordA)
         instance.size.height = UDpi.toPixel(ListItemResult.CARD_H)
         
-        //SpriteKit Node
-        let node = SKNodeUtil.createLabelNode(text: instance.mText!, fontSize: UDpi.toPixel(ListItemResult.FONT_SIZE), color: .black, alignment: .Center, pos: CGPoint(x: instance.size.width / 2, y: instance.size.height / 2)).node
-        instance.parentNode.addChild2(node)
+        //SpriteKit Node1
+        instance.titleNode = SKNodeUtil.createLabelNode(text: instance.mText!, fontSize: UDpi.toPixel(ListItemResult.FONT_SIZE), color: .black, alignment: .Center, pos: CGPoint(x: instance.size.width / 2, y: instance.size.height / 2)).node
+        instance.parentNode.addChild2(instance.titleNode)
         
         return instance
     }
@@ -186,36 +186,13 @@ public class ListItemResult : UListItem, UButtonCallbacks {
     public override func draw() {
         super.draw()
 
-        let fontSize = UDpi.toPixel(ListItemResult.FONT_SIZE)
-
         switch mType {
             case .Title:
-//                UDraw.drawTextOneLine(canvas, paint, mText, UAlignment.Center, fontSize,
-//                        _pos.x + size.width / 2, _pos.y + size.height / 2, mTextColor);
-                // 覚えた
-                if (isOK) {
-                    if (mLearnedTextW == 0) {
-//                        mLearnedTextW = UDraw.getTextSize(canvas.getWidth(),
-//                                UResourceManager.getStringById(R.string.learned), fontSize).width;
-                    }
-//                    UDraw.drawTextOneLine(canvas, paint,
-//                            UResourceManager.getStringById(R.string.learned),
-//                            UAlignment.Center, fontSize,
-//                            _pos.x + size.width - mLearnedTextW / 2 - UDpi.toPixel(23), _pos.y + size.height / 2,
-//                            mTextColor);
-                }
-                break;
+                break
             case .OK:
-//                String text = isTouching ? mText2 : mText;
-//                UDraw.drawTextOneLine(canvas, paint, text, UAlignment.Center, fontSize,
-//                        _pos.x + size.width / 2, _pos.y + size.height / 2, mTextColor);
-            
-                break
+                titleNode.text = isTouching ? mText2 : mText
             case .NG:
-//                String text = isTouching ? mText2 : mText;
-//                UDraw.drawTextOneLine(canvas, paint, text, UAlignment.Center, fontSize,
-//                        _pos.x + size.width / 2, _pos.y + size.height / 2, mTextColor);
-                break
+                titleNode.text = isTouching ? mText2 : mText
         }
 
         if mStarButton != nil {

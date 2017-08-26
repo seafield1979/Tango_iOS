@@ -8,14 +8,10 @@
 
 import UIKit
 
-public class PageViewStudyInputCorrect : UPageView, UButtonCallbacks {
-    /**
-     * Enums
-     */
+public class PageViewStudyInputCorrect : PageViewStudy {
     /**
      * Constants
      */
-    public static let TAG = "PageViewStudyInputCorrect"
     
     // button id
     private static let buttonId1 = 100
@@ -64,7 +60,7 @@ public class PageViewStudyInputCorrect : UPageView, UButtonCallbacks {
      * @param vt
      * @return
      */
-    public func touchEvent(vt : ViewTouch) -> Bool {
+    public override func touchEvent(vt : ViewTouch) -> Bool {
         
         return false
     }
@@ -109,7 +105,7 @@ public class PageViewStudyInputCorrect : UPageView, UButtonCallbacks {
      * @param pressedOn  押された状態かどうか(On/Off)
      * @return
      */
-    public func UButtonClicked(id : Int, pressedOn : Bool) -> Bool
+    public override func UButtonClicked(id : Int, pressedOn : Bool) -> Bool
     {
         return true
     }
