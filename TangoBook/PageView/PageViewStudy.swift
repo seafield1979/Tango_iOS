@@ -32,10 +32,9 @@ public class PageViewStudy : UPageView, UButtonCallbacks, UDialogCallbacks {
     // 学習する単語帳 or カードリスト
     public var mBook : TangoBook?
     public var mCards : List<TangoCard>?
-    
-    /**
-     * Get/Set
-     */
+    public var mFirstStudy : Bool = true       // 単語帳を選択して最初の学習のみtrue。リトライ時はfalse
+
+    // MARK: Accessor
     public func setBook( _ book : TangoBook? ) {
         mBook = book
     }
@@ -43,6 +42,11 @@ public class PageViewStudy : UPageView, UButtonCallbacks, UDialogCallbacks {
     public func setCards( _ cards : List<TangoCard>? ) {
         mCards = cards
     }
+
+    public func setFirstStudy( _ firstStudy : Bool) {
+        mFirstStudy = firstStudy
+    }
+
 
     /**
      * Constructor
@@ -136,6 +140,29 @@ public class PageViewStudy : UPageView, UButtonCallbacks, UDialogCallbacks {
         return true
     }
     
+    /**
+     * 学習結果を保存
+     */
+    public static func saveStudyResult( cardManager: StudyCardsManager, book : TangoBook )
+    {
+        let okCards : List<TangoCard> = cardManager.getOkCards()
+        let ngCards : List<TangoCard> = cardManager.getNgCards()
+        
+        // 単語帳の学習履歴
+        let historyId = TangoBookHistoryDao.addOne(
+            bookId: book.getId(), okNum: okCards.count, ngNum: ngCards.count)
+        
+        // 単語帳の最終学習日時
+        book.setLastStudiedTime( time: Date())
+        TangoBookDao.updateOne( book: book)
+        
+        // 学習したカード番号
+        TangoStudiedCardDao.addStudiedCards( bookHistoryId: historyId, okCards: okCards.toArray(), ngCards: ngCards.toArray())
+        
+        // カードの学習履歴
+        TangoCardHistoryDao.updateCards(okCards: okCards.toArray(), ngCards: ngCards.toArray())
+    }
+
     // MARK: Callbacks
     /**
      * UButtonCallbacks

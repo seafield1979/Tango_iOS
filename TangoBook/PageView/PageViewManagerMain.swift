@@ -187,11 +187,11 @@ public class PageViewManagerMain : UPageViewManager {
              stackPage(pageView: pageView)
          
          case .Choice4:
-//            let page = getPageView(pageId: PageIdMain.StudySelect4.rawValue) as! PageViewStudySelect4
-//            page.setBook(book)
-//            page.setFirstStudy(firstStudy)
-//            stackPage(pageView: PageView)
-            break
+            let pageView = getPageView(pageId: PageIdMain.StudySelect4.rawValue) as! PageViewStudySelect4
+            pageView.setBook(book)
+            pageView.setFirstStudy(firstStudy)
+            stackPage(pageView: pageView)
+            
          case .Input:
 //             PageViewStudyInputCorrect page = (PageViewStudyInputCorrect)getPageView(PageView
 //                     .StudyInputCorrect);

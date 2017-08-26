@@ -62,18 +62,13 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
      * Member variables
      */
     private var mState : State = .Start
-    private var mFirstStudy : Bool = true       // 単語帳を選択して最初の学習のみtrue。リトライ時はfalse
-
+    
     private var mCardsManager : StudyCardsManager?
     private var mCardsStack : StudyCardsStack?
 
     private var mTextCardCount : UTextView?
     private var mExitButton : UButtonText?
     private var mOkView : UImageView?, mNgView : UImageView?
-
-    public func setFirstStudy( _ firstStudy : Bool ) {
-        mFirstStudy = firstStudy
-    }
 
     /**
      * Constructor
@@ -233,7 +228,7 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
      */
     public func CardsStackChangedCardNum(cardNum : Int) {
         let title = getCardsRemainText(count: cardNum)
-        mTextCardCount?.setText(text: title)
+        mTextCardCount?.setText(title)
     }
 
     /**
@@ -244,7 +239,8 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
             // 学習結果をDBに保存する
             mFirstStudy = false
 
-            saveStudyResult(book: mBook!)
+            PageViewStudy.saveStudyResult(
+                cardManager: mCardsManager!, book: mBook!)
         }
 
         // カードが０になったので学習完了。リザルトページに遷移
@@ -254,29 +250,4 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
             okCards: mCardsManager!.getOkCards(),
             ngCards: mCardsManager!.getNgCards())
     }
-    
-    
-    /**
-     * 学習結果を保存
-     */
-    func saveStudyResult( book : TangoBook )
-    {
-        let okCards : List<TangoCard> = mCardsManager!.getOkCards()
-        let ngCards : List<TangoCard> = mCardsManager!.getNgCards()
-        
-        // 単語帳の学習履歴
-        let historyId = TangoBookHistoryDao.addOne(
-            bookId: book.getId(), okNum: okCards.count, ngNum: ngCards.count)
-        
-        // 単語帳の最終学習日時
-        book.setLastStudiedTime( time: Date())
-        TangoBookDao.updateOne( book: book)
-        
-        // 学習したカード番号
-        TangoStudiedCardDao.addStudiedCards( bookHistoryId: historyId, okCards: okCards.toArray(), ngCards: ngCards.toArray())
-        
-        // カードの学習履歴
-        TangoCardHistoryDao.updateCards(okCards: okCards.toArray(), ngCards: ngCards.toArray())
-    }
 }
-

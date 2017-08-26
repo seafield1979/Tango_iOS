@@ -135,7 +135,7 @@ public class TangoCardDao {
                     var card : TangoCard! = nil
                     while (true) {
                         // ランダムのIDが除外IDとおなじなら再度ランダム値を取得する
-                        let randIndex = Int(arc4random()) % cardsInBook!.count
+                        let randIndex = Int(arc4random() % UInt32(cardsInBook!.count))
                         card = cardsInBook![randIndex]
                         if card!.getId() != exceptId {
                             cardsInBook!.remove(at: randIndex)      // 同じカードが抽出されないように削除

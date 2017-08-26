@@ -67,8 +67,8 @@ public class StudyCardsManager {
         return mOkCards
     }
 
-    public func addOkCard( card : TangoCard) { mOkCards.append(card)}
-    public func addNgCard( card : TangoCard) { mNgCards.append(card)}
+    public func addOkCard( _ card : TangoCard) { mOkCards.append(card)}
+    public func addNgCard( _ card : TangoCard) { mNgCards.append(card)}
 
     /**
      * Constructor

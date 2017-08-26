@@ -47,7 +47,7 @@ public class UTextView : UDrawable {
     public func getText() -> String {
         return text
     }
-    public func setText(text : String) {
+    public func setText(_ text : String) {
         self.text = text;
         
         // サイズを更新

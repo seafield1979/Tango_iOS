@@ -1,185 +1,170 @@
 //
 //  StudyCardSelect.swift
 //  TangoBook
-//
+//      ４択学習モードで表示するカード
+//      出題中の４枚のカードのうちの１つ
 //  Created by Shusuke Unno on 2017/08/07.
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
+public class StudyCardSelect : UDrawable {
+    public enum State : Int{
+        case None
+        case Appearance         // 出現
+        case ShowAnswer         // 正解表示中
+        case Disappearance      // 消える
+    }
+    
+    // 親に対する要求
+    public enum RequestToParent : Int{
+        case None
+        case Touch
+        case End
+    }
 
-/**
- * Created by shutaro on 2016/12/27.
- *
- * ４択学習モードで表示するカード
- * 出題中の４枚のカードのうちの１つ
- */
-//
-//public class StudyCardSelect extends UDrawable {
-//    /**
-//     * Enums
-//     */
-//    enum State {
-//        None,
-//        Appearance,         // 出現
-//        ShowAnswer,         // 正解表示中
-//        Disappearance       // 消える
-//    }
-//    
-//    // 親に対する要求
-//    enum RequestToParent {
-//        None,
-//        Touch,
-//        End
-//    }
-//    
-//    /**
-//     * Consts
-//     */
-//    protected static final int FONT_SIZE = 17;
-//    protected static final int TEXT_COLOR = Color.BLACK;
-//    protected static final int FRAME_COLOR = Color.rgb(150,150,150);
-//    
-//    
-//    /**
-//     * Member Variables
-//     */
-//    protected State mState;
-//    protected String wordA, wordB;
-//    protected TangoCard mCard;
-//    protected PointF basePos;
-//    
-//    // 正解のカードかどうか
-//    protected boolean isCorrect;
-//    
-//    // 正解、不正解のまるばつを表示するかどうか
-//    protected boolean isShowCorrect;
-//    
-//    // ボックス移動要求（親への通知用)
-//    protected RequestToParent mRequest = RequestToParent.None;
-//    
-//    public RequestToParent getRequest() {
-//        return mRequest;
-//    }
-//    
-//    public void setRequest(RequestToParent request) {
-//        mRequest = request;
-//    }
-//    
-//    /**
-//     * Get/Set
-//     */
-//    
-//    public TangoCard getTangoCard() {
-//        return mCard;
-//    }
-//    public void setState(State state) {
-//        mState = state;
-//    }
-//    
-//    /**
-//     * 正解/不正解を設定する
-//     * @param showCorrect
-//     */
-//    public void setShowCorrect(boolean showCorrect) {
-//        mState = State.ShowAnswer;
-//        isShowCorrect = showCorrect;
-//    }
-//    
-//    public Rect getRect() {
-//        return new Rect((int)pos.x - size.width / 2, (int)pos.y - size.height / 2,
-//                        (int)pos.x + size.width / 2, (int)pos.y + size.height / 2);
-//    }
-//    
-//    /**
-//     * Constructor
-//     */
-//    /**
-//     *
-//     * @param card
-//     * @param isCorrect 正解のカードかどうか(true:正解のカード / false:不正解のカード)
-//     * @param isEnglish 出題タイプ false:英語 -> 日本語 / true:日本語 -> 英語
-//     */
-//    public StudyCardSelect(TangoCard card, boolean isCorrect, boolean isEnglish, int canvasW, int height)
-//    {
-//        super(0, 0, 0, canvasW - UDpi.toPixel(67), height);
-//        this.isCorrect = isCorrect;
-//        
-//        if (isEnglish) {
-//            wordA = card.getWordA();
-//            wordB = card.getWordB();
-//        } else {
-//            wordA = card.getWordB();
-//            wordB = card.getWordA();
-//        }
-//        mState = State.None;
-//        mCard = card;
-//        
-//        basePos = new PointF(size.width / 2, size.height / 2);
-//    }
-//    
-//    /**
-//     * Methods
-//     */
-//    /**
-//     * 出現時の拡大処理
-//     */
-//    public void startAppearance(int frame) {
+    // MARK: Constants
+    private let FONT_SIZE = 17;
+    private let TEXT_COLOR : UIColor = .black
+    private let FRAME_COLOR = UColor.makeColor(150,150,150)
+    
+    /**
+     * Member Variables
+     */
+    private var mState : State
+    private var wordA : String?, wordB : String?
+    private var mCard : TangoCard?
+    private var basePos : CGPoint?
+    
+    // 正解のカードかどうか
+    public var isCorrect : Bool = false
+    
+    // 正解、不正解のまるばつを表示するかどうか
+    private var isShowCorrect : Bool = false
+    
+    // ボックス移動要求（親への通知用)
+    private var mRequest = RequestToParent.None
+    
+    public func getRequest() -> RequestToParent {
+        return mRequest
+    }
+    
+    public func setRequest( _ request : RequestToParent) {
+        mRequest = request
+    }
+
+    // MARK: Accessor
+    public func getTangoCard() -> TangoCard? {
+        return mCard
+    }
+    
+    public func setState( _ state : State) {
+        mState = state
+    }
+    
+    /**
+     * 正解/不正解を設定する
+     * @param showCorrect
+     */
+    public func setShowCorrect( _ showCorrect : Bool) {
+        mState = State.ShowAnswer
+        isShowCorrect = showCorrect
+    }
+    
+    public override func getRect() -> CGRect {
+        return CGRect(x: pos.x - size.width / 2,
+                      y: pos.y - size.height / 2,
+                      width: pos.x + size.width / 2,
+                      height: pos.y + size.height / 2)
+    }
+    
+    // MARK: Initializer
+    /**
+     *
+     * @param card
+     * @param isCorrect 正解のカードかどうか(true:正解のカード / false:不正解のカード)
+     * @param isEnglish 出題タイプ false:英語 -> 日本語 / true:日本語 -> 英語
+     */
+    public init(card : TangoCard, isCorrect : Bool, isEnglish : Bool, screenW : CGFloat, height : CGFloat)
+    {
+        mState = State.None;
+        mCard = card;
+
+        super.init(priority : 0, x : 0, y : 0, width : screenW - UDpi.toPixel(67), height : height)
+        
+        self.isCorrect = isCorrect
+        
+        if isEnglish {
+            wordA = card.wordA
+            wordB = card.wordB
+        } else {
+            wordA = card.wordB
+            wordB = card.wordA
+        }
+        
+        basePos = CGPoint(x: size.width / 2, y: size.height / 2)
+    }
+
+    // MARK: Methods
+    /**
+     * 出現時の拡大処理
+     */
+    public func startAppearance(frame : Int) {
 //        Size _size = new Size(size.width, size.height);
 //        setSize(0, 0);
 //        startMovingSize(_size.width, _size.height, frame);
 //        mState = State.Appearance;
-//    }
-//    
-//    /**
-//     * 消えるときの縮小処理
-//     * @param frame
-//     */
-//    public void startDisappearange(int frame) {
+    }
+
+    /**
+     * 消えるときの縮小処理
+     * @param frame
+     */
+    public func startDisappearange(frame : Int) {
 //        startMovingSize(0, 0, frame);
 //        mState = State.Disappearance;
-//    }
-//    
-//    /**
-//     * 自動で実行される何かしらの処理
-//     * @return
-//     */
-//    public DoActionRet doAction() {
-//        switch (mState) {
-//        case Appearance:
-//        case Disappearance:
-//            if (autoMoving()) {
-//                return DoActionRet.Redraw;
-//            }
-//            break;
-//        }
-//        return DoActionRet.None;
-//    }
-//    
-//    /**
-//     * 自動移動完了
-//     */
-//    public void endMoving() {
-//        if (mState == State.Disappearance) {
-//            // 親に非表示完了を通知する
-//            mRequest = RequestToParent.End;
-//        }
-//        else {
-//            mState = State.None;
-//        }
-//    }
-//    
-//    /**
-//     * Drawable methods
-//     */
-//    /**
-//     * 描画処理
-//     * @param canvas
-//     * @param paint
-//     * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
-//     */
-//    public void draw(Canvas canvas, Paint paint, PointF offset) {
+    }
+
+    /**
+     * 自動で実行される何かしらの処理
+     * @return
+     */
+    public override func doAction() -> DoActionRet {
+        switch (mState) {
+        case .Appearance:
+            fallthrough
+        case .Disappearance:
+            if (autoMoving()) {
+                return DoActionRet.Redraw
+            }
+            break
+        default:
+            break
+        }
+        return DoActionRet.None
+    }
+    
+    /**
+     * 自動移動完了
+     */
+    public override func endMoving() {
+        if (mState == State.Disappearance) {
+            // 親に非表示完了を通知する
+            mRequest = RequestToParent.End
+        }
+        else {
+            mState = State.None
+        }
+    }
+    
+    /**
+     * 描画処理
+     * @param canvas
+     * @param paint
+     * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
+     */
+    public override func draw() {
 //        PointF _pos = new PointF(pos.x, pos.y);
 //        if (offset != null) {
 //            _pos.x += offset.x;
@@ -237,46 +222,47 @@ import Foundation
 //            UDraw.drawText(canvas, text.toString(), UAlignment.Center, UDpi.toPixel(FONT_SIZE),
 //                           _pos2.x, _pos2.y, TEXT_COLOR);
 //        }
-//        
-//    }
-//    
-//    /**
-//     * タッチ処理
-//     * @param vt
-//     * @return
-//     */
-//    public boolean touchEvent(ViewTouch vt) {
-//        return touchEvent(vt, null);
-//    }
-//    
-//    public boolean touchEvent(ViewTouch vt, PointF parentPos) {
-//        boolean done = false;
-//        
-//        // アニメーションや移動中はタッチ受付しない
-//        if (isMovingSize) {
-//            return false;
-//        }
-//        
-//        switch(vt.type) {
-//        case Touch:        // タッチ開始
-//            break;
-//        case Click: {
-//            Rect rect = new Rect((int)(pos.x + parentPos.x),
-//                                 (int)(pos.y + parentPos.y),
-//                                 (int)(pos.x + parentPos.x + size.width),
-//                                 (int)(pos.y + parentPos.y + size.height));
-//            if (rect.contains((int)vt.touchX(), (int)vt.touchY())) {
-//                setRequest(RequestToParent.Touch);
-//                done = true;
-//            }
-//        }
-//        break;
-//        }
-//        
-//        return done;
-//    }
-//    
-//    /**
-//     * Callbacks
-//     */
-//}
+        
+    }
+    
+    /**
+     * タッチ処理
+     * @param vt
+     * @return
+     */
+    public func touchEvent( vt : ViewTouch ) -> Bool {
+        return touchEvent(vt: vt, offset: nil)
+    }
+    
+    public override func touchEvent( vt : ViewTouch, offset : CGPoint?) -> Bool{
+        var done = false
+        
+        // アニメーションや移動中はタッチ受付しない
+        if isMovingSize {
+            return false
+        }
+        var offset = offset
+        if offset == nil {
+            offset = CGPoint()
+        }
+        
+        switch vt.type {
+        case .Touch:        // タッチ開始
+            break
+        case .Click:
+            let rect = CGRect(x: pos.x + offset!.x,
+                              y: pos.y + offset!.y,
+                              width: size.width,
+                              height: size.height )
+            if rect.contains(x: vt.touchX, y: vt.touchY) {
+                setRequest(.Touch)
+                done = true
+            }
+            break
+        default:
+            break
+        }
+        
+        return done
+    }
+}
