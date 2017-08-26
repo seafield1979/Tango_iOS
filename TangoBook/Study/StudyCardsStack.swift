@@ -142,6 +142,9 @@ public class StudyCardsStack : UDrawable {
 
         // スライドしたカードをボックスに移動する処理
         for i in 0..<mCards.count {
+            if i >= mCards.count {
+                break
+            }
             let card : StudyCard = mCards[i]
             
             if card.getMoveRequest() == StudyCard.RequestToParent.MoveToOK ||

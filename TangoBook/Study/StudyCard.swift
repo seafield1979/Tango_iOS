@@ -376,7 +376,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
     }
 
     public override func touchEvent( vt : ViewTouch, offset : CGPoint?) -> Bool {
-        var _pos = CGPoint()
+        var _pos = pos
         if offset != nil {
             _pos.x += offset!.x
             _pos.y += offset!.y
