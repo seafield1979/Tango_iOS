@@ -276,11 +276,11 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
      */
     func saveStudyResult( book : TangoBook )
     {
-        var okCards : List<TangoCard> = mCardsManager!.getOkCards()
-        var ngCards : List<TangoCard> = mCardsManager!.getNgCards()
+        let okCards : List<TangoCard> = mCardsManager!.getOkCards()
+        let ngCards : List<TangoCard> = mCardsManager!.getNgCards()
         
         // 単語帳の学習履歴
-        var historyId = TangoBookHistoryDao.addOne(
+        let historyId = TangoBookHistoryDao.addOne(
             bookId: book.getId(), okNum: okCards.count, ngNum: ngCards.count)
         
         // 単語帳の最終学習日時

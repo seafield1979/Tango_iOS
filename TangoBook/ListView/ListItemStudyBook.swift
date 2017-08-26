@@ -111,19 +111,26 @@ public class ListItemStudyBook : UListItem {
         x += UDpi.toPixel(ICON_W + MARGIN_H)
         
         // 単語帳の名前
-        titleNode = SKNodeUtil.createLabelNode(text: mTextName!, fontSize: UDpi.toPixel(FONT_SIZE), color: UColor.makeColor(50,150,50),
-                                               alignment: .Left, pos: CGPoint(x:x, y:y))
+        titleNode = SKNodeUtil.createLabelNode(
+            text: mTextName!, fontSize: UDpi.toPixel(FONT_SIZE),
+            color: UColor.makeColor(50,150,50),
+            alignment: .Left, pos: CGPoint(x:x, y:y)).node
+        
         parentNode.addChild2(titleNode!)
         
         y += margin
         // 学習日時
-        dateNode = SKNodeUtil.createLabelNode(text: mStudiedDate!, fontSize: UDpi.toPixel(FONT_SIZE2), color: TEXT_COLOR, alignment: .Left, pos: CGPoint(x: x, y: y))
+        dateNode = SKNodeUtil.createLabelNode(
+            text: mStudiedDate!, fontSize: UDpi.toPixel(FONT_SIZE2), color: TEXT_COLOR,
+            alignment: .Left, pos: CGPoint(x: x, y: y)).node
         parentNode.addChild2( dateNode! )
 
         y += margin
         
         // カード数
-        infoNode = SKNodeUtil.createLabelNode(text: mCardCount!, fontSize: UDpi.toPixel(FONT_SIZE2), color: UColor.DarkGray, alignment: .Left, pos: CGPoint(x: x, y: y))
+        infoNode = SKNodeUtil.createLabelNode(
+            text: mCardCount!, fontSize: UDpi.toPixel(FONT_SIZE2),
+            color: UColor.DarkGray, alignment: .Left, pos: CGPoint(x: x, y: y)).node
         parentNode.addChild2( infoNode! )
     }
 

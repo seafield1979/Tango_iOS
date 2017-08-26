@@ -54,7 +54,7 @@ public class ULogWindow : UWindow {
         
         var y : CGFloat = 0
         for _ in 0..<maxLog {
-            let n = SKNodeUtil.createLabelNode(text: "", fontSize: fontSize, color: .white, alignment: .Left, pos: CGPoint(x:10, y: y))
+            let n : SKLabelNode = SKNodeUtil.createLabelNode(text: "", fontSize: fontSize, color: .white, alignment: .Left, pos: CGPoint(x:10, y: y)).node
             labelNodes.append(n)
             clientNode.addChild(n)
             y += fontSize

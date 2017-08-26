@@ -93,8 +93,21 @@ public class SKNodeUtil {
     
     
     // MARK : Label系
+    public static func createLabelNode( text : String, fontSize: CGFloat, color :SKColor, alignment : UAlignment, pos: CGPoint?) -> (node: SKLabelNode, size: CGSize)
+    {
+        if text.contains("\n") {
+            // 複数行
+            return SKNodeUtil.createMultiLineLabelNode(text: text, fontSize: fontSize, color: color, alignment: alignment, pos: pos)
+        } else {
+            // 一行
+            return SKNodeUtil.createOneLineLabelNode(text: text, fontSize: fontSize, color: color, alignment: alignment, pos: pos)
+        }
+    }
     
-    public static func createLabelNode( text : String, fontSize: CGFloat, color : SKColor, alignment : UAlignment, pos: CGPoint?) -> SKLabelNode
+    /**
+     * 改行なしのラベルを作成
+     */
+    public static func createOneLineLabelNode( text : String, fontSize: CGFloat, color : SKColor, alignment : UAlignment, pos: CGPoint?) -> (node: SKLabelNode, size: CGSize)
     {
         let n = SKLabelNode(text: text)
         n.fontColor = color
@@ -104,35 +117,13 @@ public class SKNodeUtil {
             n.position = pos!
         }
         
-        switch alignment {
-        case .None:
-            n.horizontalAlignmentMode = .left
-            n.verticalAlignmentMode = .top
-        case .CenterX:
-            n.horizontalAlignmentMode = .center
-            n.verticalAlignmentMode = .top
-        case .CenterY:
-            n.horizontalAlignmentMode = .left
-            n.verticalAlignmentMode = .center
-        case .Center:
-            n.horizontalAlignmentMode = .center
-            n.verticalAlignmentMode = .center
-        case .Left:
-            n.horizontalAlignmentMode = .left
-            n.verticalAlignmentMode = .top
-        case .Right:
-            n.horizontalAlignmentMode = .right
-            n.verticalAlignmentMode = .top
-        case .Right_CenterY:
-            n.horizontalAlignmentMode = .right
-            n.verticalAlignmentMode = .center
-        }
+        n.setAlignment( alignment )
         
-        return n
+        return (n, n.frame.size)
     }
     
     /**
-     改行に対応したLabel
+     改行ありのラベルを作成
      */
     static func createMultiLineLabelNode(text: String, fontSize: CGFloat, color : SKColor, alignment : UAlignment, pos: CGPoint?) -> (node: SKLabelNode, size: CGSize)
     {
@@ -144,8 +135,9 @@ public class SKNodeUtil {
         for subString in subStrings {
             let labelTemp = SKLabelNode(fontNamed: SKNodeUtil.fontName)
             labelTemp.text = subString
-            labelTemp.horizontalAlignmentMode = .left
-            labelTemp.verticalAlignmentMode = .top
+//            labelTemp.horizontalAlignmentMode = .left
+//            labelTemp.verticalAlignmentMode = .top
+            labelTemp.setAlignment(alignment)
             labelTemp.fontColor = color
             labelTemp.fontSize = fontSize
             if labelTemp.frame.size.width > maxWidth {
@@ -166,6 +158,14 @@ public class SKNodeUtil {
             
             subStringNumber += 1
         }
+        
+        // アライメントによる座標補正
+        if alignment == .CenterY || alignment == .Center || alignment == .Right_CenterY {
+            let centerY = (CGFloat(subStringNumber) * fontSize) / 2
+            labelOutPut.position.y -= (centerY - fontSize / 2)
+        }
+        
         return (labelOutPut, CGSize(width: maxWidth, height: CGFloat(subStringNumber) * fontSize))
     }
+    
 }

@@ -220,14 +220,14 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         // Text
         // WordA
         if wordA != nil {
-            wordANode = SKNodeUtil.createLabelNode(text: wordA!, fontSize: UDpi.toPixel(FONT_SIZE_A), color: .black, alignment: .Center, pos: CGPoint(x: 0, y: size.height / 2))
+            wordANode = SKNodeUtil.createLabelNode(text: wordA!, fontSize: UDpi.toPixel(FONT_SIZE_A), color: .black, alignment: .Center, pos: CGPoint(x: 0, y: size.height / 2)).node
             parentNode.addChild2( wordANode! )
             wordANode!.isHidden = true
         }
         
         // WordB
         if wordB != nil {
-            wordBNode = SKNodeUtil.createLabelNode(text: wordB!, fontSize: UDpi.toPixel(FONT_SIZE_A), color: .black, alignment: .Center, pos: CGPoint(x: 0, y: size.height / 2))
+            wordBNode = SKNodeUtil.createLabelNode(text: wordB!, fontSize: UDpi.toPixel(FONT_SIZE_A), color: .black, alignment: .Center, pos: CGPoint(x: 0, y: size.height / 2)).node
             parentNode.addChild2( wordBNode! )
             wordBNode!.isHidden = true
         }
@@ -327,7 +327,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         _pos.x += slideX
 
         // BG
-        // スライド量に合わせて色を帰る
+        // スライド量に合わせて色を変更
         if (isMoveToBox) {
         } else {
             if (slideX == 0) {

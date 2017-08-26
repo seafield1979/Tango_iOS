@@ -1,7 +1,7 @@
 //
-//  PageViewBackup.swift
+//  PageViewResult.swift
 //  TangoBook
-//
+//    学習後のリザルトページを管理するクラス
 //  Created by Shusuke Unno on 2017/07/24.
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
@@ -68,12 +68,9 @@ public class PageViewResult : UPageView, UButtonCallbacks, UListItemCallbacks {
         self.mBook = mBook
     }
 
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init( topScene : TopScene, title : String) {
         super.init( topScene: topScene, pageId: PageIdMain.StudyResult.rawValue, title: title)
-        
     }
     
     /**
@@ -141,52 +138,70 @@ public class PageViewResult : UPageView, UButtonCallbacks, UListItemCallbacks {
 
         mTitleText!.addToDrawManager()
         y += mTitleText!.getHeight() + UDpi.toPixel(MARGIN_V_S)
-        //
-        //        // Result
-        //        String text = "OK: " + mOkCards.size() + "  NG: " + mNgCards.size();
-        //        mResultText = UTextView.createInstance(text, UDpi.toPixel(FONT_SIZE), DRAW_PRIORITY,
-        //                UAlignment.CenterX, width, false, false, width / 2, y, width,
-        //                TEXT_COLOR, 0);
-        //        mResultText.addToDrawManager();
-        //        y += mResultText.getHeight() + UDpi.toPixel(MARGIN_V_S);
-        //
-        //        // Buttons
-        //        int buttonW = (width - marginH * 4) / 3;
-        //        float x = UDpi.toPixel(MARGIN_H);
-        //        // Retury1
-        //        mButtonRetry1 = new UButtonText(self, UButtonType.Press, ButtonIdRetry1,
-        //                DRAW_PRIORITY,UResourceManager.getStringById(R.string.retry1),
-        //                x, y, buttonW, buttonH,
-        //                UDpi.toPixel(BUTTON_FONT_SIZE), BUTTON_TEXT_COLOR, BUTTON1_BG_COLOR);
-        //        mButtonRetry1.addToDrawManager();
-        //        x += buttonW + marginH;
-        //
-        //        // Retry2
-        //        mButtonRetry2 = new UButtonText(self, UButtonType.Press, ButtonIdRetry2,
-        //                DRAW_PRIORITY, UResourceManager.getStringById(R.string.retry2),
-        //                x, y, buttonW, buttonH,
-        //                UDpi.toPixel(BUTTON_FONT_SIZE), BUTTON_TEXT_COLOR, BUTTON1_BG_COLOR);
-        //        mButtonRetry2.addToDrawManager();
-        //        if (mNgCards.size() == 0) {
-        //            mButtonRetry2.setEnabled(false);
-        //        }
-        //        x += buttonW + marginH;
-        //
-        //        // Exit
-        //        mButtonExit = new UButtonText(self, UButtonType.Press, ButtonIdReturn,
-        //                DRAW_PRIORITY, UResourceManager.getStringById(R.string.finish),
-        //                x, y, buttonW, buttonH,
-        //                UDpi.toPixel(BUTTON_FONT_SIZE), BUTTON_TEXT_COLOR, BUTTON2_BG_COLOR);
-        //        mButtonExit.addToDrawManager();
-        //
-        //        y += buttonH + marginV;
-        //
-        //        // ListView
-        //        mListView = new ListViewResult(self, mOkCards, mNgCards, mStudyMode, mStudyType,
-        //                PRIORITY_LV, marginH, y,
-        //                width - marginH * 2, height - (int)y - marginV, Color.WHITE);
-        //        mListView.addToDrawManager();
-        //        mListView.setFrameColor(Color.BLACK);
+
+        // Result
+        let text = "OK: \(mOkCards!.count)  NG: \(mNgCards!.count)"
+        mResultText = UTextView.createInstance(
+            text : text, fontSize : UDpi.toPixel(FONT_SIZE),
+            priority : DRAW_PRIORITY, alignment : UAlignment.CenterX,
+            createNode : true, multiLine : false, isDrawBG : false,
+            x : width/2, y : y, width : width, color : TEXT_COLOR, bgColor : nil)
+        
+        mResultText!.addToDrawManager()
+        
+        y += mResultText!.getHeight() + UDpi.toPixel(MARGIN_V_S)
+        
+        // Buttons
+        let buttonW = (width - marginH * 4) / 3
+        var x = UDpi.toPixel(MARGIN_H)
+        // Retury1
+        mButtonRetry1 = UButtonText(
+            callbacks : self, type : UButtonType.Press, id : ButtonIdRetry1,
+            priority : DRAW_PRIORITY, text : UResourceManager.getStringByName("retry1"), createNode : true,
+            x : x, y : y, width : buttonW, height : buttonH,
+            fontSize : UDpi.toPixel(BUTTON_FONT_SIZE),
+            textColor : BUTTON_TEXT_COLOR, bgColor : BUTTON1_BG_COLOR)
+        
+        mButtonRetry1!.addToDrawManager()
+        x += buttonW + marginH
+        
+        // Retry2
+        mButtonRetry2 = UButtonText(
+            callbacks : self, type : UButtonType.Press, id : ButtonIdRetry2,
+            priority : DRAW_PRIORITY, text : UResourceManager.getStringByName("retry2"), createNode : true,
+            x : x, y : y, width : buttonW, height : buttonH,
+            fontSize : UDpi.toPixel(BUTTON_FONT_SIZE), textColor : BUTTON_TEXT_COLOR,
+            bgColor : BUTTON1_BG_COLOR)
+        mButtonRetry2!.addToDrawManager()
+        if mNgCards!.count == 0 {
+            mButtonRetry2!.setEnabled(false)
+        }
+        x += buttonW + marginH
+        
+        // Exit
+        mButtonExit = UButtonText(
+            callbacks : self, type : UButtonType.Press, id : ButtonIdReturn,
+            priority : DRAW_PRIORITY,
+            text : UResourceManager.getStringByName("finish"), createNode : true,
+            x : x, y : y,
+            width : buttonW, height : buttonH,
+            fontSize : UDpi.toPixel(BUTTON_FONT_SIZE), textColor : BUTTON_TEXT_COLOR,
+            bgColor : BUTTON2_BG_COLOR)
+        
+        mButtonExit!.addToDrawManager()
+
+        y += buttonH + marginV
+
+        // ListView
+        mListView = ListViewResult(
+            topScene : mTopScene, listItemCallbacks : self, okCards : mOkCards!,
+            ngCards : mNgCards!, studyMode : mStudyMode, studyType : mStudyType,
+            priority : PRIORITY_LV, x : marginH, y : y,
+            width : width - marginH * 2, height : height - y-marginV,
+            color : .white)
+        
+        mListView!.addToDrawManager()
+        mListView!.setFrameColor(.black)
     }
     
     /**
@@ -197,9 +212,7 @@ public class PageViewResult : UPageView, UButtonCallbacks, UListItemCallbacks {
         return false
     }
     
-    /**
-     * Callbacks
-     */
+    // MARK: Callbacks
     /**
      * UButtonCallbacks
      */
@@ -219,7 +232,7 @@ public class PageViewResult : UPageView, UButtonCallbacks, UListItemCallbacks {
             PageViewManagerMain.getInstance().startStudyPage(book: mBook!, cards: mNgCards, stack: false)
             
         case ButtonIdReturn:
-            PageViewManagerMain.getInstance().popPage()
+            _ = PageViewManagerMain.getInstance().popPage()
         default:
             break
         }
@@ -235,28 +248,22 @@ public class PageViewResult : UPageView, UButtonCallbacks, UListItemCallbacks {
      */
     public func ListItemClicked(item : UListItem) {
         // クリックされた項目の詳細を表示する
-//        if (!(item instanceof ListItemResult)) {
-//            return
-//        }
-//
-//        ListItemResult _item = (ListItemResult)item;
-//        if (_item.getType() != ListItemResult.ListItemResultType.Title) {
-//
-//            mCardDialog = new DialogCard(_item.getCard(), true, mTopScene.getWidth(), mTopScene
-//                    .getHeight());
-//            mCardDialog.addToDrawManager();
-//        }
+        if !(item is ListItemResult) {
+            return
+        }
+
+        if let _item = item as? ListItemResult {
+            if _item.getType() != ListItemResult.ListItemResultType.Title {
+
+                mCardDialog = DialogCard(
+                    topScene : mTopScene, card : _item.getCard()!, isAnimation : true )
+                
+                mCardDialog!.addToDrawManager()
+            }
+        }
     }
 
     public func ListItemButtonClicked( item : UListItem, buttonId : Int) {
 
     }
 }
-
-//public class PageViewResult extends UPageView
-//        implements UButtonCallbacks, UListItemCallbacks
-//{
-//
-//
-//}
-//

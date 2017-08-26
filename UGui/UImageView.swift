@@ -82,7 +82,7 @@ public class UImageView : UDrawable {
                 titleNode = SKNodeUtil.createLabelNode(
                     text: title, fontSize: mFontSize,
                     color: mTitleColor!, alignment: .CenterX,
-                    pos: CGPoint(x: imageNode!.frame.size.width / 2, y: imageNode!.frame.size.height + UDpi.toPixel(0)))
+                    pos: CGPoint(x: imageNode!.frame.size.width / 2, y: imageNode!.frame.size.height + UDpi.toPixel(0))).node
             }
             parentNode.addChild2( titleNode! )
         }

@@ -13,13 +13,7 @@ import SpriteKit
  * テキストを表示するボタン
  */
 public class UButtonText : UButton {
-    /**
-     * Enums
-     */
-    
-    /**
-     * Consts
-     */
+    // MARK: Constants
     public static let TAG = "UButtonText"
     
     private static let MARGIN_V : Int = 10
@@ -28,17 +22,16 @@ public class UButtonText : UButton {
     static let DEFAULT_TEXT_COLOR = UIColor.black
     static let PULL_DOWN_COLOR = UColor.DarkGray
     
-    /**
-     * Member Variables
-     */
+    
+    // MARK: Properties
     // SpriteKitのノード
-    private var labelNode : SKLabelNode
+    private var labelNode : SKLabelNode?
     private var bgNode : SKShapeNode?
     private var bg2Node : SKShapeNode?
     private var imageNode : SKSpriteNode?
     private var pullNode : SKShapeNode?
     
-    private var mText : String?
+    private var mText : String
     private var mTextColor : UIColor
     private var mFontSize : CGFloat = 0
     private var mImage : UIImage?
@@ -47,22 +40,92 @@ public class UButtonText : UButton {
     private var mImageSize : CGSize? = CGSize()
     private var mBasePos : CGPoint = CGPoint()
     
-    /**
-     * Get/Set
-     */
+    // MARK: Initializer
+    init(callbacks : UButtonCallbacks?, type : UButtonType, id : Int,
+         priority : Int, text : String, createNode : Bool,
+         x : CGFloat, y : CGFloat, width : CGFloat, height : CGFloat,
+         fontSize : CGFloat, textColor : UIColor?, bgColor : UIColor?)
+    {
+        self.mText = text
+        self.mTextColor = textColor!
+        self.mFontSize = fontSize
+        
+        super.init(callbacks: callbacks, type: type, id: id, priority: priority,
+                   x: x, y: y, width: width, height: height, color: bgColor)
+        
+        if createNode {
+            initSKNode()
+        }
+    }
     
-    public func getmText() -> String?{
+    /**
+     * SpriteKitのノードを作成する
+     */
+    public override func initSKNode() {
+        // ノードを作成
+        // parent
+        self.parentNode.zPosition = CGFloat(drawPriority)
+        self.parentNode.position = pos
+        
+        // BG
+        let bgH = (type == .BGColor) ? size.height : (size.height - UDpi.toPixel(UButton.PRESS_Y))
+        
+        self.bgNode = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: bgH).convToSK(),
+                                  cornerRadius: 10.0)
+        self.bgNode!.fillColor = color
+        self.bgNode!.strokeColor = .clear
+        self.bgNode!.zPosition = 0.1
+        self.parentNode.addChild2(bgNode!)
+        
+        // Label
+        mBasePos = CGPoint(x: size.width / 2, y: bgH / 2)
+
+        let result = SKNodeUtil.createLabelNode(text: mText, fontSize: mFontSize, color: mTextColor, alignment: .Center, pos: mBasePos)
+        self.labelNode = result.node
+        self.bgNode!.addChild2(self.labelNode!)
+        
+        if size.height == 0 {
+            let size = UDraw.getTextSize(text: mText, fontSize: mFontSize)
+            setSize(size.width, size.height + UDpi.toPixel( UButtonText.MARGIN_V) * 2)
+        }
+        
+        // BG2(影の部分)
+        if type != .BGColor {
+            let _h = UDpi.toPixel( UButton.PRESS_Y + 20)
+            self.bg2Node = SKShapeNode(rect: CGRect(x:0, y:bgH - UDpi.toPixel(20), width: size.width, height: _h).convToSK(),
+                                       cornerRadius: 10.0)
+            self.bg2Node!.fillColor = pressedColor
+            self.bg2Node!.strokeColor = .clear
+            self.parentNode.addChild2(self.bg2Node!)
+        }
+        // 画像
+        if mImage != nil {
+            let texture = SKTexture(cgImage: mImage!.cgImage!)
+            imageNode = SKSpriteNode(texture: texture)
+            imageNode!.size = mImageSize!
+            calcImageOffset(alignment: mImageAlignment, convSKPos: false)
+            bgNode!.addChild2(imageNode!)
+        }
+        
+    }
+
+    // MARK: Accessor
+    public func getmText() -> String{
         return mText
     }
     
     public func setText(text : String?) {
-        self.mText = text
-        labelNode.text = text
+        self.mText = text ?? ""
+        if labelNode != nil {
+            labelNode!.text = text
+        }
     }
     
     public func setTextColor(textColor : UIColor) {
         self.mTextColor = textColor
-        labelNode.fontColor = textColor
+        if labelNode != nil {
+            labelNode!.fontColor = textColor
+        }
     }
     
     public func setImage(imageName : ImageName, imageSize : CGSize, initNode: Bool) {
@@ -140,7 +203,9 @@ public class UButtonText : UButton {
     }
     
     public func setTextOffset(x : CGFloat, y : CGFloat) {
-        labelNode.position = CGPoint(x: mBasePos.x + x, y: mBasePos.y + y).convToSK()
+        if labelNode != nil {
+            labelNode!.position = CGPoint(x: mBasePos.x + x, y: mBasePos.y + y).convToSK()
+        }
     }
     
     public func setImageOffset(x : CGFloat, y : CGFloat) {
@@ -150,90 +215,7 @@ public class UButtonText : UButton {
         }
     }
     
-    /**
-     * Constructor
-     */
-    init(callbacks : UButtonCallbacks?, type : UButtonType, id : Int,
-         priority : Int, text : String, createNode : Bool,
-         x : CGFloat, y : CGFloat, width : CGFloat, height : CGFloat,
-         fontSize : CGFloat, textColor : UIColor?, bgColor : UIColor?)
-    {
-        self.mText = text
-        self.mTextColor = textColor!
-        self.mFontSize = fontSize
-        
-        self.labelNode = SKLabelNode(text: text)
-        
-        super.init(callbacks: callbacks, type: type, id: id, priority: priority,
-                   x: x, y: y, width: width, height: height, color: bgColor)
-        
-        if createNode {
-            initSKNode()
-        }
-    }
-    
-    /**
-     * SpriteKitのノードを作成する
-     */
-    public override func initSKNode() {
-        // ノードを作成
-        // parent
-        self.parentNode.zPosition = CGFloat(drawPriority)
-        self.parentNode.position = pos
-        
-        // BG
-        let bgH = (type == .BGColor) ? size.height : (size.height - UDpi.toPixel(UButton.PRESS_Y))
-        
-        self.bgNode = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: bgH).convToSK(),
-                                  cornerRadius: 10.0)
-        self.bgNode!.fillColor = color
-        self.bgNode!.strokeColor = .clear
-        self.bgNode!.zPosition = 0.1
-        self.parentNode.addChild2(bgNode!)
-        
-        // Label
-        self.labelNode.fontColor = mTextColor
-        self.labelNode.fontSize = mFontSize
-        self.labelNode.fontName = "HiraKakuProN-W6"
-        self.labelNode.horizontalAlignmentMode = .center
-        self.labelNode.verticalAlignmentMode = .center
-        mBasePos = CGPoint(x: size.width / 2, y: bgH / 2)
-        self.labelNode.position = mBasePos
-        self.bgNode!.addChild2(self.labelNode)
-        
-        if size.height == 0 {
-            var size : CGSize
-            if mText == nil {
-                size = CGSize()
-            } else {
-                size = UDraw.getTextSize(text: mText!, fontSize: mFontSize)
-            }
-            setSize(size.width, size.height + UDpi.toPixel( UButtonText.MARGIN_V) * 2)
-        }
-        
-        // BG2(影の部分)
-        if type != .BGColor {
-            let _h = UDpi.toPixel( UButton.PRESS_Y + 20)
-            self.bg2Node = SKShapeNode(rect: CGRect(x:0, y:bgH - UDpi.toPixel(20), width: size.width, height: _h).convToSK(),
-                                       cornerRadius: 10.0)
-            self.bg2Node!.fillColor = pressedColor
-            self.bg2Node!.strokeColor = .clear
-            self.parentNode.addChild2(self.bg2Node!)
-        }
-        // 画像
-        if mImage != nil {
-            let texture = SKTexture(cgImage: mImage!.cgImage!)
-            imageNode = SKSpriteNode(texture: texture)
-            imageNode!.size = mImageSize!
-            calcImageOffset(alignment: mImageAlignment, convSKPos: false)
-            bgNode!.addChild2(imageNode!)
-        }
-        
-    }
-    
-    /**
-     * Methods
-     */
+    // MARK: Methods
     public func setChecked(_ checked : Bool, initNode : Bool) {
         super.setChecked(checked)
         

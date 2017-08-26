@@ -6,21 +6,18 @@
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import UIKit
+import SpriteKit
 
-public class ListItemResult : UListItem {
-    /**
-     * Enums
-     */
+public class ListItemResult : UListItem, UButtonCallbacks {
+    
+    // MARK: Enums
     public enum ListItemResultType : Int{
         case Title
         case OK
         case NG
     }
 
-    /**
-     * Constants
-     */
+    // MARK: Constants
     public let TAG = "ListItemOption"
 
     private static let MAX_TEXT = 20
@@ -30,16 +27,18 @@ public class ListItemResult : UListItem {
     // 座標系
     private static let TITLE_H = 27
     private static let CARD_H = 40
-    private let FONT_SIZE = 17
+    private static let FONT_SIZE = 17
     private static let STAR_ICON_W = 34
     private let FRAME_WIDTH = 1
+    private static let MARGIN_H = 10
 
     // color
     private let FRAME_COLOR : UIColor = .black
 
-    /**
-     * Member variables
-     */
+    // MARK: Properties
+    // SpriteKit Node
+    private var titleNode : SKLabelNode!
+    
     private var mType : ListItemResultType
     private var mText : String?, mText2 : String?
     private var isOK : Bool = false
@@ -48,9 +47,7 @@ public class ListItemResult : UListItem {
     private var mStarButton : UButtonImage?
     private var mLearnedTextW : Int = 0        // "覚えた"のテキストの幅
 
-    /**
-     * Get/Set
-     */
+    // MARK: Accessor
     public func getType() -> ListItemResultType {
         return mType
     }
@@ -59,19 +56,29 @@ public class ListItemResult : UListItem {
         return mCard
     }
 
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init(listItemCallbacks : UListItemCallbacks?,
                 type : ListItemResultType, isTouchable : Bool, card : TangoCard?,
-                x : CGFloat, width : CGFloat, textColor : UIColor, color : UIColor)
+                x : CGFloat, width : CGFloat,  height : CGFloat,
+                textColor : UIColor, bgColor : UIColor)
     {
         mType = type
         mTextColor = textColor
         mCard = card
 
-        super.init( callbacks : listItemCallbacks, isTouchable : isTouchable, x : x, width : width, height : 0, bgColor : color, frameW : UDpi.toPixel(FRAME_WIDTH), frameColor : FRAME_COLOR )
+        super.init( callbacks : listItemCallbacks, isTouchable : isTouchable, x : x, width : width, height : height, bgColor : bgColor, frameW : UDpi.toPixel(FRAME_WIDTH), frameColor : FRAME_COLOR )
     }
+    
+    /**
+     * SpriteKitのノード作成
+     */
+//    public override func initSKNode() {
+//        // タイトル(カードの名前)
+//        titleNode = SKNodeUtil.createLabelNode(text: mText, fontSize: UDpi.toPixel(FONT_SIZE), color: mTextColor, alignment: .Center, pos: CGPoint(x: size.width / 2, y: size.height / 2))
+//        parentNode.addChild(titleNode!)
+//        
+//        
+//    }
 
     // ListItemResultType.Title のインスタンスを生成する
     public static func createTitle( isOK : Bool, width : CGFloat,
@@ -81,12 +88,23 @@ public class ListItemResult : UListItem {
         let instance = ListItemResult(
             listItemCallbacks : nil,
             type : ListItemResultType.Title, isTouchable : false,
-            card : nil, x : 0, width : width,
-            textColor : textColor, color : bgColor )
+            card : nil, x : 0, width : width, height: UDpi.toPixel(ListItemResult.TITLE_H),
+            textColor : textColor, bgColor : bgColor )
         
         instance.isOK = isOK
         instance.mText = text
-        instance.size.height = UDpi.toPixel(ListItemResult.TITLE_H)
+        
+        // SpriteKit Node
+        let fontSize = UDpi.toPixel(ListItemResult.FONT_SIZE)
+        let node = SKNodeUtil.createLabelNode(text: text, fontSize: fontSize, color: .white, alignment: .Center, pos: CGPoint(x: instance.size.width / 2, y: instance.size.height / 2)).node
+        instance.parentNode.addChild2(node)
+        
+        if isOK {
+            // 「覚えた」のテキスト
+            let node2 = SKNodeUtil.createLabelNode(text: UResourceManager.getStringByName("learned"), fontSize: fontSize, color: .white, alignment: .Right_CenterY, pos: CGPoint(x: instance.size.width - UDpi.toPixel(ListItemResult.MARGIN_H), y: instance.size.height / 2)).node
+            instance.parentNode.addChild2(node2)
+        }
+        
         return instance
     }
 
@@ -99,12 +117,14 @@ public class ListItemResult : UListItem {
     {
         let instance : ListItemResult = ListItemResult(
             listItemCallbacks : nil, type : ListItemResultType.OK, isTouchable : true,
-            card : card, x : 0, width : width,
-            textColor : textColor, color : bgColor)
+            card : card, x : 0, width : width, height: UDpi.toPixel(ListItemResult.CARD_H),
+            textColor : textColor, bgColor : bgColor)
 
         instance.mText = ListItemResult.convString(isEnglish ? card.wordA : card.wordB)
         instance.mText2 = ListItemResult.convString(isEnglish ? card.wordB : card.wordA)
-        instance.size.height = UDpi.toPixel(ListItemResult.CARD_H)
+        
+        let node = SKNodeUtil.createLabelNode(text: instance.mText!, fontSize: UDpi.toPixel(ListItemResult.FONT_SIZE), color: .black, alignment: .Center, pos: CGPoint(x: instance.size.width / 2, y: instance.size.height / 2)).node
+        instance.parentNode.addChild2(node)
         
         // Starボタンを追加(On/Offあり)
         if star {
@@ -123,6 +143,7 @@ public class ListItemResult : UListItem {
             
             instance.mStarButton!.addState( image: image2!)
             instance.mStarButton!.setState(card.star ? 1 : 0)
+            instance.parentNode.addChild2( instance.mStarButton!.parentNode )
         }
         return instance
     }
@@ -134,18 +155,21 @@ public class ListItemResult : UListItem {
     {
         let instance = ListItemResult(
             listItemCallbacks : nil, type : ListItemResultType.NG,
-            isTouchable : true, card : card, x : 0, width : width,
-            textColor : textColor, color : bgColor)
+            isTouchable : true, card : card, x : 0,
+            width : width, height: UDpi.toPixel(ListItemResult.CARD_H),
+            textColor : textColor, bgColor : bgColor)
         instance.mText = convString(isEnglish ? card.wordA : card.wordB)
         instance.mText2 = convString(isEnglish ? card.wordB : card.wordA)
         instance.size.height = UDpi.toPixel(ListItemResult.CARD_H)
+        
+        //SpriteKit Node
+        let node = SKNodeUtil.createLabelNode(text: instance.mText!, fontSize: UDpi.toPixel(ListItemResult.FONT_SIZE), color: .black, alignment: .Center, pos: CGPoint(x: instance.size.width / 2, y: instance.size.height / 2)).node
+        instance.parentNode.addChild2(node)
+        
         return instance
     }
 
-    /**
-     * Methods
-     */
-
+    // MARK: Methods
     public override func doAction() -> DoActionRet{
         if mStarButton != nil {
             return mStarButton!.doAction()
@@ -162,7 +186,7 @@ public class ListItemResult : UListItem {
     public override func draw() {
         super.draw()
 
-        let fontSize = UDpi.toPixel(FONT_SIZE)
+        let fontSize = UDpi.toPixel(ListItemResult.FONT_SIZE)
 
         switch mType {
             case .Title:

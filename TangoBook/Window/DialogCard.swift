@@ -17,30 +17,25 @@ import UIKit
  */
 
 public class DialogCard : UDialogWindow {
-    /**
-     * Constants
-     */
+    // MARK: Constants
     public static let TAG = "DialogCard"
     private let OKButtonId = 10005000
     
-    /**
-     * Member variables
-     */
+    // MARK: Properties
     private var mCard : TangoCard?
     
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init(topScene: TopScene,
                 card : TangoCard,
-                isAnimation : Bool,
-                screenW : Int, screenH : Int)
+                isAnimation : Bool)
     {
         super.init( topScene : topScene, type : .Modal,
                     buttonCallbacks : nil, dialogCallbacks : nil,
                     dir : .Horizontal, posType : .Center,
-                    isAnimation : isAnimation, x : 0, y : 0, screenW : CGFloat(screenW),
-                    screenH : CGFloat(screenH), textColor : .black,
+                    isAnimation : isAnimation,
+                    x : 0, y : 0,
+                    screenW : topScene.size.width, screenH : topScene.size.height,
+                    textColor : .black,
                     dialogColor : .white)
         
         self.buttonCallbacks = self
