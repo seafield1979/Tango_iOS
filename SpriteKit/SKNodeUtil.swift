@@ -12,6 +12,12 @@ public class SKNodeUtil {
     
     static private let fontName = "HiraKakuProN-W6"
     
+    // CrossShapeの種類
+    public enum CrossType {
+        case Type1      // ＋
+        case Type2      // ×
+    }
+    
     /**
      線のShapeNodeを作成する
      */
@@ -61,34 +67,60 @@ public class SKNodeUtil {
     }
     
     /**
-     ＋のSKNodeを作成する
+     * 円形のノードを作成する
      */
-    public static func createCrossPoint( pos : CGPoint, length : CGFloat, lineWidth : CGFloat, color : SKColor) -> SKNode
+    public static func createCircleNode( pos : CGPoint, radius : CGFloat, lineWidth : CGFloat, color : UIColor) -> SKShapeNode
+    {
+        let n = SKShapeNode(circleOfRadius: radius)
+        n.position = pos
+        n.strokeColor = color
+        n.lineWidth = lineWidth
+        
+        return n
+    }
+    
+    /**
+     * ２つの線の交差(＋、×）のSKNodeを作成する
+     */
+    public static func createCrossPoint( type: CrossType, pos : CGPoint, length : CGFloat, lineWidth : CGFloat, color : SKColor, zPos : CGFloat) -> SKShapeNode
     {
         // ２本の線の親
-        let parentNode = SKNode()
-        parentNode.position = pos
-        parentNode.zPosition = 1000.0
+//        let parentNode = SKNode()
+//        parentNode.position = pos
+//        parentNode.zPosition = zPos
         
-        // line1
-        var points = [ CGPoint(x: -length / 2, y:0),
-                       CGPoint(x: length / 2, y:0) ]
+        var points1 : [CGPoint]
+        var points2 : [CGPoint]
+        if type == .Type1 {
+            // line1
+            points1 = [ CGPoint(x: -length / 2, y:0),
+                           CGPoint(x: length / 2, y:0) ]
+            // line2
+            points2 = [ CGPoint(x: 0, y: -length / 2),
+                       CGPoint(x: 0, y: length / 2) ]
+        } else {
+            let rad = CGFloat.pi / 180
+            
+            // line1
+            points1 = [ CGPoint(x: cos(135 * rad) * length, y: sin(135 * rad) * length),
+                        CGPoint(x: cos(-45 * rad) * length, y: sin(-45 * rad) * length) ]
+            // line2
+            points2 = [ CGPoint(x: cos(45 * rad) * length, y: sin(45 * rad) * length),
+                        CGPoint(x: cos(225 * rad) * length, y: sin(225 * rad) * length) ]
+        }
         
-        let line1 = SKShapeNode(points: &points, count: points.count)
+        let line1 = SKShapeNode(points: &points1, count: points1.count)
         line1.strokeColor = color
         line1.lineWidth = lineWidth
-        parentNode.addChild(line1)
-
-        // line2 
-        points = [ CGPoint(x: 0, y: -length / 2),
-                    CGPoint(x: 0, y: length / 2) ]
+        line1.zPosition = zPos
+        line1.position = pos
         
-        let line2 = SKShapeNode(points: &points, count: points.count)
+        let line2 = SKShapeNode(points: &points2, count: points2.count)
         line2.strokeColor = color
         line2.lineWidth = lineWidth
-        parentNode.addChild(line2)
+        line1.addChild(line2)
         
-        return parentNode
+        return line1
     }
     
     

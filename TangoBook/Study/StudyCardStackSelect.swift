@@ -29,7 +29,7 @@ public class StudyCardStackSelect : UDrawable {
     
     // layout
     public let MARGIN_V = 10;
-    private let MOVING_FRAME = 10;
+    private let MOVING_FRAME = 15;
     private static let STUDY_CARD_NUM : Int = 4
     private let FONT_SIZE = 17;
     private let FONT_SIZE_L = 20;
@@ -86,14 +86,6 @@ public class StudyCardStackSelect : UDrawable {
             mCards.append(card!)
         }
 
-        // 出題 TextView
-        mQuestionView = UTextView.createInstance(
-                text : "", fontSize : UDpi.toPixel(FONT_SIZE_L),
-                priority : DRAW_PRIORITY, alignment : UAlignment.CenterX,
-                createNode : true, multiLine : true, isDrawBG : false,
-                x : width / 2, y : 0, width : width, color : TEXT_COLOR, bgColor : nil)
-        parentNode.addChild2( mQuestionView!.parentNode )
-        
         setStudyCard()
     }
 
@@ -108,9 +100,20 @@ public class StudyCardStackSelect : UDrawable {
 
         let isEnglish : Bool = (mStudyType == StudyType.EtoJ)
 
-        // 問題
+        // 描画ノードを全削除
+        parentNode.removeAllChildren()
+        
+        // 問題(英語 or 日本語)
         let questionStr = isEnglish ? okCard.wordA : okCard.wordB
-        mQuestionView!.setText( questionStr! )
+        
+        // 出題 TextView
+        mQuestionView = UTextView.createInstance(
+            text : questionStr!, fontSize : UDpi.toPixel(FONT_SIZE_L),
+            priority : DRAW_PRIORITY, alignment : UAlignment.CenterX,
+            createNode : true, multiLine : true, isDrawBG : false,
+            x : 0, y : 0, width : size.width, color : TEXT_COLOR, bgColor : nil)
+        
+        parentNode.addChild2( mQuestionView!.parentNode )
 
         // 不正解用のカードを取得
         var bookId : Int
@@ -125,25 +128,34 @@ public class StudyCardStackSelect : UDrawable {
                                                bookId: bookId)
 
         var card : StudyCardSelect
-        let height : CGFloat = (size.height - UDpi.toPixel(MARGIN_V) - mQuestionView!.getHeight()) / CGFloat(StudyCardStackSelect.STUDY_CARD_NUM)
+        let cardH : CGFloat = (size.height - UDpi.toPixel(MARGIN_V) * 2 - mQuestionView!.getHeight()) / CGFloat(StudyCardStackSelect.STUDY_CARD_NUM)
 
         // 出題カードの配置
-        var y = mQuestionView!.getHeight() + UDpi.toPixel(MARGIN_V)
+        let y = mQuestionView!.getHeight() + UDpi.toPixel(MARGIN_V) + cardH / 2
 
         let correctIndex : Int = Int(arc4random() % UInt32(StudyCardStackSelect.STUDY_CARD_NUM))
         var ngIndex = 0
         for i in 0 ..< StudyCardStackSelect.STUDY_CARD_NUM {
+            let pos = CGPoint(x: 0, y: y + CGFloat(i) * cardH)
             if i == correctIndex {
-                card = StudyCardSelect( card : okCard, isCorrect : true, isEnglish : !isEnglish, screenW : mScreenW, height : height-UDpi.toPixel(CARD_MARGIN_V))
+                card = StudyCardSelect(
+                    card : okCard, isCorrect : true, isEnglish : !isEnglish,
+                    screenW : mScreenW, height : cardH - UDpi.toPixel(CARD_MARGIN_V),
+                    pos: pos)
             } else {
-                card = StudyCardSelect( card : ngCards[ngIndex], isCorrect : false, isEnglish : !isEnglish, screenW : mScreenW, height : height-UDpi.toPixel(CARD_MARGIN_V))
+                card = StudyCardSelect(
+                    card : ngCards[ngIndex], isCorrect : false,
+                    isEnglish : !isEnglish,
+                    screenW : mScreenW, height : cardH - UDpi.toPixel(CARD_MARGIN_V),
+                    pos: pos)
                 ngIndex += 1
             }
+            
+            parentNode.addChild2(card.parentNode)
             mStudyCards[i] = card
 
             // 初期座標設定
             // 座標はエリアの中心を指定する
-            card.setPos(0, y + CGFloat(i) * height, convSKPos: true)
             card.startAppearance(frame: MOVING_FRAME)
         }
     }
@@ -157,7 +169,6 @@ public class StudyCardStackSelect : UDrawable {
         switch mState {
         case .Main:
             // カードがタッチされたら正解判定を行う
-            var correctCard : StudyCardSelect? = nil     // 正解のカード
             for card in mStudyCards {
                 if card!.getRequest() == StudyCardSelect.RequestToParent.Touch {
                     mState = State.ShowCorrect
@@ -188,17 +199,17 @@ public class StudyCardStackSelect : UDrawable {
                     break
                 }
             }
-            break;
+            break
         case .ShowCorrect:
             // タッチされたらカードが消えるアニメーション開始
             var isTouched = false
             for card in mStudyCards {
-                if card!.getRequest() == StudyCardSelect.RequestToParent.Touch {
+                if card!.getRequest() == .Touch {
                     isTouched = true
                 }
             }
             if isTouched {
-                mState = State.ShowCorrectEnd
+                mState = .ShowCorrectEnd
                 for card in mStudyCards {
                     card!.startDisappearange(frame: MOVING_FRAME)
                 }

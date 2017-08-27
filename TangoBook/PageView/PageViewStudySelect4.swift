@@ -110,7 +110,7 @@ public class PageViewStudySelect4 : PageViewStudy, CardsStackCallbacks {
         // カードスタック
         mCardsStack = StudyCardStackSelect(
             cardManager : mCardsManager!, cardsStackCallbacks : self,
-            x : UDpi.toPixel(CARD_STACK_MARGIN_H), y : UDpi.toPixel(TOP_AREA_H),
+            x : width / 2, y : UDpi.toPixel(TOP_AREA_H),
             screenW : width,
             width : mTopScene.getWidth() - UDpi.toPixel(CARD_STACK_MARGIN_H) * 2,
             height : mTopScene.getHeight() - UDpi.toPixel(TOP_AREA_H+BOTTOM_AREA_H)

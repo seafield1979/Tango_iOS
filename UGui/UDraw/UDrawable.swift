@@ -95,7 +95,7 @@ public class UDrawable {
         
         // debug
         if UDebug.isDebug {
-            debugNode = SKNodeUtil.createCrossPoint(pos: CGPoint(), length: 10.0, lineWidth: 2.0, color: .red)
+            debugNode = SKNodeUtil.createCrossPoint(type: .Type1, pos: CGPoint(), length: 10.0, lineWidth: 2.0, color: .red, zPos: 1000)
             parentNode.addChild2(debugNode!)
         }
         updateRect()
@@ -412,7 +412,7 @@ public class UDrawable {
     }
     
     private func setMovingScale(scale : CGFloat) -> Bool {
-        if mScale == dstScale {
+        if mScale == scale {
             return false
         }
         srcScale = mScale
@@ -515,6 +515,7 @@ public class UDrawable {
             }
             if isMovingScale {
                 mScale = 1.0 - ratio
+                parentNode.setScale( mScale )
             }
         }
         return true;

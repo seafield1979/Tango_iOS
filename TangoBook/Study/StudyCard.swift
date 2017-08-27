@@ -341,7 +341,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         }
         
         // 箱に移動中のスケールを適用
-        parentNode.setScale(mScale)
+//        parentNode.setScale(mScale)
 
         // 矢印
         if showArrow && !isTouching && !isMoveToBox {

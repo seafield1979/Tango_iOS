@@ -7,7 +7,7 @@
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import UIKit
+import SpriteKit
 
 public class StudyCardSelect : UDrawable {
     public enum State : Int{
@@ -27,11 +27,16 @@ public class StudyCardSelect : UDrawable {
     // MARK: Constants
     private let FONT_SIZE = 17;
     private let TEXT_COLOR : UIColor = .black
+    private let BG_COLOR : UIColor = .white
     private let FRAME_COLOR = UColor.makeColor(150,150,150)
     
-    /**
-     * Member Variables
-     */
+    // MARK: Properties
+    
+    // SpriteKit Node
+    private var bgNode : SKShapeNode?
+    private var textNode : SKLabelNode?
+    private var shapeNode : SKShapeNode?        // 正解表示時の◯×用
+    
     private var mState : State
     private var wordA : String?, wordB : String?
     private var mCard : TangoCard?
@@ -70,6 +75,44 @@ public class StudyCardSelect : UDrawable {
     public func setShowCorrect( _ showCorrect : Bool) {
         mState = State.ShowAnswer
         isShowCorrect = showCorrect
+        
+        // BGの色
+        var color : UIColor
+        if mState == State.ShowAnswer && isShowCorrect {
+            // 解答表示時
+            if isCorrect {
+                color = UColor.LightGreen
+            } else {
+                color = UColor.LightRed
+            }
+        } else {
+            color = .white
+        }
+        bgNode!.fillColor = color
+        
+        // 正解表示中
+        if showCorrect {
+            // ラベルのノードを更新
+            textNode?.removeFromParent()
+            
+            let text = wordA! + "\n" + wordB!
+            textNode = SKNodeUtil.createLabelNode(text: text, fontSize: UDpi.toPixel(FONT_SIZE), color: TEXT_COLOR, alignment: .Center, pos: CGPoint()).node
+            parentNode.addChild2( textNode! )
+        }
+        
+        // ○×を表示
+        if isShowCorrect {
+            if isCorrect {
+                shapeNode = SKNodeUtil.createCircleNode(
+                    pos: CGPoint(), radius: UDpi.toPixel(23),
+                    lineWidth: UDpi.toPixel(6), color: UColor.DarkGreen)
+            } else {
+                shapeNode = SKNodeUtil.createCrossPoint(
+                    type: .Type2, pos: CGPoint(), length: UDpi.toPixel(23),
+                    lineWidth: UDpi.toPixel(6), color: .red, zPos: 0)
+            }
+            parentNode.addChild2( shapeNode! )
+        }
     }
     
     public override func getRect() -> CGRect {
@@ -81,17 +124,16 @@ public class StudyCardSelect : UDrawable {
     
     // MARK: Initializer
     /**
-     *
      * @param card
      * @param isCorrect 正解のカードかどうか(true:正解のカード / false:不正解のカード)
      * @param isEnglish 出題タイプ false:英語 -> 日本語 / true:日本語 -> 英語
      */
-    public init(card : TangoCard, isCorrect : Bool, isEnglish : Bool, screenW : CGFloat, height : CGFloat)
+    public init(card : TangoCard, isCorrect : Bool, isEnglish : Bool, screenW : CGFloat, height : CGFloat, pos: CGPoint)
     {
         mState = State.None;
         mCard = card;
 
-        super.init(priority : 0, x : 0, y : 0, width : screenW - UDpi.toPixel(67), height : height)
+        super.init(priority : 0, x : pos.x, y : pos.y, width : screenW - UDpi.toPixel(67), height : height)
         
         self.isCorrect = isCorrect
         
@@ -104,6 +146,20 @@ public class StudyCardSelect : UDrawable {
         }
         
         basePos = CGPoint(x: size.width / 2, y: size.height / 2)
+        
+        initSKNode()
+    }
+    
+    public override func initSKNode() {
+        // bg
+        bgNode = SKNodeUtil.createRectNode(rect: CGRect(x: -size.width / 2, y: -size.height / 2, width : size.width, height: size.height), color: BG_COLOR, pos: CGPoint(), cornerR: UDpi.toPixel(10))
+        bgNode!.strokeColor = FRAME_COLOR
+        bgNode!.lineWidth = UDpi.toPixel(2)
+        parentNode.addChild2(bgNode!)
+        
+        // label
+        textNode = SKNodeUtil.createLabelNode(text: wordA!, fontSize: UDpi.toPixel(FONT_SIZE), color: TEXT_COLOR, alignment: .Center, pos: CGPoint()).node
+        parentNode.addChild2(textNode!)
     }
 
     // MARK: Methods
@@ -111,10 +167,9 @@ public class StudyCardSelect : UDrawable {
      * 出現時の拡大処理
      */
     public func startAppearance(frame : Int) {
-//        Size _size = new Size(size.width, size.height);
-//        setSize(0, 0);
-//        startMovingSize(_size.width, _size.height, frame);
-//        mState = State.Appearance;
+        srcScale = 0.0
+        startMovingScale(dstScale: 1.0, frame: frame)
+        mState = State.Appearance
     }
 
     /**
@@ -122,8 +177,8 @@ public class StudyCardSelect : UDrawable {
      * @param frame
      */
     public func startDisappearange(frame : Int) {
-//        startMovingSize(0, 0, frame);
-//        mState = State.Disappearance;
+        startMovingScale(dstScale: 0, frame: frame)
+        mState = State.Disappearance
     }
 
     /**
@@ -165,63 +220,6 @@ public class StudyCardSelect : UDrawable {
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
     public override func draw() {
-//        PointF _pos = new PointF(pos.x, pos.y);
-//        if (offset != null) {
-//            _pos.x += offset.x;
-//            _pos.y += offset.y;
-//        }
-//        
-//        // BG
-//        int color = 0;
-//        if (mState == State.ShowAnswer && isShowCorrect) {
-//            // 解答表示時
-//            if (isCorrect) {
-//                color = UColor.LightGreen;
-//            } else {
-//                color = UColor.LightRed;
-//            }
-//        } else {
-//            color = Color.WHITE;
-//        }
-//        
-//        if (isMovingSize) {
-//            // Open/Close animation
-//            float x = _pos.x + basePos.x - size.width / 2;
-//            float y = _pos.y + basePos.y - size.height / 2;
-//            
-//            UDraw.drawRoundRectFill(canvas, paint,
-//                                    new RectF(x, y, x + size.width, y + size.height),
-//                                    UDpi.toPixel(3), color, UDpi.toPixel(2), FRAME_COLOR);
-//        } else {
-//            UDraw.drawRoundRectFill(canvas, paint,
-//                                    new RectF(_pos.x, _pos.y,
-//                                              _pos.x + size.width, _pos.y + size.height),
-//                                    UDpi.toPixel(3), color, UDpi.toPixel(2), FRAME_COLOR);
-//        }
-//        
-//        // 正解中はマルバツを表示
-//        PointF _pos2 = new PointF(_pos.x + size.width / 2, _pos.y + size.height / 2);
-//        if (mState == State.ShowAnswer && isShowCorrect) {
-//            if (isCorrect) {
-//                UDraw.drawCircle(canvas, paint, new PointF(_pos2.x, _pos2.y),
-//                                 UDpi.toPixel(23), UDpi.toPixel(7), UColor.Green);
-//            } else {
-//                UDraw.drawCross(canvas, paint, new PointF(_pos2.x, _pos2.y),
-//                                UDpi.toPixel(23), UDpi.toPixel(7), UColor.Red);
-//            }
-//        }
-//        
-//        // Text
-//        // タッチ中は正解を表示
-//        if (mState == State.None || mState == State.ShowAnswer) {
-//            StringBuffer text = new StringBuffer(wordA);
-//            if (mState == State.ShowAnswer) {
-//                text.append("\n");
-//                text.append(wordB);
-//            }
-//            UDraw.drawText(canvas, text.toString(), UAlignment.Center, UDpi.toPixel(FONT_SIZE),
-//                           _pos2.x, _pos2.y, TEXT_COLOR);
-//        }
         
     }
     
@@ -250,8 +248,8 @@ public class StudyCardSelect : UDrawable {
         case .Touch:        // タッチ開始
             break
         case .Click:
-            let rect = CGRect(x: pos.x + offset!.x,
-                              y: pos.y + offset!.y,
+            let rect = CGRect(x: pos.x + offset!.x - size.width / 2,
+                              y: pos.y + offset!.y - size.height / 2,
                               width: size.width,
                               height: size.height )
             if rect.contains(x: vt.touchX, y: vt.touchY) {
