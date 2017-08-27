@@ -1,190 +1,167 @@
 //
 //  StudyCardStackInput.swift
 //  TangoBook
-//
+//      正解を１文字づつ選択するモード（正解は英語のみ対応）
 //  Created by Shusuke Unno on 2017/08/07.
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
+public class StudyCardStackInput : UDrawable {
+    // MARK: Enums
+    enum State {
+        case Starting       // 開始時の演出
+        case Main           // 学習中のメイン状態
+        case End            // すべての問題を学習終了
+    }
 
-/**
- * Created by shutaro on 2016/12/28.
- *
- * 正解を１文字づつ選択するモード（正解は英語のみ対応）
- */
+    // MARK: Consts
+    // layout
+    public let MARGIN_V = 10
+    private let FONT_SIZE = 17
+    private let DRAW_PRIORITY = 100
+    // color
+    private let TEXT_COLOR = UIColor.black
 
-//public class StudyCardStackInput extends UDrawable {
-//    /**
-//     * Enums
-//     */
-//    enum State {
-//        Starting,       // 開始時の演出
-//        Main,           // 学習中のメイン状態
-//        End             // すべての問題を学習終了
-//    }
-//    
-//    /**
-//     * Consts
-//     */
-//    public static final String TAG = "StudyCardStackSelect";
-//    
-//    // layout
-//    public static final int MARGIN_V = 10;
-//    protected static final int FONT_SIZE = 17;
-//    
-//    
-//    protected static final int DRAW_PRIORITY = 100;
-//    
-//    // color
-//    protected static final int TEXT_COLOR = Color.BLACK;
-//    
-//    /**
-//     * Member Variables
-//     */
-//    protected StudyCardsManager mCardManager;
-//    protected CardsStackCallbacks cardsStackCallbacks;
-//    protected int mCanvasW;
-//    protected StudyMode mStudyMode;
-//    protected StudyCardInput mStudyCard;
-//    protected State mState = State.Main;
-//    
-//    // 学習中するカードリスト。出題ごとに１つづつ減っていく
-//    protected LinkedList<TangoCard> mCards = new LinkedList<>();
-//    
-//    /**
-//     * Get/Set
-//     */
-//    
-//    /**
-//     * 残りのカード枚数を取得する
-//     * @return
-//     */
-//    public int getCardCount() {
-//        return mCards.size();
-//    }
-//    
-//    /**
-//     * Constructor
-//     */
-//    public StudyCardStackInput(StudyCardsManager cardManager,
-//    CardsStackCallbacks cardsStackCallbacks,
-//    float x, float y, int canvasW,
-//    int width, int height)
-//    {
-//        super(90, x, y, width, height );
-//        
-//        this.cardsStackCallbacks = cardsStackCallbacks;
-//        mCardManager = cardManager;
-//        mCanvasW = canvasW;
-//        mStudyMode = MySharedPref.getStudyMode();
-//        
-//        // カードマネージャーのカードリストをコピー
-//        for (TangoCard card : mCardManager.getCards()) {
-//            mCards.add(card);
-//        }
-//        if (MySharedPref.getStudyOrder() == StudyOrder.Random) {
-//            Collections.shuffle(mCards);
-//        }
-//        
-//        setStudyCard();
-//    }
-//    
-//    /**
-//     * Methods
-//     */
-//    
-//    
-//    /**
-//     * 出題するカードを準備する
-//     */
-//    protected void setStudyCard() {
-//        if (mCards.size() > 0) {
-//            TangoCard card = mCards.pop();
-//            mStudyCard = new StudyCardInput(card, mCanvasW, size.height - UDpi.toPixel(MARGIN_V));
-//        } else {
-//            // 終了
-//            mState = State.End;
-//            if (cardsStackCallbacks != null) {
-//                cardsStackCallbacks.CardsStackFinished();
-//            }
-//        }
-//    }
-//    
-//    /**
-//     * 出題中のカードをスキップする
-//     */
-//    public void skipCard() {
-//        if (mStudyCard.mState == StudyCardInput.State.None) {
-//            mStudyCard.showCorrect();
-//        } else {
-//            setStudyCard();
-//        }
-//    }
-//    
-//    /**
-//     * 毎フレームの処理
-//     * @return true:処理中
-//     */
-//    public DoActionRet doAction() {
-//        
-//        switch(mState) {
-//        case Main:
-//            if (mStudyCard.getRequest() == StudyCardInput.RequestToParent.End) {
-//                if (mStudyCard.isMistaken()) {
-//                    mCardManager.addNgCard(mStudyCard.mCard);
-//                } else {
-//                    mCardManager.addOkCard(mStudyCard.mCard);
-//                }
-//                // 表示中のカードが終了したので次のカードを表示
-//                if (mCards.size() == 0) {
-//                    // もうカードがないので終了
-//                    mState = State.End;
-//                    if (cardsStackCallbacks != null) {
-//                        cardsStackCallbacks.CardsStackFinished();
-//                    }
-//                } else {
-//                    // 次の問題を準備
-//                    mState = State.Main;
-//                    setStudyCard();
-//                    if (cardsStackCallbacks != null) {
-//                        cardsStackCallbacks.CardsStackChangedCardNum(mCards.size());
-//                    }
-//                }
-//            }
-//            break;
-//        }
-//        
-//        // カードの移動等の処理
-//        if (mStudyCard.doAction() != DoActionRet.None) {
-//            return DoActionRet.Redraw;
-//        }
-//        
-//        return DoActionRet.None;
-//    }
-//    
-//    
-//    /**
-//     * 描画処理
-//     * @param canvas
-//     * @param paint
-//     * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
-//     */
-//    public void draw(Canvas canvas, Paint paint, PointF offset) {
-//        // 配下のカードを描画する
-//        mStudyCard.draw(canvas, paint, pos);
-//    }
-//    
-//    /**
-//     * タッチ処理
-//     * @param vt
-//     * @return true:処理中
-//     */
-//    public boolean touchEvent(ViewTouch vt, PointF offset) {
-//        if (mStudyCard.touchEvent(vt, pos)) {
-//            return true;
-//        }
-//        return false;
-//    }
-//}
+    // MARK: Properties
+    private var mCardManager : StudyCardsManager?
+    private var cardsStackCallbacks : CardsStackCallbacks?
+    private var mCanvasW : CGFloat
+    private var mStudyMode : StudyMode = .Input
+    private var mStudyCard : StudyCardInput?
+    private var mState : State = .Main
+    
+    // 学習中するカードリスト。出題ごとに１つづつ減っていく
+    private var mCards : List<TangoCard>?
+
+    // MARK: Accessor
+    /**
+     * 残りのカード枚数を取得する
+     * @return
+     */
+    public func getCardCount() -> Int {
+        return mCards!.count
+    }
+    
+    /**
+     * Constructor
+     */
+    public init( cardManager : StudyCardsManager,
+                    cardsStackCallbacks : CardsStackCallbacks?,
+                    x : CGFloat, y : CGFloat, canvasW : CGFloat,
+                    width : CGFloat, height : CGFloat)
+    {
+        mCanvasW = canvasW
+        mCardManager = cardManager
+        
+        super.init(priority: 90, x: x, y: y, width: width, height: height )
+        
+        self.cardsStackCallbacks = cardsStackCallbacks
+        mStudyMode = MySharedPref.getStudyMode()
+        
+        // カードマネージャーのカードリストをコピー
+        for card in mCardManager!.getCards() {
+            mCards!.append(card!)
+        }
+        if MySharedPref.getStudyOrder() == StudyOrder.Random {
+            mCards?.shuffled()
+        }
+        
+        setStudyCard()
+    }
+
+    /**
+     * Methods
+     */
+    
+    
+    /**
+     * 出題するカードを準備する
+     */
+    private func setStudyCard() {
+        if mCards!.count > 0 {
+            let card = mCards!.pop()
+            mStudyCard = StudyCardInput(card: card!, canvasW: mCanvasW, height: size.height - UDpi.toPixel(MARGIN_V))
+        } else {
+            // 終了
+            mState = State.End;
+            if cardsStackCallbacks != nil {
+                cardsStackCallbacks!.CardsStackFinished()
+            }
+        }
+    }
+    
+    /**
+     * 出題中のカードをスキップする
+     */
+    public func skipCard() {
+        if mStudyCard!.mState == .None {
+            mStudyCard!.showCorrect()
+        } else {
+            setStudyCard()
+        }
+    }
+    
+    /**
+     * 毎フレームの処理
+     * @return true:処理中
+     */
+    public override func doAction() -> DoActionRet{
+        
+        if mState == .Main {
+            if mStudyCard!.getRequest() == StudyCardInput.RequestToParent.End {
+                if mStudyCard!.isMistaken {
+                    mCardManager!.addNgCard(mStudyCard!.mCard!)
+                } else {
+                    mCardManager!.addOkCard(mStudyCard!.mCard!)
+                }
+                // 表示中のカードが終了したので次のカードを表示
+                if mCards!.count == 0 {
+                    // もうカードがないので終了
+                    mState = State.End;
+                    if cardsStackCallbacks != nil {
+                        cardsStackCallbacks!.CardsStackFinished()
+                    }
+                } else {
+                    // 次の問題を準備
+                    mState = .Main
+                    setStudyCard()
+                    if cardsStackCallbacks != nil {
+                        cardsStackCallbacks!.CardsStackChangedCardNum(cardNum: mCards!.count)
+                    }
+                }
+            }
+        }
+        
+        // カードの移動等の処理
+        if mStudyCard!.doAction() != .None {
+            return .Redraw
+        }
+        
+        return .None
+    }
+
+    /**
+     * 描画処理
+     * @param canvas
+     * @param paint
+     * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
+     */
+    public override func draw() {
+        // 配下のカードを描画する
+        mStudyCard!.draw()
+    }
+    
+    /**
+     * タッチ処理
+     * @param vt
+     * @return true:処理中
+     */
+    public override func touchEvent( vt : ViewTouch, offset : CGPoint?) -> Bool{
+        if mStudyCard!.touchEvent(vt: vt, offset: pos) {
+            return true;
+        }
+        return false;
+    }
+}

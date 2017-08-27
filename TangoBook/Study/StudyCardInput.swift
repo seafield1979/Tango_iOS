@@ -1,126 +1,112 @@
 //
 //  StudyCardInput.swift
 //  TangoBook
+//    正解入力学習モードで使用するカード
 //
+//    正解の文字(ボタン)をタップする
+//    正解なら次の文字へ、不正解なら別のボタンをタップする
+//    全ての文字をタップしたら次のカードへ
+//    １文字でも間違いをタップしたら不正解
 //  Created by Shusuke Unno on 2017/08/07.
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-//
-///**
-// * Created by shutaro on 2016/12/28.
-// *
-// * 正解入力学習モードで使用するカード
-// *
-// * 正解の文字(ボタン)をタップする
-// * 正解なら次の文字へ、不正解なら別のボタンをタップする
-// * 全ての文字をタップしたら次のカードへ
-// * １文字でも間違いをタップしたら不正解
-// *
-// */
-//public class StudyCardInput extends UDrawable implements UButtonCallbacks {
-//    /**
-//     * Enums
-//     */
-//    enum State {
-//        None,
-//        Appearance,         // 出現
-//        ShowAnswer,         // 正解表示中
-//        Disappearance,       // 消える
-//    }
-//
-//    // 親に対する要求
-//    enum RequestToParent {
-//        None,
-//        End
-//    }
-//
-//    /**
-//     * Consts
-//     */
-//    public static final int ANIME_FRAME = 10;
-//
-//    // layout
-//    protected static final int MARGIN_H = 17;
-//    protected static final int MARGIN_V = 17;
-//    protected static final int QBUTTON_W = 40;
-//    protected static final int QBUTTON_H = 40;
-//    protected static final int FONT_SIZE = 17;
-//    protected static final int FONT_SIZE_L = 23;
-//    protected static final int TEXT_COLOR = Color.BLACK;
-//    protected static final int FRAME_COLOR = Color.rgb(150,150,150);
-//
-//    protected static final int TEXT_MARGIN_H2 = 10;
-//    protected static final int TEXT_MARGIN_V = 10;
-//    protected static final int ONE_TEXT_WIDTH = FONT_SIZE + 7;
-//    protected static final int ONE_TEXT_HEIGHT = FONT_SIZE + 7;
-//
-//    // color
-//    protected static final int BUTTON_COLOR = UColor.LTGRAY;
-//    protected static final int NG_BUTTON_COLOR = UColor.LightRed;
-//
-//
-//    /**
-//     * Member Variables
-//     */
-//    protected State mState;
-//    protected TangoCard mCard;
-//    protected String mWord;
-//
-//    // 正解の文字列を１文字づつStringに分割したもの
-//    protected ArrayList<String> mCorrectWords = new ArrayList<>();
-//    protected ArrayList<Boolean> mCorrectFlags = new ArrayList<>();
-//
-//    // 正解入力用の文字をバラしてランダムに並び替えた配列
-//    protected ArrayList<UButtonText> mQuestionButtons = new ArrayList<>();
-//    protected boolean isTouching;
-//    protected PointF basePos;
-//
-//    // 正解入力位置
-//    protected int inputPos;
-//
-//    // １回でも間違えたかどうか
-//    protected boolean isMistaken;
-//
-//    // 親への通知用
-//    protected RequestToParent mRequest = RequestToParent.None;
-//
-//    public RequestToParent getRequest() {
-//        return mRequest;
-//    }
-//
-//    /**
-//     * Get/Set
-//     */
-//    public boolean isMistaken() {
-//        return isMistaken;
-//    }
-//    public void setState(State state) {
-//        mState = state;
-//    }
-//
-//    private UButtonText getButtonById(int id) {
-//        for (UButtonText button : mQuestionButtons) {
-//            if (button.getId() == id) {
-//                return button;
-//            }
-//        }
-//        return null;
-//    }
-//
-//    /**
-//     * Constructor
-//     */
-//    public StudyCardInput(TangoCard card, int canvasW, int height)
-//    {
-//        super(0, 0, 0, canvasW - UDpi.toPixel(MARGIN_H) * 2, height);
-//
-//        mState = State.None;
-//        mCard = card;
-//        mWord = card.getWordA();
-//        String[] strArray = card.getWordA().toLowerCase().split("");
+public class StudyCardInput : UDrawable, UButtonCallbacks {
+    /**
+     * Enums
+     */
+    public enum State {
+        case None
+        case Appearance         // 出現
+        case ShowAnswer         // 正解表示中
+        case Disappearance       // 消える
+    }
+
+    // 親に対する要求
+    public enum RequestToParent {
+        case None
+        case End
+    }
+
+    /**
+     * Consts
+     */
+    public let ANIME_FRAME = 10;
+
+    // layout
+    private let MARGIN_H = 17
+    private let MARGIN_V = 17
+    private let QBUTTON_W = 40
+    private let QBUTTON_H = 40
+    private static let FONT_SIZE = 17
+    private let FONT_SIZE_L = 23
+    private let TEXT_COLOR = UIColor.black
+    private let FRAME_COLOR = UColor.makeColor(150,150,150)
+
+    private let TEXT_MARGIN_H2 = 10
+    private let TEXT_MARGIN_V = 10
+    private let ONE_TEXT_WIDTH = FONT_SIZE + 7
+    private let ONE_TEXT_HEIGHT = FONT_SIZE + 7
+
+    // color
+    private let BUTTON_COLOR = UColor.LightGray
+    private let NG_BUTTON_COLOR = UColor.LightRed
+
+
+    /**
+     * Member Variables
+     */
+    public var mState : State = .Appearance
+    public var mCard : TangoCard?
+    private var mWord : String?
+
+    // 正解の文字列を１文字づつStringに分割したもの
+    private var mCorrectWords : List<String> = List()
+    private var mCorrectFlags : List<Bool> = List()
+
+    // 正解入力用の文字をバラしてランダムに並び替えた配列
+    private var mQuestionButtons : List<UButtonText> = List()
+    private var isTouching : Bool = false
+    private var basePos : CGPoint = CGPoint()
+
+    // 正解入力位置
+    private var inputPos : Int = 0
+
+    // １回でも間違えたかどうか
+    public var isMistaken : Bool = false
+
+    // 親への通知用
+    private var mRequest : RequestToParent = .None
+
+    public func getRequest() -> RequestToParent {
+        return mRequest
+    }
+
+    // MARK: Accessor
+    public func setState( state : State) {
+        mState = state
+    }
+
+    private func getButtonById(id : Int) -> UButtonText? {
+        for button in mQuestionButtons {
+            if button!.getId() == id {
+                return button
+            }
+        }
+        return nil
+    }
+
+    // MARK: Initializer
+    public init( card : TangoCard, canvasW : CGFloat, height : CGFloat)
+    {
+        super.init(priority: 0, x: 0, y: 0, width: canvasW - UDpi.toPixel(MARGIN_H) * 2, height: height)
+
+//        mState = .None
+//        mCard = card
+//        mWord = card.getWordA()
+//        String[] strArray = card.getWordA().toLowerCase().split("")
 //
 //        // strArrayの先頭に余分な空文字が入っているので除去
 //        // 空白も除去
@@ -170,48 +156,48 @@ import Foundation
 //
 //        // 出現アニメーション
 //        startAppearance(ANIME_FRAME);
-//    }
-//
-//    /**
-//     * Methods
-//     */
-//    /**
-//     * 出現時の拡大処理
-//     */
-//    private void startAppearance(int frame) {
+    }
+
+    /**
+     * Methods
+     */
+    /**
+     * 出現時の拡大処理
+     */
+    private func startAppearance(frame : Int) {
 //        Size _size = new Size(size.width, size.height);
 //        setSize(0, 0);
 //        startMovingSize(_size.width, _size.height, frame);
 //        mState = State.Appearance;
-//    }
-//
-//    /**
-//     * 消えるときの縮小処理
-//     * @param frame
-//     */
-//    private void startDisappearange(int frame) {
+    }
+
+    /**
+     * 消えるときの縮小処理
+     * @param frame
+     */
+    private func startDisappearange( frame : Int) {
 //        startMovingSize(0, 0, frame);
 //        mState = State.Disappearance;
-//    }
-//
-//    /**
-//     * 正解を表示する
-//     * 強制的に表示したのでNG判定
-//     */
-//    public void showCorrect() {
+    }
+
+    /**
+     * 正解を表示する
+     * 強制的に表示したのでNG判定
+     */
+    public func showCorrect() {
 //        mState = State.ShowAnswer;
 //        isMistaken = true;
 //        inputPos = mWord.length();
 //        for (UButtonText button : mQuestionButtons) {
 //            button.setEnabled(false);
 //        }
-//    }
-//
-//    /**
-//     * 自動で実行される何かしらの処理
-//     * @return
-//     */
-//    public DoActionRet doAction() {
+    }
+
+    /**
+     * 自動で実行される何かしらの処理
+     * @return
+     */
+    public override func doAction() -> DoActionRet{
 //        switch (mState) {
 //            case Appearance:
 //            case Disappearance:
@@ -227,13 +213,13 @@ import Foundation
 //                }
 //                break;
 //        }
-//        return DoActionRet.None;
-//    }
-//
-//    /**
-//     * 自動移動完了
-//     */
-//    public void endMoving() {
+        return .None
+    }
+
+    /**
+     * 自動移動完了
+     */
+    public override func endMoving() {
 //        if (mState == State.Disappearance) {
 //            // 親に非表示完了を通知する
 //            mRequest = RequestToParent.End;
@@ -241,31 +227,31 @@ import Foundation
 //        else {
 //            mState = State.None;
 //        }
-//    }
-//
-//    /**
-//     * 指定の1文字が、ユーザーの入力が必要でないかどうかを判定する
-//     * @param str
-//     * @return
-//     */
-//    private boolean isIgnoreStr(String str) {
+    }
+
+    /**
+     * 指定の1文字が、ユーザーの入力が必要でないかどうかを判定する
+     * @param str
+     * @return
+     */
+    private func isIgnoreStr( str : String ) -> Bool{
 //        if (str.matches("[0-9a-zA-Z]+")) {
 //            return false;
 //        }
-//        return true;
-//    }
-//
-//
-//    /**
-//     * Drawable methods
-//     */
-//    /**
-//     * 描画処理
-//     * @param canvas
-//     * @param paint
-//     * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
-//     */
-//    public void draw(Canvas canvas, Paint paint, PointF offset) {
+        return true
+    }
+
+
+    /**
+     * Drawable methods
+     */
+    /**
+     * 描画処理
+     * @param canvas
+     * @param paint
+     * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
+     */
+    public override func draw() {
 //        PointF _pos = new PointF(pos.x, pos.y);
 //        if (offset != null) {
 //            _pos.x += offset.x;
@@ -327,16 +313,16 @@ import Foundation
 //                        UDpi.toPixel(23), UDpi.toPixel(7), UColor.Green);
 //            }
 //        }
-//    }
-//
-//    /**
-//     * 正解文字列を１文字づつ表示する
-//     *
-//     * @param x   描画先頭座標x
-//     * @param y   描画先頭座標y
-//     */
-//    private float drawInputTexts(Canvas canvas, Paint paint, float x, float y) {
-//
+    }
+
+    /**
+     * 正解文字列を１文字づつ表示する
+     *
+     * @param x   描画先頭座標x
+     * @param y   描画先頭座標y
+     */
+    private func drawInputTexts( x : CGFloat, y : CGFloat) -> CGFloat{
+
 //        float _x;
 //        int width;
 //        // 一行に表示できる文字数
@@ -390,18 +376,19 @@ import Foundation
 //            }
 //        }
 //        return y;
-//    }
-//
-//    /**
-//     * 正解タッチ用のTextViewを表示する
-//     * @param canvas
-//     * @param paint
-//     * @param offset
-//     * @param y
-//     * @return
-//     */
-//    private float drawQuestionTexts(Canvas canvas, Paint paint, PointF offset, float y) {
-//
+        return 0
+    }
+
+    /**
+     * 正解タッチ用のTextViewを表示する
+     * @param canvas
+     * @param paint
+     * @param offset
+     * @param y
+     * @return
+     */
+    private func drawQuestionTexts( offset : CGPoint, y : CGFloat) -> CGFloat {
+
 //        int lineButtons = (size.width - UDpi.toPixel(TEXT_MARGIN_H2)) / UDpi.toPixel(QBUTTON_W + TEXT_MARGIN_H2);
 //        int width;
 //        if (lineButtons > mWord.length()) {
@@ -423,20 +410,21 @@ import Foundation
 //            }
 //        }
 //        return y;
-//    }
-//
-//    /**
-//     * タッチ処理
-//     * @param vt
-//     * @return
-//     */
-//    public boolean touchEvent(ViewTouch vt) {
-//        return touchEvent(vt, null);
-//    }
-//
-//    public boolean touchEvent(ViewTouch vt, PointF parentPos) {
-//        boolean done = false;
-//
+        return 0
+    }
+
+    /**
+     * タッチ処理
+     * @param vt
+     * @return
+     */
+    public func touchEvent( vt : ViewTouch) -> Bool{
+        return self.touchEvent(vt: vt, offset: nil)
+    }
+
+    public func touchEvent( vt : ViewTouch, parentPos : CGPoint) -> Bool{
+        var done = false
+
 //        // アニメーションや移動中はタッチ受付しない
 //        if (isMovingSize) {
 //            return false;
@@ -465,22 +453,22 @@ import Foundation
 //            }
 //            break;
 //        }
-//
-//        return done;
-//    }
-//
-//    public void endAnimation() {
-//        mRequest = RequestToParent.End;
-//    }
-//
-//    /**
-//     * Callbacks
-//     */
-//    /**
-//     * UButtonCallbacks
-//     */
-//    public boolean UButtonClicked(int id, boolean pressedOn) {
-//        // 判定を行う
+
+        return done
+    }
+
+    public override func endAnimation() {
+        mRequest = RequestToParent.End
+    }
+
+    /**
+     * Callbacks
+     */
+    /**
+     * UButtonCallbacks
+     */
+    public func UButtonClicked(id : Int, pressedOn : Bool) -> Bool{
+        // 判定を行う
 //        UButtonText button = getButtonById(id);
 //        String text1 = mCorrectWords.get(inputPos);
 //        String text2 = button.getmText();
@@ -516,8 +504,7 @@ import Foundation
 //            mCorrectFlags.set(inputPos, false);
 //            return true;
 //        }
-//    }
-//
-//
-//}
-//
+        return false
+    }
+}
+
