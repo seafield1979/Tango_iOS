@@ -103,7 +103,7 @@ public class StudyCardStackInput : UDrawable {
      */
     public func skipCard() {
         if mStudyCard!.mState == .None {
-            mStudyCard!.showCorrect()
+            mStudyCard!.showCorrect( mistaken: true )
         } else {
             setStudyCard()
         }

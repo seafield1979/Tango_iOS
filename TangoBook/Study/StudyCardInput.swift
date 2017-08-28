@@ -140,11 +140,6 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
     public override func initSKNode() {
         var y : CGFloat = UDpi.toPixel(MARGIN_V)
         
-        // Client  BG以外のノードの親
-        clientNode = SKNode()
-        clientNode!.zPosition = 1.0
-        parentNode.addChild2( clientNode! )
-        
         // BG
         bgNode = SKNodeUtil.createRectNode(
             rect: CGRect(x:-size.width / 2, y:-size.height / 2,
@@ -153,7 +148,13 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
         bgNode!.strokeColor = FRAME_COLOR
         bgNode!.lineWidth = UDpi.toPixel(3)
         parentNode.addChild2(bgNode!)
-        
+
+        // Client  BG以外のノードの親
+        clientNode = SKNode()
+        clientNode!.position = CGPoint(x: -size.width / 2, y: -size.height / 2)
+        clientNode!.zPosition = 1.0
+        bgNode!.addChild2( clientNode! )
+
         // タイトル(出題の単語)
         titleNode = SKNodeUtil.createLabelNode(text: mCard!.wordB!, fontSize: UDpi.toPixel(StudyCardInput.FONT_SIZE), color: .black, alignment: .CenterX, pos: CGPoint(x: size.width / 2, y: y)).node
         titleNode?.zPosition = 1
@@ -179,7 +180,7 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
         mState = State.Appearance
         startMovingScale(dstScale: 1.0, frame: frame)
         
-        clientNode!.isHidden = true
+//        clientNode!.isHidden = true
     }
 
     /**
@@ -195,14 +196,54 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
     /**
      * 正解を表示する
      * 強制的に表示したのでNG判定
+     * @param mistaken  強制的に正解を表示させた場合にtrueになる
      */
-    public func showCorrect() {
+    public func showCorrect(mistaken : Bool) {
         mState = State.ShowAnswer
-        isMistaken = true
         inputPos = mWord!.characters.count
-        for button in mQuestionButtons {
-            button!.setEnabled(false)
+        if mistaken {
+            isMistaken = mistaken
         }
+
+        // 正解を全表示
+        
+        for i in 0..<correctNodes.count {
+            let node = correctNodes[i]
+            if mCorrectFlags[i] {
+                if let bgN = node.childNode(withName: bgNodeName) as? SKShapeNode {
+                    bgN.fillColor = .clear
+                }
+            }
+            if let labelN = node.childNode(withName: labelNodeName) as? SKLabelNode {
+                labelN.text = mCorrectWords[i]
+            }
+        }
+        
+        // ボタンの色を元に戻す
+        for _button in mQuestionButtons {
+            _button!.setColor(BUTTON_COLOR)
+        }
+        // ○×
+        if isMistaken {
+            let n = SKNodeUtil.createCrossPoint(type: .Type2, pos: CGPoint(x: size.width / 2, y: size.height / 2), length: UDpi.toPixel(50), lineWidth: UDpi.toPixel(10), color: .red, zPos: 1)
+            clientNode!.addChild2(n)
+        } else {
+            let n = SKNodeUtil.createCircleNode(pos: CGPoint(x: size.width / 2, y: size.height / 2), radius: UDpi.toPixel(50), lineWidth: UDpi.toPixel(10), color: UColor.DarkGreen)
+            n.zPosition = 1
+            clientNode!.addChild2(n)
+        }
+        
+        // 背景色
+        var bgColor : UIColor = .white
+        if (mState == State.ShowAnswer) {
+            // 解答表示時
+            if (isMistaken) {
+                bgColor = UColor.LightRed;
+            } else {
+                bgColor = UColor.LightGreen;
+            }
+        }
+        bgNode!.fillColor = bgColor
     }
 
     /**
@@ -269,9 +310,9 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
      */
     public override func draw() {
         if isMoving || mScale == 0 {
-            clientNode!.isHidden = true
+//            clientNode!.isHidden = true
         } else {
-            clientNode!.isHidden = false
+//            clientNode!.isHidden = false
         }
         
     }
@@ -387,7 +428,7 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
             questions.shuffled()
         } else {
             // アルファベット順に並び替える
-            questions.sorted( isOrderedBefore: {$0 > $1} )
+            questions.sorted( isOrderedBefore: {$0 < $1} )
         }
         
         width = CGFloat(lineButtons) * UDpi.toPixel(QBUTTON_W + TEXT_MARGIN_H2) - UDpi.toPixel(TEXT_MARGIN_H2)
@@ -504,16 +545,7 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
             
             if inputPos >= mWord!.characters.count {
                 // 終了
-                mState = State.ShowAnswer
-                // ○×
-                if isMistaken {
-                    let n = SKNodeUtil.createCrossPoint(type: .Type2, pos: CGPoint(x: size.width / 2, y: size.height / 2), length: UDpi.toPixel(50), lineWidth: UDpi.toPixel(10), color: .red, zPos: 1)
-                    clientNode!.addChild2(n)
-                } else {
-                    let n = SKNodeUtil.createCircleNode(pos: CGPoint(x: size.width / 2, y: size.height / 2), radius: UDpi.toPixel(50), lineWidth: UDpi.toPixel(10), color: UColor.DarkGreen)
-                    n.zPosition = 1
-                    clientNode!.addChild2(n)
-                }
+                showCorrect(mistaken : false)
             } else {
                 if let bgN = correctNodes[inputPos].childNode(withName: bgNodeName) as? SKShapeNode
                 {
@@ -538,17 +570,7 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
 
             return true
         }
-        // 背景色
-        var bgColor : UIColor = .white
-        if (mState == State.ShowAnswer) {
-            // 解答表示時
-            if (isMistaken) {
-                bgColor = UColor.LightRed;
-            } else {
-                bgColor = UColor.LightGreen;
-            }
-        }
-        bgNode!.fillColor = bgColor
+        
         return true
     }
 }
