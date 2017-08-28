@@ -157,6 +157,11 @@ public class UDrawable {
         return size
     }
     
+    public func setScale(_ scale : CGFloat) {
+        mScale = scale
+        parentNode.setScale( mScale )
+    }
+    
     public func updateRect() {
         rect = CGRect(x:pos.x, y:pos.y,
                       width: size.width, height:size.height)
@@ -338,6 +343,7 @@ public class UDrawable {
     {
         if (!setMovingPos(dstX: dstX, dstY: dstY)) {
             // 移動不要
+            endMoving()
             return
         }
         startMoving()
@@ -368,6 +374,7 @@ public class UDrawable {
     public func startMovingSize(dstW : CGFloat, dstH : CGFloat, frame : Int) {
         if (!setMovingSize(dstW: dstW, dstH: dstH)) {
             // 移動不要
+            endMoving()
             return;
         }
         startMoving()
@@ -387,6 +394,7 @@ public class UDrawable {
     public func startMovingScale(dstScale : CGFloat, frame : Int) {
         if !setMovingScale(scale: dstScale) {
             // 移動不要
+            endMoving()
             return
         }
         startMoving()
@@ -484,6 +492,9 @@ public class UDrawable {
             if isMovingSize {
                 setSize(dstSize.width, dstSize.height)
             }
+            if isMovingScale {
+                setScale( dstScale )
+            }
             
             isMoving = false
             isMovingPos = false
@@ -514,8 +525,7 @@ public class UDrawable {
                         (srcSize.height + (dstSize.height - srcSize.height) * ratio))
             }
             if isMovingScale {
-                mScale = 1.0 - ratio
-                parentNode.setScale( mScale )
+                setScale( srcScale + ratio * (dstScale - srcScale) )
             }
         }
         return true;

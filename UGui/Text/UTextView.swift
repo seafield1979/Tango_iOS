@@ -201,6 +201,12 @@ public class UTextView : UDrawable {
             alignPos = CGPoint(x: -size.width, y: 0)
         case .Right_CenterY:
             alignPos = CGPoint(x: -size.width, y: -size.height / 2)
+        case .Bottom:
+            alignPos = CGPoint(x: 0, y: -size.height)
+        case .CenterX_Bottom:
+            alignPos = CGPoint(x: -size.width  / 2, y: -size.height)
+        case .Right_Bottom:
+            alignPos = CGPoint(x: -size.width, y: -size.height)
         }
         parentNode.position = CGPoint(x: parentNode.position.x + alignPos.x,
                                       y: parentNode.position.y + alignPos.y)

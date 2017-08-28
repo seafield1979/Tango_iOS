@@ -11,7 +11,7 @@
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import UIKit
+import SpriteKit
 
 public class StudyCardInput : UDrawable, UButtonCallbacks {
     /**
@@ -40,8 +40,8 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
     private let MARGIN_V = 17
     private let QBUTTON_W = 40
     private let QBUTTON_H = 40
-    private static let FONT_SIZE = 17
-    private let FONT_SIZE_L = 23
+    private static let FONT_SIZE = 23
+    private let FONT_SIZE_L = 32
     private let TEXT_COLOR = UIColor.black
     private let FRAME_COLOR = UColor.makeColor(150,150,150)
 
@@ -50,6 +50,8 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
     private let ONE_TEXT_WIDTH = FONT_SIZE + 7
     private let ONE_TEXT_HEIGHT = FONT_SIZE + 7
 
+    private let bgNodeName = "bg"
+    private let labelNodeName = "label"
     // color
     private let BUTTON_COLOR = UColor.LightGray
     private let NG_BUTTON_COLOR = UColor.LightRed
@@ -58,7 +60,13 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
     /**
      * Member Variables
      */
-    public var mState : State = .Appearance
+    // SpriteKit Node
+    private var bgNode : SKShapeNode?
+    private var clientNode : SKNode?
+    private var titleNode : SKLabelNode?
+    private var correctNodes : [SKNode] = []     // 正解（未入力も含む)
+    
+    public var mState : State = .None
     public var mCard : TangoCard?
     private var mWord : String?
 
@@ -85,11 +93,11 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
     }
 
     // MARK: Accessor
-    public func setState( state : State) {
+    public func setState( _ state : State) {
         mState = state
     }
 
-    private func getButtonById(id : Int) -> UButtonText? {
+    private func getButtonById(_ id : Int) -> UButtonText? {
         for button in mQuestionButtons {
             if button!.getId() == id {
                 return button
@@ -99,63 +107,65 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
     }
 
     // MARK: Initializer
-    public init( card : TangoCard, canvasW : CGFloat, height : CGFloat)
+    public init( card : TangoCard, canvasW : CGFloat, height : CGFloat, pos: CGPoint)
     {
         super.init(priority: 0, x: 0, y: 0, width: canvasW - UDpi.toPixel(MARGIN_H) * 2, height: height)
 
-//        mState = .None
-//        mCard = card
-//        mWord = card.getWordA()
-//        String[] strArray = card.getWordA().toLowerCase().split("")
-//
-//        // strArrayの先頭に余分な空文字が入っているので除去
-//        // 空白も除去
-//        for (int i=1; i<strArray.length; i++) {
-//            mCorrectWords.add(strArray[i]);
-//            mCorrectFlags.add(true);
-//        }
-//
-//        basePos = new PointF(size.width / 2, size.height / 2);
-//        inputPos = 0;
-//
-//        ArrayList<String> questions = new ArrayList<>();
-//
-//        // 出題文字化どうかの判定を行う（記号や数字使用しない）
-//        for (int i=1; i<strArray.length; i++) {
-//            if (!isIgnoreStr(strArray[i])) {
-//                questions.add(strArray[i]);
-//            }
-//        }
-//
-//        // 出題文字列を並び替える
-//        String[] _questions = questions.toArray(new String[0]);
-//
-//        if (MySharedPref.readBoolean(MySharedPref.StudyMode4OptionKey)) {
-//            // ランダムに並び替える
-//            // リストの並びをシャッフルします。
-//            // 配列はシャッフルできないので一旦リストに変換する
-//            List<String> list = Arrays.asList(_questions);
-//            Collections.shuffle(list);
-//            _questions = list.toArray(new String[0]);
-//        } else {
-//            // アルファベット順に並び替える
-//            Arrays.sort(_questions, new Comparator<String>() {
-//                public int compare(String str1, String str2) {
-//                    return str1.compareTo(str2);
-//                }
-//            });
-//        }
-//
-//        int i=0;
-//        for (String str : _questions) {
-//            UButtonText button = new UButtonText(this, UButtonType.BGColor, i, 0, str,
-//                    0, 0, UDpi.toPixel(QBUTTON_W), UDpi.toPixel(QBUTTON_H), UDpi.toPixel(FONT_SIZE_L), TEXT_COLOR, BUTTON_COLOR);
-//            mQuestionButtons.add(button);
-//            i++;
-//        }
-//
-//        // 出現アニメーション
-//        startAppearance(ANIME_FRAME);
+        mState = .None
+        mCard = card
+        mWord = card.wordA
+        
+        var strArray : [String] = []
+        for c in card.wordA!.lowercased().characters {
+            strArray.append( String(c) )
+        }
+
+        // strArrayの先頭に余分な空文字が入っているので除去
+        // 空白も除去
+        for c in strArray {
+            mCorrectWords.append(c)
+            mCorrectFlags.append(true)
+        }
+
+        basePos = CGPoint(x: size.width / 2, y: size.height / 2)
+        inputPos = 0;
+
+        initSKNode()
+
+        // 出現アニメーション
+        startAppearance(frame: ANIME_FRAME)
+    }
+    
+    
+    public override func initSKNode() {
+        var y : CGFloat = UDpi.toPixel(MARGIN_V)
+        
+        // Client  BG以外のノードの親
+        clientNode = SKNode()
+        clientNode!.zPosition = 1.0
+        parentNode.addChild2( clientNode! )
+        
+        // BG
+        bgNode = SKNodeUtil.createRectNode(
+            rect: CGRect(x:-size.width / 2, y:-size.height / 2,
+                         width: size.width, height: size.height ),
+            color: .white, pos: CGPoint(x: size.width / 2, y: size.height / 2), cornerR: UDpi.toPixel(10))
+        bgNode!.strokeColor = FRAME_COLOR
+        bgNode!.lineWidth = UDpi.toPixel(3)
+        parentNode.addChild2(bgNode!)
+        
+        // タイトル(出題の単語)
+        titleNode = SKNodeUtil.createLabelNode(text: mCard!.wordB!, fontSize: UDpi.toPixel(StudyCardInput.FONT_SIZE), color: .black, alignment: .CenterX, pos: CGPoint(x: size.width / 2, y: y)).node
+        titleNode?.zPosition = 1
+        clientNode!.addChild2( titleNode! )
+        
+        y += titleNode!.frame.size.height + UDpi.toPixel(MARGIN_V)
+        
+        // 正解（未入力含む）
+        y = createCorrectWordNode(y: y)
+
+        // タッチ用の文字
+        y = createQuestionNode(y: y)
     }
 
     /**
@@ -165,10 +175,11 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
      * 出現時の拡大処理
      */
     private func startAppearance(frame : Int) {
-//        Size _size = new Size(size.width, size.height);
-//        setSize(0, 0);
-//        startMovingSize(_size.width, _size.height, frame);
-//        mState = State.Appearance;
+        mScale = 0
+        mState = State.Appearance
+        startMovingScale(dstScale: 1.0, frame: frame)
+        
+        clientNode!.isHidden = true
     }
 
     /**
@@ -176,8 +187,9 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
      * @param frame
      */
     private func startDisappearange( frame : Int) {
-//        startMovingSize(0, 0, frame);
-//        mState = State.Disappearance;
+        mScale = 1.0
+        mState = State.Disappearance
+        startMovingScale(dstScale: 0, frame: frame)
     }
 
     /**
@@ -185,34 +197,38 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
      * 強制的に表示したのでNG判定
      */
     public func showCorrect() {
-//        mState = State.ShowAnswer;
-//        isMistaken = true;
-//        inputPos = mWord.length();
-//        for (UButtonText button : mQuestionButtons) {
-//            button.setEnabled(false);
-//        }
+        mState = State.ShowAnswer
+        isMistaken = true
+        inputPos = mWord!.characters.count
+        for button in mQuestionButtons {
+            button!.setEnabled(false)
+        }
     }
 
     /**
      * 自動で実行される何かしらの処理
      * @return
      */
-    public override func doAction() -> DoActionRet{
-//        switch (mState) {
-//            case Appearance:
-//            case Disappearance:
-//                if (autoMoving()) {
-//                    return DoActionRet.Redraw;
-//                }
-//                break;
-//            case None:
-//                for (UButtonText button : mQuestionButtons) {
-//                    if (button.doAction() != DoActionRet.None) {
-//                        return DoActionRet.Redraw;
-//                    }
-//                }
-//                break;
-//        }
+    public override func doAction() -> DoActionRet {
+        switch mState {
+        case .Appearance:
+            fallthrough
+        case .Disappearance:
+            autoMoving()
+            // bgNodeのスケールだけ変えたいのでparentNodeのスケールを戻す
+            parentNode.setScale(1.0)
+            bgNode!.setScale(mScale)
+            break
+        case .None:
+            for button in mQuestionButtons {
+                if button!.doAction() != .None {
+                    return .Redraw
+                }
+            }
+            break
+        default:
+            break
+        }
         return .None
     }
 
@@ -220,13 +236,13 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
      * 自動移動完了
      */
     public override func endMoving() {
-//        if (mState == State.Disappearance) {
-//            // 親に非表示完了を通知する
-//            mRequest = RequestToParent.End;
-//        }
-//        else {
-//            mState = State.None;
-//        }
+        if mState == State.Disappearance {
+            // 親に非表示完了を通知する
+            mRequest = RequestToParent.End
+        }
+        else {
+            mState = State.None
+        }
     }
 
     /**
@@ -234,10 +250,10 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
      * @param str
      * @return
      */
-    private func isIgnoreStr( str : String ) -> Bool{
-//        if (str.matches("[0-9a-zA-Z]+")) {
-//            return false;
-//        }
+    private func isIgnoreStr( _ str : String ) -> Bool{
+        if RegExp("[0-9a-zA-Z]+").isMatch(input: str) {
+            return false
+        }
         return true
     }
 
@@ -252,67 +268,12 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
     public override func draw() {
-//        PointF _pos = new PointF(pos.x, pos.y);
-//        if (offset != null) {
-//            _pos.x += offset.x;
-//            _pos.y += offset.y;
-//        }
-//
-//        // BG
-//        int color = 0;
-//        if (mState == State.ShowAnswer) {
-//            // 解答表示時
-//            if (isMistaken) {
-//                color = UColor.LightRed;
-//            } else {
-//                color = UColor.LightGreen;
-//            }
-//        } else {
-//            color = Color.WHITE;
-//        }
-//
-//        if (isMovingSize) {
-//            // Open/Close animation
-//            float x = _pos.x + basePos.x - size.width / 2;
-//            float y = _pos.y + basePos.y - size.height / 2;
-//
-//            UDraw.drawRoundRectFill(canvas, paint,
-//                    new RectF(x, y, x + size.width, y + size.height),
-//                    UDpi.toPixel(3), color, UDpi.toPixel(2), FRAME_COLOR);
-//        } else {
-//            UDraw.drawRoundRectFill(canvas, paint,
-//                    new RectF(_pos.x, _pos.y,
-//                            _pos.x + size.width, _pos.y + size.height),
-//                    UDpi.toPixel(3), color, UDpi.toPixel(2), FRAME_COLOR);
-//        }
-//
-//        // 正解中はマルバツを表示
-//        PointF _pos2 = new PointF(_pos.x + size.width / 2, _pos.y + size.height / 2);
-//
-//        // Text
-//        if (mState == State.None || mState == State.ShowAnswer) {
-//            float x, y = _pos.y + UDpi.toPixel(MARGIN_V);
-//            // 出題単語(日本語)
-//            Size _size = UDraw.drawText(canvas, mCard.getWordB(), UAlignment.CenterX, UDpi.toPixel(FONT_SIZE),
-//                    _pos2.x, y, TEXT_COLOR);
-//            y += _size.height + UDpi.toPixel(MARGIN_V);
-//
-//            // 正解文字列
-//            y = drawInputTexts(canvas, paint, _pos.x, y);
-//
-//            // 正解入力用のランダム文字列
-//            drawQuestionTexts(canvas, paint, _pos, y);
-//        }
-//
-//        if (mState == State.ShowAnswer) {
-//            if (isMistaken) {
-//                UDraw.drawCross(canvas, paint, new PointF(_pos2.x, _pos2.y),
-//                        UDpi.toPixel(23), UDpi.toPixel(7), UColor.Red);
-//            } else {
-//                UDraw.drawCircle(canvas, paint, new PointF(_pos2.x, _pos2.y),
-//                        UDpi.toPixel(23), UDpi.toPixel(7), UColor.Green);
-//            }
-//        }
+        if isMoving || mScale == 0 {
+            clientNode!.isHidden = true
+        } else {
+            clientNode!.isHidden = false
+        }
+        
     }
 
     /**
@@ -321,62 +282,78 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
      * @param x   描画先頭座標x
      * @param y   描画先頭座標y
      */
-    private func drawInputTexts( x : CGFloat, y : CGFloat) -> CGFloat{
+    private func createCorrectWordNode(y : CGFloat) -> CGFloat {
+        var x : CGFloat = 0
+        var y = y
+        var width : CGFloat
+        
+        // 一行に表示できる文字数
+        let lineTexts : Int = Int((size.width - UDpi.toPixel(MARGIN_H) * 2) / UDpi.toPixel(ONE_TEXT_WIDTH))
+        
+        var lineTextCnt = 0
 
-//        float _x;
-//        int width;
-//        // 一行に表示できる文字数
-//        int lineTexts = (size.width - UDpi.toPixel(MARGIN_H) * 2) / UDpi.toPixel(ONE_TEXT_WIDTH);
-//        int lineTextCnt = 0;
-//
-//        if (lineTexts < mCorrectWords.size()) {
-//            // １行に収まりきらない場合
-//            width = size.width - UDpi.toPixel(MARGIN_H) * 2;
-//        } else {
-//            width = mCorrectWords.size() * UDpi.toPixel(ONE_TEXT_WIDTH);
-//        }
-//
-//        _x = (size.width - width) / 2 + x;
-//        float topX = _x;
-//        String text;
-//
-//        int textW = UDpi.toPixel(ONE_TEXT_WIDTH);
-//
-//        for (int i = 0; i < mCorrectWords.size(); i++) {
-//            text = mCorrectWords.get(i);
-//            if (isIgnoreStr(text)) {
-//
-//            } else if(text.equals("\n")) {
-//                // 改行
-//                _x = topX;
-//                y += textW;
-//                lineTextCnt = 0;
-//                continue;
-//            } else if (i >= inputPos ) {
-//                // 未入力文字
-//                text = "_";
-//            }
-//
-//            int bgColor = 0;
-//            if (!mCorrectFlags.get(i)) {
-//                bgColor = UColor.LightRed;
-//            } else if (i == inputPos) {
-//                bgColor = UColor.LightGreen;
-//            }
-//
-//            UDraw.drawTextOneLine(canvas, paint, text, UAlignment.None, textW,
-//                    _x, y, TEXT_COLOR, bgColor, UDpi.toPixel(7));
-//
-//            _x += textW;
-//            lineTextCnt++;
-//            if (lineTextCnt > lineTexts) {
-//                _x = topX;
-//                y += textW;
-//                lineTextCnt = 0;
-//            }
-//        }
-//        return y;
-        return 0
+        if lineTexts < mCorrectWords.count {
+            // １行に収まりきらない場合
+            width = size.width - UDpi.toPixel(MARGIN_H) * 2
+        } else {
+            width = CGFloat(mCorrectWords.count) * UDpi.toPixel(ONE_TEXT_WIDTH)
+        }
+
+        x = (size.width - width) / 2
+        let topX : CGFloat = x
+        let text : String = "_"
+
+        let textW : CGFloat = UDpi.toPixel(ONE_TEXT_WIDTH)
+        let fontSize = UDpi.toPixel(StudyCardInput.FONT_SIZE)
+        let margin = UDpi.toPixel(8)
+        let labelPos = CGPoint(x: margin, y: margin + UDpi.toPixel(StudyCardInput.FONT_SIZE))
+        let radius = UDpi.toPixel(0)
+        
+        for i in 0 ..< mCorrectWords.count {
+            let word = mCorrectWords[i]
+            if isIgnoreStr(word) {
+
+            } else if (word == "\n") {
+                // 改行
+                x = topX
+                y += textW
+                lineTextCnt = 0
+                continue
+            }
+
+            // SpriteKit Node
+            let pNode = SKNode()
+            pNode.position = CGPoint(x: x, y: y)
+            
+            // Label
+            let result = SKNodeUtil.createLabelNode(text: text, fontSize: fontSize, color: .black, alignment: .Bottom, pos: labelPos)
+            result.node.name = labelNodeName
+            pNode.addChild2( result.node )
+            
+            // BG
+            let bgN = SKNodeUtil.createRectNode(rect: CGRect(x:0, y:0, width: result.size.width + margin * 2, height: result.size.width * 2 + margin * 2),
+                                                color: .clear, pos: CGPoint(), cornerR: radius)
+            if i == 0 {
+                bgN.fillColor = UColor.LightGreen
+            }
+            
+            bgN.name = bgNodeName
+            pNode.addChild2( bgN )
+            correctNodes.append( pNode )
+            clientNode!.addChild2( pNode )
+
+            x += textW
+            lineTextCnt += 1
+            
+            if lineTextCnt > lineTexts {
+                x = topX
+                y += textW
+                lineTextCnt = 0
+            }
+        }
+        y += textW + UDpi.toPixel(MARGIN_V * 2)
+        
+        return y
     }
 
     /**
@@ -387,30 +364,60 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
      * @param y
      * @return
      */
-    private func drawQuestionTexts( offset : CGPoint, y : CGFloat) -> CGFloat {
-
-//        int lineButtons = (size.width - UDpi.toPixel(TEXT_MARGIN_H2)) / UDpi.toPixel(QBUTTON_W + TEXT_MARGIN_H2);
-//        int width;
-//        if (lineButtons > mWord.length()) {
-//            lineButtons = mWord.length();
-//        }
-//        width = lineButtons * UDpi.toPixel(QBUTTON_W + TEXT_MARGIN_H2) - UDpi.toPixel(TEXT_MARGIN_H2);
-//        float topX = (size.width - width) / 2;
-//        float x = topX;
-//
-//        for (UButtonText button : mQuestionButtons) {
-//            button.setPos(x, y);
-//            button.draw(canvas, paint, offset);
-//            x += UDpi.toPixel(QBUTTON_H + TEXT_MARGIN_H2);
-//
-//            // 改行判定
-//            if (x + button.getWidth() + UDpi.toPixel(TEXT_MARGIN_H2) > size.width) {
-//                x = topX;
-//                y += button.getHeight() + UDpi.toPixel(TEXT_MARGIN_V);
-//            }
-//        }
-//        return y;
-        return 0
+    private func createQuestionNode( y : CGFloat ) -> CGFloat {
+        var lineButtons = Int((size.width - UDpi.toPixel(TEXT_MARGIN_H2)) / UDpi.toPixel(QBUTTON_W + TEXT_MARGIN_H2))
+        
+        var width : CGFloat
+        let questions : List<String> = List()
+        
+        // 出題文字化どうかの判定を行う（記号や数字使用しない）
+        for word in mCorrectWords {
+            if !isIgnoreStr(word!) {
+                questions.append(word!)
+            }
+        }
+        
+        if lineButtons > mCorrectWords.count {
+            lineButtons = mCorrectWords.count
+        }
+        
+        if MySharedPref.readBool(MySharedPref.StudyMode4OptionKey) {
+            // ランダムに並び替える
+            // リストの並びをシャッフルします。
+            questions.shuffled()
+        } else {
+            // アルファベット順に並び替える
+            questions.sorted( isOrderedBefore: {$0 > $1} )
+        }
+        
+        width = CGFloat(lineButtons) * UDpi.toPixel(QBUTTON_W + TEXT_MARGIN_H2) - UDpi.toPixel(TEXT_MARGIN_H2)
+        
+        let topX = (size.width - width) / 2
+        var x = topX
+        var y = y
+        
+        var i : Int = 0
+        for str in questions {
+            let button = UButtonText(
+                callbacks : self, type : UButtonType.BGColor, id : i, priority : 0,
+                text : str!, createNode : true, x : x, y : y,
+                width : UDpi.toPixel(QBUTTON_W), height : UDpi.toPixel(QBUTTON_H),
+                fontSize : UDpi.toPixel(FONT_SIZE_L),
+                textColor : TEXT_COLOR, bgColor : BUTTON_COLOR)
+            clientNode!.addChild2( button.parentNode )
+            mQuestionButtons.append(button)
+            
+            x += UDpi.toPixel(QBUTTON_H + TEXT_MARGIN_H2);
+            
+            // 改行判定
+            if x + button.getWidth() + UDpi.toPixel(TEXT_MARGIN_H2) > size.width {
+                x = topX
+                y += button.getHeight() + UDpi.toPixel(TEXT_MARGIN_V)
+            }
+            i += 1
+        }
+        
+        return y
     }
 
     /**
@@ -422,37 +429,38 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
         return self.touchEvent(vt: vt, offset: nil)
     }
 
-    public func touchEvent( vt : ViewTouch, parentPos : CGPoint) -> Bool{
+    public override func touchEvent( vt : ViewTouch, offset : CGPoint?) -> Bool{
         var done = false
 
-//        // アニメーションや移動中はタッチ受付しない
-//        if (isMovingSize) {
-//            return false;
-//        }
-//
-//        // 問題ボタン
-//        for (UButton button : mQuestionButtons) {
-//            if (button.touchUpEvent(vt)) {
-//                done = true;
-//            }
-//        }
-//        for (UButton button : mQuestionButtons) {
-//            if (button.touchEvent(vt, parentPos)) {
-//                return true;
-//            }
-//        }
-//
-//        switch(vt.type) {
-//            case Touch:        // タッチ開始
-//                break;
-//            case Click: {
-//                if (mState == State.ShowAnswer) {
-//                    startDisappearange(ANIME_FRAME);
-//                    done = true;
-//                }
-//            }
-//            break;
-//        }
+        // アニメーションや移動中はタッチ受付しない
+        if isMovingSize {
+            return false
+        }
+
+        // 問題ボタン
+        for button in mQuestionButtons {
+            if button!.touchUpEvent(vt: vt) {
+                done = true
+            }
+        }
+        for button in mQuestionButtons {
+            if button!.touchEvent(vt: vt, offset: offset) {
+                return true
+            }
+        }
+
+        switch vt.type {
+        case .Touch:        // タッチ開始
+            break
+        case .Click:
+            if mState == State.ShowAnswer {
+                startDisappearange(frame: ANIME_FRAME)
+                done = true
+            }
+            break
+        default:
+            break
+        }
 
         return done
     }
@@ -461,50 +469,87 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
         mRequest = RequestToParent.End
     }
 
-    /**
-     * Callbacks
-     */
+    // MARK: Callbacks
     /**
      * UButtonCallbacks
      */
     public func UButtonClicked(id : Int, pressedOn : Bool) -> Bool{
         // 判定を行う
-//        UButtonText button = getButtonById(id);
-//        String text1 = mCorrectWords.get(inputPos);
-//        String text2 = button.getmText();
-//        if (text1.equals(text2)) {
-//            // 正解のボタンをタップ
-//            // すでに正解用として使用したので使えなくする
-//            button.setEnabled(false);
-//            inputPos++;
-//            // スペースや改行をスキップする
-//            for(int i = inputPos; i < mCorrectWords.size(); i++) {
-//                if (isIgnoreStr(mCorrectWords.get(i))) {
-//                    inputPos++;
-//                } else {
-//                    break;
-//                }
-//            }
-//
-//            if (inputPos >= mWord.length()) {
-//                // 終了
-//                mState = State.ShowAnswer;
-//            }
-//            // 色を元に戻す
-//            for (UButtonText _button : mQuestionButtons) {
-//                if (_button.getEnabled() == true && _button.getColor() == NG_BUTTON_COLOR) {
-//                    _button.setColor(BUTTON_COLOR);
-//                }
-//            }
-//            return true;
-//        } else {
-//            // 不正解のボタンをタップ
-//            isMistaken = true;
-//            button.setColor(NG_BUTTON_COLOR);
-//            mCorrectFlags.set(inputPos, false);
-//            return true;
-//        }
-        return false
+        let button = getButtonById(id)
+        let text1 = mCorrectWords[inputPos]
+        let text2 = button!.getmText()
+        if text1 == text2 {
+            // 正解のボタンをタップ
+            // すでに正解用として使用したので使えなくする
+            button!.setEnabled(false)
+            button!.setColor(.darkGray)
+ 
+            if mCorrectFlags[inputPos] {
+                if let bgN = correctNodes[inputPos].childNode(withName: bgNodeName) as? SKShapeNode {
+                    bgN.fillColor = .clear
+                }
+            }
+            if let labelN = correctNodes[inputPos].childNode(withName: labelNodeName) as? SKLabelNode {
+                labelN.text = mCorrectWords[inputPos]
+            }
+            inputPos += 1
+            // スペースや改行をスキップする
+            for i in inputPos ..< mCorrectWords.count {
+                if isIgnoreStr( mCorrectWords[i] ) {
+                    inputPos += 1
+                } else {
+                    break
+                }
+            }
+            
+            if inputPos >= mWord!.characters.count {
+                // 終了
+                mState = State.ShowAnswer
+                // ○×
+                if isMistaken {
+                    let n = SKNodeUtil.createCrossPoint(type: .Type2, pos: CGPoint(x: size.width / 2, y: size.height / 2), length: UDpi.toPixel(50), lineWidth: UDpi.toPixel(10), color: .red, zPos: 1)
+                    clientNode!.addChild2(n)
+                } else {
+                    let n = SKNodeUtil.createCircleNode(pos: CGPoint(x: size.width / 2, y: size.height / 2), radius: UDpi.toPixel(50), lineWidth: UDpi.toPixel(10), color: UColor.DarkGreen)
+                    n.zPosition = 1
+                    clientNode!.addChild2(n)
+                }
+            } else {
+                if let bgN = correctNodes[inputPos].childNode(withName: bgNodeName) as? SKShapeNode
+                {
+                    bgN.fillColor = UColor.LightGreen
+                }
+            }
+            // 色を元に戻す
+            for _button in mQuestionButtons {
+                if _button!.getEnabled() == true && _button!.getColor() == NG_BUTTON_COLOR {
+                    _button!.setColor(BUTTON_COLOR)
+                }
+            }
+        } else {
+            // 不正解のボタンをタップ
+            isMistaken = true
+            button!.setColor( NG_BUTTON_COLOR )
+            mCorrectFlags[inputPos] = false
+            
+            if let bgN = correctNodes[inputPos].childNode(withName: bgNodeName) as? SKShapeNode {
+                bgN.fillColor = UColor.LightRed
+            }
+
+            return true
+        }
+        // 背景色
+        var bgColor : UIColor = .white
+        if (mState == State.ShowAnswer) {
+            // 解答表示時
+            if (isMistaken) {
+                bgColor = UColor.LightRed;
+            } else {
+                bgColor = UColor.LightGreen;
+            }
+        }
+        bgNode!.fillColor = bgColor
+        return true
     }
 }
 

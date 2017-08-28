@@ -16,4 +16,7 @@ public enum UAlignment {
     case Left
     case Right
     case Right_CenterY
+    case Bottom
+    case CenterX_Bottom
+    case Right_Bottom
 }

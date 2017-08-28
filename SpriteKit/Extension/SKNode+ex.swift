@@ -74,6 +74,15 @@ extension SKLabelNode {
         case .Right_CenterY:
             self.horizontalAlignmentMode = .right
             self.verticalAlignmentMode = .center
+        case .Bottom:
+            self.horizontalAlignmentMode = .left
+            self.verticalAlignmentMode = .baseline
+        case .CenterX_Bottom:
+            self.horizontalAlignmentMode = .center
+            self.verticalAlignmentMode = .baseline
+        case .Right_Bottom:
+            self.horizontalAlignmentMode = .right
+            self.verticalAlignmentMode = .baseline
         }
     }
 }

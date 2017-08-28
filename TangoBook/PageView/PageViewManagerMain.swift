@@ -177,31 +177,30 @@ public class PageViewManagerMain : UPageViewManager {
       * @param firstStudy trueならリトライでない学習
       */
     public func startStudyPage( book : TangoBook, firstStudy : Bool) {
-         switch( MySharedPref.getStudyMode()) {
-         case .SlideOne:
+        switch( MySharedPref.getStudyMode()) {
+        case .SlideOne:
             fallthrough
-         case .SlideMulti:
+        case .SlideMulti:
              let pageView = getPageView(pageId: PageIdMain.StudySlide.rawValue) as! PageViewStudySlide
              pageView.setBook(book)
              pageView.isFirst = firstStudy
              stackPage(pageView: pageView)
          
-         case .Choice4:
+        case .Choice4:
             let pageView = getPageView(pageId: PageIdMain.StudySelect4.rawValue) as! PageViewStudySelect4
             pageView.setBook(book)
             pageView.setFirstStudy(firstStudy)
             stackPage(pageView: pageView)
             
-         case .Input:
-//             PageViewStudyInputCorrect page = (PageViewStudyInputCorrect)getPageView(PageView
-//                     .StudyInputCorrect);
-//             page.setBook(book);
-//             page.setFirstStudy(firstStudy);
-//             stackPage(PageView.StudyInputCorrect);
+        case .Input:
+            let pageView = getPageView(pageId: PageIdMain.StudyInputCorrect.rawValue) as! PageViewStudyInputCorrect
+            pageView.setBook(book)
+            pageView.setFirstStudy(firstStudy)
+            stackPage(pageView: pageView)
             break
-         default:
+        default:
             break
-         }
+        }
     }
     
     /**

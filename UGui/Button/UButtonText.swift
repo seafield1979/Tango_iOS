@@ -158,6 +158,13 @@ public class UButtonText : UButton {
         }
     }
     
+    public override func setColor(_ color : UIColor) {
+        super.setColor(color)
+        if bgNode != nil {
+            bgNode!.fillColor = color
+        }
+    }
+    
     // 画像の表示座標を計算する
     private func calcImageOffset( alignment : UAlignment, convSKPos : Bool) {
         var baseX : CGFloat = 0, baseY : CGFloat = 0
@@ -185,6 +192,15 @@ public class UButtonText : UButton {
         case .Right_CenterY:
             baseX = bgNode!.frame.size.width - imageNode!.size.width
             baseY = bgNode!.frame.size.height / 2
+        case .Bottom:
+            baseX = 0
+            baseY = bgNode!.frame.size.height
+        case .CenterX_Bottom:
+            baseX = bgNode!.frame.size.width / 2
+            baseY = bgNode!.frame.size.height
+        case .Right_Bottom:
+            baseX = bgNode!.frame.size.width - imageNode!.size.width
+            baseY = bgNode!.frame.size.height
         }
         
         if mImageOffset != nil {

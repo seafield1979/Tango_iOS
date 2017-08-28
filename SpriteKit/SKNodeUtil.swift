@@ -167,8 +167,6 @@ public class SKNodeUtil {
         for subString in subStrings {
             let labelTemp = SKLabelNode(fontNamed: SKNodeUtil.fontName)
             labelTemp.text = subString
-//            labelTemp.horizontalAlignmentMode = .left
-//            labelTemp.verticalAlignmentMode = .top
             labelTemp.setAlignment(alignment)
             labelTemp.fontColor = color
             labelTemp.fontSize = fontSize
@@ -195,6 +193,10 @@ public class SKNodeUtil {
         if alignment == .CenterY || alignment == .Center || alignment == .Right_CenterY {
             let centerY = (CGFloat(subStringNumber) * fontSize) / 2
             labelOutPut.position.y -= (centerY - fontSize / 2)
+        } else if alignment == .Bottom || alignment == .CenterX_Bottom || alignment == .Right_Bottom
+        {
+            let centerY = (CGFloat(subStringNumber) * fontSize) / 2
+            labelOutPut.position.y -= (centerY - fontSize)
         }
         
         return (labelOutPut, CGSize(width: maxWidth, height: CGFloat(subStringNumber) * fontSize))

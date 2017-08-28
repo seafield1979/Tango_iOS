@@ -124,6 +124,11 @@ public class List<T> : Sequence, Hashable{
         return elements.sorted(by: isOrderedBefore)
     }
     
+    // 本体をソートする
+    func sorted(isOrderedBefore: (T, T) -> Bool) {
+        elements = elements.sorted(by: isOrderedBefore)
+    }
+    
     func reverse() -> Array<T> {
         return elements.reversed()
     }

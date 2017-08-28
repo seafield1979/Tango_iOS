@@ -14,6 +14,7 @@
 		8A0D6FB71F31A47A002A1949 /* TangoBackupFileDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6FB61F31A47A002A1949 /* TangoBackupFileDao.swift */; };
 		8A0F64421F4FC9750019BAC7 /* DialogCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0F64411F4FC9750019BAC7 /* DialogCard.swift */; };
 		8A2584AC1F3209C3002EE9E2 /* EditCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A2584AE1F3209C3002EE9E2 /* EditCardViewController.xib */; };
+		8A2DA70B1F53A30D00FCB0C4 /* RegExp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DA70A1F53A30D00FCB0C4 /* RegExp.swift */; };
 		8A5708B41F373D27004387D4 /* animal.csv in Resources */ = {isa = PBXBuildFile; fileRef = 8A5708171F373D27004387D4 /* animal.csv */; };
 		8A5708B51F373D27004387D4 /* drink.csv in Resources */ = {isa = PBXBuildFile; fileRef = 8A5708181F373D27004387D4 /* drink.csv */; };
 		8A5708B61F373D27004387D4 /* fish.csv in Resources */ = {isa = PBXBuildFile; fileRef = 8A5708191F373D27004387D4 /* fish.csv */; };
@@ -348,6 +349,7 @@
 		8A2584AD1F3209C3002EE9E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EditCardViewController.xib; sourceTree = "<group>"; };
 		8A2584BB1F320E15002EE9E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditCardViewController.strings; sourceTree = "<group>"; };
 		8A2584BC1F320E19002EE9E2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/EditCardViewController.strings; sourceTree = "<group>"; };
+		8A2DA70A1F53A30D00FCB0C4 /* RegExp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegExp.swift; sourceTree = "<group>"; };
 		8A5708171F373D27004387D4 /* animal.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = animal.csv; sourceTree = "<group>"; };
 		8A5708181F373D27004387D4 /* drink.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = drink.csv; sourceTree = "<group>"; };
 		8A5708191F373D27004387D4 /* fish.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fish.csv; sourceTree = "<group>"; };
@@ -1186,6 +1188,7 @@
 				8AE08AAD1F2580D70024E9B7 /* UResourceManager.swift */,
 				8AE08AAE1F2580D70024E9B7 /* UUtil.swift */,
 				8A0D6FA01F317618002A1949 /* UFileManager.swift */,
+				8A2DA70A1F53A30D00FCB0C4 /* RegExp.swift */,
 			);
 			path = UUtil;
 			sourceTree = "<group>";
@@ -1667,6 +1670,7 @@
 				8AE08AB71F2580D70024E9B7 /* UDpi.swift in Sources */,
 				8AB7E94B1F25A00F005E36BB /* PageViewBackup.swift in Sources */,
 				8AB7E9561F25A00F005E36BB /* PageViewStudySlide.swift in Sources */,
+				8A2DA70B1F53A30D00FCB0C4 /* RegExp.swift in Sources */,
 				8AF1A5761F47CC5800B47000 /* CGRect+sk.swift in Sources */,
 				8A5709541F3766DC004387D4 /* ListItemCard.swift in Sources */,
 				8A5709601F376788004387D4 /* ListItemStudyBook.swift in Sources */,

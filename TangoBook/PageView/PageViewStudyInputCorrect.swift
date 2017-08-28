@@ -132,7 +132,7 @@ public class PageViewStudyInputCorrect : PageViewStudy, CardsStackCallbacks {
         // 終了ボタン
         mExitButton = UButtonText(
             callbacks : self, type : UButtonType.Press, id : PageViewStudy.ButtonIdExit,
-            priority : DRAW_PRIORITY,
+            priority : 1,
             text : UResourceManager.getStringByName("finish"),
             createNode : true, x : width/2-buttonW-UDpi.toPixel(MARGIN_H)/2,
             y : height-UDpi.toPixel(50),
@@ -145,7 +145,7 @@ public class PageViewStudyInputCorrect : PageViewStudy, CardsStackCallbacks {
         // 現在のカードをスキップボタン
         mSkipButton = UButtonText(
             callbacks : self, type : UButtonType.Press,
-            id : ButtonIdSkip, priority : DRAW_PRIORITY,
+            id : ButtonIdSkip, priority : 1,
             text : UResourceManager.getStringByName("skip"), createNode : true,
             x : width/2+UDpi.toPixel(MARGIN_H)/2,
             y : height-UDpi.toPixel(50),

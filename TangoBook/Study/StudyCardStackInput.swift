@@ -33,7 +33,7 @@ public class StudyCardStackInput : UDrawable {
     private var mState : State = .Main
     
     // 学習中するカードリスト。出題ごとに１つづつ減っていく
-    private var mCards : List<TangoCard>?
+    private var mCards : List<TangoCard> = List()
 
     // MARK: Accessor
     /**
@@ -41,7 +41,7 @@ public class StudyCardStackInput : UDrawable {
      * @return
      */
     public func getCardCount() -> Int {
-        return mCards!.count
+        return mCards.count
     }
     
     /**
@@ -62,10 +62,10 @@ public class StudyCardStackInput : UDrawable {
         
         // カードマネージャーのカードリストをコピー
         for card in mCardManager!.getCards() {
-            mCards!.append(card!)
+            mCards.append(card!)
         }
         if MySharedPref.getStudyOrder() == StudyOrder.Random {
-            mCards?.shuffled()
+            mCards.shuffled()
         }
         
         setStudyCard()
@@ -80,9 +80,15 @@ public class StudyCardStackInput : UDrawable {
      * 出題するカードを準備する
      */
     private func setStudyCard() {
-        if mCards!.count > 0 {
-            let card = mCards!.pop()
-            mStudyCard = StudyCardInput(card: card!, canvasW: mCanvasW, height: size.height - UDpi.toPixel(MARGIN_V))
+        if mCards.count > 0 {
+            let card = mCards.pop()
+            
+            if mStudyCard != nil {
+                mStudyCard!.parentNode.removeFromParent()
+            }
+            
+            mStudyCard = StudyCardInput(card: card!, canvasW: mCanvasW, height: size.height - UDpi.toPixel(MARGIN_V), pos: pos)
+            parentNode.addChild2( mStudyCard!.parentNode )
         } else {
             // 終了
             mState = State.End;
@@ -117,7 +123,7 @@ public class StudyCardStackInput : UDrawable {
                     mCardManager!.addOkCard(mStudyCard!.mCard!)
                 }
                 // 表示中のカードが終了したので次のカードを表示
-                if mCards!.count == 0 {
+                if mCards.count == 0 {
                     // もうカードがないので終了
                     mState = State.End;
                     if cardsStackCallbacks != nil {
@@ -128,7 +134,7 @@ public class StudyCardStackInput : UDrawable {
                     mState = .Main
                     setStudyCard()
                     if cardsStackCallbacks != nil {
-                        cardsStackCallbacks!.CardsStackChangedCardNum(cardNum: mCards!.count)
+                        cardsStackCallbacks!.CardsStackChangedCardNum(cardNum: mCards.count)
                     }
                 }
             }
