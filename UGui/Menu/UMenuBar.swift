@@ -25,7 +25,7 @@ public class UMenuBar : UWindow {
     var mMenuItemCallbacks : UMenuItemCallbacks? = nil
     var topItems : List<UMenuItem> = List()
     var items : List<UMenuItem> = List()
-    var mDrawList : DrawList? = nil
+    var mDrawList : UDrawList? = nil
     
     /**
      * Constructor

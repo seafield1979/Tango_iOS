@@ -42,7 +42,7 @@ public class UDrawable {
     public var parentNode : SKNode
     public var debugNode : SKNode?
     
-    var drawList : DrawList? = nil    // DrawManagerに描画登録するとnull以外になる
+    var drawList : UDrawList? = nil    // DrawManagerに描画登録するとnull以外になる
     var pos = CGPoint()
     var size = CGSize()
     var rect : CGRect = CGRect()
@@ -539,11 +539,11 @@ public class UDrawable {
     /**
      * Drawableインターフェース
      */
-    func setDrawList(_ drawList : DrawList) {
+    func setDrawList(_ drawList : UDrawList) {
         self.drawList = drawList
     }
     
-    func getDrawList() -> DrawList? {
+    func getDrawList() -> UDrawList? {
         return drawList
     }
     

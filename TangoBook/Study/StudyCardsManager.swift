@@ -1,4 +1,4 @@
-//
+///
 //  StudyCardsManager.swift
 //  TangoBook
 //
@@ -101,7 +101,7 @@ public class StudyCardsManager {
 
             // ランダムに並び替える
             if studyOrder == StudyOrder.Random {
-//                Collections.shuffle(mCards)
+                mCards.shuffled()
             }
         }
     }

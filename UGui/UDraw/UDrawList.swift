@@ -10,7 +10,7 @@
 import Foundation
 import UIKit
 
-public class DrawList {
+public class UDrawList {
     // 描画範囲 この範囲外には描画しない
     public private(set) var priority : Int;
     private var list : List<UDrawable> = List()
@@ -105,6 +105,7 @@ public class DrawList {
     public func doAction() -> DoActionRet {
         var ret = DoActionRet.None;
         for obj : UDrawable? in list {
+            obj!.autoMoving()
             let _ret : DoActionRet = obj!.doAction()
             switch(_ret) {
                 case .Done:

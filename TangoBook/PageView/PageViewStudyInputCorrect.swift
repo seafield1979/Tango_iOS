@@ -181,16 +181,6 @@ public class PageViewStudyInputCorrect : PageViewStudy, CardsStackCallbacks {
         return false
     }
     
-   
-    
-    /**
-     * ソフトウェアキーの戻るボタンを押したときの処理
-     * @return
-     */
-    public override func onBackKeyDown() -> Bool {
-        return false
-    }
-    
     // MARK: Callbacks
     /**
      * UButtonCallbacks

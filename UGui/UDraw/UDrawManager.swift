@@ -51,7 +51,7 @@ class UDrawManager {
     private var touchingObj : UDrawable? = nil
     
     // ページのリスト
-    private var mPageList : RefDictionary<Int, RefDictionary<Int, DrawList>> = RefDictionary()
+    private var mPageList : RefDictionary<Int, RefDictionary<Int, UDrawList>> = RefDictionary()
     
     // カレントページ
     private var mCurrentPage : Int = DEFAULT_PAGE
@@ -97,7 +97,7 @@ class UDrawManager {
 
         // ページリストが存在しないなら作成する
         if mPageList[page] == nil {
-            let lists : RefDictionary<Int, DrawList> = RefDictionary()
+            let lists : RefDictionary<Int, UDrawList> = RefDictionary()
             mPageList[page] = lists
         }
         self.mCurrentPage = page
@@ -106,7 +106,7 @@ class UDrawManager {
      /**
      * カレントページのリストを取得
      */
-    private func getCurrentDrawLists() -> RefDictionary<Int, DrawList>?
+    private func getCurrentDrawLists() -> RefDictionary<Int, UDrawList>?
     {
         return mPageList[mCurrentPage]
     }
@@ -116,24 +116,24 @@ class UDrawManager {
      * @param obj
      * @return
      */
-    public func addWithNewPriority(obj: UDrawable, priority: Int) -> DrawList? {
+    public func addWithNewPriority(obj: UDrawable, priority: Int) -> UDrawList? {
         obj.drawPriority = priority
         return addDrawable(obj)
     }
     
-    public func addDrawable(_ obj : UDrawable) -> DrawList? {
+    public func addDrawable(_ obj : UDrawable) -> UDrawList? {
         // カレントページのリストを取得
-        let lists : RefDictionary<Int, DrawList>? = getCurrentDrawLists()
+        let lists : RefDictionary<Int, UDrawList>? = getCurrentDrawLists()
         if lists == nil {
             return nil
         }
 
         // 挿入するリストを探す
         let _priority : Int = obj.getDrawPriority()
-        var list : DrawList? = lists![_priority]
+        var list : UDrawList? = lists![_priority]
         if list == nil {
             // まだ存在していないのでリストを生成
-            list = DrawList(priority: obj.getDrawPriority())
+            list = UDrawList(priority: obj.getDrawPriority())
             lists![_priority] = list
         }
         list!.add(obj)
@@ -186,9 +186,9 @@ class UDrawManager {
      */
     public func removeAll() {
         // カレントページのリストを取得
-        let lists : RefDictionary<Int, DrawList>? = getCurrentDrawLists()
+        let lists : RefDictionary<Int, UDrawList>? = getCurrentDrawLists()
         
-        for list : DrawList in lists!.values {
+        for list : UDrawList in lists!.values {
             list.removeAll()
         }
     }
@@ -199,12 +199,12 @@ class UDrawManager {
      * @param list1  変更元のリスト
      * @param priority
      */
-    public func setPriority(list1 : DrawList, priority : Int) {
+    public func setPriority(list1 : UDrawList, priority : Int) {
         let lists = getCurrentDrawLists()
         
         if let _lists = lists {
             // 変更先のプライオリティーを持つリストを探す
-            let list2 : DrawList? = _lists[priority]
+            let list2 : UDrawList? = _lists[priority]
             
             if list2 != nil {
                 // すでに変更先のプライオリティーのリストがあるので交換
@@ -228,7 +228,7 @@ class UDrawManager {
         if let _lists = lists {
             // 探す
             for pri in _lists.keys {
-                let list : DrawList? = _lists[pri]
+                let list : UDrawList? = _lists[pri]
                 if list!.contains(obj: obj) {
                     if pri == priority {
                         // すでに同じPriorityにいたら末尾に移動
@@ -258,21 +258,20 @@ class UDrawManager {
             return false
         }
          
-         // 削除要求のかかったオブジェクトを削除する
-         removeRequestedList()
-         
-         for list in lists!.values {
-             // 毎フレームの処理
-             let ret = list.doAction()
-             if ret == DoActionRet.Done {
-                 redraw = true
-                 break
-             } else if (ret == DoActionRet.Redraw) {
-                redraw = true;
-             }
-         }
-         
-        ULog.startCount(tag: UDrawManager.TAG)
+        // 削除要求のかかったオブジェクトを削除する
+        removeRequestedList()
+        
+        for list in lists!.values {
+            // 毎フレームの処理
+            let ret = list.doAction()
+            if ret == DoActionRet.Done {
+                redraw = true
+                break
+            } else if (ret == DoActionRet.Redraw) {
+               redraw = true;
+            }
+        }
+        
         // 描画は手前(priorityが大きい)から順に行う
         for key in lists!.keys.sorted().reversed() {
             let list = lists![key]

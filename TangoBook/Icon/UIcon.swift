@@ -381,11 +381,11 @@ public class UIcon : UDrawable, CustomStringConvertible {
     /*
         Drawableインターフェース
     */
-    public override func setDrawList(_ drawList : DrawList?) {
+    public override func setDrawList(_ drawList : UDrawList?) {
         self.drawList = drawList
     }
 
-    public override func getDrawList() -> DrawList?{
+    public override func getDrawList() -> UDrawList?{
         return drawList
     }
 
