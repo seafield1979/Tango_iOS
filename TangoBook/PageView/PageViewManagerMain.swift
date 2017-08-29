@@ -148,8 +148,8 @@ public class PageViewManagerMain : UPageViewManager {
     /**
      * ページ切り替え時に呼ばれる処理
      */
-    override public func pageChanged(pageId : Int) {
-        super.pageChanged(pageId: pageId)
+    override public func pageChanged() {
+        super.pageChanged()
 
         // Todo
 //        switch(pageId) {
@@ -270,8 +270,7 @@ public class PageViewManagerMain : UPageViewManager {
      * オプション設定ページを表示
      */
     public func startOptionPage( mode : PageViewOptions.Mode) {
-        // todo
-//        var pageView = stackPage(pageId: PageIdMain.Options.rawValue) as! PageViewOptions
+//        var pageView : PageViewOptions = stackPage(pageId: PageIdMain.Options.rawValue) as! PageViewOptions
 //        pageView.setMode(mode)
     }
 }

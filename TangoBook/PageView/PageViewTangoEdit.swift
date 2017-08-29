@@ -179,7 +179,8 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     * UPageView
     */
     public override func onShow() {
-
+        // ナビゲーションバーにボタンを表示
+        PageViewManagerMain.getInstance().showActionBarButton(show: true)
     }
     public override func onHide() {
         super.onHide()
@@ -248,7 +249,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
     }
     
-    public func setActionId(id : TangoEditActionId) {
+    public func setActionId(_ id : TangoEditActionId) {
         switch id {
             case .action_move_to_trash:
                 if mDialog != nil {
@@ -355,6 +356,46 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         }
         return false
     }
+    
+    /**
+     * アクションボタンが押された時の処理
+     *　サブクラスでオーバーライドする
+     */
+    override func onActionButton() {
+        // ポップアップを表示
+        let ac = UIAlertController(title: UResourceManager.getStringByName("menu"), message: nil, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: UResourceManager.getStringByName("cancel"), style: .cancel) { (action) -> Void in
+            // なにもしない
+        }
+        
+        let sortAscAction = UIAlertAction(title: UResourceManager.getStringByName("sort_word_asc"), style: .default) { (action) -> Void in
+            self.setActionId( .action_sort_word_asc )
+        }
+        let sortDescAction = UIAlertAction(title: UResourceManager.getStringByName("sort_word_desc"), style: .default) { (action) -> Void in
+            self.setActionId( .action_sort_word_desc )
+        }
+        let nameAAction = UIAlertAction(title: UResourceManager.getStringByName("disp_card_name_wordA"), style: .default) { (action) -> Void in
+            self.setActionId( .action_card_name_a )
+        }
+        let nameBAction = UIAlertAction(title: UResourceManager.getStringByName("disp_card_name_wordB"), style: .default) { (action) -> Void in
+            self.setActionId( .action_card_name_b )
+        }
+        let settingAction = UIAlertAction(title: UResourceManager.getStringByName("title_settings"), style: .default) { (action) -> Void in
+            self.setActionId( .action_settings )
+        }
+        
+        ac.addAction(cancelAction)
+        ac.addAction(sortAscAction)
+        ac.addAction(sortDescAction)
+        ac.addAction(nameAAction)
+        ac.addAction(nameBAction)
+        ac.addAction(settingAction)
+        
+        PageViewManagerMain.getInstance().getViewController().present(
+            ac, animated: true, completion: nil)
+    }
+
     
     /**
     * Add icon

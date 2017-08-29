@@ -135,7 +135,7 @@ public class ListItemStudiedBook : UListItem {
         // titleNode
         instance.titleNode = SKNodeUtil.createLabelNode(
             text: text, fontSize: UDpi.toPixel(ListItemStudiedBook.FONT_SIZE),
-            color: .black, alignment: .Center,
+            color: .white, alignment: .Center,
             pos: CGPoint(x: instance.size.width / 2, y: instance.size.height / 2)).node
         
         instance.parentNode.addChild2(instance.titleNode)

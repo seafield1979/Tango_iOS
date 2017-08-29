@@ -129,7 +129,7 @@ public class IconCard : UIcon {
                 self.title = strs![0]
                 
                 // 文字数制限
-                if self.title!.lengthOfBytes(using: String.Encoding.utf8) < maxLen {
+                if self.title!.characters.count < maxLen {
                     self.title = strs![0]
                 } else {
                     self.title = self.title!.substring(to: str!.index(str!.startIndex, offsetBy: maxLen))

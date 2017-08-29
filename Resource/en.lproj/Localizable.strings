@@ -118,6 +118,7 @@
 "not_learned" = "not_learned";
 "finish" = "finish";
 "cards_remain" = "cards_remain";
+"clear_history" = "clear history";
 "confirm_exit" = "confirm_exit";
 "confirm_copy_book" = "confirm_copy_book";
 "confirm_moveto_trash" = "confirm_moveto_trash";
@@ -132,6 +133,7 @@
 "title_result" = "title_result";
 "title_result2" = "title_result2";
 
+"menu" = "menu";
 "backup" = "backup";
 "backup_auto" = "backup_auto";
 "backup_and_restore" = "backup_and_restore";
@@ -207,6 +209,9 @@
 "disp_menu_name" = "disp_menu_name";
 "disp_menu_help" = "disp_menu_help";
 "edit_page_word_type" = "edit_page_word_type";
+"disp_card_name_wordA" = "disp_card_name_wordA";
+"disp_card_name_wordB" = "disp_card_name_wordB";
+
 "select_csv_file" = "select_csv_file";
 
 // error message

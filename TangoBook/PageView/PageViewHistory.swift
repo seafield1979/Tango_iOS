@@ -40,7 +40,8 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
      * Methods
      */
     public override func onShow() {
-
+        // ナビゲーションバーにボタンを表示
+        PageViewManagerMain.getInstance().showActionBarButton(show: true)
     }
 
     public override func onHide() {
@@ -123,6 +124,28 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
     }
 
     /**
+     * アクションボタンが押された時の処理
+     *　サブクラスでオーバーライドする
+     */
+    override func onActionButton() {
+        // ポップアップを表示
+        let ac = UIAlertController(title: UResourceManager.getStringByName("menu"), message: nil, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: UResourceManager.getStringByName("cancel"), style: .cancel) { (action) -> Void in
+            // なにもしない
+        }
+        
+        let clearAction = UIAlertAction(title: UResourceManager.getStringByName("clear_history"), style: .default) { (action) -> Void in
+            self.setActionId(self.action_clear_history)
+        }
+        ac.addAction(cancelAction)
+        ac.addAction(clearAction)
+        
+        PageViewManagerMain.getInstance().getViewController().present(
+            ac, animated: true, completion: nil)
+    }
+    
+    /**
      * アクションIDを処理する
      * サブクラスでオーバーライドして使用する
      */
@@ -174,6 +197,7 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
                 
                 mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
             }
+            mDialog!.updateLayout()
             mDialog!.addToDrawManager()
             
         default:
@@ -227,8 +251,6 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
         // Dialog
         mDialog = UDialogWindow.createInstance( topScene : mTopScene, buttonCallbacks : self, dialogCallbacks : self, buttonDir : UDialogWindow.ButtonDir.Horizontal, screenW : width, screenH : mTopScene.getHeight())
         
-        mDialog!.addToDrawManager()
-        
         let listView = ListViewResult(
             topScene : mTopScene, listItemCallbacks : nil, studiedCards : cards,
             studyMode : StudyMode.SlideOne, studyType : StudyType.EtoJ,
@@ -238,8 +260,11 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
             height : height-UDpi.toPixel(67 + UPageView.MARGIN_H) * 2, color : .white)
         
         mDialog!.addDrawable(obj: listView)
-
         mDialog!.addCloseButton(text: UResourceManager.getStringByName("close"))
+        
+        mDialog!.updateLayout()
+        mDialog!.addToDrawManager()
+        
     }
     
 

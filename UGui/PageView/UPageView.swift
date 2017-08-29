@@ -92,7 +92,6 @@ public class UPageView {
      * そのページで表示される描画オブジェクトを初期化する
      */
     func initDrawables() {
-        // 抽象メソッド。継承先でオーバーライドして使用してください
     }
     
     /**
@@ -102,5 +101,13 @@ public class UPageView {
     func onBackKeyDown() -> Bool {
         // 抽象メソッド。継承先でオーバーライドして使用してください
         return false
+    }
+    
+    /**
+     * アクションボタンが押された時の処理
+     *　サブクラスでオーバーライドする
+     */
+    func onActionButton() {
+        // 各PageViewでオーバーライドする
     }
 }

@@ -118,6 +118,7 @@
 "not_learned" = "未収得";
 "finish" = "終了";
 "cards_remain" = "あと%d枚";
+"clear_history" = "履歴をクリアする";
 "confirm_exit" = "学習を終了しますか？";
 "confirm_copy_book" = "%@(単語帳)をコピーしますか？";
 "confirm_moveto_trash" = "ゴミ箱に捨てますか？";
@@ -132,6 +133,7 @@
 "title_result" = "学習結果";
 "title_result2" = "%@の学習結果";
 
+"menu" = "メニュー";
 "backup" = "バックアップ";
 "backup_auto" = "自動バックアップ";
 "backup_and_restore" = "バックアップと復元";
@@ -207,6 +209,8 @@
 "disp_menu_name" = "メニュー名を表示";
 "disp_menu_help" = "メニューの説明を表示";
 "edit_page_word_type" = "カードの名前";
+"disp_card_name_wordA" = "カード名の表示(英語)";
+"disp_card_name_wordB" = "カード名の表示(日本語)";
 "select_csv_file" = "CSVファイルを選択";
 
 // error message

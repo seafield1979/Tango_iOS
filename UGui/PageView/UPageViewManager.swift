@@ -26,24 +26,27 @@ public class UPageViewManager {
     var mParentVC : UIViewController? = nil
     var pageStack : List<UPageView> = List()
     var returnButton : UIBarButtonItem?      // ナビゲーションバーに表示する戻るボタン
+    var actionButton : UIBarButtonItem?     // ナビゲーションバーの右側に表示するボタン
     
     /**
      * Get/Set
      */
+    public func getViewController() -> UIViewController {
+        return mParentVC!
+    }
     
     /**
      * Constructor
      */
     init(topScene : TopScene, vc: UIViewController?) {
-        // 最初にページのリストに全ページ分の要素を追加しておく
-//        for _ in PageView.cases {
-//            pages.append(nil)
-//        }
         mTopScene = topScene
         mParentVC = vc
         
         // 戻るボタン
         returnButton = UIBarButtonItem(title: "戻る", style: UIBarButtonItemStyle.plain, target: self, action: #selector(UPageViewManager.clickReturnButton))
+        
+        // アクションボタン
+        actionButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.action, target: self, action: #selector(UPageViewManager.clickActionButton))
     }
     
     /**
@@ -112,10 +115,13 @@ public class UPageViewManager {
     /**
      * ページ切り替え時に呼ばれる処理
      */
-    public func pageChanged(pageId: Int) {
+    public func pageChanged() {
         UDrawManager.clearDebugPoint()
         
         self.mTopScene.removeAllChildren()
+        
+        // ナビゲーションに表示したボタンは毎回元に戻す
+        showActionBarButton(show: false)
     }
     
     /**
@@ -125,7 +131,7 @@ public class UPageViewManager {
      */
     
     public func changePage( pageView : UPageView) {
-        pageChanged(pageId: pageView.mPageId)
+        pageChanged()
     
         if pageStack.count > 0 {
             // 古いページの後処理(onHide)
@@ -165,7 +171,7 @@ public class UPageViewManager {
      * @param pageId
      */
     public func stackPage(pageView: UPageView) {
-        pageChanged(pageId: pageView.mPageId)
+        pageChanged()
         
         // 古いページの後処理
         if pageStack.count > 0 {
@@ -200,15 +206,16 @@ public class UPageViewManager {
      * 下にページがあったら移動
      */
     public func popPage() -> Bool {
+        pageChanged()
+
         if pageStack.count > 0 {
+            
             // 古いページの後処理
             let pageView = pageStack.last()!
             pageView.onHide()
             
             _ = pageStack.removeLast()
             
-            // SpriteKit
-            mTopScene.removeAllChildren()
             
             // 新しいページの前処理
             let newPage = pageStack.last()!
@@ -219,8 +226,6 @@ public class UPageViewManager {
                 // 戻るアイコン表示
                 showActionBarBack(show: false)
             }
-//            changePage(newPage)
-            
             return true
         }
         return false
@@ -239,7 +244,6 @@ public class UPageViewManager {
      * @param show false:非表示 / true:表示
      */
     private func showActionBarBack(show : Bool) {
-        // Todo iOSではナビゲーションバー
         if let _vc = mParentVC {
             if (show) {
                 _vc.navigationItem.setLeftBarButton(returnButton, animated: true)
@@ -248,6 +252,20 @@ public class UPageViewManager {
             }
         }
     }
+    
+    /**
+     * 右のアクションバーを設定する
+     */
+    public func showActionBarButton(show : Bool) {
+        if let _vc = mParentVC {
+            if (show) {
+                _vc.navigationItem.setRightBarButton(actionButton, animated: true)
+            } else {
+                _vc.navigationItem.setRightBarButton(nil, animated: true)
+            }
+        }
+    }
+    
     
     /**
      * アクションバーのタイトル文字を設定する
@@ -264,5 +282,12 @@ public class UPageViewManager {
      */
     @objc func clickReturnButton() {
         _ = onBackKeyDown()
+    }
+    
+    /**
+     ナビゲーションバーのアクションボタンが押された時の処理
+     */
+    @objc func clickActionButton() {
+        currentPage()!.onActionButton()
     }
 }
