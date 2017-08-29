@@ -159,7 +159,7 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
             text : title, fontSize : UDpi.toPixel(FONT_SIZE_3), priority : 0,
             alignment : UAlignment.CenterX, createNode: true,
             multiLine : false, isDrawBG : false,
-            x : width/2, y : y, width : 0, color : TEXT_COLOR, bgColor : nil)
+            x : width / 2, y : y, width : 0, color : TEXT_COLOR, bgColor : nil)
         y += textTitle!.getHeight() + UDpi.toPixel(MARGIN_V)
         clientNode.addChild2( textTitle!.parentNode )
         
@@ -573,7 +573,7 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
 
             if (mStudyOrder == StudyOrder.Normal) {
                 if let _button = button1 as? UButtonText {
-                    _button.setChecked(true)
+                    _button.setChecked(true, initNode: false)
                 }
             } else {
                 if let _button = button2 as? UButtonText {

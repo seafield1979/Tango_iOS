@@ -158,7 +158,7 @@ public class PageViewStudyInputCorrect : PageViewStudy, CardsStackCallbacks {
         // 設定ボタン
         let image = UResourceManager.getImageWithColor( imageName: ImageName.settings_1, color: UColor.Green)
         mSettingButton = UButtonImage(
-            callbacks : self, id : ButtonIdSetting, priority : DRAW_PRIORITY,
+            callbacks : self, id : ButtonIdSetting, priority : 1,
             x : width-UDpi.toPixel(SETTING_BUTTON_W+MARGIN_H),
             y : height-UDpi.toPixel(50), width : UDpi.toPixel(SETTING_BUTTON_W),
             height : UDpi.toPixel(SETTING_BUTTON_W),
@@ -239,8 +239,6 @@ public class PageViewStudyInputCorrect : PageViewStudy, CardsStackCallbacks {
             screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
             textColor : .black, dialogColor : UColor.LightGray)
         
-        mDialog!.addToDrawManager()
-        
         mDialog!.setTitle(UResourceManager.getStringByName("option_mode4_22"))
         
         let button1 = mDialog!.addButton(
@@ -261,6 +259,9 @@ public class PageViewStudyInputCorrect : PageViewStudy, CardsStackCallbacks {
         } else {
             button1.setChecked(true)
         }
+        
+        mDialog!.updateLayout()
+        mDialog!.addToDrawManager()
     }
 
 

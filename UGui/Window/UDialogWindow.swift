@@ -441,7 +441,7 @@ public class UDialogWindow : UWindow {
                 createNode : true,
                 multiLine: true, isDrawBG: false,
                 x: size.width / 2, y: y,
-                width: size.width, color: .black, bgColor: nil)
+                width: size.width - marginH * 2, color: .black, bgColor: nil)
             
             y += mTitleView!.getHeight() + UDpi.toPixel( UDialogWindow.MARGIN_V * 2)
         }

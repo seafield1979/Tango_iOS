@@ -85,4 +85,33 @@ extension SKLabelNode {
             self.verticalAlignmentMode = .baseline
         }
     }
+    
+    /**
+     * 指定の幅に収まるサイズにスケーリングする
+     */
+    public func adjustLabelFontSizeToFitWidth( width: CGFloat ) {
+        
+        // Determine the font scaling factor that should let the label text fit in the given rectangle.
+        let scalingFactor = width / self.frame.width
+        
+        // Change the fontSize.
+        self.fontSize *= scalingFactor
+        
+        // Optionally move the SKLabelNode to the center of the rectangle.
+//        self.position = CGPoint(x: rect.midX, y: rect.midY - self.frame.height / 2.0)
+    }
+    /**
+     * 矩形に収まるサイズにスケーリングする
+     */
+    public func adjustLabelFontSizeToFitRect( rect:CGRect ) {
+        
+        // Determine the font scaling factor that should let the label text fit in the given rectangle.
+        let scalingFactor = min(rect.width / self.frame.width, rect.height / self.frame.height)
+        
+        // Change the fontSize.
+        self.fontSize *= scalingFactor
+        
+        // Optionally move the SKLabelNode to the center of the rectangle.
+        self.position = CGPoint(x: rect.midX, y: rect.midY - self.frame.height / 2.0)
+    }
 }

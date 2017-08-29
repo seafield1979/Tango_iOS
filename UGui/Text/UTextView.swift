@@ -1,7 +1,8 @@
 //
 //  UTextView.swift
 //  UGui
-//
+//      テキストを表示するオブジェクト
+//      アライメントや背景を指定することができる
 //  Created by Shusuke Unno on 2017/07/08.
 //  Copyright © 2017年 Shusuke Unno. All rights reserved.
 //
@@ -146,17 +147,15 @@ public class UTextView : UDrawable {
         self.parentNode.position = pos
         
         // Label
-//        if text.contains("\n") {
-//            let result = SKNodeUtil.createMultiLineLabelNode(text: text, fontSize: fontSize, color: color, alignment: .Left, pos: nil)
-//            self.labelNode = result.node
-//            size = result.size
-//        } else {
-//            self.labelNode = SKNodeUtil.createLabelNode(text: text, fontSize: fontSize, color: color, alignment: .Left, pos: nil)
-//            size = labelNode!.frame.size
-//        }
         let result = SKNodeUtil.createLabelNode(text: text, fontSize: fontSize, color: color, alignment: .Left, pos: nil)
         self.labelNode = result.node
-        size = result.size
+
+        // もとの指定したサイズに収まるように補正
+        if size.width > 0 && result.size.width > size.width {
+            self.labelNode?.adjustLabelFontSizeToFitWidth(width: size.width)
+        } else {
+            size = result.size
+        }
         
         if isMargin {
             mMargin = CGSize(width: UDpi.toPixel(UTextView.MARGIN_H),
