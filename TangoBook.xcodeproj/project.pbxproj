@@ -15,6 +15,7 @@
 		8A0F64421F4FC9750019BAC7 /* DialogCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0F64411F4FC9750019BAC7 /* DialogCard.swift */; };
 		8A2584AC1F3209C3002EE9E2 /* EditCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A2584AE1F3209C3002EE9E2 /* EditCardViewController.xib */; };
 		8A2DA70B1F53A30D00FCB0C4 /* RegExp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DA70A1F53A30D00FCB0C4 /* RegExp.swift */; };
+		8A2DA70D1F552A7900FCB0C4 /* Date+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DA70C1F552A7900FCB0C4 /* Date+ex.swift */; };
 		8A5708B41F373D27004387D4 /* animal.csv in Resources */ = {isa = PBXBuildFile; fileRef = 8A5708171F373D27004387D4 /* animal.csv */; };
 		8A5708B51F373D27004387D4 /* drink.csv in Resources */ = {isa = PBXBuildFile; fileRef = 8A5708181F373D27004387D4 /* drink.csv */; };
 		8A5708B61F373D27004387D4 /* fish.csv in Resources */ = {isa = PBXBuildFile; fileRef = 8A5708191F373D27004387D4 /* fish.csv */; };
@@ -350,6 +351,7 @@
 		8A2584BB1F320E15002EE9E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditCardViewController.strings; sourceTree = "<group>"; };
 		8A2584BC1F320E19002EE9E2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/EditCardViewController.strings; sourceTree = "<group>"; };
 		8A2DA70A1F53A30D00FCB0C4 /* RegExp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegExp.swift; sourceTree = "<group>"; };
+		8A2DA70C1F552A7900FCB0C4 /* Date+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+ex.swift"; sourceTree = "<group>"; };
 		8A5708171F373D27004387D4 /* animal.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = animal.csv; sourceTree = "<group>"; };
 		8A5708181F373D27004387D4 /* drink.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = drink.csv; sourceTree = "<group>"; };
 		8A5708191F373D27004387D4 /* fish.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fish.csv; sourceTree = "<group>"; };
@@ -1200,6 +1202,7 @@
 				8AE08ABE1F2580E00024E9B7 /* UIColor+ex.swift */,
 				8AA3B5061F29B1F100AE445E /* UIImage+ex.swift */,
 				8AF5E9F71F2EC009008D8508 /* Int+ex.swift */,
+				8A2DA70C1F552A7900FCB0C4 /* Date+ex.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1730,6 +1733,7 @@
 				8AE08A991F2580D00024E9B7 /* UListItem.swift in Sources */,
 				8AD6313A1F2B941B0067B57E /* IconInfoDialog.swift in Sources */,
 				8AE08A931F2580D00024E9B7 /* DrawPriority.swift in Sources */,
+				8A2DA70D1F552A7900FCB0C4 /* Date+ex.swift in Sources */,
 				8AB7E9811F278DC7005E36BB /* UIconWindow.swift in Sources */,
 				8AE08ABF1F2580E00024E9B7 /* CGRect+U.swift in Sources */,
 				8AE08A901F2580D00024E9B7 /* UTextViewOpenClose.swift in Sources */,

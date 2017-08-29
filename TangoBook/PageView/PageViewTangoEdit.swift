@@ -19,6 +19,21 @@ public enum EditBookDialogMode {
 }
 
 /**
+ * アクションIDを処理する
+ */
+public enum TangoEditActionId : Int, EnumEnumerable {
+    case action_move_to_trash
+    case action_sort_word_asc
+    case action_sort_word_desc
+    case action_sort_time_asc
+    case action_sort_time_desc
+    case action_card_name_a
+    case action_card_name_b
+    case action_search_card
+    case action_settings
+}
+
+/**
  単語カード編集ダイアログが終了した時に呼ばれるコールバック
  */
 public protocol EditCardDialogCallbacks {
@@ -233,21 +248,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
     }
     
-    
-    /**
-    * アクションIDを処理する
-    */
-    public enum TangoEditActionId : Int, EnumEnumerable {
-        case action_move_to_trash
-        case action_sort_word_asc
-        case action_sort_word_desc
-        case action_sort_time_asc
-        case action_sort_time_desc
-        case action_card_name_a
-        case action_card_name_b
-        case action_search_card
-        case action_settings
-    }
     public func setActionId(id : TangoEditActionId) {
         switch id {
             case .action_move_to_trash:

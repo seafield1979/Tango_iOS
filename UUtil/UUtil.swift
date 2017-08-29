@@ -150,7 +150,7 @@ public class UUtil {
      * @param date
      * @return
      */
-    public static func convDateFormat(date : Date, mode : ConvDateMode) -> String {
+    public static func convDateFormat(date : Date?, mode : ConvDateMode) -> String? {
 //        if (date == null) return null;
 //    
 //        final DateFormat df;

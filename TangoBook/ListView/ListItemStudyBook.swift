@@ -86,9 +86,9 @@ public class ListItemStudyBook : UListItem {
 
         // 最終学習日
         let date = book.getLastStudiedTime()
-        let dateStr = (date == nil) ? " --- " : UUtil.convDateFormat(date: date!, mode: ConvDateMode.DateTime)
+        let dateStr : String? = (date == nil) ? " --- " : UUtil.convDateFormat(date: date!, mode: ConvDateMode.DateTime)
 
-        mStudiedDate = String(format: "学習日時 : %@", dateStr)
+        mStudiedDate = String(format: "学習日時 : %@", dateStr!)
         
         initSKNode()
     }

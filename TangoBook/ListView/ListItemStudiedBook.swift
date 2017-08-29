@@ -1,135 +1,121 @@
 //
 //  ListItemStudiedBook.swift
 //  TangoBook
-//
+//      単語帳の学習履歴ListView(ListViewStudyHistory)に表示する項目
 //  Created by Shusuke Unno on 2017/08/07.
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-/**
- * Created by shutaro on 2016/12/14.
- *
- * 単語帳の学習履歴ListView(ListViewStudyHistory)に表示する項目
- */
+public enum ListItemStudiedBookType : Int {
+    case Title
+    case History     // 単語帳の学習履歴
+}
 
+public class ListItemStudiedBook : UListItem {
+    // MARK: Constants
+    private static let FONT_SIZE : Int = 17
+    private let FONT_SIZE2 : Int  = 14
+    private static let MARGIN_H : Int  = 17
+    private static let MARGIN_V : Int  = 5
+    private static let TITLE_H : Int  = 27
+    private let FRAME_WIDTH : Int  = 1
+    private let FRAME_COLOR : UIColor = .black
+    
+    // MARK: Properties
+    private var mType : ListItemStudiedBookType
+    private var mTitle : String?          // 期間を表示する項目
+    private var mTextDate : String?
+    private var mTextName : String?
+    private var mTextInfo : String?
+    private var mBookHistory : TangoBookHistory?
 
-//public class ListItemStudiedBook extends UListItem {
-//    /**
-//     * Enums
-//     */
-//    
-//    /**
-//     * Constants
-//     */
-//    public static final String TAG = "ListItemStudiedBook";
-//    
-//    private static final int FONT_SIZE = 17;
-//    private static final int FONT_SIZE2 = 14;
-//    private static final int MARGIN_H = 17;
-//    private static final int MARGIN_V = 5;
-//    private static final int TITLE_H = 27;
-//    private static final int FRAME_WIDTH = 1;
-//    private static final int FRAME_COLOR = Color.BLACK;
-//    
-//    /**
-//     * Member variables
-//     */
-//    private ListItemStudiedBookType mType;
-//    private String mTitle;          // 期間を表示する項目
-//    private String mTextDate;
-//    private String mTextName;
-//    private String mTextInfo;
-//    private TangoBookHistory mBookHistory;
-//    
-//    /**
-//     * Get/Set
-//     */
-//    public ListItemStudiedBookType getType() {
-//        return mType;
-//    }
-//    
-//    public TangoBookHistory getBookHistory() {
-//        return mBookHistory;
-//    }
-//    
-//    /**
-//     * Constructor
-//     */
-//    public ListItemStudiedBook(UListItemCallbacks listItemCallbacks,
-//    ListItemStudiedBookType type, boolean isTouchable,
-//    TangoBookHistory history,
-//    float x, int width, int height, int textColor, int color) {
-//        super(listItemCallbacks, isTouchable, x, width, height, color, UDpi.toPixel(FRAME_WIDTH), FRAME_COLOR);
-//        mType = type;
-//        mBookHistory = history;
-//        pressedColor = UColor.addBrightness( color, -0.2f);
-//        
-//    }
-//    
-//    // ListItemResultType.OKのインスタンスを生成する
-//    public static ListItemStudiedBook createHistory(TangoBookHistory history,
-//    int width, int textColor,int bgColor) {
-//        ListItemStudiedBook instance = new ListItemStudiedBook(null,
-//                                                               ListItemStudiedBookType.History, true, history,
-//                                                               0, width, UDpi.toPixel(FONT_SIZE) * 3 + UDpi.toPixel(MARGIN_V) * 4, textColor, bgColor);
-//        
-//        TangoBook book = RealmManager.getBookDao().selectById(history.getBookId());
-//        if (book == null) {
-//            // 削除されるなどして存在しない場合は表示しない
-//            return null;
-//        }
-//        
-//        instance.mTextDate = String.format("学習日時: %s",
-//                                           UUtil.convDateFormat(history.getStudiedDateTime(), ConvDateMode.DateTime));
-//        instance.mTextName = UResourceManager.getStringById(R.string.book) + ": " + book
-//            .getName();
-//        instance.mTextInfo = String.format("OK:%d  NG:%d", history.getOkNum(), history
-//            .getNgNum());
-//        
-//        return instance;
-//    }
-//    
-//    // ListItemResultType.Title のインスタンスを生成する
-//    public static ListItemStudiedBook createTitle(String text, int width,
-//    int textColor,int bgColor)
-//    {
-//        ListItemStudiedBook instance = new ListItemStudiedBook(null, ListItemStudiedBookType.Title,false, null, 0, width, UDpi.toPixel(TITLE_H), textColor, bgColor);
-//        instance.mTitle = text;
-//        instance.mFrameW = 0;
-//        return instance;
-//    }
-//    
-//    /**
-//     * Methods
-//     */
-//    /**
-//     * 描画処理
-//     * @param canvas
-//     * @param paint
-//     * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
-//     */
-//    public void draw(Canvas canvas, Paint paint, PointF offset) {
-//        PointF _pos = new PointF(pos.x, pos.y);
-//        if (offset != null) {
-//            _pos.x += offset.x;
-//            _pos.y += offset.y;
-//        }
-//        
-//        int _textColor = UColor.BLACK;
-//        
-//        float x = _pos.x + UDpi.toPixel(MARGIN_H);
-//        float y = _pos.y + UDpi.toPixel(MARGIN_V);
-//        
-//        // BGや枠描画は親クラスのdrawメソッドで行う
-//        super.draw(canvas, paint, _pos);
-//        
-//        int fontSize = UDpi.toPixel(FONT_SIZE);
-//        
-//        if (mType == ListItemStudiedBookType.History) {
-//            // 履歴
-//            // Book名
+    // MARK: Accessor
+    public func getType() -> ListItemStudiedBookType {
+        return mType
+    }
+    
+    public func getBookHistory() -> TangoBookHistory {
+        return mBookHistory!
+    }
+    
+    // MARK: Initializer
+    public init( listItemCallbacks : UListItemCallbacks?,
+                 type : ListItemStudiedBookType, isTouchable : Bool,
+                 history : TangoBookHistory?,
+                 x : CGFloat, width : CGFloat, height : CGFloat, textColor : UIColor, bgColor : UIColor?)
+    {
+        mType = type
+        mBookHistory = history
+        
+        super.init(callbacks : listItemCallbacks, isTouchable : isTouchable,
+                   x : x, width : width, height : height,
+                   bgColor : bgColor, frameW : UDpi.toPixel(FRAME_WIDTH), frameColor : FRAME_COLOR)
+        pressedColor = UColor.addBrightness( argb: color, addY: -0.2)
+        
+    }
+
+    // ListItemResultType.OKのインスタンスを生成する
+    public static func createHistory(history : TangoBookHistory,
+                                     width : CGFloat, textColor : UIColor, bgColor : UIColor) -> ListItemStudiedBook? {
+        let instance : ListItemStudiedBook =
+            ListItemStudiedBook(
+                listItemCallbacks : nil, type : ListItemStudiedBookType.History,
+                isTouchable : true, history : history,
+                x : 0, width : width, height : UDpi.toPixel(ListItemStudiedBook.FONT_SIZE) * 3 + UDpi.toPixel(ListItemStudiedBook.MARGIN_V) * 4,
+                textColor : textColor, bgColor : bgColor)
+        
+        var book : TangoBook? = TangoBookDao.selectById( id: history.bookId )
+        if book == nil {
+            // 削除されるなどして存在しない場合は表示しない
+            return nil
+        }
+        
+        instance.mTextDate = String(
+            format: "学習日時: %s",
+            UUtil.convDateFormat(date: history.studiedDateTime, mode: ConvDateMode.DateTime)!)
+        
+        instance.mTextName = UResourceManager.getStringByName("book") + ": " + book!
+            .getName()!
+        instance.mTextInfo = String(format: "OK:%d  NG:%d", history.okNum, history
+            .ngNum)
+        
+        return instance
+    }
+
+    // ListItemResultType.Title のインスタンスを生成する
+    public static func createTitle( text : String, width : CGFloat,
+                                    textColor : UIColor , bgColor : UIColor?) -> ListItemStudiedBook?
+    {
+        let instance = ListItemStudiedBook(
+            listItemCallbacks : nil, type : ListItemStudiedBookType.Title,
+            isTouchable : false, history : nil,
+            x : 0, width : width, height : UDpi.toPixel(ListItemStudiedBook.TITLE_H), textColor : textColor, bgColor : bgColor)
+        instance.mTitle = text
+        instance.mFrameW = 0
+        return instance
+    }
+    
+    // MARK: Methods
+    /**
+     * 描画処理
+     * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
+     */
+    public override func draw() {
+        let _textColor : UIColor = .black
+        
+        var x = pos.x + UDpi.toPixel(ListItemStudiedBook.MARGIN_H)
+        var y = pos.y + UDpi.toPixel(ListItemStudiedBook.MARGIN_V)
+        
+        // BGや枠描画は親クラスのdrawメソッドで行う
+        super.draw()
+        
+        let fontSize : CGFloat = UDpi.toPixel(ListItemStudiedBook.FONT_SIZE)
+        
+        if mType == ListItemStudiedBookType.History {
+            // 履歴
+            // Book名
 //            UDraw.drawTextOneLine(canvas, paint, mTextName, UAlignment.None,
 //                                  fontSize, x, y, _textColor);
 //            y += fontSize + UDpi.toPixel(MARGIN_V);
@@ -142,36 +128,31 @@ import Foundation
 //            // OK/NG数 正解率
 //            UDraw.drawTextOneLine(canvas, paint, mTextInfo, UAlignment.None,
 //                                  UDpi.toPixel(FONT_SIZE2), x, y, _textColor);
-//        } else {
-//            // タイトル
+        } else {
+            // タイトル
 //            UDraw.drawTextOneLine( canvas, paint, mTitle, UAlignment.Center, fontSize,
 //                                   _pos.x + size.width / 2, _pos.y + size.height / 2, UColor.WHITE);
-//        }
-//    }
-//    
-//    /**
-//     *
-//     * @param vt
-//     * @return
-//     */
-//    public boolean touchEvent(ViewTouch vt, PointF offset) {
-//        if (super.touchEvent(vt, offset)) {
-//            return true;
-//        }
-//        return false;
-//    }
-//    
-//    /**
-//     * 高さを返す
-//     */
-//    public int getHeight() {
-//        return size.height;
-//    }
-//    
-//    /**
-//     * UButtonCallbacks
-//     */
-//    public boolean UButtonClicked(int id, boolean pressedOn) {
-//        return false;
-//    }
-//}
+        }
+    }
+
+    public override func touchEvent( vt : ViewTouch, offset : CGPoint?) -> Bool{
+        if super.touchEvent(vt: vt, offset: offset) {
+            return true
+        }
+        return false
+    }
+    
+    /**
+     * 高さを返す
+     */
+    public override func getHeight() -> CGFloat {
+        return size.height
+    }
+    
+    /**
+     * UButtonCallbacks
+     */
+    public func UButtonClicked(id : Int, pressedOn : Bool) -> Bool{
+        return false
+    }
+}

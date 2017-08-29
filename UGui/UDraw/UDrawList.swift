@@ -105,7 +105,7 @@ public class UDrawList {
     public func doAction() -> DoActionRet {
         var ret = DoActionRet.None;
         for obj : UDrawable? in list {
-            obj!.autoMoving()
+            _ = obj!.autoMoving()
             let _ret : DoActionRet = obj!.doAction()
             switch(_ret) {
                 case .Done:

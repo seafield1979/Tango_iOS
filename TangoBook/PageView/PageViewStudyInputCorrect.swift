@@ -231,23 +231,23 @@ public class PageViewStudyInputCorrect : PageViewStudy, CardsStackCallbacks {
         
         mDialog!.setTitle(UResourceManager.getStringByName("option_mode4_22"))
         
-        let button1 = mDialog!.addButton(
+        let button1 : UButtonText = (mDialog!.addButton(
             id : ButtonIdStudySorted,
             text : UResourceManager.getStringByName("option_mode4_3"),
-            fontSize : UDpi.toPixel(FONT_SIZE), textColor : .black, color : UColor.White)
+            fontSize : UDpi.toPixel(FONT_SIZE), textColor : .black, color : UColor.White) as? UButtonText)!
         
-        let button2 = mDialog!.addButton(
+        let button2 : UButtonText = (mDialog!.addButton(
             id : ButtonIdStudyRandom,
             text : UResourceManager.getStringByName("option_mode4_4"),
             fontSize : UDpi.toPixel(FONT_SIZE),
-            textColor : .black, color : .white)
+            textColor : .black, color : .white) as? UButtonText)!
         
         mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
 
         if MySharedPref.readBool(MySharedPref.StudyMode4OptionKey) {
-            button2.setChecked(true)
+            button2.setChecked(true, initNode: false)
         } else {
-            button1.setChecked(true)
+            button1.setChecked(true, initNode: false)
         }
         
         mDialog!.updateLayout()

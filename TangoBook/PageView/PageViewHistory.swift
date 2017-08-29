@@ -1,117 +1,259 @@
 //
 //  PageViewBackup.swift
 //  TangoBook
-//
+//      履歴ページ
+//      過去に学習した単語帳のリストを表示する
 //  Created by Shusuke Unno on 2017/07/24.
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
 import UIKit
 
-public class PageViewHistory : UPageView, UButtonCallbacks {
-    /**
-     * Enums
-     */
-    /**
-     * Constants
-     */
+public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UListItemCallbacks {
+
+    // MARK: Constants
+    private let DRAW_PRIORYTY_DIALOG = 50;
+
+    // layout
+    private let TOP_Y = 17;
+    private let TEXT_SIZE = 17;
+
+    // button ids
+    private let ButtonIdReturn = 100;
+    private let ButtonIdClearOK = 102;
+    
+    // action id
+    private let action_clear_history = 200
+
+    // MARK: Properties
+    private var mListView : ListViewStudyHistory?
+    private var mDialog : UDialogWindow?      // OK/NGのカード一覧を表示するダイアログ
+
     public static let TAG = "PageViewHistory"
     
-    // button id
-    private static let buttonId1 = 100
-    
-    private static let DRAW_PRIORITY = 100
-    
-    /**
-     * Propaties
-     */
-    
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init( topScene : TopScene, title : String) {
         super.init( topScene: topScene, pageId: PageIdMain.History.rawValue, title: title)
     }
-    
+
     /**
      * Methods
      */
-    
-    override func onShow() {
+    public override func onShow() {
+
     }
-    
-    override func onHide() {
-        super.onHide();
+
+    public override func onHide() {
+        super.onHide()
     }
-    
+
     /**
      * 描画処理
      * サブクラスのdrawでこのメソッドを最初に呼び出す
-     * @param canvas
-     * @param paint
      * @return
      */
-    override func draw() -> Bool {
+    public override func draw() -> Bool {
         if isFirst {
             isFirst = false
             initDrawables()
         }
         return false
     }
-    
+
     /**
      * タッチ処理
      * @param vt
      * @return
      */
-    public func touchEvent(vt : ViewTouch) -> Bool {
-        
+    public func touchEvent(vt : ViewTouch) -> Bool{
+
         return false
     }
     
+
     /**
      * そのページで表示される描画オブジェクトを初期化する
      */
-    override public func initDrawables() {
-        // 描画オブジェクトクリア
+    public override func initDrawables() {
         UDrawManager.getInstance().initialize()
+
+        let width : CGFloat = mTopScene.getWidth()
+        let height : CGFloat = mTopScene.getHeight()
+
+        var x : CGFloat = UDpi.toPixel(UPageView.MARGIN_H)
+        var y : CGFloat = UDpi.toPixel(TOP_Y)
+
+        // ListView
+        var listViewH = height - (UDpi.toPixel(UPageView.MARGIN_H) * 3)
+        mListView = ListViewStudyHistory(
+            topScene : mTopScene, listItemCallbacks : self, priority : 1,
+            x : x, y : y,
+            width : width - UDpi.toPixel(UPageView.MARGIN_H) * 2, height : listViewH,
+            color : nil)
         
-        // ここにページで表示するオブジェクト生成処理を記述
-        let width = self.mTopScene.getWidth()
-        
-        let button = UButtonText(
-            callbacks: self, type: UButtonType.Press,
-            id: PageViewHistory.buttonId1, priority: PageViewHistory.DRAW_PRIORITY,
-            text: "test", createNode: true, x: 50, y: 100,
-            width: width - 100, height: 100,
-            fontSize: UDpi.toPixel(20), textColor: UIColor.white, bgColor: .blue)
-        button.addToDrawManager()
-        
+        if mListView!.getItemNum() > 0 {
+            mListView!.setFrameColor(UIColor.black)
+            mListView!.addToDrawManager()
+        } else {
+            mListView = nil;
+            y += UDpi.toPixel(67)
+            let text = UTextView.createInstance(
+                text : UResourceManager.getStringByName("no_study_history"),
+                fontSize : UDpi.toPixel(TEXT_SIZE),
+                priority : 1, alignment : UAlignment.CenterX, createNode : true, multiLine : false, isDrawBG : false,
+                x : width/2, y : y, width : width, color : UIColor.black, bgColor : nil)
+                
+            text.addToDrawManager()
+        }
+
+        y += listViewH + UDpi.toPixel( UPageView.MARGIN_H )
     }
     
+
     /**
      * ソフトウェアキーの戻るボタンを押したときの処理
      * @return
      */
-    public override func onBackKeyDown() -> Bool {
+    public override func onBackKeyDown() -> Bool{
+        if mDialog != nil {
+            mDialog!.closeDialog()
+            return true
+        }
         return false
     }
-    
+
     /**
-     * Callbacks
+     * アクションIDを処理する
+     * サブクラスでオーバーライドして使用する
      */
+    public override func setActionId( _ id : Int) {
+        switch id {
+        case action_clear_history:
+            // クリア確認ダイアログを表示する
+            // お問い合わせメールダイアログを表示
+            if (mDialog != nil) {
+                mDialog!.closeDialog()
+            }
+
+            var isEmpty = false
+            var title : String, message : String
+
+
+            if mListView == nil || mListView!.getItemNum() == 0 {
+                isEmpty = true
+            }
+            if (isEmpty) {
+                // リストが空の場合はクリアできないメッセージを表示
+                title = UResourceManager.getStringByName("error")
+                message = UResourceManager.getStringByName("study_list_is_empty1")
+            } else {
+                // リストがある場合はクリア確認メッセージを表示
+                title = UResourceManager.getStringByName("confirm")
+                message = UResourceManager.getStringByName("confirm_clear_history")
+            }
+
+            mDialog = UDialogWindow.createInstance(
+                topScene : mTopScene, buttonCallbacks : self, dialogCallbacks : self,
+                buttonDir : UDialogWindow.ButtonDir.Horizontal,
+                screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight() )
+            
+            mDialog!.setTitle(title);
+            
+            let fontSize : CGFloat = UDpi.toPixel(TEXT_SIZE)
+            _ = mDialog!.addTextView(
+                text : message, alignment : UAlignment.CenterX,
+                multiLine : true, isDrawBG : false, fontSize : fontSize,
+                textColor : UPageView.TEXT_COLOR, bgColor : nil)
+
+            if isEmpty {
+                mDialog!.addCloseButton(text: "OK", textColor: UPageView.TEXT_COLOR, bgColor: UIColor.white)
+            } else {
+                mDialog!.addButton(id : ButtonIdClearOK, text : "OK",
+                                   fontSize : fontSize, textColor : UPageView.TEXT_COLOR,
+                                   color : UIColor.white)
+                
+                mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
+            }
+            mDialog!.addToDrawManager()
+            
+        default:
+            break
+        }
+    }
+
     /**
      * UButtonCallbacks
      */
-    /**
-     * ボタンがクリックされた時の処理
-     * @param id  button id
-     * @param pressedOn  押された状態かどうか(On/Off)
-     * @return
-     */
-    public func UButtonClicked(id : Int, pressedOn : Bool) -> Bool
-    {
-        return true
+    public func UButtonClicked( id : Int, pressedOn : Bool) -> Bool {
+        switch id {
+        case ButtonIdReturn:
+            PageViewManagerMain.getInstance().popPage()
+        
+        case ButtonIdClearOK:
+            TangoBookHistoryDao.deleteAll()
+            mListView!.clear()
+            mDialog!.closeDialog()
+            
+        default:
+            break
+        }
+        return false;
     }
-}
 
+    /**
+     * UListItemCallbacks
+     */
+    /**
+     * 項目がクリックされた
+     * @param item
+     */
+    public func ListItemClicked( item : UListItem) {
+        // クリックされた項目の学習カード一覧を表示する
+        if !(item is ListItemStudiedBook) {
+            return
+        }
+        
+        let width = mTopScene.getWidth()
+        let height = mTopScene.getHeight()
+
+        let studiedBook : ListItemStudiedBook = (item as? ListItemStudiedBook)!
+        if (studiedBook.getType() != ListItemStudiedBookType.History) {
+            return
+        }
+        
+        let history : TangoBookHistory = studiedBook.getBookHistory()
+        let cards : [TangoStudiedCard] = TangoStudiedCardDao.selectByHistoryId( history.id )
+
+        // Dialog
+        mDialog = UDialogWindow.createInstance( topScene : mTopScene, buttonCallbacks : self, dialogCallbacks : self, buttonDir : UDialogWindow.ButtonDir.Horizontal, screenW : width, screenH : mTopScene.getHeight())
+        
+        mDialog!.addToDrawManager()
+        
+        let listView = ListViewResult(
+            topScene : mTopScene, listItemCallbacks : nil, studiedCards : cards,
+            studyMode : StudyMode.SlideOne, studyType : StudyType.EtoJ,
+            priority : DRAW_PRIORYTY_DIALOG,
+            x : 0, y : 0,
+            width : mDialog!.getSize().width - UDpi.toPixel(UPageView.MARGIN_H) * 2,
+            height : height-UDpi.toPixel(67 + UPageView.MARGIN_H) * 2, color : .white)
+        
+        mDialog!.addDrawable(obj: listView)
+
+        mDialog!.addCloseButton(text: UResourceManager.getStringByName("close"))
+    }
+    
+
+    public func ListItemButtonClicked( item : UListItem, buttonId : Int) {
+
+    }
+
+    /**
+     * UDialogCallbacks
+     */
+    public func dialogClosed( dialog : UDialogWindow) {
+        if mDialog === dialog {
+            mDialog = nil
+        }
+    }
+
+}

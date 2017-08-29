@@ -167,7 +167,7 @@ public class StudyCardSelect : UDrawable {
      * 出現時の拡大処理
      */
     public func startAppearance(frame : Int) {
-        srcScale = 0.0
+        mScale = 0.0
         startMovingScale(dstScale: 1.0, frame: frame)
         mState = State.Appearance
     }
@@ -177,6 +177,7 @@ public class StudyCardSelect : UDrawable {
      * @param frame
      */
     public func startDisappearange(frame : Int) {
+        mScale = 1.0
         startMovingScale(dstScale: 0, frame: frame)
         mState = State.Disappearance
     }

@@ -73,7 +73,7 @@ public class TangoStudiedCardDao {
     * @param bookHistoryId
     * @return
     */
-    public static func selectByHistoryId(bookHistoryId : Int) -> [TangoStudiedCard]{
+    public static func selectByHistoryId(_ bookHistoryId : Int) -> [TangoStudiedCard]{
 
         let results = mRealm!.objects(TangoStudiedCard.self)
             .filter("bookHistoryId = %d", bookHistoryId)

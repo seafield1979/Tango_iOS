@@ -359,13 +359,13 @@ public class UIconWindow : UWindow{
         let icons : List<UIcon>? = getIcons()
 
         // Windowの移動
-        if isMoving {
-            if autoMoving() {
-                ret = DoActionRet.Redraw
-            } else {
-                isMoving = false
-            }
-        }
+//        if isMoving {
+//            if autoMoving() {
+//                ret = DoActionRet.Redraw
+//            } else {
+//                isMoving = false
+//            }
+//        }
 
         // アイコンの移動
         if icons != nil {

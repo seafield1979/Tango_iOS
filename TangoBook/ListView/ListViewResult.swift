@@ -42,7 +42,7 @@ public class ListViewResult : UListView {
     // OKカードとNGカードが同じリストに入って渡ってくる
     // 履歴ページで表示する用途
     public init( topScene: TopScene, listItemCallbacks : UListItemCallbacks?,
-                 studiedCards : List<TangoStudiedCard>,
+                 studiedCards : [TangoStudiedCard],
                  studyMode : StudyMode, studyType : StudyType,
                  priority : Int, x : CGFloat, y : CGFloat, width : CGFloat, height : CGFloat, color : UIColor)
     {
@@ -52,10 +52,10 @@ public class ListViewResult : UListView {
                    width : width, height : height, bgColor : color)
         
         let ngCards : [TangoCard]? = TangoCardDao.selectByStudiedCards(
-            studiedCards: studiedCards.toArray(), ok: false, changeable: false)
+            studiedCards: studiedCards, ok: false, changeable: false)
         
         let okCards : [TangoCard]? = TangoCardDao.selectByStudiedCards(
-            studiedCards : studiedCards.toArray(), ok: true, changeable: false)
+            studiedCards : studiedCards, ok: true, changeable: false)
         
         let _okCards : List<TangoCard> = (okCards == nil) ? List() : List(okCards!)
         let _ngCards : List<TangoCard> = (ngCards == nil) ? List() : List(ngCards!)

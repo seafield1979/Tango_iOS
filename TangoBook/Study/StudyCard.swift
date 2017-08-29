@@ -284,12 +284,6 @@ public class StudyCard : UDrawable, UButtonCallbacks {
             return DoActionRet.Redraw
         }
 
-        if mState == .Moving {
-            if (autoMoving()) {
-                return DoActionRet.Redraw;
-            }
-        }
-
         return DoActionRet.None
     }
 
