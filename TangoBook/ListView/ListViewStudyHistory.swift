@@ -48,7 +48,7 @@ public class ListViewStudyHistory : UListView {
         // add items
         initTimeArea()
         for history in histories {
-            var time : Int = getTimeArea(date: history.studiedDateTime!)
+            let time : Int = getTimeArea(date: history.studiedDateTime!)
             
             var title : ListItemStudiedBook? = nil
             
@@ -83,16 +83,15 @@ public class ListViewStudyHistory : UListView {
         //cal.setTime(nowDate)
         
         // 1日前
-        //cal.add(Calendar.DAY_OF_MONTH, -1);
-        beforeDate[0] = cal.date(byAdding: .day, value: -1, to: cal.startOfDay(for: nowDate))!
+        beforeDate[0] = Date.init(timeInterval: -60*60*24, since: nowDate)
         
         // 2日前
-        beforeDate[1] = cal.date(byAdding: .day, value: -2, to: cal.startOfDay(for: nowDate))!
+        beforeDate[1] = Date.init(timeInterval: -60*60*24*2, since: nowDate)
         
-        // １週間前まで
-        beforeDate[2] = cal.date(byAdding: .day, value: -7, to: cal.startOfDay(for: nowDate))!
+        // １週間前
+        beforeDate[2] = Date.init(timeInterval: -60*60*24*7, since: nowDate)
         
-        // 1ヶ月前まで
+        // 1ヶ月前
         beforeDate[3] = cal.date(byAdding: .month, value: -1, to: cal.startOfDay(for: nowDate))!
     }
     
@@ -105,10 +104,6 @@ public class ListViewStudyHistory : UListView {
         if date == nil {
             return 5
         }
-        
-        var nowDate = Date()
-        
-        var cal = Calendar(identifier: .gregorian)
         
         // 1日前まで
         if date!.after(beforeDate[0]) {

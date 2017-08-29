@@ -80,11 +80,11 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
         let width : CGFloat = mTopScene.getWidth()
         let height : CGFloat = mTopScene.getHeight()
 
-        var x : CGFloat = UDpi.toPixel(UPageView.MARGIN_H)
+        let x : CGFloat = UDpi.toPixel(UPageView.MARGIN_H)
         var y : CGFloat = UDpi.toPixel(TOP_Y)
 
         // ListView
-        var listViewH = height - (UDpi.toPixel(UPageView.MARGIN_H) * 3)
+        let listViewH = height - (UDpi.toPixel(UPageView.MARGIN_H) * 3)
         mListView = ListViewStudyHistory(
             topScene : mTopScene, listItemCallbacks : self, priority : 1,
             x : x, y : y,
@@ -92,7 +92,7 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
             color : nil)
         
         if mListView!.getItemNum() > 0 {
-            mListView!.setFrameColor(UIColor.black)
+            mListView!.setFrameColor(UIColor.gray)
             mListView!.addToDrawManager()
         } else {
             mListView = nil;

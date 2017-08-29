@@ -151,19 +151,19 @@ public class UUtil {
      * @return
      */
     public static func convDateFormat(date : Date?, mode : ConvDateMode) -> String? {
-//        if (date == null) return null;
-//    
-//        final DateFormat df;
-//        
-//        if (mode == ConvDateMode.Date) {
-//        df = new SimpleDateFormat(UResourceManager.getStringById(R
-//        .string.date_format2));
-//        } else {
-//        df = new SimpleDateFormat(UResourceManager.getStringById(R
-//        .string.datetime_format2));
-//        }
-//        return df.format(date);
-        return ""
+        if date == nil {
+            return nil
+        }
+        let df = DateFormatter()
+        
+        let formatName : String
+        if mode == ConvDateMode.Date {
+            formatName = "date_format2"
+        } else {
+            formatName = "datetime_format2"
+        }
+        df.dateFormat = UResourceManager.getStringByName( formatName )
+        return df.string(from: date!)
     }
     
     /**

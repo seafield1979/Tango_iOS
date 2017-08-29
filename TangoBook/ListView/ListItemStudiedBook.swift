@@ -6,7 +6,7 @@
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import UIKit
+import SpriteKit
 
 public enum ListItemStudiedBookType : Int {
     case Title
@@ -16,7 +16,7 @@ public enum ListItemStudiedBookType : Int {
 public class ListItemStudiedBook : UListItem {
     // MARK: Constants
     private static let FONT_SIZE : Int = 17
-    private let FONT_SIZE2 : Int  = 14
+    private static let FONT_SIZE2 : Int  = 14
     private static let MARGIN_H : Int  = 17
     private static let MARGIN_V : Int  = 5
     private static let TITLE_H : Int  = 27
@@ -24,6 +24,9 @@ public class ListItemStudiedBook : UListItem {
     private let FRAME_COLOR : UIColor = .black
     
     // MARK: Properties
+    // SpriteKit Node
+    private var titleNode : SKLabelNode!
+    
     private var mType : ListItemStudiedBookType
     private var mTitle : String?          // 期間を表示する項目
     private var mTextDate : String?
@@ -73,13 +76,47 @@ public class ListItemStudiedBook : UListItem {
         }
         
         instance.mTextDate = String(
-            format: "学習日時: %s",
+            format: "学習日時: %@",
             UUtil.convDateFormat(date: history.studiedDateTime, mode: ConvDateMode.DateTime)!)
         
         instance.mTextName = UResourceManager.getStringByName("book") + ": " + book!
             .getName()!
         instance.mTextInfo = String(format: "OK:%d  NG:%d", history.okNum, history
             .ngNum)
+        
+        // SpriteKit Node
+        // titleNode
+        let x = UDpi.toPixel(ListItemStudiedBook.MARGIN_H)
+        var y = UDpi.toPixel(ListItemStudiedBook.MARGIN_V)
+        
+        // BGや枠描画は親クラスのdrawメソッドで行う
+        let fontSize : CGFloat = UDpi.toPixel(ListItemStudiedBook.FONT_SIZE)
+        
+        // 単語帳名
+        var result = SKNodeUtil.createLabelNode(
+            text: instance.mTextName!, fontSize: UDpi.toPixel(ListItemStudiedBook.FONT_SIZE),
+            color: .black, alignment: .Left,
+            pos: CGPoint(x: x, y: y))
+        instance.parentNode.addChild2( result.node )
+        
+        y += result.size.height + UDpi.toPixel(MARGIN_V)
+        
+        // 学習日時
+        result = SKNodeUtil.createLabelNode(
+            text: instance.mTextDate!, fontSize: UDpi.toPixel(ListItemStudiedBook.FONT_SIZE2),
+            color: .black, alignment: .Left,
+            pos: CGPoint(x: x, y: y))
+        
+        instance.parentNode.addChild2( result.node )
+        y += result.size.height + UDpi.toPixel(MARGIN_V)
+        
+        // OK/NG
+        result = SKNodeUtil.createLabelNode(
+            text: instance.mTextInfo!, fontSize: UDpi.toPixel(ListItemStudiedBook.FONT_SIZE2),
+            color: .black, alignment: .Left,
+            pos: CGPoint(x: x, y: y))
+        
+        instance.parentNode.addChild2( result.node )
         
         return instance
     }
@@ -94,6 +131,15 @@ public class ListItemStudiedBook : UListItem {
             x : 0, width : width, height : UDpi.toPixel(ListItemStudiedBook.TITLE_H), textColor : textColor, bgColor : bgColor)
         instance.mTitle = text
         instance.mFrameW = 0
+        
+        // titleNode
+        instance.titleNode = SKNodeUtil.createLabelNode(
+            text: text, fontSize: UDpi.toPixel(ListItemStudiedBook.FONT_SIZE),
+            color: .black, alignment: .Center,
+            pos: CGPoint(x: instance.size.width / 2, y: instance.size.height / 2)).node
+        
+        instance.parentNode.addChild2(instance.titleNode)
+        
         return instance
     }
     
@@ -103,18 +149,18 @@ public class ListItemStudiedBook : UListItem {
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
     public override func draw() {
-        let _textColor : UIColor = .black
-        
-        var x = pos.x + UDpi.toPixel(ListItemStudiedBook.MARGIN_H)
-        var y = pos.y + UDpi.toPixel(ListItemStudiedBook.MARGIN_V)
-        
-        // BGや枠描画は親クラスのdrawメソッドで行う
-        super.draw()
-        
-        let fontSize : CGFloat = UDpi.toPixel(ListItemStudiedBook.FONT_SIZE)
-        
-        if mType == ListItemStudiedBookType.History {
-            // 履歴
+//        let _textColor : UIColor = .black
+//        
+//        var x = pos.x + UDpi.toPixel(ListItemStudiedBook.MARGIN_H)
+//        var y = pos.y + UDpi.toPixel(ListItemStudiedBook.MARGIN_V)
+//        
+//        // BGや枠描画は親クラスのdrawメソッドで行う
+//        super.draw()
+//        
+//        let fontSize : CGFloat = UDpi.toPixel(ListItemStudiedBook.FONT_SIZE)
+//        
+//        if mType == ListItemStudiedBookType.History {
+//            // 履歴
             // Book名
 //            UDraw.drawTextOneLine(canvas, paint, mTextName, UAlignment.None,
 //                                  fontSize, x, y, _textColor);
@@ -128,11 +174,7 @@ public class ListItemStudiedBook : UListItem {
 //            // OK/NG数 正解率
 //            UDraw.drawTextOneLine(canvas, paint, mTextInfo, UAlignment.None,
 //                                  UDpi.toPixel(FONT_SIZE2), x, y, _textColor);
-        } else {
-            // タイトル
-//            UDraw.drawTextOneLine( canvas, paint, mTitle, UAlignment.Center, fontSize,
-//                                   _pos.x + size.width / 2, _pos.y + size.height / 2, UColor.WHITE);
-        }
+//        }
     }
 
     public override func touchEvent( vt : ViewTouch, offset : CGPoint?) -> Bool{

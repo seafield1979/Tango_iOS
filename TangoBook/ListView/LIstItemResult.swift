@@ -72,13 +72,6 @@ public class ListItemResult : UListItem, UButtonCallbacks {
     /**
      * SpriteKitのノード作成
      */
-//    public override func initSKNode() {
-//        // タイトル(カードの名前)
-//        titleNode = SKNodeUtil.createLabelNode(text: mText, fontSize: UDpi.toPixel(FONT_SIZE), color: mTextColor, alignment: .Center, pos: CGPoint(x: size.width / 2, y: size.height / 2))
-//        parentNode.addChild(titleNode!)
-//        
-//        
-//    }
 
     // ListItemResultType.Title のインスタンスを生成する
     public static func createTitle( isOK : Bool, width : CGFloat,

@@ -14,14 +14,14 @@ extension Date {
      * self < date
      */
     public func after(_ date : Date) -> Bool {
-        return self.compare(date) == ComparisonResult.orderedAscending
+        return self.compare(date) == ComparisonResult.orderedDescending
     }
     /**
      * 比較対象の日付(date)が過去なら true を返す
      * self > date
      */
     public func before(_ date : Date) -> Bool {
-        return self.compare(date) == ComparisonResult.orderedDescending
+        return self.compare(date) == ComparisonResult.orderedAscending
     }
 
 }
