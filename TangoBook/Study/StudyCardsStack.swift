@@ -214,11 +214,13 @@ public class StudyCardsStack : UDrawable {
         // カードの移動等の処理
         var ret = DoActionRet.None
         for card in mCards {
+            _ = card!.autoMoving()
             if card!.doAction() != DoActionRet.None {
                 ret = .Redraw
             }
         }
         for card in mToBoxCards {
+            _ = card!.autoMoving()
             if card!.doAction() != DoActionRet.None {
                 ret = .Redraw
             }
