@@ -15,6 +15,7 @@ public enum ImageName : String {
     case arrow_r = "arrow_r.png"
     case arrow_u = "arrow_u.png"
     case arrow_up = "arrow_up.png"
+    case backup = "backup.png"
     case backup_button = "backup_button.png"
     case backup_check_auto_backup = "backup_check_auto_backup.png"
     case backup_complete_backup = "backup_complete_backup.png"
