@@ -78,7 +78,6 @@ public class PageViewStudy : UPageView, UButtonCallbacks, UDialogCallbacks {
             mConfirmDialog!.addCloseButton( text: UResourceManager.getStringByName(
                 "cancel"))
             
-            mConfirmDialog!.updateLayout()
             mConfirmDialog!.addToDrawManager()
         }
     }

@@ -84,11 +84,6 @@ public class SKNodeUtil {
      */
     public static func createCrossPoint( type: CrossType, pos : CGPoint, length : CGFloat, lineWidth : CGFloat, color : SKColor, zPos : CGFloat) -> SKShapeNode
     {
-        // ２本の線の親
-//        let parentNode = SKNode()
-//        parentNode.position = pos
-//        parentNode.zPosition = zPos
-        
         var points1 : [CGPoint]
         var points2 : [CGPoint]
         if type == .Type1 {

@@ -554,6 +554,16 @@ public class UDialogWindow : UWindow {
     }
     
     /**
+     * DrawManagerの描画リストに追加する
+     */
+    public override func addToDrawManager() {
+        // レイアウト更新処理を寄生する
+        updateLayout()
+        
+        super.addToDrawManager()
+    }
+
+    /**
      * 描画処理
      * @param canvas
      * @param paint

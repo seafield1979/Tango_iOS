@@ -250,7 +250,6 @@ public class PageViewStudyInputCorrect : PageViewStudy, CardsStackCallbacks {
             button1.setChecked(true, initNode: false)
         }
         
-        mDialog!.updateLayout()
         mDialog!.addToDrawManager()
     }
 

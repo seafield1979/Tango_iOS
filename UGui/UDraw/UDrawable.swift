@@ -94,10 +94,10 @@ public class UDrawable {
         parentNode.position = pos
         
         // debug
-        if UDebug.isDebug {
-            debugNode = SKNodeUtil.createCrossPoint(type: .Type1, pos: CGPoint(), length: 10.0, lineWidth: 2.0, color: .red, zPos: 1000)
-            parentNode.addChild2(debugNode!)
-        }
+//        if UDebug.isDebug {
+//            debugNode = SKNodeUtil.createCrossPoint(type: .Type1, pos: CGPoint(), length: 10.0, lineWidth: 2.0, color: .red, zPos: 1000)
+//            parentNode.addChild2(debugNode!)
+//        }
         updateRect()
     }
     
@@ -139,7 +139,9 @@ public class UDrawable {
         }
         
         if UDebug.isDebug {
-            debugNode!.position = parentNode.position
+            if let n = debugNode {
+                n.position = parentNode.position
+            }
         }
     }
     public func setPos(_ pos : CGPoint) {

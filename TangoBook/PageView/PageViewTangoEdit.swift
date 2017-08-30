@@ -275,7 +275,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 _ = mDialog!.addCloseButton(
                     text: UResourceManager.getStringByName("cancel"))
         
-                mDialog!.updateLayout()
                 mDialog!.addToDrawManager()
 
             case .action_sort_word_asc:
@@ -816,7 +815,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             mDialog!.setTitle(message);
             _ = mDialog!.addButton(id : ExportFinishedDialogButtonOk, text : "OK", fontSize: UDraw.getFontSize(FontSize.M), textColor : UIColor.black, color : UIColor.white)
         
-            mDialog!.updateLayout()
             mDialog!.addToDrawManager()
 
         case ExportFinishedDialogButtonOk:
@@ -1041,7 +1039,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                                textColor : UIColor.black, color : UColor.LightGreen)
             mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
             
-            mDialog!.updateLayout()
             mDialog!.addToDrawManager()
         }
     }
@@ -1131,7 +1128,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             // 捨てるアイコンを保持
             mCopyIcon = icon
             
-            mDialog!.updateLayout()
             mDialog!.addToDrawManager()
 
         case .Delete:
@@ -1164,7 +1160,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             // 捨てるアイコンを保持
             mThrowIcon = icon
 
-            mDialog!.updateLayout()
             mDialog!.addToDrawManager()
 
         case .Export:
@@ -1195,7 +1190,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             if icon is IconBook {
                 mExportIcon = icon as? IconBook
             }
-            mDialog!.updateLayout()
             mDialog!.addToDrawManager()
 
         case .Cleanup:

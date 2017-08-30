@@ -175,6 +175,7 @@ public class StudyCardsStack : UDrawable {
                                        frame: MOVING_FRAME + 5)
                     bottomY -= card2.getHeight() + UDpi.toPixel(MARGIN_V)
                 }
+                card.parentNode.zPosition -= 10.0
                 mCards.remove(obj: card)
                 mToBoxCards.append(card)
             }

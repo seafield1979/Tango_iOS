@@ -6,7 +6,8 @@
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import UIKit
+import SpriteKit
+
 public struct OptionInfo {
     var title : String
     var isTitle : Bool
@@ -75,35 +76,31 @@ public enum OptionItems : Int, EnumEnumerable {
 }
 
 public class ListItemOption : UListItem {
-    /**
-     * Constants
-     */
+    // MARK: Constants
     public let TAG = "ListItemOption"
     private let TITLE_H = 27
     private let FONT_SIZE = 17
     private let FRAME_WIDTH = 1
     private let FRAME_COLOR = UIColor.black
+   
+    // MARK: Properties
+    // SpriteKit Node
+    private var titleNode : SKLabelNode?
+    private var colorNode : SKShapeNode?
     
-    /**
-     * Member variables
-     */
     private var mItemType : OptionItems
     private var mTitle : String
     private var mColor : UIColor
     private var mBgColor : UIColor
     
-    /**
-     * Get/Set
-     */
-    public func setTitle( title : String) {
+    // MARK: Accessor
+    public func setTitle( _ title : String) {
         mTitle = title
     }
     
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init(listItemCallbacks : UListItemCallbacks?,
-                itemType : OptionItems, title : String, isTitle : Bool, color : UIColor,bgColor : UIColor,
+                itemType : OptionItems, title : String, isTitle : Bool, color : UIColor, bgColor : UIColor,
         x : CGFloat, width : CGFloat) {
         
         self.mItemType = itemType
@@ -111,16 +108,12 @@ public class ListItemOption : UListItem {
         self.mColor = color
         self.mBgColor = bgColor
         
-        super.init(callbacks : listItemCallbacks, isTouchable : !isTitle,
-                   x : x, width : width, height : UDpi.toPixel(TITLE_H),
-                   bgColor : bgColor, frameW : UDpi.toPixel(FRAME_WIDTH),
-                   frameColor : FRAME_COLOR)
-        
+        var height : CGFloat
         switch mItemType {
         case .ColorBook:
             fallthrough
         case .ColorCard:
-            size.height = UDpi.toPixel(50)
+            height = UDpi.toPixel(50)
             
         case .CardTitle:
             fallthrough
@@ -131,9 +124,36 @@ public class ListItemOption : UListItem {
         case .StudyMode3:
             fallthrough
         case .StudyMode4:
-            size.height = UDpi.toPixel(67)
+            height = UDpi.toPixel(67)
         default:
-            size.height = UDpi.toPixel(40)
+            height = UDpi.toPixel(40)
+        }
+        
+        super.init(callbacks : listItemCallbacks, isTouchable : !isTitle,
+                   x : x, width : width, height : height,
+                   bgColor : bgColor, frameW : UDpi.toPixel(FRAME_WIDTH),
+                   frameColor : FRAME_COLOR)
+        
+        initSKNode()
+    }
+    
+    public override func initSKNode() {
+        titleNode = SKNodeUtil.createLabelNode(text: mTitle, fontSize: UDpi.toPixel(FONT_SIZE), color: .black, alignment: .Center, pos: CGPoint(x: size.width / 2, y: size.height / 2)).node
+        parentNode.addChild2( titleNode! )
+        
+        if mItemType == .ColorBook || mItemType == .ColorCard {
+            let color = MySharedPref.readInt(
+                (mItemType == .ColorBook) ?
+                    MySharedPref.DefaultColorBookKey :
+                    MySharedPref.DefaultColorCardKey)
+            if color != 0 {
+                let _color = UColor.makeColor(argb: UInt32(color))
+                let _pos = CGPoint(x: size.width - UDpi.toPixel(50),
+                                   y: UDpi.toPixel(17))
+                let w = UDpi.toPixel(34)
+                colorNode = SKNodeUtil.createRectNode(rect: CGRect(x: -w/2, y: -w/2, width: w, height: w), color: _color, pos: _pos, cornerR: 0)
+                parentNode.addChild2( colorNode! )
+            }
         }
     }
     

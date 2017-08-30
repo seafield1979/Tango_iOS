@@ -133,9 +133,6 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
             width : UDpi.toPixel(StudyCard.WIDTH), maxHeight : mTopScene.getHeight()-UDpi.toPixel(TOP_AREA_H + BOTTOM_AREA_H))
         mCardsStack!.addToDrawManager()
         
-        let n = SKNodeUtil.createCrossPoint(type: .Type1, pos: mCardsStack!.pos, length: 15, lineWidth: 2, color: .red, zPos: 1000)
-        mTopScene.addChild2(n)
-
         // あと〜枚
         let title = getCardsRemainText( count: mCardsStack!.getCardCount())
         

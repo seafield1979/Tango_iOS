@@ -495,8 +495,6 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
             mDialog!.addDrawable(obj: button)
             mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
             
-            // ダイアログにパーツを追加し終わったのでレイアウトを計算する
-            mDialog!.updateLayout()
             mDialog!.addToDrawManager()
         }
     }
@@ -543,8 +541,6 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
 
             mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
 
-            // ダイアログにパーツを追加し終わったのでレイアウトを計算する
-            mDialog!.updateLayout()
             mDialog!.addToDrawManager()
         }
     }
@@ -583,8 +579,6 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
 
             mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
 
-            // ダイアログにパーツを追加し終わったのでレイアウトを計算する
-            mDialog!.updateLayout()
             mDialog!.addToDrawManager()
         }
     }
@@ -616,8 +610,6 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
 
             mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
 
-            // ダイアログにパーツを追加し終わったのでレイアウトを計算する
-            mDialog!.updateLayout()
             mDialog!.addToDrawManager()
         }
     }

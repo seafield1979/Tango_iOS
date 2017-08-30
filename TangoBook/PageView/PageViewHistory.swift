@@ -197,7 +197,6 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
                 
                 mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
             }
-            mDialog!.updateLayout()
             mDialog!.addToDrawManager()
             
         default:
@@ -262,7 +261,6 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
         mDialog!.addDrawable(obj: listView)
         mDialog!.addCloseButton(text: UResourceManager.getStringByName("close"))
         
-        mDialog!.updateLayout()
         mDialog!.addToDrawManager()
         
     }
