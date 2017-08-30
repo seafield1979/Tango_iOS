@@ -67,10 +67,6 @@ public class MySharedPref {
     // デフォルトの単語帳色
     public static let DefaultColorBookKey = "DefaultColorBook"
     
-    // デフォルトのカード名
-    public static let DefaultCardWordAKey = "DefaultCardWordA"
-    public static let DefaultCardWordBKey = "DefaultCardWordB"
-    
     // デフォルトの単語帳名
     public static let DefaultNameBookKey = "DefaultNameBook"
     

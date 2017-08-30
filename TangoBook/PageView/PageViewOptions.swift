@@ -6,24 +6,9 @@
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import UIKit
-/**
- *  DialogFragmentのコールバック
- */
-protocol OptionColorDialogCallbacks {
-    func submitOptionColor()
-    func cancelOptionColor()
-}
+import SpriteKit
 
-/**
- *  DialogFragmentのコールバック
- */
-protocol DefaultNameDialogCallbacks {
-    func submitDefaultName()
-    func cancelDefaultName()
-}
-
-public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, OptionColorDialogCallbacks, DefaultNameDialogCallbacks, UListItemCallbacks {
+public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, OptionColorDialogCallbacks, UListItemCallbacks {
     
     // MARK: Enums
     // モード(リストに表示する項目が変わる)
@@ -171,12 +156,6 @@ public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, Op
                         "word_b" : "word_a")
                 return UResourceManager.getStringByName(option.getItemInfo().title) + " : " + str
             
-            case .DefaultNameBook:
-                title = option.getItemInfo().title;
-                break
-            case .DefaultNameCard:
-                title = option.getItemInfo().title;
-                break
             case .StudyMode3:
                 title = option.getItemInfo().title;
                 break
@@ -219,9 +198,13 @@ public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, Op
         let button2 = mDialog!.addButton(id : ButtonIdCardWordB, text : UResourceManager.getStringByName("word_b"), fontSize : UDpi.toPixel(TEXT_SIZE), textColor : UIColor.black, color : UColor.White)
 
         if (MySharedPref.readBool(MySharedPref.EditCardNameKey)) {
-            button2.setChecked(true)
+            if let button = button2 as? UButtonText {
+                button.setChecked(true, initNode: false)
+            }
         } else {
-            button1.setChecked(true)
+            if let button = button1 as? UButtonText {
+                button.setChecked(true, initNode: false)
+            }
         }
 
         mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
@@ -241,7 +224,6 @@ public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, Op
             screenH : mTopScene.getHeight(), textColor : UIColor.black,
             dialogColor : UIColor.lightGray)
         
-        mDialog!.addToDrawManager();
         mDialog!.setTitle(UResourceManager.getStringByName("option_mode3_1"))
 
         // buttons
@@ -258,12 +240,18 @@ public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, Op
             color : UIColor.white)
         
         if (MySharedPref.readBool(MySharedPref.StudyMode3OptionKey)) {
-            button1.setChecked(true)
+            if let button = button1 as? UButtonText {
+                button.setChecked(true, initNode: false)
+            }
         } else {
-            button2.setChecked(true)
+            if let button = button2 as? UButtonText {
+                button.setChecked(true, initNode: false)
+            }
         }
 
         mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
+        
+        mDialog!.addToDrawManager()
     }
 
     /**
@@ -271,7 +259,7 @@ public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, Op
      */
     private func showStudyMode4OptionDialog() {
         mDialog = UDialogWindow.createInstance(topScene : mTopScene, type : DialogType.Modal, buttonCallbacks : self, dialogCallbacks : self, dir : UDialogWindow.ButtonDir.Vertical, posType : DialogPosType.Center, isAnimation : true, screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(), textColor : UIColor.black, dialogColor : UIColor.lightGray)
-        mDialog!.addToDrawManager();
+        
         mDialog!.setTitle(UResourceManager.getStringByName("option_mode4_2"))
 
         // buttons
@@ -279,12 +267,18 @@ public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, Op
         let button2 = mDialog!.addButton(id : ButtonIdStudyRandom, text : UResourceManager.getStringByName("option_mode4_4"), fontSize : UDpi.toPixel(TEXT_SIZE), textColor : UIColor.black, color : UColor.White)
         
         if (MySharedPref.readBool(MySharedPref.StudyMode4OptionKey)) {
-            button2.setChecked(true)
+            if let button = button2 as? UButtonText {
+                button.setChecked(true, initNode: false)
+            }
         } else {
-            button1.setChecked(true)
+            if let button = button1 as? UButtonText {
+                button.setChecked(true, initNode: false)
+            }
         }
 
         mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
+        
+        mDialog!.addToDrawManager()
     }
 
     // MARK: Callbacks
@@ -295,7 +289,7 @@ public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, Op
         switch id {
         case ButtonIdReturn:
             _ = PageViewManagerMain.getInstance().popPage()
-            break;
+            break
         case ButtonIdCardWordA:
             fallthrough
         case ButtonIdCardWordB:
@@ -309,6 +303,14 @@ public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, Op
                 mDialog!.closeDialog()
                 mDialog = nil
             }
+            // 表示の更新
+            let listItem = mListView!.get( index: OptionItems.CardTitle.rawValue ) as? ListItemOption
+            if listItem != nil {
+                let str : String = UResourceManager.getStringByName( id == ButtonIdCardWordA ?
+                    "word_a" : "word_b")
+                listItem!.getTitleNode().text = UResourceManager.getStringByName( OptionItems.CardTitle.getItemInfo().title) + " : " + str
+            }
+            
         
         case ButtonIdSelectFromAll:
             fallthrough
@@ -369,6 +371,18 @@ public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, Op
         case .ColorBook:
             fallthrough
         case .ColorCard:
+            // カード情報入力用のViewControllerをモーダルで表示
+            let viewController = ColorPickerViewController(
+                nibName: "ColorPickerViewController",
+                bundle: nil)
+            
+            viewController.delegate = self
+            viewController.mMode = (itemId == OptionItems.ColorBook) ? ColorPickerMode.Book : ColorPickerMode.Card
+            
+            mTopScene.parentVC!.present(viewController,
+                                        animated: true,
+                                        completion: nil)
+
 //            OptionColorFragment.ColorMode mode = (itemId == OptionItems.ColorBook) ?  OptionColorFragment.ColorMode.Book : OptionColorFragment.ColorMode.Card;
 //            OptionColorFragment dialogFragment = OptionColorFragment.createInstance(self, mode);
 //            dialogFragment.show(((AppCompatActivity)mContext).getSupportFragmentManager(),
@@ -382,17 +396,6 @@ public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, Op
             }
             showCardTitleDialog()
         
-            break
-        case .DefaultNameBook:
-//            dialogFragment = DefaultBookNameFragment.createInstance(self)
-//            dialogFragment.show(((AppCompatActivity)mContext).getSupportFragmentManager(),
-//                    "fragment_dialog");
-            break
-        case .DefaultNameCard:
-//            DefaultCardNameFragment dialogFragment = DefaultCardNameFragment.createInstance
-//                    (self);
-//            dialogFragment.show(((AppCompatActivity)mContext).getSupportFragmentManager(),
-//                    "fragment_dialog");
             break
         case .StudyMode3:
             if mDialog != nil {
@@ -420,35 +423,32 @@ public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, Op
     /**
      * OptionColorDialogCallbacks
      */
-    public func submitOptionColor() {
+    // デフォルトの色設定で色が更新された
+    public func submitOptionColor( color : UIColor, mode : ColorPickerMode) {
         
+        var keyName : String
+        var item : OptionItems
+        
+        if mode == ColorPickerMode.Book {
+            keyName = MySharedPref.DefaultColorBookKey
+            item = OptionItems.ColorBook
+        } else {
+            keyName = MySharedPref.DefaultColorCardKey
+            item = OptionItems.ColorCard
+        }
+        // リスト内の色を変更する
+        let listItem = mListView!.get( index: item.rawValue ) as? ListItemOption
+        if listItem != nil {
+            let n : SKShapeNode = listItem!.getColorNode()
+            n.fillColor = color
+            n.isHidden = false
+        }
+        
+        MySharedPref.writeInt(key: keyName, value: Int(color.intColor()))
     }
     
     public func cancelOptionColor() {
 
-    }
-
-    /**
-     * DefaultNameDialogCallbacks
-     */
-    public func submitDefaultName() {
-//        int fragment_type = 0;
-//        if (args != nil) {
-//            fragment_type = args.getInt(DefaultBookNameFragment.KEY_FRAGMENT_TYPE);
-//        }
-//
-//        // アイテムのテキストを更新
-//        OptionItems option = (fragment_type == DefaultBookNameFragment.FragmentType) ?
-//                OptionItems.DefaultNameBook : OptionItems.DefaultNameCard;
-//
-//        ListItemOption item = (ListItemOption) mListView.get(option.ordinal());
-//        if (item != nil) {
-//            item.setTitle(getItemTitle(option));
-//            mTopScene.invalidate();
-//        }
-    }
-    
-    public func cancelDefaultName() {
     }
 
     /**

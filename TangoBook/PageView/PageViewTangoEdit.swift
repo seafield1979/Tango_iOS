@@ -33,27 +33,6 @@ public enum TangoEditActionId : Int, EnumEnumerable {
     case action_settings
 }
 
-/**
- 単語カード編集ダイアログが終了した時に呼ばれるコールバック
- */
-public protocol EditCardDialogCallbacks {
-    // カード情報が更新された時に呼ばれる
-    func submitEditCard(mode : EditCardDialogMode,
-                        wordA : String?, wordB : String?, color : UIColor?)
-    // 更新がキャンセルされた時に呼ばれる
-    func cancelEditCard()
-}
-
-/**
- 単語帳編集ダイアログが終了した時に呼ばれるコールバック
- */
-public protocol EditBookDialogCallbacks {
-    // 単語帳情報が更新された時に呼ばれる
-    func submitEditBook(mode : EditBookDialogMode,
-                        name : String?, comment : String?, color : UIColor?)
-    // 更新がキャンセルされた時に呼ばれる
-    func cancelEditBook()
-}
 
 /**
  * IconInfoDialogのコールバック

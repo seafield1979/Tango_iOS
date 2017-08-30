@@ -9,6 +9,17 @@
 
 import UIKit
 
+/**
+ 単語帳編集ダイアログが終了した時に呼ばれるコールバック
+ */
+public protocol EditBookDialogCallbacks {
+    // 単語帳情報が更新された時に呼ばれる
+    func submitEditBook(mode : EditBookDialogMode,
+                        name : String?, comment : String?, color : UIColor?)
+    // 更新がキャンセルされた時に呼ばれる
+    func cancelEditBook()
+}
+
 class EditBookViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var scrollView: UIScrollView!
@@ -105,7 +116,7 @@ class EditBookViewController: UIViewController, UITextFieldDelegate {
             // 閉じた時に行いたい処理
             presentingViewController?.viewWillAppear(true)
             
-            if self.self.delegate != nil {
+            if self.delegate != nil {
                 self.delegate?.submitEditBook(mode: self.mMode,
                                               name: self.nameTextField.text,
                                               comment: self.commentTextField.text,

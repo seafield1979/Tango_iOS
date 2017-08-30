@@ -9,6 +9,17 @@
 
 import UIKit
 
+/**
+ 単語カード編集ダイアログが終了した時に呼ばれるコールバック
+ */
+public protocol EditCardDialogCallbacks {
+    // カード情報が更新された時に呼ばれる
+    func submitEditCard(mode : EditCardDialogMode,
+                        wordA : String?, wordB : String?, color : UIColor?)
+    // 更新がキャンセルされた時に呼ばれる
+    func cancelEditCard()
+}
+
 class EditCardViewController: UIViewController, UITextFieldDelegate
 {
     @IBOutlet weak var textWordA: UITextField!

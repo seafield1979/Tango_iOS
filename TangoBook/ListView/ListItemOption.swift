@@ -20,8 +20,6 @@ public enum OptionItems : Int, EnumEnumerable {
     case ColorBook      // 新規追加の単語帳の色
     case ColorCard      // 新規追加のカードの色
     case CardTitle      // 編集ページで表示されるタイトルの種類(英語 or 日本語)
-    case DefaultNameBook    // 新規追加単語帳の先頭文字列
-    case DefaultNameCard    // 新規追加カードの先頭文字列
     case TitleStudy     // [学習]
     case StudyMode3     // ４択モードの不正解カード抽出範囲
     case StudyMode4     // 正解入力学習モードの文字並び順
@@ -40,12 +38,6 @@ public enum OptionItems : Int, EnumEnumerable {
         case .CardTitle:      // 編集ページで表示されるタイトルの種類(英語 or 日本語)
             return OptionInfo(title : "option_card_title", isTitle : false, color : UIColor.black, bgColor : UIColor.white)
             
-        case .DefaultNameBook:    // 新規追加単語帳の先頭文字列
-            return OptionInfo(title : "option_default_name_book", isTitle : false, color : UIColor.black, bgColor : UIColor.white)
-            
-        case .DefaultNameCard:    // 新規追加カードの先頭文字列
-            return OptionInfo(title : "option_default_name_card", isTitle : false, color : UIColor.black, bgColor : UIColor.white)
-            
         case .TitleStudy:     // [学習]
             return OptionInfo(title : "title_option_study", isTitle : true, color : UIColor.black, bgColor : UColor.LightRed)
             
@@ -63,8 +55,7 @@ public enum OptionItems : Int, EnumEnumerable {
             return cases
         case .Edit:
             let items : [OptionItems] = [
-                    TitleEdit, ColorBook, ColorCard, CardTitle, DefaultNameBook,
-                    DefaultNameCard]
+                    TitleEdit, ColorBook, ColorCard, CardTitle]
             return items
         
         case .Study:
@@ -98,6 +89,14 @@ public class ListItemOption : UListItem {
         mTitle = title
     }
     
+    public func getColorNode() -> SKShapeNode {
+        return colorNode!
+    }
+
+    public func getTitleNode() -> SKLabelNode {
+        return titleNode!
+    }
+    
     // MARK: Initializer
     public init(listItemCallbacks : UListItemCallbacks?,
                 itemType : OptionItems, title : String, isTitle : Bool, color : UIColor, bgColor : UIColor,
@@ -116,10 +115,6 @@ public class ListItemOption : UListItem {
             height = UDpi.toPixel(50)
             
         case .CardTitle:
-            fallthrough
-        case .DefaultNameBook:
-            fallthrough
-        case .DefaultNameCard:
             fallthrough
         case .StudyMode3:
             fallthrough
@@ -146,14 +141,18 @@ public class ListItemOption : UListItem {
                 (mItemType == .ColorBook) ?
                     MySharedPref.DefaultColorBookKey :
                     MySharedPref.DefaultColorCardKey)
-            if color != 0 {
-                let _color = UColor.makeColor(argb: UInt32(color))
-                let _pos = CGPoint(x: size.width - UDpi.toPixel(50),
-                                   y: UDpi.toPixel(17))
-                let w = UDpi.toPixel(34)
-                colorNode = SKNodeUtil.createRectNode(rect: CGRect(x: -w/2, y: -w/2, width: w, height: w), color: _color, pos: _pos, cornerR: 0)
-                parentNode.addChild2( colorNode! )
-            }
+            
+            let _color = UColor.makeColor(argb: UInt32(color))
+            let _pos = CGPoint(x: size.width - UDpi.toPixel(50),
+                               y: UDpi.toPixel(50 / 2))
+            let w = UDpi.toPixel(34)
+            colorNode = SKNodeUtil.createRectNode(rect: CGRect(x: -w/2, y: -w/2, width: w, height: w), color: _color, pos: _pos, cornerR: 0)
+            
+            // 色が未設定なら非表示
+//            if color == 0 {
+//                colorNode!.isHidden = true
+//            }
+            parentNode.addChild2( colorNode! )
         }
     }
     
@@ -163,41 +162,10 @@ public class ListItemOption : UListItem {
     
     /**
      * 描画処理
-     * @param canvas
-     * @param paint
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
     public override func draw() {
-//        PointF _pos = new PointF(pos.x, pos.y);
-//        if (offset != null) {
-//            _pos.x += offset.x;
-//            _pos.y += offset.y;
-//        }
-//        
-//        super.draw(canvas, paint, _pos);
-//        
-//        UDraw.drawText(canvas, mTitle, UAlignment.Center, UDpi.toPixel(FONT_SIZE),
-//                       _pos.x + size.width / 2, _pos.y + size.height / 2, mColor);
-//        
-//        switch(mItemType) {
-//        case ColorBook:
-//        case ColorCard: {
-//            int color = MySharedPref.readInt(
-//                (mItemType == OptionItems.ColorBook) ?
-//                    MySharedPref.DefaultColorBookKey :
-//                    MySharedPref.DefaultColorCardKey);
-//            if (color != 0) {
-//                _pos.x += size.width - UDpi.toPixel(50);
-//                _pos.y += UDpi.toPixel(7);
-//                UDraw.drawRectFill(canvas, paint,
-//                                   new Rect((int) _pos.x, (int) _pos.y,
-//                                            (int) _pos.x + UDpi.toPixel(34),
-//                                            (int) _pos.y + size.height - UDpi.toPixel(13)),
-//                                   color, 0, 0);
-//            }
-//        }
-//        break;
-//        }
+        super.draw()
     }
     
     /**

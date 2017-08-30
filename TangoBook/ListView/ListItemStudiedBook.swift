@@ -149,32 +149,7 @@ public class ListItemStudiedBook : UListItem {
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
     public override func draw() {
-//        let _textColor : UIColor = .black
-//        
-//        var x = pos.x + UDpi.toPixel(ListItemStudiedBook.MARGIN_H)
-//        var y = pos.y + UDpi.toPixel(ListItemStudiedBook.MARGIN_V)
-//        
-//        // BGや枠描画は親クラスのdrawメソッドで行う
-//        super.draw()
-//        
-//        let fontSize : CGFloat = UDpi.toPixel(ListItemStudiedBook.FONT_SIZE)
-//        
-//        if mType == ListItemStudiedBookType.History {
-//            // 履歴
-            // Book名
-//            UDraw.drawTextOneLine(canvas, paint, mTextName, UAlignment.None,
-//                                  fontSize, x, y, _textColor);
-//            y += fontSize + UDpi.toPixel(MARGIN_V);
-//            
-//            // 学習日時
-//            UDraw.drawTextOneLine(canvas, paint, mTextDate, UAlignment.None,
-//                                  UDpi.toPixel(FONT_SIZE2) , x, y, _textColor);
-//            y += fontSize + UDpi.toPixel(MARGIN_V);
-//            
-//            // OK/NG数 正解率
-//            UDraw.drawTextOneLine(canvas, paint, mTextInfo, UAlignment.None,
-//                                  UDpi.toPixel(FONT_SIZE2), x, y, _textColor);
-//        }
+        super.draw()
     }
 
     public override func touchEvent( vt : ViewTouch, offset : CGPoint?) -> Bool{

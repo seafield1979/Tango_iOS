@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "3cU-A1-5Y1"; */
+"3cU-A1-5Y1.text" = "Label";
+
+/* Class = "UIButton"; accessibilityLabel = "button2"; ObjectID = "a1z-8w-yTk"; */
+"a1z-8w-yTk.accessibilityLabel" = "button2";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "a1z-8w-yTk"; */
+"a1z-8w-yTk.normalTitle" = "Cancel";
+
+/* Class = "UIButton"; accessibilityLabel = "button1"; ObjectID = "pEP-DQ-Pny"; */
+"pEP-DQ-Pny.accessibilityLabel" = "button1";
+
+/* Class = "UIButton"; normalTitle = "OK"; ObjectID = "pEP-DQ-Pny"; */
+"pEP-DQ-Pny.normalTitle" = "OK";

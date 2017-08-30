@@ -244,4 +244,20 @@ public class UIViewUtil {
         
         return textView
     }
+    
+    // カラーピッカーの色選択用のボタンを作成する
+    private func createButtons(count : Int, width: CGFloat, height : CGFloat) -> [UIButton] {
+        var buttons : [UIButton] = []
+        
+        var x : CGFloat = 0
+        let y : CGFloat = 0
+        
+        for i in 0..<count {
+            let button = UIViewUtil.createSimpleButton(
+                x:x, y:y, width:width, height: UIViewUtil.BUTTON_H, title: "", tagId: i)
+            x += width
+            buttons.append(button)
+        }
+        return buttons
+    }
 }

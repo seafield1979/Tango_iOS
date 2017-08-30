@@ -210,7 +210,7 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
     public func UButtonClicked( id : Int, pressedOn : Bool) -> Bool {
         switch id {
         case ButtonIdReturn:
-            PageViewManagerMain.getInstance().popPage()
+            _ = PageViewManagerMain.getInstance().popPage()
         
         case ButtonIdClearOK:
             TangoBookHistoryDao.deleteAll()

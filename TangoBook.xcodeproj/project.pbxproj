@@ -13,6 +13,8 @@
 		8A0D6FB41F319765002A1949 /* EditBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6FB21F319765002A1949 /* EditBookViewController.swift */; };
 		8A0D6FB71F31A47A002A1949 /* TangoBackupFileDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D6FB61F31A47A002A1949 /* TangoBackupFileDao.swift */; };
 		8A0F64421F4FC9750019BAC7 /* DialogCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0F64411F4FC9750019BAC7 /* DialogCard.swift */; };
+		8A159E9C1F567C630066FEB5 /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A159E9A1F567C630066FEB5 /* ColorPickerViewController.swift */; };
+		8A159EA21F5695540066FEB5 /* ColorPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A159EA41F5695540066FEB5 /* ColorPickerViewController.xib */; };
 		8A2584AC1F3209C3002EE9E2 /* EditCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A2584AE1F3209C3002EE9E2 /* EditCardViewController.xib */; };
 		8A2DA70B1F53A30D00FCB0C4 /* RegExp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DA70A1F53A30D00FCB0C4 /* RegExp.swift */; };
 		8A2DA70D1F552A7900FCB0C4 /* Date+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DA70C1F552A7900FCB0C4 /* Date+ex.swift */; };
@@ -194,9 +196,6 @@
 		8A6635A01F384D1D000EAAF0 /* StudyCardStackSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A66359F1F384D1D000EAAF0 /* StudyCardStackSelect.swift */; };
 		8A6DA4E41F346D29000F4057 /* URealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DA4E31F346D29000F4057 /* URealmManager.swift */; };
 		8A8522401F22514300B5B8A3 /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A85223F1F22514300B5B8A3 /* TestDatabase.swift */; };
-		8A8522441F22533000B5B8A3 /* TestDBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8522421F22533000B5B8A3 /* TestDBViewController.swift */; };
-		8A8522451F22533000B5B8A3 /* TestDBViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A8522431F22533000B5B8A3 /* TestDBViewController.xib */; };
-		8A8522471F22539800B5B8A3 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A8522461F22539800B5B8A3 /* ViewController.xib */; };
 		8AA3B5071F29B1F100AE445E /* UIImage+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3B5061F29B1F100AE445E /* UIImage+ex.swift */; };
 		8AA3B5091F29B4F500AE445E /* TangoEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3B5081F29B4F500AE445E /* TangoEnums.swift */; };
 		8AB7E8F71F25824C005E36BB /* ImageName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E8F61F25824C005E36BB /* ImageName.swift */; };
@@ -205,8 +204,6 @@
 		8AB7E9121F2583F4005E36BB /* UPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9071F2583F4005E36BB /* UPageView.swift */; };
 		8AB7E9131F2583F4005E36BB /* UPageViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9081F2583F4005E36BB /* UPageViewManager.swift */; };
 		8AB7E9151F258463005E36BB /* UScrollWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9141F258463005E36BB /* UScrollWindow.swift */; };
-		8AB7E9181F258764005E36BB /* TestDBTopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9161F258764005E36BB /* TestDBTopViewController.swift */; };
-		8AB7E9191F258764005E36BB /* TestDBTopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AB7E9171F258764005E36BB /* TestDBTopViewController.xib */; };
 		8AB7E91F1F258873005E36BB /* TestGuiTopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E91D1F258873005E36BB /* TestGuiTopViewController.swift */; };
 		8AB7E9201F258873005E36BB /* TestGuiTopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AB7E91E1F258873005E36BB /* TestGuiTopViewController.xib */; };
 		8AB7E9221F258A1B005E36BB /* TestGuiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E9211F258A1B005E36BB /* TestGuiView.swift */; };
@@ -252,16 +249,6 @@
 		8AD6313C1F2B94CE0067B57E /* IconInfoDialogCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6313B1F2B94CE0067B57E /* IconInfoDialogCard.swift */; };
 		8AD631401F2B97450067B57E /* IconInfoDialogInTrash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6313F1F2B97450067B57E /* IconInfoDialogInTrash.swift */; };
 		8AE089FC1F24677D0024E9B7 /* UNViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE089FB1F24677D0024E9B7 /* UNViewController.swift */; };
-		8AE08A031F24B98E0024E9B7 /* TestDB2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08A011F24B98E0024E9B7 /* TestDB2ViewController.swift */; };
-		8AE08A041F24B98E0024E9B7 /* TestDB2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AE08A021F24B98E0024E9B7 /* TestDB2ViewController.xib */; };
-		8AE08A071F24B9A20024E9B7 /* TestDB3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08A051F24B9A20024E9B7 /* TestDB3ViewController.swift */; };
-		8AE08A081F24B9A20024E9B7 /* TestDB3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AE08A061F24B9A20024E9B7 /* TestDB3ViewController.xib */; };
-		8AE08A0B1F24BA010024E9B7 /* TestDB4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08A091F24BA010024E9B7 /* TestDB4ViewController.swift */; };
-		8AE08A0C1F24BA010024E9B7 /* TestDB4ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AE08A0A1F24BA010024E9B7 /* TestDB4ViewController.xib */; };
-		8AE08A0F1F24BA1C0024E9B7 /* TestDB5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08A0D1F24BA1C0024E9B7 /* TestDB5ViewController.swift */; };
-		8AE08A101F24BA1C0024E9B7 /* TestDB5ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AE08A0E1F24BA1C0024E9B7 /* TestDB5ViewController.xib */; };
-		8AE08A131F24BA310024E9B7 /* TestDB6ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08A111F24BA310024E9B7 /* TestDB6ViewController.swift */; };
-		8AE08A141F24BA310024E9B7 /* TestDB6ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AE08A121F24BA310024E9B7 /* TestDB6ViewController.xib */; };
 		8AE08A851F2580D00024E9B7 /* UButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08A621F2580D00024E9B7 /* UButton.swift */; };
 		8AE08A861F2580D00024E9B7 /* UButtonClose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08A631F2580D00024E9B7 /* UButtonClose.swift */; };
 		8AE08A871F2580D00024E9B7 /* UButtonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE08A641F2580D00024E9B7 /* UButtonImage.swift */; };
@@ -319,7 +306,6 @@
 		8AF5E9FD1F2ED332008D8508 /* PresetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E9FC1F2ED331008D8508 /* PresetCard.swift */; };
 		8AF5E9FF1F2ED344008D8508 /* PresetBookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E9FE1F2ED344008D8508 /* PresetBookManager.swift */; };
 		8AF7817B1F1F3E4400FC4EF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF7817A1F1F3E4400FC4EF2 /* AppDelegate.swift */; };
-		8AF7817D1F1F3E4400FC4EF2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF7817C1F1F3E4400FC4EF2 /* ViewController.swift */; };
 		8AF781821F1F3E4400FC4EF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AF781811F1F3E4400FC4EF2 /* Assets.xcassets */; };
 		8AF781A61F1F445500FC4EF2 /* BackupFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF781971F1F445500FC4EF2 /* BackupFile.swift */; };
 		8AF781A71F1F445500FC4EF2 /* BackupFileDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF781981F1F445500FC4EF2 /* BackupFileDao.swift */; };
@@ -347,6 +333,10 @@
 		8A0D6FB21F319765002A1949 /* EditBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditBookViewController.swift; path = ViewController/EditBookViewController.swift; sourceTree = "<group>"; };
 		8A0D6FB61F31A47A002A1949 /* TangoBackupFileDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TangoBackupFileDao.swift; path = TangoBook/Database/TangoBackupFileDao.swift; sourceTree = "<group>"; };
 		8A0F64411F4FC9750019BAC7 /* DialogCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DialogCard.swift; path = Window/DialogCard.swift; sourceTree = "<group>"; };
+		8A159E9A1F567C630066FEB5 /* ColorPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorPickerViewController.swift; path = ViewController/ColorPickerViewController.swift; sourceTree = "<group>"; };
+		8A159EA31F5695540066FEB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ColorPickerViewController.xib; sourceTree = "<group>"; };
+		8A159EAA1F5695FF0066FEB5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ColorPickerViewController.strings; sourceTree = "<group>"; };
+		8A159EAC1F5696030066FEB5 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/ColorPickerViewController.strings; sourceTree = "<group>"; };
 		8A2584AD1F3209C3002EE9E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EditCardViewController.xib; sourceTree = "<group>"; };
 		8A2584BB1F320E15002EE9E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditCardViewController.strings; sourceTree = "<group>"; };
 		8A2584BC1F320E19002EE9E2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/EditCardViewController.strings; sourceTree = "<group>"; };
@@ -530,9 +520,6 @@
 		8A66359F1F384D1D000EAAF0 /* StudyCardStackSelect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyCardStackSelect.swift; path = Study/StudyCardStackSelect.swift; sourceTree = "<group>"; };
 		8A6DA4E31F346D29000F4057 /* URealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URealmManager.swift; path = TangoBook/Database/URealmManager.swift; sourceTree = "<group>"; };
 		8A85223F1F22514300B5B8A3 /* TestDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDatabase.swift; path = TangoBook/Database/Test/TestDatabase.swift; sourceTree = "<group>"; };
-		8A8522421F22533000B5B8A3 /* TestDBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDBViewController.swift; path = TangoBook/Database/Test/TestDBViewController.swift; sourceTree = "<group>"; };
-		8A8522431F22533000B5B8A3 /* TestDBViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDBViewController.xib; path = TangoBook/Database/Test/TestDBViewController.xib; sourceTree = "<group>"; };
-		8A8522461F22539800B5B8A3 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ViewController.xib; path = TangoBook/ViewController.xib; sourceTree = "<group>"; };
 		8AA3B5061F29B1F100AE445E /* UIImage+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ex.swift"; sourceTree = "<group>"; };
 		8AA3B5081F29B4F500AE445E /* TangoEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TangoEnums.swift; sourceTree = "<group>"; };
 		8AB7E8F61F25824C005E36BB /* ImageName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageName.swift; sourceTree = "<group>"; };
@@ -541,8 +528,6 @@
 		8AB7E9071F2583F4005E36BB /* UPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPageView.swift; sourceTree = "<group>"; };
 		8AB7E9081F2583F4005E36BB /* UPageViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPageViewManager.swift; sourceTree = "<group>"; };
 		8AB7E9141F258463005E36BB /* UScrollWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UScrollWindow.swift; sourceTree = "<group>"; };
-		8AB7E9161F258764005E36BB /* TestDBTopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDBTopViewController.swift; path = TangoBook/ViewController/TestDBTopViewController.swift; sourceTree = "<group>"; };
-		8AB7E9171F258764005E36BB /* TestDBTopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDBTopViewController.xib; path = TangoBook/ViewController/TestDBTopViewController.xib; sourceTree = "<group>"; };
 		8AB7E91D1F258873005E36BB /* TestGuiTopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestGuiTopViewController.swift; path = ViewController/TestGuiTopViewController.swift; sourceTree = "<group>"; };
 		8AB7E91E1F258873005E36BB /* TestGuiTopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestGuiTopViewController.xib; path = ViewController/TestGuiTopViewController.xib; sourceTree = "<group>"; };
 		8AB7E9211F258A1B005E36BB /* TestGuiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGuiView.swift; sourceTree = "<group>"; };
@@ -590,17 +575,7 @@
 		8AD631391F2B941B0067B57E /* IconInfoDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconInfoDialog.swift; path = Icon/IconInfoDialog.swift; sourceTree = "<group>"; };
 		8AD6313B1F2B94CE0067B57E /* IconInfoDialogCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconInfoDialogCard.swift; path = Icon/IconInfoDialogCard.swift; sourceTree = "<group>"; };
 		8AD6313F1F2B97450067B57E /* IconInfoDialogInTrash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconInfoDialogInTrash.swift; path = Icon/IconInfoDialogInTrash.swift; sourceTree = "<group>"; };
-		8AE089FB1F24677D0024E9B7 /* UNViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UNViewController.swift; path = TangoBook/ViewController/UNViewController.swift; sourceTree = "<group>"; };
-		8AE08A011F24B98E0024E9B7 /* TestDB2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDB2ViewController.swift; path = TangoBook/ViewController/TestDB2ViewController.swift; sourceTree = "<group>"; };
-		8AE08A021F24B98E0024E9B7 /* TestDB2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDB2ViewController.xib; path = TangoBook/ViewController/TestDB2ViewController.xib; sourceTree = "<group>"; };
-		8AE08A051F24B9A20024E9B7 /* TestDB3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDB3ViewController.swift; path = TangoBook/ViewController/TestDB3ViewController.swift; sourceTree = "<group>"; };
-		8AE08A061F24B9A20024E9B7 /* TestDB3ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDB3ViewController.xib; path = TangoBook/ViewController/TestDB3ViewController.xib; sourceTree = "<group>"; };
-		8AE08A091F24BA010024E9B7 /* TestDB4ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDB4ViewController.swift; path = TangoBook/ViewController/TestDB4ViewController.swift; sourceTree = "<group>"; };
-		8AE08A0A1F24BA010024E9B7 /* TestDB4ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDB4ViewController.xib; path = TangoBook/ViewController/TestDB4ViewController.xib; sourceTree = "<group>"; };
-		8AE08A0D1F24BA1C0024E9B7 /* TestDB5ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDB5ViewController.swift; path = TangoBook/ViewController/TestDB5ViewController.swift; sourceTree = "<group>"; };
-		8AE08A0E1F24BA1C0024E9B7 /* TestDB5ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDB5ViewController.xib; path = TangoBook/ViewController/TestDB5ViewController.xib; sourceTree = "<group>"; };
-		8AE08A111F24BA310024E9B7 /* TestDB6ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDB6ViewController.swift; path = TangoBook/ViewController/TestDB6ViewController.swift; sourceTree = "<group>"; };
-		8AE08A121F24BA310024E9B7 /* TestDB6ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestDB6ViewController.xib; path = TangoBook/ViewController/TestDB6ViewController.xib; sourceTree = "<group>"; };
+		8AE089FB1F24677D0024E9B7 /* UNViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UNViewController.swift; path = ViewController/UNViewController.swift; sourceTree = "<group>"; };
 		8AE08A621F2580D00024E9B7 /* UButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UButton.swift; sourceTree = "<group>"; };
 		8AE08A631F2580D00024E9B7 /* UButtonClose.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UButtonClose.swift; sourceTree = "<group>"; };
 		8AE08A641F2580D00024E9B7 /* UButtonImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UButtonImage.swift; sourceTree = "<group>"; };
@@ -659,7 +634,6 @@
 		8AF5E9FE1F2ED344008D8508 /* PresetBookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresetBookManager.swift; path = PresetBook/PresetBookManager.swift; sourceTree = "<group>"; };
 		8AF781771F1F3E4400FC4EF2 /* TangoBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TangoBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF7817A1F1F3E4400FC4EF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8AF7817C1F1F3E4400FC4EF2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = TangoBook/ViewController.swift; sourceTree = "<group>"; };
 		8AF781811F1F3E4400FC4EF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8AF781861F1F3E4400FC4EF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AF781971F1F445500FC4EF2 /* BackupFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackupFile.swift; path = TangoBook/Database/BackupFile.swift; sourceTree = "<group>"; };
@@ -704,10 +678,13 @@
 		8A0D6FAD1F319701002A1949 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				8AE089FB1F24677D0024E9B7 /* UNViewController.swift */,
 				8A0D6FAE1F319748002A1949 /* EditCardViewController.swift */,
 				8A2584AE1F3209C3002EE9E2 /* EditCardViewController.xib */,
 				8A0D6FB21F319765002A1949 /* EditBookViewController.swift */,
 				8AB99D7F1F34210600497E4E /* EditBookViewController.xib */,
+				8A159E9A1F567C630066FEB5 /* ColorPickerViewController.swift */,
+				8A159EA41F5695540066FEB5 /* ColorPickerViewController.xib */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -939,31 +916,6 @@
 				8A85223F1F22514300B5B8A3 /* TestDatabase.swift */,
 			);
 			name = Test;
-			sourceTree = "<group>";
-		};
-		8A8522411F22516F00B5B8A3 /* ViewControllerDB */ = {
-			isa = PBXGroup;
-			children = (
-				8AE089FB1F24677D0024E9B7 /* UNViewController.swift */,
-				8AF7817C1F1F3E4400FC4EF2 /* ViewController.swift */,
-				8A8522461F22539800B5B8A3 /* ViewController.xib */,
-				8AB7E9161F258764005E36BB /* TestDBTopViewController.swift */,
-				8AB7E9171F258764005E36BB /* TestDBTopViewController.xib */,
-				8A8522421F22533000B5B8A3 /* TestDBViewController.swift */,
-				8A8522431F22533000B5B8A3 /* TestDBViewController.xib */,
-				8AE08A011F24B98E0024E9B7 /* TestDB2ViewController.swift */,
-				8AE08A021F24B98E0024E9B7 /* TestDB2ViewController.xib */,
-				8AE08A051F24B9A20024E9B7 /* TestDB3ViewController.swift */,
-				8AE08A061F24B9A20024E9B7 /* TestDB3ViewController.xib */,
-				8AE08A091F24BA010024E9B7 /* TestDB4ViewController.swift */,
-				8AE08A0A1F24BA010024E9B7 /* TestDB4ViewController.xib */,
-				8AE08A0D1F24BA1C0024E9B7 /* TestDB5ViewController.swift */,
-				8AE08A0E1F24BA1C0024E9B7 /* TestDB5ViewController.xib */,
-				8AE08A111F24BA310024E9B7 /* TestDB6ViewController.swift */,
-				8AE08A121F24BA310024E9B7 /* TestDB6ViewController.xib */,
-			);
-			name = ViewControllerDB;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		8AB7E8F81F2582C0005E36BB /* View */ = {
@@ -1269,7 +1221,6 @@
 				8AB7E8F61F25824C005E36BB /* ImageName.swift */,
 				8AB7E8F81F2582C0005E36BB /* View */,
 				8A0D6FAD1F319701002A1949 /* ViewController */,
-				8A8522411F22516F00B5B8A3 /* ViewControllerDB */,
 				8AB7E91A1F258808005E36BB /* ViewControllerGUI */,
 				8AF7817A1F1F3E4400FC4EF2 /* AppDelegate.swift */,
 				8AB7E9691F25E12E005E36BB /* TopViewController.swift */,
@@ -1345,6 +1296,9 @@
 		8AF7816F1F1F3E4400FC4EF2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					label1,
+				);
 				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Sun Sun Soft";
@@ -1409,7 +1363,6 @@
 				8A5708FA1F373D27004387D4 /* help_csv_backup4.png in Resources */,
 				8A57094C1F373D28004387D4 /* trash2.png in Resources */,
 				8A5708CA1F373D27004387D4 /* backup_complete_restore.png in Resources */,
-				8A8522471F22539800B5B8A3 /* ViewController.xib in Resources */,
 				8A5709491F373D28004387D4 /* study_mode4.png in Resources */,
 				8A57092D1F373D28004387D4 /* number_0.png in Resources */,
 				8A57093F1F373D28004387D4 /* sort.png in Resources */,
@@ -1431,7 +1384,6 @@
 				8A5709391F373D28004387D4 /* question.png in Resources */,
 				8A5708C41F373D27004387D4 /* arrow_u.png in Resources */,
 				8A57091F1F373D28004387D4 /* help_study_mode4_3.png in Resources */,
-				8AE08A041F24B98E0024E9B7 /* TestDB2ViewController.xib in Resources */,
 				8A5708DD1F373D27004387D4 /* close.png in Resources */,
 				8A5708F41F373D27004387D4 /* help_confirm_backup.png in Resources */,
 				8A57092E1F373D28004387D4 /* number_1.png in Resources */,
@@ -1461,7 +1413,6 @@
 				8AB7E9201F258873005E36BB /* TestGuiTopViewController.xib in Resources */,
 				8A5708CF1F373D27004387D4 /* backup_list_item.png in Resources */,
 				8A5709011F373D27004387D4 /* help_finish_add_csv.png in Resources */,
-				8AE08A101F24BA1C0024E9B7 /* TestDB5ViewController.xib in Resources */,
 				8A5708F01F373D27004387D4 /* help_card_info.png in Resources */,
 				8A5708BF1F373D27004387D4 /* week.csv in Resources */,
 				8A5708D41F373D27004387D4 /* backup_restore_succeed.png in Resources */,
@@ -1471,6 +1422,7 @@
 				8A5709121F373D28004387D4 /* help_study_mode1_1.png in Resources */,
 				8A5709291F373D28004387D4 /* license.png in Resources */,
 				8A5709221F373D28004387D4 /* help_study_options.png in Resources */,
+				8A159EA21F5695540066FEB5 /* ColorPickerViewController.xib in Resources */,
 				8A5708BA1F373D27004387D4 /* insect.csv in Resources */,
 				8A57094D1F373D28004387D4 /* trash3.png in Resources */,
 				8A5709421F373D28004387D4 /* sort_by_alphabet2_desc.png in Resources */,
@@ -1508,13 +1460,11 @@
 				8A5709451F373D28004387D4 /* study.png in Resources */,
 				8A5709241F373D28004387D4 /* help_trash_empty.png in Resources */,
 				8A57093C1F373D28004387D4 /* restore.png in Resources */,
-				8AE08A081F24B9A20024E9B7 /* TestDB3ViewController.xib in Resources */,
 				8A5709051F373D27004387D4 /* help_icon_long_push.png in Resources */,
 				8A5708E51F373D27004387D4 /* help_add_button.png in Resources */,
 				8A5709511F37428C004387D4 /* TopViewController.xib in Resources */,
 				8AC44FF91F471ED300ECAD00 /* GameViewController.xib in Resources */,
 				8A57090E1F373D28004387D4 /* help_selected_icon_move.png in Resources */,
-				8AE08A141F24BA310024E9B7 /* TestDB6ViewController.xib in Resources */,
 				8A5708B51F373D27004387D4 /* drink.csv in Resources */,
 				8A57093D1F373D28004387D4 /* return1.png in Resources */,
 				8A5709171F373D28004387D4 /* help_study_mode2_2.png in Resources */,
@@ -1525,7 +1475,6 @@
 				8A5708FD1F373D27004387D4 /* help_dlg_edit.png in Resources */,
 				8A57091C1F373D28004387D4 /* help_study_mode3_3.png in Resources */,
 				8A5708EB1F373D27004387D4 /* help_added_csv.png in Resources */,
-				8A8522451F22533000B5B8A3 /* TestDBViewController.xib in Resources */,
 				8A57090A1F373D27004387D4 /* help_page_backup.png in Resources */,
 				8A5708DB1F373D27004387D4 /* checked3.png in Resources */,
 				8A5709251F373D28004387D4 /* help_trash_empty2.png in Resources */,
@@ -1535,12 +1484,10 @@
 				8A5708E31F373D27004387D4 /* favorites2.png in Resources */,
 				8A57093B1F373D28004387D4 /* random.png in Resources */,
 				8A5708DE1F373D27004387D4 /* copy.png in Resources */,
-				8AB7E9191F258764005E36BB /* TestDBTopViewController.xib in Resources */,
 				8A5709281F373D28004387D4 /* icon_test.png in Resources */,
 				8A2584AC1F3209C3002EE9E2 /* EditCardViewController.xib in Resources */,
 				8A5709231F373D28004387D4 /* help_study_result.png in Resources */,
 				8A5708EC1F373D27004387D4 /* help_added_preset_book.png in Resources */,
-				8AE08A0C1F24BA010024E9B7 /* TestDB4ViewController.xib in Resources */,
 				8A5708DA1F373D27004387D4 /* checked2.png in Resources */,
 				8A57092F1F373D28004387D4 /* number_2.png in Resources */,
 				8A5708D81F373D27004387D4 /* cards.png in Resources */,
@@ -1626,7 +1573,6 @@
 				8AE08A921F2580D00024E9B7 /* UDrawList.swift in Sources */,
 				8AE08A871F2580D00024E9B7 /* UButtonImage.swift in Sources */,
 				8AB7E96E1F25E1D0005E36BB /* TangoTopView.swift in Sources */,
-				8A8522441F22533000B5B8A3 /* TestDBViewController.swift in Sources */,
 				8AE08AB21F2580D70024E9B7 /* NanoTimer.swift in Sources */,
 				8AB7E91F1F258873005E36BB /* TestGuiTopViewController.swift in Sources */,
 				8AE08AB51F2580D70024E9B7 /* UColor.swift in Sources */,
@@ -1662,12 +1608,12 @@
 				8AE08A9E1F2580D00024E9B7 /* ULogWindow.swift in Sources */,
 				8AB7E9221F258A1B005E36BB /* TestGuiView.swift in Sources */,
 				8AB7E97F1F278DC7005E36BB /* UIconBlockManager.swift in Sources */,
+				8A159E9C1F567C630066FEB5 /* ColorPickerViewController.swift in Sources */,
 				8AB7E97C1F278DC7005E36BB /* IconCard.swift in Sources */,
 				8AE08AB91F2580D70024E9B7 /* ULog.swift in Sources */,
 				8AB7E9821F278DC7005E36BB /* UIconWindows.swift in Sources */,
 				8AF781A61F1F445500FC4EF2 /* BackupFile.swift in Sources */,
 				8AE08AB11F2580D70024E9B7 /* MyUserDefault.swift in Sources */,
-				8AB7E9181F258764005E36BB /* TestDBTopViewController.swift in Sources */,
 				8A8522401F22514300B5B8A3 /* TestDatabase.swift in Sources */,
 				8AF781B41F1F445500FC4EF2 /* TangoStudiedCardDao.swift in Sources */,
 				8AE08AB71F2580D70024E9B7 /* UDpi.swift in Sources */,
@@ -1699,11 +1645,9 @@
 				8AE08A881F2580D00024E9B7 /* UButtonText.swift in Sources */,
 				8AB7E95B1F25A00F005E36BB /* PageViewTangoEdit.swift in Sources */,
 				8AB7E9151F258463005E36BB /* UScrollWindow.swift in Sources */,
-				8AE08A031F24B98E0024E9B7 /* TestDB2ViewController.swift in Sources */,
 				8AE08AB61F2580D70024E9B7 /* UDebug.swift in Sources */,
 				8A5709581F376720004387D4 /* ListItemPresetBook.swift in Sources */,
 				8AE08A8B1F2580D00024E9B7 /* UMenuBar.swift in Sources */,
-				8AE08A071F24B9A20024E9B7 /* TestDB3ViewController.swift in Sources */,
 				8AE08A891F2580D00024E9B7 /* ListItemTest1.swift in Sources */,
 				8AE08A8E1F2580D00024E9B7 /* UScrollBar.swift in Sources */,
 				8AF781B61F1F44B400FC4EF2 /* TangoItem.swift in Sources */,
@@ -1718,7 +1662,6 @@
 				8AB7E9541F25A00F005E36BB /* PageViewResult.swift in Sources */,
 				8AB7E95A1F25A00F005E36BB /* PageViewStudySelect4.swift in Sources */,
 				8AB7E97D1F278DC7005E36BB /* IconContainer.swift in Sources */,
-				8AE08A0B1F24BA010024E9B7 /* TestDB4ViewController.swift in Sources */,
 				8AE08AAF1F2580D70024E9B7 /* EnumEnumerable.swift in Sources */,
 				8AD631381F2B93780067B57E /* MenuBarTangoEdit.swift in Sources */,
 				8AE089FC1F24677D0024E9B7 /* UNViewController.swift in Sources */,
@@ -1742,7 +1685,6 @@
 				8AB7E96B1F25E12E005E36BB /* TopViewController.swift in Sources */,
 				8AE08A911F2580D00024E9B7 /* UAlignment.swift in Sources */,
 				8AB7E8FC1F258384005E36BB /* ViewTouch.swift in Sources */,
-				8AF7817D1F1F3E4400FC4EF2 /* ViewController.swift in Sources */,
 				8A66359C1F384CA2000EAAF0 /* StudyCardsStack.swift in Sources */,
 				8AB7E97E1F278DC7005E36BB /* IconTrash.swift in Sources */,
 				8AF781B21F1F445500FC4EF2 /* TangoItemPosDao.swift in Sources */,
@@ -1751,7 +1693,6 @@
 				8A6635961F384BFE000EAAF0 /* StudyCardsManager.swift in Sources */,
 				8A66359A1F384C77000EAAF0 /* StudyCardSelect.swift in Sources */,
 				8AA3B5071F29B1F100AE445E /* UIImage+ex.swift in Sources */,
-				8AE08A131F24BA310024E9B7 /* TestDB6ViewController.swift in Sources */,
 				8AE08A8F1F2580D00024E9B7 /* UTextView.swift in Sources */,
 				8AB7E9831F278DC7005E36BB /* UIconWindowSub.swift in Sources */,
 				8AE08AA01F2580D00024E9B7 /* UWindow.swift in Sources */,
@@ -1764,7 +1705,6 @@
 				8AF781AD1F1F445500FC4EF2 /* TangoCardDao.swift in Sources */,
 				8AF7817B1F1F3E4400FC4EF2 /* AppDelegate.swift in Sources */,
 				8AF781AF1F1F445500FC4EF2 /* TangoCardHistoryDao.swift in Sources */,
-				8AE08A0F1F24BA1C0024E9B7 /* TestDB5ViewController.swift in Sources */,
 				8AF781A81F1F445500FC4EF2 /* TangoBook.swift in Sources */,
 				8AE08A851F2580D00024E9B7 /* UButton.swift in Sources */,
 				8AB7E92D1F259991005E36BB /* PageViewTemplate.swift in Sources */,
@@ -1774,6 +1714,17 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		8A159EA41F5695540066FEB5 /* ColorPickerViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8A159EA31F5695540066FEB5 /* Base */,
+				8A159EAA1F5695FF0066FEB5 /* en */,
+				8A159EAC1F5696030066FEB5 /* ja */,
+			);
+			name = ColorPickerViewController.xib;
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		8A2584AE1F3209C3002EE9E2 /* EditCardViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ColorPickerViewController" customModule="TangoBook" customModuleProvider="target">
+            <connections>
+                <outlet property="colorScrollView" destination="fTw-oP-xpM" id="Qzu-jm-Nke"/>
+                <outlet property="currentColorView" destination="g8X-dE-IBe" id="Nb5-OC-PFx"/>
+                <outlet property="titleLabel" destination="3cU-A1-5Y1" id="Hd6-is-JOn"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aWw-U6-57X">
+                    <rect key="frame" x="16" y="30" width="343" height="150"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="3cU-A1-5Y1">
+                            <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="fky-LA-yYV"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="h6l-A5-06L"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8X-dE-IBe">
+                            <rect key="frame" x="0.0" y="60" width="343" height="30"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="VyI-kY-H7q"/>
+                            </constraints>
+                        </view>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fTw-oP-xpM">
+                            <rect key="frame" x="0.0" y="100" width="343" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="SEK-PM-gbU"/>
+                            </constraints>
+                        </scrollView>
+                    </subviews>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bLj-Yn-TFo">
+                    <rect key="frame" x="20" y="190" width="335" height="50"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pEP-DQ-Pny">
+                            <rect key="frame" x="0.0" y="0.0" width="157.5" height="50"/>
+                            <color key="backgroundColor" red="0.0" green="0.62745098040000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <accessibility key="accessibilityConfiguration" identifier="button1" label="button1"/>
+                            <state key="normal" title="OK">
+                                <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="okButtonClicked:" destination="-1" eventType="touchUpInside" id="Tv0-he-8BT"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MvG-Gf-PG6">
+                            <rect key="frame" x="157.5" y="0.0" width="20" height="50"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="1MJ-GB-ePe"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1z-8w-yTk">
+                            <rect key="frame" x="177.5" y="0.0" width="157.5" height="50"/>
+                            <color key="backgroundColor" red="1" green="0.2901960784" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
+                            <accessibility key="accessibilityConfiguration" identifier="button2" label="button2"/>
+                            <state key="normal" title="Cancel">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="cancelButtonClicked:" destination="-1" eventType="touchUpInside" id="x8U-um-uYw"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="a1z-8w-yTk" firstAttribute="height" secondItem="pEP-DQ-Pny" secondAttribute="height" id="8In-Yh-gi1"/>
+                        <constraint firstItem="a1z-8w-yTk" firstAttribute="width" secondItem="pEP-DQ-Pny" secondAttribute="width" id="GtA-xV-eGn"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="bLj-Yn-TFo" secondAttribute="trailing" constant="20" id="Bsp-J6-pJI"/>
+                <constraint firstItem="aWw-U6-57X" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="E5k-OQ-meV"/>
+                <constraint firstItem="bLj-Yn-TFo" firstAttribute="top" secondItem="aWw-U6-57X" secondAttribute="bottom" constant="10" id="I0g-zA-ihC"/>
+                <constraint firstItem="bLj-Yn-TFo" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="N07-bj-D1V"/>
+                <constraint firstItem="aWw-U6-57X" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="kJZ-Id-Fab"/>
+                <constraint firstItem="aWw-U6-57X" firstAttribute="centerX" secondItem="bLj-Yn-TFo" secondAttribute="centerX" id="pY7-gR-uqd"/>
+            </constraints>
+            <point key="canvasLocation" x="24.5" y="51.5"/>
+        </view>
+    </objects>
+</document>
