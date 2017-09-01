@@ -259,8 +259,8 @@
 "title_option_edit" = "単語帳編集";
 "option_color_book" = "単語帳のデフォルト色";
 "option_color_card" = "カードのデフォルト色";
-"default_book_color_message" = "新しく作成した単語帳のデフォルト色です。\nお好きな色をタップしてください。";
-"default_card_color_message" = "新しく作成したカードのデフォルト色です。\nお好きな色をタップしてください。";
+"default_book_color_message" = "新しく作成した単語帳のデフォルト色です。好みの色を選択してください。";
+"default_card_color_message" = "新しく作成したカードのデフォルト色です。好みの色を選択してください。";
 
 "option_card_title" = "単語カードの表示";
 "option_default_name_card" = "カードのデフォルト名";

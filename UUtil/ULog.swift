@@ -52,7 +52,7 @@ class ULog {
     }
     
     // ログ出力
-    public static func printMsg(_ tag: String,_ msg : String)
+    public static func printMsg(_ tag: String, _ msg : String)
     {
         if !isEnable {
             return

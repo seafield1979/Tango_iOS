@@ -191,7 +191,7 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
             if isEmpty {
                 mDialog!.addCloseButton(text: "OK", textColor: UPageView.TEXT_COLOR, bgColor: UIColor.white)
             } else {
-                mDialog!.addButton(id : ButtonIdClearOK, text : "OK",
+                _ = mDialog!.addButton(id : ButtonIdClearOK, text : "OK",
                                    fontSize : fontSize, textColor : UPageView.TEXT_COLOR,
                                    color : UIColor.white)
                 

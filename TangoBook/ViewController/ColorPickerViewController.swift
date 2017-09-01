@@ -64,10 +64,9 @@ class ColorPickerViewController: UIViewController {
         }
 
         // 色選択用のボタンを追加
-        let buttons = createButtons(count: 10, width :50, height: 50)
-        
-        // 色を設定
-        let colors : [UIColor] = [UIColor.white, UIColor.black, UIColor.red, UIColor.blue, UIColor.green, UIColor.brown, UIColor.cyan, UIColor.yellow, UIColor.purple, UIColor.darkGray]
+        let colors : [UIColor] = [ UIColor.black, UIColor.red, UIColor.blue, UIColor.green, UIColor.brown, UIColor.cyan, UIColor.yellow, UIColor.purple, UIColor.darkGray]
+
+        let buttons = createButtons(count: colors.count, width :50, height: 50)
         
         var i : Int = 0
         for button in buttons {

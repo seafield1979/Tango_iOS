@@ -187,10 +187,10 @@ public class IconCard : UIcon {
     /**
      * Newフラグ設定
      */
-    public override func setNewFlag(newFlag : Bool) {
-        if card.isNew != newFlag {
-            card.isNew = newFlag
-            TangoCardDao.updateNewFlag(card: card, isNew: newFlag)
+    public override func setNewFlag(isNew : Bool) {
+        if card.isNew != isNew {
+            card.isNew = isNew
+            TangoCardDao.updateNewFlag(card: card, isNew: isNew)
         }
     }
     

@@ -1,83 +1,56 @@
 //
 //  ListViewBackup.swift
 //  TangoBook
-//
+//    バックアップページのバックアップファイルを表示するListView
 //  Created by Shusuke Unno on 2017/08/07.
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-/**
- * Created by shutaro on 2017/06/16.
- */
-
-//public class ListViewBackup extends UListView {
-//    /**
-//     * Enums
-//     */
-//    public enum ListViewType{
-//        Backup,
-//        Restore
-//    }
-//    
-//    /**
-//     * Constants
-//     */
-//    
-//    private static final int LIMIT = 100;
-//    /**
-//     * Member variables
-//     */
-//    private ListViewType mLvType;
-//    
-//    /**
-//     * Get/Set
-//     */
-//    
-//    /**
-//     * Constructor
-//     */
-//    public ListViewBackup(UListItemCallbacks listItemCallbacks, ListViewType type,
-//    int priority, float x, float y, int width, int
-//    height, int color)
-//    {
-//        super(null, listItemCallbacks, priority, x, y, width, height, color);
-//        
-//        mLvType = type;
-//        // add items
-//        List<BackupFile> backupFiles = RealmManager.getBackupFileDao().selectAll();
-//        
-//        for (BackupFile backup : backupFiles) {
-//            ListItemBackup item = new ListItemBackup(listItemCallbacks, backup, 0, width);
-//            // バックアップリストでは自動バックアップは表示しない
-//            // 自動バックアップのスロットに手動でバックアップするのはおかしいので
-//            if (item.getBackup().isAutoBackup() && type == ListViewType.Backup) {
-//                continue;
-//            }
-//            if (item != null) {
-//                add(item);
-//            }
-//        }
-//        
-//        updateWindow();
-//    }
-//    
-//    /**
-//     * Methods
-//     */
-//    
-//    
-//    /**
-//     * for Debug
-//     */
-//    public void addDummyItems(int count) {
-//        
-//        updateWindow();
-//    }
-//    
-//    /**
-//     * Callbacks
-//     */
-//    
-//}
+public class ListViewBackup : UListView {
+    
+    // MARK: Enums
+    public enum ListViewType {
+        case Backup
+        case Restore
+    }
+    
+    // MARK: Constants
+    private let LIMIT : Int = 100
+    
+    // MARK: Properties
+    private var mLvType : ListViewType
+    
+    // MARK: Accessor
+    
+    // MARK: Initializer
+    public init(topScene : TopScene, listItemCallbacks : UListItemCallbacks?, type : ListViewType,
+                priority : Int, x : CGFloat, y : CGFloat, width : CGFloat, height : CGFloat, bgColor : UIColor?)
+    {
+        mLvType = type
+        // add items
+        let backupFiles : [BackupFile] = BackupFileDao.selectAll()
+        
+        super.init( topScene : topScene, windowCallbacks : nil,
+                    listItemCallbacks : listItemCallbacks, priority : priority,
+                    x : x, y : y, width : width, height : height, bgColor : bgColor)
+        
+        
+        for backup in backupFiles {
+            let item = ListItemBackup(listItemCallbacks: listItemCallbacks!, backup: backup, x: 0, width: width)
+            // バックアップリストでは自動バックアップは表示しない
+            // 自動バックアップのスロットに手動でバックアップするのはおかしいので
+            if item.getBackup()!.isAutoBackup() && type == ListViewType.Backup {
+                continue
+            }
+            add(item: item)
+        }
+        
+        updateWindow()
+    }
+    
+   
+    // MARK: Methods
+    
+}

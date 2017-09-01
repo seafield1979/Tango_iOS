@@ -297,32 +297,34 @@ public class TangoBookDao {
             result!.isNew = isNew
         }
     }
-//  todo
-///**
-// * XMLファイルから読み込んだBookを追加する
-// * @param books
-// */
-//public void addBackupBooks(List<Book> books, boolean transaction) {
-//    if (books == null || books.size() == 0) {
-//        return;
-//    }
-//    if (transaction) {
-//        mRealm.beginTransaction();
-//    }
-//    for (Book _book : books) {
-//        TangoBook book = new TangoBook();
-//        book.setId( _book.getId());
-//        book.setName( _book.getName());
-//        book.setComment( _book.getComment());
-//        book.setColor( _book.getColor());
-//        book.setCreateTime( _book.getCreatedDate());
-//        book.setNewFlag( _book.isNewFlag());
-//        
-//        mRealm.copyToRealm(book);
-//    }
-//    if (transaction) {
-//        mRealm.commitTransaction();
-//    }
-//}
-//}
+    /**
+     * XMLファイルから読み込んだBookを追加する
+     * @param books
+     */
+    public static func addBackupBooks( books : [Book], transaction : Bool) {
+        if books.count == 0 {
+            return
+        }
+        if transaction {
+            try! mRealm!.write() {
+                addBackupBooksCore( books : books )
+            }
+        } else {
+            addBackupBooksCore( books : books )
+        }
+    }
+    
+    private static func addBackupBooksCore( books : [Book] ) {
+        for _book in books {
+            let book = TangoBook()
+            book.id = _book.id
+            book.name = _book.name
+            book.comment = _book.comment
+            book.color = Int(_book.color)
+            book.createTime = _book.createdDate
+            book.isNew = _book.isNew
+            
+            mRealm!.add( book )
+        }
+    }
 }

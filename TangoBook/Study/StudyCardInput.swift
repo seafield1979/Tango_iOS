@@ -255,7 +255,7 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
         case .Appearance:
             fallthrough
         case .Disappearance:
-            autoMoving()
+            _ = autoMoving()
             // bgNodeのスケールだけ変えたいのでparentNodeのスケールを戻す
             parentNode.setScale(1.0)
             bgNode!.setScale(mScale)

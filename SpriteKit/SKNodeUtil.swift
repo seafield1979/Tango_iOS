@@ -197,4 +197,15 @@ public class SKNodeUtil {
         return (labelOutPut, CGSize(width: maxWidth, height: CGFloat(subStringNumber) * fontSize))
     }
     
+    
+    /**
+     * 画像ノード(SKSpriteNode)を作成
+     */
+    public static func createSpriteNode(imageNamed imageName: ImageName, width: CGFloat, height: CGFloat) -> SKSpriteNode
+    {
+        let n = SKSpriteNode(imageNamed: imageName.rawValue)
+        n.size = CGSize(width: width, height: height)
+        n.anchorPoint = CGPoint(x:0, y:1)
+        return n
+    }
 }

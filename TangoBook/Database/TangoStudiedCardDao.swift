@@ -150,26 +150,27 @@ public class TangoStudiedCardDao {
     /**
     * XMLファイルから読み込んだデータを追加する
     */
-    // todo StudiedC を実装後に対応
-//    public static func addBackupCard( studiedCard: [StudiedC], transaction : Bool) {
-//        if studiedCard.count == 0 {
-//            return
-//        }
-//        if transaction {
-//            try! mRealm!.write() {
-//                for _card : studiedCard {
-//                    let card = TangoStudiedCard()
-//                    card.setCardId( _card.getCardId());
-//                    card.setBookHistoryId( _card.getBookHistoryId());
-//                    card.setOkFlag( _card.isOkFlag());
-//                    
-//                    mRealm.copyToRealm(card);
-//                }
-//            }
-//        } else {
-//            
-//        }
-//        
-//    }
+    public static func addBackupCard( studiedCards: [StudiedC], transaction : Bool) {
+        if studiedCards.count == 0 {
+            return
+        }
+        if transaction {
+            try! mRealm!.write() {
+            }
+        } else {
+            
+        }
+    }
+    
+    private static func addBackupCardCore( studiedCards : [StudiedC]) {
+        for _card in studiedCards {
+            let card = TangoStudiedCard()
+            
+            card.cardId = _card.cardId
+            card.bookHistoryId = _card.bookHistoryId
+            card.okFlag = _card.okFlag
+            
+        }
+    }
 }
 

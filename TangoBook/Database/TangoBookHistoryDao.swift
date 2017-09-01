@@ -205,28 +205,34 @@ import RealmSwift
 
 
      /**
-     * XMLファイルから読み込んだデータを追加する
+     * ファイルから読み込んだデータを追加する
      */
     // todo BHistoryを実装してから対応
-//    public static func addXmlBook( bookHistory : [BHistory], transaction : Bool) {
-//         if bookHistory.count == 0 {
-//             return
-//         }
-//         if (transaction) {
-//             mRealm.beginTransaction();
-//         }
-//         for (BHistory _history : bookHistory) {
-//             TangoBookHistory history = new TangoBookHistory();
-//             history.setId( _history.getId());
-//             history.setBookId( _history.getBookId());
-//             history.setOkNum( _history.getOkNum());
-//             history.setNgNum( _history.getNgNum());
-//             history.setStudiedDateTime( _history.getStudiedDateTime());
-//             mRealm.insert(history);
-//         }
-//         if (transaction) {
-//             mRealm.commitTransaction();
-//         }
-//     }
+    public static func addBackupBook( histories : [BHistory], transaction : Bool) {
+        if histories.count == 0 {
+            return
+        }
+        
+        if transaction {
+           try! mRealm!.write() {
+               addBackupBookCore(histories: histories)
+            }
+        } else {
+            addBackupBookCore(histories: histories)
+        }
+     }
+    
+    private static func addBackupBookCore( histories : [BHistory]) {
+        for _history in histories {
+            let history = TangoBookHistory()
+            history.id = _history.id
+            history.bookId = _history.bookId
+            history.okNum = _history.okNum
+            history.ngNum = _history.ngNum
+            history.studiedDateTime = _history.studiedDate
+            
+            mRealm!.add(history)
+        }
+    }
  }
 

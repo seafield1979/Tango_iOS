@@ -631,12 +631,12 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                     topScene : mTopScene, iconInfoDialogCallbacks : self, windowCallbacks : self,
                     icon : icon, x : x, y : y)
                 // newフラグをクリア
-                icon.setNewFlag(newFlag: false)
+                icon.setNewFlag(isNew: false)
             
             case .Book:
                 IconInfoOpenIcon(icon: icon)
                 // newフラグをクリア
-                icon.setNewFlag(newFlag: false)
+                icon.setNewFlag(isNew: false)
             
             case .Trash:
                 IconInfoOpenIcon(icon: icon)

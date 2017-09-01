@@ -95,6 +95,8 @@ public class IconTrash : IconContainer {
         } else {
             alpha = self.color.alpha()
         }
+        
+        parentNode.alpha = alpha
     }
     
     /**
@@ -128,6 +130,6 @@ public class IconTrash : IconContainer {
     /**
      * Newフラグ設定
      */
-    public override func setNewFlag(newFlag : Bool) {
+    public override func setNewFlag(isNew : Bool) {
     }
 }

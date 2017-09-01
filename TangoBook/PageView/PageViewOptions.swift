@@ -101,7 +101,7 @@ public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, Op
         let width : CGFloat = mTopScene.getWidth()
         let height : CGFloat = mTopScene.getHeight()
 
-        var x : CGFloat = UDpi.toPixel(MARGIN_H)
+        let x : CGFloat = UDpi.toPixel(MARGIN_H)
         var y : CGFloat = UDpi.toPixel(MARGIN_V_S)
 
         // Title

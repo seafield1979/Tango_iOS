@@ -166,29 +166,5 @@ public class TangoCardHistoryDao {
             _ = updateOne(cardId: card.getId(), correctFlag: false)
          }
      }
-
-     /**
-     * XMLファイルから読み込んだデータを追加する
-     */
-    // todo CHistoryを実行するまで未実装
-//     public void addBackupCard(List<CHistory> cardHistory, boolean transaction) {
-//         if (cardHistory == null || cardHistory.size() == 0) {
-//             return;
-//         }
-//         if (transaction) {
-//             mRealm!.beginTransaction();
-//         }
-//         for (CHistory _history : cardHistory) {
-//             TangoCardHistory history = new TangoCardHistory();
-//             history.setCardId( _history.getCardId());
-//             history.setCorrectFlagNum( _history.getCorrectFlagNum());
-//             history.setCorrectFlags( _history.getCorrectFlag());
-//             history.setStudiedDate( _history.getStudiedDate());
-//             mRealm!.insert(history);
-//         }
-//         if (transaction) {
-//             mRealm!.commitTransaction();
-//         }
-//     }
- }
+}
 

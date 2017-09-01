@@ -127,7 +127,7 @@ public class ListItemResult : UListItem, UButtonCallbacks {
                 imageName: ImageName.favorites2, color: UColor.OrangeRed)
             
             instance.mStarButton = UButtonImage(
-                callbacks : instance as? UButtonCallbacks, id : ListItemResult.ButtonIdStar, priority : 100,
+                callbacks : instance as UButtonCallbacks, id : ListItemResult.ButtonIdStar, priority : 100,
                 x : instance.size.width - UDpi.toPixel(67),
                 y : (instance.size.height - UDpi.toPixel( ListItemResult.STAR_ICON_W ) ) / 2,
                 width : UDpi.toPixel(ListItemResult.STAR_ICON_W),

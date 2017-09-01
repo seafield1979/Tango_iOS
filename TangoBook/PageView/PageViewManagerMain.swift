@@ -198,8 +198,6 @@ public class PageViewManagerMain : UPageViewManager {
             pageView.setFirstStudy(firstStudy)
             stackPage(pageView: pageView)
             break
-        default:
-            break
         }
     }
     

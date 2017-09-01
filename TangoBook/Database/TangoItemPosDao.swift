@@ -1540,32 +1540,34 @@ public class TangoItemPosDao {
         return count
      }
 
-//     /**
-//     * XMLファイルから読み込んだItemPosを追加する
-//     * @param poses
-//     */
-//     public void addBackupPos(List<Pos> poses, boolean transaction) {
-//         if (poses == null || poses.size() == 0) {
-//             return;
-//         }
-//         if (transaction) {
-//             mRealm.beginTransaction();
-//         }
-//         for (Pos _pos : poses) {
-//             TangoItemPos pos = new TangoItemPos();
-//             pos.setParentType( _pos.getParentType());
-//             pos.setParentId( _pos.getParentId());
-//             pos.setPos( _pos.getPos());
-//             pos.setItemType( _pos.getItemType());
-//             pos.setItemId( _pos.getItemId());
-//             mRealm.copyToRealm(pos);
-//         }
-//         if (transaction) {
-//             mRealm.commitTransaction();
-//         }
-//     }
-// }
-    
+     /**
+     * ファイルから読み込んだItemPosを追加する
+     * @param poses
+     */
+    public static func addBackupPos( poses : [Pos], transaction : Bool) {
+        if poses.count == 0 {
+            return
+        }
+        if transaction {
+           try! mRealm!.write() {
+                addBackupPosCore(poses: poses)
+           }
+        } else {
+            addBackupPosCore(poses: poses)
+        }
+    }
+    private static func addBackupPosCore( poses: [Pos]) {
+        for _pos in poses {
+            let pos = TangoItemPos()
+            pos.parentType = _pos.parentType
+            pos.parentId = _pos.parentId
+            pos.pos = _pos.pos
+            pos.itemType = _pos.itemType
+            pos.itemId = _pos.itemId
+            
+            mRealm!.add(pos)
+        }
+    }
     
     // MARK : for Debug
     // ホームにあるアイコンの位置を修正

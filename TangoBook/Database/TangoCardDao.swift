@@ -593,62 +593,31 @@ public class TangoCardDao {
      * @param cards          カード
      * @param transaction   トランザクションを行うかどうか
      */
-//    public static func addBackupCards(cards : [Card], transaction : Bool) {
-//        if cards.count == 0 {
-//            return
-//        }
-//        if (transaction) {
-//            mRealm.beginTransaction();
-//        }
-//        for (Card _card : cards) {
-//            TangoCard card = new TangoCard();
-//            card.setId( _card.getId() );
-//            card.setWordA( _card.getWordA() );
-//            card.setWordB( _card.getWordB() );
-//            card.setComment( _card.getComment());
-//            card.setCreateTime( _card.getCreateTime());
-//            card.setColor( _card.getColor());
-//            card.setStar( _card.isStar());
-//            card.setNewFlag( _card.isNewFlag());
-//            
-//            mRealm.copyToRealm(card);
-//        }
-//        if (transaction) {
-//            mRealm.commitTransaction();
-//        }
-//    }
-//
-    /**
-     * NGカードを追加する
-     * すでにNG単語帳に同じ名前のカードがあったら追加しない。
-     * @param cards
-     */
-//public void addNgCards(List<TangoCard> cards) {
-//    if (cards == null || cards.size() == 0) return;
-//    
-//    LinkedList<TangoCard> _cards = new LinkedList<>(toChangeable(cards));
-//    // NG単語帳内のカードを取得
-//    List<TangoCard> ngCards = RealmManager.getItemPosDao().selectCardsByBookId(TangoBookDao
-//        .NGBookId);
-//    
-//    // 追加するカードからNG単語帳のカードを除去
-//    if (ngCards != null && ngCards.size() > 0) {
-//        for (TangoCard ngCard : ngCards) {
-//            for (TangoCard card : _cards) {
-//                if (card.getId() == ngCard.getOriginalId()) {
-//                    _cards.remove(card);
-//                    break;
-//                }
-//            }
-//        }
-//    }
-//    
-//    // 追加する
-//    for (TangoCard card : _cards) {
-//        card.setOriginalId(card.getId());
-//        RealmManager.getCardDao().addOne(card, TangoParentType.Book, TangoBookDao.NGBookId,
-//                                         -1);
-//    }
-//}
-//}
+    public static func addBackupCards(cards : [Card], transaction : Bool) {
+        if cards.count == 0 {
+            return
+        }
+        if transaction {
+            try! mRealm!.write() {
+                addBackupCardsCore( cards : cards )
+            }
+        } else {
+            addBackupCardsCore( cards : cards )
+        }
+    }
+    private static func addBackupCardsCore( cards : [Card]) {
+        for _card in cards {
+            let card = TangoCard()
+            card.id = _card.id
+            card.wordA = _card.wordA
+            card.wordB = _card.wordB
+            card.comment = _card.comment
+            card.createTime = _card.createdTime
+            card.color = Int(_card.color)
+            card.star = _card.star
+            card.isNew = _card.isNew
+            
+            mRealm!.add(card)
+        }
+    }
 }

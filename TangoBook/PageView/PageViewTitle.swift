@@ -17,13 +17,13 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
         case Study
         case History
         case Settings
-        case Help
         case Debug
     }
 
     
     // タイトル画面で表示するボタンの情報
     public struct ButtonTInfo {
+        var id : TitleButtonId
         var textName : String
         var textColor : UIColor
         var lineColor : UIColor
@@ -35,33 +35,40 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
         }
     }
 
+    
+//    case Edit = 0
+//    case Study
+//    case History
+//    case Settings
+//    case Debug
+
     public var buttonInfo : [ButtonTInfo] = [
-        ButtonTInfo(textName: "title_edit",
+        ButtonTInfo(id: TitleButtonId.Edit,
+                    textName: "title_edit",
                     textColor: UColor.DarkGreen,
                     lineColor: UColor.DarkGreen,
                     bgColor: UColor.makeColor(100, 200, 100),
                     imageName: ImageName.edit ),
-        ButtonTInfo(textName: "title_study",
+        ButtonTInfo(id: TitleButtonId.Study,
+                    textName: "title_study",
                     textColor: UIColor.white,
                     lineColor: UIColor.white,
                     bgColor: UColor.makeColor(200,100,100),
                     imageName: ImageName.study ),
-        ButtonTInfo(textName: "title_history",
+        ButtonTInfo(id: TitleButtonId.History,
+                    textName: "title_history",
                     textColor: UColor.DarkYellow,
                     lineColor: UColor.DarkYellow,
                     bgColor: UColor.Yellow,
                     imageName: ImageName.history ),
-        ButtonTInfo(textName: "title_settings",
+        ButtonTInfo(id: TitleButtonId.Settings,
+                    textName: "title_settings",
                     textColor: UColor.DarkBlue,
                     lineColor: UColor.DarkBlue,
                     bgColor: UColor.makeColor(153,204,255),
                     imageName: ImageName.settings_1 ),
-        ButtonTInfo(textName: "title_help",
-                    textColor: UIColor.white,
-                    lineColor: UColor.DarkOrange,
-                    bgColor: UColor.makeColor(255,178,102),
-                    imageName: ImageName.study ),
-        ButtonTInfo(textName: "title_debug",
+        ButtonTInfo(id: TitleButtonId.Debug,
+                    textName: "title_debug",
                     textColor: UIColor.white,
                     lineColor: UColor.DarkGray,
                     bgColor: UColor.makeColor(200,100,100),
@@ -178,7 +185,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
             let button = UButtonText(
                 callbacks: self,
                 type: buttonType!,
-                id: i,
+                id: info.id.rawValue,
                 priority: PageViewTitle.DRAW_PRIORITY,
                 text: info.getTitle(), createNode: true,
                 x: x, y: y,
@@ -220,7 +227,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
 
             let button = UButtonText(callbacks: self,
                                      type: buttonType!,
-                                     id: i,
+                                     id: info.id.rawValue,
                                      priority: PageViewTitle.DRAW_PRIORITY,
                                      text: info.getTitle(),
                                      createNode : true,
@@ -283,9 +290,6 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                 case .Settings:
                     _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.Settings.rawValue)
                 
-                case .Help:
-//                    MainActivity.getInstance().showHelpTopPage()
-                    break
                 case .Debug:
                     _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.Debug.rawValue)
                 

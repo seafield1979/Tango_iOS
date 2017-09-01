@@ -305,7 +305,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
     /**
      * Newフラグ設定
      */
-    public func setNewFlag(newFlag : Bool) {
+    public func setNewFlag(isNew : Bool) {
         // 抽象メソッド
     }
 

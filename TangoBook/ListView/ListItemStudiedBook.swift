@@ -69,7 +69,7 @@ public class ListItemStudiedBook : UListItem {
                 x : 0, width : width, height : UDpi.toPixel(ListItemStudiedBook.FONT_SIZE) * 3 + UDpi.toPixel(ListItemStudiedBook.MARGIN_V) * 4,
                 textColor : textColor, bgColor : bgColor)
         
-        var book : TangoBook? = TangoBookDao.selectById( id: history.bookId )
+        let book : TangoBook? = TangoBookDao.selectById( id: history.bookId )
         if book == nil {
             // 削除されるなどして存在しない場合は表示しない
             return nil
@@ -90,7 +90,7 @@ public class ListItemStudiedBook : UListItem {
         var y = UDpi.toPixel(ListItemStudiedBook.MARGIN_V)
         
         // BGや枠描画は親クラスのdrawメソッドで行う
-        let fontSize : CGFloat = UDpi.toPixel(ListItemStudiedBook.FONT_SIZE)
+        let _ : CGFloat = UDpi.toPixel(ListItemStudiedBook.FONT_SIZE)
         
         // 単語帳名
         var result = SKNodeUtil.createLabelNode(

@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
     {
         window = UIWindow(frame:UIScreen.main.bounds)
@@ -48,13 +47,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         TangoBookHistoryDao.setRealm(realm)
         TangoItemPosDao.setRealm(realm)
         TangoStudiedCardDao.setRealm(realm)
+        BackupFileDao.setRealm(realm)
+        BackupManager.setRealm(realm)
         
         // 初回起動時の準備
-        
+
         // アプリ初期化処理
         if (MySharedPref.readBool(MySharedPref.InitializeKey) == false) {
             // セーブデータを初期化
-//            TangoBackupFileDao.createInitialRecords()
+            BackupFileDao.createInitialRecords()
             
             // デフォルト単語帳を追加
             PresetBookManager.getInstance().addDefaultBooks()
