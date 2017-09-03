@@ -32,6 +32,19 @@ public class BackupFileDao {
         //　返すのはコピー。コピーでないと書き換えができない
         return toChangeable(results)
     }
+    
+    /**
+     * 全てのオブジェクトの情報を表示する for Debug
+     */
+    public static func showAll() {
+        let objects = selectAll()
+        
+        print("BackupFile num: " + objects.count.description)
+        
+        for obj in objects {
+            print(obj.description)
+        }
+    }
 
     /**
      * １件取得
@@ -111,7 +124,7 @@ public class BackupFileDao {
      * @param cardNum
      * @return
      */
-    public static func updateOne(id : Int, filePath : String, bookNum : Int, cardNum : Int) -> Bool {
+    public static func updateOne(id : Int, bookNum : Int, cardNum : Int) -> Bool {
         
         try! mRealm!.write() {
             let backup = mRealm!.objects(BackupFile.self)
@@ -121,9 +134,9 @@ public class BackupFileDao {
             backup?.setEnabled(enabled: true)
             backup?.setBookNum(bookNum: bookNum)
             backup?.setCardNum(cardNum: cardNum)
-            backup?.setFilePath(filePath: filePath)
             backup?.setDateTime(dateTime: Date())
         }
+        
 
         return true
     }

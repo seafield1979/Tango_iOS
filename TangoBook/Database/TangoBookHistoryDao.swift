@@ -56,6 +56,19 @@ import RealmSwift
         
         return toChangeable(results)
     }
+    
+    /**
+     * 全てのオブジェクトを表示する for Debug
+     */
+    public static func showAll() {
+        let objects = selectAll(reverse : false)
+        
+        print("TangoBookHistory num: " + objects.count.description)
+        
+        for obj in objects {
+            print(obj.description)
+        }
+    }
 
     /**
      件数を制限してオブジェクトを検索する

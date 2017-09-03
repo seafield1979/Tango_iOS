@@ -80,6 +80,13 @@ public class ByteBuffer {
         }
     }
     
+    public func addPosition(_ add : Int) {
+        if pos + add > data.count {
+            return
+        }
+        pos += add
+    }
+    
     // MARK: Initializer
     public init() {
         data = []
@@ -204,22 +211,22 @@ public class ByteBuffer {
     }
     
     // write string
-    public func putString(_ str : String?) {
-        if str == nil {
-        } else {
-            let data = [UInt8](str!.utf8)
-            write(data)
-        }
-        putByte(0)      // last nil(=0)
-    }
+//    public func putString(_ str : String?) {
+//        if str == nil {
+//        } else {
+//            let data = [UInt8](str!.utf8)
+//            write(data)
+//        }
+//        putByte(0)      // last nil(=0)
+//    }
     
     // write string count (4byte) and string
     public func putStringWithSize(_ str : String?) {
         if str == nil {
-            putInt(0)
+            putUInt16(0)
         } else {
             let data = [UInt8](str!.utf8)
-            putInt(data.count)
+            putUInt16(UInt16(data.count))
             write(data)
         }
     }
@@ -287,24 +294,24 @@ public class ByteBuffer {
     }
     
     // get String (end of String is nil)
-    public func getStringWithNil() -> String {
-        var buf : [Byte] = []
-        
-        while data[pos] != 0 {
-            buf.append( data[pos] )
-            pos += 1
-        }
-        pos += 1    // add last nil
-        
-        if let string = String(data: Data(buf), encoding: .utf8) {
-            return string
-        }
-        return ""
-    }
+//    public func getStringWithNil() -> String {
+//        var buf : [Byte] = []
+//        
+//        while data[pos] != 0 {
+//            buf.append( data[pos] )
+//            pos += 1
+//        }
+//        pos += 1    // add last nil
+//        
+//        if let string = String(data: Data(buf), encoding: .utf8) {
+//            return string
+//        }
+//        return ""
+//    }
     
-    // get String (top 4byte is string size)
+    // get String (top 2byte is string size)
     public func getStringWithSize() -> String {
-        let size = getInt()
+        let size = Int(getUInt16())
         
         let buf = data[pos ..< pos+size]
         pos += size
@@ -330,6 +337,28 @@ public class ByteBuffer {
         
         return date
     }
+
+    // get copied ByteBuffer
+    public func getBuffer(_pos: Int, size: Int) -> ByteBuffer? {
+        if _pos + size > data.count {
+            return nil
+        }
+        let copyData = Data(data[_pos ..< _pos+size])
+        let buf = ByteBuffer(buf: [UInt8](copyData))
+        return buf
+    }
+    
+    // get copied ByteBuffer
+    public func getBuffer(size: Int) -> ByteBuffer? {
+        if pos + size > data.count {
+            return nil
+        }
+        let copyData = Data(data[pos..<pos+size])
+        let buf = ByteBuffer(buf: [UInt8](copyData))
+        pos += size
+        return buf
+    }
+    
     
     public var description : String {
         get {

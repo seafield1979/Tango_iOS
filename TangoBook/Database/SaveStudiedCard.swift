@@ -41,24 +41,6 @@ public class SaveStudiedCard : SaveItem {
     }
 
     /**
-     * バックアップファイルからTangoCardデータを読み込む
-     * @param inputBuf  データを読み込む元のバイナリデータ
-     * @return
-     */
-    public func readData() -> StudiedC {
-        // カードデータのサイズを取得
-        _ = mBuf.getShort()
-
-        let historyId : Int = mBuf.getInt()
-        let cardId : Int = mBuf.getInt()
-        let okFlag : Bool = mBuf.getByte() == 0 ? false : true
-
-        let card = StudiedC(bookHistoryId: historyId, cardId : cardId, okFlag : okFlag)
-
-        return card
-    }
-
-    /**
      * カードの学習履歴を１件書き込む
      * @param output
      * @param card
@@ -77,9 +59,30 @@ public class SaveStudiedCard : SaveItem {
         mBuf.put( card.isOkFlag() ? 1 : 0)
 
         // ファイルに書き込み(サイズ + 本体)
-        writeShort(output: output, data: Int16(mBuf.position()))
-        output.write(mBuf.array(), maxLength: mBuf.position())
+        writeShort(output: output, data: Int16(mBuf.array().count))
+        output.write(mBuf.array(), maxLength: mBuf.array().count)
     }
 
+    /**
+     * バックアップファイルからTangoCardデータを読み込む
+     * @param inputBuf  データを読み込む元のバイナリデータ
+     * @return
+     */
+    public func readData() -> StudiedC? {
+        // カードデータのサイズを取得
+        let size = mBuf.getShort()
+        let buf = mBuf.getBuffer(size: Int(size))
+        if buf == nil {
+            return nil
+        }
+        
+        let historyId : Int = buf!.getInt()
+        let cardId : Int = buf!.getInt()
+        let okFlag : Bool = buf!.getByte() == 0 ? false : true
+        
+        let card = StudiedC(bookHistoryId: historyId, cardId : cardId, okFlag : okFlag)
+        
+        return card
+    }
 }
 

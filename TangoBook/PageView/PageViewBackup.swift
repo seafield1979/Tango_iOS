@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class PageViewBackup : UPageView, UDialogCallbacks, UButtonCallbacks, UCheckBoxCallbacks, UListItemCallbacks, XmlBackupCallbacks {
+public class PageViewBackup : UPageView, UDialogCallbacks, UButtonCallbacks, UCheckBoxCallbacks, UListItemCallbacks {
     // MARK: Constants
     private let DRAW_PRIORITY = 1
 
@@ -17,7 +17,7 @@ public class PageViewBackup : UPageView, UDialogCallbacks, UButtonCallbacks, UCh
     private let MARGIN_H : Int = 17
     private let MARGIN_V : Int = 17
     private let BOX_WIDTH : Int = 23
-    private let TEXT_SIZE : Int = 17
+    private let FONT_SIZE : Int = 17
 
     private let TEXT_COLOR = UIColor.black
 
@@ -130,7 +130,7 @@ public class PageViewBackup : UPageView, UDialogCallbacks, UButtonCallbacks, UCh
             callbacks : self, drawPriority : DRAW_PRIORITY, x : x, y : y,
             boxWidth : UDpi.toPixel(BOX_WIDTH),
             text : UResourceManager.getStringByName("auto_backup"),
-            fontSize : UDpi.toPixel(TEXT_SIZE), fontColor : TEXT_COLOR)
+            fontSize : UDpi.toPixel(FONT_SIZE), fontColor : TEXT_COLOR)
         
         mAutoBackupCheck!.addToDrawManager()
 
@@ -181,39 +181,44 @@ public class PageViewBackup : UPageView, UDialogCallbacks, UButtonCallbacks, UCh
      * @param item
      */
     public func ListItemClicked( item : UListItem) {
-//        let width : CGFloat = mTopScene.getWidth()
-//
-//        // リストの種類を判定
-//        if !(item is ListItemBackup) {
-//            return
-//        }
-//
-//        var backupItem = item as? ListItemBackup
-//
-//        BackupFile backup = backupItem.getBackup();
-//        if (backup == null) return;
-//
-//        String title;
-//        int buttonId;
-//
-//        if (backup.isEnabled() == false) {
-//            // バックアップ確認
-//            title = mContext.getString(R.string.confirm_backup);
-//            buttonId = ButtonIdBackupOK;
-//        } else {
-//            // バックアップファイルがあったら上書き確認
-//            title = mContext.getString(R.string.confirm_overwrite);
-//            buttonId = ButtonIdOverWriteOK;
-//        }
-//
-//        mBackupItem = backupItem;
-//        // Dialog
-//        mDialog = UDialogWindow.createInstance(self, self,
-//                UDialogWindow.ButtonDir.Horizontal, width, mTopScene.getHeight());
-//        mDialog.addToDrawManager();
-//        mDialog.setTitle(title);
-//        mDialog.addButton(buttonId, "OK", Color.BLACK, Color.WHITE);
-//        mDialog.addCloseButton(UResourceManager.getStringById(R.string.cancel));
+        let width : CGFloat = mTopScene.getWidth()
+
+        // リストの種類を判定
+        if !(item is ListItemBackup) {
+            return
+        }
+
+        let backupItem = item as? ListItemBackup
+
+        let backup : BackupFile? = backupItem!.getBackup()
+        if backup == nil {
+            return
+        }
+        
+        var title : String
+        var buttonId : Int
+
+        if backup!.isEnabled() == false {
+            // バックアップ確認
+            title = UResourceManager.getStringByName("confirm_backup")
+            buttonId = ButtonIdBackupOK
+        } else {
+            // バックアップファイルがあったら上書き確認
+            title = UResourceManager.getStringByName("confirm_overwrite")
+            buttonId = ButtonIdOverWriteOK
+        }
+
+        mBackupItem = backupItem
+        // Dialog
+        mDialog = UDialogWindow.createInstance(
+            topScene : mTopScene, buttonCallbacks : self, dialogCallbacks : self,
+            buttonDir : UDialogWindow.ButtonDir.Horizontal,
+            screenW : width, screenH : mTopScene.getHeight())
+        mDialog!.setTitle(title)
+        _ = mDialog!.addButton(id : buttonId, text : "OK", fontSize : UDpi.toPixel(FONT_SIZE), textColor : UIColor.black, color : UIColor.white)
+        mDialog!.addCloseButton( text: UResourceManager.getStringByName("cancel") )
+        
+        mDialog!.addToDrawManager()
     }
     
 
@@ -224,18 +229,19 @@ public class PageViewBackup : UPageView, UDialogCallbacks, UButtonCallbacks, UCh
      * @param backup
      */
     private func doBackup( backupItem : ListItemBackup, backup : BackupFile) -> Bool {
-//        mBackupItem = backupItem;
-//
-//        // バックアップファイルがなければそのまま保存
-//        BackupFileInfo backupInfo = BackupManager.getInstance().saveManualBackup(backup.getId());
-//        String newText = BackupManager.getInstance().getBackupInfo(backupInfo);
-//        if (newText == null) {
-//            return false;
-//        }
-//        backupItem.setText(newText);
-//
-//        // データベース更新(BackupFile)
-//        RealmManager.getBackupFileDao().updateOne(backup.getId(), backupInfo.getFilePath(), backupInfo.getBookNum(), backupInfo.getCardNum());
+        mBackupItem = backupItem
+
+        let url : URL = BackupManager.getManualBackupURL(slot: backup.getId())
+        
+        let backupInfo : BackupFileInfo = BackupManager.getInstance().saveToFile(url: url)!
+        let newText : String? = BackupManager.getBackupInfo( url: url)
+        if newText == nil {
+            return false
+        }
+        backupItem.setText(text: newText)
+
+        // データベース更新(BackupFile)
+        _ = BackupFileDao.updateOne( id : backup.getId(), bookNum : backupInfo.getBookNum(), cardNum : backupInfo.getCardNum())
 
         return true
     }
@@ -245,43 +251,42 @@ public class PageViewBackup : UPageView, UDialogCallbacks, UButtonCallbacks, UCh
      * @param success バックアップ成功したかどうか
      */
     private func showDoneDialog(success : Bool) {
-//        if (mDialog != null) {
-//            mDialog.closeDialog();
-//        }
-//
-//        String text;
-//        if (success) {
-//            text = UResourceManager.getStringById(R.string.backup_complete);
-////            + "\n\n" +
-////                    BackupManager.getInstance().getBackupInfo(backupInfo);
-//        } else {
-//            text = UResourceManager.getStringById(R.string.backup_failed);
-//        }
-//
-//        mDialog = UDialogWindow.createInstance(self, self,
-//                UDialogWindow.ButtonDir.Horizontal, mTopScene.getWidth(), mTopScene.getHeight());
-//        mDialog.addToDrawManager();
-//        mDialog.setTitle(text);
-//        mDialog.addCloseButton("OK", Color.BLACK, Color.WHITE);
+        if mDialog != nil {
+            mDialog!.closeDialog()
+        }
+
+        var text : String
+        text = UResourceManager.getStringByName( success ? "backup_complete" : "backup_failed" )
+        
+        mDialog = UDialogWindow.createInstance(
+            topScene : mTopScene, buttonCallbacks : self, dialogCallbacks : self,
+            buttonDir : UDialogWindow.ButtonDir.Horizontal,
+            screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight())
+        
+        mDialog!.setTitle(text)
+        mDialog!.addCloseButton(text: "OK", textColor: UIColor.black, bgColor: UIColor.white)
+        
+        mDialog!.addToDrawManager()
     }
 
     public func ListItemButtonClicked(item : UListItem, buttonId : Int) {
-
+        // ListItemにボタンはないので不要
     }
 
     /**
      * UButtonCallbacks
      */
     public func UButtonClicked( id : Int, pressedOn : Bool) -> Bool{
-//        switch id {
-//        case ButtonIdBackupOK:
-//            fallthrough
-//        case ButtonIdOverWriteOK:
-//            boolean ret = doBackup(mBackupItem, mBackupItem.getBackup());
-//            showDoneDialog(ret);
-//        
-//            break;
-//        }
+        switch id {
+        case ButtonIdBackupOK:
+            fallthrough
+        case ButtonIdOverWriteOK:
+            let ret = doBackup(backupItem: mBackupItem!, backup: mBackupItem!.getBackup()!)
+            showDoneDialog(success: ret)
+            break
+        default:
+            break
+        }
         return false
     }
 
@@ -292,29 +297,5 @@ public class PageViewBackup : UPageView, UDialogCallbacks, UButtonCallbacks, UCh
         if mDialog === dialog {
             mDialog = nil
         }
-    }
-
-    /**
-     * XmlBackupCallbacks
-     */
-    /**
-     * スレッドで実行していたバックアップ完了
-     * @param backupInfo
-     */
-    public func finishBackup( backupInfo : BackupFileInfo) {
-//        let newText = BackupManager.getInstance().getBackupInfo(backupInfo)
-//        if (newText == null) {
-//            showDoneDialog(false);
-//            return;
-//        }
-//        mBackupItem.setText(newText);
-//        BackupFile backup = mBackupItem.getBackup();
-//
-//        // データベース更新(BackupFile)
-//        RealmManager.getBackupFileDao().updateOne(backup.getId(),
-//                backupInfo.getFilePath(), backupInfo.getBookNum(),
-//                backupInfo.getCardNum());
-//
-//        showDoneDialog(true);
     }
 }

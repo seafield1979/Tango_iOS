@@ -19,7 +19,6 @@ public struct Card {
     var comment : String?     // 説明や例文
     var createdTime : Date?    // 作成日時
     var updateDate : Date?     // 更新日時
-    var studiedDate : Date?    // 最終学習日時
 
     var color : UInt          // カードの色
     var star : Bool           // 覚えたフラグ
@@ -27,7 +26,7 @@ public struct Card {
 
     // Simple XML がデシリアイズするときに呼ぶダミーのコントストラクタ
     public init(id : Int, wordA : String?, wordB : String?, comment : String?, createTime : Date?,
-            updateDate : Date?, studiedDate : Date?,
+            updateDate : Date?,
             color : UInt, star : Bool, isNew : Bool)
     {
         self.id = id
@@ -36,7 +35,6 @@ public struct Card {
         self.comment = comment
         self.createdTime = createTime
         self.updateDate = updateDate
-        self.studiedDate = studiedDate
         self.color = color
         self.star = star
         self.isNew = isNew
@@ -72,13 +70,13 @@ public class SaveCard : SaveItem {
         
         // wordA
         // 長さと文字列
-        mBuf.putString(card.wordA)
+        mBuf.putStringWithSize(card.wordA)
         
         // wordB
-        mBuf.putString(card.wordB)
+        mBuf.putStringWithSize(card.wordB)
         
         // comment
-        mBuf.putString(card.comment)
+        mBuf.putStringWithSize(card.comment)
         
         // createTime
         mBuf.putDate(card.getCreateTime())
@@ -96,7 +94,7 @@ public class SaveCard : SaveItem {
         mBuf.putByte((card.isNew ? 1 : 0))
         
         // ファイルに書き込み(サイズ + 本体)
-        writeShort(output: output, data: Int16(mBuf.position()))
+        writeShort(output: output, data: Int16(mBuf.array().count))
         output.write(mBuf.array(), maxLength: mBuf.array().count)
     }
     
@@ -106,25 +104,28 @@ public class SaveCard : SaveItem {
      * @param inputBuf  データを読み込む元のバイナリデータ
      * @return
      */
-    public func readData() -> Card {
+    public func readData() -> Card? {
         // カードデータのサイズを取得
-        _ = mBuf.getShort()
+        let size = mBuf.getShort()
+        let buf = mBuf.getBuffer(size: Int(size))
+        if buf == nil {
+            return nil
+        }
         
         // 読み込んだバッファからデータを取得
-        let id = mBuf.getInt()
-        let wordA = mBuf.getStringWithSize()
-        let wordB = mBuf.getStringWithSize()
-        let comment = mBuf.getStringWithSize()
-        let createTime = mBuf.getDate()
-        let updateTime = mBuf.getDate()
-        let studiedTime = mBuf.getDate()
-        let color = mBuf.getUInt()
-        let star = mBuf.getByte() == 0 ? false : true
-        let isNew = mBuf.getByte() == 0 ? false : true
+        let id = buf!.getInt()
+        let wordA = buf!.getStringWithSize()
+        let wordB = buf!.getStringWithSize()
+        let comment = buf!.getStringWithSize()
+        let createTime = buf!.getDate()
+        let updateTime = buf!.getDate()
+        let color = buf!.getUInt()
+        let star = buf!.getByte() == 0 ? false : true
+        let isNew = buf!.getByte() == 0 ? false : true
         
         let card = Card(id : id, wordA : wordA, wordB : wordB, comment : comment,
                         createTime : createTime, updateDate : updateTime,
-                        studiedDate : studiedTime, color : color, star : star,
+                        color : color, star : star,
                         isNew : isNew)
         return card
     }

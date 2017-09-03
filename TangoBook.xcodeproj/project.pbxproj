@@ -1338,7 +1338,7 @@
 					label1,
 				);
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Sun Sun Soft";
 				TargetAttributes = {
 					8AF781761F1F3E4400FC4EF2 = {

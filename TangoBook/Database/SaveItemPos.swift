@@ -53,7 +53,7 @@ public class SaveItemPos : SaveItem {
     public func writeData( output : OutputStream, itemPos : TangoItemPos) {
         mBuf.clear()
 
-        // int parentType
+        // byte parentType
         mBuf.putByte(Byte(itemPos.parentType))
 
         // int parentId
@@ -62,7 +62,7 @@ public class SaveItemPos : SaveItem {
         // int pos
         mBuf.putInt(itemPos.getPos());
 
-        // int itemType
+        // byte itemType
         mBuf.putByte( Byte(itemPos.getItemType()))
 
         // int itemId
@@ -78,15 +78,19 @@ public class SaveItemPos : SaveItem {
      * @param inputBuf  データを読み込む元のバイナリデータ
      * @return
      */
-    public func readData() -> Pos {
+    public func readData() -> Pos? {
         // カードデータのサイズを取得
-        _ = mBuf.getShort()
+        let size = mBuf.getShort()
+        let buf = mBuf.getBuffer(size: Int(size))
+        if buf == nil {
+            return nil
+        }
 
-        let parentType = mBuf.getByte()
-        let parentId = mBuf.getInt()
-        let position = mBuf.getInt()
-        let itemType = mBuf.getByte()
-        let itemId = mBuf.getInt()
+        let parentType = buf!.getByte()
+        let parentId = buf!.getInt()
+        let position = buf!.getInt()
+        let itemType = buf!.getByte()
+        let itemId = buf!.getInt()
 
         let pos = Pos(parentType : Int(parentType), parentId : parentId, pos : position, itemType : Int(itemType), itemId : itemId)
         return pos

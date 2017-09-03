@@ -44,15 +44,19 @@ public class SaveBookHistory : SaveItem {
      * @param inputBuf データを読み込む元のバイナリデータ
      * @return
      */
-    public func readData() -> BHistory {
+    public func readData() -> BHistory? {
         // カードデータのサイズを取得
-        _ = mBuf.getShort()
+        let size = mBuf.getShort()
+        let buf = mBuf.getBuffer(size: Int(size))
+        if buf == nil {
+            return nil
+        }
 
-        let id : Int = mBuf.getInt()
-        let bookId : Int = mBuf.getInt()
-        let okNum : Int16 = mBuf.getShort()
-        let ngNum : Int16 = mBuf.getShort()
-        let studiedTime : Date = mBuf.getDate()
+        let id : Int = buf!.getInt()
+        let bookId : Int = buf!.getInt()
+        let okNum : Int16 = buf!.getShort()
+        let ngNum : Int16 = buf!.getShort()
+        let studiedTime : Date = buf!.getDate()
 
         let history = BHistory(id : id, bookId : bookId, okNum : Int(okNum), ngNum : Int(ngNum), studiedDate : studiedTime)
 

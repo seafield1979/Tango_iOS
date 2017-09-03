@@ -34,6 +34,8 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
         case ShowTangoCard = "ShowTangoCard"
         case ShowTangoBook = "ShowTangoBook"
         case ShowItemPos = "ShowItemPos"
+        case ShowStudiedBook = "ShowStudiedBook"
+        case ShowStudiedCards = "ShowStudiedCards"
         case ShowBackupFile = "ShowBackupFile"
         case GetNoParentItems = "GetNoParentItems"
         case RescureNoParentItems = "RescureNoParentItems"
@@ -159,18 +161,23 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
 
         switch DebugMenu.toEnum(item.getMIndex()) {
         case .ShowTangoCard:
-            _ = TangoCardDao.showAll()
+            TangoCardDao.showAll()
         
         case .ShowTangoBook:
-            _ = TangoBookDao.showAll()
+            TangoBookDao.showAll()
         
         case .ShowItemPos:
-            _ = TangoItemPosDao.showAll()
+            TangoItemPosDao.showAll()
         
+        case .ShowStudiedBook:
+            TangoBookHistoryDao.showAll()
+            
+        case .ShowStudiedCards:
+            TangoStudiedCardDao.showAll()
+            
         case .ShowBackupFile:
-        // todo
-//                _ = TangoBackupFileDao.selectAll()
-            break
+            BackupFileDao.showAll()
+            
         case .ClearAll:
             showConfirmDialog()
             

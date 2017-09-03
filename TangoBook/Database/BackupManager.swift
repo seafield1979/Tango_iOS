@@ -166,13 +166,10 @@ public class BackupManager {
     private static var singleton : BackupManager?
 
     // Singletonオブジェクトを作成する
-    public static func createInstance() -> BackupManager{
+    public static func getInstance() -> BackupManager {
         if singleton == nil {
             singleton = BackupManager()
         }
-        return singleton!
-    }
-    public static func getInstance() -> BackupManager {
         return singleton!
     }
 
@@ -195,7 +192,6 @@ public class BackupManager {
 //        thread.start();
 //    }
 
-    
     public static func getManualBackupURL(slot : Int) -> URL{
         let dir = DirectoryType.Document.toString()
         let filePath = dir + "/" + String(format: ManualBackupFile, slot)
@@ -315,11 +311,9 @@ public class BackupManager {
      * @param slot  backupのスロット
      * @return
      */
-    public func saveManualBackup( slot : Int ) -> BackupFileInfo? {
-        let url : URL = BackupManager.getManualBackupURL(slot: slot)
-
-        return saveToFile(url : url)
-    }
+//    public func saveManualBackup( url : url ) -> BackupFileInfo? {
+//        return saveToFile(url : url)
+//    }
     
     public func saveAutoBackup() -> BackupFileInfo? {
         let url : URL = BackupManager.getAutoBackupURL()
@@ -328,7 +322,6 @@ public class BackupManager {
 
         // データベース更新(BackupFile)
         _ = BackupFileDao.updateOne( id: BackupFileDao.AUTO_BACKUP_ID,
-                                 filePath: url.path,
                                  bookNum: backup!.getBookNum(),
                                  cardNum: backup!.getCardNum())
 
@@ -411,7 +404,7 @@ public class BackupManager {
         // 書き込み用のファイルを開く
         var backupInfo : BackupFileInfo? = nil
         
-        if let output = OutputStream(url: url, append: true) {
+        if let output = OutputStream(url: url, append: false) {
             output.open()
             mBuf.clear()
 
@@ -461,7 +454,7 @@ public class BackupManager {
             //---------------
             ULog.printMsg(BackupManager.TAG, "point62")
             mBuf.clear()
-                let saveBook = SaveBook(buf: mBuf)
+            let saveBook = SaveBook(buf: mBuf)
                 
             // num
             mBuf.putInt(backupData.bookNum)
@@ -495,7 +488,7 @@ public class BackupManager {
             mBuf.clear()
             // num
             mBuf.putInt(backupData.bookHistories!.count)
-            output.write(mBuf.array(), maxLength: mBuf.position())
+            output.write(mBuf.array(), maxLength: mBuf.array().count)
             
             // data
             let saveBookHistory = SaveBookHistory(buf: mBuf)
@@ -510,7 +503,7 @@ public class BackupManager {
             mBuf.clear()
             // num
             mBuf.putInt( backupData.studiedCards!.count )
-            output.write(mBuf.array(), maxLength: mBuf.position())
+            output.write(mBuf.array(), maxLength: mBuf.array().count)
             
             // data
             let saveStudiedCard = SaveStudiedCard(buf: mBuf)
@@ -538,58 +531,73 @@ public class BackupManager {
             print("error file read")
             return nil
         }
-        let byteBuf = ByteBuffer(data: data!)
+        mBuf = ByteBuffer(data: data!)
         
         // header
-        let tagId : UInt = byteBuf.getUInt()
+        let tagId : UInt = mBuf.getUInt()
         if tagId != BackupManager.BACKUP_FILE_TAG {
             print("error FileIsNotTangoApp")
             return nil
         }
 
-        backup.version = byteBuf.getInt()
-        backup.cardNum = byteBuf.getInt()
-        backup.bookNum = byteBuf.getInt()
-        backup.updateDate = byteBuf.getDate()
+        backup.version = mBuf.getInt()
+        backup.cardNum = mBuf.getInt()
+        backup.bookNum = mBuf.getInt()
+        backup.updateDate = mBuf.getDate()
 
         // card
-        let cardNum = byteBuf.getInt()
+        let cardNum = mBuf.getInt()
         
         let saveCard = SaveCard(buf: mBuf)
         for _ in 0 ..< cardNum {
-            backup.cards.append( saveCard.readData() )
+            let card = saveCard.readData()
+            if let _card = card {
+                backup.cards.append( _card )
+            }
         }
         ULog.printMsg(BackupManager.TAG, "cardNum: \(cardNum)")
 
         // book
-        let bookNum = byteBuf.getInt()
+        let bookNum = mBuf.getInt()
         let saveBook = SaveBook(buf: mBuf)
         for _ in 0 ..< bookNum {
-            backup.books.append( saveBook.readData() )
+            let book = saveBook.readData()
+            if let _book = book {
+                backup.books.append( _book )
+            }
         }
         ULog.printMsg(BackupManager.TAG, "bookNum: \(bookNum)")
 
         // position
-        let posNum = byteBuf.getInt()
+        let posNum = mBuf.getInt()
         let saveItemPos = SaveItemPos(buf: mBuf)
         for _ in 0 ..< posNum {
-            backup.itemPoses.append(saveItemPos.readData())
+            let pos = saveItemPos.readData()
+            if let _pos = pos {
+                backup.itemPoses.append( _pos )
+            }
         }
         ULog.printMsg(BackupManager.TAG, "posNum: \(posNum)")
 
         //　book history
-        let bookHistoriesNum = byteBuf.getInt()
+        let bookHistoriesNum = mBuf.getInt()
         let saveBookHistory = SaveBookHistory(buf: mBuf)
         for _ in 0 ..< bookHistoriesNum {
-            backup.bookHistories.append( saveBookHistory.readData() )
+            let history = saveBookHistory.readData()
+            if let _history = history {
+                backup.bookHistories.append( _history )
+            }
         }
         ULog.printMsg(BackupManager.TAG, "bookHistoriesNum: \(bookHistoriesNum)")
 
         // studied card
-        let studiedCardNum = byteBuf.getInt()
+        let studiedCardNum = mBuf.getInt()
         let saveStudiedCard = SaveStudiedCard(buf: mBuf)
         for _ in 0 ..< studiedCardNum {
-            backup.studiedCards.append( saveStudiedCard.readData() )
+            let card = saveStudiedCard.readData()
+            if let _card = card {
+                backup.studiedCards.append( _card )
+            }
         }
         ULog.printMsg(BackupManager.TAG, "studiedCardNum: \(studiedCardNum)")
         
@@ -608,7 +616,7 @@ public class BackupManager {
         if backupData == nil {
             return false
         }
-
+        
         // データベースを削除
         _ = TangoCardDao.deleteAll()
         _ = TangoBookDao.deleteAll()

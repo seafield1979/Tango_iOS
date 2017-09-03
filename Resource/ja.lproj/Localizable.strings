@@ -140,14 +140,14 @@
 "location" = "場所";
 "backup_complete" = "バックアップが完了しました";
 "backup_failed" = "バックアップに失敗しました";
-"confirm_overwrite" = "バックアップが存在します。上書きしてもよろしいですか？";
+"confirm_overwrite" = "バックアップが存在します。\n上書きしてもよろしいですか？";
 "filename" = "ファイル名";
 "backup_path_title1" = "手動バックアップ";
 "backup_path_title2" = "自動バックアップ";
 "datetime" = "日時";
 "restore" = "復元";
 "restore_from_file" = "指定ファイルから復元";
-"confirm_backup" = "バックアップしますか？\nバックアップを行うと、以前の\n状態に戻せるようになります。\nまた、別の端末に状態を移動することができます。";
+"confirm_backup" = "バックアップしますか？\nバックアップを行うと、以前の\n状態に戻せるようになります。";
 "succeed_restore" = "復元に成功しました";
 "failed_restore" = "復元に失敗しました";
 "failed_backup" = "バックアップに失敗しました";

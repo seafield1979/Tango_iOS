@@ -72,7 +72,7 @@ public class SaveBook : SaveItem {
         mBuf.putByte( book.isNewFlag() ? 1 : 0 )
 
         // ファイルに書き込み(サイズ + 本体)
-        writeShort(output: output, data: Int16(mBuf.position()))
+        writeShort(output: output, data: Int16(mBuf.array().count))
         
         output.write(mBuf.array(), maxLength: mBuf.array().count)
     }
@@ -82,18 +82,22 @@ public class SaveBook : SaveItem {
      * @param inputBuf データを読み込む元のバイナリデータ
      * @return
      */
-    public func readData() -> Book {
+    public func readData() -> Book? {
         // データのサイズを取得
-        _ = mBuf.getShort()
-
+        let size = mBuf.getShort()
+        let buf = mBuf.getBuffer(size: Int(size))
+        if buf == nil {
+            return nil
+        }
+        
         // 読み込んだバッファからデータを取得
-        let id = mBuf.getInt()
-        let name = mBuf.getStringWithSize()
-        let comment = mBuf.getStringWithSize()
-        let color = mBuf.getUInt()
-        let createDate = mBuf.getDate()
-        let studiedDate = mBuf.getDate()
-        let isNew = mBuf.getByte() == 0 ? false : true
+        let id = buf!.getInt()
+        let name = buf!.getStringWithSize()
+        let comment = buf!.getStringWithSize()
+        let color = buf!.getUInt()
+        let createDate = buf!.getDate()
+        let studiedDate = buf!.getDate()
+        let isNew = buf!.getByte() == 0 ? false : true
 
         let book = Book(id : id, name : name, comment : comment, color : color, createDate : createDate, studiedDate : studiedDate, isNew : isNew)
         return book
