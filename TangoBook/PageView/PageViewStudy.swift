@@ -157,9 +157,6 @@ public class PageViewStudy : UPageView, UButtonCallbacks, UDialogCallbacks {
         
         // 学習したカード番号
         TangoStudiedCardDao.addStudiedCards( bookHistoryId: historyId, okCards: okCards.toArray(), ngCards: ngCards.toArray())
-        
-        // カードの学習履歴
-        TangoCardHistoryDao.updateCards(okCards: okCards.toArray(), ngCards: ngCards.toArray())
     }
 
     // MARK: Callbacks

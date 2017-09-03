@@ -39,7 +39,4 @@ public struct BackupData {
     
     // 学習カード(1回学習するたびに1つ)
     public var studiedCards : [TangoStudiedCard]?
-    
-    // 学習カード履歴(1カード1履歴)
-    public var cardHistories : [TangoCardHistory]?
 }

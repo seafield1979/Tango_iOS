@@ -325,8 +325,6 @@
 		8AF781AB1F1F445500FC4EF2 /* TangoBookHistoryDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF7819C1F1F445500FC4EF2 /* TangoBookHistoryDao.swift */; };
 		8AF781AC1F1F445500FC4EF2 /* TangoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF7819D1F1F445500FC4EF2 /* TangoCard.swift */; };
 		8AF781AD1F1F445500FC4EF2 /* TangoCardDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF7819E1F1F445500FC4EF2 /* TangoCardDao.swift */; };
-		8AF781AE1F1F445500FC4EF2 /* TangoCardHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF7819F1F1F445500FC4EF2 /* TangoCardHistory.swift */; };
-		8AF781AF1F1F445500FC4EF2 /* TangoCardHistoryDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF781A01F1F445500FC4EF2 /* TangoCardHistoryDao.swift */; };
 		8AF781B11F1F445500FC4EF2 /* TangoItemPos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF781A21F1F445500FC4EF2 /* TangoItemPos.swift */; };
 		8AF781B21F1F445500FC4EF2 /* TangoItemPosDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF781A31F1F445500FC4EF2 /* TangoItemPosDao.swift */; };
 		8AF781B31F1F445500FC4EF2 /* TangoStudiedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF781A41F1F445500FC4EF2 /* TangoStudiedCard.swift */; };
@@ -664,8 +662,6 @@
 		8AF7819C1F1F445500FC4EF2 /* TangoBookHistoryDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TangoBookHistoryDao.swift; path = TangoBook/Database/TangoBookHistoryDao.swift; sourceTree = "<group>"; };
 		8AF7819D1F1F445500FC4EF2 /* TangoCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TangoCard.swift; path = TangoBook/Database/TangoCard.swift; sourceTree = "<group>"; };
 		8AF7819E1F1F445500FC4EF2 /* TangoCardDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TangoCardDao.swift; path = TangoBook/Database/TangoCardDao.swift; sourceTree = "<group>"; };
-		8AF7819F1F1F445500FC4EF2 /* TangoCardHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TangoCardHistory.swift; path = TangoBook/Database/TangoCardHistory.swift; sourceTree = "<group>"; };
-		8AF781A01F1F445500FC4EF2 /* TangoCardHistoryDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TangoCardHistoryDao.swift; path = TangoBook/Database/TangoCardHistoryDao.swift; sourceTree = "<group>"; };
 		8AF781A21F1F445500FC4EF2 /* TangoItemPos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TangoItemPos.swift; path = TangoBook/Database/TangoItemPos.swift; sourceTree = "<group>"; };
 		8AF781A31F1F445500FC4EF2 /* TangoItemPosDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TangoItemPosDao.swift; path = TangoBook/Database/TangoItemPosDao.swift; sourceTree = "<group>"; };
 		8AF781A41F1F445500FC4EF2 /* TangoStudiedCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TangoStudiedCard.swift; path = TangoBook/Database/TangoStudiedCard.swift; sourceTree = "<group>"; };
@@ -1280,13 +1276,11 @@
 				8AF7819A1F1F445500FC4EF2 /* TangoBookDao.swift */,
 				8AF781A31F1F445500FC4EF2 /* TangoItemPosDao.swift */,
 				8AF7819C1F1F445500FC4EF2 /* TangoBookHistoryDao.swift */,
-				8AF781A01F1F445500FC4EF2 /* TangoCardHistoryDao.swift */,
 				8AF781A51F1F445500FC4EF2 /* TangoStudiedCardDao.swift */,
 				8AF7819D1F1F445500FC4EF2 /* TangoCard.swift */,
 				8AF781991F1F445500FC4EF2 /* TangoBook.swift */,
 				8AF781A21F1F445500FC4EF2 /* TangoItemPos.swift */,
 				8AF7819B1F1F445500FC4EF2 /* TangoBookHistory.swift */,
-				8AF7819F1F1F445500FC4EF2 /* TangoCardHistory.swift */,
 				8AF781A41F1F445500FC4EF2 /* TangoStudiedCard.swift */,
 				8AF781B51F1F44B400FC4EF2 /* TangoItem.swift */,
 				8A6DA4E31F346D29000F4057 /* URealmManager.swift */,
@@ -1668,7 +1662,6 @@
 				8AE08A961F2580D00024E9B7 /* UDrawManager.swift in Sources */,
 				8A1BE34A1F593B7900EA8226 /* UCheckBox.swift in Sources */,
 				8AE08A9C1F2580D00024E9B7 /* UView.swift in Sources */,
-				8AF781AE1F1F445500FC4EF2 /* TangoCardHistory.swift in Sources */,
 				8AF1A57C1F47E18100B47000 /* SKNodeUtil.swift in Sources */,
 				8AE08A9D1F2580D00024E9B7 /* UDialogWindow.swift in Sources */,
 				8A6DA4E41F346D29000F4057 /* URealmManager.swift in Sources */,
@@ -1752,7 +1745,6 @@
 				8AE08A941F2580D00024E9B7 /* UDrawable.swift in Sources */,
 				8AF781AD1F1F445500FC4EF2 /* TangoCardDao.swift in Sources */,
 				8AF7817B1F1F3E4400FC4EF2 /* AppDelegate.swift in Sources */,
-				8AF781AF1F1F445500FC4EF2 /* TangoCardHistoryDao.swift in Sources */,
 				8AF781A81F1F445500FC4EF2 /* TangoBook.swift in Sources */,
 				8AE08A851F2580D00024E9B7 /* UButton.swift in Sources */,
 				8AB7E92D1F259991005E36BB /* PageViewTemplate.swift in Sources */,

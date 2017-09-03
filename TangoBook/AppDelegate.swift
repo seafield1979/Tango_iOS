@@ -42,7 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let realm = try! Realm()
         URealmManager.setRealm(realm)
         TangoCardDao.setRealm(realm)
-        TangoCardHistoryDao.setRealm(realm)
         TangoBookDao.setRealm(realm)
         TangoBookHistoryDao.setRealm(realm)
         TangoItemPosDao.setRealm(realm)

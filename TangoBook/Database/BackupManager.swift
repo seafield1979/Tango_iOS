@@ -357,11 +357,6 @@ public class BackupManager {
 
         ULog.printMsg(BackupManager.TAG, "point4")
 
-        // TangoCardHistory
-        backupData.cardHistories = TangoCardHistoryDao.selectAll();
-
-        ULog.printMsg(BackupManager.TAG, "point5");
-
         // TangoStudiedCard
         backupData.studiedCards = TangoStudiedCardDao.selectAll()
 
@@ -622,7 +617,6 @@ public class BackupManager {
         _ = TangoBookDao.deleteAll()
         _ = TangoItemPosDao.deleteAll()
         _ = TangoBookHistoryDao.deleteAll()
-        _ = TangoCardHistoryDao.deleteAll()
         _ = TangoStudiedCardDao.deleteAll()
 
         // データベースにxmlファイルから読み込んだデータを追加

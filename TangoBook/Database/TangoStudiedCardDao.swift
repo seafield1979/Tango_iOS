@@ -136,7 +136,7 @@ public class TangoStudiedCardDao {
     */
     public static func deleteByHistoryId(_ bookHistoryId : Int) {
         let results = mRealm!.objects(TangoStudiedCard.self)
-            .filter("bookHistoryId", bookHistoryId)
+            .filter("bookHistoryId = %d", bookHistoryId)
         
         if results.count == 0 {
             return
