@@ -6,15 +6,10 @@
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import UIKit
+import SpriteKit
 
 public class ListItemCard : UListItem {
-    /**
-     * Enums
-     */
-    /**
-     * Constants
-     */
+    // MARK: Constants
     public let TAG = "ListItemCard"
 
     private let TEXT_COLOR = UIColor.black
@@ -27,22 +22,17 @@ public class ListItemCard : UListItem {
     private let FRAME_WIDTH = 2
     private let FRAME_COLOR = UIColor.black
 
-    /**
-     * Member variables
-     */
+    // MARK: Properties
+    // SpriteKit Node
+    private var iconNode : SKSpriteNode?
+    private var textNode : SKLabelNode?
+    
     private var mPresetCard : PresetCard? = nil
 
     // Dpi計算済み
     private var itemH : CGFloat, iconW : CGFloat
 
-    /**
-     * Get/Set
-     */
-
-
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init( listItemCallbacks : UListItemCallbacks?,
                  card : PresetCard, width : CGFloat)
     {
@@ -55,11 +45,34 @@ public class ListItemCard : UListItem {
                    x : 0, width : width, height : CGFloat(UDraw.getFontSize(FontSize.M)) * 3 + UDpi.toPixel(MARGIN_V) * 4,
                    bgColor : BG_COLOR, frameW : UDpi.toPixel(FRAME_WIDTH), frameColor : FRAME_COLOR)       
         
+        initSKNode()
+    }
+    
+    /**
+     * SpriteKitのノード作成
+     */
+    public override func initSKNode() {
+        let marginH : CGFloat = UDpi.toPixel(MARGIN_H)
+        var x : CGFloat = marginH
+        
+        // iconNode
+        let image = UResourceManager.getImageByName( ImageName.cards )
+        iconNode = SKNodeUtil.createSpriteNode(image: image!, width: iconW, height: iconW, x: x, y: (size.height - iconW) / 2)
+        parentNode.addChild2( iconNode! )
+        
+        x += iconW + marginH
+        
+        // textNode
+        let text = mPresetCard!.mWordA + "\n" + mPresetCard!.mWordB
+        textNode = SKNodeUtil.createLabelNode(
+            text: text, fontSize: UDraw.getFontSize(FontSize.M), color: TEXT_COLOR,
+            alignment: UAlignment.CenterY,
+            pos: CGPoint(x: x, y: size.height / 2)).node
+        
+        parentNode.addChild2( textNode! )
     }
 
-    /**
-     * Methods
-     */
+    // MARK: Methods
     /**
      * 描画処理
      * @param canvas
@@ -67,6 +80,7 @@ public class ListItemCard : UListItem {
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
     public override func draw() {
+        super.draw()
 //        PointF _pos = new PointF(pos.x, pos.y);
 //        if (offset != null) {
 //            _pos.x += offset.x;

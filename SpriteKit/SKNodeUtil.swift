@@ -213,4 +213,18 @@ public class SKNodeUtil {
         n.anchorPoint = CGPoint(x:0, y:1)
         return n
     }
+    
+    /**
+     * 画像ノード(SKSpriteNode)を作成  UIImage版
+     */
+    public static func createSpriteNode(image: UIImage, width: CGFloat, height: CGFloat, x: CGFloat, y: CGFloat ) -> SKSpriteNode
+    {
+        let texture = SKTexture(image: image)
+        let n = SKSpriteNode(texture: texture)
+        n.size = CGSize(width: width, height: height)
+        n.position = CGPoint(x: x, y: y)
+        n.anchorPoint = CGPoint(x:0, y:1)
+        return n
+    }
+
 }

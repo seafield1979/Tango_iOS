@@ -6,166 +6,158 @@
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import Foundation
+import SpriteKit
 
-///**
-// * Created by shutaro on 2016/12/18.
-// * <p>
-// * プリセット単語帳ListViewのアイテム
-// * プリセット追加用のボタンが表示されている
-// *
-// */
-//
-//public class ListItemPresetBook extends UListItem implements UButtonCallbacks {
-//    /**
-//     * Enums
-//     */
-//    /**
-//     * Constants
-//     */
-//    public static final String TAG = "ListItemOption";
-//
-//    public static final int ButtonIdAdd = 100100;
-//    private static final int ITEM_H = 67;
-//    private static final int MARGIN_H = 17;
-//    private static final int ICON_W = 34;
-//
-//    private static final int TEXT_COLOR = Color.BLACK;
-//    private static final int BG_COLOR = Color.WHITE;
-//
-//    private static final int STAR_ICON_W = 34;
-//
-//    private static final int FRAME_WIDTH = 2;
-//    private static final int FRAME_COLOR = Color.BLACK;
-//
-//    /**
-//     * Member variables
-//     */
-//    private PresetBook mBook;
-//    private UButtonImage mAddButton;
-//
-//    // Dpi計算済み
-//    private int iconW, marginH;
-//
-//    /**
-//     * Get/Set
-//     */
-//    public PresetBook getBook() {
-//        return mBook;
-//    }
-//
-//    /**
-//     * Constructor
-//     */
-//    public ListItemPresetBook(UListItemCallbacks listItemCallbacks,
-//                          PresetBook book, int width)
-//    {
-//        super(listItemCallbacks, true, 0, width, UDpi.toPixel(ITEM_H), BG_COLOR, UDpi.toPixel(FRAME_WIDTH), FRAME_COLOR);
-//        mBook = book;
-//
-//        iconW = UDpi.toPixel(ICON_W);
-//        marginH = UDpi.toPixel(MARGIN_H);
-//
-//        int starIconW = UDpi.toPixel(STAR_ICON_W);
-//        // Add Button
-//        Bitmap image = UResourceManager.getBitmapWithColor(R.drawable.add, UColor.Green);
-//        mAddButton = UButtonImage.createButton(this, ButtonIdAdd, 0,
-//                size.width - UDpi.toPixel(50), (size.height - starIconW) / 2,
-//                starIconW, starIconW, image, null);
-//        mAddButton.scaleRect(2.0f, 1.5f);
-//
-//
-//    }
-//
-//    /**
-//     * Methods
-//     */
-//    /**
-//     * 描画処理
-//     *
-//     * @param canvas
-//     * @param paint
-//     * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
-//     */
-//    public void draw(Canvas canvas, Paint paint, PointF offset) {
-//        PointF _pos = new PointF(pos.x, pos.y);
-//        if (offset != null) {
-//            _pos.x += offset.x;
-//            _pos.y += offset.y;
-//        }
-//
-//        super.draw(canvas, paint, _pos);
-//
-//        int fontSize = UDraw.getFontSize(FontSize.M);
-//        float x = _pos.x + marginH;
-//        float marginV = (UDpi.toPixel(ITEM_H) - fontSize * 2) / 3;
-//        float y = _pos.y + marginV;
-//        // Icon image
-//        UDraw.drawBitmap(canvas, paint, UResourceManager.getBitmapWithColor(R.drawable.cards, mBook.mColor), x,
-//                _pos.y + (size.height - iconW) / 2,
-//                iconW, iconW );
-//        x += iconW + marginH;
-//
-//        // Name
-//        UDraw.drawTextOneLine(canvas, paint, mBook.mName + " " + mBook.getFileName(), UAlignment
-//                .None, fontSize,
-//                x, y, TEXT_COLOR);
-//        y += UDraw.getFontSize(FontSize.M) + marginV;
-//
-//        // Comment
-//        UDraw.drawTextOneLine(canvas, paint, mBook.mComment, UAlignment.None, fontSize,
-//                x, y, TEXT_COLOR);
-//
-//        // Add Button
-//        if (mAddButton != null) {
-//            mAddButton.draw(canvas, paint, _pos);
-//        }
-//    }
-//
-//    /**
-//     * 毎フレーム呼ばれる処理
-//     * @return
-//     */
-//    public DoActionRet doAction() {
-//        if (mAddButton != null ) {
-//            return mAddButton.doAction();
-//        }
-//        return DoActionRet.None;
-//    }
-//
-//    /**
-//     * @param vt
-//     * @return
-//     */
-//    public boolean touchEvent(ViewTouch vt, PointF offset) {
-//        if (mAddButton != null) {
-//            PointF offset2 = new PointF(pos.x + offset.x, pos.y + offset.y);
-//            if (mAddButton.touchEvent(vt, offset2)) {
-//                return true;
-//            }
-//        }
-//        if (super.touchEvent(vt, offset)) {
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    /**
-//     * 高さを返す
-//     */
-//    public int getHeight() {
-//        return size.height;
-//    }
-//
-//
-//    /**
-//     * UButtonCallbacks
-//     */
-//    public boolean UButtonClicked(int id, boolean pressedOn) {
-//        if (mListItemCallbacks != null) {
-//            mListItemCallbacks.ListItemButtonClicked(this, id);
-//            return true;
-//        }
-//        return false;
-//    }
-//}
+/**
+ * Created by shutaro on 2016/12/18.
+ * <p>
+ * プリセット単語帳ListViewのアイテム
+ * プリセット追加用のボタンが表示されている
+ *
+ */
+
+public class ListItemPresetBook : UListItem, UButtonCallbacks {
+    
+    // MARK: Constants
+    public static let ButtonIdAdd : Int = 100100
+    private let ITEM_H : Int = 67
+    private let MARGIN_H : Int = 17
+    private let ICON_W : Int = 34
+
+    private let TEXT_COLOR : UIColor = .black
+    private let BG_COLOR : UIColor = .white
+
+    private let STAR_ICON_W : Int = 34
+
+    private let FRAME_WIDTH : Int = 2
+    private let FRAME_COLOR : UIColor = .black
+
+    // MARK: Properties
+    // SpriteKit Node
+    private var textNode : SKLabelNode?
+    private var iconNode : SKSpriteNode?
+    
+    private var mBook : PresetBook?
+    private var mAddButton : UButtonImage?
+
+    // Dpi計算済み
+    private var iconW : CGFloat, marginH : CGFloat
+
+    // MARK: Accessor
+    public func getBook() -> PresetBook? {
+        return mBook
+    }
+
+    // MARK: Initializer
+    public init( listItemCallbacks : UListItemCallbacks?,
+                 book : PresetBook?, width : CGFloat)
+    {
+        mBook = book
+        iconW = UDpi.toPixel(ICON_W)
+        marginH = UDpi.toPixel(MARGIN_H)
+
+        super.init( callbacks : listItemCallbacks, isTouchable : true,
+                    x : 0, width : width, height : UDpi.toPixel(ITEM_H),
+                    bgColor : BG_COLOR, frameW : UDpi.toPixel(FRAME_WIDTH),
+                    frameColor : FRAME_COLOR)
+
+        
+        let starIconW : CGFloat = UDpi.toPixel(STAR_ICON_W)
+        // Add Button
+        let image : UIImage? = UResourceManager.getImageWithColor( imageName: ImageName.add, color: UColor.Green)
+        
+        if image != nil {
+            mAddButton = UButtonImage(
+                callbacks : self, id : ListItemPresetBook.ButtonIdAdd, priority : 0,
+                x : size.width - UDpi.toPixel(50), y : (size.height-starIconW) / 2,
+                width : starIconW, height : starIconW, image : image!, pressedImage : nil)
+            parentNode.addChild2( mAddButton!.parentNode )
+        }
+        
+        mAddButton!.scaleRect(scaleH: 2.0, scaleV: 1.5)
+        
+        initSKNode()
+    }
+    
+    /**
+     * SpriteKitのノードを作成
+     */
+    public override func initSKNode() {
+        var x : CGFloat = marginH
+        
+        // iconNode
+        let image = UResourceManager.getImageWithColor( imageName: ImageName.cards, color: mBook!.mColor)
+        iconNode = SKNodeUtil.createSpriteNode(image: image!, width: iconW, height: iconW, x: x, y: (size.height - iconW) / 2)
+        parentNode.addChild2( iconNode! )
+        
+        x += iconW + marginH
+        
+        // textNode
+        let text = mBook!.mName + "\n" + (mBook!.mComment ?? "")
+        
+        textNode = SKNodeUtil.createLabelNode(
+            text: text, fontSize: UDraw.getFontSize(FontSize.M), color: TEXT_COLOR,
+            alignment: UAlignment.CenterY,
+            pos: CGPoint(x: x, y: size.height / 2)).node
+        
+        parentNode.addChild2( textNode! )
+    }
+
+    // MARK: Methods
+    /**
+     * 描画処理
+     *
+     * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
+     */
+    public override func draw() {
+        super.draw()
+    }
+
+    /**
+     * 毎フレーム呼ばれる処理
+     * @return
+     */
+    public override func doAction() -> DoActionRet{
+        if mAddButton != nil  {
+            return mAddButton!.doAction()
+        }
+        return DoActionRet.None
+    }
+
+    /**
+     * @param vt
+     * @return
+     */
+    public override func touchEvent( vt : ViewTouch, offset : CGPoint? ) -> Bool {
+        if mAddButton != nil {
+            let offset2 = CGPoint(x: pos.x + offset!.x, y: pos.y + offset!.y)
+            if mAddButton!.touchEvent(vt: vt, offset: offset2) {
+                return true
+            }
+        }
+        if super.touchEvent(vt: vt, offset: offset) {
+            return true
+        }
+        return false
+    }
+
+    /**
+     * 高さを返す
+     */
+    public override func getHeight() -> CGFloat{
+        return size.height
+    }
+
+
+    // MARK: Callbacks
+    /**
+     * UButtonCallbacks
+     */
+    public func UButtonClicked(id : Int, pressedOn : Bool) -> Bool{
+        if mListItemCallbacks != nil {
+            mListItemCallbacks!.ListItemButtonClicked(item: self, buttonId: id)
+            return true
+        }
+        return false
+    }
+}

@@ -454,7 +454,7 @@ public class UDialogWindow : UWindow {
         
         // Drawables
         for obj in mDrawables {
-            obj!.setPos( buttonMarginH, y, convSKPos: false)
+            obj!.setPos( (size.width - obj!.size.width) / 2, y, convSKPos: false)
             y += obj!.getHeight() + UDpi.toPixel( UDialogWindow.MARGIN_V )
         }
         

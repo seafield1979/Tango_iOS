@@ -55,6 +55,26 @@ public class UListView : UScrollWindow
                     cornerRadius: UDpi.toPixel(10))
         
     }
+
+    public init(topScene : TopScene,
+                windowCallbacks : UWindowCallbacks?,
+                listItemCallbacks : UListItemCallbacks?,
+                priority : Int,
+                x : CGFloat, y : CGFloat,
+                width : CGFloat, height : CGFloat, bgColor : UIColor?,
+                topBarH: CGFloat, frameW: CGFloat, frameH: CGFloat )
+    {
+        mListItemCallbacks = listItemCallbacks
+        
+        super.init(topScene: topScene,
+                   callbacks: windowCallbacks, priority:priority,
+                   x: x, y: y,
+                   width: width, height: height,
+                   bgColor: bgColor,
+                   topBarH: topBarH, frameW: frameW, frameH: frameH,
+                   cornerRadius: UDpi.toPixel(10))
+    }
+
     
     /**
      * Methods

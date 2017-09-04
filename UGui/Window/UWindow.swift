@@ -39,7 +39,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
      */
     public static let CloseButtonId : Int = 1000123
     
-    static let SCROLL_BAR_W : Int = 17;
+    static let SCROLL_BAR_W : Int = 10;
     static let TOP_BAR_COLOR = UColor.makeColor(100, 100, 200)
     static let FRAME_COLOR : UIColor? = .darkGray
     private static let TOUCH_MARGIN : Int = 13

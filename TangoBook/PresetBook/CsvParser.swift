@@ -52,9 +52,9 @@ public class CsvParser {
                         book = PresetBook( csvName : csvName, name : words[0], comment : words[1], color : color)
                     }
                     else if (words.count >= 2) {
-                        book = PresetBook( csvName : csvName, name : words[0], comment : words[1], color : nil)
+                        book = PresetBook( csvName : csvName, name : words[0], comment : words[1], color : .black)
                     } else if (words.count >= 1) {
-                        book = PresetBook(csvName : csvName, name : words[0], comment : nil, color : nil)
+                        book = PresetBook(csvName : csvName, name : words[0], comment : "", color : .black)
                     }
                     if (onlyBook) {
                         break;
