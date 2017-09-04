@@ -122,7 +122,7 @@ public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, Op
             priority : DRAW_PRIORITY, x : x, y : y,
             width : width - UDpi.toPixel(MARGIN_H) * 2, height : listViewH, bgColor : nil )
         
-        mListView!.setFrameColor( UIColor.lightGray )
+        mListView!.setFrameColor( UIColor.gray)
         mListView!.addToDrawManager()
 
         // アイテムを追加

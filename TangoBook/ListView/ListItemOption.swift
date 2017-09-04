@@ -143,15 +143,16 @@ public class ListItemOption : UListItem {
                     MySharedPref.DefaultColorCardKey)
             
             let _color = UColor.makeColor(argb: UInt32(color))
-            let _pos = CGPoint(x: size.width - UDpi.toPixel(50),
+            let _pos = CGPoint(x: size.width - UDpi.toPixel(30),
                                y: UDpi.toPixel(50 / 2))
             let w = UDpi.toPixel(34)
             colorNode = SKNodeUtil.createRectNode(rect: CGRect(x: -w/2, y: -w/2, width: w, height: w), color: _color, pos: _pos, cornerR: 0)
             
             // 色が未設定なら非表示
-//            if color == 0 {
-//                colorNode!.isHidden = true
-//            }
+            if color.toUInt() == 0 {
+                colorNode!.isHidden = true
+            }
+            
             parentNode.addChild2( colorNode! )
         }
     }

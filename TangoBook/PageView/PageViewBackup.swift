@@ -148,7 +148,7 @@ public class PageViewBackup : UPageView, UDialogCallbacks, UButtonCallbacks, UCh
             x : x, y : y, width : width-UDpi.toPixel(MARGIN_H)*2, height : listViewH,
             bgColor : nil)
         
-        mListView!.setFrameColor( .black )
+        mListView!.setFrameColor( .gray )
         mListView!.addToDrawManager()
     }
     
@@ -239,10 +239,11 @@ public class PageViewBackup : UPageView, UDialogCallbacks, UButtonCallbacks, UCh
             return false
         }
         backupItem.setText(text: newText)
+        backupItem.initSKNode()
 
         // データベース更新(BackupFile)
         _ = BackupFileDao.updateOne( id : backup.getId(), bookNum : backupInfo.getBookNum(), cardNum : backupInfo.getCardNum())
-
+        
         return true
     }
 

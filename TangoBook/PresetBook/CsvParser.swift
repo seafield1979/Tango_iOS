@@ -204,21 +204,4 @@ public class CsvParser {
         }
         return cards
     }
-
-//    static void test1(Context context, int csvId) {
-//        // res/book.xmlを生ファイルとして開く
-//        InputStream is = context.getResources().openRawResource(csvId);
-
-//        BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
-//        try {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                Log.d(TAG, "line:" + line);
-//            }
-//        } catch (IOException e) {
-
-//        }
-
-//    }
 }

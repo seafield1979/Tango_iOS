@@ -249,7 +249,7 @@ public class UDrawable {
      * SpriteKitのノードを生成する(抽象メソッド)
      */
     public func initSKNode() {
-        print("UDrawable initSKNode() オーバーライドされていません")
+//        print("UDrawable initSKNode() オーバーライドされていません")
     }
     
     /**
@@ -258,7 +258,7 @@ public class UDrawable {
      */
     public func draw() {
         // 抽象メソッド(Swiftではサポートされていないので仕方なく実装)
-        print("UDrawable draw() オーバーライドされていません")
+//        print("UDrawable draw() オーバーライドされていません")
     }
     
     /**
@@ -267,7 +267,7 @@ public class UDrawable {
      * @return true:処理中 / false:処理完了
      */
     public func doAction() -> DoActionRet{
-        print("UDrawable doAction() オーバーライドされていません")
+//        print("UDrawable doAction() オーバーライドされていません")
         return DoActionRet.None;
     }
     
@@ -277,7 +277,7 @@ public class UDrawable {
      * @return
      */
     public func touchUpEvent(vt: ViewTouch) -> Bool {
-        print("UDrawable touchUpEvent() オーバーライドされていません")
+//        print("UDrawable touchUpEvent() オーバーライドされていません")
         return false
     }
     
@@ -289,7 +289,7 @@ public class UDrawable {
     public func touchEvent(vt : ViewTouch, offset : CGPoint?) -> Bool
     {
         // サブクラスでオーバーライドして使用する
-        print("UDrawable touchEvent() オーバーライドされていません")
+//        print("UDrawable touchEvent() オーバーライドされていません")
         return false
     }
     

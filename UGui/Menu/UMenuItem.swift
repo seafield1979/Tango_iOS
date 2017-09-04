@@ -356,11 +356,11 @@ public class UMenuItem : UDrawable {
         
         // 自分の処理
         // 移動
-//        if autoMoving() {
-//            ret = DoActionRet.Redraw
-//        } else if (isClosing) {
-//            isShow = false
-//        }
+        if autoMoving() {
+            ret = DoActionRet.Redraw
+        } else if (isClosing) {
+            isShow = false
+        }
         
         // アニメーション
         if animate() {

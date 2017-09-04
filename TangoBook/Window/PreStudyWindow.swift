@@ -35,7 +35,7 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
     private let FONT_SIZE_3 = 23;
     private let BUTTON_FONT_SIZE = 17;
 
-    private let BUTTON_W = 240;
+    private let BUTTON_W = 200;
     private let BUTTON_H = 40;
     private let BUTTON2_W = 134;
     private let BUTTON2_H = 67;
@@ -187,8 +187,8 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
         /**
          * Buttons
          */
-        let titleX = (width - UDpi.toPixel(BUTTON_W - 40)) / 2
-        let buttonX = titleX + UDpi.toPixel(8)
+        let titleX = (screenW - UDpi.toPixel(BUTTON_W - 50)) / 2
+        let buttonX = titleX
 
         // 出題方法（出題モード)
         // タイトル

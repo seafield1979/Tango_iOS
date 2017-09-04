@@ -57,7 +57,7 @@ public class PageViewRestore : UPageView, UDialogCallbacks, UButtonCallbacks, UL
             x : x, y : y, width : width - UDpi.toPixel(MARGIN_H) * 2, height : listViewH,
             bgColor : nil)
         
-        mListView!.setFrameColor(UIColor.lightGray)
+        mListView!.setFrameColor(UIColor.gray)
         mListView!.addToDrawManager()
     }
     

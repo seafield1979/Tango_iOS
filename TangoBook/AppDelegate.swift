@@ -61,6 +61,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             MySharedPref.writeBool(key: MySharedPref.InitializeKey, value: true)
         }
+        
+        // 起動時の自動バックアップ
+        if (MySharedPref.readBool(MySharedPref.AutoBackup)) {
+            _ = BackupManager.getInstance().saveAutoBackup()
+        }
     }
 }
 

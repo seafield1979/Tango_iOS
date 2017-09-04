@@ -75,6 +75,13 @@ public class ListItemBackup : UListItem {
     }
     
     public override func initSKNode() {
+        if let n = titleNode {
+            n.removeFromParent()
+        }
+        if let n = textNode {
+            n.removeFromParent()
+        }
+        
         // title
         titleNode = SKNodeUtil.createLabelNode(
             text: mTitle!, fontSize: UDpi.toPixel(FONT_SIZE_S), color: UColor.DarkBlue,
@@ -100,24 +107,6 @@ public class ListItemBackup : UListItem {
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
     public override func draw() {
-//        PointF _pos = new PointF(pos.x, pos.y);
-//        if (offset != null) {
-//            _pos.x += offset.x;
-//            _pos.y += offset.y;
-//        }
-//        float y = _pos.y + UDpi.toPixel(MARGIN_V);
-//        
-//        super.draw(canvas, paint, _pos);
-//        
-//        // mTitle
-//        UDraw.drawTextOneLine(canvas, paint, mTitle, UAlignment.None, UDpi.toPixel(TEXT_SIZE_S),
-//                              _pos.x + UDpi.toPixel(MARGIN_H), y, UColor.DarkBlue);
-//        y += UDpi.toPixel(TEXT_SIZE_S + MARGIN_V);
-//        
-//        // mText
-//        UDraw.drawText(canvas, mText, UAlignment.Center, UDpi.toPixel(TEXT_SIZE),
-//                       _pos.x + size.width / 2,
-//                       y + (size.height - UDpi.toPixel(TEXT_SIZE_S + MARGIN_V * 2)) / 2, TEXT_COLOR);
     }
 }
 

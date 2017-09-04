@@ -28,9 +28,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         case MoveIntoNG
     }
 
-    /**
-     * Consts
-     */
+    // MARK: Constants
     public static let WIDTH = 170
     public let MIN_HEIGHT = 50
 
@@ -59,15 +57,10 @@ public class StudyCard : UDrawable, UButtonCallbacks {
     // 左右にスライドできる距離。これ以上スライドするとOK/NGボックスに入る
     let SLIDE_LEN = 117
 
-    /**
-     * Static Varialbes
-     */
+    // MARK: Properties
     var arrowLImage : UIImage? = nil
     var arrowRImage : UIImage? = nil
 
-    /**
-     * Member Variables
-     */
     // SpriteKit Node
     var bgNode : SKShapeNode?
     var wordANode : SKLabelNode?
@@ -92,6 +85,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
     var moveRequest = RequestToParent.None;
     var lastRequest = RequestToParent.None;
 
+    // MARK: Accessor
     public func getMoveRequest() -> RequestToParent{
         return moveRequest
     }
@@ -99,10 +93,6 @@ public class StudyCard : UDrawable, UButtonCallbacks {
     public func setMoveRequest( _ moveRequest : RequestToParent) {
         self.moveRequest = moveRequest
     }
-
-    /**
-     * Get/Set
-     */
 
     public func getTangoCard() -> TangoCard? {
         return mCard
@@ -112,9 +102,13 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         return showArrow
     }
 
-    /**
-     * Constructor
-     */
+    public override func setColor(_ color: UIColor) {
+        super.setColor(color)
+        
+        bgNode!.fillColor = color
+    }
+    
+    // MARK: Initializer
     /**
      *
      * @param card
@@ -331,11 +325,8 @@ public class StudyCard : UDrawable, UButtonCallbacks {
             } else {
                 color = UColor.mixRGBColor(color1: BG_COLOR, color2: OK_BG_COLOR, ratio: slideX / UDpi.toPixel(SLIDE_LEN));
             }
-            bgNode!.fillColor = color
+            setColor(color)
         }
-        
-        // 箱に移動中のスケールを適用
-//        parentNode.setScale(mScale)
 
         // 矢印
         if showArrow && !isTouching && !isMoveToBox {
@@ -416,6 +407,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
                         lastRequest = RequestToParent.MoveToNG
                         moveRequest = lastRequest
                         setPos(pos.x, pos.y, convSKPos: true)
+                        setColor(NG_BG_COLOR)
                     } else if (slideX >= UDpi.toPixel(SLIDE_LEN)) {
                         // OK
                         pos.x += slideX
@@ -423,6 +415,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
                         lastRequest = RequestToParent.MoveToOK
                         moveRequest = lastRequest
                         setPos(pos.x, pos.y, convSKPos: true)
+                        setColor(OK_BG_COLOR)
                     } else {
                         parentNode.position = CGPoint(x: pos.x + slideX, y: pos.y).convToSK()
                     }

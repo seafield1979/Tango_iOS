@@ -274,7 +274,7 @@ public class BackupManager {
         if backupInfo == nil {
             return ""
         }
-        let str =  String(format: "%s\n%s: %d\n%s: %d\n" ,
+        let str =  String(format: "%@\n%@: %d\n%@: %d\n" ,
                           UUtil.convDateFormat( date: backupInfo!.getBackupDate(),
                                                 mode: ConvDateMode.DateTime)!,
                           UResourceManager.getStringByName("card_count"),
