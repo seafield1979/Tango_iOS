@@ -42,9 +42,7 @@ public class UTextView : UDrawable {
     var isDrawBG : Bool = false
     var isOpened : Bool = false     // 全部表示状態
     
-    /**
-     * Get/Set
-     */
+    // MARK: Accessor
     public func getText() -> String {
         return text
     }
@@ -63,15 +61,17 @@ public class UTextView : UDrawable {
         updateRect()
     }
     
+    public func setFont(_ font : String) {
+        labelNode!.fontName = font
+    }
+    
     public func setMargin(_ width : CGFloat, _ height : CGFloat) {
         mMargin.width = width
         mMargin.height = height
         updateSize()
     }
     
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init(text : String, fontSize : CGFloat, priority : Int,
                 alignment : UAlignment, createNode: Bool,
                 multiLine : Bool, isDrawBG : Bool, isMargin : Bool,
@@ -175,6 +175,7 @@ public class UTextView : UDrawable {
             let radius = UDpi.toPixel(10)
             self.bgNode = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height).convToSK(),
                 cornerRadius: radius)
+            self.bgNode!.isAntialiased = true
             
             if bgColor != nil {
                 self.bgNode!.fillColor = bgColor!

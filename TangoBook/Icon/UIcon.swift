@@ -293,10 +293,12 @@ public class UIcon : UDrawable, CustomStringConvertible {
     func createNewBadge() {
         newTextView = UTextView.createInstance(
            text: "New", fontSize: UDpi.toPixel(NEW_FONT_SIZE),
-           priority: 0, alignment: UAlignment.Center, createNode: true,
+           priority: 100, alignment: .Center, createNode: true,
            multiLine: false, isDrawBG: true,
-           x: 0, y: 0, width: 100, color: UIColor.white, bgColor: NEW_TEXT_COLOR)
-       
+           x: size.width / 2, y: size.height / 2 + UDpi.toPixel(10), width: size.width, color: UIColor.white, bgColor: NEW_TEXT_COLOR)
+        newTextView!.setFont("HiraKakuProN-W6")
+        parentNode.addChild2( newTextView!.parentNode )
+        
         // 文字の周りのマージン
         newTextView!.setMargin(UDpi.toPixel(NEW_TEXT_MARGIN), UDpi.toPixel(NEW_TEXT_MARGIN));
     }
@@ -306,7 +308,9 @@ public class UIcon : UDrawable, CustomStringConvertible {
      * Newフラグ設定
      */
     public func setNewFlag(isNew : Bool) {
-        // 抽象メソッド
+        if let textView = newTextView {
+            textView.parentNode.isHidden = !isNew
+        }
     }
 
     /**

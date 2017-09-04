@@ -122,6 +122,8 @@ public class IconBook : IconContainer {
      * Newフラグ設定
      */
     public override func setNewFlag(isNew : Bool) {
+        super.setNewFlag(isNew: isNew)
+        
         if book!.isNew != isNew {
             book!.setNewFlag(isNew: isNew)
             TangoBookDao.updateNewFlag(book: book!, isNew: isNew)

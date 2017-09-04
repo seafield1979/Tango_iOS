@@ -265,19 +265,19 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 let window = getCurrentWindow()
                 window.mIconManager!.sortWithMode(mode: UIconManager.SortMode
                         .TitleDesc)
-                window.sortIcons(animate: true);
+                window.sortIcons(animate: true)
             
-            case .action_sort_time_asc:
-                let window = getCurrentWindow();
-                window.mIconManager!.sortWithMode(mode: UIconManager.SortMode
-                        .CreateDateAsc);
-                window.sortIcons(animate: true);
-            
-            case .action_sort_time_desc:
-                let window = getCurrentWindow();
-                window.mIconManager!.sortWithMode(mode: UIconManager.SortMode
-                        .CreateDateDesc);
-                window.sortIcons(animate: true);
+//            case .action_sort_time_asc:
+//                let window = getCurrentWindow()
+//                window.mIconManager!.sortWithMode(mode: UIconManager.SortMode
+//                        .CreateDateAsc)
+//                window.sortIcons(animate: true)
+//            
+//            case .action_sort_time_desc:
+//                let window = getCurrentWindow()
+//                window.mIconManager!.sortWithMode(mode: UIconManager.SortMode
+//                        .CreateDateDesc)
+//                window.sortIcons(animate: true)
             
             case .action_card_name_a:
                 // カードアイコンの名前を英語で表示
@@ -296,6 +296,8 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             case .action_settings:
                 PageViewManagerMain.getInstance().startOptionPage(
                     mode: PageViewOptions.Mode.Edit)
+        default:
+            break
          }
     }
     
@@ -524,6 +526,9 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                                               parentId:0,
                                               addPos: AddPos.Tail) as! IconCard
         }
+        
+        window.clientNode.addChild2( cardIcon.parentNode )
+        
         window.sortIcons(animate: true)
 
         return cardIcon
@@ -531,10 +536,14 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     
     // book
     private func addBookIcon() -> IconBook? {
-        let iconManager = mIconWinManager!.getMainWindow()!.getIconManager()
+        let window : UIconWindow = mIconWinManager!.getMainWindow()!
+        let iconManager = window.getIconManager()
         let iconBook = iconManager!.addNewIcon(type: IconType.Book,
                                 parentType: TangoParentType.Home,
                                 parentId: 0, addPos: AddPos.Tail) as! IconBook
+        
+        // SpriteKitノード追加
+        window.clientNode.addChild2( iconBook.parentNode )
         mIconWinManager!.getMainWindow()!.sortIcons(animate: true)
 
         return iconBook
@@ -728,7 +737,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
             mDialog!.closeDialog()
             mIconWinManager!.getSubWindow().sortIcons(animate: false)
-            return true;
+            return true
         case TrashDialogButtonOK:
             // 単語帳をゴミ箱に捨てる
             moveIconToTrash(icon: mThrowIcon!)
@@ -791,7 +800,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
                 textColor : UIColor.black, dialogColor : UIColor.lightGray)
             
-            mDialog!.setTitle(message);
+            mDialog!.setTitle(message)
             _ = mDialog!.addButton(id : ExportFinishedDialogButtonOk, text : "OK", fontSize: UDraw.getFontSize(FontSize.M), textColor : UIColor.black, color : UIColor.white)
         
             mDialog!.addToDrawManager()
@@ -872,7 +881,8 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     {
         if mode == EditBookDialogMode.Create {
             // 新たにアイコンを追加する
-            let iconManager = mIconWinManager!.getMainWindow()!.getIconManager()
+            let window = mIconWinManager!.getMainWindow()!
+            let iconManager = window.getIconManager()
             let bookIcon = iconManager!.addNewIcon(
                 type: IconType.Book,
                 parentType: TangoParentType.Home,
@@ -894,11 +904,13 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 bookIcon.updateIconImage()
             }
 
+            // SpriteKitノード追加
+            window.clientNode.addChild2( bookIcon.parentNode )
+
             // DB更新
             TangoBookDao.updateOne(book: book!)
         } else {
             // 既存のアイコンを更新する
-
             let bookIcon = editingIcon!
             let book = editingIcon!.getTangoItem() as! TangoBook
 
@@ -911,13 +923,13 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 bookIcon.updateIconImage()
             }
 
-            bookIcon.updateTitle();
+            bookIcon.updateTitle()
             // DB更新
             TangoBookDao.updateOne(book: book)
         }
 
         // アイコン整列
-        mIconWinManager!.getMainWindow()!.sortIcons(animate: false);
+        mIconWinManager!.getMainWindow()!.sortIcons(animate: false)
     }
     
     public func cancelEditBook() {
@@ -1069,7 +1081,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 animation: true)
            
         case .Edit:
-            editingIcon = icon;
+            editingIcon = icon
             if icon is IconBook {
                 editBookDialog(iconBook: editingIcon as! IconBook)
             }
@@ -1101,7 +1113,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             // ボタンを追加
             _ = mDialog!.addButton(id: ButtonIdCopyOK,
                                text: "OK", fontSize: UDraw.getFontSize(FontSize.M), textColor: UIColor.black,
-                              color: UColor.LightGreen);
+                              color: UColor.LightGreen)
             mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
 
             // 捨てるアイコンを保持
@@ -1133,7 +1145,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
             // ボタンを追加
             _ = mDialog!.addButton(id: TrashDialogButtonOK, text: "OK", fontSize: UDraw.getFontSize(FontSize.M),
-                               textColor: UIColor.black, color: UColor.LightGreen);
+                               textColor: UIColor.black, color: UColor.LightGreen)
             mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
 
             // 捨てるアイコンを保持
@@ -1144,8 +1156,8 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 //        case .Export:
 //            // 確認のダイアログを表示する
 //            if (mDialog != nil) {
-//                mDialog!.closeDialog();
-//                mDialog = nil;
+//                mDialog!.closeDialog()
+//                mDialog = nil
 //            }
 //
 //            mDialog = UDialogWindow.createInstance(

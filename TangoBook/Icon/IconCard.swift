@@ -17,26 +17,18 @@ public class IconCard : UIcon {
     
     private let TOUCHED_COLOR = UColor.makeColor(100,200,100)
     
-    /**
-     * Member Variables
-     */
+    //MARK: Properties
     var card : TangoCard
     
     // Dpi補正済みのサイズ
     private var iconW, iconH : CGFloat
     
-    /**
-     * Get/Set
-     */
-    
+    // MARK: Accessor
     public override func getTangoItem() -> TangoItem {
         return card
     }
     
-    /**
-     * Constructor
-     */
-    
+    // MARK: Initializer
     convenience public init( card : TangoCard, parentWindow : UIconWindow, iconCallbacks : UIconCallbacks?)
     {
         self.init(card: card, parentWindow: parentWindow,iconCallbacks: iconCallbacks, x: 0, y: 0)
@@ -188,6 +180,8 @@ public class IconCard : UIcon {
      * Newフラグ設定
      */
     public override func setNewFlag(isNew : Bool) {
+        super.setNewFlag(isNew: isNew)
+        
         if card.isNew != isNew {
             card.isNew = isNew
             TangoCardDao.updateNewFlag(card: card, isNew: isNew)
