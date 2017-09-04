@@ -270,7 +270,9 @@ public class TangoCardDao {
         
         var ids : [Int] = []
         for studiedCard in studiedCards {
-            ids.append(studiedCard.getCardId())
+            if studiedCard.okFlag == ok {
+                ids.append(studiedCard.getCardId())
+            }
         }
         if ids.count == 0 {
             // idの条件を指定しないと全件取得してしまうので抜ける

@@ -10,7 +10,7 @@ import SpriteKit
 
 public class SKNodeUtil {
     
-    static private let fontName = "HiraKakuProN-W6"
+    static private let fontName = "HiraKakuProN-W3"
     
     // CrossShapeの種類
     public enum CrossType {
@@ -18,6 +18,10 @@ public class SKNodeUtil {
         case Type2      // ×
     }
     
+    // MARK Constants
+    private static let FONT_MARGIN_V = 6        // 複数行のラベルの各行のマージン
+    
+    // MARK: Methods
     /**
      線のShapeNodeを作成する
      */
@@ -155,6 +159,7 @@ public class SKNodeUtil {
     static func createMultiLineLabelNode(text: String, fontSize: CGFloat, color : SKColor, alignment : UAlignment, pos: CGPoint?) -> (node: SKLabelNode, size: CGSize)
     {
         let subStrings:[String] = text.components(separatedBy:"\n")
+        let margin = UDpi.toPixel(FONT_MARGIN_V)
         var labelOutPut = SKLabelNode()
         var subStringNumber:Int = 0
         var maxWidth : CGFloat = 0
@@ -169,7 +174,7 @@ public class SKNodeUtil {
                 maxWidth = labelTemp.frame.size.width
             }
             
-            let y : CGFloat = CGFloat(subStringNumber) * fontSize
+            let y : CGFloat = CGFloat(subStringNumber) * (fontSize + margin)
             
             if subStringNumber == 0 {
                 if pos != nil {

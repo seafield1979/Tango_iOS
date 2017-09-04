@@ -156,9 +156,10 @@ public class TangoStudiedCardDao {
         }
         if transaction {
             try! mRealm!.write() {
+                addBackupCardCore(studiedCards : studiedCards)
             }
         } else {
-            
+            addBackupCardCore(studiedCards : studiedCards)
         }
     }
     
@@ -169,7 +170,7 @@ public class TangoStudiedCardDao {
             card.cardId = _card.cardId
             card.bookHistoryId = _card.bookHistoryId
             card.okFlag = _card.okFlag
-            
+            mRealm!.add(card)
         }
     }
 }
