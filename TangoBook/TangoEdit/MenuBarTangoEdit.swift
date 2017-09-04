@@ -41,14 +41,14 @@ public class MenuBarTangoEdit : UMenuBar {
         case AddDummyCard
         case AddDummyBook
         case AddPresetBook
-        case AddCsvBook
+//        case AddCsvBook
     }
     
     /**
      * Consts
      */
     private let TEXT_COLOR = UIColor.white
-    private let TEXT_BG_COLOR = UColor.makeColor(128,0,0,0)
+    private let TEXT_BG_COLOR = UColor.makeColor(192,0,0,0)
     private let ICON_COLOR = UIColor.black
     
     var itemInfos : [MenuItemInfo] = []
@@ -78,7 +78,7 @@ public class MenuBarTangoEdit : UMenuBar {
         
         itemInfos.append( MenuItemInfo(id: MenuItemId.AddPresetBook, type: MenuItemType.Child, imageName: ImageName.cards, stringName: "add_preset", color: ICON_COLOR, forDebug: false))
         
-        itemInfos.append( MenuItemInfo(id: MenuItemId.AddCsvBook, type: MenuItemType.Child, imageName: ImageName.cards, stringName: "add_csv", color: ICON_COLOR, forDebug: false))
+//        itemInfos.append( MenuItemInfo(id: MenuItemId.AddCsvBook, type: MenuItemType.Child, imageName: ImageName.cards, stringName: "add_csv", color: ICON_COLOR, forDebug: false))
     }
 
     /**

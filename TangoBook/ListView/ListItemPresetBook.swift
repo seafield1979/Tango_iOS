@@ -62,19 +62,19 @@ public class ListItemPresetBook : UListItem, UButtonCallbacks {
                     frameColor : FRAME_COLOR)
 
         
-        let starIconW : CGFloat = UDpi.toPixel(STAR_ICON_W)
+        let buttonW : CGFloat = UDpi.toPixel(STAR_ICON_W)
         // Add Button
         let image : UIImage? = UResourceManager.getImageWithColor( imageName: ImageName.add, color: UColor.Green)
         
         if image != nil {
             mAddButton = UButtonImage(
                 callbacks : self, id : ListItemPresetBook.ButtonIdAdd, priority : 0,
-                x : size.width - UDpi.toPixel(50), y : (size.height-starIconW) / 2,
-                width : starIconW, height : starIconW, image : image!, pressedImage : nil)
+                x : size.width - buttonW - marginH, y : (size.height - buttonW) / 2,
+                width : buttonW, height : buttonW, image : image!, pressedImage : nil)
             parentNode.addChild2( mAddButton!.parentNode )
+            mAddButton!.scaleRect(scaleH: 2.0, scaleV: 1.5)
         }
         
-        mAddButton!.scaleRect(scaleH: 2.0, scaleV: 1.5)
         
         initSKNode()
     }

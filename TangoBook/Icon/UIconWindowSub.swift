@@ -29,7 +29,7 @@ public enum SubWindowActionId : Int , EnumEnumerable{
     case Edit
     case Copy
     case Delete
-    case Export
+//    case Export
     case Cleanup
 }
 
@@ -40,7 +40,7 @@ public class UIconWindowSub : UIconWindow {
     private static let buttonIdCopy = 301
     private static let buttonIdDelete = 302
     private static let buttonIdCleanup = 303
-    private static let buttonIdExport = 304
+//    private static let buttonIdExport = 304
     
     // ウィンドウの下に表示されるアクションボタンの情報
     public struct ActionInfo {
@@ -57,7 +57,7 @@ public class UIconWindowSub : UIconWindow {
         }
     }
     
-    private static let bookIds : [SubWindowActionId] = [.Close, .Edit, .Copy, .Export]
+    private static let bookIds : [SubWindowActionId] = [.Close, .Edit, .Copy]
     private static let trashIds : [SubWindowActionId] = [.Close, .Cleanup]
     
     /**
@@ -203,9 +203,9 @@ public class UIconWindowSub : UIconWindow {
         case .Delete:
             return ActionInfo(imageName: ImageName.trash, buttonId: buttonIdDelete,
                               title : "trash", color : UColor.DarkGreen)
-        case .Export:
-            return ActionInfo(imageName: ImageName.export, buttonId: buttonIdExport,
-                              title : "export", color : UColor.DarkGreen)
+//        case .Export:
+//            return ActionInfo(imageName: ImageName.export, buttonId: buttonIdExport,
+//                              title : "export", color : UColor.DarkGreen)
         case .Cleanup:
             return ActionInfo(imageName: ImageName.trash2, buttonId: buttonIdCleanup,
                               title : "clean_up", color : UColor.DarkGreen)
@@ -307,10 +307,10 @@ public class UIconWindowSub : UIconWindow {
             if (mIconWindowSubCallback != nil && mParentIcon != nil ) {
                 mIconWindowSubCallback!.IconWindowSubAction(actionId:SubWindowActionId.Copy, icon: mParentIcon!)
             }
-        case UIconWindowSub.buttonIdExport:
-            if (mIconWindowSubCallback != nil && mParentIcon != nil ) {
-                mIconWindowSubCallback!.IconWindowSubAction(actionId:SubWindowActionId.Export, icon: mParentIcon!)
-            }
+//        case UIconWindowSub.buttonIdExport:
+//            if (mIconWindowSubCallback != nil && mParentIcon != nil ) {
+//                mIconWindowSubCallback!.IconWindowSubAction(actionId:SubWindowActionId.Export, icon: mParentIcon!)
+//            }
         case UIconWindowSub.buttonIdDelete:
             if (mIconWindowSubCallback != nil && mParentIcon != nil ) {
                 mIconWindowSubCallback!.IconWindowSubAction(actionId: SubWindowActionId.Delete, icon: mParentIcon)

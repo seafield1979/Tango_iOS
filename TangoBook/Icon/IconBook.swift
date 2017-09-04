@@ -70,7 +70,7 @@ public class IconBook : IconContainer {
                                                         color: color)
         // アイコンの画像を設定
         if let _image = self.image {
-            imageNode.texture = SKTexture(image: _image)
+            imageNode!.texture = SKTexture(image: _image)
         }
     }
 
@@ -84,7 +84,7 @@ public class IconBook : IconContainer {
         var alpha : CGFloat = 1.0
         if isLongTouched || isTouched  {
             // 長押し、タッチ、ドロップ中はBGを表示
-            dragedBgNode.isHidden = false
+            dragedBgNode!.isHidden = false
         } else if  isDroped {
         } else if (isAnimating) {
             // 点滅
@@ -93,7 +93,7 @@ public class IconBook : IconContainer {
         } else {
             alpha = self.color.alpha()
         }
-        parentNode.alpha = alpha
+        imageBgNode!.alpha = alpha
         
         // New!
         if book!.isNew {
@@ -113,9 +113,9 @@ public class IconBook : IconContainer {
         let text = book!.getName()!
         self.title = text.substring(to: text.index(text.startIndex, offsetBy: len))
         
-        textNode.isHidden = (title!.characters.count == 0)
+        textNode!.isHidden = (title!.characters.count == 0)
         
-        textNode.text = title
+        textNode!.text = title
     }
     
     /**

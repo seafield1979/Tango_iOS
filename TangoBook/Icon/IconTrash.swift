@@ -57,8 +57,8 @@ public class IconTrash : IconContainer {
         fontSize = UDpi.toPixel(FONT_SIZE)
         
         title = UResourceManager.getStringByName("trash")
-        textNode.text = title
-        textNode.isHidden = false
+        textNode!.text = title
+        textNode!.isHidden = false
         setColor(ICON_COLOR)
         
         // 中のアイコンを表示するためのSubWindow
@@ -68,7 +68,7 @@ public class IconTrash : IconContainer {
         image = UResourceManager.getImageWithColor( imageName: ImageName.trash, color: UColor.DarkBlue)
         
         if let _image = image {
-            imageNode.texture = SKTexture(image: _image)
+            imageNode!.texture = SKTexture(image: _image)
         }
     }
 

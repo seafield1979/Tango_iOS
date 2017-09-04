@@ -95,11 +95,12 @@ public class UIcon : UDrawable, CustomStringConvertible {
     private static var count : Int = 0
 
     // SpriteKit Node
-    var selectedBgNode : SKShapeNode           // 選択時のBG
-    var dragedBgNode : SKShapeNode           // タップ中のBG
-    var imageNode : SKSpriteNode        // アイコンの画像
-    var textNode : SKLabelNode          // アイコンのテキスト
-    var checkedNode : SKSpriteNode      // 選択状態時に表示するチェック枠画像
+    var selectedBgNode : SKShapeNode?           // 選択時のBG
+    var dragedBgNode : SKShapeNode?           // タップ中のBG
+    var imageNode : SKSpriteNode?        // アイコンの画像
+    var imageBgNode : SKNode?
+    var textNode : SKLabelNode?          // アイコンのテキスト
+    var checkedNode : SKSpriteNode?      // 選択状態時に表示するチェック枠画像
     
     public var id : Int = 0
     var parentWindow : UIconWindow? = nil
@@ -159,12 +160,6 @@ public class UIcon : UDrawable, CustomStringConvertible {
                 type : IconType, x : CGFloat,
                 y : CGFloat, width : CGFloat, height : CGFloat)
     {
-        selectedBgNode = SKShapeNode()
-        dragedBgNode = SKShapeNode()
-        imageNode = SKSpriteNode()
-        textNode = SKLabelNode()
-        checkedNode = SKSpriteNode()
-        
         super.init(priority: DRAW_PRIORITY, x: x, y: y, width: width, height: height)
         self.parentWindow = parentWindow
         self.callbacks = iconCallbacks
@@ -187,43 +182,48 @@ public class UIcon : UDrawable, CustomStringConvertible {
         
         // selectedBgNode
         selectedBgNode = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height).convToSK(), cornerRadius: UDpi.toPixel(5))
-        selectedBgNode.zPosition = 0
-        selectedBgNode.fillColor = SELECTED_COLOR
-        selectedBgNode.strokeColor = .clear
-        selectedBgNode.isAntialiased = true
-        selectedBgNode.isHidden = true
-        parentNode.addChild2(selectedBgNode)
+        selectedBgNode!.zPosition = 0
+        selectedBgNode!.fillColor = SELECTED_COLOR
+        selectedBgNode!.strokeColor = .clear
+        selectedBgNode!.isAntialiased = true
+        selectedBgNode!.isHidden = true
+        parentNode.addChild2(selectedBgNode!)
         
         // dragedBg
         dragedBgNode = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height).convToSK(), cornerRadius: UDpi.toPixel(5))
-        dragedBgNode.zPosition = 0.1
-        dragedBgNode.fillColor = TOUCHED_COLOR
-        dragedBgNode.strokeColor = .clear
-        dragedBgNode.isAntialiased = true
-        dragedBgNode.isHidden = true
-        parentNode.addChild2(dragedBgNode)
+        dragedBgNode!.zPosition = 0.1
+        dragedBgNode!.fillColor = TOUCHED_COLOR
+        dragedBgNode!.strokeColor = .clear
+        dragedBgNode!.isAntialiased = true
+        dragedBgNode!.isHidden = true
+        parentNode.addChild2(dragedBgNode!)
+        
+        // icon bg
+        imageBgNode = SKNode()
+        parentNode.addChild2(imageBgNode!)
         
         // icon image
-        imageNode.zPosition = 0.2
-        imageNode.anchorPoint = CGPoint(x:0, y:1.0)
-        imageNode.size = size
-        parentNode.addChild2(imageNode)
+        imageNode = SKSpriteNode()
+        imageNode!.zPosition = 0.2
+        imageNode!.anchorPoint = CGPoint(x:0, y:1.0)
+        imageNode!.size = size
+        imageBgNode!.addChild2(imageNode!)
         
         // text
         textNode = SKNodeUtil.createLabelNode(text: "", fontSize: UDpi.toPixel(FONT_SIZE), color: .black, alignment: .CenterX, pos: CGPoint(x:size.width / 2, y: size.height)).node
-        textNode.zPosition = 0.3
-        textNode.isHidden = true
-        parentNode.addChild2(textNode)
+        textNode!.zPosition = 0.3
+        textNode!.isHidden = true
+        parentNode.addChild2(textNode!)
         
         // checked
         let checkedW = size.width * 0.7
         checkedNode = SKSpriteNode(imageNamed: ImageName.checked3_frame.rawValue)
-        checkedNode.anchorPoint = CGPoint(x:0, y:1.0)
-        checkedNode.size = CGSize(width: checkedW, height: checkedW)
-        checkedNode.position = CGPoint(x: size.width * 0.1, y: size.width * 0.25)
-        checkedNode.zPosition = 0.4
-        checkedNode.isHidden = true
-        parentNode.addChild2(checkedNode)
+        checkedNode!.anchorPoint = CGPoint(x:0, y:1.0)
+        checkedNode!.size = CGSize(width: checkedW, height: checkedW)
+        checkedNode!.position = CGPoint(x: size.width * 0.1, y: size.width * 0.25)
+        checkedNode!.zPosition = 0.4
+        checkedNode!.isHidden = true
+        parentNode.addChild2(checkedNode!)
     }
 
 //    public override func setPos(_ pos : CGPoint) {
@@ -353,11 +353,12 @@ public class UIcon : UDrawable, CustomStringConvertible {
      * アイコンを描画
      */
     public override func draw() {
-
+        drawIcon()
+        
         if isDraging  || isDroped || isTouched {
-            dragedBgNode.isHidden = false
+            dragedBgNode!.isHidden = false
         } else {
-            dragedBgNode.isHidden = true
+            dragedBgNode!.isHidden = true
         }
     }
 
@@ -545,7 +546,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
     public func updateIconImage() {
         if let _image = self.image {
             let _image2 = UUtil.convImageColor(image: _image, newColor: color)
-            imageNode.texture = SKTexture( image: _image2)
+            imageNode!.texture = SKTexture( image: _image2)
         }
     }
 

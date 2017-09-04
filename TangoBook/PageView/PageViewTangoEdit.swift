@@ -579,8 +579,8 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
          case .AddPresetBook:
              addPresetBook()
 
-         case .AddCsvBook:
-             addCsvBook()
+//         case .AddCsvBook:
+//             addCsvBook()
          }
          ULog.printMsg(PageViewTangoEdit.TAG, "menu item clicked " + id.description)
     }
@@ -1141,35 +1141,35 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
             mDialog!.addToDrawManager()
 
-        case .Export:
-            // 確認のダイアログを表示する
-            if (mDialog != nil) {
-                mDialog!.closeDialog();
-                mDialog = nil;
-            }
-
-            mDialog = UDialogWindow.createInstance(
-                topScene : mTopScene, type : .Modal,
-                buttonCallbacks : self, dialogCallbacks : self,
-                dir : .Horizontal,
-                posType : .Center,
-                isAnimation : true,
-                screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
-                textColor : DialogTextColor, dialogColor : UIColor.white)
-            
-            // 確認のダイアログを表示する
-            mDialog!.setTitle(UResourceManager.getStringByName("confirm_export_csv"))
-
-            // ボタンを追加
-            _ = mDialog!.addButton(id: ExportDialogButtonOK, text: "OK", fontSize: UDraw.getFontSize(FontSize.M),
-                               textColor: UIColor.black, color: UColor.LightGreen)
-            mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
-
-            // アイコンを保持
-            if icon is IconBook {
-                mExportIcon = icon as? IconBook
-            }
-            mDialog!.addToDrawManager()
+//        case .Export:
+//            // 確認のダイアログを表示する
+//            if (mDialog != nil) {
+//                mDialog!.closeDialog();
+//                mDialog = nil;
+//            }
+//
+//            mDialog = UDialogWindow.createInstance(
+//                topScene : mTopScene, type : .Modal,
+//                buttonCallbacks : self, dialogCallbacks : self,
+//                dir : .Horizontal,
+//                posType : .Center,
+//                isAnimation : true,
+//                screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
+//                textColor : DialogTextColor, dialogColor : UIColor.white)
+//            
+//            // 確認のダイアログを表示する
+//            mDialog!.setTitle(UResourceManager.getStringByName("confirm_export_csv"))
+//
+//            // ボタンを追加
+//            _ = mDialog!.addButton(id: ExportDialogButtonOK, text: "OK", fontSize: UDraw.getFontSize(FontSize.M),
+//                               textColor: UIColor.black, color: UColor.LightGreen)
+//            mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
+//
+//            // アイコンを保持
+//            if icon is IconBook {
+//                mExportIcon = icon as? IconBook
+//            }
+//            mDialog!.addToDrawManager()
 
         case .Cleanup:
             // ゴミ箱を空にする

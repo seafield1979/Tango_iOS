@@ -63,7 +63,7 @@ public class IconCard : UIcon {
             color: UColor.makeColor(argb: UInt32(card.color)))
 
         if let _image = image {
-            imageNode.texture = SKTexture(image: _image)
+            imageNode!.texture = SKTexture(image: _image)
         }
     }
 
@@ -90,7 +90,7 @@ public class IconCard : UIcon {
         } else {
             alpha = self.color.alpha()
         }
-        parentNode.alpha = alpha
+        imageBgNode!.alpha = alpha
 
         // New!
         if card.isNew {
@@ -136,9 +136,9 @@ public class IconCard : UIcon {
                 }
             }
         }
-        textNode.isHidden = (title!.characters.count == 0)
+        textNode!.isHidden = (title!.characters.count == 0)
         
-        textNode.text = title
+        textNode!.text = title
     }
     
 
