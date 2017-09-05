@@ -107,7 +107,8 @@ public class UIconWindows : UWindowCallbacks {
     public func showWindow( window: UIconWindow, animation : Bool) {
         window.isShow = true
         window.setAppearance(true)
-        
+        window.setContentTop(x: 0, y: 0)
+        window.updateWindow()
         updateLayout(animation: animation)
     }
     

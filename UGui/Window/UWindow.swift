@@ -256,11 +256,16 @@ public class UWindow : UDrawable, UButtonCallbacks {
     
     public func setContentTop(contentTop : CGPoint) {
         self.contentTop = contentTop
+        if let sb = mScrollBarH {
+            sb.updateScroll(pos: contentTop.x)
+        }
+        if let sb = mScrollBarV {
+            sb.updateScroll(pos: contentTop.y)
+        }
     }
     
     public func setContentTop(x: CGFloat, y: CGFloat) {
-        contentTop.x = x
-        contentTop.y = y
+        setContentTop(contentTop: CGPoint(x:x, y:y))
     }
     
     public func setFrameColor(_ color : UIColor?) {

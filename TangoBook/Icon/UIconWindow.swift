@@ -107,9 +107,7 @@ public class UIconWindow : UWindow{
     var iconMargin : CGFloat = 0;               // アイコン間のマージン
     var iconW : CGFloat = 0, iconH : CGFloat = 0    // アイコンサイズ
 
-    /**
-    * Get/Set
-    */
+    // MARK: Accessor
     public func getType() -> WindowType {
         return type
     }
@@ -151,6 +149,9 @@ public class UIconWindow : UWindow{
         if icon != nil {
             // clientNodeからbgNodeに付け替え
             icon!.parentNode.removeFromParent()
+            // スクロールバーのスクロールを消す
+            let pos = icon!.parentNode.position
+//            icon!.parentNode.position = CGPoint(x: pos.x - contentTop.x, y: pos.y - contentTop.y)
             bgNode.addChild( icon!.parentNode )
             
             // 優先度を上げて他のアイコンの下に隠れないようにする
@@ -295,9 +296,7 @@ public class UIconWindow : UWindow{
         sortIcons(animate: false)
     }
 
-     /**
-     * Constructor
-     */
+    // MARK: Initializer
     init( topScene : TopScene,
           windowCallbacks : UWindowCallbacks?,
           iconCallbacks : UIconCallbacks?,
@@ -323,24 +322,7 @@ public class UIconWindow : UWindow{
          iconH = UDpi.toPixel(UIconWindow.ICON_H)
     }
 
-     /**
-     * Create class instance
-     * It doesn't allow to create multi Home windows.
-     * @return
-     */
-    // initを使用すればいいので、たぶんいらない
-//     public static func createInstance(UWindowCallbacks windowCallbacks,
-//                                             UIconCallbacks iconCallbacks,
-//                                             boolean isHome, WindowDir dir,
-//                                             int width, int height, int bgColor) -> UIconWindow
-//     {
-//         UIconWindow instance = new UIconWindow(windowCallbacks,
-//                 iconCallbacks, isHome, dir, width, height, bgColor);
-//
-//         return instance;
-//     }
-
-     /**
+    /**
      * Windowを生成する
      * インスタンス生成後に一度だけ呼ぶ
      */
@@ -350,6 +332,28 @@ public class UIconWindow : UWindow{
          }
      }
 
+    // MARK: Methods
+    
+    /**
+     * clientNodeの座標系から bgNodeの座標系に変換する
+     * ドラッグ中のアイコンはクリッピングされるのを防ぐために一時的に bgNode以下に配置している。
+     * ドラッグ開始時にアイコンをbgNodeに配置する際に元のスクロール分を消した座標系に変換する
+     */
+    private func convToBgPos(pos: CGPoint) -> CGPoint {
+        return CGPoint(x: pos.x - contentTop.x,
+                       y: pos.y - contentTop.y )
+    }
+    
+    /**
+     * bgNodeの座標系から clientNodeの座標系に変換する
+     * ドラッグ中のアイコンはクリッピングされるのを防ぐために一時的に bgNode以下に配置している。
+     * これを元のclientNode以下に配置し直す際にスクロール位置を足した座標系に変換する
+     */
+    private func convToClientPos(pos: CGPoint) -> CGPoint {
+        return CGPoint(x: pos.x + contentTop.x,
+                       y: pos.y + contentTop.y )
+    }
+    
     /*
      * 毎フレーム行う処理
      * @return true:再描画を行う(まだ処理が終わっていない)
@@ -671,8 +675,7 @@ public class UIconWindow : UWindow{
             }
             // ドラッグ中のアイコンを移動する
             dragedIcon!.move( vt.moveX, vt.moveY)
-            dragedIcon!.parentNode.position = dragedIcon!.pos.convToSK()
-            
+            dragedIcon!.parentNode.position = convToBgPos(pos: dragedIcon!.pos).convToSK()
         } else if state == WindowState.icon_selecting {
             // チェックしたアイコンをまとめて移動する
             let icons : List<UIcon> = mIconManager!.getCheckedIcons()
@@ -825,10 +828,10 @@ public class UIconWindow : UWindow{
                     // 親の付け替え
                     dragedIcon!.setParentWindow(window!)
                     // SKノードの親を付け替え
-                    if self !== window {
-                        dragedIcon!.parentNode.removeFromParent()
-                        window!.clientNode.addChild2( dragedIcon!.parentNode )
-                    }
+                    dragedIcon!.parentNode.removeFromParent()
+                    dragedIcon!.parentNode.position = convToClientPos(pos: dragedIcon!.parentNode.position)
+                    window!.clientNode.addChild2( dragedIcon!.parentNode )
+
             
                     // データベース更新
                     if self === window {
@@ -1342,13 +1345,18 @@ public class UIconWindow : UWindow{
             // アイコン2 UWindow -> アイコン1 UWindow
             icon2.setPos(icon2.getX() + (window2.pos.x - window1.pos.x),
                     icon2.getY() + (window2.pos.y - window1.pos.y), convSKPos: true)
-            
-            icon1.parentNode.removeFromParent()
-            icon2.parentNode.removeFromParent()
-            // 移動中のアイコンがクリップされて見えなくならないようにclientNodeではなくbgNodeに追加
-            window1.bgNode.addChild2(icon2.parentNode)
-            window2.bgNode.addChild2(icon1.parentNode)
         }
+        
+        // SpriteKit
+        icon1.parentNode.removeFromParent()
+        icon2.parentNode.removeFromParent()
+        // 移動中のアイコンがクリップされて見えなくならないようにclientNodeではなくbgNodeに追加
+        window1.clientNode.addChild2(icon2.parentNode)
+        if icon1 === dragedIcon {
+            let pos = icon1.parentNode.position
+            icon1.parentNode.position = CGPoint(x: pos.x + contentTop.x, y: pos.y + contentTop.y)
+        }
+        window2.clientNode.addChild2(icon1.parentNode)
     }
 
      /**
@@ -1381,6 +1389,14 @@ public class UIconWindow : UWindow{
             icons2.insert(icon1, atIndex: index2+1)
         }
 
+        
+        // SpriteKit ノードの付け替え
+        if icon1 === dragedIcon {
+            icon1.parentNode.removeFromParent()
+            icon1.parentNode.position = convToClientPos(pos: dragedIcon!.parentNode.position)
+        }
+        icon2.parentWindow?.clientNode.addChild2( icon1.parentNode )
+
         // 再配置
         if icons1 !== icons2 {
             // 親の付け替え
@@ -1390,10 +1406,6 @@ public class UIconWindow : UWindow{
             // ドロップアイコンの座標系を変換
             dragedIcon?.setPos(icon1.getX() + window2.pos.x - window1.pos.x,
                     icon1.getY() + window2.pos.y - window1.pos.y, convSKPos: true)
-            
-            // SpriteKit ノードの付け替え
-            dragedIcon!.parentNode.removeFromParent()
-            icon2.parentWindow?.clientNode.addChild2( dragedIcon!.parentNode )
             
             window2.sortIcons(animate: animate)
 
