@@ -34,6 +34,7 @@ public enum SubWindowActionId : Int , EnumEnumerable{
 }
 
 public class UIconWindowSub : UIconWindow {
+    
     // button id
     private static let buttonIdClose = 299
     private static let buttonIdEdit = 300
@@ -60,16 +61,13 @@ public class UIconWindowSub : UIconWindow {
     private static let bookIds : [SubWindowActionId] = [.Close, .Edit, .Copy]
     private static let trashIds : [SubWindowActionId] = [.Close, .Cleanup]
     
-    /**
-     * Consts
-     */
+    // MARK: Constants
     private static let MARGIN_H = 17
     private static let MARGIN_V = 7
     private static let MARGIN_V2 = 17
+    private let BG_COLOR = UColor.makeColor(220, 220, 220)
     
-    /**
-     * Member variables
-     */
+    // MARK: Properties
     // 親のアイコン
     private var mParentIcon : UIcon?
     
@@ -80,9 +78,7 @@ public class UIconWindowSub : UIconWindow {
     // コールバック用のインターフェース
     private var mIconWindowSubCallback : UIconWindowSubCallbacks? = nil
     
-    /**
-     * Get/Set
-     */
+    // MARK: Accessor
     public func setParentIcon(icon : UIcon) {
         mParentIcon = icon
     }
@@ -95,53 +91,26 @@ public class UIconWindowSub : UIconWindow {
         
     }
 
-    /**
-     * Constructor
-     */
+    //MARK: Initializer
     public init( topScene: TopScene,
                  windowCallbacks : UWindowCallbacks?,
                  iconCallbacks : UIconCallbacks?,
                  iconWindowSubCallbacks : UIconWindowSubCallbacks?,
                  isHome : Bool, dir : WindowDir,
-                 width : CGFloat, height : CGFloat, bgColor : UIColor)
+                 width : CGFloat, height : CGFloat)
     {
         super.init(topScene: topScene,
                    windowCallbacks: windowCallbacks,
                    iconCallbacks: iconCallbacks,
                    isHome: isHome, dir: dir, width: width, height: height,
-                   bgColor: bgColor)
+                   bgColor: BG_COLOR)
         
         mIconWindowSubCallback = iconWindowSubCallbacks
         // 閉じるボタンは表示しない
         closeIcon = nil
     }
 
-    /**
-     * Create class instance
-     * It doesn't allow to create multi Home windows.
-     * @return
-     */
-//    public static func createInstance(
-//        topScene : TopView,
-//        windowCallbacks : UWindowCallbacks?,
-//        iconCallbacks : UIconCallbacks?,
-//        iconWindowSubCallbacks : UIconWindowSubCallbacks?,
-//        isHome : Bool, dir : WindowDir,
-//        width : CGFloat, height : CGFloat, bgColor : UIColor) -> UIconWindowSub
-//    {
-//        let instance = UIconWindowSub(
-//            topScene: topScene,
-//            windowCallbacks : windowCallbacks, iconCallbacks: iconCallbacks,
-//            iconWindowSubCallbacks: iconWindowSubCallbacks,
-//            isHome: isHome, dir: dir, width: width, height: height,
-//            bgColor: bgColor)
-//        
-//        return instance
-//    }
-
-    /**
-     * Methods
-     */
+    // MARK: Methods
     public override func initialize() {
         super.initialize()
         

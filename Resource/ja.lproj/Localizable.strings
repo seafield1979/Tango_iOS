@@ -10,6 +10,7 @@
 "hello_blank_fragment" = "Hello blank fragment";
 "error" = "エラー";
 "return1" = "戻る";
+"action" = "アクション";
 "close" = "閉じる";
 "clear" = "クリア";
 "confirm" = "確認";

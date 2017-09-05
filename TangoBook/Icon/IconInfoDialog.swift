@@ -82,7 +82,7 @@ public class IconInfoDialog : UWindow {
 
     let MARGIN_H = 17
     let MARGIN_V = 17
-    let MARGIN_V_S = 7
+    let MARGIN_V_S = 10
     let DLG_MARGIN = 15
     let FRAME_W = 3
     
@@ -109,7 +109,7 @@ public class IconInfoDialog : UWindow {
                                 windowCallbacks : UWindowCallbacks?,
                                 icon : UIcon,
                                 x : CGFloat, y : CGFloat,
-                                color : UIColor?)
+                                bgColor : UIColor?)
     {
         mIconInfoCallbacks = iconInfoCallbacks
         mIcon = icon
@@ -120,7 +120,7 @@ public class IconInfoDialog : UWindow {
                    priority : DrawPriority.Dialog.rawValue,
                    createNode: false, cropping: false,
                    x : x, y : y, width : 0, height : 0,
-                   bgColor : color,
+                   bgColor : bgColor,
                    topBarH: 0, frameW: 0, frameH: 0, cornerRadius: UDpi.toPixel(10))
         
         parentNode.zPosition = CGFloat(DrawPriority.Dialog.rawValue)

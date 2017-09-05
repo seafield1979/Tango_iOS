@@ -14,9 +14,7 @@ import UIKit
  * カードの情報(WordA,WordB)とアクションアイコン(ActionIcons)を表示する
  */
 public class IconInfoDialogCard : IconInfoDialog {
-    /**
-     * Enums
-     */
+    // MARK: Enums
     enum ButtonId : Int, EnumEnumerable{
          case Edit
          case Copy
@@ -27,13 +25,9 @@ public class IconInfoDialogCard : IconInfoDialog {
     enum Items : Int, EnumEnumerable {
          case WordA
          case WordB
-//         case Comment
-//         case History
      }
 
-     /**
-      * Consts
-      */
+     // MARK: Constants
      private let TAG = "IconInfoDialogCard"
      private let ICON_W = 40
      private let ICON_MARGIN_H = 10
@@ -45,46 +39,38 @@ public class IconInfoDialogCard : IconInfoDialog {
      private let TEXT_COLOR = UIColor.black
      private let TEXT_BG_COLOR = UIColor.white
 
-    /**
-     * Member Variables
-     */
+    // MARK: Properties
     var isUpdate = true     // ボタンを追加するなどしてレイアウトが変更された
     private var mTitleView : UTextView? = nil
     private var mItems : [IconInfoItem?] = Array(repeating: nil, count: Items.count) 
     private var mCard : TangoCard? = nil
     private var imageButtons : List<UButtonImage> = List()
 
-    /**
-     * Get/Set
-     */
-
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init( topScene : TopScene,
                  iconInfoDialogCallbacks : IconInfoDialogCallbacks?,
                  windowCallbacks : UWindowCallbacks?,
                  icon: UIcon,
                  x: CGFloat, y: CGFloat,
-                 color: UIColor?)
+                 bgColor: UIColor?)
     {
         super.init( topScene: topScene,
                     iconInfoCallbacks : iconInfoDialogCallbacks,
                     windowCallbacks : windowCallbacks,
                     icon: icon,
-                    x: x, y: y, color: color)
+                    x: x, y: y, bgColor: bgColor)
         if icon is IconCard {
             let cardIcon = icon as! IconCard
             
             mCard = cardIcon.card
 
-            var color = color
-            if color == nil {
-                color = UIColor.lightGray
+            var bgColor = bgColor
+            if bgColor == nil {
+                bgColor = UIColor.lightGray
             }
 
-            bgColor = UColor.setBrightness(argb: color!, brightness: 220.0 / 255.0)
-            frameColor = UColor.setBrightness(argb: color!, brightness: 140.0 / 255.0)
+            self.bgColor = UColor.setBrightness(argb: bgColor!, brightness: 220.0 / 255.0)
+            frameColor = UColor.setBrightness(argb: bgColor!, brightness: 140.0 / 255.0)
         }
     }
 
@@ -103,7 +89,7 @@ public class IconInfoDialogCard : IconInfoDialog {
             iconInfoDialogCallbacks : iconInfoDialogCallbacks,
             windowCallbacks : windowCallbacks, icon : icon,
             x : x, y : y,
-            color : UColor.makeColor(argb: UInt32((icon.getTangoItem() as! TangoCard).color)))
+            bgColor : UColor.makeColor(argb: UInt32((icon.getTangoItem() as! TangoCard).color)))
 
         // 初期化処理
         instance.addToDrawManager()
@@ -111,10 +97,7 @@ public class IconInfoDialogCard : IconInfoDialog {
         return instance;
     }
 
-     /**
-      * Methods
-      */
-
+     // MARK: Methods
      /**
       * Windowのコンテンツ部分を描画する
       * @param canvas
@@ -144,7 +127,8 @@ public class IconInfoDialogCard : IconInfoDialog {
 
         let icons : List<ActionIconInfo> = IconInfoDialog.getCardIcons()
 
-        var width = UDpi.toPixel(ICON_W) * CGFloat(icons.count) + UDpi.toPixel(ICON_MARGIN_H) * CGFloat(icons.count + 1) + UDpi.toPixel(DLG_MARGIN)
+        var width = topScene.getWidth() - UDpi.toPixel(DLG_MARGIN) * 2
+        var height = topScene.getHeight() - UDpi.toPixel(DLG_MARGIN) * 2
         let fontSize = UDraw.getFontSize(FontSize.M)
 
         // タイトル(カード)
@@ -155,7 +139,7 @@ public class IconInfoDialogCard : IconInfoDialog {
            alignment : UAlignment.None, createNode: true,
            multiLine : false, isDrawBG : false,
            x : UDpi.toPixel(MARGIN_H),
-           y : y, width : width-UDpi.toPixel(MARGIN_H)*2,
+           y : y, width : width - UDpi.toPixel(MARGIN_H) * 2,
            color : TITLE_COLOR, bgColor : TEXT_BG_COLOR)
         y += UDpi.toPixel(FONT_SIZE_L + MARGIN_V)
 
@@ -273,17 +257,11 @@ public class IconInfoDialogCard : IconInfoDialog {
 
         setSize(width, y)
 
-        // 座標補正
-        if pos.x + size.width > topScene.getWidth() - UDpi.toPixel(DLG_MARGIN) {
-            pos.x = topScene.getWidth() - size.width - UDpi.toPixel(DLG_MARGIN)
-        }
-        if (pos.y + size.height > topScene.getHeight() - UDpi.toPixel(DLG_MARGIN)) {
-            pos.y = topScene.getHeight() - size.height - UDpi.toPixel(DLG_MARGIN)
-        }
+        // ダイアログの座標
+        pos.x = (topScene.getWidth() - width) / 2
+        pos.y = (topScene.getHeight() - y) / 2
+        
         updateRect()
-        
-        
-        
         
         // SpriteKitのノードを生成する
         updateWindow()

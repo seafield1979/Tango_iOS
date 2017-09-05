@@ -12,46 +12,42 @@ import Foundation
 import UIKit
 
 public class UPageViewManager {
-    /**
-     * Enums
-     */
-    /**
-     * Consts
-     */
-    
-    /**
-     * Member Variables
-     */
+    // MARK: Properties
     var mTopScene : TopScene
     var mParentVC : UIViewController? = nil
     var pageStack : List<UPageView> = List()
     var returnButton : UIBarButtonItem?      // ナビゲーションバーに表示する戻るボタン
     var actionButton : UIBarButtonItem?     // ナビゲーションバーの右側に表示するボタン
     
-    /**
-     * Get/Set
-     */
+    // MARK: Accessor
     public func getViewController() -> UIViewController {
         return mParentVC!
     }
     
     /**
-     * Constructor
+     * ナビゲーションバーの右側に表示するボタンのタイトルを設定する
      */
+    public func setActionButtonTitle(_ title : String) {
+        if let button = actionButton {
+            button.title = title
+        }
+    }
+    
+    // MARK: Initializer
     init(topScene : TopScene, vc: UIViewController?) {
         mTopScene = topScene
         mParentVC = vc
         
         // 戻るボタン
-        returnButton = UIBarButtonItem(title: "戻る", style: UIBarButtonItemStyle.plain, target: self, action: #selector(UPageViewManager.clickReturnButton))
+        let text = UResourceManager.getStringByName("return1")
+        returnButton = UIBarButtonItem(title: text, style: UIBarButtonItemStyle.plain, target: self, action: #selector(UPageViewManager.clickReturnButton))
         
         // アクションボタン
-        actionButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.action, target: self, action: #selector(UPageViewManager.clickActionButton))
+        let text2 = UResourceManager.getStringByName("action")
+        actionButton = UIBarButtonItem(title: text2, style: UIBarButtonItemStyle.plain, target: self, action: #selector(UPageViewManager.clickActionButton))
     }
     
-    /**
-     * Methods
-     */
+    // MARK: Methods
     /**
      * カレントのページIDを取得する
      * @return カレントページID
@@ -121,7 +117,7 @@ public class UPageViewManager {
         self.mTopScene.removeAllChildren()
         
         // ナビゲーションに表示したボタンは毎回元に戻す
-        showActionBarButton(show: false)
+        showActionBarButton(show: false, title: nil)
     }
     
     /**
@@ -256,9 +252,12 @@ public class UPageViewManager {
     /**
      * 右のアクションバーを設定する
      */
-    public func showActionBarButton(show : Bool) {
+    public func showActionBarButton(show : Bool, title: String?) {
         if let _vc = mParentVC {
             if (show) {
+                if let _title = title {
+                    setActionButtonTitle( _title )
+                }
                 _vc.navigationItem.setRightBarButton(actionButton, animated: true)
             } else {
                 _vc.navigationItem.setRightBarButton(nil, animated: true)

@@ -75,7 +75,7 @@ public class PageViewStudyBookSelect : UPageView
     
     override func onShow() {
         // ナビゲーションバーにボタンを表示
-        PageViewManagerMain.getInstance().showActionBarButton(show: true)
+        PageViewManagerMain.getInstance().showActionBarButton(show: true, title: UResourceManager.getStringByName("sort"))
     }
     
     override func onHide() {
@@ -88,7 +88,7 @@ public class PageViewStudyBookSelect : UPageView
      */
     override func onActionButton() {
         // ポップアップを表示
-        let ac = UIAlertController(title: UResourceManager.getStringByName("menu"), message: nil, preferredStyle: .alert)
+        let ac = UIAlertController(title: UResourceManager.getStringByName("sort"), message: nil, preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: UResourceManager.getStringByName("cancel"), style: .cancel) { (action) -> Void in
             // なにもしない

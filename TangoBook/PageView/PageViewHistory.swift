@@ -41,7 +41,7 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
      */
     public override func onShow() {
         // ナビゲーションバーにボタンを表示
-        PageViewManagerMain.getInstance().showActionBarButton(show: true)
+        PageViewManagerMain.getInstance().showActionBarButton(show: true, title: UResourceManager.getStringByName("clear"))
     }
 
     public override func onHide() {
@@ -129,7 +129,7 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
      */
     override func onActionButton() {
         // ポップアップを表示
-        let ac = UIAlertController(title: UResourceManager.getStringByName("menu"), message: nil, preferredStyle: .alert)
+        let ac = UIAlertController(title: UResourceManager.getStringByName("clear"), message: nil, preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: UResourceManager.getStringByName("cancel"), style: .cancel) { (action) -> Void in
             // なにもしない

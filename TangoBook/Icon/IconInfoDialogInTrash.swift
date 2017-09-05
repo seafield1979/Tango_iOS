@@ -1,74 +1,60 @@
 //
 //  IconInfoDialogInTrash.swift
 //  TangoBook
-//
+//      ゴミ箱の中のアイコンをクリックした際に表示されるダイアログ
 //  Created by Shusuke Unno on 2017/07/29.
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
 import UIKit
 
-/**
- * Created by shutaro on 2016/12/01.
- *
- * ゴミ箱の中のアイコンをクリックした際に表示されるダイアログ
- */
-
 public class IconInfoDialogInTrash : IconInfoDialog {
-    /**
-     * Enums
-     */
+    // MARK: Enums
+    enum BookItems : Int, EnumEnumerable {
+        case Title
+        case Count
+    }
     
+    enum CardItems : Int, EnumEnumerable {
+        case WordA
+        case WordB
+    }
     
-    /**
-     * Consts
-     */
+    //MARK: Constants
     static let TAG = "IconInfoDialogBook"
     private static let BG_COLOR = UIColor.lightGray
-//    private let TOP_ITEM_Y = 35
     private let TEXT_VIEW_H = 35
     private let ICON_W = 40
     private let ICON_MARGIN_H = 10
-//    private let MARGIN_V = 13
-//    private let MARGIN_H = 13
-    private let FONT_SIZE = 17
+    private let FONT_SIZE_M = 14
+    private let FONT_SIZE_L = 17
     private let ICON_FONT_SIZE = 12
     
     private let TEXT_COLOR = UIColor.black
     private let TEXT_BG_COLOR = UIColor.white
-    
-    /**
-     * Member Variables
-     */
+    private let BG_COLOR = UColor.makeColor(220,220,220)
+
+    // MARK: Properties
     var isUpdate : Bool = true     // ボタンを追加するなどしてレイアウトが変更された
     private var textTitle : UTextView? = nil
     private var textWord : UTextView? = nil
     private var textCount : UTextView? = nil
     private var imageButtons : List<UButtonImage> = List()
+    private var mItems : [IconInfoItem?] = Array(repeating: nil, count: CardItems.count)
 
-    /**
-     * Get/Set
-     */
-    
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init(topScene : TopScene,
                 iconInfoDialogCallbacks : IconInfoDialogCallbacks?,
                 windowCallbacks : UWindowCallbacks?,
                 icon : UIcon,
-                x : CGFloat, y : CGFloat,
-                color : UIColor?)
+                x : CGFloat, y : CGFloat)
     {
         super.init( topScene : topScene,
                     iconInfoCallbacks: iconInfoDialogCallbacks,
                     windowCallbacks : windowCallbacks,
-                    icon : icon, x: x, y: y, color: color)
+                    icon : icon, x: x, y: y, bgColor: BG_COLOR)
     }
 
-    /**
-     * createInstance
-     */
     public static func createInstance(
         topScene : TopScene,
         iconInfoDialogCallbacks : IconInfoDialogCallbacks?,
@@ -80,7 +66,7 @@ public class IconInfoDialogInTrash : IconInfoDialog {
             topScene: topScene,
             iconInfoDialogCallbacks: iconInfoDialogCallbacks,
             windowCallbacks : windowCallbacks, icon : icon,
-            x: x, y: y, color: BG_COLOR)
+            x: x, y: y)
         
         // 初期化処理
         instance.addToDrawManager()
@@ -88,10 +74,7 @@ public class IconInfoDialogInTrash : IconInfoDialog {
         return instance
     }
 
-    /**
-     * Methods
-     */
-    
+    // MARK: Methods
     /**
      * Windowのコンテンツ部分を描画する
      * @param canvas
@@ -111,75 +94,158 @@ public class IconInfoDialogInTrash : IconInfoDialog {
 
     /**
      * レイアウト更新
-     * @param canvas
      */
     func updateLayout() {
         var y = UDpi.toPixel(TOP_ITEM_Y)
         let iconW = UDpi.toPixel(ICON_W)
         let iconMargin = UDpi.toPixel(ICON_MARGIN_H)
-        let marginH = UDpi.toPixel(MARGIN_H)
-        let marginV = UDpi.toPixel(MARGIN_V)
-        let dlgMargin = UDpi.toPixel(DLG_MARGIN)
-        let fontSize = UDpi.toPixel(FONT_SIZE)
+        let fontSize = UDpi.toPixel(FONT_SIZE_L)
         
         let icons : List<ActionIconInfo> = IconInfoDialog.getInTrashIcons()
         
-        var width = iconW * CGFloat(icons.count) +
-            iconMargin * CGFloat(icons.count + 1)
+        var width = topScene.getWidth() - UDpi.toPixel(MARGIN_H) * 2
         
         // SpriteKitのノードを削除
         parentNode.removeAllChildren()
         
-        // Title
-        textTitle = UTextView.createInstance(
-            text: mIcon.getTitle()!, fontSize: fontSize, priority: 0,
-            alignment: UAlignment.None, createNode: true,
-            multiLine: false, isDrawBG: true,
-            x: marginH, y: y,
-            width: width - marginH * 2, color: TEXT_COLOR, bgColor: TEXT_BG_COLOR)
+        var titleStr : String? = nil
+        var bodyStr : String? = nil
+        let bgColor = UIColor.white
         
-        y += UDpi.toPixel(TEXT_VIEW_H) + marginV;
-        
-        // テキストの幅に合わせてダイアログのサイズ更新
-        var textSize : CGSize = UDraw.getTextSize( text: mIcon.getTitle()!, fontSize: fontSize)
+        if mIcon.getType() == IconType.Card {
+            let mCard : TangoCard = (mIcon.getTangoItem() as? TangoCard)!
 
-        if width < UDpi.toPixel(200) {
-            width = UDpi.toPixel(200)
-        }
-        if width < textSize.width + marginH * 4  {
-            width = textSize.width + marginH * 4
+            // タイトル(カード)
+            textTitle = UTextView.createInstance(
+                text : UResourceManager.getStringByName("card"),
+                fontSize : UDpi.toPixel(FONT_SIZE_M),
+                priority : 0,
+                alignment : UAlignment.None, createNode: true,
+                multiLine : false, isDrawBG : false,
+                x : UDpi.toPixel(MARGIN_H),
+                y : y, width : width - UDpi.toPixel(MARGIN_H) * 2,
+                color : TEXT_COLOR, bgColor : TEXT_BG_COLOR)
+            
+            y += UDpi.toPixel(FONT_SIZE_L + MARGIN_V)
+            
+            for item in CardItems.cases {
+                switch item {
+                case .WordA:
+                    titleStr = UResourceManager.getStringByName("word_a")
+                    bodyStr = UUtil.convString(text: mCard.wordA!, cutNewLine: false, maxLines: 2, maxLength: 0)
+                    
+                case .WordB:
+                    titleStr = UResourceManager.getStringByName("word_b")
+                    bodyStr = UUtil.convString(text: mCard.wordB!, cutNewLine: false, maxLines: 2, maxLength: 0)
+                }
+                // title
+                var titleView : UTextView? = nil
+                if titleStr != nil && titleStr!.isEmpty == false {
+                    titleView = UTextView.createInstance(
+                        text : titleStr!,
+                        fontSize : fontSize,
+                        priority : 0, alignment : UAlignment.None, createNode: true,
+                        multiLine : false, isDrawBG : false,
+                        x : UDpi.toPixel(MARGIN_H), y : y,
+                        width : size.width-UDpi.toPixel(MARGIN_H),
+                        color : TEXT_COLOR, bgColor : nil)
+                    
+                    y += titleView!.getHeight() + UDpi.toPixel(MARGIN_V_S)
+                }
+                
+                // body
+                var bodyView : UTextView? = nil
+                if bodyStr != nil && bodyStr!.isEmpty == false {
+                    bodyView = UTextView.createInstance(
+                        text : bodyStr!, fontSize : fontSize, priority : 0,
+                        alignment : UAlignment.None, createNode: true,
+                        multiLine : true, isDrawBG : true,
+                        x : UDpi.toPixel(MARGIN_H),
+                        y : y, width : size.width-UDpi.toPixel(MARGIN_H),
+                        color : TEXT_COLOR, bgColor : bgColor)
+                    
+                    y += bodyView!.getHeight() + UDpi.toPixel(MARGIN_V_S)
+                    
+                    // 幅は最大サイズに合わせる
+                    let _width = bodyView!.getWidth() + UDpi.toPixel(MARGIN_H) * 2
+                    if _width > width {
+                        width = _width
+                    }
+                }
+                mItems[item.rawValue] = IconInfoItem(title: titleView, body: bodyView)
+            }
+        } else {
+            // 単語帳
+            let mBook : TangoBook = (mIcon.getTangoItem() as? TangoBook)!
+
+            // タイトル(単語帳)
+            textTitle = UTextView.createInstance(
+                text : UResourceManager.getStringByName("book"),
+                fontSize : UDpi.toPixel(FONT_SIZE_M),
+                priority : 0,
+                alignment : UAlignment.None, createNode: true,
+                multiLine : false, isDrawBG : false,
+                x : UDpi.toPixel(MARGIN_H),
+                y : y, width : width - UDpi.toPixel(MARGIN_H) * 2,
+                color : TEXT_COLOR, bgColor : TEXT_BG_COLOR)
+
+            y += UDpi.toPixel(FONT_SIZE_L + MARGIN_V)
+            
+            for item in BookItems.cases {
+                switch item {
+                case .Title:
+                    titleStr = UResourceManager.getStringByName("book_name2")
+                    bodyStr = UUtil.convString(text: mBook.getTitle(), cutNewLine: false, maxLines: 2, maxLength: 0)
+                    
+                case .Count:
+                    titleStr = UResourceManager.getStringByName("card_count")
+                    let count = TangoItemPosDao.countInParentType(
+                        parentType: TangoParentType.Book,
+                        parentId: mBook.getId()
+                    )
+                    bodyStr = UUtil.convString(text: count.description, cutNewLine: false, maxLines: 2, maxLength: 0)
+                }
+                // title
+                var titleView : UTextView? = nil
+                if titleStr != nil && titleStr!.isEmpty == false {
+                    titleView = UTextView.createInstance(
+                        text : titleStr!,
+                        fontSize : fontSize,
+                        priority : 0, alignment : UAlignment.None, createNode: true,
+                        multiLine : false, isDrawBG : false,
+                        x : UDpi.toPixel(MARGIN_H), y : y,
+                        width : size.width-UDpi.toPixel(MARGIN_H),
+                        color : TEXT_COLOR, bgColor : nil)
+                    
+                    y += titleView!.getHeight() + UDpi.toPixel(MARGIN_V_S)
+                }
+                
+                // body
+                var bodyView : UTextView? = nil
+                if bodyStr != nil && bodyStr!.isEmpty == false {
+                    bodyView = UTextView.createInstance(
+                        text : bodyStr!, fontSize : fontSize, priority : 0,
+                        alignment : UAlignment.None, createNode: true,
+                        multiLine : true, isDrawBG : true,
+                        x : UDpi.toPixel(MARGIN_H),
+                        y : y, width : size.width-UDpi.toPixel(MARGIN_H),
+                        color : TEXT_COLOR, bgColor : bgColor)
+                    
+                    y += bodyView!.getHeight() + UDpi.toPixel(MARGIN_V_S)
+                    
+                    // 幅は最大サイズに合わせる
+                    let _width = bodyView!.getWidth() + UDpi.toPixel(MARGIN_H) * 2
+                    if _width > width {
+                        width = _width
+                    }
+                }
+                mItems[item.rawValue] = IconInfoItem(title: titleView, body: bodyView)
+            }
         }
         
-        // Count(Bookの場合のみ)
-        if mIcon.getType() == IconType.Book {
-            let count = TangoItemPosDao.countInParentType(
-                parentType: TangoParentType.Book,
-                parentId: mIcon.getTangoItem()!.getId()
-            )
-            
-            textCount = UTextView.createInstance(
-                text: UResourceManager.getStringByName("book_count") + ":" + count.description,
-                fontSize: fontSize,
-                priority: 0,
-                alignment: UAlignment.None, createNode: true,
-                multiLine: false,
-                isDrawBG: true,
-                x: marginH, y: y,
-                width: width - marginH * 2,
-                color: TEXT_COLOR, bgColor:TEXT_BG_COLOR)
-            
-            // テキストの幅に合わせてダイアログのサイズ更新
-            textSize = UDraw.getTextSize(
-                text: textCount!.getText(),
-                fontSize: fontSize)
-            if textSize.width + marginH * 4 > width {
-                width = textSize.width + marginH * 4
-            }
-            
-            y += UDpi.toPixel(TEXT_VIEW_H) + marginV;
-        }
         // Action buttons
-        var x = iconMargin
+        var x = (width - (UDpi.toPixel(ICON_W) * CGFloat(icons.count) + UDpi.toPixel(MARGIN_H) * CGFloat(icons.count - 1))) / 2
+        
         for icon in icons {
             let image = UResourceManager.getImageWithColor(
                 imageName: icon!.imageName, color: UColor
@@ -211,16 +277,11 @@ public class IconInfoDialogInTrash : IconInfoDialog {
         
         setSize(width, y);
         
-        // Correct position
-        // ダイアログが画面外にはみ出さないように補正
-        if ( pos.x + size.width > topScene.getWidth() - dlgMargin) {
-            pos.x = topScene.getWidth() - size.width - dlgMargin
-        }
-        if (pos.y + size.height > topScene.getHeight() - dlgMargin) {
-            pos.y = topScene.getHeight() - size.height - dlgMargin
-        }
-        updateRect()
+        // ダイアログの座標
+        pos.x = (topScene.getWidth() - width) / 2
+        pos.y = (topScene.getHeight() - y) / 2
         
+        updateRect()
         
         // SpriteKitノード作成
         // SpriteKitのノードを生成する
@@ -229,17 +290,18 @@ public class IconInfoDialogInTrash : IconInfoDialog {
         parentNode.position.toSK()
         addCloseIcon(pos: CloseIconPos.RightTop)
         
-        if textTitle != nil {
-            clientNode.addChild2( textTitle!.parentNode )
+        // ノードを追加
+        clientNode.addChild2( textTitle!.parentNode )
+
+        for item in mItems {
+            if let _title = item!.title {
+                clientNode.addChild2( _title.parentNode )
+            }
+            if let _body = item!.body {
+                clientNode.addChild2( _body.parentNode )
+            }
         }
-        
-        if textWord != nil {
-            clientNode.addChild2( textWord!.parentNode )
-        }
-        if textCount != nil {
-            clientNode.addChild2( textCount!.parentNode )
-        }
-        
+
         for button in imageButtons {
             clientNode.addChild2( button!.parentNode )
         }
@@ -277,10 +339,7 @@ public class IconInfoDialogInTrash : IconInfoDialog {
         return ret
     }
 
-    /**
-     * Callbacks
-     */
-    
+    // MARK: Callbacks
     /**
      * UButtonCallbacks
      */

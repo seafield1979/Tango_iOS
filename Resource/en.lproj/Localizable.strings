@@ -10,6 +10,7 @@
 "hello_blank_fragment" = "hello_blank_fragment";
 "error" = "error";
 "return1" = "return1";
+"action" = "action";
 "close" = "close";
 "clear" = "clear";
 "confirm" = "confirm";

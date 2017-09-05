@@ -159,7 +159,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     */
     public override func onShow() {
         // ナビゲーションバーにボタンを表示
-        PageViewManagerMain.getInstance().showActionBarButton(show: true)
+        PageViewManagerMain.getInstance().showActionBarButton(show: true, title: UResourceManager.getStringByName("title_settings"))
     }
     public override func onHide() {
         super.onHide()
@@ -201,8 +201,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             windowCallbacks : self,
             iconCallbacks :self,
             iconWindowSubCallbacks : self,
-            isHome: false, dir: winDir, width: size2.width, height: size2.height,
-            bgColor: UIColor.lightGray)
+            isHome: false, dir: winDir, width: size2.width, height: size2.height)
         
         subWindow.addToDrawManager()
         subWindow.isShow = false
@@ -343,7 +342,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
      */
     override func onActionButton() {
         // ポップアップを表示
-        let ac = UIAlertController(title: UResourceManager.getStringByName("menu"), message: nil, preferredStyle: .alert)
+        let ac = UIAlertController(title: UResourceManager.getStringByName("settings"), message: nil, preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: UResourceManager.getStringByName("cancel"), style: .cancel) { (action) -> Void in
             // なにもしない
