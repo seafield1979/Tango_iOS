@@ -1516,13 +1516,16 @@ public class UIconWindow : UWindow{
         icons1.remove(obj: icon!)
         icons2.append(icon!)
 
-        if window2 != nil && window2!.isShow {
-            window2!.sortIcons(animate: false)
-            icon!.setParentWindow(window2!)
-        }
+        icon!.setParentWindow(window2!)
+        
         // データベース更新
         _ = TangoItemPosDao.moveItemToHome( item: icon!.getTangoItem()!)
 
+        // SpriteKit Node
+        icon!.parentNode.removeFromParent()
+        mainWindow!.clientNode.addChild2(icon!.parentNode)
+        
+        window2!.sortIcons(animate: false)
         sortIcons(animate: false)
     }
 
