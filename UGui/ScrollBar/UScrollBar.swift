@@ -286,7 +286,13 @@ public class UScrollBar {
             parentNode.removeChildren(in: [barNode!])
         }
         
-        self.barNode = SKShapeNode(rect: barRect.convToSK(), cornerRadius: 3.0)
+        var radius = UDpi.toPixel(3)
+        if barRect.size.width < radius * 2 || barRect.size.height < radius * 2 {
+            // サイズより小さいcornerRadiusを設定すると落ちる不具合の対処
+            radius = 0
+        }
+        
+        self.barNode = SKShapeNode(rect: barRect.convToSK(), cornerRadius: radius)
         self.barNode!.fillColor = barColor
         self.barNode!.strokeColor = .clear
         self.barNode!.zPosition = 2.0

@@ -45,7 +45,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
     private static let TOUCH_MARGIN : Int = 13
     private static let BG_RADIUS : Int = 7
     private static let BG_FRAME_W : Int = 1
-    private let FRAME_LINE_W = 2
+    private let FRAME_LINE_W = 3
     
     /**
      * Member Variables
@@ -112,7 +112,11 @@ public class UWindow : UDrawable, UButtonCallbacks {
         self.topBarH = topBarH
         self.topBarColor = UWindow.TOP_BAR_COLOR
         self.frameSize = CGSize(width: frameW, height: frameH)
-        self.frameColor = UWindow.FRAME_COLOR
+        if frameW == 0 || frameH == 0 {
+            self.frameColor = .clear
+        } else {
+            self.frameColor = UWindow.FRAME_COLOR
+        }
         self.mCropping = cropping
         self.mCornerRadius = cornerRadius
         
@@ -137,15 +141,15 @@ public class UWindow : UDrawable, UButtonCallbacks {
         parentNode.position = CGPoint(x:pos.x, y: pos.y)
         
         // frame
-        if frameColor != nil && (frameSize.width > 0 || (topBarH + frameSize.height) > 0) {
-            frameNode = SKShapeNode(rect: CGRect(x: 0, y: 0, width: size.width, height: size.height).convToSK(), cornerRadius: mCornerRadius)
-            if bgColor != nil {
-                frameNode!.fillColor = bgColor!
-            }
+        frameNode = SKShapeNode(rect: CGRect(x: 0, y: 0, width: size.width, height: size.height).convToSK(), cornerRadius: mCornerRadius)
+        if bgColor != nil {
+            frameNode!.fillColor = bgColor!
+        }
+        if frameColor != nil {
             frameNode!.strokeColor = frameColor!
             frameNode!.lineWidth = UDpi.toPixel(FRAME_LINE_W)
-            parentNode.addChild2(frameNode!)
         }
+        parentNode.addChild2(frameNode!)
         
         // bg
         let radius = (frameNode == nil) ? mCornerRadius : 0
@@ -155,9 +159,6 @@ public class UWindow : UDrawable, UButtonCallbacks {
                              cornerRadius: radius)
         bgNode.position = CGPoint(x: frameSize.width,
                                   y: topBarH + frameSize.height)
-        if bgColor != nil {
-            bgNode.fillColor = bgColor!
-        }
         bgNode.strokeColor = .clear
         parentNode.addChild2( bgNode )
         
@@ -269,16 +270,6 @@ public class UWindow : UDrawable, UButtonCallbacks {
     }
     
     public func setFrameColor(_ color : UIColor?) {
-        self.frameColor = color
-        if color != nil {
-            if self.bgColor != nil {
-                self.frameNode!.fillColor = bgColor!
-            }
-            self.frameNode!.strokeColor = color!
-        }
-    }
-    
-    public func setFrameLineColor( _ color : UIColor? ) {
         self.frameColor = color
         if color != nil {
             self.frameNode!.strokeColor = color!

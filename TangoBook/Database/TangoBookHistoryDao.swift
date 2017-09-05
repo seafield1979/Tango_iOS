@@ -220,7 +220,6 @@ import RealmSwift
      /**
      * ファイルから読み込んだデータを追加する
      */
-    // todo BHistoryを実装してから対応
     public static func addBackupBook( histories : [BHistory], transaction : Bool) {
         if histories.count == 0 {
             return

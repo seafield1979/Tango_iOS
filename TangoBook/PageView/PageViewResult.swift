@@ -226,10 +226,10 @@ public class PageViewResult : UPageView, UButtonCallbacks, UListItemCallbacks {
     {
         switch(id) {
         case ButtonIdRetry1:
-            PageViewManagerMain.getInstance().startStudyPage(book: mBook!, cards: nil, stack: false)
+            PageViewManagerMain.getInstance().startStudyPage(book: mBook!, cards: nil, stack: false, isFirst : false)
             
         case ButtonIdRetry2:
-            PageViewManagerMain.getInstance().startStudyPage(book: mBook!, cards: mNgCards, stack: false)
+            PageViewManagerMain.getInstance().startStudyPage(book: mBook!, cards: mNgCards, stack: false, isFirst : false)
             
         case ButtonIdReturn:
             _ = PageViewManagerMain.getInstance().popPage()

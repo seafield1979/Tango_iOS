@@ -206,7 +206,7 @@ public class PageViewManagerMain : UPageViewManager {
     * @param book
     * @param cards  リトライで学習するカード
     */
-    public func startStudyPage( book : TangoBook, cards : List<TangoCard>?, stack : Bool )
+    public func startStudyPage( book : TangoBook, cards : List<TangoCard>?, stack : Bool , isFirst : Bool)
     {
         var pageId : PageIdMain
         
@@ -218,6 +218,7 @@ public class PageViewManagerMain : UPageViewManager {
             let page : PageViewStudySlide = getPageView(pageId: pageId.rawValue) as! PageViewStudySlide
             page.setBook(book)
             page.setCards(cards)
+            page.setFirstStudy(isFirst)
 
             if stack {
                 stackPage(pageView: page)
@@ -230,6 +231,7 @@ public class PageViewManagerMain : UPageViewManager {
             let page : PageViewStudySelect4 = getPageView(pageId: pageId.rawValue) as! PageViewStudySelect4
             page.setBook(book)
             page.setCards(cards)
+            page.setFirstStudy(isFirst)
             
             if stack {
                 stackPage(pageView: page)
@@ -242,6 +244,7 @@ public class PageViewManagerMain : UPageViewManager {
             let page : PageViewStudyInputCorrect = getPageView(pageId: pageId.rawValue) as! PageViewStudyInputCorrect
             page.setBook(book)
             page.setCards(cards!)
+            page.setFirstStudy(isFirst)
             
             if stack {
                 stackPage(pageView: page)
@@ -268,7 +271,9 @@ public class PageViewManagerMain : UPageViewManager {
      * オプション設定ページを表示
      */
     public func startOptionPage( mode : PageViewOptions.Mode) {
-//        var pageView : PageViewOptions = stackPage(pageId: PageIdMain.Options.rawValue) as! PageViewOptions
-//        pageView.setMode(mode)
+        let page : PageViewOptions = stackPage(pageId: PageIdMain.Options.rawValue) as! PageViewOptions
+        
+        page.setMode(mode: mode)
+        changePage( pageView: page)
     }
 }

@@ -379,37 +379,28 @@ public class UIconManager : UIconCallbacks {
         let  _ : SortMode = mode
 
         // _icons を SortMode の方法でソートする
-        // todo いろいろなソートモードには未対応
-        let _sortedIcons = _icons.sort(isOrderedBefore: {
-            return $0.getTitle()! < $1.getTitle()!
-        })
-//            public int compare(UIcon icon1, UIcon icon2) {
-//                TangoItem item1 = icon1.getTangoItem();
-//                TangoItem item2 = icon2.getTangoItem();
-//                if (item1 == nil || item2 == nil) {
-//                    return 0;
-//                }
-//                switch(_mode) {
-//                    case TitleAsc:       // タイトル文字昇順(カードはWordA,単語帳はName)
-//                        return item1.getTitle().compareTo (
-//                                item2.getTitle());
-//                    case TitleDesc:      // タイトル文字降順
-//                        return item2.getTitle().compareTo(
-//                                item1.getTitle());
-//                    case CreateDateAsc:  // 作成日時 昇順
-//                        if (item1.getCreateTime() == nil || item2.getCreateTime() == nil)
-//                            break;
-//                        return item1.getCreateTime().compareTo(
-//                                item2.getCreateTime());
-//                    case CreateDateDesc:  // 作成日時 降順
-//                        if (item1.getCreateTime() == nil || item2.getCreateTime() == nil)
-//                            break;
-//                        return item2.getCreateTime().compareTo(
-//                                item1.getCreateTime());
-//                }
-//                return 0;
-//            }
-//        });
+        var _sortedIcons : [UIcon] = []
+        switch mode {
+        case .TitleAsc:       // タイトル文字昇順(カードはWordA,単語帳はName)
+            _sortedIcons = _icons.sort(isOrderedBefore: {
+                return $0.getTitle()! < $1.getTitle()!
+            })
+        case .TitleDesc:      // タイトル文字降順
+            _sortedIcons = _icons.sort(isOrderedBefore: {
+                return $0.getTitle()! > $1.getTitle()!
+            })
+        
+        case .CreateDateAsc:  // 作成日時 昇順
+            _sortedIcons = _icons.sort(isOrderedBefore: {
+                return ($0.getTangoItem()?.getCreateTime())! < ($1.getTangoItem()?.getCreateTime())!
+            })
+        case .CreateDateDesc:  // 作成日時 降順
+            _sortedIcons = _icons.sort(isOrderedBefore: {
+                return ($0.getTangoItem()?.getCreateTime())! > ($1.getTangoItem()?.getCreateTime())!
+            })
+        default:
+            break
+        }
 
         // ソート済みの新しいアイコンリストを作成する
         icons.removeAll()
