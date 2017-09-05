@@ -38,6 +38,5 @@ public protocol TangoItem {
     
     func getCreateTime() -> Date?
     func getUpdateTime() -> Date?
-//    func getLastStudiedTime() -> Date
-    
+    func getLastStudiedTime() -> Date?
 }

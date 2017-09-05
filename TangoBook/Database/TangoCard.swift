@@ -144,6 +144,10 @@ public class TangoCard : Object, TangoItem, NSCopying {
         return updateTime
     }
     
+    public func getLastStudiedTime() -> Date? {
+        return nil
+    }
+    
     // MARK : NSCopying 
     
     // オブジェクトのコピーを返す

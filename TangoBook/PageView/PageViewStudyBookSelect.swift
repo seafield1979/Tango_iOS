@@ -1,19 +1,21 @@
 //
 //  PageViewBackup.swift
 //  TangoBook
-//
+//      アクションIDを処理する
+//      学習する単語帳を選択するページ(リストビュー版)
 //  Created by Shusuke Unno on 2017/07/24.
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
 import UIKit
 
-
-/**
- * Created by shutaro on 2016/12/16.
- *
- * 学習する単語帳を選択するページ(リストビュー版)
- */
+public enum TangoStudyBookActionId : Int, EnumEnumerable {
+    case action_sort_none
+    case action_sort_word_asc
+    case action_sort_word_desc
+    case action_sort_studied_time_asc
+    case action_sort_studied_time_desc
+}
 
 public class PageViewStudyBookSelect : UPageView
         , UButtonCallbacks, UListItemCallbacks, UWindowCallbacks {
@@ -72,10 +74,48 @@ public class PageViewStudyBookSelect : UPageView
      */
     
     override func onShow() {
+        // ナビゲーションバーにボタンを表示
+        PageViewManagerMain.getInstance().showActionBarButton(show: true)
     }
     
     override func onHide() {
         super.onHide();
+    }
+    
+    /**
+     * アクションボタンが押された時の処理
+     *　サブクラスでオーバーライドする
+     */
+    override func onActionButton() {
+        // ポップアップを表示
+        let ac = UIAlertController(title: UResourceManager.getStringByName("menu"), message: nil, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: UResourceManager.getStringByName("cancel"), style: .cancel) { (action) -> Void in
+            // なにもしない
+        }
+        
+        let sortWordAsc = UIAlertAction(title: UResourceManager.getStringByName("sort_word_asc_2"), style: .default) { (action) -> Void in
+            self.setActionId( .action_sort_word_asc )
+        }
+
+        let sortWordDesc = UIAlertAction(title: UResourceManager.getStringByName("sort_word_desc_2"), style: .default) { (action) -> Void in
+            self.setActionId( .action_sort_word_desc )
+        }
+        let sortTimeAsc = UIAlertAction(title: UResourceManager.getStringByName("sort_studied_time_asc"), style: .default) { (action) -> Void in
+            self.setActionId( .action_sort_studied_time_asc )
+        }
+        let sortTimeDesc = UIAlertAction(title: UResourceManager.getStringByName("sort_studied_time_desc"), style: .default) { (action) -> Void in
+            self.setActionId( .action_sort_studied_time_desc )
+        }
+        
+        ac.addAction(cancelAction)
+        ac.addAction(sortWordAsc)
+        ac.addAction(sortWordDesc)
+        ac.addAction(sortTimeAsc)
+        ac.addAction(sortTimeDesc)
+        
+        PageViewManagerMain.getInstance().getViewController().present(
+            ac, animated: true, completion: nil)
     }
     
     /**
@@ -108,6 +148,8 @@ public class PageViewStudyBookSelect : UPageView
      */
     public override func initDrawables() {
         UDrawManager.getInstance().initialize()
+        
+        mTopScene.parent?.removeAllChildren()
 
         let width = mTopScene.getWidth()
         let height = mTopScene.getHeight()
@@ -186,35 +228,28 @@ public class PageViewStudyBookSelect : UPageView
      * アクションIDを処理する
      * サブクラスでオーバーライドして使用する
      */
-    public func setActionId( id : Int ) {
-//        switch (id) {
-//        case R.id.action_sort_none:
-//            mSortMode = IconSortMode.None;
-//            break;
-//        case R.id.action_sort_word_asc:
-//            mSortMode = IconSortMode.TitleAsc;
-//            break;
-//        case R.id.action_sort_word_desc:
-//            mSortMode = IconSortMode.TitleDesc;
-//            break;
-//        case R.id.action_sort_time_asc:
-//            mSortMode = IconSortMode.CreateTimeAsc;
-//            break;
-//        case R.id.action_sort_time_desc:
-//            mSortMode = IconSortMode.CreateTimeDesc;
-//            break;
-//        case R.id.action_sort_studied_time_asc:
-//            mSortMode = IconSortMode.StudiedTimeAsc;
-//            break;
-//        case R.id.action_sort_studied_time_desc:
-//            mSortMode = IconSortMode.StudiedTimeDesc;
-//            break;
-//        default:
-//            return;
-//        }
-//        MySharedPref.writeInt(MySharedPref.StudyBookSortKey, mSortMode.ordinal());
-//        isFirst = true;
-//        mTopScene.invalidate();
+    public func setActionId( _ id : TangoStudyBookActionId ) {
+        
+        switch id {
+        case .action_sort_none:
+            mSortMode = IconSortMode.None
+            
+        case .action_sort_word_asc:
+            mSortMode = IconSortMode.TitleAsc
+            
+        case .action_sort_word_desc:
+            mSortMode = IconSortMode.TitleDesc
+            
+        case .action_sort_studied_time_asc:
+            mSortMode = IconSortMode.StudiedTimeAsc;
+            
+        case .action_sort_studied_time_desc:
+            mSortMode = IconSortMode.StudiedTimeDesc;
+            
+        }
+        
+        MySharedPref.writeInt( key: MySharedPref.StudyBookSortKey, value: mSortMode.rawValue)
+        isFirst = true
     }
         
     /**

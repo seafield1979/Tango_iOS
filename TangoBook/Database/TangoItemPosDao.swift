@@ -552,7 +552,7 @@ public class TangoItemPosDao {
             return nil
         }
 
-        var items : [TangoItem] = []
+        let items : List<TangoItem> = List()
 
         // まずはリストを結合
         for card in cards {
@@ -562,61 +562,46 @@ public class TangoItemPosDao {
             items.append(book)
         }
 
-         // _icons を SortMode の方法でソートする
-//         Arrays.sort(items, new Comparator<TangoItem>() {
-//             public int compare(TangoItem item1, TangoItem item2) {
-//                 if (item1 == null || item2 == null) {
-//                     return 0;
-//                 }
-//                 switch(sortMode) {
-//                     case TitleAsc:       // タイトル文字昇順(カードはWordA,単語帳はName)
-//                         return item1.getTitle().compareTo (
-//                                 item2.getTitle());
-//                     case TitleDesc:      // タイトル文字降順
-//                         return item2.getTitle().compareTo(
-//                                 item1.getTitle());
-//
-//                     case CreateTimeAsc:        // 作成 昇順
-//                     {
-//                         if (item1.getCreateTime() == null || item2.getCreateTime() == null)
-//                             break;
-//                         return item1.getCreateTime().compareTo(
-//                                 item2.getCreateTime());
-//                     }
-//                     case CreateTimeDesc:       // 作成 降順
-//                     {
-//                         if (item1.getCreateTime() == null || item2.getCreateTime() == null)
-//                             break;
-//                         return item2.getCreateTime().compareTo(
-//                                 item1.getCreateTime());
-//                     }
-//                     case StudiedTimeAsc:        // 学習日時 昇順
-//                     {
-//                         Date date1 = item1.getLastStudiedTime();
-//                         Date date2 = item2.getLastStudiedTime();
-//                         if (date1 == null && date2 == null) break;
-//
-//                         if (date1 == null) date1 = getOldDate();
-//                         if (date2 == null) date2 = getOldDate();
-//                         return date1.compareTo(date2);
-//                     }
-//                     case StudiedTimeDesc:       // 学習日時 降順
-//                     {
-//                         Date date1 = item1.getLastStudiedTime();
-//                         Date date2 = item2.getLastStudiedTime();
-//                         if (date1 == null && date2 == null) break;
-//
-//                         if (date1 == null) date1 = getOldDate();
-//                         if (date2 == null) date2 = getOldDate();
-//                         return date2.compareTo(date1);
-//                     }
-//                 }
-//                 return 0;
-//             }
-//         });
-         return items
-     }
+        // sortMode の方法でソートする
+        var sortedItems : [TangoItem] = []
+        
+        switch sortMode {
+        case .TitleAsc:       // タイトル文字昇順(カードはWordA,単語帳はName)
+           sortedItems = items.sort(isOrderedBefore: {
+               return $0.getTitle()! < $1.getTitle()!
+           })
+        case .TitleDesc:      // タイトル文字降順
+           sortedItems = items.sort(isOrderedBefore: {
+               return $0.getTitle()! > $1.getTitle()!
+           })
+        case .StudiedTimeAsc:        // 学習日時 昇順
+            fallthrough
+        case .StudiedTimeDesc:       // 学習日時 降順
+            sortedItems = items.sort(isOrderedBefore: {
+                 var date1 = $0.getLastStudiedTime()
+                 var date2 = $1.getLastStudiedTime()
+                if date1 == nil && date2 == nil {
+                    return false
+                }
 
+                if date1 == nil {
+                    date1 = getOldDate()
+                }
+                if date2 == nil {
+                    date2 = getOldDate()
+                }
+                if sortMode == .StudiedTimeAsc {
+                    return date1! < date2!
+                } else {
+                    return date1! > date2!
+                }
+            })
+        default:
+            break
+        }
+        return sortedItems
+    }
+    
      /**
      * アプリを使用していて出てこないような古い日時を取得する
      * @return
