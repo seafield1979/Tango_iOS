@@ -264,6 +264,7 @@ public class UIconWindow : UWindow{
         mIconManager?.getIcons().removeAll()
         
         // 一旦ウィンドウ以下のアイコンを削除
+        self.bgNode.removeAllChildren()
         self.clientNode.removeAllChildren()
 
         // ゴミ箱を配置
@@ -1330,11 +1331,6 @@ public class UIconWindow : UWindow{
         
         // SpriteKitノード　親の付け替え
         if window1 !== window2 {
-            icon1.parentNode.removeFromParent()
-            icon2.parentNode.removeFromParent()
-            // アイコン移動中はクロップされないようにする
-            window1.bgNode.addChild2(icon2.parentNode)
-            window2.bgNode.addChild2(icon1.parentNode)
         }
         
         // 再配置
@@ -1346,10 +1342,13 @@ public class UIconWindow : UWindow{
             // アイコン2 UWindow -> アイコン1 UWindow
             icon2.setPos(icon2.getX() + (window2.pos.x - window1.pos.x),
                     icon2.getY() + (window2.pos.y - window1.pos.y), convSKPos: true)
-            window2.sortIcons(animate: true)
+            
+            icon1.parentNode.removeFromParent()
+            icon2.parentNode.removeFromParent()
+            // 移動中のアイコンがクリップされて見えなくならないようにclientNodeではなくbgNodeに追加
+            window1.bgNode.addChild2(icon2.parentNode)
+            window2.bgNode.addChild2(icon1.parentNode)
         }
-
-        window1.sortIcons(animate: true)
     }
 
      /**
@@ -1448,11 +1447,13 @@ public class UIconWindow : UWindow{
         // SpriteKit ノード
         // ドラッグアイコンを親から削除
         icon1!.parentNode.removeFromParent()
-        window2.clientNode.addChild2(icon1!.parentNode)
-
+        
         if icon2 === windows!.getSubWindow().getParentIcon() &&
             window2.isShow
         {
+            // 移動先のウィンドウに追加
+            window2.clientNode.addChild2(icon1!.parentNode)
+
             let win2Icons : List<UIcon> = window2.getIcons()!
             win2Icons.append(icon1!)
 
