@@ -105,18 +105,10 @@ public class ViewTouch {
      * @return true:長押し
      */
     public func checkLongTouch() -> Bool {
-        // 長押しが検出済みならそれを返す
-        // なんども長押しイベントが発生しないように１回trueを返したらフラグをクリア
-//        if isLongTouch {
-//            isLongTouch = false
-//            return true
-//        }
-
         // 長押しのチェック
-        if isLongTouch == false && isTouching == true {
+        if isLongTouch == false && isTouching == true && innerType != .Moving {
             let pressedTime : Double = Date().timeIntervalSince1970 - touchTime
             if pressedTime > LONG_PRESS_INTERVAL {
-                print("long press")
                 isLongTouch = true
                 type = TouchType.LongPress
                 if let cb = callbacks {

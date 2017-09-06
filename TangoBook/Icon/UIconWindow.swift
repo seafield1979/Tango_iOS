@@ -149,9 +149,6 @@ public class UIconWindow : UWindow{
         if icon != nil {
             // clientNodeからbgNodeに付け替え
             icon!.parentNode.removeFromParent()
-            // スクロールバーのスクロールを消す
-            let pos = icon!.parentNode.position
-//            icon!.parentNode.position = CGPoint(x: pos.x - contentTop.x, y: pos.y - contentTop.y)
             bgNode.addChild( icon!.parentNode )
             
             // 優先度を上げて他のアイコンの下に隠れないようにする
@@ -206,9 +203,9 @@ public class UIconWindow : UWindow{
                     let icons : List<UIcon>? = getIcons()
                     if let _icons = icons {
                         for icon in _icons {
-                            icon!.isChecking = false
+                            icon!.setChecking(false)
                             if icon!.isChecked {
-                                icon!.isChecked = false
+                                icon!.setChecked(false)
                             }
                         }
                     }
@@ -220,25 +217,21 @@ public class UIconWindow : UWindow{
 
         // 前処理
         switch self.state{
-            case .none:
-                // アクションバーを更新
-            // todo
+        case .none:
+            // アクションバーを更新
+        // todo
 //                MainActivity.getInstance().setMenuType(
 //                    MainActivity.MenuType.TangoEdit)
-                break
-            case .icon_moving:
-                let icons : List<UIcon> = mIconManager!.getCheckedIcons()
-                for icon in icons {
-                    icon?.addToDrawManager()
-                }
-            
-            case .icon_selecting:
-                isDragMove = false
-                // ゴミ箱の中のアイコンを選択状態にしてもゴミ箱メニューは表示しない(TangoEdit2に切り替えない)
-                if getParentType() != TangoParentType.Trash {
-                    // todo
-//                    MainActivity.getInstance().setMenuType(MainActivity.MenuType.TangoEdit2);
-                }
+            break
+        case .icon_moving:
+            break
+        case .icon_selecting:
+            isDragMove = false
+            // ゴミ箱の中のアイコンを選択状態にしてもゴミ箱メニューは表示しない(TangoEdit2に切り替えない)
+            if getParentType() != TangoParentType.Trash {
+                // todo
+                // アクションバーにゴミ箱を表示
+            }
         default:
             break
         }
@@ -588,6 +581,7 @@ public class UIconWindow : UWindow{
             }
         } else if (state == WindowState.icon_selecting) {
             // チェック中ならチェック可能状態を解除
+            changeIconChecked(icons: icons!, isChecking: false)
             setState( WindowState.none)
         }
         return true
@@ -630,18 +624,27 @@ public class UIconWindow : UWindow{
             // チェックしたアイコンをまとめてドラッグ
             let offset = getToWinPos()
 
-            // チェックされたアイコンが最前面に表示されるように描画優先度をあげる
+            // チェックされたアイコンがクリップされないようにbgNodeに付け替え
             for icon in checkedIcons {
-                icon!.isDraging = true
-                _ = UDrawManager.getInstance().addWithNewPriority(obj: icon!, priority: DrawPriority.DragIcon.rawValue)
+                if let _icon = icon {
+                    _icon.isDraging = true
+                    
+                    // clientNodeからbgNodeに付け替え
+                    _icon.parentNode.removeFromParent()
+                    _icon.parentNode.position = convToBgPos(pos: _icon.pos)
+                    self.bgNode.addChild2( _icon.parentNode )
+                    
+                    // 優先度を上げて他のアイコンの下に隠れないようにする
+                    _icon.parentNode.zPosition = CGFloat(DrawPriority.DragIcon.rawValue)
+                }
             }
+            
             // チェックアイコンのどれかをタッチしていたらドラッグ開始
             for icon in checkedIcons {
                 if icon!.getRect().contains(x: vt.touchX(offset: offset.x), y: vt.touchY(offset: offset.y))
                 {
-                    ret = true;
-                    isDragMove = true;
-                    print("isDragMove=true2")
+                    ret = true
+                    isDragMove = true
                     break
                 }
             }
@@ -673,6 +676,7 @@ public class UIconWindow : UWindow{
             let icons : List<UIcon> = mIconManager!.getCheckedIcons()
             for icon in icons {
                 icon!.move(vt.moveX, vt.moveY)
+                icon!.parentNode.position = convToBgPos(pos: icon!.pos).convToSK()
             }
         } else {
             return false
@@ -1002,20 +1006,20 @@ public class UIconWindow : UWindow{
      * @return trueならViewを再描画
      */
     private func dragEndChecked(vt : ViewTouch) -> Bool{
-         // ドロップ処理
-         // 他のアイコンの上にドロップされたらドロップ処理を呼び出す
-         var isDroped = false, isMoved = false;
+        // ドロップ処理
+        // 他のアイコンの上にドロップされたらドロップ処理を呼び出す
+        var isDroped = false, isMoved = false;
 
-         mIconManager!.setDropedIcon(nil)
+        mIconManager!.setDropedIcon(nil)
 
         let srcIcons : List<UIcon> = getIcons()!
         let checkedIcons : List<UIcon> = mIconManager!.getCheckedIcons()
 
-         for window in windows!.getWindows()! {
-             // Windowの領域外ならスキップ
+        for window in windows!.getWindows()! {
+            // Windowの領域外ならスキップ
             if !(window!.rect.contains(x: vt.x, y: vt.y)){
                  continue
-             }
+            }
 
             let dstIcons : List<UIcon>? = window!.getIcons()
             if dstIcons == nil {
@@ -1025,7 +1029,6 @@ public class UIconWindow : UWindow{
             // スクリーン座標系からWindow座標系に変換
             let winX = window!.toWinX(screenX: vt.x)
             let winY = window!.toWinY(screenY: vt.y)
-
 
             isDroped = checkDropChecked(checkedIcons: checkedIcons,
                                         dstIcons: dstIcons!,
@@ -1055,8 +1058,11 @@ public class UIconWindow : UWindow{
                     dstIcons?.append( objs: checkedIcons.toArray() )
                     // 親の付け替え
                     for icon in checkedIcons {
-                        icon!.setParentWindow(window!)
+                        if let _icon = icon {
+                            _icon.setParentWindow(window!)
+                        }
                     }
+                    
                     isDropInBox = true
 
                     // DB更新処理
@@ -1098,7 +1104,14 @@ public class UIconWindow : UWindow{
             }
         }
         if isDragMove {
-            print("sort!")
+            // SpriteKit bgノードからchientノードへ付け替え
+            for icon in checkedIcons {
+                if let _icon = icon {
+                    _icon.parentNode.removeFromParent()
+                    _icon.parentNode.position = convToClientPos(pos: _icon.parentNode.position)
+                    icon!.parentWindow?.clientNode.addChild2( _icon.parentNode )
+                }
+            }
             self.sortIcons(animate: true)
             return true
         }
@@ -1444,7 +1457,7 @@ public class UIconWindow : UWindow{
         let container : IconContainer = icon2 as! IconContainer
 
         let window1 : UIconWindow = icon1!.parentWindow!
-        let window2 : UIconWindow = container.getSubWindow()!
+        let window2 : UIconWindow = container.getSubWindow()
         let icons : List<UIcon> = window1.getIcons()!
 
         icons.remove(obj: icon1!)
@@ -1542,7 +1555,7 @@ public class UIconWindow : UWindow{
         let dragIcon : UIcon = checkedIcons[0]
 
         let window1 : UIconWindow = dragIcon.parentWindow!
-        let window2 : UIconWindow = _dropedIcon.getSubWindow()!
+        let window2 : UIconWindowSub = _dropedIcon.getSubWindow()
         let icons : List<UIcon> = window1.getIcons()!
         let icons2 : List<UIcon> = window2.getIcons()!
 
@@ -1555,7 +1568,18 @@ public class UIconWindow : UWindow{
         for icon in checkedIcons {
             icon!.isChecking = false
             icon!.setParentWindow(window2)
+            
+            // ドラッグアイコンを親から削除
+            icon!.parentNode.removeFromParent()
+            
+            if dropedIcon === window2.getParentIcon() &&
+                window2.isShow
+            {
+                // 移動先のウィンドウに追加
+                window2.clientNode.addChild2(icon!.parentNode)
+            }
         }
+        
         // DB更新
         let items : List<TangoItem> = List()
         for icon in checkedIcons {
@@ -1571,7 +1595,7 @@ public class UIconWindow : UWindow{
                                     parentType: _dropedIcon.getParentType().rawValue,
                                     parentId: itemId)
 
-        window2.sortIcons(animate: true)
+        window2.sortIcons(animate: false)
         
         // 箱の中に入れた後のアイコン整列後にチェックを解除したいのでフラグを持っておく
         isDropInBox = true
@@ -1594,8 +1618,8 @@ public class UIconWindow : UWindow{
      /**
      * アイコンの選択状態を変更する
      * ただしゴミ箱アイコンは除く
-     * @param icons
-     * @param isChecking  false:チェック状態を解除 / true:チェック可能状態にする
+     * parameter icons : アイコンセット
+     * parameter isChecking : false:チェック状態を解除 / true:チェック可能状態にする
      */
     private func changeIconChecked(icons : List<UIcon>?, isChecking : Bool) {
         if icons == nil {
@@ -1606,9 +1630,9 @@ public class UIconWindow : UWindow{
             if icon is IconTrash {
                 continue
             }
-            icon!.isChecking = isChecking
+            icon!.setChecking( isChecking )
             if !isChecking {
-                icon!.isChecked = false
+                icon!.setChecked( false )
             }
         }
     }

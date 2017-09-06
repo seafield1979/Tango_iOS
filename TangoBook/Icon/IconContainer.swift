@@ -25,8 +25,8 @@ public class IconContainer : UIcon {
     /**
      * Get/Set
      */
-    public func getSubWindow() -> UIconWindow? {
-        return subWindow
+    public func getSubWindow() -> UIconWindowSub {
+        return subWindow as! UIconWindowSub
     }
     
     // 自分が親になるとき(内包するアイコンがあるとき）の自分のParentTypeを返す

@@ -56,40 +56,42 @@ public enum IconSortMode : Int, EnumEnumerable {
  */
 public class UIcon : UDrawable, CustomStringConvertible {
 
-     /**
-     * Constants
-     */
-     private static let TAG = "UIcon"
-     private let DRAW_PRIORITY = 200
+    /**
+    * Constants
+    */
+    private static let TAG = "UIcon"
+    private let DRAW_PRIORITY = 200
 
-     public let FONT_SIZE = 15
-     let TEXT_MARGIN = 4
+    public let FONT_SIZE = 15
+    let TEXT_MARGIN = 4
 
-     // タッチ領域の拡張幅
-     let TOUCH_MARGIN = 10
+    // タッチ領域の拡張幅
+    let TOUCH_MARGIN = 10
 
-     public let DISP_TITLE_LEN = 8
-     public let DISP_TITLE_LEN_J = 5       // 日本語表示時の最大文字列数
+    public let DISP_TITLE_LEN = 8
+    public let DISP_TITLE_LEN_J = 5       // 日本語表示時の最大文字列数
 
-     private let CHECKED_WIDTH = 24    // 選択中のアイコンのチェックの幅
-     private let CHECKED_FRAME = 3    // 選択中のアイコンのチェックの枠
+    private let CHECKED_WIDTH = 24    // 選択中のアイコンのチェックの幅
+    private let CHECKED_FRAME = 3    // 選択中のアイコンのチェックの枠
 
-     let NEW_FONT_SIZE = 10
-     let NEW_TEXT_MARGIN = 5
-     let NEW_TEXT_COLOR = UColor.makeColor(200, 255, 80, 80)
+    let NEW_FONT_SIZE = 10
+    let NEW_TEXT_MARGIN = 5
+    let NEW_TEXT_COLOR = UColor.makeColor(200, 255, 80, 80)
+    private let COLOR_BOX : UIColor = UColor.LightBlue
+    
     // アニメーション用
     public let ANIME_FRAME = 20
 
     private let SELECTED_COLOR = UColor.makeColor(80, 255, 100, 100)
     private let TOUCHED_COLOR = UColor.makeColor(100,200,100)
     
-     /**
+    /**
      * Class variables
      */
-     // "New" バッジ用
+    // "New" バッジ用
     var newTextView : UTextView? = nil
 
-     /**
+    /**
      * Member variables
      */
     private static var count : Int = 0
@@ -100,7 +102,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
     var imageNode : SKSpriteNode?        // アイコンの画像
     var imageBgNode : SKNode?
     var textNode : SKLabelNode?          // アイコンのテキスト
-    var checkedNode : SKSpriteNode?      // 選択状態時に表示するチェック枠画像
+    var checkedNode : SKNode?      // 選択状態時に表示するチェック枠画像
     
     public var id : Int = 0
     var parentWindow : UIconWindow? = nil
@@ -217,9 +219,20 @@ public class UIcon : UDrawable, CustomStringConvertible {
         
         // checked
         let checkedW = size.width * 0.7
-        checkedNode = SKSpriteNode(imageNamed: ImageName.checked3_frame.rawValue)
-        checkedNode!.anchorPoint = CGPoint(x:0, y:1.0)
-        checkedNode!.size = CGSize(width: checkedW, height: checkedW)
+        checkedNode = SKNode()
+        // check box frame
+        let check1 = SKNodeUtil.createSpriteNode( imageNamed: ImageName.checked3_frame, width: checkedW, height: checkedW)
+        check1.name = "bg"
+        checkedNode!.addChild2( check1 )
+        
+        // check box
+        let image : UIImage = UResourceManager.getImageWithColor(
+            imageName: ImageName.checked2, color: UColor.makeColor(100,100,200))!
+        let check2 = SKNodeUtil.createSpriteNode( image: image, width: checkedW, height: checkedW,x: 0, y: 0)
+        check2.name = "check"
+        check2.isHidden = false
+        checkedNode!.addChild2( check2 )
+
         checkedNode!.position = CGPoint(x: size.width * 0.1, y: size.width * 0.25)
         checkedNode!.zPosition = 0.4
         checkedNode!.isHidden = true
@@ -235,6 +248,36 @@ public class UIcon : UDrawable, CustomStringConvertible {
 //    override public func setPos(_ x : CGFloat, _ y : CGFloat) {
 //        self.setPos( CGPoint(x: x, y: y))
 //    }
+    
+    /**
+     チェック可能状態をセットする
+     SKSpriteNodeの表示状態を切り替える
+     - parameter checking: 選択可能フラグ  trueならタッチでチェックを入れられる
+     */
+    public func setChecking( _ checking: Bool) {
+        isChecking = checking
+        
+        if checking {
+            checkedNode!.isHidden = false
+        } else {
+            checkedNode!.isHidden = true
+        }
+    }
+    
+    public func setChecked( _ checked : Bool) {
+        isChecked = checked
+        
+        let bgNode = checkedNode!.childNode(withName: "bg")
+        let checkNode = checkedNode!.childNode(withName: "check")
+        
+        if checked {
+            bgNode!.isHidden = true
+            checkNode!.isHidden = false
+        } else {
+            bgNode!.isHidden = false
+            checkNode!.isHidden = true
+        }
+    }
     
     override public func setColor(_ color : UIColor) {
         self.color = color
@@ -258,10 +301,10 @@ public class UIcon : UDrawable, CustomStringConvertible {
         startAnim()
         if isChecking {
             if isChecked {
-                isChecked = false;
+                setChecked( false )
             }
             else {
-                isChecked = true;
+                setChecked( true )
                 self.drawPriority = DrawPriority.DragIcon.rawValue
             }
         } else {
@@ -494,8 +537,8 @@ public class UIcon : UDrawable, CustomStringConvertible {
                                        y: vt.touchY(offset: offset!.y)))
                 {
                     isLongTouched = true
-                    isChecking = true
-                    isChecked = true
+                    setChecking(true)
+                    setChecked(true)
                     done = true
                 }
             case .Click:
