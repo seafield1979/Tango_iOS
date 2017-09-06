@@ -342,7 +342,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
      */
     override func onActionButton() {
         // ポップアップを表示
-        let ac = UIAlertController(title: UResourceManager.getStringByName("settings"), message: nil, preferredStyle: .alert)
+        let ac = UIAlertController(title: UResourceManager.getStringByName("title_settings"), message: nil, preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: UResourceManager.getStringByName("cancel"), style: .cancel) { (action) -> Void in
             // なにもしない
@@ -360,7 +360,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         let nameBAction = UIAlertAction(title: UResourceManager.getStringByName("disp_card_name_wordB"), style: .default) { (action) -> Void in
             self.setActionId( .action_card_name_b )
         }
-        let settingAction = UIAlertAction(title: UResourceManager.getStringByName("title_settings"), style: .default) { (action) -> Void in
+        let settingAction = UIAlertAction(title: UResourceManager.getStringByName("option"), style: .default) { (action) -> Void in
             self.setActionId( .action_settings )
         }
         

@@ -307,11 +307,11 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
             width : UDpi.toPixel(BUTTON2_W), height : UDpi.toPixel(BUTTON2_H),
             fontSize : fontSize, textColor : TEXT_COLOR, bgColor : UColor.LightGreen)
         
+        clientNode.addChild2( button.parentNode )
+        buttons[ButtonId.Start.rawValue] = button
         if (mCardCount == 0) {
             buttons[ButtonId.Start.rawValue]!.setEnabled(false)
         }
-        clientNode.addChild2( button.parentNode )
-        buttons[ButtonId.Start.rawValue] = button
 
         // キャンセルボタン
         button = UButtonText(

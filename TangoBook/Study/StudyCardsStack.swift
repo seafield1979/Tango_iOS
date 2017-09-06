@@ -30,8 +30,8 @@ public class StudyCardsStack : UDrawable {
     
     // layout
     public let MARGIN_V = 10
-    let MOVING_FRAME = 10
-    
+    private let MOVING_FRAME = 10
+    private let CARD_H = 200
     
     // MARK: Properties
     
@@ -110,7 +110,7 @@ public class StudyCardsStack : UDrawable {
             let studyCard : StudyCard = StudyCard(
                 card : tangoCard!, isMultiCard : isMultiCard,
                 isEnglish : isEnglish, screenW : TopScene.getInstance().getWidth(),
-                maxHeight : maxHeight)
+                maxHeight : UDpi.toPixel(CARD_H))
             mCardsInBackYard.append( studyCard )
         }
     }
@@ -246,15 +246,20 @@ public class StudyCardsStack : UDrawable {
             
             var dstY : CGFloat
             
-            if mCards.count > 0 {
-                // スタックの最後のカードの上に配置
-                var height : CGFloat = 0
-                for card2 in mCards {
-                    height += card2!.getHeight() + UDpi.toPixel(MARGIN_V)
-                }
-                dstY = size.height - height - card.getHeight()
+            if mStudyMode == .SlideOne {
+                // 画面の中央に来るように配置
+                dstY = (size.height - card.getHeight()) / 2
             } else {
-                dstY = size.height - card.getHeight()
+                if mCards.count > 0 {
+                    // スタックの最後のカードの上に配置
+                    var height : CGFloat = 0
+                    for card2 in mCards {
+                        height += card2!.getHeight() + UDpi.toPixel(MARGIN_V)
+                    }
+                    dstY = size.height - height - card.getHeight()
+                } else {
+                    dstY = size.height - card.getHeight()
+                }
             }
             
             mCards.append(card)
