@@ -64,7 +64,7 @@ public class ViewTouch {
     
     public private(set) var isTouchUp : Bool = false      // タッチアップしたフレームだけtrueになる
     var isTouching : Bool = false
-    private var isLongTouch : Bool = false
+    private var isLongTouch : Bool = false      // 長押しが検出されるか、長押しが無効になったときにtrueになる
     
     // タッチ開始した座標
     public private(set) var touchX : CGFloat = 0.0, touchY : CGFloat = 0.0
@@ -105,6 +105,11 @@ public class ViewTouch {
      * @return true:長押し
      */
     public func checkLongTouch() -> Bool {
+        // すでに長押しフラグが立っていたら長押し状態を解除
+        if isLongTouch {
+            return false
+        }
+        
         // 長押しのチェック
         if isLongTouch == false && isTouching == true && innerType != .Moving {
             let pressedTime : Double = Date().timeIntervalSince1970 - touchTime
@@ -181,6 +186,7 @@ public class ViewTouch {
             isTouching = false
         case .Move:
             isMoveStart = false
+            isLongTouch = true      // もう長押し判定はしないフラグ
             
             var _x : CGFloat = 0
             var _y : CGFloat = 0
