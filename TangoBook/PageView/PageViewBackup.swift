@@ -47,21 +47,12 @@ public class PageViewBackup : UPageView, UDialogCallbacks, UButtonCallbacks, UCh
     
     private static let DRAW_PRIORITY = 100
     
-    /**
-     * Propaties
-     */
-    
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init( topScene : TopScene, title : String) {
         super.init( topScene: topScene, pageId: PageIdMain.BackupDB.rawValue, title: title)
     }
     
-    /**
-     * Methods
-     */
-    
+    // MARK: Methods
     override func onShow() {
     }
     
@@ -94,25 +85,6 @@ public class PageViewBackup : UPageView, UDialogCallbacks, UButtonCallbacks, UCh
         return false
     }
     
-    /**
-     * そのページで表示される描画オブジェクトを初期化する
-     */
-//    override public func initDrawables() {
-//        // 描画オブジェクトクリア
-//        UDrawManager.getInstance().initialize()
-//        
-//        // ここにページで表示するオブジェクト生成処理を記述
-//        let width = self.mTopScene.getWidth()
-//        
-//        let button = UButtonText(
-//            callbacks: self, type: UButtonType.Press,
-//            id: PageViewBackup.buttonId1, priority: PageViewBackup.DRAW_PRIORITY,
-//            text: "test", createNode: true, x: 50, y: 100,
-//            width: width - 100, height: 100,
-//            fontSize: UDpi.toPixel(20), textColor: UIColor.white, bgColor: .blue)
-//        button.addToDrawManager()
-//        
-//    }
     /**
      * そのページで表示される描画オブジェクトを初期化する
      */
@@ -215,7 +187,7 @@ public class PageViewBackup : UPageView, UDialogCallbacks, UButtonCallbacks, UCh
             buttonDir : UDialogWindow.ButtonDir.Horizontal,
             screenW : width, screenH : mTopScene.getHeight())
         mDialog!.setTitle(title)
-        _ = mDialog!.addButton(id : buttonId, text : "OK", fontSize : UDpi.toPixel(FONT_SIZE), textColor : UIColor.black, color : UIColor.white)
+        _ = mDialog!.addButton(id : buttonId, text : "OK", fontSize : UDpi.toPixel(FONT_SIZE), textColor : UIColor.black, color : UColor.OKButton)
         mDialog!.addCloseButton( text: UResourceManager.getStringByName("cancel") )
         
         mDialog!.addToDrawManager()
@@ -265,7 +237,7 @@ public class PageViewBackup : UPageView, UDialogCallbacks, UButtonCallbacks, UCh
             screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight())
         
         mDialog!.setTitle(text)
-        mDialog!.addCloseButton(text: "OK", textColor: UIColor.black, bgColor: UIColor.white)
+        mDialog!.addCloseButton(text: "OK", textColor: UIColor.black, bgColor: UColor.OKButton)
         
         mDialog!.addToDrawManager()
     }

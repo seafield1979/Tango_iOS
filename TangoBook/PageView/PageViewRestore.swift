@@ -79,7 +79,7 @@ public class PageViewRestore : UPageView, UDialogCallbacks, UButtonCallbacks, UL
         // 復元確認ダイアログの表示
         mDialog!.setTitle( UResourceManager.getStringByName("confirm_restore2"))
         mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
-        _ = mDialog!.addButton(id: ButtonIdRestoreOK2, text: "OK", fontSize: UDpi.toPixel(FONT_SIZE), textColor: UIColor.black, color: UIColor.white)
+        _ = mDialog!.addButton(id: ButtonIdRestoreOK2, text: "OK", fontSize: UDpi.toPixel(FONT_SIZE), textColor: UIColor.black, color: UColor.OKButton)
         
         mDialog!.addToDrawManager()
     }
@@ -102,7 +102,7 @@ public class PageViewRestore : UPageView, UDialogCallbacks, UButtonCallbacks, UL
             screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight())
         
         mDialog!.setTitle(title)
-        mDialog!.addCloseButton(text: "OK", textColor: UIColor.black, bgColor: UIColor.white)
+        mDialog!.addCloseButton(text: "OK", textColor: UIColor.black, bgColor: UColor.OKButton)
         
         mDialog!.addToDrawManager()
         
@@ -182,7 +182,7 @@ public class PageViewRestore : UPageView, UDialogCallbacks, UButtonCallbacks, UL
                     screenW : width, screenH : mTopScene.getHeight())
                 
                 mDialog!.setTitle(UResourceManager.getStringByName("backup_not_found"))
-                _ = mDialog!.addButton(id: ButtonIdNotFoundOK, text: "OK", fontSize: UDpi.toPixel(FONT_SIZE), textColor: UIColor.black, color: UIColor.white)
+                _ = mDialog!.addButton(id: ButtonIdNotFoundOK, text: "OK", fontSize: UDpi.toPixel(FONT_SIZE), textColor: UIColor.black, color: UColor.OKButton)
                 
                 mDialog!.addToDrawManager()
             } else {
@@ -192,7 +192,7 @@ public class PageViewRestore : UPageView, UDialogCallbacks, UButtonCallbacks, UL
                     buttonDir : UDialogWindow.ButtonDir.Horizontal,
                     screenW : width, screenH : mTopScene.getHeight())
                 mDialog!.setTitle(UResourceManager.getStringByName("confirm_restore"))
-                _ = mDialog!.addButton(id: ButtonIdRestoreOK1, text: "OK", fontSize: UDpi.toPixel(FONT_SIZE), textColor: UIColor.black, color: UIColor.white)
+                _ = mDialog!.addButton(id: ButtonIdRestoreOK1, text: "OK", fontSize: UDpi.toPixel(FONT_SIZE), textColor: UIColor.black, color: UColor.OKButton)
                 mDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
                 
                 mDialog!.addToDrawManager()

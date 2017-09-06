@@ -29,7 +29,7 @@ public class StudyCardStackSelect : UDrawable {
     
     // layout
     public let MARGIN_V = 10;
-    private let MOVING_FRAME = 15;
+    private let MOVING_FRAME = 10;
     private static let STUDY_CARD_NUM : Int = 4
     private let FONT_SIZE = 17;
     private let FONT_SIZE_L = 20;

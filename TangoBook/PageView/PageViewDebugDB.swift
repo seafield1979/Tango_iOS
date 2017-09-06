@@ -117,7 +117,7 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
             screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight())
         mDialog!.addToDrawManager();
         
-        _ = mDialog!.addButton(id: buttonIdConfirmOK, text: "OK", fontSize: UDraw.getFontSize(FontSize.M), textColor: UIColor.black, color: UIColor.white)
+        _ = mDialog!.addButton(id: buttonIdConfirmOK, text: "OK", fontSize: UDraw.getFontSize(FontSize.M), textColor: UIColor.black, color: UColor.OKButton)
         mDialog!.addCloseButton(text: "close")
     }
     

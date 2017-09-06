@@ -29,7 +29,7 @@ public class PageViewStudyInputCorrect : PageViewStudy, CardsStackCallbacks {
 
     private let DRAW_PRIORITY = 100;
     private let COLOR1 = UColor.makeColor(100,50,50)
-    private let COLOR2 = UColor.makeColor(100,200,100)
+    private let COLOR2 = UColor.LightBlue
     
     // button ids
     private let ButtonIdSkip = 101;

@@ -167,7 +167,7 @@ public class PageViewPresetBook : UPageView, UButtonCallbacks, UListItemCallback
             mMessageDialog!.setTitle(title)
             _ = mMessageDialog!.addButton(
                 id : ButtonIdAddOk2, text : "OK", fontSize : UDraw.getFontSize(FontSize.M),
-                textColor : UIColor.black, color : UIColor.white)
+                textColor : UIColor.black, color : UColor.LightGreen)
             
             mMessageDialog!.addToDrawManager()
         }
@@ -261,7 +261,7 @@ public class PageViewPresetBook : UPageView, UButtonCallbacks, UListItemCallback
                 let title = String(format: UResourceManager.getStringByName("confirm_add_book"), book!.getBook()!.mName)
                 
                 mConfirmDialog!.setTitle(title)
-                _ = mConfirmDialog!.addButton(id : ButtonIdAddOk, text : "OK", fontSize : UDraw.getFontSize(FontSize.M), textColor : UIColor.black, color : UIColor.white)
+                _ = mConfirmDialog!.addButton(id : ButtonIdAddOk, text : "OK", fontSize : UDraw.getFontSize(FontSize.M), textColor : UIColor.black, color : UColor.LightGreen)
             
                 mConfirmDialog!.addCloseButton(text: UResourceManager.getStringByName("cancel"))
 

@@ -51,7 +51,7 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
 
     private let DRAW_PRIORITY = 100
     private let COLOR1 = UColor.makeColor(100,50,50)
-    private let COLOR2 = UColor.makeColor(100,200,100)
+    private let COLOR2 = UColor.LightBlue
 
     // button ids
     private let ButtonIdOk = 101
@@ -158,7 +158,7 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
 
         // OK
         mOkView = UImageView(
-            priority : DRAW_PRIORITY, imageName : ImageName.box1, initNode: false,
+            priority : 1, imageName : ImageName.box1, initNode: false,
             x : screenW - UDpi.toPixel(BOX_W + MARGIN_H),
             y : screenH - UDpi.toPixel(BOX_H + MARGIN_V),
             width : UDpi.toPixel(BOX_W), height : UDpi.toPixel(BOX_H),
@@ -172,7 +172,7 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
 
         // NG
         mNgView = UImageView(
-            priority : DRAW_PRIORITY, imageName : ImageName.box1, initNode: false,
+            priority : 1, imageName : ImageName.box1, initNode: false,
             x : UDpi.toPixel(MARGIN_H), y : screenH - UDpi.toPixel(BOX_H + MARGIN_V),
             width : UDpi.toPixel(BOX_W), height : UDpi.toPixel(BOX_H),
             color : UColor.DarkRed )

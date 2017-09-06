@@ -251,14 +251,17 @@ public class UButtonText : UButton {
         }
     }
     
+    /**
+     * このボタンを押すと選択項目が表示されるプルダウンアイコンを設定する
+     * parameter pullDown: trueでプルダウンアイコンを表示
+     */
     public override func setPullDownIcon(_ pullDown : Bool) {
         if pullNode == nil {
             pullNode = SKNodeUtil.createTriangleNode(
                 length: UDpi.toPixel(10),
                 angle: 180,
                 color: UButtonText.PULL_DOWN_COLOR)
-            pullNode!.position = CGPoint(x: size.width - UDpi.toPixel(30), y: SKUtil.convY(fromView: size.height / 2))
-            
+            pullNode!.position = CGPoint(x: size.width - UDpi.toPixel(15), y: SKUtil.convY(fromView: size.height / 2))
             bgNode!.addChild(pullNode!)
         }
     }

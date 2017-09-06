@@ -26,10 +26,8 @@ public class PageViewStudySelect4 : PageViewStudy, CardsStackCallbacks {
     private let SETTING_BUTTON_W = 40
     private let CARD_STACK_MARGIN_H = 35
 
-    private let DRAW_PRIORITY = 100
-    
     private let COLOR1 = UColor.makeColor(100,50,50)
-    private let COLOR2 = UColor.makeColor(100,200,100)
+    private let COLOR2 = UColor.LightBlue
 
     // button ids
     private let ButtonIdOk = 101
@@ -122,7 +120,7 @@ public class PageViewStudySelect4 : PageViewStudy, CardsStackCallbacks {
         
         mTextCardCount = UTextView.createInstance(
             text : title, fontSize : UDpi.toPixel(FONT_SIZE),
-            priority : DRAW_PRIORITY, alignment : .CenterX, createNode : true,
+            priority : 1, alignment : .CenterX, createNode : true,
             multiLine : false, isDrawBG : true, x : width/2, y : UDpi.toPixel(17),
             width : UDpi.toPixel(100), color : COLOR1, bgColor : nil)
         
@@ -131,7 +129,7 @@ public class PageViewStudySelect4 : PageViewStudy, CardsStackCallbacks {
         // 終了ボタン
         mExitButton = UButtonText(
             callbacks : self, type : UButtonType.Press, id : PageViewStudy.ButtonIdExit,
-            priority : DRAW_PRIORITY,
+            priority : 1,
             text : UResourceManager.getStringByName("finish"), createNode : true,
             x : (width-UDpi.toPixel(BUTTON_W))/2, y : height-UDpi.toPixel(50),
             width : UDpi.toPixel(BUTTON_W), height : UDpi.toPixel(BUTTON_H),
@@ -144,7 +142,7 @@ public class PageViewStudySelect4 : PageViewStudy, CardsStackCallbacks {
             imageName: ImageName.settings_1, color: UColor.Green)
         
         mSettingButton = UButtonImage(
-            callbacks : self, id : ButtonIdSetting, priority : DRAW_PRIORITY,
+            callbacks : self, id : ButtonIdSetting, priority : 1,
             x : width + UDpi.toPixel( -SETTING_BUTTON_W - UPageView.MARGIN_H),
             y : height - UDpi.toPixel(50),
             width : UDpi.toPixel(SETTING_BUTTON_W), height : UDpi.toPixel(SETTING_BUTTON_W),
@@ -168,7 +166,6 @@ public class PageViewStudySelect4 : PageViewStudy, CardsStackCallbacks {
             screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
             textColor : .black, dialogColor : .lightGray)
         
-        mDialog!.addToDrawManager()
         mDialog!.setTitle(UResourceManager.getStringByName("option_mode3_1"));
         
         let button = mDialog!.addButton(
@@ -182,12 +179,17 @@ public class PageViewStudySelect4 : PageViewStudy, CardsStackCallbacks {
             fontSize : UDpi.toPixel(FONT_SIZE), textColor: .black, color: .white)
 
         if (MySharedPref.readBool(MySharedPref.StudyMode3OptionKey)) {
-            button.setChecked(true)
+            if let _button = button as? UButtonText {
+                _button.setChecked(true, initNode: false)
+            }
         } else {
-            button2.setChecked(true)
+            if let _button = button2 as? UButtonText {
+                _button.setChecked(true, initNode: false)
+            }
         }
 
         mDialog!.addCloseButton( text: UResourceManager.getStringByName("cancel"))
+        mDialog!.addToDrawManager()
     }
 
     /**

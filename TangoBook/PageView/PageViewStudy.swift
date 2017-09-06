@@ -73,7 +73,7 @@ public class PageViewStudy : UPageView, UButtonCallbacks, UDialogCallbacks {
                 textColor: .black, dialogColor: .lightGray)
             
             mConfirmDialog!.setTitle( UResourceManager.getStringByName("confirm_exit"))
-            _ = mConfirmDialog!.addButton(id: PageViewStudy.ButtonIdExitOk, text: "OK", fontSize: UDraw.getFontSize(FontSize.M), textColor: .black, color: .white)
+            _ = mConfirmDialog!.addButton(id: PageViewStudy.ButtonIdExitOk, text: "OK", fontSize: UDraw.getFontSize(FontSize.M), textColor: .black, color: UColor.OKButton)
             
             mConfirmDialog!.addCloseButton( text: UResourceManager.getStringByName(
                 "cancel"))

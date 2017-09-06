@@ -128,7 +128,7 @@ public class IconInfoDialogCard : IconInfoDialog {
         let icons : List<ActionIconInfo> = IconInfoDialog.getCardIcons()
 
         var width = topScene.getWidth() - UDpi.toPixel(DLG_MARGIN) * 2
-        var height = topScene.getHeight() - UDpi.toPixel(DLG_MARGIN) * 2
+        var x = width / 2
         let fontSize = UDraw.getFontSize(FontSize.M)
 
         // タイトル(カード)
@@ -136,10 +136,10 @@ public class IconInfoDialogCard : IconInfoDialog {
            text : UResourceManager.getStringByName("card"),
            fontSize : UDpi.toPixel(FONT_SIZE_M),
            priority : 0,
-           alignment : UAlignment.None, createNode: true,
+           alignment : UAlignment.Center, createNode: true,
            multiLine : false, isDrawBG : false,
-           x : UDpi.toPixel(MARGIN_H),
-           y : y, width : width - UDpi.toPixel(MARGIN_H) * 2,
+           x : x, y : y,
+           width : width - UDpi.toPixel(MARGIN_H) * 2,
            color : TITLE_COLOR, bgColor : TEXT_BG_COLOR)
         y += UDpi.toPixel(FONT_SIZE_L + MARGIN_V)
 
@@ -163,10 +163,10 @@ public class IconInfoDialogCard : IconInfoDialog {
                 titleView = UTextView.createInstance(
                    text : titleStr!,
                    fontSize : fontSize,
-                   priority : 0, alignment : UAlignment.None, createNode: true,
+                   priority : 0, alignment : UAlignment.Center, createNode: true,
                    multiLine : false, isDrawBG : false,
-                   x : UDpi.toPixel(MARGIN_H), y : y,
-                   width : size.width-UDpi.toPixel(MARGIN_H),
+                   x : x, y : y,
+                   width : size.width - UDpi.toPixel(MARGIN_H),
                    color : TEXT_COLOR, bgColor : nil)
 
                 y += titleView!.getHeight() + UDpi.toPixel(MARGIN_V_S)
@@ -177,9 +177,9 @@ public class IconInfoDialogCard : IconInfoDialog {
             if bodyStr != nil && bodyStr!.isEmpty == false {
                 bodyView = UTextView.createInstance(
                    text : bodyStr!, fontSize : fontSize, priority : 0,
-                   alignment : UAlignment.None, createNode: true,
+                   alignment : UAlignment.Center, createNode: true,
                    multiLine : true, isDrawBG : true,
-                   x : UDpi.toPixel(MARGIN_H),
+                   x : x,
                    y : y, width : size.width-UDpi.toPixel(MARGIN_H),
                    color : TEXT_COLOR, bgColor : bgColor)
                
@@ -206,7 +206,7 @@ public class IconInfoDialogCard : IconInfoDialog {
         }
 
         // アクションボタン
-        var x = (width - (UDpi.toPixel(ICON_W) * CGFloat(icons.count) + UDpi.toPixel(MARGIN_H) * CGFloat(icons.count - 1))) / 2
+        x = (width - (UDpi.toPixel(ICON_W) * CGFloat(icons.count) + UDpi.toPixel(MARGIN_H) * CGFloat(icons.count - 1))) / 2
         for icon in icons {
             let color = (icon!.id == ActionIconId.Favorite) ? UColor.LightYellow : frameColor
 

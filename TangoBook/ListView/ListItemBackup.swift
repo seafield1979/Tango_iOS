@@ -60,7 +60,7 @@ public class ListItemBackup : UListItem {
         
         // mText
         if backup.isEnabled() {
-            mText = String( format: "%@\n%@ : %d\n%@ : %d\n",
+            mText = String( format: "%@\n%@ : %d\n%@ : %d",
                 UUtil.convDateFormat(date: backup.getDateTime(), mode: ConvDateMode.DateTime)!,
                 UResourceManager.getStringByName("card_count"),
                 backup.getCardNum(),
@@ -90,12 +90,11 @@ public class ListItemBackup : UListItem {
         parentNode.addChild2(titleNode!)
         
         // text
-        let y = UDpi.toPixel(MARGIN_V * 2) + titleNode!.frame.size.height
         textNode = SKNodeUtil.createLabelNode(
             text: mText!, fontSize: UDpi.toPixel(FONT_SIZE), color: FONT_COLOR,
             alignment: .Center,
             pos: CGPoint(x: size.width / 2,
-                         y: y + (size.height - y) / 2)).node
+                         y: size.height / 2)).node
         parentNode.addChild2(textNode!)
     }
     
@@ -107,6 +106,7 @@ public class ListItemBackup : UListItem {
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
     public override func draw() {
+        super.draw()
     }
 }
 

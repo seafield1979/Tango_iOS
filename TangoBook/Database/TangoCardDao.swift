@@ -113,8 +113,8 @@ public class TangoCardDao {
             results = mRealm!.objects(TangoCard.self)
             
             // 最低２件以上のレコードがないと後の処理で無限ループにはまる
-            if results.count <= 2 {
-                for _ in 0...num-1 {
+            if results.count >= 2 {
+                for _ in 0..<num {
                     var card : TangoCard? = nil
                     while (true) {
                         // ランダムのIDが除外IDとおなじなら再度ランダム値を取得する

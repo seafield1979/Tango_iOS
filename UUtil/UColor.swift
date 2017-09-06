@@ -84,6 +84,8 @@ public class UColor {
     public static let Yellow  : UIColor = makeColor(argb:0xFFFFFF00)
     public static let YellowGreen  : UIColor = makeColor(argb:0xFFACD32)
     
+    public static let OKButton : UIColor = LightGreen
+    
     /**
      * UInt32 の 色から R,G,Bを個別で取得する
      */

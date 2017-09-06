@@ -241,7 +241,7 @@ public class UDialogWindow : UWindow {
                                posType: DialogPosType.Center,
                                isAnimation: true,
                                screenW: screenW, screenH: screenH,
-                               textColor: UIColor.black, dialogColor: UIColor.lightGray)
+                               textColor: UIColor.black, dialogColor: UIColor.white)
     }
     
     public func setDialogPos(x : CGFloat, y : CGFloat) {
