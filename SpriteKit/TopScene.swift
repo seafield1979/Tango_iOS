@@ -7,21 +7,18 @@
 //
 
 import SpriteKit
-import GameplayKit
 
 public class TopScene: SKScene {
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    // MARK: Constants
     
+    // MARK: Properties
     private var mPageManager : UPageViewManager?
-    
     public static var instance : TopScene?
     public var parentVC : UIViewController?
-    
     var vt : ViewTouch = ViewTouch()
     
-    
+    // MARK: Methods
     public static func getInstance() -> TopScene {
         return instance!
     }
@@ -37,19 +34,6 @@ public class TopScene: SKScene {
         UDpi.initialize()
         
         TopScene.instance = self
-    }
-    
-    
-    func touchDown(atPoint pos : CGPoint) {
-        
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        
     }
     
     override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -96,13 +80,20 @@ public class TopScene: SKScene {
     override public func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         let pos = self.convertPoint(toView: touch!.location(in: self))
-        
+
         _ = vt.checkTouchType(e: TouchEventType.Cancel,
                               touch: touch!, pos: pos)
     }
     
-    
+    /**
+     * 毎フレームの描画前に呼ばれる
+     */
     override public func update(_ currentTime: TimeInterval) {
+        // 長押し判定
+        if vt.checkLongTouch() {
+            _ = UDrawManager.getInstance().touchEvent(vt)
+        }
+        
         // 現在のページの描画
         _ = mPageManager!.draw()
         
@@ -110,6 +101,7 @@ public class TopScene: SKScene {
         if UDrawManager.getInstance().draw() == true {
             //            redraw = true
         }
+
     }
     
 }

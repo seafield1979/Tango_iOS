@@ -585,18 +585,10 @@ public class UIconWindow : UWindow{
             if isChecking {
                 changeIconChecked(icons: icons!, isChecking: true)
                 setState(WindowState.icon_selecting)
-
-                // Vibrate
-                // todo
-//                MainActivity.getInstance().startVibration(100);
             }
         } else if (state == WindowState.icon_selecting) {
             // チェック中ならチェック可能状態を解除
             setState( WindowState.none)
-
-            // Vibrate
-            // todo
-//            MainActivity.getInstance().startVibration(100);
         }
         return true
     }
@@ -1208,60 +1200,61 @@ public class UIconWindow : UWindow{
         }
 
         switch vt.type {
-            case .Click:
-                if state == WindowState.icon_selecting {
-                    // 選択されたアイコンがなくなったら選択状態を解除
-                    let checkedIcons : List<UIcon> = mIconManager!.getCheckedIcons()
-                    if checkedIcons.count <= 0 {
-                        setState(WindowState.none)
-                        done = true
-                    }
-                } else {
-                    // MainWindowの何もないところをクリックしたらSubWindowを閉じる
-                    if !done && self.type == WindowType.Home {
-                        if windows!.getSubWindow().isShow {
-                            if windows!.getSubWindow().windowCallbacks != nil {
-                                windows!.getSubWindow().windowCallbacks!.windowClose(window: windows!.getSubWindow())
-                            }
-                        }
-                    }
-                }
-            
-            case .LongPress:
-                _ = longPressed(vt: vt)
-                done = true
-            
-            case .Moving:
-                if vt.isMoveStart {
-                    if dragStart(vt: vt) {
-                        done = true
-                    }
-                }
-                if dragMove(vt: vt) {
+        case .Click:
+            if state == WindowState.icon_selecting {
+                // 選択されたアイコンがなくなったら選択状態を解除
+                let checkedIcons : List<UIcon> = mIconManager!.getCheckedIcons()
+                if checkedIcons.count <= 0 {
+                    setState(WindowState.none)
                     done = true
                 }
-            
-            case .MoveEnd:
-                switch state {
-                    case .none:
-                        fallthrough
-                    case .drag:
-                        if dragEndNormal(vt: vt) {
-                            done = true
+            } else {
+                // MainWindowの何もないところをクリックしたらSubWindowを閉じる
+                if !done && self.type == WindowType.Home {
+                    if windows!.getSubWindow().isShow {
+                        if windows!.getSubWindow().windowCallbacks != nil {
+                            windows!.getSubWindow().windowCallbacks!.windowClose(window: windows!.getSubWindow())
                         }
-                    
-                    case .icon_selecting:
-                        // アイコン選択中は
-                        if dragEndChecked(vt: vt) {
-                            done = true
-                        }
-                default:
-                    break
+                    }
                 }
-            
-            case .MoveCancel:
-                sortIcons(animate: false)
-                setDragedIcon(nil)
+            }
+        case .LongClick:
+            fallthrough
+        case .LongPress:
+            _ = longPressed(vt: vt)
+            done = true
+        
+        case .Moving:
+            if vt.isMoveStart {
+                if dragStart(vt: vt) {
+                    done = true
+                }
+            }
+            if dragMove(vt: vt) {
+                done = true
+            }
+        
+        case .MoveEnd:
+            switch state {
+                case .none:
+                    fallthrough
+                case .drag:
+                    if dragEndNormal(vt: vt) {
+                        done = true
+                    }
+                
+                case .icon_selecting:
+                    // アイコン選択中は
+                    if dragEndChecked(vt: vt) {
+                        done = true
+                    }
+            default:
+                break
+            }
+        
+        case .MoveCancel:
+            sortIcons(animate: false)
+            setDragedIcon(nil)
         default:
             break
         }
