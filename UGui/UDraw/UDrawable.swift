@@ -360,9 +360,6 @@ public class UDrawable {
     }
     
     private func setMovingPos(dstX : CGFloat, dstY : CGFloat) -> Bool {
-        if (pos.x == dstX && pos.y == dstY) {
-            return false;
-        }
         srcPos.x = pos.x
         srcPos.y = pos.y
         dstPos.x = dstX

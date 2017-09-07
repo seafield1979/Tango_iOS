@@ -462,58 +462,31 @@ public class UIconWindow : UWindow{
         var maxSize : CGFloat = 0
 
         var i : Int = 0
-        if dir == WindowDir.Vertical {
-            let column = Int((clientSize.width - iconMargin) / (iconW + iconMargin))
-            if column <= 0 {
-                return
-            }
-            let margin = (clientSize.width - iconW * CGFloat(column)) / CGFloat(column + 1)
-            for icon in icons! {
-                let x = margin + CGFloat(i % column) * (iconW + margin)
-                let y = margin + CGFloat(i / column) * (iconH + margin)
-                let height = y + (iconH + margin) * 2
-                if height >= maxSize {
-                    maxSize = height
-                }
-                if animate {
-                    icon!.startMoving( dstX: x, dstY: y, frame: MOVING_TIME)
-                } else {
-                    icon!.setPos(x, y, convSKPos: true)
-                }
-                // 選択アイコンがあるかどうかチェック
-                if icon === mIconManager!.getSelectedIcon() {
-                    selectedIcon = icon
-                }
-
-                i += 1
-            }
-        } else {
-            let column = Int((clientSize.height - iconMargin) / (iconH + iconMargin))
-            if column <= 0 {
-                return
-            }
-            let margin = (clientSize.height - iconH * CGFloat(column)) / CGFloat(column + 1)
-            for icon in icons! {
-                let x = margin + CGFloat(i / column) * (iconW + margin)
-                let y = margin + CGFloat(i % column) * (iconH + margin)
-                let width = x + (iconW + margin)
-                if (width >= maxSize) {
-                    maxSize = width
-                }
-                if animate {
-                    icon!.startMoving(dstX: x, dstY: y, frame: MOVING_TIME)
-                } else {
-                    icon!.setPos(x, y, convSKPos: true)
-                }
-
-                // 選択アイコンがあるかどうかチェック
-                if icon === mIconManager!.getSelectedIcon() {
-                    selectedIcon = icon
-                }
-                i += 1
-            }
+        let column = Int((clientSize.width - iconMargin) / (iconW + iconMargin))
+        if column <= 0 {
+            return
         }
+        let margin = (clientSize.width - iconW * CGFloat(column)) / CGFloat(column + 1)
+        for icon in icons! {
+            let x = margin + CGFloat(i % column) * (iconW + margin)
+            let y = margin + CGFloat(i / column) * (iconH + margin)
+            let height = y + (iconH + margin) * 2
+            if height >= maxSize {
+                maxSize = height
+            }
+            if animate {
+                icon!.startMoving( dstX: x, dstY: y, frame: MOVING_TIME)
+            } else {
+                icon!.setPos(x, y, convSKPos: true)
+            }
+            // 選択アイコンがあるかどうかチェック
+            if icon === mIconManager!.getSelectedIcon() {
+                selectedIcon = icon
+            }
 
+            i += 1
+        }
+        
         if !animate {
             IconsPosFixed()
         }
@@ -531,14 +504,9 @@ public class UIconWindow : UWindow{
         setState(WindowState.icon_moving);
 
         // メニューバーに重ならないように下にマージンを設ける
-        if dir == WindowDir.Vertical {
-            setContentSize(width: size.width, height: maxSize + UDpi.toPixel(MARGIN_D), update: true)
-            contentTop.y = mScrollBarV!.updateContent(contentSize: contentSize.height)
-        } else {
-            setContentSize(width: maxSize + UDpi.toPixel(MARGIN_D), height: size.height, update: true)
-            contentTop.x = mScrollBarH!.updateContent(contentSize: contentSize.width)
-        }
-
+        setContentSize(width: size.width, height: maxSize + UDpi.toPixel(MARGIN_D), update: true)
+        contentTop.y = mScrollBarV!.updateContent(contentSize: contentSize.height)
+        
         // 必要があれば選択アイコンをクリア
         if selectedIcon == nil {
             mIconManager!.setSelectedIcon(nil)
@@ -750,6 +718,7 @@ public class UIconWindow : UWindow{
         mIconManager!.setDropedIcon(nil)
 
         let srcIcons : List<UIcon>? = getIcons()
+        let subWindow = windows!.getSubWindow()
        
         for window in windows!.getWindows()! {
             // Windowの領域外ならスキップ
@@ -759,7 +728,7 @@ public class UIconWindow : UWindow{
 
             // BookタイプのアイコンをサブWindowに移動できない
             // ただしサブWindowがゴミ箱の場合は除く
-            if window === windows!.getSubWindow() {
+            if window === subWindow {
                 if dragedIcon!.type == IconType.Book &&
                         window!.getParentType() != TangoParentType.Trash
                 {
@@ -783,16 +752,24 @@ public class UIconWindow : UWindow{
 
             // 移動あり
             if isDroped && ret.dropedIcon != nil {
-                switch ret.movingType {
-                    case .Insert:
-                        // ドロップ先の位置に挿入
-                        insertIcons(icon1: dragedIcon!, icon2: ret.dropedIcon!, animate:true)
+            switch ret.movingType {
+                case .Insert:
+                    // ドロップ先の位置に挿入
+                    insertIcon(icon1: dragedIcon!, icon2: ret.dropedIcon!, animate:true)
+                
+                case .Exchange:
+                    // ドロップ先のアイコンと場所交換
+                    changeIcon(icon1: dragedIcon!, icon2: ret.dropedIcon!)
+                
+                case .MoveIn:
+                    moveIconIn(icon1: dragedIcon!, icon2: ret.dropedIcon!)
                     
-                    case .Exchange:
-                        // ドロップ先のアイコンと場所交換
-                        changeIcons(icon1: dragedIcon!, icon2: ret.dropedIcon!)
-                default:
-                    break
+                    for win in windows!.getWindows()! {
+                        let manager : UIconManager? = win!.getIconManager()
+                        if manager != nil {
+                            manager!.updateBlockRect()
+                        }
+                    }
                 }
             }
 
@@ -825,7 +802,7 @@ public class UIconWindow : UWindow{
                     dragedIcon!.setParentWindow(window!)
                     // SKノードの親を付け替え
                     dragedIcon!.parentNode.removeFromParent()
-                    dragedIcon!.parentNode.position = convToClientPos(pos: dragedIcon!.parentNode.position)
+                    dragedIcon!.parentNode.position = convToClientPos(pos: dragedIcon!.pos)
                     window!.clientNode.addChild2( dragedIcon!.parentNode )
 
             
@@ -852,6 +829,20 @@ public class UIconWindow : UWindow{
                 }
             }
 
+            // SKノードの親を付け替え
+            // 移動元のウィンドウから外して異動先のウィンドウに追加。ただし、ドロップ時は異動先に追加しない場合もある
+            dragedIcon!.parentNode.removeFromParent()
+            dragedIcon!.parentNode.position = convToClientPos(pos: dragedIcon!.pos)
+            if ret.movingType == .MoveIn {
+                // ドロップ先のアイコンがサブウィンドウで開かれていた場合はそちらに追加する
+                if subWindow.getParentIcon() === ret.dropedIcon! {
+                    subWindow.clientNode.addChild2( dragedIcon!.parentNode )
+                    subWindow.sortIcons(animate: true)
+                }
+            } else {
+                window!.clientNode.addChild2( dragedIcon!.parentNode )
+            }
+            
             // 再配置
             if self !== window {
                 // 座標系変換(移動元Windowから移動先Window)
@@ -862,6 +853,7 @@ public class UIconWindow : UWindow{
                         win1ToWin2Y(win1Y: dragedIcon!.getPos().y,
                                     win1: self, win2: window!), convSKPos: true)
                 }
+
                 window!.sortIcons(animate: true)
             }
             if (isDroped) {
@@ -928,71 +920,43 @@ public class UIconWindow : UWindow{
                         fallthrough
                     case .Trash:
                        // Containerの中に挿入する
-                       moveIconIn(icon1: dragedIcon!, icon2: dropIcon)
-                       ret.movingType = IconMovingType.MoveIn
-
-                       for win in windows!.getWindows()! {
-                           let manager : UIconManager? = win!.getIconManager()
-                           if manager != nil {
-                               manager!.updateBlockRect()
-                           }
-                       }
-                       ret.isDroped = true
+//                       moveIconIn(icon1: dragedIcon!, icon2: dropIcon)
+//                       ret.movingType = IconMovingType.MoveIn
+//
+//                       for win in windows!.getWindows()! {
+//                           let manager : UIconManager? = win!.getIconManager()
+//                           if manager != nil {
+//                               manager!.updateBlockRect()
+//                           }
+//                       }
+                        ret.movingType = IconMovingType.MoveIn
+                        ret.isDroped = true
                 }
                 break
             } else {
                 // アイコンのマージン部分にドロップされたかのチェック
-                if dir == WindowDir.Vertical {
-                    // 縦画面
-                    if dropIcon.getX() - iconMargin * 2 <= winX &&
-                            winX <= dropIcon.getRight() + iconMargin * 2 &&
-                            dropIcon.getY() - iconMargin * 2  <= winY &&
-                            winY <= dropIcon.getBottom() + iconMargin * 2
+                if dropIcon.getX() - iconMargin * 2 <= winX &&
+                        winX <= dropIcon.getRight() + iconMargin * 2 &&
+                        dropIcon.getY() - iconMargin * 2  <= winY &&
+                        winY <= dropIcon.getBottom() + iconMargin * 2
+                {
+                    // ドラッグ位置（アイコンの左側)にアイコンを挿入する
+                    ret.dropedIcon = dropIcon
+                    ret.isDroped = true
+                    break
+                } else if (dropIcon.getX() + (iconMargin + iconW) * 2 > size.width ) {
+                    // 右端のアイコンは右側に挿入できる
+                    if winX > dropIcon.getRight() &&
+                            dropIcon.getY() <= winY &&
+                            winY <= dropIcon.getY() + dropIcon.getSize().height
                     {
-                        // ドラッグ位置（アイコンの左側)にアイコンを挿入する
+                        // 右側の場合は次のアイコンの次の位置に挿入
+                        if i < dstIcons.count - 1 {
+                            dropIcon = dstIcons[i+1]
+                        }
                         ret.dropedIcon = dropIcon
                         ret.isDroped = true
                         break
-                    } else if (dropIcon.getX() + (iconMargin + iconW) * 2 > size.width )
-                    {
-                        // 右端のアイコンは右側に挿入できる
-                        if winX > dropIcon.getRight() &&
-                                dropIcon.getY() <= winY &&
-                                winY <= dropIcon.getY() + dropIcon.getSize().height
-                        {
-                            // 右側の場合は次のアイコンの次の位置に挿入
-                            if i < dstIcons.count - 1 {
-                                dropIcon = dstIcons[i+1]
-                            }
-                            ret.dropedIcon = dropIcon
-                            ret.isDroped = true
-                            break
-                        }
-                    }
-                } else {
-                    // 横画面
-                    if dropIcon.getY() - iconMargin * 2 <= winY &&
-                            winY <= dropIcon.getY() + iconMargin &&
-                            dropIcon.getX() <= winX && winX <= dropIcon.getX() + dropIcon.getSize()
-                            .width
-                    {
-                        ret.dropedIcon = dropIcon
-                        ret.isDroped = true
-                        break
-                    } else if (dropIcon.getY() + (iconMargin + iconH) * 2 > size.height ) {
-                        // 下端のアイコンは下側に挿入できる
-                        if (winY > dropIcon.getBottom() &&
-                                dropIcon.getX() <= winX &&
-                                winX <= dropIcon.getX() + dropIcon.getSize().width )
-                        {
-                            // 右側の場合は次のアイコンの次の位置に挿入
-                            if i < dstIcons.count - 1 {
-                                dropIcon = dstIcons[i+1]
-                            }
-                            ret.dropedIcon = dropIcon
-                            ret.isDroped = true
-                            break
-                        }
                     }
                 }
             }
@@ -1312,7 +1276,7 @@ public class UIconWindow : UWindow{
      * @param icon1 １つめのアイコン
      * @param icon2 ２つめのアイコン
      */
-    private func changeIcons(icon1 : UIcon, icon2 : UIcon)
+    private func changeIcon(icon1 : UIcon, icon2 : UIcon)
     {
         // アイコンの位置を交換
         // 並び順も重要！
@@ -1371,7 +1335,7 @@ public class UIconWindow : UWindow{
      * @param icon2  挿入先のアイコン
      * @param animate
      */
-    private func insertIcons( icon1 : UIcon, icon2 : UIcon, animate : Bool)
+    private func insertIcon( icon1 : UIcon, icon2 : UIcon, animate : Bool)
     {
         // アイコンの位置を交換
         // 並び順も重要！
@@ -1395,25 +1359,10 @@ public class UIconWindow : UWindow{
             icons2.insert(icon1, atIndex: index2+1)
         }
 
-        
-        // SpriteKit ノードの付け替え
-        if icon1 === dragedIcon {
-            icon1.parentNode.removeFromParent()
-            icon1.parentNode.position = convToClientPos(pos: dragedIcon!.parentNode.position)
-        }
-        icon2.parentWindow?.clientNode.addChild2( icon1.parentNode )
-
         // 再配置
-        if icons1 !== icons2 {
+        if window1 !== window2 {
             // 親の付け替え
             icon1.setParentWindow(window2)
-            icon2.setParentWindow(window1)
-
-            // ドロップアイコンの座標系を変換
-            dragedIcon?.setPos(icon1.getX() + window2.pos.x - window1.pos.x,
-                    icon1.getY() + window2.pos.y - window1.pos.y, convSKPos: true)
-            
-            window2.sortIcons(animate: animate)
 
             // データベース更新
             // 挿入位置以降の全てのposを更新
@@ -1433,8 +1382,6 @@ public class UIconWindow : UWindow{
             let startPos = (index1 < index2) ? index1 : index2
             TangoItemPosDao.updatePoses(icons: icons1.toArray(), startPos: startPos)
         }
-
-        window1.sortIcons(animate: animate)
     }
 
      /**
@@ -1464,18 +1411,18 @@ public class UIconWindow : UWindow{
 
         // SpriteKit ノード
         // ドラッグアイコンを親から削除
-        icon1!.parentNode.removeFromParent()
+//        icon1!.parentNode.removeFromParent()
         
         if icon2 === windows!.getSubWindow().getParentIcon() &&
             window2.isShow
         {
             // 移動先のウィンドウに追加
-            window2.clientNode.addChild2(icon1!.parentNode)
+//            window2.clientNode.addChild2(icon1!.parentNode)
 
             let win2Icons : List<UIcon> = window2.getIcons()!
             win2Icons.append(icon1!)
 
-            window2.sortIcons(animate: false)
+//            window2.sortIcons(animate: false)
             icon1!.setParentWindow(window2)
         }
         
@@ -1489,10 +1436,10 @@ public class UIconWindow : UWindow{
                                   parentType: container.getParentType().rawValue,
                                   parentId: itemId)
 
-        window1.sortIcons(animate: true)
-        if window1 !== window2 {
-            window2.sortIcons(animate: true)
-        }
+//        window1.sortIcons(animate: true)
+//        if window1 !== window2 {
+//            window2.sortIcons(animate: true)
+//        }
     }
 
     /**
@@ -1595,7 +1542,7 @@ public class UIconWindow : UWindow{
                                     parentType: _dropedIcon.getParentType().rawValue,
                                     parentId: itemId)
 
-        window2.sortIcons(animate: false)
+        window2.sortIcons(animate: true)
         
         // 箱の中に入れた後のアイコン整列後にチェックを解除したいのでフラグを持っておく
         isDropInBox = true

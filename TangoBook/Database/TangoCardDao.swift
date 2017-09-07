@@ -6,7 +6,6 @@
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import Foundation
 import RealmSwift
 
 /**
