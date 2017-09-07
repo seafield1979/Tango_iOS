@@ -15,6 +15,17 @@
 		8A159E9C1F567C630066FEB5 /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A159E9A1F567C630066FEB5 /* ColorPickerViewController.swift */; };
 		8A159EA21F5695540066FEB5 /* ColorPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A159EA41F5695540066FEB5 /* ColorPickerViewController.xib */; };
 		8A159EAE1F56AA7C0066FEB5 /* ListItemBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A159EAD1F56AA7C0066FEB5 /* ListItemBackup.swift */; };
+		8A19B5741F6122D2006B8FC9 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A19B56C1F6122D2006B8FC9 /* Icon-60@2x.png */; };
+		8A19B5751F6122D2006B8FC9 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A19B56D1F6122D2006B8FC9 /* Icon-60@3x.png */; };
+		8A19B5761F6122D2006B8FC9 /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A19B56E1F6122D2006B8FC9 /* Icon-76.png */; };
+		8A19B5771F6122D2006B8FC9 /* Icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A19B56F1F6122D2006B8FC9 /* Icon-76@2x.png */; };
+		8A19B5781F6122D2006B8FC9 /* Icon-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A19B5701F6122D2006B8FC9 /* Icon-83.5@2x.png */; };
+		8A19B5791F6122D2006B8FC9 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A19B5711F6122D2006B8FC9 /* Icon-Small.png */; };
+		8A19B57D1F61238F006B8FC9 /* Icon-Small-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A19B57A1F61238F006B8FC9 /* Icon-Small-40.png */; };
+		8A19B57E1F61238F006B8FC9 /* Icon-Small-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A19B57B1F61238F006B8FC9 /* Icon-Small-40@2x.png */; };
+		8A19B57F1F61238F006B8FC9 /* Icon-Small-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A19B57C1F61238F006B8FC9 /* Icon-Small-40@3x.png */; };
+		8A19B5821F6123C6006B8FC9 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A19B5801F6123C6006B8FC9 /* Icon-Small@2x.png */; };
+		8A19B5831F6123C6006B8FC9 /* Icon-Small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A19B5811F6123C6006B8FC9 /* Icon-Small@3x.png */; };
 		8A19F4371F58606C00356394 /* BackupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A19F4361F58606C00356394 /* BackupManager.swift */; };
 		8A19F4391F58662F00356394 /* ByteBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A19F4381F58662F00356394 /* ByteBuffer.swift */; };
 		8A19F43B1F58E42D00356394 /* BackupFileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A19F43A1F58E42D00356394 /* BackupFileInfo.swift */; };
@@ -345,6 +356,17 @@
 		8A159EAA1F5695FF0066FEB5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ColorPickerViewController.strings; sourceTree = "<group>"; };
 		8A159EAC1F5696030066FEB5 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/ColorPickerViewController.strings; sourceTree = "<group>"; };
 		8A159EAD1F56AA7C0066FEB5 /* ListItemBackup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListItemBackup.swift; path = ListView/ListItemBackup.swift; sourceTree = "<group>"; };
+		8A19B56C1F6122D2006B8FC9 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "Resource/AppImage/Icon/Icon-60@2x.png"; sourceTree = "<group>"; };
+		8A19B56D1F6122D2006B8FC9 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@3x.png"; path = "Resource/AppImage/Icon/Icon-60@3x.png"; sourceTree = "<group>"; };
+		8A19B56E1F6122D2006B8FC9 /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76.png"; path = "Resource/AppImage/Icon/Icon-76.png"; sourceTree = "<group>"; };
+		8A19B56F1F6122D2006B8FC9 /* Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76@2x.png"; path = "Resource/AppImage/Icon/Icon-76@2x.png"; sourceTree = "<group>"; };
+		8A19B5701F6122D2006B8FC9 /* Icon-83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-83.5@2x.png"; path = "Resource/AppImage/Icon/Icon-83.5@2x.png"; sourceTree = "<group>"; };
+		8A19B5711F6122D2006B8FC9 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Resource/AppImage/Icon/Icon-Small.png"; sourceTree = "<group>"; };
+		8A19B57A1F61238F006B8FC9 /* Icon-Small-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-40.png"; path = "Resource/AppImage/Icon/Icon-Small-40.png"; sourceTree = "<group>"; };
+		8A19B57B1F61238F006B8FC9 /* Icon-Small-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-40@2x.png"; path = "Resource/AppImage/Icon/Icon-Small-40@2x.png"; sourceTree = "<group>"; };
+		8A19B57C1F61238F006B8FC9 /* Icon-Small-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-40@3x.png"; path = "Resource/AppImage/Icon/Icon-Small-40@3x.png"; sourceTree = "<group>"; };
+		8A19B5801F6123C6006B8FC9 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@2x.png"; path = "Resource/AppImage/Icon/Icon-Small@2x.png"; sourceTree = "<group>"; };
+		8A19B5811F6123C6006B8FC9 /* Icon-Small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@3x.png"; path = "Resource/AppImage/Icon/Icon-Small@3x.png"; sourceTree = "<group>"; };
 		8A19F4361F58606C00356394 /* BackupManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackupManager.swift; path = TangoBook/Database/BackupManager.swift; sourceTree = "<group>"; };
 		8A19F4381F58662F00356394 /* ByteBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ByteBuffer.swift; sourceTree = "<group>"; };
 		8A19F43A1F58E42D00356394 /* BackupFileInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackupFileInfo.swift; path = TangoBook/Database/BackupFileInfo.swift; sourceTree = "<group>"; };
@@ -705,6 +727,32 @@
 			name = ViewController;
 			sourceTree = "<group>";
 		};
+		8A19B5681F6122BA006B8FC9 /* AppImage */ = {
+			isa = PBXGroup;
+			children = (
+				8A19B5691F6122C3006B8FC9 /* Icon */,
+			);
+			name = AppImage;
+			sourceTree = "<group>";
+		};
+		8A19B5691F6122C3006B8FC9 /* Icon */ = {
+			isa = PBXGroup;
+			children = (
+				8A19B56C1F6122D2006B8FC9 /* Icon-60@2x.png */,
+				8A19B56D1F6122D2006B8FC9 /* Icon-60@3x.png */,
+				8A19B56E1F6122D2006B8FC9 /* Icon-76.png */,
+				8A19B56F1F6122D2006B8FC9 /* Icon-76@2x.png */,
+				8A19B5701F6122D2006B8FC9 /* Icon-83.5@2x.png */,
+				8A19B5711F6122D2006B8FC9 /* Icon-Small.png */,
+				8A19B5801F6123C6006B8FC9 /* Icon-Small@2x.png */,
+				8A19B5811F6123C6006B8FC9 /* Icon-Small@3x.png */,
+				8A19B57A1F61238F006B8FC9 /* Icon-Small-40.png */,
+				8A19B57B1F61238F006B8FC9 /* Icon-Small-40@2x.png */,
+				8A19B57C1F61238F006B8FC9 /* Icon-Small-40@3x.png */,
+			);
+			name = Icon;
+			sourceTree = "<group>";
+		};
 		8A19F4401F5908F500356394 /* Backup */ = {
 			isa = PBXGroup;
 			children = (
@@ -723,6 +771,7 @@
 		8A5708151F373D09004387D4 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				8A19B5681F6122BA006B8FC9 /* AppImage */,
 				8A5708161F373D27004387D4 /* csv */,
 				8A5708231F373D27004387D4 /* Image */,
 			);
@@ -1387,6 +1436,7 @@
 				8A5709381F373D28004387D4 /* play.png in Resources */,
 				8A5709061F373D27004387D4 /* help_icons_moved.png in Resources */,
 				8A57093A1F373D28004387D4 /* question2.png in Resources */,
+				8A19B5751F6122D2006B8FC9 /* Icon-60@3x.png in Resources */,
 				8A5708CE1F373D27004387D4 /* backup_list_backup.png in Resources */,
 				8AB7E9611F25B43E005E36BB /* Localizable.strings in Resources */,
 				8A5708B61F373D27004387D4 /* fish.csv in Resources */,
@@ -1414,6 +1464,7 @@
 				8A5708FF1F373D27004387D4 /* help_edit_card.png in Resources */,
 				8A5709471F373D28004387D4 /* study_mode2.png in Resources */,
 				8A5709391F373D28004387D4 /* question.png in Resources */,
+				8A19B5821F6123C6006B8FC9 /* Icon-Small@2x.png in Resources */,
 				8A5708C41F373D27004387D4 /* arrow_u.png in Resources */,
 				8A57091F1F373D28004387D4 /* help_study_mode4_3.png in Resources */,
 				8A5708DD1F373D27004387D4 /* close.png in Resources */,
@@ -1430,8 +1481,10 @@
 				8A5708C71F373D27004387D4 /* backup_button.png in Resources */,
 				8A5709031F373D27004387D4 /* help_finish_restore.png in Resources */,
 				8A5708ED1F373D27004387D4 /* help_backup_button.png in Resources */,
+				8A19B57E1F61238F006B8FC9 /* Icon-Small-40@2x.png in Resources */,
 				8A57091A1F373D28004387D4 /* help_study_mode3_1.png in Resources */,
 				8A5708D71F373D27004387D4 /* card.png in Resources */,
+				8A19B5791F6122D2006B8FC9 /* Icon-Small.png in Resources */,
 				8A5709081F373D27004387D4 /* help_new_book.png in Resources */,
 				8A5709151F373D28004387D4 /* help_study_mode2.png in Resources */,
 				8A5709311F373D28004387D4 /* number_4.png in Resources */,
@@ -1461,6 +1514,7 @@
 				8A57094B1F373D28004387D4 /* trash.png in Resources */,
 				8A5708E01F373D27004387D4 /* edit.png in Resources */,
 				8A5709351F373D28004387D4 /* number_8.png in Resources */,
+				8A19B5761F6122D2006B8FC9 /* Icon-76.png in Resources */,
 				8A5709001F373D27004387D4 /* help_edit_cards.png in Resources */,
 				8A5709181F373D28004387D4 /* help_study_mode2_3.png in Resources */,
 				8A5708D51F373D27004387D4 /* backup_select_file.png in Resources */,
@@ -1472,10 +1526,12 @@
 				8A5708B71F373D27004387D4 /* flower.csv in Resources */,
 				8A57092A1F373D28004387D4 /* loupe.png in Resources */,
 				8A5708E91F373D27004387D4 /* help_add_csv_list.png in Resources */,
+				8A19B5831F6123C6006B8FC9 /* Icon-Small@3x.png in Resources */,
 				8A57090B1F373D27004387D4 /* help_page_backup2.png in Resources */,
 				8A5708BB1F373D27004387D4 /* month.csv in Resources */,
 				8A5709021F373D27004387D4 /* help_finish_add_preset.png in Resources */,
 				8A5708E81F373D27004387D4 /* help_add_csv_book.png in Resources */,
+				8A19B5781F6122D2006B8FC9 /* Icon-83.5@2x.png in Resources */,
 				8A5708D31F373D27004387D4 /* backup_restore_from_file.png in Resources */,
 				8AB99D7D1F34210600497E4E /* EditBookViewController.xib in Resources */,
 				8A5708EF1F373D27004387D4 /* help_book_win_edit.png in Resources */,
@@ -1508,6 +1564,7 @@
 				8A57091C1F373D28004387D4 /* help_study_mode3_3.png in Resources */,
 				8A5708EB1F373D27004387D4 /* help_added_csv.png in Resources */,
 				8A57090A1F373D27004387D4 /* help_page_backup.png in Resources */,
+				8A19B5741F6122D2006B8FC9 /* Icon-60@2x.png in Resources */,
 				8A5708DB1F373D27004387D4 /* checked3.png in Resources */,
 				8A5709251F373D28004387D4 /* help_trash_empty2.png in Resources */,
 				8A5708E61F373D27004387D4 /* help_add_buttons.png in Resources */,
@@ -1516,9 +1573,12 @@
 				8A5708E31F373D27004387D4 /* favorites2.png in Resources */,
 				8A57093B1F373D28004387D4 /* random.png in Resources */,
 				8A5708DE1F373D27004387D4 /* copy.png in Resources */,
+				8A19B57D1F61238F006B8FC9 /* Icon-Small-40.png in Resources */,
+				8A19B5771F6122D2006B8FC9 /* Icon-76@2x.png in Resources */,
 				8A5709281F373D28004387D4 /* icon_test.png in Resources */,
 				8A2584AC1F3209C3002EE9E2 /* EditCardViewController.xib in Resources */,
 				8A5709231F373D28004387D4 /* help_study_result.png in Resources */,
+				8A19B57F1F61238F006B8FC9 /* Icon-Small-40@3x.png in Resources */,
 				8A5708EC1F373D27004387D4 /* help_added_preset_book.png in Resources */,
 				8A5708DA1F373D27004387D4 /* checked2.png in Resources */,
 				8A57092F1F373D28004387D4 /* number_2.png in Resources */,
