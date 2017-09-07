@@ -193,7 +193,7 @@ public class UListView : UScrollWindow
                               y:pos.y + frameSize.height + topBarH - contentTop.y + offset!.y)
         var isDraw = false
         
-        if (super.touchEvent(vt:vt, offset:offset)) {
+        if (super.touchEvent(vt:vt, offset: _offset)) {
             return true
         }
         

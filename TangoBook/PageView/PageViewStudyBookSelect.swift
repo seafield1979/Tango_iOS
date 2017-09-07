@@ -149,7 +149,7 @@ public class PageViewStudyBookSelect : UPageView
     public override func initDrawables() {
         UDrawManager.getInstance().initialize()
         
-        mTopScene.parent?.removeAllChildren()
+        mTopScene.removeAllChildren()
 
         let width = mTopScene.getWidth()
         let height = mTopScene.getHeight()
@@ -250,6 +250,7 @@ public class PageViewStudyBookSelect : UPageView
         
         MySharedPref.writeInt( key: MySharedPref.StudyBookSortKey, value: mSortMode.rawValue)
         isFirst = true
+        
     }
         
     /**
