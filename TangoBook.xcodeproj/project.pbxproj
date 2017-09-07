@@ -26,6 +26,8 @@
 		8A19B57F1F61238F006B8FC9 /* Icon-Small-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A19B57C1F61238F006B8FC9 /* Icon-Small-40@3x.png */; };
 		8A19B5821F6123C6006B8FC9 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A19B5801F6123C6006B8FC9 /* Icon-Small@2x.png */; };
 		8A19B5831F6123C6006B8FC9 /* Icon-Small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A19B5811F6123C6006B8FC9 /* Icon-Small@3x.png */; };
+		8A19B5951F614120006B8FC9 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A19B5941F614120006B8FC9 /* Launch Screen.storyboard */; };
+		8A19B5981F6142AC006B8FC9 /* Main.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A19B5971F6142AC006B8FC9 /* Main.png */; };
 		8A19F4371F58606C00356394 /* BackupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A19F4361F58606C00356394 /* BackupManager.swift */; };
 		8A19F4391F58662F00356394 /* ByteBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A19F4381F58662F00356394 /* ByteBuffer.swift */; };
 		8A19F43B1F58E42D00356394 /* BackupFileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A19F43A1F58E42D00356394 /* BackupFileInfo.swift */; };
@@ -367,6 +369,8 @@
 		8A19B57C1F61238F006B8FC9 /* Icon-Small-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-40@3x.png"; path = "Resource/AppImage/Icon/Icon-Small-40@3x.png"; sourceTree = "<group>"; };
 		8A19B5801F6123C6006B8FC9 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@2x.png"; path = "Resource/AppImage/Icon/Icon-Small@2x.png"; sourceTree = "<group>"; };
 		8A19B5811F6123C6006B8FC9 /* Icon-Small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@3x.png"; path = "Resource/AppImage/Icon/Icon-Small@3x.png"; sourceTree = "<group>"; };
+		8A19B5941F614120006B8FC9 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		8A19B5971F6142AC006B8FC9 /* Main.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Main.png; sourceTree = "<group>"; };
 		8A19F4361F58606C00356394 /* BackupManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackupManager.swift; path = TangoBook/Database/BackupManager.swift; sourceTree = "<group>"; };
 		8A19F4381F58662F00356394 /* ByteBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ByteBuffer.swift; sourceTree = "<group>"; };
 		8A19F43A1F58E42D00356394 /* BackupFileInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackupFileInfo.swift; path = TangoBook/Database/BackupFileInfo.swift; sourceTree = "<group>"; };
@@ -753,6 +757,15 @@
 			name = Icon;
 			sourceTree = "<group>";
 		};
+		8A19B5961F6142AC006B8FC9 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				8A19B5971F6142AC006B8FC9 /* Main.png */,
+			);
+			name = Splash;
+			path = Resource/AppImage/Splash;
+			sourceTree = "<group>";
+		};
 		8A19F4401F5908F500356394 /* Backup */ = {
 			isa = PBXGroup;
 			children = (
@@ -773,6 +786,7 @@
 			children = (
 				8A19B5681F6122BA006B8FC9 /* AppImage */,
 				8A5708161F373D27004387D4 /* csv */,
+				8A19B5961F6142AC006B8FC9 /* Splash */,
 				8A5708231F373D27004387D4 /* Image */,
 			);
 			name = Resource;
@@ -1312,6 +1326,7 @@
 				8AF781861F1F3E4400FC4EF2 /* Info.plist */,
 				8AC44FF61F471ED300ECAD00 /* GameViewController.swift */,
 				8AC44FF71F471ED300ECAD00 /* GameViewController.xib */,
+				8A19B5941F614120006B8FC9 /* Launch Screen.storyboard */,
 			);
 			path = TangoBook;
 			sourceTree = "<group>";
@@ -1427,6 +1442,7 @@
 				8A5709441F373D28004387D4 /* sort_by_time_desc.png in Resources */,
 				8A5709111F373D28004387D4 /* help_study_button.png in Resources */,
 				8A5708C11F373D27004387D4 /* arrow_d.png in Resources */,
+				8A19B5951F614120006B8FC9 /* Launch Screen.storyboard in Resources */,
 				8A57090F1F373D28004387D4 /* help_setting_button.png in Resources */,
 				8A5709071F373D27004387D4 /* help_move_icons.png in Resources */,
 				8A5708C01F373D27004387D4 /* add.png in Resources */,
@@ -1472,6 +1488,7 @@
 				8A57092E1F373D28004387D4 /* number_1.png in Resources */,
 				8A57094F1F373D28004387D4 /* zoom_out.png in Resources */,
 				8A5709431F373D28004387D4 /* sort_by_time_asc.png in Resources */,
+				8A19B5981F6142AC006B8FC9 /* Main.png in Resources */,
 				8A5708D21F373D27004387D4 /* backup_restore_button.png in Resources */,
 				8A5708F71F373D27004387D4 /* help_csv_backup1.png in Resources */,
 				8A5709321F373D28004387D4 /* number_5.png in Resources */,
