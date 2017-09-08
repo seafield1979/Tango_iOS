@@ -348,6 +348,10 @@ public class UScrollBar {
             if touchDown(vt: vt, offset: offset) {
                 return true
             }
+        case .Click:
+            fallthrough
+        case .LongClick:
+            return true
         case .Moving:
             if touchMove(vt: vt) {
                 return true

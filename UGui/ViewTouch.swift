@@ -41,6 +41,7 @@ public enum TouchType {
 }
 
 public class ViewTouch {
+    // MARK: Constants
     public static let TAG = "ViewTouch"
     
     // クリック判定するためのタッチ座標誤差
@@ -55,6 +56,7 @@ public class ViewTouch {
     // 長押しまでの時間(s)
     private let LONG_PRESS_INTERVAL : Double = 0.7
     
+    
     // MARK: Propaties
     private var callbacks : ViewTouchCallbacks?
     
@@ -62,9 +64,13 @@ public class ViewTouch {
     private var innerType : TouchType = .None    // 内部用のタイプ
     private var timer : Timer? = nil
     
-    public private(set) var isTouchUp : Bool = false      // タッチアップしたフレームだけtrueになる
+    // タッチアップしたフレームだけtrueになる
+    public private(set) var isTouchUp : Bool = false
+    
     var isTouching : Bool = false
-    private var isLongTouch : Bool = false      // 長押しが検出されるか、長押しが無効になったときにtrueになる
+    
+    // 長押しが検出されるか、長押しが無効になったときにtrueになる
+    private var isLongTouch : Bool = false
     
     // タッチ開始した座標
     public private(set) var touchX : CGFloat = 0.0, touchY : CGFloat = 0.0
@@ -91,6 +97,7 @@ public class ViewTouch {
     // タッチ開始した時間
     var touchTime : Double = 0
     
+    // MARK: Initializer
     convenience init() {
         self.init(callback:nil)
     }
@@ -99,6 +106,7 @@ public class ViewTouch {
         self.callbacks = callback
     }
     
+    // MARK: Methods
     /**
      * 長押しがあったかどうかを取得する
      * このメソッドを呼ぶと内部のフラグをクリア

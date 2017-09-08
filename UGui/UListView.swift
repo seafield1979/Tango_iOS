@@ -188,15 +188,19 @@ public class UListView : UScrollWindow
             return false
         }
         
-        // アイテムのクリック判定処理
-        let _offset = CGPoint(x:pos.x + frameSize.width + offset!.x,
-                              y:pos.y + frameSize.height + topBarH - contentTop.y + offset!.y)
         var isDraw = false
         
-        if (super.touchEvent(vt:vt, offset: offset)) {
+        // 親ウィンドウのタッチ処理(スクロールバー等)
+        if (super.touchEvent(vt:vt, offset:
+            CGPoint(x: pos.x + frameSize.width + offset!.x,
+                    y: pos.y + frameSize.height + offset!.y)))
+        {
             return true
         }
         
+        // アイテムのクリック判定処理
+        let _offset = CGPoint(x:pos.x + frameSize.width + offset!.x,
+                              y:pos.y + frameSize.height + topBarH - contentTop.y + offset!.y)
         for item in mItems {
             if item!.getBottom() < contentTop.y {
                 continue
