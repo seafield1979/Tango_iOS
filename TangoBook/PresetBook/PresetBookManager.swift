@@ -156,9 +156,9 @@ public class PresetBookManager {
      */
     public func addDefaultBooks() {
         _ = addBookToDB(csvName: "animal.csv")
-        _ = addBookToDB(csvName: "fruit")
-        _ = addBookToDB(csvName: "week")
-        _ = addBookToDB(csvName: "month")
+        _ = addBookToDB(csvName: "fruit.csv")
+        _ = addBookToDB(csvName: "week.csv")
+        _ = addBookToDB(csvName: "month.csv")
     }
 
      /**

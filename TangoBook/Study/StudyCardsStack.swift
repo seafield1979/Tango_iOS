@@ -93,7 +93,7 @@ public class StudyCardsStack : UDrawable {
         if mStudyMode == StudyMode.SlideMulti {
             isMultiCard = true
         }
-        setInitialCards( isMultiCard: isMultiCard, maxHeight: maxHeight)
+        setInitialCards( isMultiCard: isMultiCard)
     }
 
     /**
@@ -102,7 +102,7 @@ public class StudyCardsStack : UDrawable {
     /**
      * 初期表示分のカードを取得
      */
-    func setInitialCards( isMultiCard : Bool, maxHeight : CGFloat) {
+    func setInitialCards( isMultiCard : Bool) {
         let isEnglish = (MySharedPref.getStudyType() == StudyType.EtoJ)
         
         while mCardManager!.getCardCount() > 0 {
@@ -126,7 +126,7 @@ public class StudyCardsStack : UDrawable {
             if mCards.count == 0 {
                 // 表示中のカードが0なら無条件で投入
                 startFlag = true
-            } else {
+            } else if mStudyMode == .SlideMulti {
                 // 現在表示中のカードが一定位置より下に来たら次のカードを投入する
                 let card : StudyCard? = mCards.last()
                 if let _card = card {
@@ -157,11 +157,13 @@ public class StudyCardsStack : UDrawable {
                                                   boxType: .OK)
                     card.startMoveIntoBox( dstX: mOkBoxPos.x + margin,
                                            dstY: mOkBoxPos.y + margin)
+                    card.setColor(StudyCard.OK_BG_COLOR)
                 } else {
                     mCardManager!.putCardIntoBox( card: card.getTangoCard()!,
                                                   boxType: .NG)
                     card.startMoveIntoBox( dstX: mNgBoxPos.x + margin,
                                            dstY: mNgBoxPos.y + margin)
+                    card.setColor(StudyCard.NG_BG_COLOR)
                 }
                 
                 card.setMoveRequest( .None )

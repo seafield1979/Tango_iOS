@@ -60,6 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             PresetBookManager.getInstance().addDefaultBooks()
             
             MySharedPref.writeBool(key: MySharedPref.InitializeKey, value: true)
+            
+            // 拡大率（少し大きめ)
+            MySharedPref.writeInt(key: MySharedPref.ScaleKey, value: UDpi.Scale.S125.rawValue)
         }
         
         // 起動時の自動バックアップ

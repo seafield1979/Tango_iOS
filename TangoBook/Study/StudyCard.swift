@@ -47,8 +47,8 @@ public class StudyCard : UDrawable, UButtonCallbacks {
     let TEXT_COLOR = UIColor.black
     let BG_COLOR = UIColor.white
     let FRAME_COLOR = UColor.makeColor(150,150,150)
-    let OK_BG_COLOR = UColor.makeColor(100,200,100)
-    let NG_BG_COLOR = UColor.makeColor(200,100,100)
+    public static let OK_BG_COLOR = UColor.makeColor(100,200,100)
+    public static let NG_BG_COLOR = UColor.makeColor(200,100,100)
 
     let ButtonIdArrowL = 200
     let ButtonIdArrowR = 201
@@ -321,9 +321,9 @@ public class StudyCard : UDrawable, UButtonCallbacks {
             if (slideX == 0) {
                 color = BG_COLOR
             } else if (slideX < 0) {
-                color = UColor.mixRGBColor(color1: BG_COLOR, color2: NG_BG_COLOR, ratio: -slideX / UDpi.toPixel(SLIDE_LEN))
+                color = UColor.mixRGBColor(color1: BG_COLOR, color2: StudyCard.NG_BG_COLOR, ratio: -slideX / UDpi.toPixel(SLIDE_LEN))
             } else {
-                color = UColor.mixRGBColor(color1: BG_COLOR, color2: OK_BG_COLOR, ratio: slideX / UDpi.toPixel(SLIDE_LEN));
+                color = UColor.mixRGBColor(color1: BG_COLOR, color2: StudyCard.OK_BG_COLOR, ratio: slideX / UDpi.toPixel(SLIDE_LEN));
             }
             setColor(color)
         }
@@ -407,7 +407,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
                         lastRequest = RequestToParent.MoveToNG
                         moveRequest = lastRequest
                         setPos(pos.x, pos.y, convSKPos: true)
-                        setColor(NG_BG_COLOR)
+                        setColor(StudyCard.NG_BG_COLOR)
                     } else if (slideX >= UDpi.toPixel(SLIDE_LEN)) {
                         // OK
                         pos.x += slideX
@@ -415,7 +415,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
                         lastRequest = RequestToParent.MoveToOK
                         moveRequest = lastRequest
                         setPos(pos.x, pos.y, convSKPos: true)
-                        setColor(OK_BG_COLOR)
+                        setColor(StudyCard.OK_BG_COLOR)
                     } else {
                         parentNode.position = CGPoint(x: pos.x + slideX, y: pos.y).convToSK()
                     }
