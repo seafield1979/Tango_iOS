@@ -42,6 +42,8 @@ class EditCardViewController: UIViewController, UITextFieldDelegate
             textWordA.text = mCard!.wordA ?? ""
             textWordB.text = mCard!.wordB ?? ""
             colorView.backgroundColor = mCard!.color.toColor()
+        } else {
+            colorView.backgroundColor = MySharedPref.readInt(MySharedPref.DefaultColorCardKey).toColor()
         }
         
         textWordA.delegate = self

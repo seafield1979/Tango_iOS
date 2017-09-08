@@ -901,12 +901,9 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                 book!.color = Int(color!.intColor())
             }
             bookIcon.updateTitle()
-
-            if color!.intColor() != UInt32(book!.color) {
-                bookIcon.setColor(color!)
-                bookIcon.updateIconImage()
-            }
-
+            bookIcon.setColor(color!)
+            bookIcon.updateIconImage()
+            
             // SpriteKitノード追加
             window.clientNode.addChild2( bookIcon.parentNode )
 

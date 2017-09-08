@@ -44,6 +44,8 @@ class EditBookViewController: UIViewController, UITextFieldDelegate {
             nameTextField.text = mBook!.name ?? ""
             commentTextField.text = mBook!.comment ?? ""
             colorView.backgroundColor = mBook!.color.toColor()
+        } else {
+            colorView.backgroundColor = MySharedPref.readInt(MySharedPref.DefaultColorBookKey).toColor()
         }
         
         nameTextField.delegate = self
