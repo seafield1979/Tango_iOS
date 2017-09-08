@@ -1,9 +1,15 @@
 
 /* Class = "UILabel"; text = "Color"; ObjectID = "6ij-Rh-wD4"; */
-"6ij-Rh-wD4.text" = "Book color";
+"6ij-Rh-wD4.text" = "Color";
 
 /* Class = "UILabel"; text = "Comment"; ObjectID = "dj8-Jj-vrk"; */
 "dj8-Jj-vrk.text" = "Comment";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "fRL-wA-Omf"; */
+"fRL-wA-Omf.normalTitle" = "Cancel";
+
+/* Class = "UIButton"; normalTitle = "OK"; ObjectID = "w3B-el-ShK"; */
+"w3B-el-ShK.normalTitle" = "OK";
 
 /* Class = "UILabel"; text = "Name"; ObjectID = "zR3-EC-IL1"; */
 "zR3-EC-IL1.text" = "Name";

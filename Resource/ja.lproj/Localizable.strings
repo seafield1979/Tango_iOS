@@ -18,11 +18,11 @@
 "date_format2" = "yyyy年MM月dd日";
 "datetime_format" = "yyyy/MM/dd HH:mm";
 "datetime_format2" = "yyyy年MM月dd日 HH:mm";
-"time_area_1" = "今日";
-"time_area_2" = "昨日";
-"time_area_3" = "今週";
-"time_area_4" = "今月";
-"time_area_5" = "１ヶ月より前";
+"time_area_1" = "今日(〜２４時間前)";
+"time_area_2" = "昨日(〜４８時間前)";
+"time_area_3" = "今週(〜１週間)";
+"time_area_4" = "今月(〜１ヶ月)";
+"time_area_5" = "１ヶ月以上前";
 "app_title" = "カラフル単語帳";
 "word_a" = "英語";
 "word_b" = "日本語";
@@ -260,8 +260,8 @@
 "title_option_edit" = "単語帳編集";
 "option_color_book" = "単語帳のデフォルト色";
 "option_color_card" = "カードのデフォルト色";
-"default_book_color_message" = "新しく作成した単語帳のデフォルト色です。好みの色を選択してください。";
-"default_card_color_message" = "新しく作成したカードのデフォルト色です。好みの色を選択してください。";
+"default_book_color_message" = "新しく作成した単語帳の色です。お好みの色を選択してください。";
+"default_card_color_message" = "新しく作成したカードの色です。お好みの色を選択してください。";
 
 "option_card_title" = "単語カードの表示";
 "option_default_name_card" = "カードのデフォルト名";

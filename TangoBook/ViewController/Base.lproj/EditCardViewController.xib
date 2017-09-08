@@ -36,23 +36,23 @@
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mRa-qm-CCj">
                             <rect key="frame" x="16" y="63" width="342" height="30"/>
                             <nil key="textColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wordB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y1q-bD-rIW">
-                            <rect key="frame" x="16" y="101" width="50" height="21"/>
+                            <rect key="frame" x="16" y="113" width="50" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wxV-kv-hQn">
-                            <rect key="frame" x="16" y="130" width="342" height="30"/>
+                            <rect key="frame" x="16" y="142" width="342" height="30"/>
                             <nil key="textColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="color" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGo-7C-wua">
-                            <rect key="frame" x="24" y="168" width="50" height="21"/>
+                            <rect key="frame" x="24" y="192" width="50" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="5r0-vV-VzK"/>
                             </constraints>
@@ -61,20 +61,20 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ffb-Bu-rOu">
-                            <rect key="frame" x="24" y="197" width="334" height="24"/>
+                            <rect key="frame" x="24" y="221" width="334" height="24"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="24" id="swX-vC-BiH"/>
                             </constraints>
                         </view>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vth-GH-x7N">
-                            <rect key="frame" x="24" y="229" width="334" height="50"/>
+                            <rect key="frame" x="24" y="253" width="334" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="x0i-5I-dEK"/>
                             </constraints>
                         </scrollView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LR2-JJ-GCH">
-                            <rect key="frame" x="24" y="297" width="159" height="50"/>
+                            <rect key="frame" x="24" y="321" width="159" height="50"/>
                             <color key="backgroundColor" red="0.0" green="0.62920258620689651" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="XOB-9n-JY6"/>
@@ -91,7 +91,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rLB-sA-bc5">
-                            <rect key="frame" x="199" y="297" width="159" height="50"/>
+                            <rect key="frame" x="199" y="321" width="159" height="50"/>
                             <color key="backgroundColor" red="1" green="0.28978987068965517" blue="0.24633620689655172" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="YAN-iT-UbV"/>
@@ -120,8 +120,8 @@
                         <constraint firstItem="wxV-kv-hQn" firstAttribute="trailing" secondItem="Ffb-Bu-rOu" secondAttribute="trailing" id="ONj-bR-83K"/>
                         <constraint firstItem="Vth-GH-x7N" firstAttribute="leading" secondItem="LR2-JJ-GCH" secondAttribute="leading" id="OZO-In-2SV"/>
                         <constraint firstItem="S0f-95-hUL" firstAttribute="top" secondItem="sv6-x0-5eU" secondAttribute="top" constant="34" id="Qmz-ow-5s8"/>
-                        <constraint firstItem="vGo-7C-wua" firstAttribute="top" secondItem="wxV-kv-hQn" secondAttribute="bottom" constant="8" symbolic="YES" id="Qxo-OJ-Qu0"/>
                         <constraint firstItem="Ffb-Bu-rOu" firstAttribute="top" secondItem="vGo-7C-wua" secondAttribute="bottom" constant="8" symbolic="YES" id="S9D-Ka-3Gr"/>
+                        <constraint firstItem="vGo-7C-wua" firstAttribute="top" secondItem="wxV-kv-hQn" secondAttribute="bottom" constant="20" id="T6A-ls-4XO"/>
                         <constraint firstItem="mRa-qm-CCj" firstAttribute="top" secondItem="S0f-95-hUL" secondAttribute="bottom" constant="8" symbolic="YES" id="YXb-fr-vAF"/>
                         <constraint firstItem="S0f-95-hUL" firstAttribute="leading" secondItem="sv6-x0-5eU" secondAttribute="leading" constant="16" id="ZP6-pS-MzS"/>
                         <constraint firstItem="rLB-sA-bc5" firstAttribute="top" secondItem="Vth-GH-x7N" secondAttribute="bottom" constant="18" id="cMl-OW-Uaj"/>
@@ -133,7 +133,7 @@
                         <constraint firstItem="rLB-sA-bc5" firstAttribute="leading" secondItem="LR2-JJ-GCH" secondAttribute="trailing" constant="16" id="qVe-C4-yI8"/>
                         <constraint firstItem="LR2-JJ-GCH" firstAttribute="top" secondItem="Vth-GH-x7N" secondAttribute="bottom" constant="18" id="rpO-p0-OoT"/>
                         <constraint firstItem="S0f-95-hUL" firstAttribute="leading" secondItem="mRa-qm-CCj" secondAttribute="leading" id="tqV-0C-MAJ"/>
-                        <constraint firstItem="y1q-bD-rIW" firstAttribute="top" secondItem="mRa-qm-CCj" secondAttribute="bottom" constant="8" symbolic="YES" id="vYl-RC-aGA"/>
+                        <constraint firstItem="y1q-bD-rIW" firstAttribute="top" secondItem="mRa-qm-CCj" secondAttribute="bottom" constant="20" id="xQs-l8-PhE"/>
                         <constraint firstItem="mRa-qm-CCj" firstAttribute="leading" secondItem="y1q-bD-rIW" secondAttribute="leading" id="zC2-Nr-foS"/>
                     </constraints>
                 </scrollView>

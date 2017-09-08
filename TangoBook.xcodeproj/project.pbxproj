@@ -371,6 +371,10 @@
 		8A19B5811F6123C6006B8FC9 /* Icon-Small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@3x.png"; path = "Resource/AppImage/Icon/Icon-Small@3x.png"; sourceTree = "<group>"; };
 		8A19B5941F614120006B8FC9 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		8A19B5971F6142AC006B8FC9 /* Main.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Main.png; sourceTree = "<group>"; };
+		8A19B59C1F623B5D006B8FC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditCardViewController.strings; sourceTree = "<group>"; };
+		8A19B59E1F623B74006B8FC9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/EditCardViewController.strings; sourceTree = "<group>"; };
+		8A19B5A01F623BB6006B8FC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditBookViewController.strings; sourceTree = "<group>"; };
+		8A19B5A21F623BBD006B8FC9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/EditBookViewController.strings; sourceTree = "<group>"; };
 		8A19F4361F58606C00356394 /* BackupManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackupManager.swift; path = TangoBook/Database/BackupManager.swift; sourceTree = "<group>"; };
 		8A19F4381F58662F00356394 /* ByteBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ByteBuffer.swift; sourceTree = "<group>"; };
 		8A19F43A1F58E42D00356394 /* BackupFileInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackupFileInfo.swift; path = TangoBook/Database/BackupFileInfo.swift; sourceTree = "<group>"; };
@@ -383,8 +387,6 @@
 		8A19F4491F590B1800356394 /* SaveStudiedCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SaveStudiedCard.swift; path = TangoBook/Database/SaveStudiedCard.swift; sourceTree = "<group>"; };
 		8A1BE3491F593B7900EA8226 /* UCheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UCheckBox.swift; sourceTree = "<group>"; };
 		8A2584AD1F3209C3002EE9E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EditCardViewController.xib; sourceTree = "<group>"; };
-		8A2584BB1F320E15002EE9E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditCardViewController.strings; sourceTree = "<group>"; };
-		8A2584BC1F320E19002EE9E2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/EditCardViewController.strings; sourceTree = "<group>"; };
 		8A2DA70A1F53A30D00FCB0C4 /* RegExp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegExp.swift; sourceTree = "<group>"; };
 		8A2DA70C1F552A7900FCB0C4 /* Date+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+ex.swift"; sourceTree = "<group>"; };
 		8A5708171F373D27004387D4 /* animal.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = animal.csv; sourceTree = "<group>"; };
@@ -610,8 +612,6 @@
 		8AB7E9791F278DC7005E36BB /* UIconWindows.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIconWindows.swift; path = Icon/UIconWindows.swift; sourceTree = "<group>"; };
 		8AB7E97A1F278DC7005E36BB /* UIconWindowSub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIconWindowSub.swift; path = Icon/UIconWindowSub.swift; sourceTree = "<group>"; };
 		8AB99D7E1F34210600497E4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EditBookViewController.xib; sourceTree = "<group>"; };
-		8AB99D811F34210800497E4E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EditBookViewController.strings; sourceTree = "<group>"; };
-		8AB99D831F34211200497E4E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/EditBookViewController.strings; sourceTree = "<group>"; };
 		8AC44FF61F471ED300ECAD00 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameViewController.swift; path = ViewController/GameViewController.swift; sourceTree = "<group>"; };
 		8AC44FF71F471ED300ECAD00 /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GameViewController.xib; path = ViewController/GameViewController.xib; sourceTree = "<group>"; };
 		8AC44FFD1F471F9F00ECAD00 /* TopScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopScene.swift; path = SpriteKit/TopScene.swift; sourceTree = "<group>"; };
@@ -1846,8 +1846,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				8A2584AD1F3209C3002EE9E2 /* Base */,
-				8A2584BB1F320E15002EE9E2 /* en */,
-				8A2584BC1F320E19002EE9E2 /* ja */,
+				8A19B59C1F623B5D006B8FC9 /* en */,
+				8A19B59E1F623B74006B8FC9 /* ja */,
 			);
 			name = EditCardViewController.xib;
 			path = ViewController;
@@ -1867,8 +1867,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				8AB99D7E1F34210600497E4E /* Base */,
-				8AB99D811F34210800497E4E /* en */,
-				8AB99D831F34211200497E4E /* ja */,
+				8A19B5A01F623BB6006B8FC9 /* en */,
+				8A19B5A21F623BBD006B8FC9 /* ja */,
 			);
 			name = EditBookViewController.xib;
 			path = ViewController;

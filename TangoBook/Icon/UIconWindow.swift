@@ -271,6 +271,7 @@ public class UIconWindow : UWindow{
             }
         }
         
+        // clientNodeに子ノードが１つもないと表示されないためダミーのノードを追加する
         let n = SKNodeUtil.createLineNode(p1: CGPoint(x:0, y:0), p2: CGPoint(x: 1, y:0), color: .red, lineWidth: 1)
         self.clientNode.addChild(n)
 
@@ -281,9 +282,6 @@ public class UIconWindow : UWindow{
                     self.clientNode.addChild2( _icon.parentNode )
                 }
             }
-        } else {
-            // clientNodeに子ノードが１つもないと表示されないためダミーのノードを追加する
-            self.clientNode.addChild(SKNode())
         }
 
         sortIcons(animate: false)
@@ -310,7 +308,6 @@ public class UIconWindow : UWindow{
          mIconManager = UIconManager.createInstance(parentWindow: self, iconCallbacks: iconCallbacks)
          self.windowCallbacks = windowCallbacks
          self.dir = dir
-         iconMargin = UDpi.toPixel(ICON_MARGIN)
          iconW = UDpi.toPixel(UIconWindow.ICON_W)
          iconH = UDpi.toPixel(UIconWindow.ICON_H)
     }
@@ -404,24 +401,11 @@ public class UIconWindow : UWindow{
             return
         }
 
-        // ウィンドウの座標とスクロールの座標を求める
-        let windowRect = CGRect(x: contentTop.x, y: contentTop.y,
-                                width: size.width, height: size.height)
-
-        // 選択中のアイコンに枠を表示する
-        if mIconManager!.getSelectedIcon() != nil {
-//            if let selectedIcon = mIconManager!.getSelectedIcon() {
-//                selectedIcon.selectedBgNode.isHidden = false
-//            }
-        }
         for icon in mIconManager!.getIcons() {
             if icon === dragedIcon {
                 continue
             }
-            // 矩形範囲外なら描画しない
-            if URect.intersect(rect1: windowRect, rect2: icon!.getRect()) {
-                icon!.draw()
-            }
+            icon!.draw()
         }
     }
 
@@ -462,15 +446,17 @@ public class UIconWindow : UWindow{
         var maxSize : CGFloat = 0
 
         var i : Int = 0
-        let column = Int((clientSize.width - iconMargin) / (iconW + iconMargin))
+        let margin = UDpi.toPixel(ICON_MARGIN)
+        let column = Int((clientSize.width * 0.9) / (iconW + margin))
         if column <= 0 {
             return
         }
-        let margin = (clientSize.width - iconW * CGFloat(column)) / CGFloat(column + 1)
+        iconMargin = (clientSize.width - iconW * CGFloat(column)) / CGFloat(column + 1)
+        
         for icon in icons! {
-            let x = margin + CGFloat(i % column) * (iconW + margin)
-            let y = margin + CGFloat(i / column) * (iconH + margin)
-            let height = y + (iconH + margin) * 2
+            let x = iconMargin + CGFloat(i % column) * (iconW + iconMargin)
+            let y = iconMargin + CGFloat(i / column) * (iconH + iconMargin)
+            let height = y + (iconH + iconMargin) * 2
             if height >= maxSize {
                 maxSize = height
             }
@@ -762,7 +748,7 @@ public class UIconWindow : UWindow{
                     changeIcon(icon1: dragedIcon!, icon2: ret.dropedIcon!)
                 
                 case .MoveIn:
-                    moveIconIn(icon1: dragedIcon!, icon2: ret.dropedIcon!)
+                    moveIconIn(icon1: dragedIcon!, icon2: ret.dropedIcon!, update : false)
                     
                     for win in windows!.getWindows()! {
                         let manager : UIconManager? = win!.getIconManager()
@@ -867,7 +853,10 @@ public class UIconWindow : UWindow{
 
     /**
     * ReturnValueDragEnd からドロップ判定部分の処理を抜き出し
-    * @return タプルで返す
+    * parameter: dstIcons:
+    * parameter winX:　ウィンドウ内でのタッチ位置(x)
+    * parameter winY:　ウィンドウ内でのタッチ位置(y)
+    * @return 構造体を返す
     */
     private func checkDropNormal(
        dstIcons : List<UIcon>, winX : CGFloat, winY : CGFloat)
@@ -919,25 +908,15 @@ public class UIconWindow : UWindow{
                         }
                         fallthrough
                     case .Trash:
-                       // Containerの中に挿入する
-//                       moveIconIn(icon1: dragedIcon!, icon2: dropIcon)
-//                       ret.movingType = IconMovingType.MoveIn
-//
-//                       for win in windows!.getWindows()! {
-//                           let manager : UIconManager? = win!.getIconManager()
-//                           if manager != nil {
-//                               manager!.updateBlockRect()
-//                           }
-//                       }
                         ret.movingType = IconMovingType.MoveIn
                         ret.isDroped = true
                 }
                 break
             } else {
                 // アイコンのマージン部分にドロップされたかのチェック
-                if dropIcon.getX() - iconMargin * 2 <= winX &&
+                if dropIcon.pos.x - iconMargin * 2 <= winX &&
                         winX <= dropIcon.getRight() + iconMargin * 2 &&
-                        dropIcon.getY() - iconMargin * 2  <= winY &&
+                        dropIcon.pos.y - iconMargin * 2  <= winY &&
                         winY <= dropIcon.getBottom() + iconMargin * 2
                 {
                     // ドラッグ位置（アイコンの左側)にアイコンを挿入する
@@ -1369,18 +1348,25 @@ public class UIconWindow : UWindow{
             if index1 < icons1.count {
                 TangoItemPosDao.updatePoses(
                     icons: icons1.toArray(),
-                    startPos: icons1[index1].getTangoItem()!.getPos())
+                    parentType: window1.parentType.rawValue,
+                    parentId: window1.parentId,
+                    startPos: 0)
             }
-            if index1 < icons2.count {
+            if index2 < icons2.count {
                 TangoItemPosDao.updatePoses(
                     icons: icons2.toArray(),
-                    startPos:icons2[index2].getTangoItem()!.getPos())
+                    parentType: window2.parentType.rawValue,
+                    parentId: window2.parentId,
+                    startPos:0)
             }
         } else {
             // データベース更新
             // 挿入位置でずれた先頭以降のposを更新
             let startPos = (index1 < index2) ? index1 : index2
-            TangoItemPosDao.updatePoses(icons: icons1.toArray(), startPos: startPos)
+            TangoItemPosDao.updatePoses(icons: icons1.toArray(),
+                                        parentType: window1.parentType.rawValue,
+                                        parentId: window1.parentId,
+                                        startPos: startPos)
         }
     }
 
@@ -1389,8 +1375,9 @@ public class UIconWindow : UWindow{
      * アイコンを別のボックスタイプのアイコンにドロップした時に使用する
      * @param icon1 ドロップ元のIcon(Card/Book)
      * @param icon2 ドロップ先のIcon(Book/Trash)
+     * @param update: 表示を更新する
      */
-    private func moveIconIn(icon1 : UIcon?, icon2 : UIcon?)
+    private func moveIconIn(icon1 : UIcon?, icon2 : UIcon?, update : Bool)
     {
         if icon1 == nil || icon2 == nil {
             return
@@ -1411,19 +1398,20 @@ public class UIconWindow : UWindow{
 
         // SpriteKit ノード
         // ドラッグアイコンを親から削除
-//        icon1!.parentNode.removeFromParent()
+        if update {
+            icon1!.parentNode.removeFromParent()
+        }
         
         if icon2 === windows!.getSubWindow().getParentIcon() &&
             window2.isShow
         {
-            // 移動先のウィンドウに追加
-//            window2.clientNode.addChild2(icon1!.parentNode)
-
             let win2Icons : List<UIcon> = window2.getIcons()!
             win2Icons.append(icon1!)
 
-//            window2.sortIcons(animate: false)
             icon1!.setParentWindow(window2)
+        }
+        if update {
+            window1.sortIcons(animate: true)
         }
         
         // データベース更新
@@ -1435,11 +1423,6 @@ public class UIconWindow : UWindow{
         _ = TangoItemPosDao.moveItem( item: icon1!.getTangoItem()!,
                                   parentType: container.getParentType().rawValue,
                                   parentId: itemId)
-
-//        window1.sortIcons(animate: true)
-//        if window1 !== window2 {
-//            window2.sortIcons(animate: true)
-//        }
     }
 
     /**
@@ -1447,7 +1430,7 @@ public class UIconWindow : UWindow{
      * @param icon
      */
     public func moveIconIntoTrash(icon : UIcon) {
-        moveIconIn(icon1: icon, icon2: mIconManager!.getTrashIcon())
+        moveIconIn(icon1: icon, icon2: mIconManager!.getTrashIcon(), update: true)
     }
 
      /**
@@ -1561,6 +1544,17 @@ public class UIconWindow : UWindow{
         _ = TangoItemPosDao.deleteItemInTrash(icon.getTangoItem()!)
     }
 
+    /**
+     * アイコンのノードを削除する
+     */
+    public func removeIconsNode() {
+        self.clientNode.removeAllChildren()
+        
+        // clientNodeに子ノードが１つもないと表示されないためダミーのノードを追加する
+        let n = SKNodeUtil.createLineNode(p1: CGPoint(x:0, y:0), p2: CGPoint(x: 1, y:0), color: .red, lineWidth: 1)
+        self.clientNode.addChild(n)
+
+    }
 
      /**
      * アイコンの選択状態を変更する

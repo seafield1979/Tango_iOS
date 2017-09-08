@@ -351,7 +351,9 @@ public class UScrollBar {
         case .Click:
             fallthrough
         case .LongClick:
-            return true
+            if touchClick(vt: vt, offset: offset) {
+                return true
+            }
         case .Moving:
             if touchMove(vt: vt) {
                 return true
@@ -427,6 +429,40 @@ public class UScrollBar {
                     return true
                 }
             }
+        }
+        return false
+    }
+    
+    /**
+     * スクロールバーのクリック処理
+     * スクロールバーはタッチ時に処理を行うため、スクロールバー自身の処理は行わない
+     * クリック処理は後ろにあるオブジェクトのタッチ処理を行わないようにするためのtrueを返す
+     * @param vt
+     * @return true:バーがスクロールした
+     */
+    private func touchClick(vt : ViewTouch, offset : CGPoint?) -> Bool {
+        var offset = offset
+        if offset == nil {
+            offset = CGPoint()
+        }
+        
+        let ep = CGPoint(x: vt.touchX - offset!.x, y: vt.touchY - offset!.y)
+        let margin = UDpi.toPixel(UScrollBar.TOUCH_MARGIN)
+        var rect : CGRect
+
+        if (type == ScrollBarType.Vertical) {
+            rect = CGRect(x:pos.x - margin,
+                          y: pos.y,
+                          width: bgWidth + margin * 2, height: bgLength)
+            
+        } else {
+            rect = CGRect(x:pos.x,
+                          y: pos.y - margin,
+                          width: bgLength, height: bgWidth + margin * 2)
+            
+        }
+        if rect.contains(ep) {
+            return true
         }
         return false
     }

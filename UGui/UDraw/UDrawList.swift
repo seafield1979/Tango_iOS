@@ -28,7 +28,7 @@ public class UDrawList {
     public func add(_ obj: UDrawable) {
         // これから追加しようとしているオブジェクトをリストから削除
         if list.count > 0 {
-            for i in 0...list.count-1 {
+            for i in 0..<list.count {
                 let _obj = list[i]
                 if obj === _obj {
                     _ = list.remove(at: i)
@@ -42,7 +42,7 @@ public class UDrawList {
     
     // リストから削除
     public func remove(_ obj : UDrawable) {
-        for i in 0...list.count-1 {
+        for i in 0..<list.count {
             let _obj = list[i]
             if obj === _obj {
                 _ = list.remove(at: i)

@@ -730,12 +730,16 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     public func UButtonClicked(id : Int, pressedOn : Bool) -> Bool{
         switch (id) {
         case CleanupDialogButtonOK:
+            let win : UIconWindow = mIconWinManager!.getSubWindow()
             // ゴミ箱を空にする
             _ = TangoItemPosDao.deleteItemsInTrash()
-            mIconWinManager!.getSubWindow().getIcons()!.removeAll()
+            win.getIcons()!.removeAll()
+            
+            // SpriteKit Node
+            win.removeIconsNode()
 
             mDialog!.closeDialog()
-            mIconWinManager!.getSubWindow().sortIcons(animate: false)
+            //mIconWinManager!.getSubWindow().sortIcons(animate: false)
             return true
         case TrashDialogButtonOK:
             // 単語帳をゴミ箱に捨てる

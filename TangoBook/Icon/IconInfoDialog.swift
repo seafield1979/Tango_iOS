@@ -173,6 +173,14 @@ public class IconInfoDialog : UWindow {
         if super.touchEvent(vt: vt, offset: offset) {
             return true
         }
+        
+        // ダイアログ範囲外をタッチしたら閉じる
+        if vt.type == .Touch {
+            if !rect.contains( CGPoint(x: vt.touchX, y: vt.touchY)) {
+                closeWindow()
+                return true
+            }
+        }
 
         return false
     }

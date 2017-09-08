@@ -864,7 +864,7 @@ public class TangoItemPosDao {
                  // Bookなら子要素をまとめて削除
                 _ = deleteItemsByParentType(parentType: TangoParentType.Book.rawValue,
                                         parentId: itemPos.getItemId(),
-                                        transaction: false)
+                                        transaction: true)
              }
 
              switch TangoItemType.toEnum(itemPos.getItemType()) {
@@ -1111,9 +1111,13 @@ public class TangoItemPosDao {
      * @param icons
      * @param startPos
      */
-    // todo UIconを実装してから
-    public static func updatePoses(icons : [UIcon], startPos : Int ) {
+    public static func updatePoses(icons : [UIcon], parentType: Int, parentId: Int, startPos : Int ) {
         var pos = startPos
+        
+        // for文でstart > end だと例外が発生するので対応
+        if icons.count <= pos - 1 {
+            return
+        }
 
         try! mRealm!.write() {
             for i in startPos..<icons.count {
@@ -1139,6 +1143,8 @@ public class TangoItemPosDao {
                     continue
                 }
 
+                result!.parentType = parentType
+                result!.parentId = parentId
                 result!.pos = pos
                 tangoItem?.setPos(pos: pos)
                 pos += 1

@@ -1,9 +1,15 @@
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "NEY-fq-dvj"; */
-"NEY-fq-dvj.text" = "Color";
+/* Class = "UIButton"; normalTitle = "OK"; ObjectID = "LR2-JJ-GCH"; */
+"LR2-JJ-GCH.normalTitle" = "OK";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "S0f-95-hUL"; */
-"S0f-95-hUL.text" = "English";
+/* Class = "UILabel"; text = "wordA"; ObjectID = "S0f-95-hUL"; */
+"S0f-95-hUL.text" = "wordA";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "rLB-sA-bc5"; */
+"rLB-sA-bc5.normalTitle" = "Cancel";
+
+/* Class = "UILabel"; text = "color"; ObjectID = "vGo-7C-wua"; */
+"vGo-7C-wua.text" = "color";
 
 /* Class = "UILabel"; text = "wordB"; ObjectID = "y1q-bD-rIW"; */
-"y1q-bD-rIW.text" = "Japanese";
+"y1q-bD-rIW.text" = "wordB";

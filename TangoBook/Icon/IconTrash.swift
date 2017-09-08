@@ -18,8 +18,9 @@ public class IconTrash : IconContainer {
     /**
      * Consts
      */
-    private let ICON_W = 40;
-    private let ICON_H = 40;
+    private let ICON_W = 40
+    private let ICON_H = 40
+    private let FONT_SIZE_T = 12
     private let ICON_COLOR = UColor.makeColor(100,100,200)
     
     /**
@@ -54,11 +55,15 @@ public class IconTrash : IconContainer {
         super.init( parentWindow: parentWindow, iconCallbacks: iconCallbacks,
                     type: IconType.Trash,
                     x: 0, y: 0, width: UDpi.toPixel(ICON_W), height: UDpi.toPixel(ICON_H));
-        fontSize = UDpi.toPixel(FONT_SIZE)
+        fontSize = UDpi.toPixel(FONT_SIZE_T)
         
         title = UResourceManager.getStringByName("trash")
-        textNode!.text = title
-        textNode!.isHidden = false
+        if let n = textNode {
+            n.text = title
+            n.isHidden = false
+            n.fontSize = fontSize
+            n.position.y -= UDpi.toPixel(4)
+        }
         setColor(ICON_COLOR)
         
         // 中のアイコンを表示するためのSubWindow
