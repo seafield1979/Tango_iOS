@@ -337,7 +337,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
         newTextView = UTextView.createInstance(
            text: "New", fontSize: UDpi.toPixel(NEW_FONT_SIZE),
            priority: 100, alignment: .Center, createNode: true,
-           multiLine: false, isDrawBG: true,
+           isFit: false, isDrawBG: true,
            x: size.width / 2, y: size.height / 2 + UDpi.toPixel(10), width: size.width, color: UIColor.white, bgColor: NEW_TEXT_COLOR)
         newTextView!.setFont("HiraKakuProN-W6")
         parentNode.addChild2( newTextView!.parentNode )

@@ -18,7 +18,7 @@ public class PageViewResult : UPageView, UButtonCallbacks, UListItemCallbacks {
     private let ButtonIdReturn = 202
 
     // 座標系
-    private let TOP_Y = 10
+    private let TOP_Y = 4
     private let MARGIN_H = 17
     private let MARGIN_V = 17
     private let MARGIN_V_S = 7
@@ -132,7 +132,7 @@ public class PageViewResult : UPageView, UButtonCallbacks, UListItemCallbacks {
         mTitleText = UTextView.createInstance(
             text : title, fontSize : UDpi.toPixel(TITLE_FONT_SIZE),
             priority : DRAW_PRIORITY, alignment : UAlignment.CenterX,
-            createNode : true, multiLine : false, isDrawBG : false,
+            createNode : true, isFit : false, isDrawBG : false,
             x : width/2, y : y,
             width : width, color : TEXT_COLOR, bgColor : nil)
 
@@ -144,7 +144,7 @@ public class PageViewResult : UPageView, UButtonCallbacks, UListItemCallbacks {
         mResultText = UTextView.createInstance(
             text : text, fontSize : UDpi.toPixel(FONT_SIZE),
             priority : DRAW_PRIORITY, alignment : UAlignment.CenterX,
-            createNode : true, multiLine : false, isDrawBG : false,
+            createNode : true, isFit : false, isDrawBG : false,
             x : width/2, y : y, width : width, color : TEXT_COLOR, bgColor : nil)
         
         mResultText!.addToDrawManager()

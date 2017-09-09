@@ -109,7 +109,7 @@ public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, Op
             text : UResourceManager.getStringByName("title_options2"),
             fontSize : UDpi.toPixel(TEXT_SIZE), priority : DRAW_PRIORITY,
             alignment : UAlignment.CenterX, createNode : true,
-            multiLine : false, isDrawBG : false,
+            isFit : true, isDrawBG : false,
             x : width/2, y : y, width : width, color : .black, bgColor : nil)
         
         mTitleText!.addToDrawManager()

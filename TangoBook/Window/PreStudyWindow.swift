@@ -158,11 +158,10 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
         textTitle = UTextView.createInstance(
             text : title, fontSize : UDpi.toPixel(FONT_SIZE_3), priority : 0,
             alignment : UAlignment.CenterX, createNode: true,
-            multiLine : false, isDrawBG : false,
+            isFit : false, isDrawBG : false,
             x : width / 2, y : y, width : 0, color : TEXT_COLOR, bgColor : nil)
         y += textTitle!.getHeight() + UDpi.toPixel(MARGIN_V)
         clientNode.addChild2( textTitle!.parentNode )
-        
         
         // カード数
         mCardCount = TangoItemPosDao.countInParentType(
@@ -177,7 +176,7 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
         textCount = UTextView.createInstance(
             text : cardCount, fontSize : fontSize, priority : 0,
             alignment : UAlignment.CenterX, createNode: true,
-            multiLine : false, isDrawBG : false,
+            isFit : true, isDrawBG : false,
             x : width / 2, y : y, width : 0,
             color : TEXT_COLOR, bgColor : nil)
         clientNode.addChild2( textCount!.parentNode )
@@ -188,17 +187,18 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
          * Buttons
          */
         let titleX = (screenW - UDpi.toPixel(BUTTON_W - 50)) / 2
-        let buttonX = titleX
-
+        let buttonX = titleX + UDpi.toPixel(MARGIN_H)
+        let titleW = titleX - 15
+        
         // 出題方法（出題モード)
         // タイトル
         textStudyMode = UTextView.createInstance(
                 text : UResourceManager.getStringByName("study_mode"),
                 fontSize : UDpi.toPixel(FONT_SIZE_2), priority : 0,
                 alignment : UAlignment.Right_CenterY, createNode: true,
-                multiLine : false,
-                isDrawBG : false, x : titleX, y : y + UDpi.toPixel(BUTTON_H) / 2,
-                width : 0, color : TEXT_COLOR, bgColor : nil)
+                isFit : true, isDrawBG : false,
+                x : titleX, y : y + UDpi.toPixel(BUTTON_H) / 2,
+                width : titleW, color : TEXT_COLOR, bgColor : nil)
         clientNode.addChild2( textStudyMode!.parentNode )
 
         // Button
@@ -220,9 +220,9 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
                 text : UResourceManager.getStringByName("study_type"),
                 fontSize : UDpi.toPixel(FONT_SIZE_2), priority : 0,
                 alignment : UAlignment.Right_CenterY, createNode: true,
-                multiLine : false,
-                isDrawBG : false, x : titleX, y : y+UDpi.toPixel(BUTTON_H)/2,
-                width : 0, color : TEXT_COLOR, bgColor : nil)
+                isFit : true, isDrawBG : false,
+                x : titleX, y : y + UDpi.toPixel(BUTTON_H) / 2,
+                width : titleW, color : TEXT_COLOR, bgColor : nil)
         clientNode.addChild2( textStudyType!.parentNode )
 
         // Button
@@ -246,9 +246,9 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
                 text : UResourceManager.getStringByName("study_order"),
                 fontSize : UDpi.toPixel(FONT_SIZE_2), priority : 0,
                 alignment : UAlignment.Right_CenterY, createNode: true,
-                multiLine : false,
-                isDrawBG : false, x : titleX, y : y+UDpi.toPixel(BUTTON_H)/2,
-                width : 0, color : TEXT_COLOR, bgColor : .black)
+                isFit : true, isDrawBG : false,
+                x : titleX, y : y+UDpi.toPixel(BUTTON_H)/2,
+                width : titleW, color : TEXT_COLOR, bgColor : .black)
         clientNode.addChild2( textStudyOrder!.parentNode )
         
         // Button
@@ -273,9 +273,9 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
                 text : UResourceManager.getStringByName("study_filter"),
                 fontSize : UDpi.toPixel(FONT_SIZE_2), priority : 0,
                 alignment : UAlignment.Right_CenterY, createNode: true,
-                multiLine : false,
-                isDrawBG : false, x : titleX, y : y+UDpi.toPixel(BUTTON_H)/2,
-                width : 0, color : TEXT_COLOR, bgColor : nil)
+                isFit : true, isDrawBG : false,
+                x : titleX, y : y+UDpi.toPixel(BUTTON_H)/2,
+                width : titleW, color : TEXT_COLOR, bgColor : nil)
         clientNode.addChild2( textStudyFilter!.parentNode )
         
         // Button
@@ -511,7 +511,7 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
             mDialog!.setTitle(UResourceManager.getStringByName("study_type"));
             _ = mDialog!.addTextView(
                 text : UResourceManager.getStringByName("study_type_exp"),
-                alignment : UAlignment.Center, multiLine : false,
+                alignment : UAlignment.Center, isFit : false,
                 isDrawBG : false, fontSize : UDpi.toPixel(FONT_SIZE_2),
                 textColor : TEXT_COLOR, bgColor : nil)
             
@@ -559,7 +559,7 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
             
             _ = mDialog!.addTextView(
                 text : UResourceManager.getStringByName("study_order_exp"),
-                alignment : UAlignment.Center, multiLine : false, isDrawBG : false,
+                alignment : UAlignment.Center, isFit : false, isDrawBG : false,
                 fontSize : UDpi.toPixel(FONT_SIZE_2), textColor : TEXT_COLOR,
                 bgColor : nil)
 
@@ -593,7 +593,7 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
             
             _ = mDialog!.addTextView(
                 text : UResourceManager.getStringByName("study_filter_exp"),
-                alignment : UAlignment.Center, multiLine : false, isDrawBG : false, fontSize : UDpi.toPixel(FONT_SIZE_2), textColor : TEXT_COLOR, bgColor : nil);
+                alignment : UAlignment.Center, isFit : true, isDrawBG : false, fontSize : UDpi.toPixel(FONT_SIZE_2), textColor : TEXT_COLOR, bgColor : nil)
             // buttons
             let button1 = mDialog!.addButton(id : ButtonIdOption4_1, text : UResourceManager.getStringByName("study_filter_1"), fontSize: UDraw.getFontSize(FontSize.M), textColor : TEXT_COLOR, color : UColor.LightPink)
             let button2 = mDialog!.addButton(id : ButtonIdOption4_2, text : UResourceManager.getStringByName("study_filter_2"), fontSize: UDraw.getFontSize(FontSize.M), textColor : TEXT_COLOR, color : UColor.LightPink)

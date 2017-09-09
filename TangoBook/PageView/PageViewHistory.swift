@@ -101,7 +101,7 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
             let text = UTextView.createInstance(
                 text : UResourceManager.getStringByName("no_study_history"),
                 fontSize : UDpi.toPixel(TEXT_SIZE),
-                priority : 1, alignment : UAlignment.CenterX, createNode : true, multiLine : false, isDrawBG : false,
+                priority : 1, alignment : UAlignment.CenterX, createNode : true, isFit : true, isDrawBG : false,
                 x : width/2, y : y, width : width, color : UIColor.black, bgColor : nil)
                 
             text.addToDrawManager()
@@ -185,7 +185,7 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
             let fontSize : CGFloat = UDpi.toPixel(TEXT_SIZE)
             _ = mDialog!.addTextView(
                 text : message, alignment : UAlignment.CenterX,
-                multiLine : true, isDrawBG : false, fontSize : fontSize,
+                isFit : true, isDrawBG : false, fontSize : fontSize,
                 textColor : UPageView.TEXT_COLOR, bgColor : nil)
 
             if isEmpty {

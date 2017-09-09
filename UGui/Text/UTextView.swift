@@ -32,12 +32,13 @@ public class UTextView : UDrawable {
     private var bgNode : SKShapeNode?
     
     var text : String
+    var mTextSize : CGSize = CGSize()
     var alignment : UAlignment
     var mMargin : CGSize = CGSize()
     var fontSize : CGFloat = 0
     var bgColor : UIColor? = nil
-    var multiLine : Bool = false      // 複数行表示する
     
+    var isFitToSize : Bool = false   // sizeにフィットするようにテキストのスケールを調整
     var isDrawBG : Bool = false
     var isOpened : Bool = false     // 全部表示状態
     
@@ -45,19 +46,19 @@ public class UTextView : UDrawable {
     public func getText() -> String {
         return text
     }
+    
+    /**
+     * テキストを更新
+     * 新しいテキストならSpriteKitのノードを更新する
+     */
     public func setText(_ text : String) {
-        self.text = text;
-        
-        // サイズを更新
-        let size : CGSize = getTextSize()
-        if (isDrawBG) {
-            setSize(size.width + mMargin.width * 2, size.height + mMargin.height * 2)
-        } else {
-            setSize(size.width, size.height)
+        if self.text == text {
+            return
         }
-        labelNode!.text = text
-        
-        updateRect()
+        self.text = text
+
+        initSKNode()
+        parentNode.position.toSK()
     }
     
     public func setFont(_ font : String) {
@@ -67,20 +68,22 @@ public class UTextView : UDrawable {
     public func setMargin(_ width : CGFloat, _ height : CGFloat) {
         mMargin.width = width
         mMargin.height = height
-        updateSize()
+        
+        initSKNode()
+        parentNode.position.toSK()
     }
     
     // MARK: Initializer
     public init(text : String, fontSize : CGFloat, priority : Int,
                 alignment : UAlignment, createNode: Bool,
-                multiLine : Bool, isDrawBG : Bool, margin : CGFloat,
+                isFit : Bool, isDrawBG : Bool, margin : CGFloat,
                 x : CGFloat, y : CGFloat,
                 width : CGFloat, color : UIColor, bgColor : UIColor?)
     {
         self.text = text
         self.alignment = alignment
         self.mMargin = CGSize(width: margin, height: margin)
-        self.multiLine = multiLine
+        self.isFitToSize = isFit
         self.isDrawBG = isDrawBG
         self.fontSize = fontSize
         
@@ -92,13 +95,11 @@ public class UTextView : UDrawable {
         if createNode {
             initSKNode()
         }
-        
-        updateSize()
     }
     
     public static func createInstance(text: String, fontSize : CGFloat, priority : Int,
                                       alignment : UAlignment, createNode : Bool,
-                                      multiLine : Bool, isDrawBG : Bool,
+                                      isFit : Bool, isDrawBG : Bool,
                                       x: CGFloat, y: CGFloat,
                                       width : CGFloat,
                                       color : UIColor, bgColor : UIColor?) -> UTextView
@@ -108,9 +109,9 @@ public class UTextView : UDrawable {
                                  priority: priority,
                                  alignment: alignment,
                                  createNode : createNode,
-                                 multiLine : multiLine,
+                                 isFit : isFit,
                                  isDrawBG : isDrawBG,
-                                 margin: UDpi.toPixel(MARGIN_H),
+                                 margin: isDrawBG ? UDpi.toPixel(MARGIN_H) : 0,
                                  x: x, y: y,
                                  width: width,
                                  color: color, bgColor: bgColor)
@@ -127,7 +128,7 @@ public class UTextView : UDrawable {
                                  fontSize: UDpi.toPixel(UTextView.DEFAULT_FONT_SIZE),
                                  priority:priority,
                                  alignment: UAlignment.None, createNode : createNode,
-                                 multiLine: false,
+                                 isFit: false,
                                  isDrawBG: isDrawBG,
                                  margin: UDpi.toPixel(MARGIN_H),
                                  x:x, y:y,
@@ -140,6 +141,13 @@ public class UTextView : UDrawable {
      * SpriteKitのノードを作成する
      */
     public override func initSKNode() {
+        if let n = labelNode {
+            n.removeFromParent()
+        }
+        if let n = bgNode {
+            n.removeFromParent()
+        }
+
         // ノードを作成
         // parent
         self.parentNode.zPosition = CGFloat( drawPriority )
@@ -148,9 +156,10 @@ public class UTextView : UDrawable {
         // Label
         let result = SKNodeUtil.createLabelNode(text: text, fontSize: fontSize, color: color, alignment: .Left, pos: nil)
         self.labelNode = result.node
-
+        self.mTextSize = result.size
+        
         // もとの指定したサイズに収まるように補正
-        if size.width > 0 && result.size.width > size.width {
+        if isFitToSize && size.width > 0 && result.size.width > size.width {
             self.labelNode?.adjustLabelFontSizeToFitWidth(width: size.width)
         } else {
             size = result.size
@@ -169,9 +178,8 @@ public class UTextView : UDrawable {
         
         // BG
         if isDrawBG {
-            let radius = UDpi.toPixel(10)
             self.bgNode = SKShapeNode(rect: CGRect(x:0, y:0, width: size.width, height: size.height).convToSK(),
-                cornerRadius: radius)
+                cornerRadius: UDpi.toPixel(10))
             self.bgNode!.isAntialiased = true
             
             if bgColor != nil {
@@ -213,13 +221,13 @@ public class UTextView : UDrawable {
      * Methods
      */
     
-    func updateSize() {
-        var size : CGSize = getTextSize()
-        if (isDrawBG) {
-            size = addBGPadding(size)
-        }
-        setSize(size.width, size.height)
-    }
+//    func updateSize() {
+//        var size : CGSize = getTextSize()
+//        if (isDrawBG) {
+//            size = addBGPadding(size)
+//        }
+//        setSize(size.width, size.height)
+//    }
     
     /**
      * テキストを囲むボタン部分のマージンを追加する

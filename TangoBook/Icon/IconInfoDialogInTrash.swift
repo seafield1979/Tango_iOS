@@ -111,6 +111,7 @@ public class IconInfoDialogInTrash : IconInfoDialog {
         var titleStr : String? = nil
         var bodyStr : String? = nil
         let bgColor = UIColor.white
+        let marginVS = UDpi.toPixel(MARGIN_V_S)
         
         if mIcon.getType() == IconType.Card {
             let mCard : TangoCard = (mIcon.getTangoItem() as? TangoCard)!
@@ -121,12 +122,12 @@ public class IconInfoDialogInTrash : IconInfoDialog {
                 fontSize : UDpi.toPixel(FONT_SIZE_M),
                 priority : 0,
                 alignment : UAlignment.Center, createNode: true,
-                multiLine : false, isDrawBG : false,
+                isFit : true, isDrawBG : false,
                 x : x, y : y,
                 width : width - UDpi.toPixel(MARGIN_H) * 2,
                 color : TEXT_COLOR, bgColor : TEXT_BG_COLOR)
             
-            y += UDpi.toPixel(FONT_SIZE_L + MARGIN_V)
+            y += textTitle!.size.height + UDpi.toPixel(MARGIN_V)
             
             for item in CardItems.cases {
                 switch item {
@@ -144,13 +145,13 @@ public class IconInfoDialogInTrash : IconInfoDialog {
                     titleView = UTextView.createInstance(
                         text : titleStr!,
                         fontSize : fontSize,
-                        priority : 0, alignment : UAlignment.Center, createNode: true,
-                        multiLine : false, isDrawBG : false,
+                        priority : 0, alignment : UAlignment.CenterX, createNode: true,
+                        isFit : true, isDrawBG : false,
                         x : x, y : y,
-                        width : size.width-UDpi.toPixel(MARGIN_H),
+                        width : size.width - UDpi.toPixel(MARGIN_H),
                         color : TEXT_COLOR, bgColor : nil)
                     
-                    y += titleView!.getHeight() + UDpi.toPixel(MARGIN_V_S)
+                    y += titleView!.getHeight() + marginVS
                 }
                 
                 // body
@@ -158,13 +159,13 @@ public class IconInfoDialogInTrash : IconInfoDialog {
                 if bodyStr != nil && bodyStr!.isEmpty == false {
                     bodyView = UTextView.createInstance(
                         text : bodyStr!, fontSize : fontSize, priority : 0,
-                        alignment : UAlignment.Center, createNode: true,
-                        multiLine : true, isDrawBG : true,
+                        alignment : UAlignment.CenterX, createNode: true,
+                        isFit : true, isDrawBG : true,
                         x : x, y : y,
-                        width : size.width-UDpi.toPixel(MARGIN_H),
+                        width : size.width - UDpi.toPixel(MARGIN_H),
                         color : TEXT_COLOR, bgColor : bgColor)
                     
-                    y += bodyView!.getHeight() + UDpi.toPixel(MARGIN_V_S)
+                    y += bodyView!.getHeight() + marginVS
                     
                     // 幅は最大サイズに合わせる
                     let _width = bodyView!.getWidth() + UDpi.toPixel(MARGIN_H) * 2
@@ -184,7 +185,7 @@ public class IconInfoDialogInTrash : IconInfoDialog {
                 fontSize : UDpi.toPixel(FONT_SIZE_M),
                 priority : 0,
                 alignment : UAlignment.Center, createNode: true,
-                multiLine : false, isDrawBG : false,
+                isFit : true, isDrawBG : false,
                 x : x, y : y, width : width - UDpi.toPixel(MARGIN_H) * 2,
                 color : TEXT_COLOR, bgColor : TEXT_BG_COLOR)
 
@@ -210,13 +211,13 @@ public class IconInfoDialogInTrash : IconInfoDialog {
                     titleView = UTextView.createInstance(
                         text : titleStr!,
                         fontSize : fontSize,
-                        priority : 0, alignment : UAlignment.Center, createNode: true,
-                        multiLine : false, isDrawBG : false,
+                        priority : 0, alignment : UAlignment.CenterX, createNode: true,
+                        isFit : true, isDrawBG : false,
                         x : x, y : y,
-                        width : size.width-UDpi.toPixel(MARGIN_H),
+                        width : size.width - UDpi.toPixel(MARGIN_H),
                         color : TEXT_COLOR, bgColor : nil)
                     
-                    y += titleView!.getHeight() + UDpi.toPixel(MARGIN_V_S)
+                    y += titleView!.getHeight() + marginVS
                 }
                 
                 // body
@@ -224,13 +225,13 @@ public class IconInfoDialogInTrash : IconInfoDialog {
                 if bodyStr != nil && bodyStr!.isEmpty == false {
                     bodyView = UTextView.createInstance(
                         text : bodyStr!, fontSize : fontSize, priority : 0,
-                        alignment : UAlignment.Center, createNode: true,
-                        multiLine : true, isDrawBG : true,
+                        alignment : UAlignment.CenterX, createNode: true,
+                        isFit : true, isDrawBG : true,
                         x : x, y : y,
                         width : size.width-UDpi.toPixel(MARGIN_H),
                         color : TEXT_COLOR, bgColor : bgColor)
                     
-                    y += bodyView!.getHeight() + UDpi.toPixel(MARGIN_V_S)
+                    y += bodyView!.getHeight() + marginVS
                     
                     // 幅は最大サイズに合わせる
                     let _width = bodyView!.getWidth() + UDpi.toPixel(MARGIN_H) * 2
@@ -241,6 +242,7 @@ public class IconInfoDialogInTrash : IconInfoDialog {
                 mItems[item.rawValue] = IconInfoItem(title: titleView, body: bodyView)
             }
         }
+        y += UDpi.toPixel(MARGIN_V)
         
         // Action buttons
         x = (width - (UDpi.toPixel(ICON_W) * CGFloat(icons.count) + UDpi.toPixel(MARGIN_H) * CGFloat(icons.count - 1))) / 2

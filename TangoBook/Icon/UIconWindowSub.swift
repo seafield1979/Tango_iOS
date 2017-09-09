@@ -9,7 +9,7 @@
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
 //
 
-import UIKit
+import SpriteKit
 
 // コールバック
 public protocol UIconWindowSubCallbacks {
@@ -29,7 +29,6 @@ public enum SubWindowActionId : Int , EnumEnumerable{
     case Edit
     case Copy
     case Delete
-//    case Export
     case Cleanup
 }
 
@@ -41,7 +40,6 @@ public class UIconWindowSub : UIconWindow {
     private static let buttonIdCopy = 301
     private static let buttonIdDelete = 302
     private static let buttonIdCleanup = 303
-//    private static let buttonIdExport = 304
     
     // ウィンドウの下に表示されるアクションボタンの情報
     public struct ActionInfo {
@@ -62,6 +60,7 @@ public class UIconWindowSub : UIconWindow {
     private static let trashIds : [SubWindowActionId] = [.Close, .Cleanup]
     
     // MARK: Constants
+    private let FONT_SIZE = 15
     private static let MARGIN_H = 17
     private static let MARGIN_V = 7
     private static let MARGIN_V2 = 17
@@ -77,6 +76,8 @@ public class UIconWindowSub : UIconWindow {
     
     // コールバック用のインターフェース
     private var mIconWindowSubCallback : UIconWindowSubCallbacks? = nil
+    
+    private var mTitleView : UTextView?
     
     // MARK: Accessor
     public func setParentIcon(icon : UIcon) {
@@ -114,8 +115,18 @@ public class UIconWindowSub : UIconWindow {
     public override func initialize() {
         super.initialize()
         
-        // アイコンボタンの初期化
+        initSKNode()
+    }
+    
+    public override func initSKNode() {
+        super.initSKNode()
         
+        // ウィンドウ上部に表示するタイトル
+        mTitleView = UTextView(text: "", fontSize: UDpi.toPixel(FONT_SIZE), priority: 30, alignment: .Left, createNode: true, isFit: false, isDrawBG: true, margin: UDpi.toPixel(3), x: UDpi.toPixel(16), y: UDpi.toPixel(0), width: 0, color: UIColor.black, bgColor: BG_COLOR)
+        
+        parentNode.addChild2( mTitleView!.parentNode )
+        
+        // アイコンボタンの初期化
         // Bookを開いたときのアイコンを初期化
         mBookButtons = UIconWindowButtons(callbacks: self,
                                           priority: DrawPriority.SubWindowIcon.rawValue, x: 0, y: 0)
@@ -125,10 +136,10 @@ public class UIconWindowSub : UIconWindow {
         mBookButtons!.initSKNode()
         mBookButtons!.parentNode.isHidden = true
         self.parentNode.addChild2(mBookButtons!.parentNode)
-
+        
         // ゴミ箱を開いたときのアイコンを初期化
         mTrashButtons = UIconWindowButtons(callbacks: self,
-                                          priority: DrawPriority.SubWindowIcon.rawValue, x: 0, y: 0)
+                                           priority: DrawPriority.SubWindowIcon.rawValue, x: 0, y: 0)
         for id in UIconWindowSub.trashIds {
             mTrashButtons!.addButton(id: id)
         }
@@ -172,9 +183,6 @@ public class UIconWindowSub : UIconWindow {
         case .Delete:
             return ActionInfo(imageName: ImageName.trash, buttonId: buttonIdDelete,
                               title : "trash", color : UColor.DarkGreen)
-//        case .Export:
-//            return ActionInfo(imageName: ImageName.export, buttonId: buttonIdExport,
-//                              title : "export", color : UColor.DarkGreen)
         case .Cleanup:
             return ActionInfo(imageName: ImageName.trash2, buttonId: buttonIdCleanup,
                               title : "clean_up", color : UColor.DarkGreen)
@@ -248,6 +256,12 @@ public class UIconWindowSub : UIconWindow {
     {
         super.drawContent(offset: offset)
         
+        if let icon = mParentIcon {
+            if let title = icon.getTitle() {
+                mTitleView!.setText(title)
+            }
+        }
+        
         // アクションボタンの表示
         // 非表示時、移動時は表示しない
         let buttons : UIconWindowButtons = getButtons()
@@ -276,10 +290,6 @@ public class UIconWindowSub : UIconWindow {
             if (mIconWindowSubCallback != nil && mParentIcon != nil ) {
                 mIconWindowSubCallback!.IconWindowSubAction(actionId:SubWindowActionId.Copy, icon: mParentIcon!)
             }
-//        case UIconWindowSub.buttonIdExport:
-//            if (mIconWindowSubCallback != nil && mParentIcon != nil ) {
-//                mIconWindowSubCallback!.IconWindowSubAction(actionId:SubWindowActionId.Export, icon: mParentIcon!)
-//            }
         case UIconWindowSub.buttonIdDelete:
             if (mIconWindowSubCallback != nil && mParentIcon != nil ) {
                 mIconWindowSubCallback!.IconWindowSubAction(actionId: SubWindowActionId.Delete, icon: mParentIcon)

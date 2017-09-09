@@ -148,13 +148,6 @@ public class StudyCard : UDrawable, UButtonCallbacks {
      * SpriteKitのノードを生成
      */
     public func initSKNode2(maxHeight: CGFloat, isMultiCard : Bool) {
-        if mArrowL != nil {
-            parentNode.addChild2( mArrowL!.parentNode )
-        }
-        if mArrowR != nil {
-            parentNode.addChild2( mArrowR!.parentNode )
-        }
-        
         let arrowW = UDpi.toPixel(ARROW_W)
         let arrowH = UDpi.toPixel(ARROW_H)
         
@@ -213,7 +206,14 @@ public class StudyCard : UDrawable, UButtonCallbacks {
             priority : 0,
             x : size.width / 2 + UDpi.toPixel(ARROW_MARGIN),
             y : (size.height - arrowH)/2, width : arrowW, height : UDpi.toPixel(ARROW_H), image : arrowRImage!, pressedImage : nil)
+        if mArrowL != nil {
+            parentNode.addChild2( mArrowL!.parentNode )
+        }
+        if mArrowR != nil {
+            parentNode.addChild2( mArrowR!.parentNode )
+        }
         
+
         // BG Node
         bgNode = SKNodeUtil.createRectNode(rect: CGRect(x:-size.width / 2, y:0, width: size.width, height: size.height), color: color, pos: CGPoint(), cornerR: UDpi.toPixel(4))
         bgNode!.strokeColor = .gray

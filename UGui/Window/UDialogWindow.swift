@@ -315,7 +315,7 @@ public class UDialogWindow : UWindow {
      * TextViewを追加
      */
     public func addTextView(text : String, alignment : UAlignment,
-                            multiLine : Bool, isDrawBG : Bool,
+                            isFit : Bool, isDrawBG : Bool,
                             fontSize : CGFloat, textColor : UIColor,
                             bgColor : UIColor? ) -> UTextView
     {
@@ -325,7 +325,7 @@ public class UDialogWindow : UWindow {
                                      priority: 0,
                                      alignment: alignment,
                                      createNode: false,
-                                     multiLine: multiLine,
+                                     isFit: isFit,
                                      isDrawBG: isDrawBG,
                                      x: 0, y: 0,
                                      width: size.width - marginH * 2,
@@ -432,6 +432,7 @@ public class UDialogWindow : UWindow {
         
         // タイトル、メッセージ
         var y : CGFloat = UDpi.toPixel(UDialogWindow.TEXT_MARGIN_V)
+        
         if title != nil && mTitleView == nil {
             mTitleView = UTextView.createInstance(
                 text: title!,
@@ -439,7 +440,7 @@ public class UDialogWindow : UWindow {
                 priority: 0,
                 alignment: UAlignment.CenterX,
                 createNode : true,
-                multiLine: true, isDrawBG: false,
+                isFit: true, isDrawBG: false,
                 x: size.width / 2, y: y,
                 width: size.width - marginH * 2, color: .black, bgColor: nil)
             

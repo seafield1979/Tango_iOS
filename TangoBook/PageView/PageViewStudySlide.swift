@@ -130,7 +130,7 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
             cardManager : mCardsManager!, cardsStackCallbacks : self,
             x : screenW / 2,
             y : UDpi.toPixel(TOP_AREA_H),
-            width : UDpi.toPixel(StudyCard.WIDTH), maxHeight : mTopScene.getHeight()-UDpi.toPixel(TOP_AREA_H + BOTTOM_AREA_H))
+            width : UDpi.toPixel(StudyCard.WIDTH), maxHeight : mTopScene.getHeight() - UDpi.toPixel(TOP_AREA_H + BOTTOM_AREA_H))
         mCardsStack!.addToDrawManager()
         
         // あと〜枚
@@ -139,8 +139,8 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
         mTextCardCount = UTextView.createInstance(
             text : title, fontSize : UDraw.getFontSize(FontSize.L),
             priority : 1, alignment : UAlignment.CenterX,
-            createNode : true, multiLine : false, isDrawBG : true,
-            x : screenW/2, y : UDpi.toPixel(10), width : UDpi.toPixel(100),
+            createNode : true, isFit : false, isDrawBG : true,
+            x : screenW / 2, y : UDpi.toPixel(10), width : UDpi.toPixel(100),
             color : COLOR1, bgColor : nil)
         
         mTextCardCount!.addToDrawManager()

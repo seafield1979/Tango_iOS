@@ -81,8 +81,8 @@ public class IconInfoDialog : UWindow {
     let TOP_ITEM_Y = 10
 
     let MARGIN_H = 17
-    let MARGIN_V = 17
-    let MARGIN_V_S = 10
+    let MARGIN_V = 14
+    let MARGIN_V_S = 6
     let DLG_MARGIN = 15
     let FRAME_W = 3
     

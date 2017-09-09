@@ -46,24 +46,24 @@ public class DialogCard : UDialogWindow {
         // WordA
         if (card.wordA != nil && card.wordA!.characters.count > 0) {
             _ = addTextView(text : UResourceManager.getStringByName("word_a"),
-                        alignment : UAlignment.CenterX, multiLine : true,
+                        alignment : UAlignment.CenterX, isFit : false,
                         isDrawBG : false, fontSize : UDraw.getFontSize(FontSize.M),
                         textColor : .black, bgColor : nil)
             
             _ = addTextView(text : card.wordA!, alignment : UAlignment.CenterX,
-                        multiLine : true, isDrawBG : true, fontSize : UDraw.getFontSize(FontSize.M),
+                        isFit : false, isDrawBG : true, fontSize : UDraw.getFontSize(FontSize.M),
                         textColor : .black, bgColor : .lightGray)
         }
         
         // WordB
         if card.wordB != nil && card.wordB!.characters.count > 0 {
             _ = addTextView(text : UResourceManager.getStringByName("word_b"),
-                        alignment : UAlignment.CenterX, multiLine : true,
+                        alignment : UAlignment.CenterX, isFit : false,
                         isDrawBG : false, fontSize : UDraw.getFontSize(FontSize.M),
                         textColor : .black, bgColor : nil)
             
             _ = addTextView(text : card.wordB!, alignment : UAlignment.CenterX,
-                        multiLine : true, isDrawBG : true, fontSize : UDraw.getFontSize(FontSize.M),
+                        isFit : false, isDrawBG : true, fontSize : UDraw.getFontSize(FontSize.M),
                         textColor : .black, bgColor : .lightGray)
         }
         

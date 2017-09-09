@@ -109,7 +109,7 @@ public class UMenuItem : UDrawable {
             text: title,
             fontSize: UDpi.toPixel(UMenuItem.FONT_SIZE), priority: 0, alignment: alignment,
             createNode : true,
-            multiLine: false, isDrawBG: true,
+            isFit: false, isDrawBG: true,
             x: x, y: y, width: 0, color: color, bgColor: bgColor)
 
         // 初期状態ではタイトルは非表示

@@ -92,7 +92,7 @@ public class PageViewPresetBook : UPageView, UButtonCallbacks, UListItemCallback
         mTitleText = UTextView.createInstance(
             text : UResourceManager.getStringByName("preset_title2"),
             fontSize : UDraw.getFontSize(FontSize.L), priority : DRAW_PRIORITY,
-            alignment : UAlignment.CenterX, createNode : true, multiLine : true,
+            alignment : UAlignment.CenterX, createNode : true, isFit : true,
             isDrawBG : false,
             x : width/2, y : y,
             width : width, color : UIColor.black, bgColor : nil)

@@ -171,7 +171,7 @@ public class PageViewStudyBookSelect : UPageView
                 text : UResourceManager.getStringByName("no_study_history"),
                 fontSize : UDpi.toPixel(FONT_SIZE), priority : DRAW_PRIORITY-1,
                 alignment : UAlignment.CenterX, createNode: true,
-                multiLine : false, isDrawBG : false,
+                isFit : false, isDrawBG : false,
                 x : width/2, y : y, width : width, color : .black, bgColor : nil)
             text.addToDrawManager()
 
@@ -181,7 +181,7 @@ public class PageViewStudyBookSelect : UPageView
                 text : UResourceManager.getStringByName("title_study2"),
                 fontSize : UDpi.toPixel(FONT_SIZE), priority : DRAW_PRIORITY,
                 alignment : UAlignment.CenterX, createNode: true,
-                multiLine : false, isDrawBG : false,
+                isFit : false, isDrawBG : false,
                 x : width/2, y : y, width : width,
                 color : .black, bgColor : nil)
             mTitleText!.addToDrawManager()

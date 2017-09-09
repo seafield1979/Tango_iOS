@@ -14,9 +14,9 @@ public class ListItemCard : UListItem {
 
     private let TEXT_COLOR = UIColor.black
     private let BG_COLOR = UIColor.white
-    private let ICON_W = 35
+    private let ICON_W = 30
 
-    private let MARGIN_H = 17
+    private let MARGIN_H = 10
     private let MARGIN_V = 5
 
     private let FRAME_WIDTH = 2

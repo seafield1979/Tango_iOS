@@ -110,7 +110,7 @@ public class StudyCardStackSelect : UDrawable {
         mQuestionView = UTextView.createInstance(
             text : questionStr!, fontSize : UDpi.toPixel(FONT_SIZE_L),
             priority : DRAW_PRIORITY, alignment : UAlignment.CenterX,
-            createNode : true, multiLine : true, isDrawBG : false,
+            createNode : true, isFit : true, isDrawBG : false,
             x : 0, y : 0, width : size.width, color : TEXT_COLOR, bgColor : nil)
         
         parentNode.addChild2( mQuestionView!.parentNode )

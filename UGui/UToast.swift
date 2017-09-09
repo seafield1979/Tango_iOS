@@ -40,7 +40,7 @@ class UToast : UDrawable {
         
         mDuration = duration
         
-        mTextView = UTextView(text: text, fontSize: fontSize, priority: 0, alignment: alignment, createNode: true, multiLine: true, isDrawBG: true, margin: UDpi.toPixel(MARGIN), x: 0, y: 0, width: 0, color: UIColor.white, bgColor: UColor.Gray)
+        mTextView = UTextView(text: text, fontSize: fontSize, priority: 0, alignment: alignment, createNode: true, isFit: false, isDrawBG: true, margin: UDpi.toPixel(MARGIN), x: 0, y: 0, width: 0, color: UIColor.white, bgColor: UColor.Gray)
     }
     
     /**

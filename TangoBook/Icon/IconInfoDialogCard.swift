@@ -136,12 +136,12 @@ public class IconInfoDialogCard : IconInfoDialog {
            text : UResourceManager.getStringByName("card"),
            fontSize : UDpi.toPixel(FONT_SIZE_M),
            priority : 0,
-           alignment : UAlignment.Center, createNode: true,
-           multiLine : false, isDrawBG : false,
+           alignment : UAlignment.CenterX, createNode: true,
+           isFit : false, isDrawBG : false,
            x : x, y : y,
            width : width - UDpi.toPixel(MARGIN_H) * 2,
            color : TITLE_COLOR, bgColor : TEXT_BG_COLOR)
-        y += UDpi.toPixel(FONT_SIZE_L + MARGIN_V)
+        y += mTitleView!.size.height + UDpi.toPixel(MARGIN_V)
 
         var titleStr : String? = nil
         var bodyStr : String? = nil
@@ -163,8 +163,8 @@ public class IconInfoDialogCard : IconInfoDialog {
                 titleView = UTextView.createInstance(
                    text : titleStr!,
                    fontSize : fontSize,
-                   priority : 0, alignment : UAlignment.Center, createNode: true,
-                   multiLine : false, isDrawBG : false,
+                   priority : 0, alignment : UAlignment.CenterX, createNode: true,
+                   isFit : false, isDrawBG : false,
                    x : x, y : y,
                    width : size.width - UDpi.toPixel(MARGIN_H),
                    color : TEXT_COLOR, bgColor : nil)
@@ -177,10 +177,10 @@ public class IconInfoDialogCard : IconInfoDialog {
             if bodyStr != nil && bodyStr!.isEmpty == false {
                 bodyView = UTextView.createInstance(
                    text : bodyStr!, fontSize : fontSize, priority : 0,
-                   alignment : UAlignment.Center, createNode: true,
-                   multiLine : true, isDrawBG : true,
+                   alignment : UAlignment.CenterX, createNode: true,
+                   isFit : false, isDrawBG : true,
                    x : x,
-                   y : y, width : size.width-UDpi.toPixel(MARGIN_H),
+                   y : y, width : size.width - UDpi.toPixel(MARGIN_H),
                    color : TEXT_COLOR, bgColor : bgColor)
                
                 y += bodyView!.getHeight() + UDpi.toPixel(MARGIN_V_S)
