@@ -109,7 +109,7 @@ public class PageViewManagerMain : UPageViewManager {
             break
         case .RestoreDB:          // バックアップから復元
             page = PageViewRestore( topScene: mTopScene,
-                                      title: UResourceManager.getStringByName("restore"))
+                                      title: UResourceManager.getStringByName("title_restore"))
             break
         case .PresetBook:         // プリセット単語帳選択
             page = PageViewPresetBook( topScene: mTopScene,

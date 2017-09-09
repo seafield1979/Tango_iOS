@@ -199,7 +199,8 @@ public class SKNodeUtil {
             labelOutPut.position.y -= (centerY - fontSize)
         }
         
-        return (labelOutPut, CGSize(width: maxWidth, height: CGFloat(subStringNumber) * fontSize))
+        return (labelOutPut, CGSize(width: maxWidth,
+                                    height: CGFloat(subStringNumber) * fontSize + CGFloat(subStringNumber - 1) * margin))
     }
     
     

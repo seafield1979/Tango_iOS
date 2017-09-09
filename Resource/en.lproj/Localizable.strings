@@ -81,6 +81,8 @@
 "title_help" = "title_help";
 "search_card" = "search_card";
 "search_card_name" = "search_card_name";
+"title_backup" = "title_backup";
+"title_restore" = "title_restore";
 "title_debug" = "title_debug";
 "title_debug_db" = "Debug Database";
 

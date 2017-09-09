@@ -380,6 +380,17 @@ public class UIconManager : UIconCallbacks {
 
         // _icons を SortMode の方法でソートする
         var _sortedIcons : [UIcon] = []
+
+        // ゴミ箱は常に先頭に配置
+        var trashIcon : UIcon? = nil
+        for icon in _icons {
+            if icon!.getType() == .Trash {
+                trashIcon = icon
+                _icons.remove(obj: icon!)
+                break
+            }
+        }
+        
         switch mode {
         case .TitleAsc:       // タイトル文字昇順(カードはWordA,単語帳はName)
             _sortedIcons = _icons.sort(isOrderedBefore: {
@@ -404,7 +415,8 @@ public class UIconManager : UIconCallbacks {
 
         // ソート済みの新しいアイコンリストを作成する
         icons.removeAll()
-
+        icons.append( trashIcon! )
+        
         var pos = 1
         for icon in _sortedIcons {
             icons.append(icon)

@@ -16,7 +16,7 @@ public class PageViewPresetBook : UPageView, UButtonCallbacks, UListItemCallback
     private let DRAW_PRIORITY = 1
     private let DRAW_PRIORYTY_DIALOG = 50
 
-    private let TOP_Y = 17
+    private let TOP_Y = 0
     private let MARGIN_H = 17
     private let MARGIN_V = 17
 
@@ -85,12 +85,18 @@ public class PageViewPresetBook : UPageView, UButtonCallbacks, UListItemCallback
         let width = mTopScene.getWidth()
         let height = mTopScene.getHeight()
 
-        var x = UDpi.toPixel(MARGIN_H)
+        let x = UDpi.toPixel(MARGIN_H)
         var y = UDpi.toPixel(TOP_Y)
 
         // Title
         mTitleText = UTextView.createInstance(
-            text : UResourceManager.getStringByName("preset_title2"), fontSize : UDraw.getFontSize(FontSize.L), priority : DRAW_PRIORITY, alignment : UAlignment.CenterX, createNode : true, multiLine : true, isDrawBG : false, x : width/2, y : y, width : width, color : UIColor.black, bgColor : nil)
+            text : UResourceManager.getStringByName("preset_title2"),
+            fontSize : UDraw.getFontSize(FontSize.L), priority : DRAW_PRIORITY,
+            alignment : UAlignment.CenterX, createNode : true, multiLine : true,
+            isDrawBG : false,
+            x : width/2, y : y,
+            width : width, color : UIColor.black, bgColor : nil)
+        
         mTitleText!.addToDrawManager()
         y += mTitleText!.getSize().height + UDpi.toPixel(MARGIN_V)
 

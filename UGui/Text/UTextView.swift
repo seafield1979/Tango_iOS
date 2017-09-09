@@ -33,7 +33,6 @@ public class UTextView : UDrawable {
     
     var text : String
     var alignment : UAlignment
-    var isMargin : Bool
     var mMargin : CGSize = CGSize()
     var fontSize : CGFloat = 0
     var bgColor : UIColor? = nil
@@ -74,13 +73,13 @@ public class UTextView : UDrawable {
     // MARK: Initializer
     public init(text : String, fontSize : CGFloat, priority : Int,
                 alignment : UAlignment, createNode: Bool,
-                multiLine : Bool, isDrawBG : Bool, isMargin : Bool,
+                multiLine : Bool, isDrawBG : Bool, margin : CGFloat,
                 x : CGFloat, y : CGFloat,
                 width : CGFloat, color : UIColor, bgColor : UIColor?)
     {
         self.text = text
         self.alignment = alignment
-        self.isMargin = isMargin
+        self.mMargin = CGSize(width: margin, height: margin)
         self.multiLine = multiLine
         self.isDrawBG = isDrawBG
         self.fontSize = fontSize
@@ -111,7 +110,7 @@ public class UTextView : UDrawable {
                                  createNode : createNode,
                                  multiLine : multiLine,
                                  isDrawBG : isDrawBG,
-                                 isMargin: true,
+                                 margin: UDpi.toPixel(MARGIN_H),
                                  x: x, y: y,
                                  width: width,
                                  color: color, bgColor: bgColor)
@@ -130,7 +129,7 @@ public class UTextView : UDrawable {
                                  alignment: UAlignment.None, createNode : createNode,
                                  multiLine: false,
                                  isDrawBG: isDrawBG,
-                                 isMargin: true,
+                                 margin: UDpi.toPixel(MARGIN_H),
                                  x:x, y:y,
                                  width: 0,
                                  color: DEFAULT_COLOR, bgColor: DEFAULT_BG_COLOR)
@@ -157,9 +156,7 @@ public class UTextView : UDrawable {
             size = result.size
         }
         
-        if isMargin {
-            mMargin = CGSize(width: UDpi.toPixel(UTextView.MARGIN_H),
-                             height: UDpi.toPixel(UTextView.MARGIN_V))
+        if mMargin.width > 0 || mMargin.height > 0 {
             labelNode!.position = CGPoint(x: mMargin.width,
                                     y: mMargin.height )
             size = CGSize(width: size.width + mMargin.width * 2,

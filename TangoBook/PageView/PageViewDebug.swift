@@ -17,9 +17,11 @@ public class PageViewDebug : UPageView, UButtonCallbacks {
      */
     public static let TAG = "PageViewDebug"
     
+    private let MARGIN_V : Int = 20
+    
     // button id
     private let buttonId1 = 100
-    
+    private let buttonId2 = 101
     private let DRAW_PRIORITY = 100
     
     /**
@@ -73,6 +75,9 @@ public class PageViewDebug : UPageView, UButtonCallbacks {
      * そのページで表示される描画オブジェクトを初期化する
      */
     override public func initDrawables() {
+        
+        var y : CGFloat = 50
+        
         // 描画オブジェクトクリア
         UDrawManager.getInstance().initialize()
         
@@ -82,10 +87,25 @@ public class PageViewDebug : UPageView, UButtonCallbacks {
         let button = UButtonText(
             callbacks: self, type: UButtonType.Press,
             id: buttonId1, priority: DRAW_PRIORITY,
-            text: "データベース", createNode: true, x: 50, y: 50,
+            text: "データベース", createNode: true, x: 50, y: y,
             width: width - 100, height: 100,
             fontSize: UDpi.toPixel(20), textColor: UIColor.white, bgColor: .blue)
         button.addToDrawManager()
+        
+        y += button.size.height + UDpi.toPixel(MARGIN_V)
+        
+        let button2 = UButtonText(
+            callbacks: self, type: UButtonType.Press,
+            id: buttonId2, priority: DRAW_PRIORITY,
+            text: "UToast", createNode: true, x: 50, y: y,
+            width: width - 100, height: 100,
+            fontSize: UDpi.toPixel(20), textColor: UIColor.white, bgColor: .blue)
+        button2.addToDrawManager()
+        
+        y += button2.size.height + UDpi.toPixel(MARGIN_V)
+        
+        let toast = UToast(x: 50, y: y, text: "hoge", fontSize: UDpi.toPixel(20), alignment: .Center, duration: 1.0)
+        toast.show()
     }
     
     /**
@@ -114,6 +134,9 @@ public class PageViewDebug : UPageView, UButtonCallbacks {
         case buttonId1:
             // データベースデバッグページに遷移
             _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.DebugDB.rawValue)
+        case buttonId2:
+            // UToast
+            UToast(x: mTopScene.getWidth() / 2, y: mTopScene.getHeight() / 2, text: "hello world\nhogehoge\nhogehoge", fontSize: UDpi.toPixel(20), alignment: .Center, duration: 2.0).show()
         default:
             break
         }

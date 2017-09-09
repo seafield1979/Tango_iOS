@@ -9,9 +9,7 @@
 import UIKit
 
 public class PageViewTitle : UPageView, UButtonCallbacks {
-    /**
-     Enums
-     */
+    // MARK: Enums
     enum TitleButtonId : Int, EnumEnumerable {
         case Edit = 0
         case Study
@@ -34,13 +32,6 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
             return UResourceManager.getStringByName(textName)
         }
     }
-
-    
-//    case Edit = 0
-//    case Study
-//    case History
-//    case Settings
-//    case Debug
 
     public var buttonInfo : [ButtonTInfo] = [
         ButtonTInfo(id: TitleButtonId.Edit,
@@ -75,9 +66,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                     imageName: ImageName.debug )
         ]
 
-    /**
-     * Constants
-     */
+    // MARK: Constants
     public static let TAG = "PageViewTitle"
     private static let DRAW_PRIORITY = 100
 
@@ -93,10 +82,8 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
     private let ButtonIdZoomIn = 100
     private let ButtonIdZoomOut = 101
 
-     /**
-     * Member variables
-     */
-//     private Toast mToast
+    // MARK: Properties
+    private var mToast : UToast?
     
      // Title
     private var mTitleText : UTextView? = nil
@@ -104,18 +91,13 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
     // Buttons
     private var mButtons : [UButtonText] = []
 
-     /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init(topScene : TopScene, title : String) {
         super.init(topScene: topScene, pageId: PageIdMain.Title.rawValue, title: title)
         
     }
 
-     /**
-     * Methods
-     */
-
+    // MARK: Methods
      override public func onShow() {
 
      }
@@ -265,10 +247,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
          return false
      }
 
-     /**
-     * Callbacks
-     */
-
+    // MARK: Callbacks
      /**
      * UButtonCallbacks
      */
@@ -301,6 +280,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                     UDpi.scaleDown()
                     initDrawables()
                     showScaleToast()
+                    
                     break
                 case ButtonIdZoomIn:
                     UDpi.scaleUp()
@@ -314,15 +294,15 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
         return false;
     }
 
-     /**
+    /**
      * スケール変更時のToastを表示する
      */
-     private func showScaleToast() {
-//         if (mToast != null) {
-//             mToast.cancel();
-//         }
-//         mToast = Toast.makeText(mContext, UDpi.getScaleText(), Toast.LENGTH_LONG);
-//         mToast.show();
-     }
- }
+    private func showScaleToast() {
+         if let toast = mToast {
+             toast.cancel()
+         }
+        mToast = UToast.makeText( text: UDpi.getScaleText(), duration: 2.0)
+        mToast!.show()
+    }
+}
 

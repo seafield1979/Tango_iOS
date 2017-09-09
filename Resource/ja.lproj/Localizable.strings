@@ -81,6 +81,8 @@
 "title_help" = "ヘルプ";
 "search_card" = "カードを探す";
 "search_card_name" = "検索カード名";
+"title_backup" = "環境をバックアップ";
+"title_restore" = "環境を復元";
 "title_debug" = "Debug";
 "title_debug_db" = "Debug Database";
 

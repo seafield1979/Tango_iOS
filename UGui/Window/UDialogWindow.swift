@@ -48,10 +48,10 @@ public class UDialogWindow : UWindow {
     public static let CloseDialogId = 10000123
     
     static let MARGIN_H : Int = 17
-    static let MARGIN_V : Int = 8
+    static let MARGIN_V : Int = 17
     static let ANIMATION_FRAME : Int = 100
     
-    static let TEXT_MARGIN_V : Int = 17
+    static let TEXT_MARGIN_V : Int = 10
     static let BUTTON_H : Int =  47
     static let BUTTON_MARGIN_H : Int = 17
     static let BUTTON_MARGIN_V : Int = 10
@@ -449,7 +449,7 @@ public class UDialogWindow : UWindow {
         // テキスト
         for textView in mTextViews {
             textView!.setPos( size.width / 2, y, convSKPos: false)
-            y += textView!.getHeight() + UDpi.toPixel( UDialogWindow.MARGIN_V )
+            y += textView!.getHeight() + UDpi.toPixel( UDialogWindow.MARGIN_V * 2 )
         }
         
         // Drawables

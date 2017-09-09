@@ -222,6 +222,7 @@
 		8A8522401F22514300B5B8A3 /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A85223F1F22514300B5B8A3 /* TestDatabase.swift */; };
 		8AA3B5071F29B1F100AE445E /* UIImage+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3B5061F29B1F100AE445E /* UIImage+ex.swift */; };
 		8AA3B5091F29B4F500AE445E /* TangoEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3B5081F29B4F500AE445E /* TangoEnums.swift */; };
+		8AA8E1061F637A95005A1042 /* UToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8E1051F637A95005A1042 /* UToast.swift */; };
 		8AB7E8F71F25824C005E36BB /* ImageName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E8F61F25824C005E36BB /* ImageName.swift */; };
 		8AB7E8FA1F2582C0005E36BB /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E8F91F2582C0005E36BB /* TopView.swift */; };
 		8AB7E8FC1F258384005E36BB /* ViewTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB7E8FB1F258384005E36BB /* ViewTouch.swift */; };
@@ -569,6 +570,7 @@
 		8A85223F1F22514300B5B8A3 /* TestDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDatabase.swift; path = TangoBook/Database/Test/TestDatabase.swift; sourceTree = "<group>"; };
 		8AA3B5061F29B1F100AE445E /* UIImage+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ex.swift"; sourceTree = "<group>"; };
 		8AA3B5081F29B4F500AE445E /* TangoEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TangoEnums.swift; sourceTree = "<group>"; };
+		8AA8E1051F637A95005A1042 /* UToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UToast.swift; sourceTree = "<group>"; };
 		8AB7E8F61F25824C005E36BB /* ImageName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageName.swift; sourceTree = "<group>"; };
 		8AB7E8F91F2582C0005E36BB /* TopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
 		8AB7E8FB1F258384005E36BB /* ViewTouch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewTouch.swift; sourceTree = "<group>"; };
@@ -1129,15 +1131,16 @@
 				8AE08A701F2580D00024E9B7 /* Text */,
 				8AE08A801F2580D00024E9B7 /* Window */,
 				8AE08A741F2580D00024E9B7 /* UDraw */,
+				8AB7E8FB1F258384005E36BB /* ViewTouch.swift */,
 				8AE08A731F2580D00024E9B7 /* UAlignment.swift */,
 				8AE08A7A1F2580D00024E9B7 /* UDraw.swift */,
 				8AE08A7B1F2580D00024E9B7 /* UImageView.swift */,
 				8AE08A7C1F2580D00024E9B7 /* UListItem.swift */,
 				8AE08A7D1F2580D00024E9B7 /* UListView.swift */,
-				8AB7E8FB1F258384005E36BB /* ViewTouch.swift */,
 				8AE08A7E1F2580D00024E9B7 /* URect.swift */,
 				8AE08A7F1F2580D00024E9B7 /* UView.swift */,
 				8A1BE3491F593B7900EA8226 /* UCheckBox.swift */,
+				8AA8E1051F637A95005A1042 /* UToast.swift */,
 			);
 			path = UGui;
 			sourceTree = "<group>";
@@ -1757,6 +1760,7 @@
 				8AE08A881F2580D00024E9B7 /* UButtonText.swift in Sources */,
 				8A19F4481F590A6400356394 /* SaveItemPos.swift in Sources */,
 				8AB7E95B1F25A00F005E36BB /* PageViewTangoEdit.swift in Sources */,
+				8AA8E1061F637A95005A1042 /* UToast.swift in Sources */,
 				8AB7E9151F258463005E36BB /* UScrollWindow.swift in Sources */,
 				8AE08AB61F2580D70024E9B7 /* UDebug.swift in Sources */,
 				8A5709581F376720004387D4 /* ListItemPresetBook.swift in Sources */,

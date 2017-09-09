@@ -159,6 +159,9 @@ public class PresetBookManager {
         _ = addBookToDB(csvName: "fruit.csv")
         _ = addBookToDB(csvName: "week.csv")
         _ = addBookToDB(csvName: "month.csv")
+        _ = addBookToDB(csvName: "fish.csv")
+        _ = addBookToDB(csvName: "greetings.csv")
+        _ = addBookToDB(csvName: "vegetable.csv")
     }
 
      /**

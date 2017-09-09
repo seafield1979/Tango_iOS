@@ -348,10 +348,10 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             // なにもしない
         }
         
-        let sortAscAction = UIAlertAction(title: UResourceManager.getStringByName("sort_word_asc"), style: .default) { (action) -> Void in
+        let sortAscAction = UIAlertAction(title: UResourceManager.getStringByName("sort_word_asc_2"), style: .default) { (action) -> Void in
             self.setActionId( .action_sort_word_asc )
         }
-        let sortDescAction = UIAlertAction(title: UResourceManager.getStringByName("sort_word_desc"), style: .default) { (action) -> Void in
+        let sortDescAction = UIAlertAction(title: UResourceManager.getStringByName("sort_word_desc_2"), style: .default) { (action) -> Void in
             self.setActionId( .action_sort_word_desc )
         }
         let nameAAction = UIAlertAction(title: UResourceManager.getStringByName("disp_card_name_wordA"), style: .default) { (action) -> Void in
