@@ -21,7 +21,7 @@ public class UButtonImage : UButton {
     public let TEXT_MARGIN : Int = 4
     public let BG_MARGIN : Int = 4
     public static let FONT_SIZE : Int = 10
-    private let BG_COLOR = UIColor.init(red: 1.0, green: 0.0, blue: 0, alpha: 0.5)
+    private let BG_COLOR = UIColor.init(red: 1.0, green: 0.0, blue: 0, alpha: 0.2)
     
     /**
      * Member Variables

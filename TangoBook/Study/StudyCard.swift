@@ -72,6 +72,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
     var wordB : String? = nil             // 不正解（裏）のテキスト
     var fontSizeA : CGFloat = 0            // 正解のテキストサイズ
     var fontSizeB : CGFloat = 0            // 不正解(裏)のテキスト
+    var mMaxHeight : CGFloat = 0
     var mCard : TangoCard? = nil
     var isTouching : Bool = false
     var slideX : CGFloat = 0
@@ -115,13 +116,9 @@ public class StudyCard : UDrawable, UButtonCallbacks {
      * @param isMultiCard 一度に複数のカードを表示するかどうか
      * @param isEnglish 出題タイプ false:英語 -> 日本語 / true:日本語 -> 英語
      */
-    public init(card : TangoCard, isMultiCard : Bool, isEnglish : Bool,
-                screenW : CGFloat, maxHeight : CGFloat)
+    public init(card : TangoCard, isMultiCard : Bool, isEnglish : Bool, maxHeight : CGFloat)
     {
         super.init(priority : 0, x : 0, y : 0, width : UDpi.toPixel(StudyCard.WIDTH), height : 0)
-        
-        let arrowW = UDpi.toPixel(ARROW_W)
-        let arrowH = UDpi.toPixel(ARROW_H)
         
         arrowLImage = UResourceManager.getImageWithColor(imageName:
             ImageName.arrow_l, color:UColor.DarkRed)!
@@ -144,28 +141,55 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         mState = State.None
         mCard = card
 
+        initSKNode2( maxHeight : maxHeight, isMultiCard: isMultiCard)
+    }
+    
+    /**
+     * SpriteKitのノードを生成
+     */
+    public func initSKNode2(maxHeight: CGFloat, isMultiCard : Bool) {
+        if mArrowL != nil {
+            parentNode.addChild2( mArrowL!.parentNode )
+        }
+        if mArrowR != nil {
+            parentNode.addChild2( mArrowR!.parentNode )
+        }
+        
+        let arrowW = UDpi.toPixel(ARROW_W)
+        let arrowH = UDpi.toPixel(ARROW_H)
+        
+        // Text
+        var wordASize: CGSize?, wordBSize : CGSize?
+        // WordA
+        if wordA != nil {
+            let ret = SKNodeUtil.createLabelNode(text: wordA!, fontSize: UDpi.toPixel(FONT_SIZE_A), color: .black, alignment: .Center, pos: CGPoint())
+            wordANode = ret.node
+            wordASize = ret.size
+            parentNode.addChild2( wordANode! )
+            wordANode!.isHidden = true
+        }
+        
+        // WordB
+        if wordB != nil {
+            let ret = SKNodeUtil.createLabelNode(text: wordB!, fontSize: UDpi.toPixel(FONT_SIZE_A), color: .black, alignment: .Center, pos: CGPoint())
+            wordBNode = ret.node
+            wordBSize = ret.size
+            parentNode.addChild2( wordBNode! )
+            wordBNode!.isHidden = true
+        }
+        
         // カードのサイズを計算する
-        let maxWidth = screenW - UDpi.toPixel(ARROW_W * 2 + ARROW_MARGIN * 4)
         if isMultiCard {
             // WordA,WordBの大きい方の高さに合わせる
-            let sizeA = UDraw.getTextSize( text: wordA, fontSize: UDpi.toPixel(FONT_SIZE_A))
-            let sizeB = UDraw.getTextSize( text: wordB, fontSize: UDpi.toPixel(FONT_SIZE_B))
-
             // width
-            var width = (sizeA.width > sizeB.width) ? sizeA.width : sizeB.width;
+            var width = (wordASize!.width > wordBSize!.width) ? wordASize!.width : wordBSize!.width
             width += UDpi.toPixel(MARGIN_TEXT_H) * 2
-            if width > maxWidth {
-                width = maxWidth
-            } else if (width < size.width) {
-                // 元のサイズより小さい場合は元のサイズを採用
-                width = size.width
-            }
             size.width = width
-
+            
             // height
-            var height = (sizeA.height > sizeB.height) ? sizeA.height : sizeB.height
+            var height = (wordASize!.height > wordBSize!.height) ? wordASize!.height : wordBSize!.height
             height += UDpi.toPixel(MARGIN_TEXT_V) * 2
-
+            
             if height < UDpi.toPixel(MIN_HEIGHT) {
                 height = UDpi.toPixel(MIN_HEIGHT)
             }
@@ -174,7 +198,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
             }
             size.height = height
         } else {
-            size.width = maxWidth
+            size.width = TopScene.getInstance().getWidth() - UDpi.toPixel(ARROW_W * 2 + ARROW_MARGIN * 4)
             size.height = maxHeight
         }
         mArrowL = UButtonImage(
@@ -190,40 +214,18 @@ public class StudyCard : UDrawable, UButtonCallbacks {
             x : size.width / 2 + UDpi.toPixel(ARROW_MARGIN),
             y : (size.height - arrowH)/2, width : arrowW, height : UDpi.toPixel(ARROW_H), image : arrowRImage!, pressedImage : nil)
         
-
-        initSKNode()
-    }
-    
-    /**
-     * SpriteKitのノードを生成
-     */
-    public override func initSKNode() {
-        if mArrowL != nil {
-            parentNode.addChild2( mArrowL!.parentNode )
-        }
-        if mArrowR != nil {
-            parentNode.addChild2( mArrowR!.parentNode )
-        }
-        
-        // BG
+        // BG Node
         bgNode = SKNodeUtil.createRectNode(rect: CGRect(x:-size.width / 2, y:0, width: size.width, height: size.height), color: color, pos: CGPoint(), cornerR: UDpi.toPixel(4))
         bgNode!.strokeColor = .gray
         bgNode!.lineWidth = UDpi.toPixel(2)
         parentNode.addChild2( bgNode! )
         
-        // Text
-        // WordA
-        if wordA != nil {
-            wordANode = SKNodeUtil.createLabelNode(text: wordA!, fontSize: UDpi.toPixel(FONT_SIZE_A), color: .black, alignment: .Center, pos: CGPoint(x: 0, y: size.height / 2)).node
-            parentNode.addChild2( wordANode! )
-            wordANode!.isHidden = true
+        // WordA,WordBの位置を設定(オブジェクト生成時はBGのサイズが定まっていないため設定できなかった)
+        if let n = wordANode {
+            n.position = CGPoint(x: 0, y: size.height / 2).convToSK()
         }
-        
-        // WordB
-        if wordB != nil {
-            wordBNode = SKNodeUtil.createLabelNode(text: wordB!, fontSize: UDpi.toPixel(FONT_SIZE_A), color: .black, alignment: .Center, pos: CGPoint(x: 0, y: size.height / 2)).node
-            parentNode.addChild2( wordBNode! )
-            wordBNode!.isHidden = true
+        if let n = wordBNode {
+            n.position = CGPoint(x: 0, y: size.height / 2).convToSK()
         }
     }
 

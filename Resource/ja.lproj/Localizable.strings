@@ -18,8 +18,8 @@
 "date_format2" = "yyyy年MM月dd日";
 "datetime_format" = "yyyy/MM/dd HH:mm";
 "datetime_format2" = "yyyy年MM月dd日 HH:mm";
-"time_area_1" = "今日(〜２４時間前)";
-"time_area_2" = "昨日(〜４８時間前)";
+"time_area_1" = "今日(〜２４時間)";
+"time_area_2" = "昨日(〜４８時間)";
 "time_area_3" = "今週(〜１週間)";
 "time_area_4" = "今月(〜１ヶ月)";
 "time_area_5" = "１ヶ月以上前";

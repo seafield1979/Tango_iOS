@@ -109,7 +109,7 @@ public class StudyCardsStack : UDrawable {
             let tangoCard : TangoCard? = mCardManager!.popCard()
             let studyCard : StudyCard = StudyCard(
                 card : tangoCard!, isMultiCard : isMultiCard,
-                isEnglish : isEnglish, screenW : TopScene.getInstance().getWidth(),
+                isEnglish : isEnglish,
                 maxHeight : UDpi.toPixel(CARD_H))
             mCardsInBackYard.append( studyCard )
         }
