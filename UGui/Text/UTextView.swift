@@ -158,24 +158,22 @@ public class UTextView : UDrawable {
         // Label
         let result = SKNodeUtil.createLabelNode(text: text, fontSize: fontSize, color: color, alignment: .Left, pos: nil)
         self.labelNode = result.node
-        self.mTextSize = result.size
         
         // 最大幅に収まるように補正
-        var _size : CGSize
         if isFitToSize && mMaxWidth > 0 && result.size.width > mMaxWidth {
             self.labelNode?.adjustLabelFontSizeToFitWidth(width: mMaxWidth)
-            _size = CGSize(width : mMaxWidth, height: result.size.height)
+            mTextSize = CGSize(width : mMaxWidth, height: result.size.height)
         } else {
-            _size = result.size
+            mTextSize = result.size
         }
         size.height = result.size.height
         
         if mMargin.width > 0 || mMargin.height > 0 {
             labelNode!.position = CGPoint(x: mMargin.width,
                                     y: mMargin.height )
-            _size = CGSize(width: _size.width + mMargin.width * 2,
-                          height: _size.height + mMargin.height * 2)
-            size = _size
+            mTextSize = CGSize(width: mTextSize.width + mMargin.width * 2,
+                          height: mTextSize.height + mMargin.height * 2)
+            size = mTextSize
         }
         
         self.labelNode!.zPosition = 0.1
@@ -203,21 +201,21 @@ public class UTextView : UDrawable {
         case .Left:
             alignPos = CGPoint(x: 0, y: 0)
         case .CenterX:
-            alignPos = CGPoint(x: -_size.width / 2, y: 0)
+            alignPos = CGPoint(x: -mTextSize.width / 2, y: 0)
         case .CenterY:
-            alignPos = CGPoint(x: 0, y: -_size.height / 2)
+            alignPos = CGPoint(x: 0, y: -mTextSize.height / 2)
         case .Center:
-            alignPos = CGPoint(x: -_size.width / 2, y: -_size.height / 2)
+            alignPos = CGPoint(x: -mTextSize.width / 2, y: -mTextSize.height / 2)
         case .Right:
-            alignPos = CGPoint(x: -_size.width, y: 0)
+            alignPos = CGPoint(x: -mTextSize.width, y: 0)
         case .Right_CenterY:
-            alignPos = CGPoint(x: -_size.width, y: -_size.height / 2)
+            alignPos = CGPoint(x: -mTextSize.width, y: -mTextSize.height / 2)
         case .Bottom:
-            alignPos = CGPoint(x: 0, y: -_size.height)
+            alignPos = CGPoint(x: 0, y: -mTextSize.height)
         case .CenterX_Bottom:
-            alignPos = CGPoint(x: -_size.width  / 2, y: -_size.height)
+            alignPos = CGPoint(x: -mTextSize.width  / 2, y: -mTextSize.height)
         case .Right_Bottom:
-            alignPos = CGPoint(x: -_size.width, y: -_size.height)
+            alignPos = CGPoint(x: -mTextSize.width, y: -mTextSize.height)
         }
         parentNode.position = CGPoint(x: pos.x + alignPos.x,
                                       y: pos.y + alignPos.y)

@@ -63,8 +63,8 @@ public class StudyCard : UDrawable, UButtonCallbacks {
 
     // SpriteKit Node
     var bgNode : SKShapeNode?
-    var wordANode : SKLabelNode?
-    var wordBNode : SKLabelNode?
+    var wordAView : UTextView?          // wordA(英語)のテキスト
+    var wordBView : UTextView?          // wordB(日本語)のテキスト
     
     var basePos = CGPoint()
     var mState : State = .None
@@ -115,6 +115,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
      * @param card
      * @param isMultiCard 一度に複数のカードを表示するかどうか
      * @param isEnglish 出題タイプ false:英語 -> 日本語 / true:日本語 -> 英語
+     * @param maxHeight: 最大の高さ（カードの高さは表示する文字列によって可変だが、この高さを超えないように調整する)
      */
     public init(card : TangoCard, isMultiCard : Bool, isEnglish : Bool, maxHeight : CGFloat)
     {
@@ -152,35 +153,30 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         let arrowH = UDpi.toPixel(ARROW_H)
         
         // Text
-        var wordASize: CGSize?, wordBSize : CGSize?
         // WordA
         if wordA != nil {
-            let ret = SKNodeUtil.createLabelNode(text: wordA!, fontSize: UDpi.toPixel(FONT_SIZE_A), color: .black, alignment: .Center, pos: CGPoint())
-            wordANode = ret.node
-            wordASize = ret.size
-            parentNode.addChild2( wordANode! )
-            wordANode!.isHidden = true
+            wordAView = UTextView(text: wordA!, fontSize: UDpi.toPixel(FONT_SIZE_A), priority: 1, alignment: .Center, createNode: true, isFit: true, isDrawBG: false, margin: 0, x: 0, y: 0, width: size.width - UDpi.toPixel(MARGIN_TEXT_H), color: .black, bgColor: nil)
+            parentNode.addChild2( wordAView!.parentNode )
+            wordAView!.parentNode.isHidden = true
         }
         
         // WordB
         if wordB != nil {
-            let ret = SKNodeUtil.createLabelNode(text: wordB!, fontSize: UDpi.toPixel(FONT_SIZE_A), color: .black, alignment: .Center, pos: CGPoint())
-            wordBNode = ret.node
-            wordBSize = ret.size
-            parentNode.addChild2( wordBNode! )
-            wordBNode!.isHidden = true
+            wordBView = UTextView(text: wordB!, fontSize: UDpi.toPixel(FONT_SIZE_A), priority: 1, alignment: .Center, createNode: true, isFit: true, isDrawBG: false, margin: 0, x: 0, y: 0, width: size.width - UDpi.toPixel(MARGIN_TEXT_H), color: .black, bgColor: nil)
+            parentNode.addChild2( wordBView!.parentNode )
+            wordBView!.parentNode.isHidden = true
         }
         
         // カードのサイズを計算する
         if isMultiCard {
             // WordA,WordBの大きい方の高さに合わせる
             // width
-            var width = (wordASize!.width > wordBSize!.width) ? wordASize!.width : wordBSize!.width
+            var width = (wordAView!.mTextSize.width > wordBView!.mTextSize.width) ? wordAView!.mTextSize.width : wordBView!.mTextSize.width
             width += UDpi.toPixel(MARGIN_TEXT_H) * 2
             size.width = width
             
             // height
-            var height = (wordASize!.height > wordBSize!.height) ? wordASize!.height : wordBSize!.height
+            var height = (wordAView!.mTextSize.height > wordBView!.mTextSize.height) ? wordAView!.mTextSize.height : wordBView!.mTextSize.height
             height += UDpi.toPixel(MARGIN_TEXT_V) * 2
             
             if height < UDpi.toPixel(MIN_HEIGHT) {
@@ -221,12 +217,8 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         parentNode.addChild2( bgNode! )
         
         // WordA,WordBの位置を設定(オブジェクト生成時はBGのサイズが定まっていないため設定できなかった)
-        if let n = wordANode {
-            n.position = CGPoint(x: 0, y: size.height / 2).convToSK()
-        }
-        if let n = wordBNode {
-            n.position = CGPoint(x: 0, y: size.height / 2).convToSK()
-        }
+        wordAView!.parentNode.position.y = -(size.height / 2 - wordAView!.mTextSize.height / 2)
+        wordBView!.parentNode.position.y = -(size.height / 2 - wordBView!.mTextSize.height / 2)
     }
 
     /**
@@ -344,11 +336,11 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         if (!isMoveToBox) {
             // タッチ中は正解を表示
             if isTouching {
-                wordBNode!.isHidden = false
-                wordANode!.isHidden = true
+                wordBView!.parentNode.isHidden = false
+                wordAView!.parentNode.isHidden = true
             } else {
-                wordANode!.isHidden = false
-                wordBNode!.isHidden = true
+                wordAView!.parentNode.isHidden = false
+                wordBView!.parentNode.isHidden = true
             }
         }
     }
