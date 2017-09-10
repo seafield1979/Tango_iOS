@@ -444,13 +444,13 @@ public class UDialogWindow : UWindow {
                 x: size.width / 2, y: y,
                 width: size.width - marginH * 2, color: .black, bgColor: nil)
             
-            y += mTitleView!.getHeight() + UDpi.toPixel( UDialogWindow.MARGIN_V * 2)
+            y += mTitleView!.getHeight() + UDpi.toPixel( UDialogWindow.MARGIN_V )
         }
         
         // テキスト
         for textView in mTextViews {
             textView!.setPos( size.width / 2, y, convSKPos: false)
-            y += textView!.getHeight() + UDpi.toPixel( UDialogWindow.MARGIN_V * 2 )
+            y += textView!.getHeight() + UDpi.toPixel( UDialogWindow.MARGIN_V )
         }
         
         // Drawables

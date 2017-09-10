@@ -16,9 +16,9 @@ public class PageViewPresetBook : UPageView, UButtonCallbacks, UListItemCallback
     private let DRAW_PRIORITY = 1
     private let DRAW_PRIORYTY_DIALOG = 50
 
-    private let TOP_Y = 0
-    private let MARGIN_H = 17
-    private let MARGIN_V = 17
+    private let TOP_Y = 10
+    private let MARGIN_H = 12
+    private let MARGIN_V = 12
 
     // button id
     private let ButtonIdReturn = 100
@@ -142,7 +142,7 @@ public class PageViewPresetBook : UPageView, UButtonCallbacks, UListItemCallback
         let listView = UListView(
             topScene : mTopScene, windowCallbacks : nil, listItemCallbacks : self,
             priority : DRAW_PRIORYTY_DIALOG, x : 0, y : 0,
-            width : mDialog!.getSize().width, height : mTopScene.getHeight() - UDpi.toPixel(117), bgColor : UIColor.lightGray,
+            width : mDialog!.getSize().width, height : mTopScene.getHeight() - UDpi.toPixel(140), bgColor : UIColor.lightGray,
             topBarH: 0, frameW : 0, frameH : 0)
         mDialog!.addDrawable(obj: listView)
 

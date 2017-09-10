@@ -34,10 +34,10 @@ public class ListItemPresetBook : UListItem, UButtonCallbacks {
 
     // MARK: Properties
     // SpriteKit Node
-    private var textNode : SKLabelNode?
     private var iconNode : SKSpriteNode?
     
     private var mBook : PresetBook?
+    private var mTextView : UTextView?
     private var mAddButton : UButtonImage?
 
     // Dpi計算済み
@@ -69,7 +69,7 @@ public class ListItemPresetBook : UListItem, UButtonCallbacks {
         if image != nil {
             mAddButton = UButtonImage(
                 callbacks : self, id : ListItemPresetBook.ButtonIdAdd, priority : 0,
-                x : size.width - buttonW - marginH, y : (size.height - buttonW) / 2,
+                x : size.width - buttonW - marginH * 2, y : (size.height - buttonW) / 2,
                 width : buttonW, height : buttonW, image : image!, pressedImage : nil)
             parentNode.addChild2( mAddButton!.parentNode )
             mAddButton!.scaleRect(scaleH: 2.0, scaleV: 1.5)
@@ -92,15 +92,12 @@ public class ListItemPresetBook : UListItem, UButtonCallbacks {
         
         x += iconW + marginH
         
-        // textNode
+        // mTextView
         let text = mBook!.mName + "\n" + (mBook!.mComment ?? "")
+ 
+        mTextView = UTextView(text: text, fontSize: UDraw.getFontSize(FontSize.M), priority: 1, alignment: .CenterY, createNode: true, isFit: true, isDrawBG: false, margin: 0, x: x, y: size.height / 2, width: size.width - x, color: TEXT_COLOR, bgColor: nil)
         
-        textNode = SKNodeUtil.createLabelNode(
-            text: text, fontSize: UDraw.getFontSize(FontSize.M), color: TEXT_COLOR,
-            alignment: UAlignment.CenterY,
-            pos: CGPoint(x: x, y: size.height / 2)).node
-        
-        parentNode.addChild2( textNode! )
+        parentNode.addChild2( mTextView!.parentNode )
     }
 
     // MARK: Methods
