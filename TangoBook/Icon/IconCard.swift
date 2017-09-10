@@ -58,15 +58,6 @@ public class IconCard : UIcon {
         if let _image = image {
             imageNode!.texture = SKTexture(image: _image)
         }
-
-        // タイトル
-        self.titleView = UTextView(
-            text: title!, fontSize: 10, priority: 10, alignment: .CenterX,
-            createNode: true, isFit: true, isDrawBG: false, margin: 0,
-            x: size.width / 2, y: size.height,
-            width: size.width, color: color, bgColor: nil)
-        
-        parentNode.addChild2( self.titleView!.parentNode )
     }
 
     /**
@@ -125,21 +116,22 @@ public class IconCard : UIcon {
         }
         
         // ２行以上の文字列は１行目のみ表示
+        var _title : String? = str
         if str != nil {
             strs = str!.components(separatedBy: "\n")
             if strs != nil && strs!.count > 0 {
-                self.title = strs![0]
+                _title = strs![0]
                 
                 // 文字数制限
-                if self.title!.characters.count < maxLen {
-                    self.title = strs![0]
+                if _title!.characters.count < maxLen {
+                    _title = strs![0]
                 } else {
-                    self.title = self.title!.substring(to: str!.index(str!.startIndex, offsetBy: maxLen))
+                    _title = _title!.substring(to: str!.index(str!.startIndex, offsetBy: maxLen))
                 }
             }
         }
         
-        setTitle(title)
+        setTitle(_title)
     }
     
 

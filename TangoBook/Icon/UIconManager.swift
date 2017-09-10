@@ -415,7 +415,9 @@ public class UIconManager : UIconCallbacks {
 
         // ソート済みの新しいアイコンリストを作成する
         icons.removeAll()
-        icons.append( trashIcon! )
+        if let trash = trashIcon {
+            icons.append( trash )
+        }
         
         var pos = 1
         for icon in _sortedIcons {
