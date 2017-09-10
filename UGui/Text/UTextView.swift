@@ -37,6 +37,7 @@ public class UTextView : UDrawable {
     var mMargin : CGSize = CGSize()
     var fontSize : CGFloat = 0
     var bgColor : UIColor? = nil
+    var mMaxWidth : CGFloat = 0        // 最大の幅、これより大きい場合は範囲に収まるようにスケーリングする
     
     var isFitToSize : Bool = false   // sizeにフィットするようにテキストのスケールを調整
     var isDrawBG : Bool = false
@@ -86,6 +87,7 @@ public class UTextView : UDrawable {
         self.isFitToSize = isFit
         self.isDrawBG = isDrawBG
         self.fontSize = fontSize
+        self.mMaxWidth = width
         
         super.init( priority: priority, x: x, y: y, width: width, height: fontSize)
         
@@ -158,19 +160,22 @@ public class UTextView : UDrawable {
         self.labelNode = result.node
         self.mTextSize = result.size
         
-        // もとの指定したサイズに収まるように補正
-        if isFitToSize && size.width > 0 && result.size.width > size.width {
-            self.labelNode?.adjustLabelFontSizeToFitWidth(width: size.width)
-            size.height = result.size.height
+        // 最大幅に収まるように補正
+        var _size : CGSize
+        if isFitToSize && mMaxWidth > 0 && result.size.width > mMaxWidth {
+            self.labelNode?.adjustLabelFontSizeToFitWidth(width: mMaxWidth)
+            _size = CGSize(width : mMaxWidth, height: result.size.height)
         } else {
-            size = result.size
+            _size = result.size
         }
+        size.height = result.size.height
         
         if mMargin.width > 0 || mMargin.height > 0 {
             labelNode!.position = CGPoint(x: mMargin.width,
                                     y: mMargin.height )
-            size = CGSize(width: size.width + mMargin.width * 2,
-                          height: size.height + mMargin.height * 2)
+            _size = CGSize(width: _size.width + mMargin.width * 2,
+                          height: _size.height + mMargin.height * 2)
+            size = _size
         }
         
         self.labelNode!.zPosition = 0.1
@@ -198,24 +203,24 @@ public class UTextView : UDrawable {
         case .Left:
             alignPos = CGPoint(x: 0, y: 0)
         case .CenterX:
-            alignPos = CGPoint(x: -size.width / 2, y: 0)
+            alignPos = CGPoint(x: -_size.width / 2, y: 0)
         case .CenterY:
-            alignPos = CGPoint(x: 0, y: -size.height / 2)
+            alignPos = CGPoint(x: 0, y: -_size.height / 2)
         case .Center:
-            alignPos = CGPoint(x: -size.width / 2, y: -size.height / 2)
+            alignPos = CGPoint(x: -_size.width / 2, y: -_size.height / 2)
         case .Right:
-            alignPos = CGPoint(x: -size.width, y: 0)
+            alignPos = CGPoint(x: -_size.width, y: 0)
         case .Right_CenterY:
-            alignPos = CGPoint(x: -size.width, y: -size.height / 2)
+            alignPos = CGPoint(x: -_size.width, y: -_size.height / 2)
         case .Bottom:
-            alignPos = CGPoint(x: 0, y: -size.height)
+            alignPos = CGPoint(x: 0, y: -_size.height)
         case .CenterX_Bottom:
-            alignPos = CGPoint(x: -size.width  / 2, y: -size.height)
+            alignPos = CGPoint(x: -_size.width  / 2, y: -_size.height)
         case .Right_Bottom:
-            alignPos = CGPoint(x: -size.width, y: -size.height)
+            alignPos = CGPoint(x: -_size.width, y: -_size.height)
         }
-        parentNode.position = CGPoint(x: parentNode.position.x + alignPos.x,
-                                      y: parentNode.position.y + alignPos.y)
+        parentNode.position = CGPoint(x: pos.x + alignPos.x,
+                                      y: pos.y + alignPos.y)
     }
     
     /**

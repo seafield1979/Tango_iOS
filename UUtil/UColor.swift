@@ -43,7 +43,7 @@ public class UColor {
     public static let DarkGreen  : UIColor = makeColor(argb:0xFF006400)
     public static let DarkOrange  : UIColor = makeColor(argb:0xFFFF8C00)
     public static let DarkRed  : UIColor = makeColor(argb:0xFF8B0000)
-    public static let DarkYellow  : UIColor = makeColor(argb:0xFF8B0000)
+    public static let DarkYellow  : UIColor = makeColor(argb:0xFFD7C32A)
     public static let DarkViolet  : UIColor = makeColor(argb:0xFF9400D3)
     public static let DeepPink  : UIColor = makeColor(argb:0xFF1493)
     public static let Gold  : UIColor = makeColor(argb:0xFFFFD700)

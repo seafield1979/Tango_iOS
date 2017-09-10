@@ -171,7 +171,7 @@ public class PageViewResult : UPageView, UButtonCallbacks, UListItemCallbacks {
             priority : DRAW_PRIORITY, text : UResourceManager.getStringByName("retry2"), createNode : true,
             x : x, y : y, width : buttonW, height : buttonH,
             fontSize : UDpi.toPixel(BUTTON_FONT_SIZE), textColor : BUTTON_TEXT_COLOR,
-            bgColor : BUTTON1_BG_COLOR)
+            bgColor : UColor.DarkYellow)
         mButtonRetry2!.addToDrawManager()
         if mNgCards!.count == 0 {
             mButtonRetry2!.setEnabled(false)

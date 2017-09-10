@@ -31,6 +31,9 @@ public class ListItemPresetBook : UListItem, UButtonCallbacks {
 
     private let FRAME_WIDTH : Int = 2
     private let FRAME_COLOR : UIColor = .black
+    
+    private let PRIORITY_TEXT = 2
+    private let PRIORITY_BUTTON = 1
 
     // MARK: Properties
     // SpriteKit Node
@@ -68,8 +71,8 @@ public class ListItemPresetBook : UListItem, UButtonCallbacks {
         
         if image != nil {
             mAddButton = UButtonImage(
-                callbacks : self, id : ListItemPresetBook.ButtonIdAdd, priority : 0,
-                x : size.width - buttonW - marginH * 2, y : (size.height - buttonW) / 2,
+                callbacks : self, id : ListItemPresetBook.ButtonIdAdd, priority : PRIORITY_BUTTON,
+                x : size.width - buttonW - UDpi.toPixel(UWindow.SCROLL_BAR_W + MARGIN_H), y : (size.height - buttonW) / 2,
                 width : buttonW, height : buttonW, image : image!, pressedImage : nil)
             parentNode.addChild2( mAddButton!.parentNode )
             mAddButton!.scaleRect(scaleH: 2.0, scaleV: 1.5)
@@ -95,7 +98,7 @@ public class ListItemPresetBook : UListItem, UButtonCallbacks {
         // mTextView
         let text = mBook!.mName + "\n" + (mBook!.mComment ?? "")
  
-        mTextView = UTextView(text: text, fontSize: UDraw.getFontSize(FontSize.M), priority: 1, alignment: .CenterY, createNode: true, isFit: true, isDrawBG: false, margin: 0, x: x, y: size.height / 2, width: size.width - x, color: TEXT_COLOR, bgColor: nil)
+        mTextView = UTextView(text: text, fontSize: UDraw.getFontSize(FontSize.M), priority: PRIORITY_TEXT, alignment: .CenterY, createNode: true, isFit: true, isDrawBG: false, margin: 0, x: x, y: size.height / 2, width: size.width - x, color: TEXT_COLOR, bgColor: nil)
         
         parentNode.addChild2( mTextView!.parentNode )
     }

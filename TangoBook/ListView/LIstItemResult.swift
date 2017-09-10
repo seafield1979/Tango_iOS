@@ -20,10 +20,13 @@ public class ListItemResult : UListItem, UButtonCallbacks {
     // MARK: Constants
     public let TAG = "ListItemOption"
 
-    private static let MAX_TEXT = 20
+    private static let MAX_TEXT = 60
 
     private static let ButtonIdStar = 100100
 
+    private static let PRIORITY_TEXT = 2
+    private static let PRIORITY_BUTTON = 1
+    
     // 座標系
     private static let TITLE_H = 27
     private static let CARD_H = 40
@@ -36,14 +39,13 @@ public class ListItemResult : UListItem, UButtonCallbacks {
     private let FRAME_COLOR : UIColor = .black
 
     // MARK: Properties
-    // SpriteKit Node
-    private var titleNode : SKLabelNode!
     
     private var mType : ListItemResultType
     private var mText : String?, mText2 : String?
     private var isOK : Bool = false
     private var mCard : TangoCard?
     private var mTextColor : UIColor
+    private var mTitleView : UTextView?
     private var mStarButton : UButtonImage?
     private var mLearnedTextW : Int = 0        // "覚えた"のテキストの幅
 
@@ -116,8 +118,9 @@ public class ListItemResult : UListItem, UButtonCallbacks {
         instance.mText = ListItemResult.convString(isEnglish ? card.wordA : card.wordB)
         instance.mText2 = ListItemResult.convString(isEnglish ? card.wordB : card.wordA)
         
-        instance.titleNode = SKNodeUtil.createLabelNode(text: instance.mText!, fontSize: UDpi.toPixel(ListItemResult.FONT_SIZE), color: .black, alignment: .Center, pos: CGPoint(x: instance.size.width / 2, y: instance.size.height / 2)).node
-        instance.parentNode.addChild2(instance.titleNode)
+        // title node
+        instance.mTitleView = UTextView(text: instance.mText!, fontSize: UDpi.toPixel(ListItemResult.FONT_SIZE), priority: ListItemResult.PRIORITY_TEXT, alignment: .Center, createNode: true, isFit: true, isDrawBG: false, margin: 0, x: instance.size.width / 2, y: instance.size.height / 2, width: instance.size.width - UDpi.toPixel(16), color: .black, bgColor: nil)
+        instance.parentNode.addChild2( instance.mTitleView!.parentNode )
         
         // Starボタンを追加(On/Offあり)
         if star {
@@ -127,8 +130,8 @@ public class ListItemResult : UListItem, UButtonCallbacks {
                 imageName: ImageName.favorites2, color: UColor.OrangeRed)
             
             instance.mStarButton = UButtonImage(
-                callbacks : instance as UButtonCallbacks, id : ListItemResult.ButtonIdStar, priority : 100,
-                x : instance.size.width - UDpi.toPixel(67),
+                callbacks : instance as UButtonCallbacks, id : ListItemResult.ButtonIdStar, priority : PRIORITY_BUTTON,
+                x : instance.size.width - UDpi.toPixel(50),
                 y : (instance.size.height - UDpi.toPixel( ListItemResult.STAR_ICON_W ) ) / 2,
                 width : UDpi.toPixel(ListItemResult.STAR_ICON_W),
                 height : UDpi.toPixel(STAR_ICON_W),
@@ -156,8 +159,12 @@ public class ListItemResult : UListItem, UButtonCallbacks {
         instance.size.height = UDpi.toPixel(ListItemResult.CARD_H)
         
         //SpriteKit Node1
-        instance.titleNode = SKNodeUtil.createLabelNode(text: instance.mText!, fontSize: UDpi.toPixel(ListItemResult.FONT_SIZE), color: .black, alignment: .Center, pos: CGPoint(x: instance.size.width / 2, y: instance.size.height / 2)).node
-        instance.parentNode.addChild2(instance.titleNode)
+        instance.mTitleView = UTextView(
+            text: instance.mText!, fontSize: UDpi.toPixel(ListItemResult.FONT_SIZE), priority: ListItemResult.PRIORITY_TEXT, alignment: .Center, createNode: true, isFit: true, isDrawBG: false, margin: 0,
+            x: instance.size.width / 2, y: instance.size.height / 2,
+            width: instance.size.width - UDpi.toPixel(16), color: .black, bgColor: nil)
+        
+        instance.parentNode.addChild2( instance.mTitleView!.parentNode )
         
         return instance
     }
@@ -180,12 +187,15 @@ public class ListItemResult : UListItem, UButtonCallbacks {
         super.draw()
 
         switch mType {
-            case .Title:
-                break
-            case .OK:
-                titleNode.text = isTouching ? mText2 : mText
-            case .NG:
-                titleNode.text = isTouching ? mText2 : mText
+        case .Title:
+            break
+        case .OK:
+            fallthrough
+        case .NG:
+            let text = isTouching ? mText2 : mText
+            if let _text = text {
+                mTitleView!.setText( _text )
+            }
         }
 
         if mStarButton != nil {
