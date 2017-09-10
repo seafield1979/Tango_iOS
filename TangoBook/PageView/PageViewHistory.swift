@@ -15,7 +15,7 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
     private let DRAW_PRIORYTY_DIALOG = 50;
 
     // layout
-    private let TOP_Y = 17;
+    private let TOP_Y = 14;
     private let TEXT_SIZE = 17;
 
     // button ids
@@ -85,7 +85,7 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
         var y : CGFloat = UDpi.toPixel(TOP_Y)
 
         // ListView
-        let listViewH = height - (UDpi.toPixel(UPageView.MARGIN_H) * 3)
+        let listViewH = height - UDpi.toPixel(UPageView.MARGIN_H) * 2
         mListView = ListViewStudyHistory(
             topScene : mTopScene, listItemCallbacks : self, priority : 1,
             x : x, y : y,
@@ -205,6 +205,37 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
     }
 
     /**
+     * クリックされた項目のカードリスト用のダイアログを表示する
+     */
+    private func showDialog(item : ListItemStudiedBook) {
+        let width = mTopScene.getWidth()
+        let height = mTopScene.getHeight()
+        
+        if (item.getType() != ListItemStudiedBookType.History) {
+            return
+        }
+        
+        let history : TangoBookHistory = item.getBookHistory()
+        let cards : [TangoStudiedCard] = TangoStudiedCardDao.selectByHistoryId( history.id )
+
+        mDialog = UDialogWindow.createInstance( topScene : mTopScene, buttonCallbacks : self, dialogCallbacks : self, buttonDir : UDialogWindow.ButtonDir.Horizontal, screenW : width, screenH : mTopScene.getHeight())
+        
+        let listView = ListViewResult(
+            topScene : mTopScene, listItemCallbacks : nil, studiedCards : cards,
+            studyMode : StudyMode.SlideOne, studyType : StudyType.EtoJ,
+            priority : DRAW_PRIORYTY_DIALOG,
+            x : 0, y : 0,
+            width : mDialog!.getSize().width - UDpi.toPixel(UPageView.MARGIN_H) * 2,
+            height : height - UDpi.toPixel(67 + UPageView.MARGIN_H * 2), color : .white)
+        
+        mDialog!.addDrawable(obj: listView)
+        mDialog!.addCloseButton(text: UResourceManager.getStringByName("close"))
+        
+        mDialog!.addToDrawManager()
+    }
+
+    // MARK: Callbacks
+    /**
      * UButtonCallbacks
      */
     public func UButtonClicked( id : Int, pressedOn : Bool) -> Bool {
@@ -236,33 +267,8 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
             return
         }
         
-        let width = mTopScene.getWidth()
-        let height = mTopScene.getHeight()
-
-        let studiedBook : ListItemStudiedBook = (item as? ListItemStudiedBook)!
-        if (studiedBook.getType() != ListItemStudiedBookType.History) {
-            return
-        }
-        
-        let history : TangoBookHistory = studiedBook.getBookHistory()
-        let cards : [TangoStudiedCard] = TangoStudiedCardDao.selectByHistoryId( history.id )
-
         // Dialog
-        mDialog = UDialogWindow.createInstance( topScene : mTopScene, buttonCallbacks : self, dialogCallbacks : self, buttonDir : UDialogWindow.ButtonDir.Horizontal, screenW : width, screenH : mTopScene.getHeight())
-        
-        let listView = ListViewResult(
-            topScene : mTopScene, listItemCallbacks : nil, studiedCards : cards,
-            studyMode : StudyMode.SlideOne, studyType : StudyType.EtoJ,
-            priority : DRAW_PRIORYTY_DIALOG,
-            x : 0, y : 0,
-            width : mDialog!.getSize().width - UDpi.toPixel(UPageView.MARGIN_H) * 2,
-            height : height-UDpi.toPixel(67 + UPageView.MARGIN_H) * 2, color : .white)
-        
-        mDialog!.addDrawable(obj: listView)
-        mDialog!.addCloseButton(text: UResourceManager.getStringByName("close"))
-        
-        mDialog!.addToDrawManager()
-        
+        showDialog(item : item as! ListItemStudiedBook)
     }
     
 

@@ -210,7 +210,7 @@ public class PageViewPresetBook : UPageView, UButtonCallbacks, UListItemCallback
         case ButtonIdAddOk:
             // プリセットを追加するかの確認ダイアログでOKボタンを押した
             if (mBook != nil) {
-                PresetBookManager.getInstance().addBookToDB( presetBook: mBook!)
+                _ = PresetBookManager.getInstance().addBookToDB( presetBook: mBook!)
             }
             mConfirmDialog!.closeDialog()
             showMessageDialog()

@@ -29,7 +29,6 @@ public class StudyCard : UDrawable, UButtonCallbacks {
     }
 
     // MARK: Constants
-    public static let WIDTH = 170
     public let MIN_HEIGHT = 50
 
     let MOVE_FRAME = 10
@@ -119,7 +118,8 @@ public class StudyCard : UDrawable, UButtonCallbacks {
      */
     public init(card : TangoCard, isMultiCard : Bool, isEnglish : Bool, maxHeight : CGFloat)
     {
-        super.init(priority : 0, x : 0, y : 0, width : UDpi.toPixel(StudyCard.WIDTH), height : 0)
+        super.init(priority : 0, x : 0, y : 0,
+                   width : TopScene.getInstance().getWidth() - UDpi.toPixel(ARROW_W * 2 + ARROW_MARGIN * 4), height : 0)
         
         arrowLImage = UResourceManager.getImageWithColor(imageName:
             ImageName.arrow_l, color:UColor.DarkRed)!
@@ -142,54 +142,127 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         mState = State.None
         mCard = card
 
-        initSKNode2( maxHeight : maxHeight, isMultiCard: isMultiCard)
+        if isMultiCard {
+            initSKNode2( maxHeight : maxHeight)
+        } else {
+            initSKNode1( maxHeight : maxHeight)
+        }
     }
     
     /**
      * SpriteKitのノードを生成
      */
-    public func initSKNode2(maxHeight: CGFloat, isMultiCard : Bool) {
+    public func initSKNode1(maxHeight: CGFloat) {
         let arrowW = UDpi.toPixel(ARROW_W)
         let arrowH = UDpi.toPixel(ARROW_H)
         
+        // カードのサイズを計算する
+        // １つづつ学習する場合はカード幅は固定
+//        size.width = TopScene.getInstance().getWidth() - UDpi.toPixel(ARROW_W * 2 + ARROW_MARGIN * 4)
+        size.height = maxHeight
+
+        // BG Node
+        bgNode = SKNodeUtil.createRectNode(rect: CGRect(x:-size.width / 2, y:0, width: size.width, height: size.height), color: color, pos: CGPoint(), cornerR: UDpi.toPixel(4))
+        bgNode!.strokeColor = .gray
+        bgNode!.lineWidth = UDpi.toPixel(2)
+        parentNode.addChild2( bgNode! )
+
         // Text
         // WordA
         if wordA != nil {
-            wordAView = UTextView(text: wordA!, fontSize: UDpi.toPixel(FONT_SIZE_A), priority: 1, alignment: .Center, createNode: true, isFit: true, isDrawBG: false, margin: 0, x: 0, y: 0, width: size.width - UDpi.toPixel(MARGIN_TEXT_H), color: .black, bgColor: nil)
+            wordAView = UTextView(
+                text: wordA!, fontSize: UDpi.toPixel(FONT_SIZE_A), priority: 1,
+                alignment: .Center, createNode: true, isFit: true, isDrawBG: false,
+                margin: 0,
+                x: 0, y: size.height / 2,
+                width: size.width - UDpi.toPixel(MARGIN_TEXT_H),
+                color: .black, bgColor: nil)
+            
             parentNode.addChild2( wordAView!.parentNode )
             wordAView!.parentNode.isHidden = true
         }
         
         // WordB
         if wordB != nil {
-            wordBView = UTextView(text: wordB!, fontSize: UDpi.toPixel(FONT_SIZE_A), priority: 1, alignment: .Center, createNode: true, isFit: true, isDrawBG: false, margin: 0, x: 0, y: 0, width: size.width - UDpi.toPixel(MARGIN_TEXT_H), color: .black, bgColor: nil)
+            wordBView = UTextView(
+                text: wordB!, fontSize: UDpi.toPixel(FONT_SIZE_A), priority: 1,
+                alignment: .Center, createNode: true, isFit: true, isDrawBG: false,
+                margin: 0,
+                x: 0, y: size.height / 2,
+                width: size.width - UDpi.toPixel(MARGIN_TEXT_H), color: .black, bgColor: nil)
+            parentNode.addChild2( wordBView!.parentNode )
+            wordBView!.parentNode.isHidden = true
+        }
+        
+
+        mArrowL = UButtonImage(
+            callbacks : self, id : ButtonIdArrowL, priority : 0,
+            x : -(size.width / 2 + UDpi.toPixel(ARROW_MARGIN + ARROW_W)),
+            y : (size.height-arrowH)/2,
+            width : arrowW, height : arrowH, image : arrowLImage!,
+            pressedImage : nil)
+        
+        mArrowR = UButtonImage(
+            callbacks : self, id : ButtonIdArrowR,
+            priority : 0,
+            x : size.width / 2 + UDpi.toPixel(ARROW_MARGIN),
+            y : (size.height - arrowH)/2, width : arrowW, height : UDpi.toPixel(ARROW_H), image : arrowRImage!, pressedImage : nil)
+        if mArrowL != nil {
+            parentNode.addChild2( mArrowL!.parentNode )
+        }
+        if mArrowR != nil {
+            parentNode.addChild2( mArrowR!.parentNode )
+        }
+    }
+    
+    public func initSKNode2(maxHeight: CGFloat) {
+        let arrowW = UDpi.toPixel(ARROW_W)
+        let arrowH = UDpi.toPixel(ARROW_H)
+        
+        // Text
+        // WordA
+        if wordA != nil {
+            wordAView = UTextView(
+                text: wordA!, fontSize: UDpi.toPixel(FONT_SIZE_A), priority: 1,
+                alignment: .Center, createNode: true, isFit: true, isDrawBG: false,
+                margin: 0, x: 0, y: 0,
+                width: size.width - UDpi.toPixel(MARGIN_TEXT_H), color: .black, bgColor: nil)
+            parentNode.addChild2( wordAView!.parentNode )
+            wordAView!.parentNode.isHidden = true
+        }
+        
+        // WordB
+        if wordB != nil {
+            wordBView = UTextView(
+                text: wordB!, fontSize: UDpi.toPixel(FONT_SIZE_A), priority: 1,
+                alignment: .Center, createNode: true, isFit: true, isDrawBG: false,
+                margin: 0, x: 0, y: 0,
+                width: size.width - UDpi.toPixel(MARGIN_TEXT_H), color: .black, bgColor: nil)
             parentNode.addChild2( wordBView!.parentNode )
             wordBView!.parentNode.isHidden = true
         }
         
         // カードのサイズを計算する
-        if isMultiCard {
-            // WordA,WordBの大きい方の高さに合わせる
-            // width
-            var width = (wordAView!.mTextSize.width > wordBView!.mTextSize.width) ? wordAView!.mTextSize.width : wordBView!.mTextSize.width
-            width += UDpi.toPixel(MARGIN_TEXT_H) * 2
-            size.width = width
-            
-            // height
-            var height = (wordAView!.mTextSize.height > wordBView!.mTextSize.height) ? wordAView!.mTextSize.height : wordBView!.mTextSize.height
-            height += UDpi.toPixel(MARGIN_TEXT_V) * 2
-            
-            if height < UDpi.toPixel(MIN_HEIGHT) {
-                height = UDpi.toPixel(MIN_HEIGHT)
-            }
-            else if height > maxHeight {
-                height = maxHeight
-            }
-            size.height = height
-        } else {
-            size.width = TopScene.getInstance().getWidth() - UDpi.toPixel(ARROW_W * 2 + ARROW_MARGIN * 4)
-            size.height = maxHeight
+        // WordA,WordBの大きい方の高さに合わせる
+        // width
+        var _width = (wordAView!.mTextSize.width > wordBView!.mTextSize.width) ? wordAView!.mTextSize.width : wordBView!.mTextSize.width
+        _width += UDpi.toPixel(MARGIN_TEXT_H) * 2
+        if _width < size.width {
+            size.width = _width
         }
+        
+        // height
+        var height = (wordAView!.mTextSize.height > wordBView!.mTextSize.height) ? wordAView!.mTextSize.height : wordBView!.mTextSize.height
+        height += UDpi.toPixel(MARGIN_TEXT_V) * 2
+        
+        if height < UDpi.toPixel(MIN_HEIGHT) {
+            height = UDpi.toPixel(MIN_HEIGHT)
+        }
+        else if height > maxHeight {
+            height = maxHeight
+        }
+        size.height = height
+        
         mArrowL = UButtonImage(
             callbacks : self, id : ButtonIdArrowL, priority : 0,
             x : -(size.width / 2 + UDpi.toPixel(ARROW_MARGIN + ARROW_W)),
@@ -209,7 +282,6 @@ public class StudyCard : UDrawable, UButtonCallbacks {
             parentNode.addChild2( mArrowR!.parentNode )
         }
         
-
         // BG Node
         bgNode = SKNodeUtil.createRectNode(rect: CGRect(x:-size.width / 2, y:0, width: size.width, height: size.height), color: color, pos: CGPoint(), cornerR: UDpi.toPixel(4))
         bgNode!.strokeColor = .gray

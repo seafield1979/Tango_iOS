@@ -21,8 +21,8 @@ public class UPageView {
 //    public static let TAG = "UPagaView"
     
     static let TEXT_COLOR : UIColor = UIColor.black
-    static let MARGIN_H = 17
-    static let MARGIN_V = 17
+    static let MARGIN_H = 14
+    static let MARGIN_V = 14
     
     /**
      * Member Variables

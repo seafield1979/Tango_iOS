@@ -130,7 +130,7 @@ public class PageViewStudySlide : PageViewStudy, CardsStackCallbacks
             cardManager : mCardsManager!, cardsStackCallbacks : self,
             x : screenW / 2,
             y : UDpi.toPixel(TOP_AREA_H),
-            width : UDpi.toPixel(StudyCard.WIDTH), maxHeight : mTopScene.getHeight() - UDpi.toPixel(TOP_AREA_H + BOTTOM_AREA_H))
+            maxHeight : mTopScene.getHeight() - UDpi.toPixel(TOP_AREA_H + BOTTOM_AREA_H))
         mCardsStack!.addToDrawManager()
         
         // あと〜枚

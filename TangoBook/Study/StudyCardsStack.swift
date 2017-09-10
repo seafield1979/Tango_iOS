@@ -80,9 +80,9 @@ public class StudyCardsStack : UDrawable {
     public init( cardManager : StudyCardsManager,
                  cardsStackCallbacks : CardsStackCallbacks?,
                 x : CGFloat, y : CGFloat,
-                width : CGFloat, maxHeight : CGFloat)
+                maxHeight : CGFloat)
     {
-        super.init(priority : 90, x : x, y : y, width : width, height : 0)
+        super.init(priority : 90, x : x, y : y, width : 0, height : 0)
         
         self.cardsStackCallbacks = cardsStackCallbacks
         size.height = maxHeight;
