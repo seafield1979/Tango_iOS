@@ -57,13 +57,9 @@ public class IconTrash : IconContainer {
                     x: 0, y: 0, width: UDpi.toPixel(ICON_W), height: UDpi.toPixel(ICON_H));
         fontSize = UDpi.toPixel(FONT_SIZE_T)
         
-        title = UResourceManager.getStringByName("trash")
-        if let n = textNode {
-            n.text = title
-            n.isHidden = false
-            n.fontSize = fontSize
-            n.position.y -= UDpi.toPixel(4)
-        }
+        setTitle( UResourceManager.getStringByName("trash") )
+        titleView!.parentNode.position.y -= UDpi.toPixel(4)
+        
         setColor(ICON_COLOR)
         
         // 中のアイコンを表示するためのSubWindow

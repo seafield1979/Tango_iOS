@@ -453,9 +453,11 @@ public class UIconWindow : UWindow{
         }
         iconMargin = (clientSize.width - iconW * CGFloat(column)) / CGFloat(column + 1)
         
+        let marginH = iconW + iconMargin
+        let marginV = iconH + iconMargin
+        var x = iconMargin
+        var y = iconMargin
         for icon in icons! {
-            let x = iconMargin + CGFloat(i % column) * (iconW + iconMargin)
-            let y = iconMargin + CGFloat(i / column) * (iconH + iconMargin)
             let height = y + (iconH + iconMargin) * 2
             if height >= maxSize {
                 maxSize = height
@@ -471,6 +473,12 @@ public class UIconWindow : UWindow{
             }
 
             i += 1
+            if i != 0 && i % column == 0 {
+                y += marginV
+                x = iconMargin
+            } else {
+                x += marginH
+            }
         }
         
         if !animate {

@@ -50,13 +50,23 @@ public class IconCard : UIcon {
         setColor(TOUCHED_COLOR)
         
         // アイコンの画像を設定
+        let color : UIColor = UColor.makeColor(argb: UInt32(card.color))
         self.image = UResourceManager.getImageWithColor(
             imageName: ImageName.card,
-            color: UColor.makeColor(argb: UInt32(card.color)))
+            color: color)
 
         if let _image = image {
             imageNode!.texture = SKTexture(image: _image)
         }
+
+        // タイトル
+        self.titleView = UTextView(
+            text: title!, fontSize: 10, priority: 10, alignment: .CenterX,
+            createNode: true, isFit: true, isDrawBG: false, margin: 0,
+            x: size.width / 2, y: size.height,
+            width: size.width, color: color, bgColor: nil)
+        
+        parentNode.addChild2( self.titleView!.parentNode )
     }
 
     /**
@@ -128,9 +138,8 @@ public class IconCard : UIcon {
                 }
             }
         }
-        textNode!.isHidden = (title!.characters.count == 0)
         
-        textNode!.text = title
+        setTitle(title)
     }
     
 

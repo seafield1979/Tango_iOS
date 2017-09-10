@@ -58,9 +58,7 @@ public class IconBook : IconContainer {
                    type: IconType.Book, x: x, y: y,
                    width: UDpi.toPixel(ICON_W), height: UDpi.toPixel(ICON_H))
         
-        setColor(ICON_COLOR)
         self.book = book
-        updateTitle()
         
         let windows = parentWindow.getWindows()
         subWindow = windows!.getSubWindow()
@@ -72,6 +70,9 @@ public class IconBook : IconContainer {
         if let _image = self.image {
             imageNode!.texture = SKTexture(image: _image)
         }
+        
+        setColor(UIColor.black)
+        updateTitle()
     }
 
     /**
@@ -111,11 +112,7 @@ public class IconBook : IconContainer {
                 book!.getName()!.characters.count :
                 DISP_TITLE_LEN
         let text = book!.getName()!
-        self.title = text.substring(to: text.index(text.startIndex, offsetBy: len))
-        
-        textNode!.isHidden = (title!.characters.count == 0)
-        
-        textNode!.text = title
+        setTitle( text.substring(to: text.index(text.startIndex, offsetBy: len)) )
     }
     
     /**

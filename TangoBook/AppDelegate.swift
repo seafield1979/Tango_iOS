@@ -61,8 +61,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             MySharedPref.writeBool(key: MySharedPref.InitializeKey, value: true)
             
-            // 拡大率（少し大きめ)
-            MySharedPref.writeInt(key: MySharedPref.ScaleKey, value: UDpi.Scale.S125.rawValue)
+            // 拡大率（iPadなら少し大きめ)
+            var scale : UDpi.Scale
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                scale = UDpi.Scale.S150
+            } else {
+                scale = UDpi.Scale.S100
+            }
+            MySharedPref.writeInt(key: MySharedPref.ScaleKey, value: scale.rawValue)
         }
         
         // 起動時の自動バックアップ

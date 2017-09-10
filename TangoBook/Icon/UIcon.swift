@@ -101,8 +101,9 @@ public class UIcon : UDrawable, CustomStringConvertible {
     var dragedBgNode : SKShapeNode?           // タップ中のBG
     var imageNode : SKSpriteNode?        // アイコンの画像
     var imageBgNode : SKNode?
-    var textNode : SKLabelNode?          // アイコンのテキスト
     var checkedNode : SKNode?      // 選択状態時に表示するチェック枠画像
+    
+    var titleView : UTextView?          // アイコンのタイトルを表示するView
     
     public var id : Int = 0
     var parentWindow : UIconWindow? = nil
@@ -211,12 +212,6 @@ public class UIcon : UDrawable, CustomStringConvertible {
         imageNode!.size = size
         imageBgNode!.addChild2(imageNode!)
         
-        // text
-        textNode = SKNodeUtil.createLabelNode(text: "", fontSize: UDpi.toPixel(FONT_SIZE), color: .black, alignment: .CenterX, pos: CGPoint(x:size.width / 2, y: size.height)).node
-        textNode!.zPosition = 0.3
-        textNode!.isHidden = true
-        parentNode.addChild2(textNode!)
-        
         // checked
         let checkedW = size.width * 0.7
         checkedNode = SKNode()
@@ -248,6 +243,31 @@ public class UIcon : UDrawable, CustomStringConvertible {
 //    override public func setPos(_ x : CGFloat, _ y : CGFloat) {
 //        self.setPos( CGPoint(x: x, y: y))
 //    }
+    
+    /**
+     * アイコンに表示するタイトル文字列を設定する
+     */
+    public func setTitle( _ title : String?) {
+        if self.title == title {
+            return
+        }
+        self.title = title
+        
+        if self.titleView != nil {
+            self.titleView!.parentNode.removeFromParent()
+        }
+        
+        // タイトルノードを作成
+        if title != nil {
+            self.titleView = UTextView(
+                text: title!, fontSize: UDpi.toPixel(FONT_SIZE), priority: 10, alignment: .CenterX,
+                createNode: true, isFit: true, isDrawBG: false, margin: 0,
+                x: size.width / 2, y: size.height,
+                width: size.width * 1.8, color: UIColor.black, bgColor: nil)
+            
+            parentNode.addChild2( self.titleView!.parentNode )
+        }
+    }
     
     /**
      チェック可能状態をセットする
