@@ -66,7 +66,7 @@ public class UDpi {
         }
         // 前の列挙値に変更
         mutating func prev() {
-            if self.rawValue > 0 {
+            if self.rawValue > 1 {
                 self = Scale.cases[self.rawValue - 1]
             }
         }
@@ -81,7 +81,7 @@ public class UDpi {
         
         // スケールダウン
         mutating func scaleDown() -> Scale {
-            if self.rawValue > 0 {
+            if self.rawValue > 1 {
                 self = Scale.cases[self.rawValue - 1]
             }
             return self
