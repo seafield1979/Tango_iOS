@@ -94,11 +94,11 @@ public class PageViewPresetBook : UPageView, UButtonCallbacks, UListItemCallback
             fontSize : UDraw.getFontSize(FontSize.L), priority : DRAW_PRIORITY,
             alignment : UAlignment.CenterX, createNode : true, isFit : true,
             isDrawBG : false,
-            x : width/2, y : y,
-            width : width, color : UIColor.black, bgColor : nil)
+            x : width / 2, y : y,
+            width : width - UDpi.toPixel(MARGIN_H) * 2, color : UIColor.black, bgColor : nil)
         
         mTitleText!.addToDrawManager()
-        y += mTitleText!.getSize().height + UDpi.toPixel(MARGIN_V)
+        y += mTitleText!.getHeight() + UDpi.toPixel(MARGIN_V)
 
         // ListView
         let listViewH = height - (UDpi.toPixel(MARGIN_H) * 3 + mTitleText!.getSize().height)

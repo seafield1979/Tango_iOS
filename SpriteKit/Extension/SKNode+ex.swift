@@ -90,15 +90,24 @@ extension SKLabelNode {
      * 指定の幅に収まるサイズにスケーリングする
      */
     public func adjustLabelFontSizeToFitWidth( width: CGFloat ) {
+        var scalingFactor : CGFloat
         
         // Determine the font scaling factor that should let the label text fit in the given rectangle.
-        let scalingFactor = width / self.frame.width
+        if self.frame.size.width > width {
+            scalingFactor = width / self.frame.width
         
-        // Change the fontSize.
-        self.fontSize *= scalingFactor
+            // Change the fontSize.
+            self.fontSize *= scalingFactor
+        }
         
-        // Optionally move the SKLabelNode to the center of the rectangle.
-//        self.position = CGPoint(x: rect.midX, y: rect.midY - self.frame.height / 2.0)
+        for child in self.children {
+            if let label = child as? SKLabelNode {
+                if label.frame.size.width > width {
+                    scalingFactor = width / label.frame.width
+                    label.fontSize *= scalingFactor
+                }
+            }
+        }
     }
     /**
      * 矩形に収まるサイズにスケーリングする

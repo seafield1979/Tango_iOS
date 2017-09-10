@@ -161,6 +161,7 @@ public class UTextView : UDrawable {
         // もとの指定したサイズに収まるように補正
         if isFitToSize && size.width > 0 && result.size.width > size.width {
             self.labelNode?.adjustLabelFontSizeToFitWidth(width: size.width)
+            size.height = result.size.height
         } else {
             size = result.size
         }

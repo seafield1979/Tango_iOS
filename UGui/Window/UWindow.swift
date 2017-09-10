@@ -546,8 +546,9 @@ public class UWindow : UDrawable, UButtonCallbacks {
         if offset == nil {
             offset = pos
         }
-//        offset!.x += pos.x
-//        offset!.y += pos.y
+        // フレームの部分だけタッチ座標を補正
+        offset!.x -= frameSize.width
+        offset!.y -= frameSize.height
         
         if closeIcon != nil && closeIcon!.isShow {
             if (closeIcon!.touchEvent(vt: vt, offset: offset)) {
