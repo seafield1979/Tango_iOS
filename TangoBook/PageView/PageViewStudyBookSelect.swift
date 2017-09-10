@@ -171,8 +171,8 @@ public class PageViewStudyBookSelect : UPageView
                 text : UResourceManager.getStringByName("no_study_history"),
                 fontSize : UDpi.toPixel(FONT_SIZE), priority : DRAW_PRIORITY-1,
                 alignment : UAlignment.CenterX, createNode: true,
-                isFit : false, isDrawBG : false,
-                x : width/2, y : y, width : width, color : .black, bgColor : nil)
+                isFit : true, isDrawBG : false,
+                x : width/2, y : y, width : width - UDpi.toPixel(MARGIN_H) * 2, color : .black, bgColor : nil)
             text.addToDrawManager()
 
         } else {
@@ -181,8 +181,8 @@ public class PageViewStudyBookSelect : UPageView
                 text : UResourceManager.getStringByName("title_study2"),
                 fontSize : UDpi.toPixel(FONT_SIZE), priority : DRAW_PRIORITY,
                 alignment : UAlignment.CenterX, createNode: true,
-                isFit : false, isDrawBG : false,
-                x : width/2, y : y, width : width,
+                isFit : true, isDrawBG : false,
+                x : width/2, y : y, width : width - UDpi.toPixel(MARGIN_H) * 2,
                 color : .black, bgColor : nil)
             mTitleText!.addToDrawManager()
             y += mTitleText!.getHeight() + UDpi.toPixel(MARGIN_V_S)

@@ -28,21 +28,24 @@ public class ListItemStudyBook : UListItem {
 
     private let FRAME_WIDTH = 1
     private let FRAME_COLOR = UIColor.black
+    private let TITLE_COLOR : UIColor = UColor.makeColor(50,150,50)
 
     /**
      * Member variables
      */
     // SpriteKit Node
     private var iconNode : SKSpriteNode?
-    private var titleNode : SKLabelNode?
-    private var dateNode : SKLabelNode?
-    private var infoNode : SKLabelNode?
     
     private var mTextName : String? = nil
     private var mStudiedDate : String? = nil
     private var mCardCount : String? = nil
     private var mBook : TangoBook? = nil
     private var mIcon : UIImage? = nil
+    
+    private var mTitleView : UTextView?
+    private var mDateView : UTextView?
+    private var mInfoView : UTextView?
+    
 
     // Dpi計算結果
     private var itemH : CGFloat = 0
@@ -99,7 +102,7 @@ public class ListItemStudyBook : UListItem {
     public override func initSKNode() {
         var x = UDpi.toPixel(MARGIN_H)
         var y = UDpi.toPixel(MARGIN_V)
-        let margin = UDpi.toPixel(MARGIN_V)
+        let marginV = UDpi.toPixel(MARGIN_V)
 
         // 単語帳アイコン
         iconNode = SKSpriteNode(texture : SKTexture(image: mIcon!))
@@ -111,29 +114,20 @@ public class ListItemStudyBook : UListItem {
         x += UDpi.toPixel(ICON_W + MARGIN_H)
         
         // 単語帳の名前
-        let result = SKNodeUtil.createLabelNode(
-            text: mTextName!, fontSize: UDpi.toPixel(FONT_SIZE),
-            color: UColor.makeColor(50,150,50),
-            alignment: .Left, pos: CGPoint(x:x, y:y))
-        titleNode = result.node
-        parentNode.addChild2(titleNode!)
+        mTitleView = UTextView(text: mTextName!, fontSize: UDpi.toPixel(FONT_SIZE), priority: 1, alignment: .Left, createNode: true, isFit: true, isDrawBG: false, margin: 0, x: x, y: y, width: size.width - x - UDpi.toPixel(MARGIN_H), color: TITLE_COLOR, bgColor: nil)
+        parentNode.addChild2( mTitleView!.parentNode )
         
-        y += margin + result.size.height
+        y += marginV + mTitleView!.getHeight()
         
         // 学習日時
-        let result2 = SKNodeUtil.createLabelNode(
-            text: mStudiedDate!, fontSize: UDpi.toPixel(FONT_SIZE2), color: TEXT_COLOR,
-            alignment: .Left, pos: CGPoint(x: x, y: y))
-        dateNode = result2.node
-        parentNode.addChild2( dateNode! )
-
-        y += margin + result2.size.height
+        mDateView = UTextView(text: mStudiedDate!, fontSize: UDpi.toPixel(FONT_SIZE2), priority: 1, alignment: .Left, createNode: true, isFit: true, isDrawBG: false, margin: 0, x: x, y: y, width: size.width - x - UDpi.toPixel(MARGIN_H), color: TEXT_COLOR, bgColor: nil)
+        parentNode.addChild2( mDateView!.parentNode )
+        
+        y += marginV + mDateView!.getHeight()
         
         // カード数
-        infoNode = SKNodeUtil.createLabelNode(
-            text: mCardCount!, fontSize: UDpi.toPixel(FONT_SIZE2),
-            color: UColor.DarkGray, alignment: .Left, pos: CGPoint(x: x, y: y)).node
-        parentNode.addChild2( infoNode! )
+        mInfoView = UTextView(text: mCardCount!, fontSize: UDpi.toPixel(FONT_SIZE2), priority: 1, alignment: .Left, createNode: true, isFit: true, isDrawBG: false, margin: 0, x: x, y: y, width: size.width - x - UDpi.toPixel(MARGIN_H), color: UColor.DarkGray, bgColor: nil)
+        parentNode.addChild2( mInfoView!.parentNode )
     }
 
     /**

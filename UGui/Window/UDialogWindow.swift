@@ -48,7 +48,7 @@ public class UDialogWindow : UWindow {
     public static let CloseDialogId = 10000123
     
     static let MARGIN_H : Int = 17
-    static let MARGIN_V : Int = 17
+    static let MARGIN_V : Int = 10
     static let ANIMATION_FRAME : Int = 100
     
     static let TEXT_MARGIN_V : Int = 10
