@@ -167,6 +167,8 @@ public class StudyCardStackSelect : UDrawable {
     public override func doAction() -> DoActionRet{
 
         switch mState {
+        case .Starting:
+            break
         case .Main:
             // カードがタッチされたら正解判定を行う
             for card in mStudyCards {
@@ -175,26 +177,28 @@ public class StudyCardStackSelect : UDrawable {
 
                     // 全てのカードを正解表示状態にする
                     for _card in mStudyCards {
-                        card!.setRequest( StudyCardSelect.RequestToParent.None )
-                        _card!.setShowCorrect( _card!.isCorrect )
+                        _card!.setRequest( StudyCardSelect.RequestToParent.None )
+                        _card!.setShowCorrect()
                     }
-                    card!.setShowCorrect( true )
                     if card!.isCorrect {
                         // 正解
                         if let addCard = card!.getTangoCard() {
                             mCardManager.addOkCard( addCard )
                         }
+                        card!.setOkMark()
                     } else {
                         // 不正解
                         // 不正解でもNGリストに追加するのは正解のカード
                         for _card in mStudyCards {
                             if _card!.isCorrect {
+                                _card!.setOkMark()
                                 if let addCard = _card!.getTangoCard() {
                                     mCardManager.addNgCard( addCard )
                                 }
                                 break
                             }
                         }
+                        card!.setNgMark()
                     }
                     break
                 }

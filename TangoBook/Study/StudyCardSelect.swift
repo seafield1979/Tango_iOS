@@ -34,7 +34,6 @@ public class StudyCardSelect : UDrawable {
     
     // SpriteKit Node
     private var bgNode : SKShapeNode?
-    private var textNode : SKLabelNode?
     private var shapeNode : SKShapeNode?        // 正解表示時の◯×用
     
     private var mState : State
@@ -50,6 +49,8 @@ public class StudyCardSelect : UDrawable {
     
     // ボックス移動要求（親への通知用)
     private var mRequest = RequestToParent.None
+    
+    private var mTextView : UTextView?
     
     public func getRequest() -> RequestToParent {
         return mRequest
@@ -72,49 +73,44 @@ public class StudyCardSelect : UDrawable {
      * 正解/不正解を設定する
      * @param showCorrect
      */
-    public func setShowCorrect( _ showCorrect : Bool) {
+    public func setShowCorrect() {
         mState = State.ShowAnswer
-        isShowCorrect = showCorrect
-        
-        // BGの色
-        var color : UIColor
-        if mState == State.ShowAnswer && isShowCorrect {
-            // 解答表示時
-            if isCorrect {
-                color = UColor.LightGreen
-            } else {
-                color = UColor.LightRed
-            }
-        } else {
-            color = .white
-        }
-        bgNode!.fillColor = color
+        isShowCorrect = true
         
         // 正解表示中
-        if showCorrect {
-            // ラベルのノードを更新
-            textNode?.removeFromParent()
-            
-            let text = wordA! + "\n" + wordB!
-            textNode = SKNodeUtil.createLabelNode(text: text, fontSize: UDpi.toPixel(FONT_SIZE), color: TEXT_COLOR, alignment: .Center, pos: CGPoint()).node
-            parentNode.addChild2( textNode! )
-        }
-        
-        // ○×を表示
-        if isShowCorrect {
-            if isCorrect {
-                shapeNode = SKNodeUtil.createCircleNode(
-                    pos: CGPoint(), radius: UDpi.toPixel(23),
-                    lineWidth: UDpi.toPixel(6), color: UColor.DarkGreen)
-            } else {
-                shapeNode = SKNodeUtil.createCrossPoint(
-                    type: .Type2, pos: CGPoint(), length: UDpi.toPixel(23),
-                    lineWidth: UDpi.toPixel(6), color: .red, zPos: 0)
-            }
-            parentNode.addChild2( shapeNode! )
-        }
+        mTextView!.setText(wordA! + "\n" + wordB!)
     }
     
+    /**
+     * 正解の○を表示する
+     */
+    public func setOkMark() {
+        // ○×を表示
+        shapeNode = SKNodeUtil.createCircleNode(
+            pos: CGPoint(), radius: UDpi.toPixel(18),
+            lineWidth: UDpi.toPixel(6), color: UColor.DarkGreen)
+        parentNode.addChild2( shapeNode! )
+        
+        // BGの色
+        bgNode!.fillColor = UColor.LightGreen
+    }
+    
+    /**
+     * 不正解の×を表示する
+     */
+    public func setNgMark() {
+        shapeNode = SKNodeUtil.createCrossPoint(
+            type: .Type2, pos: CGPoint(), length: UDpi.toPixel(23),
+            lineWidth: UDpi.toPixel(6), color: .red, zPos: 0)
+        parentNode.addChild2( shapeNode! )
+        
+        color = .white
+        bgNode!.fillColor = color
+        
+        // BGの色
+        bgNode!.fillColor = UColor.LightRed
+    }
+
     public override func getRect() -> CGRect {
         return CGRect(x: pos.x - size.width / 2,
                       y: pos.y - size.height / 2,
@@ -157,9 +153,9 @@ public class StudyCardSelect : UDrawable {
         bgNode!.lineWidth = UDpi.toPixel(2)
         parentNode.addChild2(bgNode!)
         
-        // label
-        textNode = SKNodeUtil.createLabelNode(text: wordA!, fontSize: UDpi.toPixel(FONT_SIZE), color: TEXT_COLOR, alignment: .Center, pos: CGPoint()).node
-        parentNode.addChild2(textNode!)
+        // TextView
+        mTextView = UTextView(text: wordA!, fontSize: UDpi.toPixel(FONT_SIZE), priority: 1, alignment: .Center, createNode: true, isFit: true, isDrawBG: false, margin: 0, x: 0, y: 0, width: size.width - UDpi.toPixel(16), color: TEXT_COLOR, bgColor: nil)
+        parentNode.addChild2( mTextView!.parentNode )
     }
 
     // MARK: Methods
@@ -237,7 +233,7 @@ public class StudyCardSelect : UDrawable {
         var done = false
         
         // アニメーションや移動中はタッチ受付しない
-        if isMovingSize {
+        if mState == .Appearance || mState == .Disappearance {
             return false
         }
         var offset = offset
