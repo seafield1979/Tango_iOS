@@ -48,7 +48,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                     imageName: ImageName.study ),
         ButtonTInfo(id: TitleButtonId.History,
                     textName: "title_history",
-                    textColor: UColor.DarkYellow,
+                    textColor: UIColor.black,
                     lineColor: UColor.DarkYellow,
                     bgColor: UColor.Yellow,
                     imageName: ImageName.history ),
