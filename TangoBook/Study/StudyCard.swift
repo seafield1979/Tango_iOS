@@ -106,6 +106,7 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         super.setColor(color)
         
         bgNode!.fillColor = color
+        bgNode!.strokeColor = UColor.addBrightness(argb: color, addY: -0.3)
     }
     
     // MARK: Initializer

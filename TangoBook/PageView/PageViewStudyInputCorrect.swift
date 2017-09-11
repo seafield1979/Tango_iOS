@@ -168,7 +168,7 @@ public class PageViewStudyInputCorrect : PageViewStudy, CardsStackCallbacks {
     }
 
     private func getCardsRemainText( count : Int ) -> String{
-        return String( format: UResourceManager.getStringByName("cards_remain"), count)
+        return String( format: UResourceManager.getStringByName("cards_remain"), count + 1)
     }
     
     /**
