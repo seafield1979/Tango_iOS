@@ -10,11 +10,18 @@
 import SpriteKit
 
 public class TopScene: SKScene {
+    enum PoserSavingMode : Int {
+        case None           // 省電力モードOFF
+        case Mode1          // 第一段階 FPSを下げる
+        case Mode2          // 第二段階 FPSを大幅に下げる
+    }
     
     // MARK: Constants
-    private let POWER_SAVING_TIME : Double = 60.0       // 省電力モードに遷移するまでの時間
+    private let POWER_SAVING_TIME_1 : Double = 10.0     // 省電力モードに遷移するまでの時間
+    private let POWER_SAVING_TIME_2 : Double = 60.0     // 超省電力モードに遷移するまでの時間
     private let DEFULT_FPS = 60                         // 通常時のFPS
-    private let POWER_SAVING_FPS = 2                    // 省電力時のFPS
+    private let POWER_SAVING_FPS_1 = 8                 // 省電力時のFPS
+    private let POWER_SAVING_FPS_2 = 2                  // 超省電力時のFPS
     
     // MARK: Properties
     private var mPageManager : UPageViewManager?
@@ -23,7 +30,7 @@ public class TopScene: SKScene {
     public var parentView : SKView?
     var vt : ViewTouch = ViewTouch()
     
-    private var isPowerSavingMode : Bool = false
+    private var mPowerSavingMode : PoserSavingMode = .None
     private var mLastTouchedTime : Double = 0       // 最後にタッチ処理を行った時間
     
     private var dimPanel : SKShapeNode?
@@ -108,7 +115,7 @@ public class TopScene: SKScene {
         checkPowerSaving()
         
         // 省電力モード中は処理しない
-        if isPowerSavingMode {
+        if mPowerSavingMode != .None {
             return
         }
         // 長押し判定
@@ -131,10 +138,15 @@ public class TopScene: SKScene {
     private func updateLastTouchedTime() -> Bool {
         mLastTouchedTime = Date().timeIntervalSince1970
 
-        if isPowerSavingMode {
+        if mPowerSavingMode != .None {
+            let mode = mPowerSavingMode
             // 省電力モードを解除
-            setPowerSavingMode(enabled: false)
-            return true
+            setPowerSavingMode(mode: .None)
+
+            // モード２の場合のみタッチを無効化
+            if mode == .Mode2 {
+                return true
+            }
         }
         return false
     }
@@ -146,23 +158,52 @@ public class TopScene: SKScene {
      *   ※SpriteKitで60fpsで画面を更新し続けると電力をもりもり消費するので、操作していない時は省電力モードにする
      */
     private func checkPowerSaving() {
-        if !isPowerSavingMode {
+        switch mPowerSavingMode {
+        case .None:
             // 最後のタッチからの時間を取得
-            if Date().timeIntervalSince1970 - mLastTouchedTime >= POWER_SAVING_TIME {
+            if Date().timeIntervalSince1970 - mLastTouchedTime >= POWER_SAVING_TIME_1 {
                 // 省電力モードに遷移
-                setPowerSavingMode(enabled: true)
+                setPowerSavingMode(mode: .Mode1)
             }
+        case .Mode1:
+            if Date().timeIntervalSince1970 - mLastTouchedTime >= POWER_SAVING_TIME_2 {
+                // 超消費電力モードに遷移
+                setPowerSavingMode(mode: .Mode2)
+            }
+        default:
+            break
         }
     }
     
     /**
+     * 外から省電力モードをOFFにする
+     */
+    public func resetPowerSavingMode() {
+        setPowerSavingMode(mode: .None)
+    }
+   
+    /**
      * 省電力モード遷移(ON / OFF)
      */
-    private func setPowerSavingMode( enabled : Bool ) {
-        isPowerSavingMode = enabled
+    private func setPowerSavingMode( mode : PoserSavingMode ) {
+        mPowerSavingMode = mode
 
-        if enabled {
-            parentView!.preferredFramesPerSecond = POWER_SAVING_FPS
+        switch mode {
+        case .None:
+            parentView!.preferredFramesPerSecond = DEFULT_FPS
+            
+            if let n = dimPanel {
+                n.removeFromParent()
+                dimPanel = nil
+            }
+            mLastTouchedTime = Date().timeIntervalSince1970
+        case .Mode1:
+            // FPSを低下させる
+            parentView!.preferredFramesPerSecond = POWER_SAVING_FPS_1
+            
+        case .Mode2:
+            // FPSを超低下させる
+            parentView!.preferredFramesPerSecond = POWER_SAVING_FPS_2
             
             // 画面を暗くする
             dimPanel = SKShapeNode(rect: CGRect(x:0, y:0, width: self.frame.size.width, height: self.frame.size.height).convToSK())
@@ -170,12 +211,6 @@ public class TopScene: SKScene {
             dimPanel!.zPosition = 10000
             dimPanel!.fillColor = .black
             self.addChild2(dimPanel!)
-        } else {
-            parentView!.preferredFramesPerSecond = DEFULT_FPS
-            
-            if let n = dimPanel {
-                n.removeFromParent()
-            }
         }
     }
 }

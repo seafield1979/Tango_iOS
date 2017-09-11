@@ -115,6 +115,10 @@ class EditCardViewController: UIViewController, UITextFieldDelegate
     // 設定を保存せずにモーダルを閉じる
     @IBAction func cancelButtonClicked(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+        
+        if self.self.delegate != nil {
+            self.delegate?.cancelEditCard()
+        }
     }
     
     // MARK : UITextFieldDelegate

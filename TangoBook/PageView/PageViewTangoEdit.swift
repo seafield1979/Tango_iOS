@@ -825,7 +825,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     
     // MARK: EditCardDialogCallbacks
     /**
-     *
+     * 単語帳編集のViewControllerがOKで終了された時の処理
      */
     public func submitEditCard(mode : EditCardDialogMode,
                                wordA : String?, wordB : String?, color : UIColor?) {
@@ -871,10 +871,11 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             // DB更新
             TangoCardDao.updateOne(card: card)
         }
+        mTopScene.resetPowerSavingMode()
     }
     
     public func cancelEditCard() {
-    
+        mTopScene.resetPowerSavingMode()
     }
     
     
@@ -930,10 +931,12 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
         // アイコン整列
         mIconWinManager!.getMainWindow()!.sortIcons(animate: false)
+        
+        mTopScene.resetPowerSavingMode()
     }
     
     public func cancelEditBook() {
-
+        mTopScene.resetPowerSavingMode()
     }
     
     // MARK: IconInfoDialogCallbacks

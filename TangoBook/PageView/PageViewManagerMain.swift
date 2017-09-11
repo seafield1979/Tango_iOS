@@ -150,24 +150,9 @@ public class PageViewManagerMain : UPageViewManager {
      */
     override public func pageChanged() {
         super.pageChanged()
-
-        // Todo
-//        switch(pageId) {
-//        case Edit:
-//            MainActivity.getInstance().setMenuType(MainActivity.MenuType.TangoEdit);
-//            break;
-//        case StudyBookSelect:
-//            MainActivity.getInstance().setMenuType(MainActivity.MenuType.SelectStudyBook);
-//            break;
-//        case CsvBook:
-//            MainActivity.getInstance().setMenuType(MainActivity.MenuType.AddCsv);
-//            break;
-//        case History:
-//            MainActivity.getInstance().setMenuType(MainActivity.MenuType.StudiedHistory);
-//            break;
-//        default:
-//            MainActivity.getInstance().setMenuType(MainActivity.MenuType.None);
-//        }
+        
+        // 省電力モードを解除
+        mTopScene.resetPowerSavingMode()
     }
     
      /**

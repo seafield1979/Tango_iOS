@@ -133,5 +133,8 @@ class EditBookViewController: UIViewController, UITextFieldDelegate {
     @IBAction func cancelButtonClicked(_ sender: Any)
     {
         dismiss(animated: true, completion: nil)
+        if self.delegate != nil {
+            self.delegate?.cancelEditBook()
+        }
     }
 }
