@@ -11,7 +11,7 @@ import SpriteKit
 /**
  * アイコンをクリックしたりドロップした時のコールバック
  */
-public protocol UIconCallbacks {
+public protocol UIconCallbacks : class {
     func iconClicked(icon : UIcon)
     func longClickIcon(icon : UIcon)
     func iconDroped(icon : UIcon)
@@ -107,7 +107,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
     
     public var id : Int = 0
     var parentWindow : UIconWindow? = nil
-    private var callbacks : UIconCallbacks? = nil
+    private weak var callbacks : UIconCallbacks? = nil
     var image : UIImage? = nil
 
 

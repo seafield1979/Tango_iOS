@@ -12,7 +12,7 @@
 import SpriteKit
 
 // コールバック
-public protocol UIconWindowSubCallbacks {
+public protocol UIconWindowSubCallbacks : class {
     /**
      サブウィンドウに対するアクションが呼ばれた
      - parameter actionId: 押されたボタンのID
@@ -75,7 +75,7 @@ public class UIconWindowSub : UIconWindow {
     private var mTrashButtons : UIconWindowButtons?
     
     // コールバック用のインターフェース
-    private var mIconWindowSubCallback : UIconWindowSubCallbacks? = nil
+    private weak var mIconWindowSubCallback : UIconWindowSubCallbacks? = nil
     
     private var mTitleView : UTextView?
     

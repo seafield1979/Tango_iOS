@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol ViewTouchCallbacks {
+public protocol ViewTouchCallbacks : class {
     // 長押しされた時の処理
     func longPressed()
 }
@@ -58,7 +58,7 @@ public class ViewTouch {
     
     
     // MARK: Propaties
-    private var callbacks : ViewTouchCallbacks?
+    private weak var callbacks : ViewTouchCallbacks?
     
     public var type : TouchType = .None         // 外部用のタイプ(変化があった時に有効な値を返す)
     private var innerType : TouchType = .None    // 内部用のタイプ

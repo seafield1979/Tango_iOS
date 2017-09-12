@@ -148,7 +148,13 @@ class UDrawManager {
      * @return
      */
     public func removeDrawable(_ obj: UDrawable) {
-        removeRequest.append(obj);
+        let lists = getCurrentDrawLists()
+        
+        let list = lists![ obj.getDrawPriority() ]
+        if list != nil {
+            list!.remove(obj)
+        }
+
     }
      
     /**

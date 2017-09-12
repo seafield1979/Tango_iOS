@@ -139,6 +139,15 @@ public class UTextView : UDrawable {
         return instance
     }
     
+    deinit {
+        // SpriteKitのノードは手動で解放しないとメモリリークする
+        print("UTextView.deinit:" + self.text)
+        parentNode.removeAllChildren()
+        parentNode.removeFromParent()
+        removeFromDrawManager()
+    }
+    
+    // MARK: Methods
     /**
      * SpriteKitのノードを作成する
      */

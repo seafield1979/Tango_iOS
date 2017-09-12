@@ -29,7 +29,7 @@ public enum WindowSBShowType {
 /**
  * UWindow呼び出し元に通知するためのコールバック
  */
-public protocol UWindowCallbacks {
+public protocol UWindowCallbacks : class {
     func windowClose(window : UWindow)
 }
 
@@ -57,7 +57,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
     var clientNode : SKNode           // スクロールする子ノードの親
     var animatingBgNode : SKShapeNode?  // アニメーション中のBG
     
-    var windowCallbacks : UWindowCallbacks? = nil
+    weak var windowCallbacks : UWindowCallbacks? = nil
     var topScene : TopScene
     var bgColor : UIColor? = nil
     var frameColor : UIColor? = nil

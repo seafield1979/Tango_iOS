@@ -11,7 +11,7 @@ import SpriteKit
 /**
  * リストビューの項目のコールバック
  */
-public protocol UListItemCallbacks {
+public protocol UListItemCallbacks : class {
     /**
      * 項目がクリックされた
      * @param item
@@ -25,15 +25,11 @@ public protocol UListItemCallbacks {
 }
 
 public class UListItem : UDrawable {
-    /**
-     * Constants
-     */
+    // MARK: Constants
     public static let TAG = "UListItem"
     
-    /**
-     * Member variables
-     */
-    var mListItemCallbacks : UListItemCallbacks? = nil
+    // MARK: Properties
+    weak var mListItemCallbacks : UListItemCallbacks? = nil
     var mIndex : Int = 0
     var isTouchable : Bool = false
     var isTouching : Bool = false
@@ -44,10 +40,7 @@ public class UListItem : UDrawable {
     // SpriteKit Node
     var bgNode : SKShapeNode
     
-    /**
-     * Get/Set
-     */
-    
+    // MARK: Accessor
     public func getIndex() -> Int {
         return mIndex
     }
@@ -61,9 +54,7 @@ public class UListItem : UDrawable {
         self.mListItemCallbacks = callbacks
     }
     
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init(callbacks : UListItemCallbacks?, isTouchable : Bool,
                 x : CGFloat, width : CGFloat, height : CGFloat,
                 bgColor : UIColor?,
@@ -98,7 +89,11 @@ public class UListItem : UDrawable {
         parentNode.addChild(bgNode)
     }
     
+    deinit {
+        print("UListItem:deinit")
+    }
     
+    // MARK: Methods
     override public func touchUpEvent(vt : ViewTouch) -> Bool {
         if vt.isTouchUp {
             isTouching = false

@@ -76,7 +76,7 @@ public class PreStudyWindow : UWindow, UDialogCallbacks {
      * Member Variables
      */
     // SpriteKit
-    var mButtonCallbacks : UButtonCallbacks? = nil
+    weak var mButtonCallbacks : UButtonCallbacks? = nil
     private var textTitle : UTextView? = nil
     private var textCount : UTextView? = nil
     private var textStudyMode : UTextView? = nil

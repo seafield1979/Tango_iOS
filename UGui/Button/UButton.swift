@@ -18,7 +18,7 @@ public enum UButtonType {
 }
 
 
-public protocol UButtonCallbacks {
+public protocol UButtonCallbacks : class {
     /**
      * ボタンがクリックされた時の処理
      * @param id  button id
@@ -53,7 +53,7 @@ public class UButton : UDrawable {
      */
     var id : Int = 0;
     var type : UButtonType = .BGColor
-    var buttonCallback : UButtonCallbacks? = nil
+    weak var buttonCallback : UButtonCallbacks? = nil
     var enabled : Bool = false         // falseならdisableでボタンが押せなくなる
     var checked : Bool = false          // チェックアイコンを表示する
     var isPressed : Bool = false

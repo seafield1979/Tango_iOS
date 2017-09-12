@@ -12,9 +12,7 @@ public class PageViewDebug : UPageView, UButtonCallbacks {
     /**
      * Enums
      */
-    /**
-     * Constants
-     */
+    // MARK: Constants
     public static let TAG = "PageViewDebug"
     
     private let MARGIN_V : Int = 20
@@ -24,41 +22,27 @@ public class PageViewDebug : UPageView, UButtonCallbacks {
     private let buttonId2 = 101
     private let DRAW_PRIORITY = 100
     
-    /**
-     * Propaties
-     */
+    // MARK: Properties
+    private var mButton1 : UButtonText?
+    private var mButton2 : UButtonText?
     
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init( topScene : TopScene, title : String) {
         super.init( topScene: topScene, pageId: PageIdMain.Debug.rawValue, title: title)
     }
     
-    /**
-     * Methods
-     */
+    deinit {
+        print("PageViewDebug.denint")
+        mButton1 = nil
+        mButton2 = nil
+    }
     
+    // MARK: Methods
     override func onShow() {
     }
     
     override func onHide() {
         super.onHide();
-    }
-    
-    /**
-     * 描画処理
-     * サブクラスのdrawでこのメソッドを最初に呼び出す
-     * @param canvas
-     * @param paint
-     * @return
-     */
-    override func draw() -> Bool {
-        if isFirst {
-            isFirst = false
-            initDrawables()
-        }
-        return false
     }
     
     /**
@@ -84,28 +68,25 @@ public class PageViewDebug : UPageView, UButtonCallbacks {
         // ここにページで表示するオブジェクト生成処理を記述
         let width = self.mTopScene.getWidth()
         
-        let button = UButtonText(
+        mButton1 = UButtonText(
             callbacks: self, type: UButtonType.Press,
             id: buttonId1, priority: DRAW_PRIORITY,
             text: "データベース", createNode: true, x: 50, y: y,
             width: width - 100, height: 100,
             fontSize: UDpi.toPixel(20), textColor: UIColor.white, bgColor: .blue)
-        button.addToDrawManager()
+        mButton1!.addToDrawManager()
         
-        y += button.size.height + UDpi.toPixel(MARGIN_V)
+        y += mButton1!.size.height + UDpi.toPixel(MARGIN_V)
         
-        let button2 = UButtonText(
+        mButton2 = UButtonText(
             callbacks: self, type: UButtonType.Press,
             id: buttonId2, priority: DRAW_PRIORITY,
             text: "UToast", createNode: true, x: 50, y: y,
             width: width - 100, height: 100,
             fontSize: UDpi.toPixel(20), textColor: UIColor.white, bgColor: .blue)
-        button2.addToDrawManager()
+        mButton2!.addToDrawManager()
         
-        y += button2.size.height + UDpi.toPixel(MARGIN_V)
-        
-        let toast = UToast(x: 50, y: y, text: "hoge", fontSize: UDpi.toPixel(20), alignment: .Center, duration: 1.0)
-        toast.show()
+        y += mButton2!.size.height + UDpi.toPixel(MARGIN_V)
     }
     
     /**
@@ -116,9 +97,7 @@ public class PageViewDebug : UPageView, UButtonCallbacks {
         return false
     }
     
-    /**
-     * Callbacks
-     */
+    // MARK: Callbacks
     /**
      * UButtonCallbacks
      */

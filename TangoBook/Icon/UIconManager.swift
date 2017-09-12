@@ -33,7 +33,7 @@ public class UIconManager : UIconCallbacks {
     * Member Variables
     */
     private var mParentWindow : UIconWindow? = nil
-    private var mIconCallbacks : UIconCallbacks? = nil
+    private weak var mIconCallbacks : UIconCallbacks? = nil
     private var icons : List<UIcon> = List()
     private var mBlockManager : UIconsBlockManager? = nil
 

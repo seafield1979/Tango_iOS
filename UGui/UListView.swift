@@ -17,26 +17,17 @@ import UIKit
 
 public class UListView : UScrollWindow
 {
-    /**
-     * Enums
-     */
-    /**
-     * Constants
-     */
+    // MARK: Constants
     public static let MARGIN_V = 7
     
-    /**
-     * Member variables
-     */
+    // MARK: Properties
     var mItems : List<UListItem> = List()
-    var mListItemCallbacks : UListItemCallbacks?
+    weak var mListItemCallbacks : UListItemCallbacks?
     
     // リストの最後のアイテムの下端の座標
     var mBottomY : CGFloat = 0
     
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init(topScene : TopScene,
                 windowCallbacks : UWindowCallbacks?,
                 listItemCallbacks : UListItemCallbacks?,
@@ -75,10 +66,12 @@ public class UListView : UScrollWindow
                    cornerRadius: UDpi.toPixel(10))
     }
 
+    deinit {
+        print("UListView.deinit")
+        
+    }
     
-    /**
-     * Methods
-     */
+    // MARK: Methods
     public func get(index : Int) -> UListItem {
         return mItems[index]
     }

@@ -11,7 +11,7 @@
 
 import SpriteKit
 
-public protocol UMenuItemCallbacks {
+public protocol UMenuItemCallbacks : class {
     // メニューの項目がクリックされたときのコールバック
     func menuItemClicked(itemId : Int, stateId : Int)
 }
@@ -32,7 +32,7 @@ public class UMenuItem : UDrawable {
      * メンバ変数
      */
     var mMenuBar : UMenuBar
-    var mCallbacks : UMenuItemCallbacks? = nil
+    weak var mCallbacks : UMenuItemCallbacks? = nil
     var mTextTitle : UTextView? = nil
     var mItemId : Int = 0
     var mNestCount : Int = 0

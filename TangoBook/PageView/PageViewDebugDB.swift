@@ -9,12 +9,7 @@
 import UIKit
 
 public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
-    /**
-     * Enums
-     */
-    /**
-     * Constants
-     */
+    // MARK: Constants
     public static let TAG = "PageViewDebugDB"
     
     // button id
@@ -27,9 +22,7 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
     private let MARGIN_V : CGFloat = 10
 
     
-    /**
-     * Enums
-     */
+    // MARK: Enums
     enum DebugMenu : String, EnumEnumerable {
         case ShowTangoCard = "ShowTangoCard"
         case ShowTangoBook = "ShowTangoBook"
@@ -47,20 +40,26 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
     }
     
 
-    
-    /**
-     * Member variables
-     */
-    private var mListView : UListView? = nil
-    private var mDialog : UDialogWindow? = nil
+    // MARK: Properties
+    private var mListView : UListView?
+    private var mDialog : UDialogWindow?
     
     
-    /**
-     * Constructor
-     */
     // MARK: Initializer
     public init( topScene : TopScene, title : String) {
         super.init( topScene: topScene, pageId: PageIdMain.DebugDB.rawValue, title: title)
+    }
+    
+    deinit {
+        print("PageViewDebugDB:deinit")
+        
+        if let listView = mListView {
+            listView.removeFromDrawManager()
+        }
+
+        if let dialog = mDialog {
+            dialog.removeFromDrawManager()
+        }
     }
     
     /**
@@ -69,20 +68,20 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
     public override func initDrawables() {
         UDrawManager.getInstance().initialize()
 
-        let mListView = UListView(
+        mListView = UListView(
             topScene : mTopScene, windowCallbacks : nil,
             listItemCallbacks : self, priority : DRAW_PRIORITY,
             x : MARGIN_H, y : MARGIN_V,
             width : mTopScene.getWidth() - MARGIN_H * 2,
             height : mTopScene.getHeight() - MARGIN_V * 2, bgColor : UIColor.white)
         
-        mListView.addToDrawManager()
+        mListView!.addToDrawManager()
         
         for menu in DebugMenu.cases {
-            let item = ListItemTest1(callbacks : self, text : menu.rawValue, x : 0, width : mListView.clientSize.width, bgColor : .white)
-            mListView.add(item: item)
+            let item = ListItemTest1(callbacks : self, text : menu.rawValue, x : 0, width : mListView!.clientSize.width, bgColor : .white)
+            mListView!.add(item: item)
         }
-        mListView.updateWindow()
+        mListView!.updateWindow()
     }
     
     /**
@@ -211,21 +210,6 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
     
     override func onHide() {
         super.onHide();
-    }
-    
-    /**
-     * 描画処理
-     * サブクラスのdrawでこのメソッドを最初に呼び出す
-     * @param canvas
-     * @param paint
-     * @return
-     */
-    override func draw() -> Bool {
-        if isFirst {
-            isFirst = false
-            initDrawables()
-        }
-        return false
     }
     
     /**

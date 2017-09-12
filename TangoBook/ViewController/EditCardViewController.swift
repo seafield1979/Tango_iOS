@@ -12,7 +12,7 @@ import UIKit
 /**
  単語カード編集ダイアログが終了した時に呼ばれるコールバック
  */
-public protocol EditCardDialogCallbacks {
+public protocol EditCardDialogCallbacks : class {
     // カード情報が更新された時に呼ばれる
     func submitEditCard(mode : EditCardDialogMode,
                         wordA : String?, wordB : String?, color : UIColor?)
@@ -33,7 +33,7 @@ class EditCardViewController: UIViewController, UITextFieldDelegate
     public var mCard : TangoCard? = nil
     public var mMode : EditCardDialogMode = .Create
     
-    public var delegate : EditCardDialogCallbacks? = nil
+    public weak var delegate : EditCardDialogCallbacks? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()

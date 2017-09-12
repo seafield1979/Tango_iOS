@@ -115,6 +115,7 @@ public class UPageViewManager {
         UDrawManager.clearDebugPoint()
         
         self.mTopScene.removeAllChildren()
+        self.mTopScene.removeFromParent()
         
         // ナビゲーションに表示したボタンは毎回元に戻す
         showActionBarButton(show: false, title: nil)

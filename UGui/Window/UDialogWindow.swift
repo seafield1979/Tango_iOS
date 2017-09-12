@@ -29,7 +29,7 @@ public enum DialogPosType {
     case Center     // 中央に表示
 }
 
-public protocol UDialogCallbacks {
+public protocol UDialogCallbacks : class {
     func dialogClosed(dialog : UDialogWindow)
 }
 
@@ -71,8 +71,8 @@ public class UDialogWindow : UWindow {
     var textColor : UIColor
     var dialogColor : UIColor?
     
-    var buttonCallbacks : UButtonCallbacks?
-    var dialogCallbacks : UDialogCallbacks?
+    weak var buttonCallbacks : UButtonCallbacks?
+    weak var dialogCallbacks : UDialogCallbacks?
     var animationType : AnimationType = AnimationType.Opening
     var isAnimation = false
     

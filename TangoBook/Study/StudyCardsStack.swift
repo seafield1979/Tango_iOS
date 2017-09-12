@@ -37,7 +37,7 @@ public class StudyCardsStack : UDrawable {
     
     
     var mCardManager : StudyCardsManager? = nil
-    var cardsStackCallbacks : CardsStackCallbacks? = nil
+    weak var cardsStackCallbacks : CardsStackCallbacks? = nil
     var mStudyMode : StudyMode = .SlideOne
     
     // 表示前のCard

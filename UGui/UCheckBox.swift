@@ -11,7 +11,7 @@
 
 import SpriteKit
 
-public protocol UCheckBoxCallbacks {
+public protocol UCheckBoxCallbacks : class {
     /**
      * チェックされた時のイベント
      */
@@ -33,7 +33,7 @@ public class UCheckBox : UDrawable {
     private var checkedNode : SKSpriteNode?
     private var labelNode : SKLabelNode?
     
-    private var mCheckBoxCallbacks : UCheckBoxCallbacks?
+    private weak var mCheckBoxCallbacks : UCheckBoxCallbacks?
     public var isChecked : Bool = false
     private var mBoxWidth : CGFloat
     private var mText : String?

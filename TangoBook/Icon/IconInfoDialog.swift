@@ -89,7 +89,7 @@ public class IconInfoDialog : UWindow {
     /**
      * Member Variables
      */
-    var mIconInfoCallbacks : IconInfoDialogCallbacks? = nil
+    weak var mIconInfoCallbacks : IconInfoDialogCallbacks? = nil
 
     // ダイアログに情報を表示元のアイコン
     var mIcon : UIcon

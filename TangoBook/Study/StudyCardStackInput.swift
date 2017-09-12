@@ -26,7 +26,7 @@ public class StudyCardStackInput : UDrawable {
 
     // MARK: Properties
     private var mCardManager : StudyCardsManager?
-    private var cardsStackCallbacks : CardsStackCallbacks?
+    private weak var cardsStackCallbacks : CardsStackCallbacks?
     private var mCanvasW : CGFloat
     private var mStudyMode : StudyMode = .Input
     private var mStudyCard : StudyCardInput?

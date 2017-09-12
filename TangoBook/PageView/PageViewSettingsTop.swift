@@ -77,7 +77,7 @@ public class PageViewSettingsTop : UPageView, UButtonCallbacks {
      * Member variables
      */
     // Buttons
-    private var mButtons : [UButtonText] = []
+    private var mButtons : [UButtonText?] = []
 
     
     /**
@@ -95,7 +95,11 @@ public class PageViewSettingsTop : UPageView, UButtonCallbacks {
     }
     
     override func onHide() {
-        super.onHide();
+        super.onHide()
+        
+        for i in 0..<mButtons.count {
+            mButtons[i] = nil
+        }
     }
     
     /**

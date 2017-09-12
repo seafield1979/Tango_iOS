@@ -23,7 +23,7 @@ import RealmSwift
  * XmlManagerのスレッド処理完了時のコールバックメソッド
  */
 
-public protocol XmlBackupCallbacks {
+public protocol XmlBackupCallbacks : class {
     
     /**
      * バックアップ処理完了
@@ -139,7 +139,7 @@ public class BackupManager {
     private let WRITE_BUF_SIZE : Int = 1000 // 書き込みバッファー
 
     // MARK: Properties
-    private var mCallbacks : XmlBackupCallbacks?  // バックアップ完了のコールバック
+    private weak var mCallbacks : XmlBackupCallbacks?  // バックアップ完了のコールバック
     private var mSaveSlot : Int = 0                  // マニュアルバックアップのスロット番号
 
     // バックアップ情報

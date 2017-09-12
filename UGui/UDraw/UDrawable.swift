@@ -29,15 +29,12 @@ public enum MovingType {
 }
 
 public class UDrawable {
-    /**
-     * Constants
-     */
+    
+    // MARK: Constants
     private static let TAG = "UDrawable"
     public static let RAD : CGFloat = 3.1415 / 180.0
     
-    /**
-     * Member variables
-     */
+    // MARK: Properties
     // SpriteKit
     public var parentNode : SKNode
     public var debugNode : SKNode?
@@ -93,17 +90,22 @@ public class UDrawable {
         parentNode.zPosition = CGFloat(priority)
         parentNode.position = pos
         
-        // debug
-//        if UDebug.isDebug {
-//            debugNode = SKNodeUtil.createCrossPoint(type: .Type1, pos: CGPoint(), length: 10.0, lineWidth: 2.0, color: .red, zPos: 1000)
-//            parentNode.addChild2(debugNode!)
-//        }
         updateRect()
     }
-    
+
     /**
-     *  Get/Set
+     * 解放処理
      */
+    deinit {
+        print("UDrawable.deinit")
+        
+        parentNode.removeAllChildren()
+        parentNode.removeFromParent()
+        removeFromDrawManager()
+    }
+
+    
+    // MARK: Accessor
     public func getX() -> CGFloat {
         return pos.x
     }

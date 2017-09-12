@@ -22,7 +22,7 @@ public class UMenuBar : UWindow {
     static let MARGIN_TOP = 5
     
     
-    var mMenuItemCallbacks : UMenuItemCallbacks? = nil
+    weak var mMenuItemCallbacks : UMenuItemCallbacks? = nil
     var topItems : List<UMenuItem> = List()
     var items : List<UMenuItem> = List()
     var mDrawList : UDrawList? = nil

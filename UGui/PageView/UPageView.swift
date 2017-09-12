@@ -41,13 +41,16 @@ public class UPageView {
         return mTitle
     }
     
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init(topScene: TopScene, pageId: Int, title : String) {
         mTopScene = topScene
         mTitle = title
         mPageId = pageId
+    }
+    
+    // MARK: Deinitializer
+    deinit {
+        print("UPageView.deinit:" + mTitle)
     }
     
     /**
@@ -76,6 +79,11 @@ public class UPageView {
     func draw() -> Bool {
         if isFirst {
             isFirst = false
+            
+            // 古い表示を全てクリア
+            UDrawManager.getInstance().removeAll()
+            TopScene.getInstance().removeAllChildren()
+            
             initDrawables()
         }
         return false

@@ -56,6 +56,10 @@ public class PageViewManagerMain : UPageViewManager {
         _ = stackPage(pageId: PageIdMain.Title.rawValue)
     }
     
+    deinit {
+        print("PageViewManagerMain.deinit")
+    }
+    
     /**
      * 配下のページを追加する
      */

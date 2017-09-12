@@ -58,6 +58,14 @@ public class UButtonText : UButton {
         }
     }
     
+    deinit {
+        // SpriteKitのノードは手動で解放しないとメモリリークする
+        print("UButtonText.deinit")
+        parentNode.removeAllChildren()
+        parentNode.removeFromParent()
+        removeFromDrawManager()
+    }
+    
     /**
      * SpriteKitのノードを作成する
      */

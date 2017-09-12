@@ -44,7 +44,7 @@ public class StudyCardStackSelect : UDrawable {
      * Member Variables
      */
     private var mCardManager : StudyCardsManager
-    private var cardsStackCallbacks : CardsStackCallbacks?
+    private weak var cardsStackCallbacks : CardsStackCallbacks?
     private var mScreenW : CGFloat = 0
     private var mStudyMode : StudyMode = .Choice4
     private var mStudyType : StudyType = .EtoJ

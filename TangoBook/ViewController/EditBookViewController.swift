@@ -12,7 +12,7 @@ import UIKit
 /**
  単語帳編集ダイアログが終了した時に呼ばれるコールバック
  */
-public protocol EditBookDialogCallbacks {
+public protocol EditBookDialogCallbacks : class {
     // 単語帳情報が更新された時に呼ばれる
     func submitEditBook(mode : EditBookDialogMode,
                         name : String?, comment : String?, color : UIColor?)
@@ -35,7 +35,7 @@ class EditBookViewController: UIViewController, UITextFieldDelegate {
     public var mBook : TangoBook? = nil
     public var mMode : EditBookDialogMode = .Create
 
-    public var delegate : EditBookDialogCallbacks? = nil
+    public weak var delegate : EditBookDialogCallbacks? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()

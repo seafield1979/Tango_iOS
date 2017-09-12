@@ -8,7 +8,7 @@
 //
 
 import UIKit
-public protocol CardsStackCallbacks {
+public protocol CardsStackCallbacks : class {
     /**
      * 残りのカード枚数が変わった
      * @param cardNum

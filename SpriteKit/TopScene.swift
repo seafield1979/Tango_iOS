@@ -190,7 +190,8 @@ public class TopScene: SKScene {
 
         switch mode {
         case .None:
-            parentView!.preferredFramesPerSecond = DEFULT_FPS
+            //parentView!.preferredFramesPerSecond = DEFULT_FPS
+            parentView!.isPaused = false
             
             if let n = dimPanel {
                 n.removeFromParent()
@@ -199,11 +200,10 @@ public class TopScene: SKScene {
             mLastTouchedTime = Date().timeIntervalSince1970
         case .Mode1:
             // FPSを低下させる
-            parentView!.preferredFramesPerSecond = POWER_SAVING_FPS_1
+            parentView!.isPaused = true
             
         case .Mode2:
-            // FPSを超低下させる
-            parentView!.preferredFramesPerSecond = POWER_SAVING_FPS_2
+            parentView!.isPaused = true
             
             // 画面を暗くする
             dimPanel = SKShapeNode(rect: CGRect(x:0, y:0, width: self.frame.size.width, height: self.frame.size.height).convToSK())

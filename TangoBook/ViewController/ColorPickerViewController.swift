@@ -22,7 +22,7 @@ public enum ColorPickerMode : Int, EnumEnumerable{
 /**
  *  DialogFragmentのコールバック
  */
-protocol OptionColorDialogCallbacks {
+protocol OptionColorDialogCallbacks : class {
     func submitOptionColor( color: UIColor, mode : ColorPickerMode )
     func cancelOptionColor()
 }
@@ -33,7 +33,7 @@ class ColorPickerViewController: UIViewController {
     @IBOutlet weak var currentColorView: UIView!
     @IBOutlet weak var colorScrollView: UIScrollView!
     
-    public var delegate : OptionColorDialogCallbacks? = nil
+    public weak var delegate : OptionColorDialogCallbacks? = nil
     public var mMode : ColorPickerMode = .Book
     
     override func viewDidLoad() {

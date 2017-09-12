@@ -37,7 +37,7 @@ public enum TangoEditActionId : Int, EnumEnumerable {
 /**
  * IconInfoDialogのコールバック
  */
-public protocol IconInfoDialogCallbacks {
+public protocol IconInfoDialogCallbacks : class {
     /**
      * ダイアログで表示しているアイコンの内容を編集
      * @param icon

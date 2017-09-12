@@ -270,6 +270,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                     _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.Settings.rawValue)
                 
                 case .Debug:
+//                    testPageView()
                     _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.Debug.rawValue)
                 
             }
@@ -303,6 +304,27 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
          }
         mToast = UToast.makeText( text: UDpi.getScaleText(), duration: 2.0)
         mToast!.show()
+    }
+    
+    private func testPageView() {
+        let manager = PageViewManagerMain.getInstance()
+        
+        var page1 : UPageView? = PageViewDebug(topScene: mTopScene, title: "page1")
+        manager.stackPage(pageView: page1!)
+        page1 = nil
+        
+        var page2 : UPageView? = PageViewDebug(topScene: mTopScene, title: "page2")
+        manager.stackPage(pageView: page2!)
+        page2 = nil
+        
+        _ = manager.popPage()
+        
+        var page3 : UPageView? = PageViewDebug(topScene: mTopScene, title: "page3")
+        manager.stackPage(pageView: page3!)
+        page3 = nil
+        
+        manager.popPage()
+        manager.popPage()
     }
 }
 
