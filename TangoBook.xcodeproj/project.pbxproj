@@ -39,6 +39,8 @@
 		8A19F4481F590A6400356394 /* SaveItemPos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A19F4471F590A6400356394 /* SaveItemPos.swift */; };
 		8A19F44A1F590B1800356394 /* SaveStudiedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A19F4491F590B1800356394 /* SaveStudiedCard.swift */; };
 		8A1BE34A1F593B7900EA8226 /* UCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1BE3491F593B7900EA8226 /* UCheckBox.swift */; };
+		8A202F701F695DEE00072788 /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A202F6F1F695DEE00072788 /* AppStrings.swift */; };
+		8A202F721F6963D000072788 /* add2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A202F711F6963D000072788 /* add2.png */; };
 		8A2584AC1F3209C3002EE9E2 /* EditCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A2584AE1F3209C3002EE9E2 /* EditCardViewController.xib */; };
 		8A2DA70B1F53A30D00FCB0C4 /* RegExp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DA70A1F53A30D00FCB0C4 /* RegExp.swift */; };
 		8A2DA70D1F552A7900FCB0C4 /* Date+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DA70C1F552A7900FCB0C4 /* Date+ex.swift */; };
@@ -385,6 +387,10 @@
 		8A19F4471F590A6400356394 /* SaveItemPos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SaveItemPos.swift; path = TangoBook/Database/SaveItemPos.swift; sourceTree = "<group>"; };
 		8A19F4491F590B1800356394 /* SaveStudiedCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SaveStudiedCard.swift; path = TangoBook/Database/SaveStudiedCard.swift; sourceTree = "<group>"; };
 		8A1BE3491F593B7900EA8226 /* UCheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UCheckBox.swift; sourceTree = "<group>"; };
+		8A202F6D1F695D8900072788 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8A202F6E1F695D8B00072788 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8A202F6F1F695DEE00072788 /* AppStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
+		8A202F711F6963D000072788 /* add2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add2.png; sourceTree = "<group>"; };
 		8A2584AD1F3209C3002EE9E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EditCardViewController.xib; sourceTree = "<group>"; };
 		8A2DA70A1F53A30D00FCB0C4 /* RegExp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegExp.swift; sourceTree = "<group>"; };
 		8A2DA70C1F552A7900FCB0C4 /* Date+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+ex.swift"; sourceTree = "<group>"; };
@@ -596,7 +602,6 @@
 		8AB7E9481F25A00F005E36BB /* PageViewStudySelect4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewStudySelect4.swift; path = PageView/PageViewStudySelect4.swift; sourceTree = "<group>"; };
 		8AB7E9491F25A00F005E36BB /* PageViewTangoEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewTangoEdit.swift; path = PageView/PageViewTangoEdit.swift; sourceTree = "<group>"; };
 		8AB7E95D1F25A2AF005E36BB /* PageViewTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewTitle.swift; path = PageView/PageViewTitle.swift; sourceTree = "<group>"; };
-		8AB7E9641F25B441005E36BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8AB7E9651F25B52A005E36BB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8AB7E9691F25E12E005E36BB /* TopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopViewController.swift; path = ViewController/TopViewController.swift; sourceTree = "<group>"; };
 		8AB7E9701F278CE2005E36BB /* UIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIcon.swift; path = Icon/UIcon.swift; sourceTree = "<group>"; };
@@ -814,6 +819,7 @@
 			isa = PBXGroup;
 			children = (
 				8A5708241F373D27004387D4 /* add.png */,
+				8A202F711F6963D000072788 /* add2.png */,
 				8A5708251F373D27004387D4 /* arrow_d.png */,
 				8A5708261F373D27004387D4 /* arrow_l.png */,
 				8A5708271F373D27004387D4 /* arrow_r.png */,
@@ -1221,6 +1227,7 @@
 		8AE08AA11F2580D70024E9B7 /* UUtil */ = {
 			isa = PBXGroup;
 			children = (
+				8A202F6F1F695DEE00072788 /* AppStrings.swift */,
 				8AE08AA21F2580D70024E9B7 /* EnumEnumerable.swift */,
 				8AE08AA31F2580D70024E9B7 /* List.swift */,
 				8AE08AA41F2580D70024E9B7 /* MyUserDefault.swift */,
@@ -1603,6 +1610,7 @@
 				8A5709331F373D28004387D4 /* number_6.png in Resources */,
 				8A57094A1F373D28004387D4 /* text.png in Resources */,
 				8AF1A56E1F4722B800B47000 /* TopScene.sks in Resources */,
+				8A202F721F6963D000072788 /* add2.png in Resources */,
 				8A5708F11F373D27004387D4 /* help_card_info3.png in Resources */,
 				8A5709411F373D28004387D4 /* sort_by_alphabet2_asc.png in Resources */,
 				8A5708D11F373D27004387D4 /* backup_page_restore.png in Resources */,
@@ -1746,6 +1754,7 @@
 				8A0D6FB41F319765002A1949 /* EditBookViewController.swift in Sources */,
 				8A0F64421F4FC9750019BAC7 /* DialogCard.swift in Sources */,
 				8AD6313C1F2B94CE0067B57E /* IconInfoDialogCard.swift in Sources */,
+				8A202F701F695DEE00072788 /* AppStrings.swift in Sources */,
 				8A6087781F4BF16E00259191 /* UIconWindowButtons.swift in Sources */,
 				8A5709661F3767D8004387D4 /* ListViewResult.swift in Sources */,
 				8AB7E9581F25A00F005E36BB /* PageViewStudyBookSelect.swift in Sources */,
@@ -1852,8 +1861,9 @@
 		8AB7E9631F25B43E005E36BB /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				8AB7E9641F25B441005E36BB /* en */,
 				8AB7E9651F25B52A005E36BB /* ja */,
+				8A202F6D1F695D8900072788 /* Base */,
+				8A202F6E1F695D8B00072788 /* en */,
 			);
 			name = Localizable.strings;
 			path = Resource;
@@ -1978,7 +1988,7 @@
 				INFOPLIST_FILE = TangoBook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sunsunsoft.TangoBook;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "C単語帳";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1994,7 +2004,7 @@
 				INFOPLIST_FILE = TangoBook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sunsunsoft.TangoBook;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "C単語帳";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

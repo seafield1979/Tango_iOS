@@ -10,6 +10,7 @@ import Foundation
 
 public enum ImageName : String {
     case add = "add.png"
+    case add2 = "add2.png"
     case arrow_d = "arrow_d.png"
     case arrow_l = "arrow_l.png"
     case arrow_r = "arrow_r.png"

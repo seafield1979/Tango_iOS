@@ -27,7 +27,7 @@ public class MenuBarTangoEdit : UMenuBar {
         var type : MenuItemType
         var imageName : ImageName
         var stringName : String
-        var color : UIColor
+        var color : UIColor?
         var forDebug : Bool
     }
     
@@ -59,7 +59,7 @@ public class MenuBarTangoEdit : UMenuBar {
         pos.x = parentW - UDpi.toPixel(UMenuItem.ITEM_W + UMenuBar.MARGIN_H)
         parentNode.position = pos
 
-        itemInfos.append( MenuItemInfo(id: MenuItemId.AddTop, type: MenuItemType.Top, imageName: ImageName.add, stringName: "add_item", color: UIColor.blue, forDebug: false))
+        itemInfos.append( MenuItemInfo(id: MenuItemId.AddTop, type: MenuItemType.Top, imageName: ImageName.add2, stringName: "", color: nil, forDebug: false))
         
         itemInfos.append( MenuItemInfo(id: MenuItemId.AddCard, type: MenuItemType.Child, imageName: ImageName.card, stringName: "add_card", color: ICON_COLOR, forDebug: false))
         
@@ -70,8 +70,6 @@ public class MenuBarTangoEdit : UMenuBar {
         itemInfos.append(MenuItemInfo(id: MenuItemId.AddDummyBook, type: MenuItemType.Child, imageName: ImageName.number_2, stringName: "add_dummy_book", color: ICON_COLOR, forDebug: true))
         
         itemInfos.append( MenuItemInfo(id: MenuItemId.AddPresetBook, type: MenuItemType.Child, imageName: ImageName.cards, stringName: "add_preset", color: ICON_COLOR, forDebug: false))
-        
-//        itemInfos.append( MenuItemInfo(id: MenuItemId.AddCsvBook, type: MenuItemType.Child, imageName: ImageName.cards, stringName: "add_csv", color: ICON_COLOR, forDebug: false))
     }
 
     /**
@@ -116,8 +114,12 @@ public class MenuBarTangoEdit : UMenuBar {
                 continue
             }
             
-            let image : UIImage = UResourceManager.getImageWithColor(imageName: itemInfo.imageName, color: itemInfo
-                .color)!
+            let image : UIImage
+            if let color = itemInfo.color {
+                image = UResourceManager.getImageWithColor(imageName: itemInfo.imageName, color: color)!
+            } else {
+                image = UResourceManager.getImageByName(itemInfo.imageName)!
+            }
             
             switch itemInfo.type {
             case .Top:
