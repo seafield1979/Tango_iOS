@@ -24,26 +24,20 @@ public class UIconManager : UIconCallbacks {
         case CreateDateDesc  // 更新日時 降順
     }
 
-    /**
-    * Consts
-    */
+    // MARK: Constants
     public static let TAG = "UIconManager"
 
-    /**
-    * Member Variables
-    */
-    private var mParentWindow : UIconWindow? = nil
-    private weak var mIconCallbacks : UIconCallbacks? = nil
+    // MARK: Properties
+    private weak var mParentWindow : UIconWindow?
+    private weak var mIconCallbacks : UIconCallbacks?
     private var icons : List<UIcon> = List()
-    private var mBlockManager : UIconsBlockManager? = nil
+    private var mBlockManager : UIconsBlockManager?
 
-    private var selectedIcon : UIcon? = nil
-    private var dropedIcon : UIcon? = nil       // アイコンをドロップ中のアイコン
-    private var mTrashIcon : UIcon? = nil
+    private var selectedIcon : UIcon?
+    private var dropedIcon : UIcon?       // アイコンをドロップ中のアイコン
+    private var mTrashIcon : UIcon?
 
-    /**
-    * Get/Set
-    */
+    // MARK: Accessor
     public func getIcons() -> List<UIcon> {
         return icons
     }
@@ -104,13 +98,13 @@ public class UIconManager : UIconCallbacks {
         return checkedIcons
     }
 
-     /**
-     * Constructor
-     */
-     public func getBlockManager() -> UIconsBlockManager? {
-         return mBlockManager
-     }
+    
+    public func getBlockManager() -> UIconsBlockManager? {
+        return mBlockManager
+    }
 
+    
+    // MARK: Initializer
     public static func createInstance( parentWindow : UIconWindow, iconCallbacks : UIconCallbacks?) -> UIconManager
     {
          let instance = UIconManager()
@@ -120,6 +114,10 @@ public class UIconManager : UIconCallbacks {
          instance.mBlockManager = UIconsBlockManager.createInstance(icons: instance.icons)
          return instance
      }
+    
+    deinit {
+        print("UIconManager.deinit")
+    }
 
      /**
      * 指定タイプのアイコンを作成してから追加

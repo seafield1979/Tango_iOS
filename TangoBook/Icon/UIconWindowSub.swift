@@ -110,6 +110,15 @@ public class UIconWindowSub : UIconWindow {
         // 閉じるボタンは表示しない
         closeIcon = nil
     }
+    
+    deinit {
+        print("UIconWindowSub.deinit")
+        
+        mParentIcon = nil
+        mBookButtons = nil
+        mTrashButtons = nil
+        mTitleView = nil
+    }
 
     // MARK: Methods
     public override func initialize() {

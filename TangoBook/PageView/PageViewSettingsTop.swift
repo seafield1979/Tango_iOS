@@ -97,9 +97,7 @@ public class PageViewSettingsTop : UPageView, UButtonCallbacks {
     override func onHide() {
         super.onHide()
         
-        for i in 0..<mButtons.count {
-            mButtons[i] = nil
-        }
+        mButtons.removeAll()
     }
     
     /**

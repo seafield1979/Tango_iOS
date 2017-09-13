@@ -52,14 +52,6 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
     
     deinit {
         print("PageViewDebugDB:deinit")
-        
-        if let listView = mListView {
-            listView.removeFromDrawManager()
-        }
-
-        if let dialog = mDialog {
-            dialog.removeFromDrawManager()
-        }
     }
     
     /**
@@ -209,7 +201,10 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
     }
     
     override func onHide() {
-        super.onHide();
+        super.onHide()
+        
+        mListView = nil
+        mDialog = nil
     }
     
     /**

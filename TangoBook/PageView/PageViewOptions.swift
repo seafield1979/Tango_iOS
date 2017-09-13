@@ -65,6 +65,10 @@ public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, Op
     
     override func onHide() {
         super.onHide()
+        
+        mTitleText = nil
+        mListView = nil
+        mDialog = nil
     }
     
     /**

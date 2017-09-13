@@ -197,6 +197,7 @@ class UDrawManager {
         for list : UDrawList in lists!.values {
             list.removeAll()
         }
+        lists!.removeAll()
     }
 
      

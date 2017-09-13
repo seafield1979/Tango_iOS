@@ -35,6 +35,10 @@ class UIconWindowButtons : UDrawable {
         super.init( priority: priority, x: x, y: y, width: 0, height: 0)
     }
     
+    deinit {
+        print("UIconWindowButtons.deinit")
+        mButtons.removeAll()
+    }
     
     // MARK: Methods
     

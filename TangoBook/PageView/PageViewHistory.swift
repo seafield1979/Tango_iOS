@@ -46,6 +46,9 @@ public class PageViewHistory : UPageView, UDialogCallbacks, UButtonCallbacks, UL
 
     public override func onHide() {
         super.onHide()
+        
+        mListView = nil
+        mDialog = nil
     }
 
     /**

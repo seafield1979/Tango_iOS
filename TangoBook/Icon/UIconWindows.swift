@@ -4,7 +4,7 @@
 //
 //  複数のUIconWindowを管理する
 //  Window間でアイコンのやり取りを行ったりするのに使用する
-//  想定はメインWindowが１つにサブWindowが１つ
+//  想定はメインWindowとサブWindowで２つ
 //
 //  Created by Shusuke Unno on 2017/07/25.
 //  Copyright © 2017年 Sun Sun Soft. All rights reserved.
@@ -18,36 +18,30 @@ public class UIconWindows : UWindowCallbacks {
        case Portlait       // 縦長
    }
    
-    /**
-    * Consts
-    */
-   public static let TAG = "UIconWindows"
-   public static let MOVING_FRAME = 12
+    // MARK: Constants
+    public static let TAG = "UIconWindows"
+    public static let MOVING_FRAME = 12
    
-   /**
-    * Member Variables
-    */
-    private var windows : List<UIconWindow> = List()
-    private var mainWindow : UIconWindow
-    private var subWindow : UIconWindowSub
+    // MARK: Properties
+    private weak var mWindows : List<UIconWindow>?
+    private weak var mMainWindow : UIconWindow?
+    private weak var mSubWindow : UIconWindowSub?
     private var size = CGSize()
     private var directionType = DirectionType.Portlait
 
     public static var publicInstance : UIconWindows? = nil
 
-    /**
-    * Get/Set
-    */
-    public func getMainWindow() -> UIconWindow? {
-       return mainWindow
+    // MARK: Accessor
+    public func getMainWindow() -> UIconWindow {
+       return mMainWindow!
     }
 
     public func getSubWindow() -> UIconWindowSub {
-       return subWindow
+       return mSubWindow!
     }
 
-    public func getWindows() -> List<UIconWindow>? {
-       return windows
+    public func getWindows() -> List<UIconWindow> {
+       return mWindows!
     }
 
     // デバッグ用のどこからでも参照できるインスタンス
@@ -55,49 +49,43 @@ public class UIconWindows : UWindowCallbacks {
        return publicInstance!
     }
 
-    /**
-    * Constructor
-    * インスタンスの生成はcreateInstanceを使用すること
-    */
-    private init(mainWindow : UIconWindow,
-                 subWindow : UIconWindowSub,
-                 screenW : CGFloat, screenH : CGFloat)
+    // MARK: Initializer
+    // インスタンスの生成はcreateInstanceを使用すること
+    private init( windows : List<UIconWindow>,
+        screenW : CGFloat, screenH : CGFloat)
     {
         self.size = CGSize(width: screenW, height: screenH)
         self.directionType = (screenW > screenH) ? DirectionType.Landscape : DirectionType
         .Portlait
-        self.mainWindow = mainWindow
-        self.subWindow = subWindow
-        
-        self.windows.append(mainWindow)
-        self.windows.append(subWindow)
+        mWindows = windows
+        mMainWindow = windows[0]
+        mSubWindow = windows[1] as! UIconWindowSub
         
         // 初期配置(HomeWindowで画面が占有されている)
-        mainWindow.setPos(0, 0, convSKPos: true)
-        mainWindow.setSize(screenW, screenH)
+        mMainWindow!.setPos(0, 0, convSKPos: true)
+        mMainWindow!.setSize(screenW, screenH)
         if self.directionType == DirectionType.Landscape {
-            subWindow.setPos(screenW, 0, convSKPos: true)
+            mSubWindow!.setPos(screenW, 0, convSKPos: true)
         } else {
-            subWindow.setPos(0, screenH, convSKPos: true)
+            mSubWindow!.setPos(0, screenH, convSKPos: true)
         }
     }
 
-    public static func createInstance(mainWindow : UIconWindow,
-                                      subWindow : UIconWindowSub,
+    public static func createInstance(windows : List<UIconWindow>,
                                       screenW : CGFloat, screenH : CGFloat) -> UIconWindows
     {
-        let instance = UIconWindows(mainWindow: mainWindow,
-                                    subWindow: subWindow,
-                                    screenW : screenW, screenH : screenH)
+        let instance = UIconWindows(windows: windows, screenW : screenW, screenH : screenH)
         
         publicInstance = instance
         
         return instance
     }
+    
+    deinit {
+        print("UIconWindows.deinit")
+    }
 
-    /**
-     * Methods
-     */
+    // MARK: Methods
     
     /**
      * Windowを表示する
@@ -133,7 +121,7 @@ public class UIconWindows : UWindowCallbacks {
      */
     private func updateLayout(animation : Bool) {
         let showWindows : List<UIconWindow> = List()
-        for _window in windows {
+        for _window in mWindows! {
             if _window!.isAppearance {
                 showWindows.append(_window!)
             }
@@ -156,31 +144,31 @@ public class UIconWindows : UWindowCallbacks {
         // 座標を設定する
         if animation {
             // Main
-            mainWindow.setPos(0, 0, convSKPos: true)
-            mainWindow.startMovingSize(dstW: width, dstH: height, frame: UIconWindows.MOVING_FRAME)
+            mMainWindow!.setPos(0, 0, convSKPos: true)
+            mMainWindow!.startMovingSize(dstW: width, dstH: height, frame: UIconWindows.MOVING_FRAME)
             
             // Sub
-            if subWindow.isAppearance {
+            if mSubWindow!.isAppearance {
                 // appear
                 if directionType == DirectionType.Landscape {
-                    subWindow.setPos(size.width, 0, convSKPos: true)
-                    subWindow.startMoving(dstX: width, dstY: 0,
+                    mSubWindow!.setPos(size.width, 0, convSKPos: true)
+                    mSubWindow!.startMoving(dstX: width, dstY: 0,
                                           dstW: width, dstH: height,
                                           frame: UIconWindows.MOVING_FRAME)
                 } else {
-                    subWindow.setPos(0, size.height, convSKPos: true)
-                    subWindow.startMoving(dstX: 0, dstY: height,
+                    mSubWindow!.setPos(0, size.height, convSKPos: true)
+                    mSubWindow!.startMoving(dstX: 0, dstY: height,
                                           dstW: width, dstH: height,
                                           frame: UIconWindows.MOVING_FRAME)
                 }
             } else {
                 // disappear
                 if (directionType == DirectionType.Landscape) {
-                    subWindow.startMoving(dstX: size.width, dstY: 0,
+                    mSubWindow!.startMoving(dstX: size.width, dstY: 0,
                                           dstW: 0, dstH: height,
                                           frame: UIconWindows.MOVING_FRAME);
                 } else {
-                    subWindow.startMoving(dstX: 0, dstY: size.height,
+                    mSubWindow!.startMoving(dstX: 0, dstY: size.height,
                                           dstW: width, dstH: 0,
                                           frame: UIconWindows.MOVING_FRAME);
                 }
@@ -203,7 +191,7 @@ public class UIconWindows : UWindowCallbacks {
      * 全てのウィンドウのカードの表示を更新する
      */
     public func resetCardTitle() {
-        for window in windows {
+        for window in mWindows! {
             let icons : List<UIcon>? = window!.getIcons()
             
             if icons == nil {
@@ -219,7 +207,7 @@ public class UIconWindows : UWindowCallbacks {
      * 全てのアイコンのドロップ状態をクリアする
      */
     public func clearDroped() {
-        for window in windows {
+        for window in mWindows! {
             let icons : List<UIcon>? = window!.getIcons()
             
             if icons == nil {
@@ -235,7 +223,7 @@ public class UIconWindows : UWindowCallbacks {
      * 全てのアイコンの情報を表示する for Debug
      */
     public func showAllIconsInfo() {
-        for window in windows {
+        for window in mWindows! {
             let icons : List<UIcon>? = window!.getIcons()
             var pos = 1
             if icons == nil {
@@ -256,7 +244,7 @@ public class UIconWindows : UWindowCallbacks {
      */
     public func windowClose( window : UWindow ) {
         // Windowを閉じる
-        for _window in windows {
+        for _window in mWindows! {
             if window === _window! {
                 _ = hideWindow(window: _window!, animation: true)
                 break

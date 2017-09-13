@@ -40,7 +40,7 @@ public class UButtonImage : UButton {
     var stateId : Int = 0          // 現在の状態
     var stateMax : Int = 0         // 状態の最大値 addState で増える
     
-    private var mTextTitle : UTextView? = nil
+    private var mTextTitle : UTextView?
     
     /**
      * Get/Set
@@ -115,6 +115,11 @@ public class UButtonImage : UButton {
                                   imageName: imageName,
                                   pressedImageName: pressedImageName)
         return button
+    }
+    
+    deinit {
+        print("UButtonImage.deinit")
+//        mTextTitle = nil
     }
     
     /**

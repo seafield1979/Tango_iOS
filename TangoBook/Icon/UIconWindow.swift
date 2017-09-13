@@ -77,24 +77,22 @@ public class UIconWindow : UWindow{
     let SELECTED_ICON_BG_COLOR = UColor.makeColor(80, 255, 100, 100)
 
 
-    /**
-    * Member veriables
-    */
+    // MARK: Properties
     var type = WindowType.Home
-    public var mIconManager : UIconManager? = nil
+    public var mIconManager : UIconManager?
     var basePos : CGPoint = CGPoint()
     var dir = WindowDir.Horizontal
 
     // 他のIconWindow
     // ドラッグで他のWindowにアイコンを移動するのに使用する
-    var windows : UIconWindows? = nil
+    weak var windows : UIconWindows?
 
     // Windowの親のタイプ
     var parentType = TangoParentType.Home
     var parentId : Int = 0
 
     // ドラッグ中のアイコン
-    var dragedIcon : UIcon? = nil
+    var dragedIcon : UIcon?
 
     var state = WindowState.none;
     var nextState = WindowState.none;
@@ -321,6 +319,13 @@ public class UIconWindow : UWindow{
             setIcons(parentType: TangoParentType.Home, parentId: 0)
          }
      }
+    
+    deinit {
+        print("UIconWindow.deinit")
+        mIconManager = nil
+        windows = nil
+        dragedIcon = nil
+    }
 
     // MARK: Methods
     
@@ -647,7 +652,7 @@ public class UIconWindow : UWindow{
         // 現在のドロップフラグをクリア
         mIconManager!.setDropedIcon(nil)
 
-        for window in windows!.getWindows()! {
+        for window in windows!.getWindows() {
             // ドラッグ中のアイコンが別のアイコンの上にあるかをチェック
             let dragPos = CGPoint( x: window!.toWinX(screenX: vt.x),
                                    y: window!.toWinY(screenY: vt.y))
@@ -714,7 +719,7 @@ public class UIconWindow : UWindow{
         let srcIcons : List<UIcon>? = getIcons()
         let subWindow = windows!.getSubWindow()
        
-        for window in windows!.getWindows()! {
+        for window in windows!.getWindows() {
             // Windowの領域外ならスキップ
             if !(window!.rect.contains(x: vt.x, y: vt.y)){
                 continue
@@ -758,7 +763,7 @@ public class UIconWindow : UWindow{
                 case .MoveIn:
                     moveIconIn(icon1: dragedIcon!, icon2: ret.dropedIcon!, update : false)
                     
-                    for win in windows!.getWindows()! {
+                    for win in windows!.getWindows() {
                         let manager : UIconManager? = win!.getIconManager()
                         if manager != nil {
                             manager!.updateBlockRect()
@@ -966,7 +971,7 @@ public class UIconWindow : UWindow{
         let srcIcons : List<UIcon> = getIcons()!
         let checkedIcons : List<UIcon> = mIconManager!.getCheckedIcons()
 
-        for window in windows!.getWindows()! {
+        for window in windows!.getWindows() {
             // Windowの領域外ならスキップ
             if !(window!.rect.contains(x: vt.x, y: vt.y)){
                  continue
@@ -1117,7 +1122,7 @@ public class UIconWindow : UWindow{
             moveIconsIntoBox(checkedIcons: icons, dropedIcon: dropedIcon!)
 
             // BlockRect更新
-            for win in windows!.getWindows()! {
+            for win in windows!.getWindows() {
                 let manager = win!.getIconManager()
                 if manager != nil {
                     manager!.updateBlockRect()
@@ -1591,7 +1596,7 @@ public class UIconWindow : UWindow{
      * @param isChecking
      */
     private func changeIconCheckedAll(isChecking : Bool) {
-        for window in windows!.getWindows()! {
+        for window in windows!.getWindows() {
             let icons : List<UIcon>? = window!.getIcons()
             changeIconChecked(icons: icons, isChecking: isChecking)
         }

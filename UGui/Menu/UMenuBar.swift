@@ -14,6 +14,7 @@ import UIKit
 /**
  */
 public class UMenuBar : UWindow {
+    // MARK: Constants
     public static let TAG = "UMenuBar"
     public static let DRAW_PRIORITY = 110
     public static let MENU_BAR_H = 60
@@ -21,15 +22,12 @@ public class UMenuBar : UWindow {
     static let MARGIN_H = 16
     static let MARGIN_TOP = 5
     
-    
+    // MARK: Properties
     weak var mMenuItemCallbacks : UMenuItemCallbacks? = nil
     var topItems : List<UMenuItem> = List()
-    var items : List<UMenuItem> = List()
-    var mDrawList : UDrawList? = nil
+    weak var items : List<UMenuItem>? = List()
     
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init( topScene: TopScene,
                  callbacks : UMenuItemCallbacks?,
                  parentW : CGFloat, parentH : CGFloat,
@@ -46,9 +44,13 @@ public class UMenuBar : UWindow {
         mMenuItemCallbacks = callbacks
     }
     
-    /**
-     * Methods
-     */
+    deinit {
+        print("UMenubar.deinit")
+        topItems.removeAll()
+        items?.removeAll()
+    }
+    
+    // MARK: Methods
     /**
      * メニューバーを初期化
      */
@@ -71,7 +73,7 @@ public class UMenuBar : UWindow {
         item.isShow = true
         
         topItems.append(item)
-        items.append(item)
+        items?.append(item)
         
         // 座標設定
         item.setPos(
@@ -98,7 +100,7 @@ public class UMenuBar : UWindow {
         
         parent.addItem(child: item)
         
-        items.append(item)
+        items?.append(item)
         return item
     }
     
@@ -194,11 +196,14 @@ public class UMenuBar : UWindow {
      * メニュー項目の座標をスクリーン座標で取得する
      */
     public func getItemPos(itemId : Int) -> CGPoint {
-        let item = items[itemId]
+        let item = items?[itemId]
         
-        let itemPos = item.getPos()
-        return CGPoint(x: toScreenX(winX: itemPos.x),
-                       y: toScreenY(winY: itemPos.y))
+        if let _item = item {
+            let itemPos = _item.getPos()
+            return CGPoint(x: toScreenX(winX: itemPos.x),
+                           y: toScreenY(winY: itemPos.y))
+        }
+        return CGPoint()
     }
     
     /**

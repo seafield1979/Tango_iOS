@@ -108,24 +108,20 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     private let MARGIN_H : CGFloat = 50
     private let DialogTextColor = UColor.makeColor(200,100,100)
 
-    /**
-     * Member varialbes
-     */
+    // MARK: Properties
     // Windows
-    private var mWindows : [UWindow?] = Array(repeating: nil, count: WindowType.count)
+//    private var mWindows : [UWindow?] = Array(repeating: nil, count: WindowType.count)
     // UIconWindow
-    private var mIconWinManager : UIconWindows? = nil
-
-    // MessageWindow
-    private var mLogWin : ULogWindow? = nil
+    private var mWindows : List<UIconWindow> = List()
+    private var mIconWindows : UIconWindows?
 
     // Dialog
-    private var mDialog : UDialogWindow? = nil
+    private var mDialog : UDialogWindow?
 
     // メニューバー
-    private var mMenuBar : MenuBarTangoEdit? = nil
+    private var mMenuBar : MenuBarTangoEdit?
 
-    private var mIconInfoDlg : IconInfoDialog? = nil
+    private var mIconInfoDlg : IconInfoDialog?
 
     // Fragmentで内容を編集中のアイコン
     private var editingIcon : UIcon? = nil
@@ -139,15 +135,16 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     // コピーアイコン
     private var mCopyIcon : UIcon? = nil
     
-    /**
-    * Get/Set
-    */
 
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init(topScene : TopScene, title : String) {
         super.init(topScene: topScene, pageId: PageIdMain.Edit.rawValue, title: title)
+    }
+    
+    deinit {
+        print("PageViewTangoEdit.deinit")
+        
+        
     }
     
     /**
@@ -163,6 +160,23 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     }
     public override func onHide() {
         super.onHide()
+        
+        // Windows
+//        for window in mWindows {
+//            window?.removeFromDrawManager()
+//        }
+//        mWindows.removeAll()
+        
+        mIconWindows = nil
+        
+        mDialog?.removeFromDrawManager()
+        mDialog = nil
+        
+        mIconInfoDlg = nil
+        editingIcon = nil
+        mThrowIcon = nil
+        mExportIcon = nil
+        mCopyIcon = nil
     }
 
     override func initDrawables() {
@@ -193,8 +207,8 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             height: size1.height, bgColor: UIColor.white)
 
         mainWindow.addToDrawManager()
-        mWindows[WindowType.Icon1.rawValue] = mainWindow
-      
+        mWindows.append( mainWindow )
+        
         // Sub
         let subWindow = UIconWindowSub(
             topScene: mTopScene,
@@ -205,14 +219,13 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         
         subWindow.addToDrawManager()
         subWindow.isShow = false
-        mWindows[WindowType.Icon2.rawValue] = subWindow
-
-        mIconWinManager = UIconWindows.createInstance(
-            mainWindow: mainWindow,
-            subWindow: subWindow,
+        mWindows.append( subWindow )
+        
+        mIconWindows = UIconWindows.createInstance(
+            windows: mWindows,
             screenW: width, screenH: height)
-        mainWindow.setWindows(mIconWinManager!)
-        subWindow.setWindows(mIconWinManager!)
+        mainWindow.setWindows(mIconWindows)
+        subWindow.setWindows(mIconWindows)
 
         // アイコンの登録はMainとSubのWindowを作成後に行う必要がある
         mainWindow.initialize()
@@ -223,8 +236,8 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             topScene: mTopScene, callbackClass: self,
             parentW: width, parentH: height, bgColor: nil)
         
-        mWindows[WindowType.MenuBar.rawValue] = mMenuBar!
-
+        //mWindows[WindowType.MenuBar.rawValue] = mMenuBar!
+        
     }
     
     public func setActionId(_ id : TangoEditActionId) {
@@ -266,27 +279,15 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
                         .TitleDesc)
                 window.sortIcons(animate: true)
             
-//            case .action_sort_time_asc:
-//                let window = getCurrentWindow()
-//                window.mIconManager!.sortWithMode(mode: UIconManager.SortMode
-//                        .CreateDateAsc)
-//                window.sortIcons(animate: true)
-//            
-//            case .action_sort_time_desc:
-//                let window = getCurrentWindow()
-//                window.mIconManager!.sortWithMode(mode: UIconManager.SortMode
-//                        .CreateDateDesc)
-//                window.sortIcons(animate: true)
-            
             case .action_card_name_a:
                 // カードアイコンの名前を英語で表示
                 MySharedPref.writeBool(key: MySharedPref.EditCardNameKey, value: false)
-                mIconWinManager!.resetCardTitle()
+                mIconWindows!.resetCardTitle()
             
             case .action_card_name_b:
                 // カードアイコンの名前を日本語で表示
                 MySharedPref.writeBool(key: MySharedPref.EditCardNameKey, value: true)
-                mIconWinManager!.resetCardTitle()
+                mIconWindows!.resetCardTitle()
             
             case .action_search_card:
                 _ = PageViewManagerMain.getInstance().stackPage(
@@ -325,10 +326,10 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         }
 
         // サブウィンドウが表示されていたら閉じる
-        if let manager = mIconWinManager {
+        if let manager = mIconWindows {
             let subWindow : UIconWindow = manager.getSubWindow()
             if subWindow.isShow {
-                if mIconWinManager!.hideWindow(window: subWindow, animation: true) {
+                if mIconWindows!.hideWindow(window: subWindow, animation: true) {
                     return true
                 }
             }
@@ -506,7 +507,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         var cardIcon : IconCard
     
         // Bookのサブウィンドウが開いていたらそちらに追加する
-        window = mIconWinManager!.getSubWindow()
+        window = mIconWindows!.getSubWindow()
         if window.isShow && window.getParentType() == TangoParentType.Book {
             // サブウィンドウに追加
             iconManager = window.getIconManager()!
@@ -518,7 +519,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
         } else {
             // メインウィンドウに追加
-            window = mIconWinManager!.getMainWindow()!
+            window = mIconWindows!.getMainWindow()
             iconManager = window.getIconManager()!
             cardIcon = iconManager.addNewIcon(type: IconType.Card,
                                               parentType:TangoParentType.Home,
@@ -535,7 +536,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     
     // book
     private func addBookIcon() -> IconBook? {
-        let window : UIconWindow = mIconWinManager!.getMainWindow()!
+        let window : UIconWindow = mIconWindows!.getMainWindow()
         let iconManager = window.getIconManager()
         let iconBook = iconManager!.addNewIcon(type: IconType.Book,
                                 parentType: TangoParentType.Home,
@@ -543,7 +544,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         
         // SpriteKitノード追加
         window.clientNode.addChild2( iconBook.parentNode )
-        mIconWinManager!.getMainWindow()!.sortIcons(animate: true)
+        mIconWindows!.getMainWindow().sortIcons(animate: true)
 
         return iconBook
     }
@@ -553,7 +554,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     * @param icon
     */
     private func moveIconToTrash(icon : UIcon) {
-        mIconWinManager!.getMainWindow()!.moveIconIntoTrash(icon: icon)
+        mIconWindows!.getMainWindow().moveIconIntoTrash(icon: icon)
         if mIconInfoDlg != nil {
              mIconInfoDlg!.closeWindow()
              mIconInfoDlg = nil
@@ -667,10 +668,10 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     * @return
     */
     private func getCurrentWindow() -> UIconWindow {
-        if mIconWinManager!.getSubWindow().isShow {
-            return mIconWinManager!.getSubWindow()
+        if mIconWindows!.getSubWindow().isShow {
+            return mIconWindows!.getSubWindow()
         }
-        return mIconWinManager!.getMainWindow()!
+        return mIconWindows!.getMainWindow()
     }
     
     /**
@@ -682,7 +683,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         // 配下のアイコンをSubWindowに表示する
         switch icon.getType() {
         case .Book:
-            let subWindow : UIconWindowSub = mIconWinManager!.getSubWindow()
+            let subWindow : UIconWindowSub = mIconWindows!.getSubWindow()
             subWindow.setIcons(
                 parentType: .Book,
                 parentId: icon.getTangoItem()!.getId())
@@ -690,18 +691,18 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             subWindow.setActionButtons(.Book)
 
             // SubWindowを画面外から移動させる
-            mIconWinManager!.showWindow(window: subWindow, animation: true)
+            mIconWindows!.showWindow(window: subWindow, animation: true)
         
         case .Trash:
-            let subWindow : UIconWindowSub = mIconWinManager!.getSubWindow()
+            let subWindow : UIconWindowSub = mIconWindows!.getSubWindow()
             subWindow.setIcons(
                 parentType: .Trash,
                 parentId: 0)
-            mIconWinManager!.getSubWindow().setParentIcon(icon: icon)
+            mIconWindows!.getSubWindow().setParentIcon(icon: icon)
             subWindow.setActionButtons(.Trash)
 
             // SubWindowを画面外から移動させる
-            mIconWinManager!.showWindow(window: subWindow, animation: true)
+            mIconWindows!.showWindow(window: subWindow, animation: true)
         default:
             break
         }
@@ -712,9 +713,9 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     */
     public func windowClose(window : UWindow) {
         // Windowを閉じる
-        for _window in mIconWinManager!.getWindows()! {
+        for _window in mIconWindows!.getWindows() {
             if window === _window {
-                _ = mIconWinManager!.hideWindow(window: _window!, animation: true)
+                _ = mIconWindows!.hideWindow(window: _window!, animation: true)
                 break
             }
         }
@@ -730,7 +731,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     public func UButtonClicked(id : Int, pressedOn : Bool) -> Bool{
         switch (id) {
         case CleanupDialogButtonOK:
-            let win : UIconWindow = mIconWinManager!.getSubWindow()
+            let win : UIconWindow = mIconWindows!.getSubWindow()
             // ゴミ箱を空にする
             _ = TangoItemPosDao.deleteItemsInTrash()
             win.getIcons()!.removeAll()
@@ -739,12 +740,12 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             win.removeIconsNode()
 
             mDialog!.closeDialog()
-            //mIconWinManager!.getSubWindow().sortIcons(animate: false)
+            //mIconWindows!.getSubWindow().sortIcons(animate: false)
             return true
         case TrashDialogButtonOK:
             // 単語帳をゴミ箱に捨てる
             moveIconToTrash(icon: mThrowIcon!)
-            let subWindow : UIconWindowSub = mIconWinManager!.getSubWindow()
+            let subWindow : UIconWindowSub = mIconWindows!.getSubWindow()
             if subWindow.isShow {
                 if subWindow.getWindowCallbacks() != nil {
                     subWindow.getWindowCallbacks()!.windowClose(window: subWindow)
@@ -755,8 +756,8 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
 
         case ButtonIdMoveIconsToTrash:
             // チェックしたアイコンをゴミ箱に移動する
-            let trashIcon : UIcon = mIconWinManager!.getMainWindow()!.getIconManager()!.getTrashIcon()!
-            for window in mIconWinManager!.getWindows()! {
+            let trashIcon : UIcon = mIconWindows!.getMainWindow().getIconManager()!.getTrashIcon()!
+            for window in mIconWindows!.getWindows() {
                 let icons : List<UIcon> = window!.getIconManager()!.getCheckedIcons()
                 if icons.count > 0 {
                     window!.moveIconsIntoBox(checkedIcons: icons, dropedIcon: trashIcon)
@@ -885,7 +886,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     {
         if mode == EditBookDialogMode.Create {
             // 新たにアイコンを追加する
-            let window = mIconWinManager!.getMainWindow()!
+            let window = mIconWindows!.getMainWindow()
             let iconManager = window.getIconManager()
             let bookIcon = iconManager!.addNewIcon(
                 type: IconType.Book,
@@ -930,7 +931,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         }
 
         // アイコン整列
-        mIconWinManager!.getMainWindow()!.sortIcons(animate: false)
+        mIconWindows!.getMainWindow().sortIcons(animate: false)
         
         mTopScene.resetPowerSavingMode()
     }
@@ -978,8 +979,8 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
      * アイコンを開く
      */
     public func IconInfoOpenIcon(icon : UIcon) {
-        if mIconWinManager!.getSubWindow().isShow == false ||
-                icon !== mIconWinManager!.getSubWindow().getParentIcon()
+        if mIconWindows!.getSubWindow().isShow == false ||
+                icon !== mIconWindows!.getSubWindow().getParentIcon()
         {
             openIcon(icon: icon)
         }
@@ -1043,7 +1044,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
      */
     public func IconInfoReturnIcon(icon : UIcon) {
         icon.getParentWindow()!.moveIconIntoHome(icon: icon,
-                                                mainWindow: mIconWinManager!.getMainWindow())
+                                                mainWindow: mIconWindows!.getMainWindow())
         if mIconInfoDlg != nil {
             mIconInfoDlg!.closeWindow()
             mIconInfoDlg = nil
@@ -1079,8 +1080,8 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     public func IconWindowSubAction( actionId : SubWindowActionId, icon : UIcon?) {
         switch actionId {
         case .Close:
-            _ = mIconWinManager!.hideWindow(
-                window: mIconWinManager!.getSubWindow(),
+            _ = mIconWindows!.hideWindow(
+                window: mIconWindows!.getSubWindow(),
                 animation: true)
            
         case .Edit:

@@ -78,9 +78,7 @@ public class UWindow : UDrawable, UButtonCallbacks {
     var  mSBType : WindowSBShowType
     
     
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     /**
      * 外部からインスタンスを生成できないようにprivateでコンストラクタを定義する
      */
@@ -128,6 +126,13 @@ public class UWindow : UDrawable, UButtonCallbacks {
         if createNode {
             initSKNode()
         }
+    }
+    
+    deinit {
+        print("UWindow.deinit")
+        mScrollBarH = nil
+        mScrollBarV = nil
+        closeIcon = nil
     }
     
     /**

@@ -97,8 +97,6 @@ public class UDrawable {
      * 解放処理
      */
     deinit {
-        print("UDrawable.deinit")
-        
         parentNode.removeAllChildren()
         parentNode.removeFromParent()
         removeFromDrawManager()

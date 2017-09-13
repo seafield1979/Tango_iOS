@@ -18,6 +18,8 @@ public protocol UMenuItemCallbacks : class {
 
 
 public class UMenuItem : UDrawable {
+    
+    // MARK: Constants
     public static let TAG = "UMenuItem"
     
     public static let DRAW_PRIORITY = 200
@@ -28,10 +30,8 @@ public class UMenuItem : UDrawable {
     private static let CHILD_MARGIN_H = 10
     private static let FONT_SIZE = 13
     
-    /**
-     * メンバ変数
-     */
-    var mMenuBar : UMenuBar
+    // MARK: Properties
+    weak var mMenuBar : UMenuBar?
     weak var mCallbacks : UMenuItemCallbacks? = nil
     var mTextTitle : UTextView? = nil
     var mItemId : Int = 0
@@ -43,9 +43,9 @@ public class UMenuItem : UDrawable {
     var spriteNode : SKSpriteNode?
     
     // 親アイテム
-    var mParentItem : UMenuItem? = nil
+    weak var mParentItem : UMenuItem?
     // 子アイテムリスト
-    var mChildItem : List<UMenuItem>? = nil
+    var mChildItem : List<UMenuItem>?
     
     // 開いた状態、子アイテムを表示中かどうか
     var isOpened : Bool = false
@@ -57,9 +57,7 @@ public class UMenuItem : UDrawable {
     var isClosing : Bool = false
     
     
-    /**
-     イニシャライザ
-     */
+    // MARK: Initializer
     public init( menuBar: UMenuBar, parentItem : UMenuItem?, id: Int, isTop : Bool, icon : UIImage?) {
         
         let width = isTop ? UDpi.toPixel(UMenuItem.TOP_ITEM_W) : UDpi.toPixel(UMenuItem.ITEM_W)
@@ -94,10 +92,17 @@ public class UMenuItem : UDrawable {
         }
     }
     
+    deinit {
+        print("UMenuItem.deinit")
+        
+        mChildItem?.removeAll()
+    }
+    
     public func setmParentItem(mParentItem : UMenuItem) {
         self.mParentItem = mParentItem
     }
     
+    // MARK: Methods
     /**
      * テキストを追加する
      */
@@ -209,7 +214,7 @@ public class UMenuItem : UDrawable {
      * アニメーション開始
      */
     public func startAnim() {
-        mMenuBar.isAnimating = true
+        mMenuBar!.isAnimating = true
         isAnimating = true
         animeFrame = 0
     }

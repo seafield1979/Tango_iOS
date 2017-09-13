@@ -68,7 +68,7 @@ public class UListView : UScrollWindow
 
     deinit {
         print("UListView.deinit")
-        
+        mItems.removeAll()
     }
     
     // MARK: Methods

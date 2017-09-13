@@ -114,8 +114,8 @@ public class UPageViewManager {
     public func pageChanged() {
         UDrawManager.clearDebugPoint()
         
+        UDrawManager.getInstance().removeAll()
         self.mTopScene.removeAllChildren()
-        self.mTopScene.removeFromParent()
         
         // ナビゲーションに表示したボタンは毎回元に戻す
         showActionBarButton(show: false, title: nil)
@@ -173,6 +173,7 @@ public class UPageViewManager {
         // 古いページの後処理
         if pageStack.count > 0 {
             let page : UPageView = pageStack.last()!
+            
             page.onHide()
         }
         
@@ -209,6 +210,7 @@ public class UPageViewManager {
             
             // 古いページの後処理
             let pageView = pageStack.last()!
+            
             pageView.onHide()
             
             _ = pageStack.removeLast()

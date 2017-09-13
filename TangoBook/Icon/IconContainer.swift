@@ -20,7 +20,7 @@ public class IconContainer : UIcon {
     /**
      * Memver variable
      */
-    var subWindow : UIconWindow? = nil
+    weak var subWindow : UIconWindow?
     
     /**
      * Get/Set

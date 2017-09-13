@@ -15,9 +15,7 @@ import UIKit
  */
 
 public class MenuBarTangoEdit : UMenuBar {
-    /**
-     * Enums
-     */
+    // MARK: Enums
     public enum MenuItemType {
         case Top
         case Child
@@ -41,22 +39,17 @@ public class MenuBarTangoEdit : UMenuBar {
         case AddDummyCard
         case AddDummyBook
         case AddPresetBook
-//        case AddCsvBook
     }
-    
-    /**
-     * Consts
-     */
+
+    // MARK: Constants
     private let TEXT_COLOR = UIColor.white
     private let TEXT_BG_COLOR = UColor.makeColor(192,0,0,0)
     private let ICON_COLOR = UIColor.black
     
+    // MARK: Properties
     var itemInfos : [MenuItemInfo] = []
 
-
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init( topScene: TopScene, callbackClass : UMenuItemCallbacks,
                  parentW : CGFloat, parentH : CGFloat, bgColor : UIColor?)
     {
@@ -102,6 +95,10 @@ public class MenuBarTangoEdit : UMenuBar {
         instance.initMenuBar()
         return instance
     }
+    
+    deinit {
+        print("MenuBarTangoEdit.deinit")
+    }
 
     /**
      * メニューバーを初期化
@@ -138,7 +135,7 @@ public class MenuBarTangoEdit : UMenuBar {
             }
         }
         self.addToDrawManager()
-        updateBGSize();
+        updateBGSize()
     }
     
     /**

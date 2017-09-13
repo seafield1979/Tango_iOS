@@ -33,8 +33,6 @@ public class PageViewDebug : UPageView, UButtonCallbacks {
     
     deinit {
         print("PageViewDebug.denint")
-        mButton1 = nil
-        mButton2 = nil
     }
     
     // MARK: Methods
@@ -42,7 +40,10 @@ public class PageViewDebug : UPageView, UButtonCallbacks {
     }
     
     override func onHide() {
-        super.onHide();
+        super.onHide()
+        
+        mButton1 = nil
+        mButton2 = nil
     }
     
     /**

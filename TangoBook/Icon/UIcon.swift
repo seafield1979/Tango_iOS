@@ -106,8 +106,8 @@ public class UIcon : UDrawable, CustomStringConvertible {
     var titleView : UTextView?          // アイコンのタイトルを表示するView
     
     public var id : Int = 0
-    var parentWindow : UIconWindow? = nil
-    private weak var callbacks : UIconCallbacks? = nil
+    weak var parentWindow : UIconWindow?
+    private weak var callbacks : UIconCallbacks?
     var image : UIImage? = nil
 
 
@@ -156,9 +156,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
                      height: rect.height + UDpi.toPixel(TOUCH_MARGIN) * 2)
     }
 
-     /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init(parentWindow : UIconWindow, iconCallbacks : UIconCallbacks?,
                 type : IconType, x : CGFloat,
                 y : CGFloat, width : CGFloat, height : CGFloat)
@@ -174,6 +172,13 @@ public class UIcon : UDrawable, CustomStringConvertible {
         UIcon.count += 1
         
         initSKNode()
+    }
+    
+    deinit {
+        print("UIcon.deinit")
+        titleView = nil
+        parentWindow = nil
+        image = nil
     }
     
     /**

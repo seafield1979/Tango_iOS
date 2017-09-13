@@ -86,7 +86,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
     private var mToast : UToast?
     
      // Title
-    private var mTitleText : UTextView? = nil
+    private var mTitleText : UTextView?
 
     // Buttons
     private var mButtons : [UButtonText] = []
@@ -104,6 +104,10 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
 
      override public func onHide() {
          super.onHide()
+        
+        mToast = nil
+        mTitleText = nil
+        mButtons.removeAll()
      }
 
      /**

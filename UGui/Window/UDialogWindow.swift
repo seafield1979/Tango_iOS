@@ -57,9 +57,7 @@ public class UDialogWindow : UWindow {
     static let BUTTON_MARGIN_V : Int = 10
     
     //
-    /**
-     * Member variables
-     */
+    // MARK: Properties
     // SpriteKit
     private var dialogBgNode : SKShapeNode?      // モーダルダイアログの背景
     
@@ -121,9 +119,7 @@ public class UDialogWindow : UWindow {
         return (animationType == AnimationType.Closing)
     }
     
-    /**
-     * Constructor
-     */
+    // MARK: Initializer
     public init(topScene: TopScene, type : DialogType, buttonCallbacks : UButtonCallbacks?,
                 dialogCallbacks : UDialogCallbacks?,
                 dir : ButtonDir,
@@ -243,7 +239,15 @@ public class UDialogWindow : UWindow {
                                screenW: screenW, screenH: screenH,
                                textColor: UIColor.black, dialogColor: UIColor.white)
     }
+    deinit {
+        print("UDialogWindow.deinit")
+        mTitleView = nil
+        mTextViews.removeAll()
+        mButtons.removeAll()
+        mDrawables.removeAll()
+    }
     
+    // MARK: Methods
     public func setDialogPos(x : CGFloat, y : CGFloat) {
         pos.x = x
         pos.y = y
