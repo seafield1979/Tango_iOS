@@ -67,8 +67,9 @@ public class UListView : UScrollWindow
     }
 
     deinit {
-        print("UListView.deinit")
-        mItems.removeAll()
+        if UDebug.isDebug {
+            print("UListView.deinit")
+        }
     }
     
     // MARK: Methods

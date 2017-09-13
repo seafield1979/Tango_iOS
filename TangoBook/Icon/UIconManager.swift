@@ -116,7 +116,9 @@ public class UIconManager : UIconCallbacks {
      }
     
     deinit {
-        print("UIconManager.deinit")
+        if UDebug.isDebug {
+            print("UIconManager.deinit")
+        }
     }
 
      /**

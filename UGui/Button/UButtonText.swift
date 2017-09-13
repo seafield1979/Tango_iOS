@@ -60,13 +60,9 @@ public class UButtonText : UButton {
     
     deinit {
         // SpriteKitのノードは手動で解放しないとメモリリークする
-        print("UButtonText.deinit")
-        mImage = nil
-        labelNode = nil
-        bgNode = nil
-        bg2Node = nil
-        imageNode = nil
-        pullNode = nil
+        if UDebug.isDebug {
+            print("UButtonText.deinit")
+        }
     }
     
     /**

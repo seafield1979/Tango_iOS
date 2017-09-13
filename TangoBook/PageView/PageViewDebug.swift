@@ -32,7 +32,9 @@ public class PageViewDebug : UPageView, UButtonCallbacks {
     }
     
     deinit {
-        print("PageViewDebug.denint")
+        if UDebug.isDebug {
+            print("PageViewDebug.denint")
+        }
     }
     
     // MARK: Methods

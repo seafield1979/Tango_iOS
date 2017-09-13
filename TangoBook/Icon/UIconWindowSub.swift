@@ -112,12 +112,9 @@ public class UIconWindowSub : UIconWindow {
     }
     
     deinit {
-        print("UIconWindowSub.deinit")
-        
-        mParentIcon = nil
-        mBookButtons = nil
-        mTrashButtons = nil
-        mTitleView = nil
+        if UDebug.isDebug {
+            print("UIconWindowSub.deinit")
+        }
     }
 
     // MARK: Methods

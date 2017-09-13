@@ -82,7 +82,9 @@ public class UIconWindows : UWindowCallbacks {
     }
     
     deinit {
-        print("UIconWindows.deinit")
+        if UDebug.isDebug {
+            print("UIconWindows.deinit")
+        }
     }
 
     // MARK: Methods

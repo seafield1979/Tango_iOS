@@ -45,9 +45,9 @@ public class UMenuBar : UWindow {
     }
     
     deinit {
-        print("UMenubar.deinit")
-        topItems.removeAll()
-        items?.removeAll()
+        if UDebug.isDebug {
+            print("UMenubar.deinit")
+        }
     }
     
     // MARK: Methods

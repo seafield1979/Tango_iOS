@@ -240,11 +240,9 @@ public class UDialogWindow : UWindow {
                                textColor: UIColor.black, dialogColor: UIColor.white)
     }
     deinit {
-        print("UDialogWindow.deinit")
-        mTitleView = nil
-        mTextViews.removeAll()
-        mButtons.removeAll()
-        mDrawables.removeAll()
+        if UDebug.isDebug {
+            print("UDialogWindow.deinit")
+        }
     }
     
     // MARK: Methods

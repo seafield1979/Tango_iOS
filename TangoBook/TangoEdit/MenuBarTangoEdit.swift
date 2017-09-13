@@ -97,7 +97,9 @@ public class MenuBarTangoEdit : UMenuBar {
     }
     
     deinit {
-        print("MenuBarTangoEdit.deinit")
+        if UDebug.isDebug {
+            print("MenuBarTangoEdit.deinit")
+        }
     }
 
     /**

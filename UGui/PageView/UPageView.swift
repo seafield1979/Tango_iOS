@@ -50,7 +50,9 @@ public class UPageView {
     
     // MARK: Deinitializer
     deinit {
-        print("UPageView.deinit:" + mTitle)
+        if UDebug.isDebug {
+            print("UPageView.deinit:" + mTitle)
+        }
     }
     
     /**

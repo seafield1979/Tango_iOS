@@ -141,10 +141,9 @@ public class UTextView : UDrawable {
     
     deinit {
         // SpriteKitのノードは手動で解放しないとメモリリークする
-        print("UTextView.deinit:" + self.text)
-        parentNode.removeAllChildren()
-        parentNode.removeFromParent()
-        removeFromDrawManager()
+        if UDebug.isDebug {
+            print("UTextView.deinit:" + self.text)
+        }
     }
     
     // MARK: Methods

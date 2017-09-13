@@ -129,10 +129,9 @@ public class UWindow : UDrawable, UButtonCallbacks {
     }
     
     deinit {
-        print("UWindow.deinit")
-        mScrollBarH = nil
-        mScrollBarV = nil
-        closeIcon = nil
+        if UDebug.isDebug {
+            print("UWindow.deinit")
+        }
     }
     
     /**

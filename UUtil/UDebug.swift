@@ -11,21 +11,21 @@ import UIKit
 
 public class UDebug {
     // Debug mode
-    public static var isDebug = true
+    public static let isDebug = true
     
     // IconをまとめたブロックのRECTを描画するかどうか
-    public static var DRAW_ICON_BLOCK_RECT = false
+    public static let DRAW_ICON_BLOCK_RECT = false
     
-    public static var drawIconId = false
+    public static let drawIconId = false
     
     // UDrawableオブジェクトの描画範囲をライン描画
-    public static var drawRectLine = false
+    public static let drawRectLine = false
     
     // Select時にログを出力
-    public static var debugDAO = false
+    public static let debugDAO = false
     
     // テキストのベース座標に+を描画
-    public static var drawTextBaseLine = false
+    public static let drawTextBaseLine = false
     
     
     /**

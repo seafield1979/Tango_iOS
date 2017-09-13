@@ -51,7 +51,9 @@ public class PageViewDebugDB : UPageView, UButtonCallbacks, UListItemCallbacks {
     }
     
     deinit {
-        print("PageViewDebugDB:deinit")
+        if UDebug.isDebug {
+            print("PageViewDebugDB:deinit")
+        }
     }
     
     /**

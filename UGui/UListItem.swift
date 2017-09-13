@@ -90,7 +90,9 @@ public class UListItem : UDrawable {
     }
     
     deinit {
-        print("UListItem:deinit")
+        if UDebug.isDebug {
+            print("UListItem:deinit")
+        }
     }
     
     // MARK: Methods

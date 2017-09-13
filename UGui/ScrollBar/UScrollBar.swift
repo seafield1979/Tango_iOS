@@ -197,10 +197,9 @@ public class UScrollBar {
     }
 
     deinit {
-        print("UScrollBar.deinit")
-        
-        parentNode.removeAllChildren()
-        parentNode.removeFromParent()
+        if UDebug.isDebug {
+            print("UScrollBar.deinit")
+        }
     }
     
     // MARK: Methods

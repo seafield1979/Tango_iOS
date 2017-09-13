@@ -57,7 +57,9 @@ public class PageViewManagerMain : UPageViewManager {
     }
     
     deinit {
-        print("PageViewManagerMain.deinit")
+        if UDebug.isDebug {
+            print("PageViewManagerMain.deinit")
+        }
     }
     
     /**

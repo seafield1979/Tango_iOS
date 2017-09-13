@@ -171,7 +171,9 @@ public class UIcon : UDrawable, CustomStringConvertible {
     }
     
     deinit {
-        print("UIcon.deinit:\(title!)")
+        if UDebug.isDebug {
+            print("UIcon.deinit:\(title!)")
+        }
     }
     
     /**

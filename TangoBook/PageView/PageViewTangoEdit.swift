@@ -142,9 +142,9 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
     }
     
     deinit {
-        print("PageViewTangoEdit.deinit")
-        
-        
+        if UDebug.isDebug {
+            print("PageViewTangoEdit.deinit")
+        }
     }
     
     /**

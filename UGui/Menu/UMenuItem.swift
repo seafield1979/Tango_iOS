@@ -93,9 +93,9 @@ public class UMenuItem : UDrawable {
     }
     
     deinit {
-        print("UMenuItem.deinit")
-        
-        mChildItem?.removeAll()
+        if UDebug.isDebug {
+            print("UMenuItem.deinit")
+        }
     }
     
     public func setmParentItem(mParentItem : UMenuItem) {

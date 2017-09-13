@@ -321,7 +321,9 @@ public class UIconWindow : UWindow{
      }
     
     deinit {
-        print("UIconWindow.deinit")
+        if UDebug.isDebug {
+            print("UIconWindow.deinit")
+        }
     }
 
     // MARK: Methods

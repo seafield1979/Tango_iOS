@@ -33,8 +33,9 @@ class UIconWindowButtons : UDrawable {
     }
     
     deinit {
-        print("UIconWindowButtons.deinit")
-        mButtons.removeAll()
+        if UDebug.isDebug {
+            print("UIconWindowButtons.deinit")
+        }
     }
     
     // MARK: Methods

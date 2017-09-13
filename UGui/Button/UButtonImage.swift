@@ -118,8 +118,9 @@ public class UButtonImage : UButton {
     }
     
     deinit {
-        print("UButtonImage.deinit")
-//        mTextTitle = nil
+        if UDebug.isDebug {
+            print("UButtonImage.deinit")
+        }
     }
     
     /**
