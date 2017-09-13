@@ -257,9 +257,9 @@ public class UMenuItem : UDrawable {
     {
         if (vt.checkInsideCircle(
             vx: touchX, vy:touchY,
-            x: pos.x + UDpi.toPixel(UMenuItem.ITEM_W) / 2,
-            y: pos.y + UDpi.toPixel(UMenuItem.ITEM_W) / 2,
-            length: UDpi.toPixel(UMenuItem.ITEM_W) / 2))
+            x: pos.x + size.width / 2,
+            y: pos.y + size.height / 2,
+            length: size.width / 2))
         {
             if vt.type != TouchType.Touch {
                 return false

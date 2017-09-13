@@ -39,7 +39,6 @@
 		8A19F4481F590A6400356394 /* SaveItemPos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A19F4471F590A6400356394 /* SaveItemPos.swift */; };
 		8A19F44A1F590B1800356394 /* SaveStudiedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A19F4491F590B1800356394 /* SaveStudiedCard.swift */; };
 		8A1BE34A1F593B7900EA8226 /* UCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1BE3491F593B7900EA8226 /* UCheckBox.swift */; };
-		8A202F701F695DEE00072788 /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A202F6F1F695DEE00072788 /* AppStrings.swift */; };
 		8A202F721F6963D000072788 /* add2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A202F711F6963D000072788 /* add2.png */; };
 		8A2584AC1F3209C3002EE9E2 /* EditCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A2584AE1F3209C3002EE9E2 /* EditCardViewController.xib */; };
 		8A2DA70B1F53A30D00FCB0C4 /* RegExp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DA70A1F53A30D00FCB0C4 /* RegExp.swift */; };
@@ -389,7 +388,6 @@
 		8A1BE3491F593B7900EA8226 /* UCheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UCheckBox.swift; sourceTree = "<group>"; };
 		8A202F6D1F695D8900072788 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8A202F6E1F695D8B00072788 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		8A202F6F1F695DEE00072788 /* AppStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
 		8A202F711F6963D000072788 /* add2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add2.png; sourceTree = "<group>"; };
 		8A2584AD1F3209C3002EE9E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EditCardViewController.xib; sourceTree = "<group>"; };
 		8A2DA70A1F53A30D00FCB0C4 /* RegExp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegExp.swift; sourceTree = "<group>"; };
@@ -1227,7 +1225,6 @@
 		8AE08AA11F2580D70024E9B7 /* UUtil */ = {
 			isa = PBXGroup;
 			children = (
-				8A202F6F1F695DEE00072788 /* AppStrings.swift */,
 				8AE08AA21F2580D70024E9B7 /* EnumEnumerable.swift */,
 				8AE08AA31F2580D70024E9B7 /* List.swift */,
 				8AE08AA41F2580D70024E9B7 /* MyUserDefault.swift */,
@@ -1754,7 +1751,6 @@
 				8A0D6FB41F319765002A1949 /* EditBookViewController.swift in Sources */,
 				8A0F64421F4FC9750019BAC7 /* DialogCard.swift in Sources */,
 				8AD6313C1F2B94CE0067B57E /* IconInfoDialogCard.swift in Sources */,
-				8A202F701F695DEE00072788 /* AppStrings.swift in Sources */,
 				8A6087781F4BF16E00259191 /* UIconWindowButtons.swift in Sources */,
 				8A5709661F3767D8004387D4 /* ListViewResult.swift in Sources */,
 				8AB7E9581F25A00F005E36BB /* PageViewStudyBookSelect.swift in Sources */,
