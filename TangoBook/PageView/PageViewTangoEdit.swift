@@ -221,6 +221,7 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         subWindow.isShow = false
         mWindows.append( subWindow )
         
+        // IconWindow
         mIconWindows = UIconWindows.createInstance(
             windows: mWindows,
             screenW: width, screenH: height)
@@ -235,9 +236,6 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         mMenuBar = MenuBarTangoEdit.createInstance(
             topScene: mTopScene, callbackClass: self,
             parentW: width, parentH: height, bgColor: nil)
-        
-        //mWindows[WindowType.MenuBar.rawValue] = mMenuBar!
-        
     }
     
     public func setActionId(_ id : TangoEditActionId) {

@@ -124,11 +124,10 @@ public class UIconWindowSub : UIconWindow {
     public override func initialize() {
         super.initialize()
         
-        initSKNode()
+        initSKNode2()
     }
     
-    public override func initSKNode() {
-        super.initSKNode()
+    public func initSKNode2() {
         
         // ウィンドウ上部に表示するタイトル
         mTitleView = UTextView(text: "", fontSize: UDpi.toPixel(FONT_SIZE), priority: 30, alignment: .Left, createNode: true, isFit: false, isDrawBG: true, margin: UDpi.toPixel(3), x: UDpi.toPixel(16), y: UDpi.toPixel(0), width: 0, color: UIColor.black, bgColor: BG_COLOR)

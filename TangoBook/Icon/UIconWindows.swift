@@ -29,7 +29,7 @@ public class UIconWindows : UWindowCallbacks {
     private var size = CGSize()
     private var directionType = DirectionType.Portlait
 
-    public static var publicInstance : UIconWindows? = nil
+    public static weak var publicInstance : UIconWindows? = nil
 
     // MARK: Accessor
     public func getMainWindow() -> UIconWindow {
@@ -45,8 +45,8 @@ public class UIconWindows : UWindowCallbacks {
     }
 
     // デバッグ用のどこからでも参照できるインスタンス
-    public static func getInstance() -> UIconWindows {
-       return publicInstance!
+    public static func getInstance() -> UIconWindows? {
+       return publicInstance
     }
 
     // MARK: Initializer
@@ -59,7 +59,7 @@ public class UIconWindows : UWindowCallbacks {
         .Portlait
         mWindows = windows
         mMainWindow = windows[0]
-        mSubWindow = windows[1] as! UIconWindowSub
+        mSubWindow = windows[1] as? UIconWindowSub
         
         // 初期配置(HomeWindowで画面が占有されている)
         mMainWindow!.setPos(0, 0, convSKPos: true)
@@ -76,7 +76,7 @@ public class UIconWindows : UWindowCallbacks {
     {
         let instance = UIconWindows(windows: windows, screenW : screenW, screenH : screenH)
         
-        publicInstance = instance
+//        publicInstance = instance
         
         return instance
     }

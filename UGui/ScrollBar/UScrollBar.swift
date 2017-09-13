@@ -38,9 +38,7 @@ public enum ScrollBarType {
  */
 
 public class UScrollBar {
-    /**
-     * Constants
-     */
+    // MARK: Constants
     public static let TAG = "UScrollBar"
     
     private static let TOUCH_MARGIN = 10     // バーは細くてタッチしにくいので見た目よりもあたり判定を広くするためのマージンを設定する1
@@ -50,9 +48,7 @@ public class UScrollBar {
     private static let SHOW_BAR_COLOR = UColor.makeColor(255, 255,128,0)
     private static let SHOW_BG_COLOR = UColor.makeColor(128,255,255,255)
     
-    /**
-     * Membar Variables
-     */
+    // MARK: Properties
     // SpriteKit nodes
     public var parentNode : SKNode
     public var barNode : SKShapeNode? = nil
@@ -81,10 +77,7 @@ public class UScrollBar {
     var bgRect = CGRect()
     var barRect = CGRect()
     
-    /**
-     * Get/Set
-     */
-    
+    // MARK: Accessor
     public func setBgLength(bgLength : CGFloat) {
         self.bgLength = bgLength;
     }
@@ -145,6 +138,7 @@ public class UScrollBar {
         parentNode.isHidden = !show
     }
     
+    // MARK: Initializer
     /**
      * コンストラクタ
      * 指定のViewに張り付くタイプのスクロールバーを作成
@@ -194,16 +188,22 @@ public class UScrollBar {
         updateBarLength()
         
         if (showType == ScrollBarShowType.Show2) {
-//            bgColor = UIColor.clear
             barColor = UScrollBar.BAR_COLOR
         } else {
-//            bgColor = UScrollBar.SHOW_BAR_COLOR
             barColor = UScrollBar.SHOW_BG_COLOR
         }
         
         updateSize()
     }
+
+    deinit {
+        print("UScrollBar.deinit")
+        
+        parentNode.removeAllChildren()
+        parentNode.removeFromParent()
+    }
     
+    // MARK: Methods
     /**
      * スクロールバーを表示する先のViewのサイズが変更された時の処理
      */

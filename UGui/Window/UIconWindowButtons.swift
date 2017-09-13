@@ -19,15 +19,12 @@ class UIconWindowButtons : UDrawable {
 
     // MARK: Properties
     var bgNode : SKShapeNode?
-    var buttonCallbacks : UButtonCallbacks
+    weak var buttonCallbacks : UButtonCallbacks?
     private var mButtons : [UButtonImage] = []
     private var topX : CGFloat = 0
     
     // MARK: Initializer
-    /**
-     * Initializer
-     */
-    public init(callbacks : UButtonCallbacks, priority: Int, x: CGFloat, y: CGFloat)
+    public init(callbacks : UButtonCallbacks?, priority: Int, x: CGFloat, y: CGFloat)
     {
         topX = UDpi.toPixel(MARGIN_H)
         buttonCallbacks = callbacks

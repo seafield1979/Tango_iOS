@@ -71,7 +71,7 @@ public class UIconManager : UIconCallbacks {
 
     public func setDropedIcon( _ dropedIcon : UIcon?) {
         // 全てのアイコンのdropフラグを解除
-        UIconWindows.getInstance().clearDroped()
+        UIconWindows.getInstance()?.clearDroped()
 
         self.dropedIcon = dropedIcon
         if dropedIcon != nil {

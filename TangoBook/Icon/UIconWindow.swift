@@ -297,17 +297,17 @@ public class UIconWindow : UWindow{
                    x: 0, y: 0, width: width, height: height,
                    bgColor: bgColor, topBarH: 0, frameW: 0, frameH: 0,
                    cornerRadius: UDpi.toPixel(10))
-         basePos = CGPoint()
-         if isHome {
-             type = WindowType.Home
-         } else {
-             type = WindowType.Sub
-         }
-         mIconManager = UIconManager.createInstance(parentWindow: self, iconCallbacks: iconCallbacks)
-         self.windowCallbacks = windowCallbacks
-         self.dir = dir
-         iconW = UDpi.toPixel(UIconWindow.ICON_W)
-         iconH = UDpi.toPixel(UIconWindow.ICON_H)
+        basePos = CGPoint()
+        if isHome {
+            type = WindowType.Home
+        } else {
+            type = WindowType.Sub
+        }
+        mIconManager = UIconManager.createInstance(parentWindow: self, iconCallbacks: iconCallbacks)
+        self.windowCallbacks = windowCallbacks
+        self.dir = dir
+        iconW = UDpi.toPixel(UIconWindow.ICON_W)
+        iconH = UDpi.toPixel(UIconWindow.ICON_H)
     }
 
     /**
@@ -322,9 +322,6 @@ public class UIconWindow : UWindow{
     
     deinit {
         print("UIconWindow.deinit")
-        mIconManager = nil
-        windows = nil
-        dragedIcon = nil
     }
 
     // MARK: Methods

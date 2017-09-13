@@ -85,12 +85,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
     private let SELECTED_COLOR = UColor.makeColor(80, 255, 100, 100)
     private let TOUCHED_COLOR = UColor.makeColor(100,200,100)
     
-    /**
-     * Class variables
-     */
-    // "New" バッジ用
-    var newTextView : UTextView? = nil
-
+    
     /**
      * Member variables
      */
@@ -104,11 +99,12 @@ public class UIcon : UDrawable, CustomStringConvertible {
     var checkedNode : SKNode?      // 選択状態時に表示するチェック枠画像
     
     var titleView : UTextView?          // アイコンのタイトルを表示するView
-    
+    var newTextView : UTextView?            // "New" バッジ用
+
     public var id : Int = 0
     weak var parentWindow : UIconWindow?
     private weak var callbacks : UIconCallbacks?
-    var image : UIImage? = nil
+    var image : UIImage?
 
 
     // 各種状態
@@ -119,20 +115,20 @@ public class UIcon : UDrawable, CustomStringConvertible {
     var isTouched : Bool = false        // タッチ中
     var isLongTouched : Bool = false    // 長押し中
 
-    var touchedColor : UIColor? = nil
-    var longPressedColor : UIColor? = nil
+    var touchedColor : UIColor?
+    var longPressedColor : UIColor?
 
-    var title : String? = nil         // アイコンの下に表示するテキスト
+    var title : String?             // アイコンの下に表示するテキスト
     var type = IconType.Card
 
-     /**
+    /**
      * Get/Set
      */
-     private func clearFlags() {
-         isTouched = false
-         isLongTouched = false
-         isDraging = false
-     }
+    private func clearFlags() {
+        isTouched = false
+        isLongTouched = false
+        isDraging = false
+    }
 
      // 保持するTangoItemを返す
     public func getTangoItem() -> TangoItem? {
@@ -140,9 +136,9 @@ public class UIcon : UDrawable, CustomStringConvertible {
         return nil
     }
 
-     public func getTitle() -> String? {
-         return title
-     }
+    public func getTitle() -> String? {
+        return title
+    }
 
     public func updateTitle() {
         // 抽象メソッド
@@ -175,10 +171,7 @@ public class UIcon : UDrawable, CustomStringConvertible {
     }
     
     deinit {
-        print("UIcon.deinit")
-        titleView = nil
-        parentWindow = nil
-        image = nil
+        print("UIcon.deinit:\(title!)")
     }
     
     /**
