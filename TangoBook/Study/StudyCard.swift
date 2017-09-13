@@ -57,14 +57,15 @@ public class StudyCard : UDrawable, UButtonCallbacks {
     let SLIDE_LEN = 117
 
     // MARK: Properties
-    var arrowLImage : UIImage? = nil
-    var arrowRImage : UIImage? = nil
+    var arrowLImage : UIImage?
+    var arrowRImage : UIImage?
 
     // SpriteKit Node
     var bgNode : SKShapeNode?
     var wordAView : UTextView?          // wordA(英語)のテキスト
     var wordBView : UTextView?          // wordB(日本語)のテキスト
     
+    var isMultiCard : Bool = false
     var basePos = CGPoint()
     var mState : State = .None
     var wordA : String? = nil             // 正解（表）のテキスト
@@ -140,13 +141,17 @@ public class StudyCard : UDrawable, UButtonCallbacks {
             fontSizeA = UDpi.toPixel(FONT_SIZE_B)
             fontSizeB = UDpi.toPixel(FONT_SIZE_A)
         }
+        self.isMultiCard = isMultiCard
+        self.mMaxHeight = maxHeight
         mState = State.None
         mCard = card
+    }
 
-        if isMultiCard {
-            initSKNode2( maxHeight : maxHeight)
+    public override func initSKNode() {
+        if self.isMultiCard {
+            initSKNode2( maxHeight : mMaxHeight)
         } else {
-            initSKNode1( maxHeight : maxHeight)
+            initSKNode1( maxHeight : mMaxHeight)
         }
     }
     
@@ -159,7 +164,6 @@ public class StudyCard : UDrawable, UButtonCallbacks {
         
         // カードのサイズを計算する
         // １つづつ学習する場合はカード幅は固定
-//        size.width = TopScene.getInstance().getWidth() - UDpi.toPixel(ARROW_W * 2 + ARROW_MARGIN * 4)
         size.height = maxHeight
 
         // BG Node

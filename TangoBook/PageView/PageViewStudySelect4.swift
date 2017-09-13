@@ -121,7 +121,7 @@ public class PageViewStudySelect4 : PageViewStudy, CardsStackCallbacks {
         mTextCardCount = UTextView.createInstance(
             text : title, fontSize : UDpi.toPixel(FONT_SIZE),
             priority : 1, alignment : .CenterX, createNode : true,
-            isFit : false, isDrawBG : true, x : width/2, y : UDpi.toPixel(17),
+            isFit : false, isDrawBG : true, x : width/2, y : UDpi.toPixel(10),
             width : UDpi.toPixel(100), color : COLOR1, bgColor : nil)
         
         mTextCardCount!.addToDrawManager()

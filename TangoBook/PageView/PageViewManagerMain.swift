@@ -158,7 +158,7 @@ public class PageViewManagerMain : UPageViewManager {
         super.pageChanged()
         
         // 省電力モードを解除
-        mTopScene.resetPowerSavingMode()
+        mTopScene.resetPowerSaving()
     }
     
      /**

@@ -451,12 +451,12 @@ public class PageViewOptions : UPageView, UButtonCallbacks, UDialogCallbacks, Op
         MySharedPref.writeInt(key: keyName, value: Int(color.intColor()))
         
         // 省電力モードを解除
-        mTopScene.resetPowerSavingMode()
+        mTopScene.resetPowerSaving()
     }
     
     public func cancelOptionColor() {
         // 省電力モードを解除
-        mTopScene.resetPowerSavingMode()
+        mTopScene.resetPowerSaving()
     }
 
     /**

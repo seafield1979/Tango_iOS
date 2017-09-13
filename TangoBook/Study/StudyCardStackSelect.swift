@@ -25,24 +25,22 @@ public class StudyCardStackSelect : UDrawable {
         case End                // すべての問題を学習終了
     }
 
-    // MARK: Cnstants
+    // MARK: Constants
     
     // layout
-    public let MARGIN_V = 10;
-    private let MOVING_FRAME = 10;
+    public let MARGIN_V = 10
+    private let MOVING_FRAME = 10
     private static let STUDY_CARD_NUM : Int = 4
-    private let FONT_SIZE = 17;
-    private let FONT_SIZE_L = 20;
-    private let CARD_MARGIN_V = 7;
+    private let FONT_SIZE = 17
+    private let FONT_SIZE_L = 22
+    private let CARD_MARGIN_V = 7
 
-    private let DRAW_PRIORITY = 100;
+    private let DRAW_PRIORITY = 30
 
     // color
     private let TEXT_COLOR : UIColor = .black
 
-    /**
-     * Member Variables
-     */
+    // MARK: Properties
     private var mCardManager : StudyCardsManager
     private weak var cardsStackCallbacks : CardsStackCallbacks?
     private var mScreenW : CGFloat = 0

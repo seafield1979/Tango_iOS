@@ -243,6 +243,8 @@ public class StudyCardsStack : UDrawable {
         let _card : StudyCard? = mCardsInBackYard.pop()
         
         if let card = _card {
+            card.initSKNode()
+            
             // 初期座標設定
             card.setPos(0, -card.getHeight(), convSKPos: false)
             

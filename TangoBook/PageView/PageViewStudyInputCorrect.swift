@@ -122,7 +122,7 @@ public class PageViewStudyInputCorrect : PageViewStudy, CardsStackCallbacks {
         mTextCardCount = UTextView.createInstance(
             text : title, fontSize : UDpi.toPixel(FONT_SIZE), priority : DRAW_PRIORITY,
             alignment : UAlignment.CenterX, createNode : true, isFit : false,
-            isDrawBG : true, x : width/2, y : UDpi.toPixel(17),
+            isDrawBG : true, x : width/2, y : UDpi.toPixel(10),
             width : UDpi.toPixel(100), color : COLOR1, bgColor : nil)
         
         mTextCardCount!.addToDrawManager()

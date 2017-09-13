@@ -93,6 +93,7 @@ public class StudyCardSelect : UDrawable {
         
         // BGの色
         bgNode!.fillColor = UColor.LightGreen
+        bgNode!.strokeColor = UColor.addBrightness(argb: UColor.LightGreen, addY: -0.3)
     }
     
     /**
@@ -109,6 +110,7 @@ public class StudyCardSelect : UDrawable {
         
         // BGの色
         bgNode!.fillColor = UColor.LightRed
+        bgNode!.strokeColor = UColor.addBrightness(argb: UColor.LightRed, addY: -0.3)
     }
 
     public override func getRect() -> CGRect {

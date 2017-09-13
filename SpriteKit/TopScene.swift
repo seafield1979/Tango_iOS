@@ -30,7 +30,7 @@ public class TopScene: SKScene {
     public var parentView : SKView?
     var vt : ViewTouch = ViewTouch()
     
-    private var mPowerSavingMode : PoserSavingMode = .None
+    private var mPowerSaving : Bool = false
     private var mLastTouchedTime : Double = 0       // 最後にタッチ処理を行った時間
     
     private var dimPanel : SKShapeNode?
@@ -115,7 +115,7 @@ public class TopScene: SKScene {
         checkPowerSaving()
         
         // 省電力モード中は処理しない
-        if mPowerSavingMode != .None {
+        if mPowerSaving {
             return
         }
         // 長押し判定
@@ -138,15 +138,9 @@ public class TopScene: SKScene {
     private func updateLastTouchedTime() -> Bool {
         mLastTouchedTime = Date().timeIntervalSince1970
 
-        if mPowerSavingMode != .None {
-            let mode = mPowerSavingMode
+        if mPowerSaving {
             // 省電力モードを解除
-            setPowerSavingMode(mode: .None)
-
-            // モード２の場合のみタッチを無効化
-            if mode == .Mode2 {
-                return true
-            }
+            setPowerSaving(false)
         }
         return false
     }
@@ -158,38 +152,29 @@ public class TopScene: SKScene {
      *   ※SpriteKitで60fpsで画面を更新し続けると電力をもりもり消費するので、操作していない時は省電力モードにする
      */
     private func checkPowerSaving() {
-        switch mPowerSavingMode {
-        case .None:
+        if mPowerSaving == false {
             // 最後のタッチからの時間を取得
             if Date().timeIntervalSince1970 - mLastTouchedTime >= POWER_SAVING_TIME_1 {
                 // 省電力モードに遷移
-                setPowerSavingMode(mode: .Mode1)
+                setPowerSaving(true)
             }
-        case .Mode1:
-            if Date().timeIntervalSince1970 - mLastTouchedTime >= POWER_SAVING_TIME_2 {
-                // 超消費電力モードに遷移
-                setPowerSavingMode(mode: .Mode2)
-            }
-        default:
-            break
         }
     }
     
     /**
      * 外から省電力モードをOFFにする
      */
-    public func resetPowerSavingMode() {
-        setPowerSavingMode(mode: .None)
+    public func resetPowerSaving() {
+        setPowerSaving(false)
     }
    
     /**
      * 省電力モード遷移(ON / OFF)
      */
-    private func setPowerSavingMode( mode : PoserSavingMode ) {
-        mPowerSavingMode = mode
+    private func setPowerSaving( _ enabled : Bool ) {
+        mPowerSaving = enabled
 
-        switch mode {
-        case .None:
+        if enabled == false {
             //parentView!.preferredFramesPerSecond = DEFULT_FPS
             parentView!.isPaused = false
             
@@ -198,19 +183,9 @@ public class TopScene: SKScene {
                 dimPanel = nil
             }
             mLastTouchedTime = Date().timeIntervalSince1970
-        case .Mode1:
+        } else {
             // FPSを低下させる
             parentView!.isPaused = true
-            
-        case .Mode2:
-            parentView!.isPaused = true
-            
-            // 画面を暗くする
-            dimPanel = SKShapeNode(rect: CGRect(x:0, y:0, width: self.frame.size.width, height: self.frame.size.height).convToSK())
-            dimPanel!.alpha = 0.6
-            dimPanel!.zPosition = 10000
-            dimPanel!.fillColor = .black
-            self.addChild2(dimPanel!)
         }
     }
 }

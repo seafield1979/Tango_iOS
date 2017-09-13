@@ -70,7 +70,7 @@ public class PageViewStudy : UPageView, UButtonCallbacks, UDialogCallbacks {
                 posType: .Center,
                 isAnimation: true, x: 0, y: 0,
                 screenW: mTopScene.getWidth(), screenH: mTopScene.getHeight(),
-                textColor: .black, dialogColor: .lightGray)
+                textColor: .black, dialogColor: .white)
             
             mConfirmDialog!.setTitle( UResourceManager.getStringByName("confirm_exit"))
             _ = mConfirmDialog!.addButton(id: PageViewStudy.ButtonIdExitOk, text: "OK", fontSize: UDraw.getFontSize(FontSize.M), textColor: .black, color: UColor.OKButton)

@@ -238,10 +238,11 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
         if (mState == State.ShowAnswer) {
             // 解答表示時
             if (isMistaken) {
-                bgColor = UColor.LightRed;
+                bgColor = UColor.LightRed
             } else {
-                bgColor = UColor.LightGreen;
+                bgColor = UColor.LightGreen
             }
+            bgNode!.strokeColor = UColor.addBrightness(argb: bgColor, addY: -0.3)
         }
         bgNode!.fillColor = bgColor
     }
@@ -309,12 +310,6 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
      * @param offset 独自の座標系を持つオブジェクトをスクリーン座標系に変換するためのオフセット値
      */
     public override func draw() {
-        if isMoving || mScale == 0 {
-//            clientNode!.isHidden = true
-        } else {
-//            clientNode!.isHidden = false
-        }
-        
     }
 
     /**
@@ -342,7 +337,7 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
 
         x = (size.width - width) / 2
         let topX : CGFloat = x
-        let text : String = "_"
+        var text : String = "_"
 
         let textW : CGFloat = UDpi.toPixel(ONE_TEXT_WIDTH)
         let fontSize = UDpi.toPixel(StudyCardInput.FONT_SIZE)
@@ -351,15 +346,16 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
         let radius = UDpi.toPixel(0)
         
         for i in 0 ..< mCorrectWords.count {
-            let word = mCorrectWords[i]
-            if isIgnoreStr(word) {
-
-            } else if (word == "\n") {
+            text = mCorrectWords[i]
+            if isIgnoreStr(text) {
+            } else if (text == "\n") {
                 // 改行
                 x = topX
                 y += textW
                 lineTextCnt = 0
                 continue
+            } else {
+                text = "_"
             }
 
             // SpriteKit Node

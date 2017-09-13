@@ -86,6 +86,9 @@ public class UPageViewManager {
      * @return
      */
     public func onBackKeyDown() -> Bool {
+        // 省電力モードを解除
+        mTopScene.resetPowerSaving()
+        
         // スタックをポップして１つ前の画面に戻る
         let pageView : UPageView? = currentPage()
         if pageView == nil {

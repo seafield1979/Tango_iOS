@@ -870,11 +870,11 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
             // DB更新
             TangoCardDao.updateOne(card: card)
         }
-        mTopScene.resetPowerSavingMode()
+        mTopScene.resetPowerSaving()
     }
     
     public func cancelEditCard() {
-        mTopScene.resetPowerSavingMode()
+        mTopScene.resetPowerSaving()
     }
     
     
@@ -931,11 +931,11 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         // アイコン整列
         mIconWindows!.getMainWindow().sortIcons(animate: false)
         
-        mTopScene.resetPowerSavingMode()
+        mTopScene.resetPowerSaving()
     }
     
     public func cancelEditBook() {
-        mTopScene.resetPowerSavingMode()
+        mTopScene.resetPowerSaving()
     }
     
     // MARK: IconInfoDialogCallbacks
