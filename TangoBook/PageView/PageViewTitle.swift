@@ -114,7 +114,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
      * そのページで表示される描画オブジェクトを初期化する
      */
      public override func initDrawables() {
-        mTopScene.removeAllChildren()
+        clearPageObject()
         
         let width = self.mTopScene.getWidth()
 
@@ -242,6 +242,18 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
             y += buttonH + UDpi.toPixel(PageViewTitle.MARGIN_V2)
         }
      }
+    
+    /**
+     * ページの全オブジェクトをクリアする
+     */
+    private func clearPageObject() {
+        UDrawManager.getInstance().removeAll()
+        mTopScene.removeAllChildren()
+
+        mToast = nil
+        mTitleText = nil
+        mButtons.removeAll()
+    }
 
      /**
      * ソフトウェアキーの戻るボタンを押したときの処理

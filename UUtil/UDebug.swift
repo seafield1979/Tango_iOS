@@ -31,26 +31,4 @@ public class UDebug {
     /**
      * Methods
      */
-    /**
-     * システムの全データクリア
-     * アプリインストールと同じ状態に戻る
-     */
-    public static func clearSystemData() {
-        
-        // todo
-        
-        // MySharedPref
-//        MySharedPref.clearAllData()
-//        
-//        // Realm
-//        // データベースを削除
-//        RealmManager.clearAll()
-//        
-//        // セーブデータを初期化
-//        RealmManager.getBackupFileDao().createInitialRecords()
-//        // デフォルト単語帳を追加
-//        PresetBookManager.getInstance().addDefaultBooks()
-//        
-//        MySharedPref.getInstance().writeBool(MySharedPref.InitializeKey, true)
-    }
 }
