@@ -162,10 +162,10 @@ public class PageViewTangoEdit : UPageView, UMenuItemCallbacks,
         super.onHide()
         
         // Windows
-//        for window in mWindows {
-//            window?.removeFromDrawManager()
-//        }
-//        mWindows.removeAll()
+        for window in mWindows {
+            window?.removeFromDrawManager()
+        }
+        mWindows.removeAll()
         
         mIconWindows = nil
         

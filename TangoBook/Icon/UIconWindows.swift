@@ -29,8 +29,6 @@ public class UIconWindows : UWindowCallbacks {
     private var size = CGSize()
     private var directionType = DirectionType.Portlait
 
-    public static weak var publicInstance : UIconWindows? = nil
-
     // MARK: Accessor
     public func getMainWindow() -> UIconWindow {
        return mMainWindow!
@@ -42,11 +40,6 @@ public class UIconWindows : UWindowCallbacks {
 
     public func getWindows() -> List<UIconWindow> {
        return mWindows!
-    }
-
-    // デバッグ用のどこからでも参照できるインスタンス
-    public static func getInstance() -> UIconWindows? {
-       return publicInstance
     }
 
     // MARK: Initializer

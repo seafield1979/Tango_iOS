@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8AF781761F1F3E4400FC4EF2"
-               BuildableName = "TangoBook.app"
+               BuildableName = "C&#x5358;&#x8a9e;&#x5e33;.app"
                BlueprintName = "TangoBook"
                ReferencedContainer = "container:TangoBook.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8AF781761F1F3E4400FC4EF2"
-            BuildableName = "TangoBook.app"
+            BuildableName = "C&#x5358;&#x8a9e;&#x5e33;.app"
             BlueprintName = "TangoBook"
             ReferencedContainer = "container:TangoBook.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8AF781761F1F3E4400FC4EF2"
-            BuildableName = "TangoBook.app"
+            BuildableName = "C&#x5358;&#x8a9e;&#x5e33;.app"
             BlueprintName = "TangoBook"
             ReferencedContainer = "container:TangoBook.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8AF781761F1F3E4400FC4EF2"
-            BuildableName = "TangoBook.app"
+            BuildableName = "C&#x5358;&#x8a9e;&#x5e33;.app"
             BlueprintName = "TangoBook"
             ReferencedContainer = "container:TangoBook.xcodeproj">
          </BuildableReference>
@@ -86,6 +86,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "TangoBook"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

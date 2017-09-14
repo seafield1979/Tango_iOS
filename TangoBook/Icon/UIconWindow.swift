@@ -672,9 +672,11 @@ public class UIconWindow : UWindow{
                 let checkedIcons : List<UIcon> = mIconManager!.getCheckedIcons()
                 dropIcon = manager!.getOverlappedIcon(pos: dragPos, exceptIcons: checkedIcons)
             }
+            
             if dropIcon != nil {
                 if state == WindowState.icon_selecting {
                     // 複数アイコンチェック中
+                    // 複数のチェックアイコンがドロップ先のアイコン(dropIcon)に全ていれられる場合にのみ、allOkフラグが立つ
                     let checkedIcons : List<UIcon> = mIconManager!.getCheckedIcons()
                     var allOk = true
                     for _dragIcon in checkedIcons {
@@ -682,6 +684,7 @@ public class UIconWindow : UWindow{
                         {
                             allOk = false
                             break
+                        } else {
                         }
                     }
                     if allOk {
@@ -696,6 +699,9 @@ public class UIconWindow : UWindow{
                     }
                 }
                 break
+            } else {
+                // ドロップッ先がないのでドロップ状態をクリア
+                mIconManager!.setDropedIcon(nil)
             }
         }
 
@@ -985,12 +991,12 @@ public class UIconWindow : UWindow{
             let winX = window!.toWinX(screenX: vt.x)
             let winY = window!.toWinY(screenY: vt.y)
 
-            isDroped = checkDropChecked(checkedIcons: checkedIcons,
+            let _isDroped = checkDropChecked(checkedIcons: checkedIcons,
                                         dstIcons: dstIcons!,
                                         x: winX, y: winY)
 
             // その他の場所にドロップされた場合
-            if !isDroped && dstIcons != nil {
+            if !_isDroped && dstIcons != nil {
                 isMoved = false
                 if dstIcons!.count > 0 {
                     let lastIcon : UIcon = dstIcons![dstIcons!.count - 1]

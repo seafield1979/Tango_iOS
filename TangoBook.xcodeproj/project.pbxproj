@@ -220,6 +220,7 @@
 		8A66359E1F384CEF000EAAF0 /* StudyCardStackInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A66359D1F384CEF000EAAF0 /* StudyCardStackInput.swift */; };
 		8A6635A01F384D1D000EAAF0 /* StudyCardStackSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A66359F1F384D1D000EAAF0 /* StudyCardStackSelect.swift */; };
 		8A6DA4E41F346D29000F4057 /* URealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DA4E31F346D29000F4057 /* URealmManager.swift */; };
+		8A75BBC91F6A1C4000C0178F /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A75BBC81F6A1C4000C0178F /* RealmSwift.framework */; };
 		8A8522401F22514300B5B8A3 /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A85223F1F22514300B5B8A3 /* TestDatabase.swift */; };
 		8AA3B5071F29B1F100AE445E /* UIImage+ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3B5061F29B1F100AE445E /* UIImage+ex.swift */; };
 		8AA3B5091F29B4F500AE445E /* TangoEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA3B5081F29B4F500AE445E /* TangoEnums.swift */; };
@@ -569,6 +570,7 @@
 		8A66359D1F384CEF000EAAF0 /* StudyCardStackInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyCardStackInput.swift; path = Study/StudyCardStackInput.swift; sourceTree = "<group>"; };
 		8A66359F1F384D1D000EAAF0 /* StudyCardStackSelect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyCardStackSelect.swift; path = Study/StudyCardStackSelect.swift; sourceTree = "<group>"; };
 		8A6DA4E31F346D29000F4057 /* URealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URealmManager.swift; path = TangoBook/Database/URealmManager.swift; sourceTree = "<group>"; };
+		8A75BBC81F6A1C4000C0178F /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../Library/Developer/Xcode/DerivedData/TangoBook-cjudngxivhtdrdfmdohmqpphpiwo/Build/Products/Debug-iphoneos/RealmSwift/RealmSwift.framework"; sourceTree = "<group>"; };
 		8A85223F1F22514300B5B8A3 /* TestDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestDatabase.swift; path = TangoBook/Database/Test/TestDatabase.swift; sourceTree = "<group>"; };
 		8AA3B5061F29B1F100AE445E /* UIImage+ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ex.swift"; sourceTree = "<group>"; };
 		8AA3B5081F29B4F500AE445E /* TangoEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TangoEnums.swift; sourceTree = "<group>"; };
@@ -677,7 +679,7 @@
 		8AF5E9FA1F2ED31E008D8508 /* PresetBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresetBook.swift; path = PresetBook/PresetBook.swift; sourceTree = "<group>"; };
 		8AF5E9FC1F2ED331008D8508 /* PresetCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresetCard.swift; path = PresetBook/PresetCard.swift; sourceTree = "<group>"; };
 		8AF5E9FE1F2ED344008D8508 /* PresetBookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresetBookManager.swift; path = PresetBook/PresetBookManager.swift; sourceTree = "<group>"; };
-		8AF781771F1F3E4400FC4EF2 /* TangoBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TangoBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AF781771F1F3E4400FC4EF2 /* TangoBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = TangoBook.app; path = "C単語帳.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF7817A1F1F3E4400FC4EF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AF781811F1F3E4400FC4EF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8AF781861F1F3E4400FC4EF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -703,6 +705,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A75BBC91F6A1C4000C0178F /* RealmSwift.framework in Frameworks */,
 				DCD7158FB5E17E3FE18914F6 /* Pods_TangoBook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -713,6 +716,7 @@
 		037DC09F254C313C21FD0F7D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8A75BBC81F6A1C4000C0178F /* RealmSwift.framework */,
 				488C90E2B6610DFD29991F5E /* Pods_TangoBook.framework */,
 			);
 			name = Frameworks;

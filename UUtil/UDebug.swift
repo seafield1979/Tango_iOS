@@ -11,7 +11,7 @@ import UIKit
 
 public class UDebug {
     // Debug mode
-    public static let isDebug = true
+    public static let isDebug = false
     
     // IconをまとめたブロックのRECTを描画するかどうか
     public static let DRAW_ICON_BLOCK_RECT = false
