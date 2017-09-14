@@ -74,15 +74,19 @@ public class PresetBookManager {
       * 一覧に表示するためのプリセット単語帳リストを作成する
       */
      public func makeBookList() {
-         // csvからプリセット単語帳とカード情報を読み込んで mBooksに追加する
-         for csvName in PresetBookManager.presetCsvs {
-            let book : PresetBook = CsvParser.getPresetBook(csvName: csvName, onlyBook: true)!
-             mBooks.append(book)
-         }
-         for book in mBooks {
-             book!.log()
-         }
-     }
+        if mBooks.count > 0 {
+            return
+        }
+        
+        // csvからプリセット単語帳とカード情報を読み込んで mBooksに追加する
+        for csvName in PresetBookManager.presetCsvs {
+           let book : PresetBook = CsvParser.getPresetBook(csvName: csvName, onlyBook: true)!
+            mBooks.append(book)
+        }
+        for book in mBooks {
+            book!.log()
+        }
+    }
 
      /**
       * Methods
