@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HelpViewController" customModule="C単語帳" customModuleProvider="target">
+            <connections>
+                <outlet property="mWebView" destination="fEq-9W-38e" id="aDv-W2-Y50"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fEq-9W-38e">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </webView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fEq-9W-38e" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="2g3-wK-3Cd"/>
+                <constraint firstAttribute="trailing" secondItem="fEq-9W-38e" secondAttribute="trailing" id="IFA-Cz-Vy4"/>
+                <constraint firstAttribute="bottom" secondItem="fEq-9W-38e" secondAttribute="bottom" id="p3Y-pM-CTz"/>
+                <constraint firstItem="fEq-9W-38e" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yPN-FI-UJc"/>
+            </constraints>
+            <point key="canvasLocation" x="32.5" y="65.5"/>
+        </view>
+    </objects>
+</document>

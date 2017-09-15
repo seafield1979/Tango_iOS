@@ -1,0 +1,9 @@
+<a href="http://sunsunsoft.com/app/tango/ios/">
+    <div id="header">
+        Colorful 単語帳
+    </div>
+</a>
+
+<div class="margin_h_50">
+    <a class="return" href="javascript:history.back()">戻る</a>
+</div>

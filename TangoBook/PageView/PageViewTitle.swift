@@ -15,6 +15,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
         case Study
         case History
         case Settings
+        case Help
         case Debug
     }
 
@@ -48,7 +49,7 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                     imageName: ImageName.study ),
         ButtonTInfo(id: TitleButtonId.History,
                     textName: "title_history",
-                    textColor: UColor.DarkYellow2,
+                    textColor: UColor.DarkYellow,
                     lineColor: UColor.DarkYellow,
                     bgColor: UColor.Yellow,
                     imageName: ImageName.history ),
@@ -58,12 +59,18 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                     lineColor: UColor.DarkBlue,
                     bgColor: UColor.makeColor(153,204,255),
                     imageName: ImageName.settings_1 ),
+        ButtonTInfo(id: TitleButtonId.Help,
+                    textName: "title_help",
+                    textColor: UIColor.white,
+                    lineColor: UColor.DarkOrange,
+                    bgColor: UColor.makeColor(255,178,102),
+                    imageName: ImageName.question2 ),
         ButtonTInfo(id: TitleButtonId.Debug,
                     textName: "title_debug",
                     textColor: UIColor.white,
                     lineColor: UColor.DarkGray,
                     bgColor: UColor.makeColor(200,100,100),
-                    imageName: ImageName.debug )
+                    imageName: ImageName.debug ),
         ]
 
     // MARK: Constants
@@ -273,22 +280,31 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
 
             let buttonId = TitleButtonId.toEnum(id)
             switch (buttonId) {
-                case .Edit:
-                    _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.Edit.rawValue)
+            case .Edit:
+                _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.Edit.rawValue)
+            
+            case .Study:
+                _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.StudyBookSelect.rawValue)
+            
+            case .History:
+                _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.History.rawValue)
+            
+            case .Settings:
+                _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.Settings.rawValue)
+            
+            case .Help:
+                let viewController = HelpViewController(
+                    nibName: "HelpViewController",
+                    bundle: nil)
                 
-                case .Study:
-                    _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.StudyBookSelect.rawValue)
-                
-                case .History:
-                    _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.History.rawValue)
-                
-                case .Settings:
-                    _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.Settings.rawValue)
-                
-                case .Debug:
-//                    testPageView()
-                    _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.Debug.rawValue)
-                
+//                mTopScene.parentVC!.present(viewController,
+//                                            animated: true,
+//                                            completion: nil)
+                mTopScene.parentVC!.navigationController?.pushViewController(viewController, animated: true)
+                break
+            case .Debug:
+                _ = PageViewManagerMain.getInstance().stackPage(pageId: PageIdMain.Debug.rawValue)
+            
             }
         } else {
             // ズームボタン
