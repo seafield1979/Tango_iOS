@@ -167,7 +167,7 @@ public class PageViewPresetBook : UPageView, UButtonCallbacks, UListItemCallback
                 buttonCallbacks : self, dialogCallbacks : self,
                 dir : UDialogWindow.ButtonDir.Horizontal, posType : DialogPosType.Center, isAnimation : true,
                 screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
-                textColor : UIColor.black, dialogColor : UIColor.lightGray)
+                textColor : UIColor.black, dialogColor : UIColor.white)
             
             let title = String( format: UResourceManager.getStringByName("confirm_add_book2"), mBook!.mName)
             mMessageDialog!.setTitle(title)
@@ -262,7 +262,7 @@ public class PageViewPresetBook : UPageView, UButtonCallbacks, UListItemCallback
                     dir : UDialogWindow.ButtonDir.Horizontal, posType : DialogPosType.Center,
                     isAnimation : true,
                     screenW : mTopScene.getWidth(), screenH : mTopScene.getHeight(),
-                    textColor : UIColor.black, dialogColor : UIColor.lightGray)
+                    textColor : UIColor.black, dialogColor : UIColor.white)
                 
                 let title = String(format: UResourceManager.getStringByName("confirm_add_book"), book!.getBook()!.mName)
                 

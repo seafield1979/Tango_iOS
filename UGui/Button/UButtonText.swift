@@ -85,9 +85,9 @@ public class UButtonText : UButton {
         self.parentNode.addChild2(bgNode!)
         
         // Label
-        mBasePos = CGPoint(x: size.width / 2, y: bgH / 2)
+        mBasePos = CGPoint(x: size.width / 2, y: bgH / 2 + mFontSize * 0.4)
 
-        let result = SKNodeUtil.createLabelNode(text: mText, fontSize: mFontSize, color: mTextColor, alignment: .Center, pos: mBasePos)
+        let result = SKNodeUtil.createLabelNode(text: mText, fontSize: mFontSize, color: mTextColor, alignment: .CenterX_Bottom, pos: mBasePos)
         self.labelNode = result.node
         self.bgNode!.addChild2(self.labelNode!)
         

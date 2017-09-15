@@ -39,7 +39,7 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
     private let MARGIN_H = 17
     private let MARGIN_V = 17
     private let QBUTTON_W = 40
-    private let QBUTTON_H = 40
+    private let QBUTTON_H = 50
     private static let FONT_SIZE = 23
     private let FONT_SIZE_L = 32
     private let TEXT_COLOR = UIColor.black
@@ -225,10 +225,10 @@ public class StudyCardInput : UDrawable, UButtonCallbacks {
         }
         // ○×
         if isMistaken {
-            let n = SKNodeUtil.createCrossPoint(type: .Type2, pos: CGPoint(x: size.width / 2, y: size.height / 2), length: UDpi.toPixel(50), lineWidth: UDpi.toPixel(10), color: .red, zPos: 1)
+            let n = SKNodeUtil.createCrossPoint(type: .Type2, pos: CGPoint(x: size.width / 2, y: size.height / 2), length: UDpi.toPixel(50), lineWidth: UDpi.toPixel(10), color: UColor.makeColor(a: 0.6, rgb: .red), zPos: 1)
             clientNode!.addChild2(n)
         } else {
-            let n = SKNodeUtil.createCircleNode(pos: CGPoint(x: size.width / 2, y: size.height / 2), radius: UDpi.toPixel(50), lineWidth: UDpi.toPixel(10), color: UColor.DarkGreen)
+            let n = SKNodeUtil.createCircleNode(pos: CGPoint(x: size.width / 2, y: size.height / 2), radius: UDpi.toPixel(50), lineWidth: UDpi.toPixel(10), color: UColor.makeColor(a: 0.6, rgb: UColor.DarkGreen))
             n.zPosition = 1
             clientNode!.addChild2(n)
         }

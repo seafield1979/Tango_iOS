@@ -85,10 +85,9 @@ public class StudyCardSelect : UDrawable {
      * 正解の○を表示する
      */
     public func setOkMark() {
-        // ○×を表示
         shapeNode = SKNodeUtil.createCircleNode(
-            pos: CGPoint(), radius: UDpi.toPixel(18),
-            lineWidth: UDpi.toPixel(6), color: UColor.DarkGreen)
+            pos: CGPoint(), radius: UDpi.toPixel(23),
+            lineWidth: UDpi.toPixel(6), color: UColor.makeColor(a: 0.6, rgb: UColor.DarkGreen))
         parentNode.addChild2( shapeNode! )
         
         // BGの色
@@ -101,8 +100,8 @@ public class StudyCardSelect : UDrawable {
      */
     public func setNgMark() {
         shapeNode = SKNodeUtil.createCrossPoint(
-            type: .Type2, pos: CGPoint(), length: UDpi.toPixel(23),
-            lineWidth: UDpi.toPixel(6), color: .red, zPos: 0)
+            type: .Type2, pos: CGPoint(), length: UDpi.toPixel(28),
+            lineWidth: UDpi.toPixel(6), color: UColor.makeColor(a: 0.6, rgb:.red), zPos: 0)
         parentNode.addChild2( shapeNode! )
         
         color = .white
