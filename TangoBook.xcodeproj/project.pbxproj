@@ -805,7 +805,7 @@
 		8AF5E9FA1F2ED31E008D8508 /* PresetBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresetBook.swift; path = PresetBook/PresetBook.swift; sourceTree = "<group>"; };
 		8AF5E9FC1F2ED331008D8508 /* PresetCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresetCard.swift; path = PresetBook/PresetCard.swift; sourceTree = "<group>"; };
 		8AF5E9FE1F2ED344008D8508 /* PresetBookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresetBookManager.swift; path = PresetBook/PresetBookManager.swift; sourceTree = "<group>"; };
-		8AF781771F1F3E4400FC4EF2 /* TangoBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = TangoBook.app; path = "C単語帳.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AF781771F1F3E4400FC4EF2 /* C単語帳.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "C単語帳.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF7817A1F1F3E4400FC4EF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AF781811F1F3E4400FC4EF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8AF781861F1F3E4400FC4EF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1518,7 +1518,7 @@
 		8AF781781F1F3E4400FC4EF2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AF781771F1F3E4400FC4EF2 /* TangoBook.app */,
+				8AF781771F1F3E4400FC4EF2 /* C単語帳.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1602,7 +1602,7 @@
 			);
 			name = TangoBook;
 			productName = TangoBook;
-			productReference = 8AF781771F1F3E4400FC4EF2 /* TangoBook.app */;
+			productReference = 8AF781771F1F3E4400FC4EF2 /* C単語帳.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
