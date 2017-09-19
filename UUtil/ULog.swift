@@ -11,8 +11,8 @@ import UIKit
 
 class ULog {
     public static let TAG = "ULog"
-    private static let isEnable = true
-    private static let isCount = true
+    private static let isEnable = false
+    private static let isCount = false
     private static let NANO_TO_SEC = 1000000000
     
     /**
@@ -124,10 +124,12 @@ class ULog {
     }
     
     public static func showRect(rect : CGRect) {
-        print( String(format: "Rect left: %f top: %f  right: %f bottom: %f",
-                      rect.origin.x,
-                      rect.origin.y,
-                      rect.origin.x + rect.size.width,
-                      rect.origin.y + rect.size.height));
+        if ULog.isEnable {
+            print( String(format: "Rect left: %f top: %f  right: %f bottom: %f",
+                          rect.origin.x,
+                          rect.origin.y,
+                          rect.origin.x + rect.size.width,
+                          rect.origin.y + rect.size.height));
+        }
     }
 }

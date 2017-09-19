@@ -12,41 +12,62 @@ import UIKit
 class HelpViewController: UIViewController, UIWebViewDelegate {
 
     @IBOutlet weak var mWebView: UIWebView!
+
+    private var mRequest : URLRequest?
     
+    // MARK : Accessor
+    public func setRequest( _ request: URLRequest ) {
+        mRequest = request
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         mWebView.delegate = self
 
-
-//        let fileManager = FileManager.default
-//        var URL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-//        URL = URL.appendingPathComponent("html/index.html")
-//        
-//        let request = NSURLRequest(url: URL)
-//        mWebView!.loadRequest(request as URLRequest)
-        
-//        let filePath = ("html" as  NSString).appendingPathComponent("index.html")
-//        let url : NSURL = NSURL(fileURLWithPath : filePath)
-//        let request : NSURLRequest = NSURLRequest(url : url as URL)
-//        mWebView!.loadRequest(request as URLRequest)
-        
-//        let path = Bundle.main.path(forResource: "index", ofType: "html", inDirectory: "html")!
-//        let url = NSURL(string : path)!
-//        let urlRequest = URLRequest(url: url as URL)
-//        self.mWebView.loadRequest( urlRequest )
-        
-        
-        if let _url = Bundle.main.url(forResource: "index.html", withExtension: nil) {
-            let urlRequest = URLRequest(url: _url)
-            self.mWebView.loadRequest( urlRequest )
+        if let request = mRequest {
+            self.mWebView.loadRequest( request )
+        } else {
+            if let _url = Bundle.main.url(forResource: "index.html", withExtension: nil) {
+                let urlRequest = URLRequest(url: _url)
+                self.mWebView.loadRequest( urlRequest )
+            }
         }
     }
 
     // MARK: UIWebViewDelegate
+    /**
+     * ページ内のリンクがクリックされた時に呼ばれる処理
+     */
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool
     {
+        if navigationType == .linkClicked {
+            // "戻る"のリンクならページバック
+            if let url = request.url {
+                if url.absoluteString.hasSuffix("return") {
+                    self.navigationController?.popViewController(animated: true)
+                    return false
+                } else if url.absoluteString.hasSuffix("index.html") {
+                    // ヘッダをクリックした際の処理
+                    if (self.navigationController?.viewControllers.count)! > 2 {
+                        self.navigationController?.popViewController(animated: true)
+                        return false
+                    } else {
+                        // ルートなので何もしない
+                        return false
+                    }
+                }
+             }
+            
+            // リンクをクリックされたのでページ遷移
+            let viewController = HelpViewController(
+                nibName: "HelpViewController",
+                bundle: nil)
+            viewController.setRequest( request )
+
+            self.navigationController?.pushViewController(viewController, animated: true)
+            return false
+        }
         return true
     }
 }

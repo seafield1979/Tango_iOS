@@ -297,9 +297,6 @@ public class PageViewTitle : UPageView, UButtonCallbacks {
                     nibName: "HelpViewController",
                     bundle: nil)
                 
-//                mTopScene.parentVC!.present(viewController,
-//                                            animated: true,
-//                                            completion: nil)
                 mTopScene.parentVC!.navigationController?.pushViewController(viewController, animated: true)
                 break
             case .Debug:
